@@ -1,9 +1,9 @@
 # Semantic Veto System Registry
 
 - Status: `ok`
-- Generated: `2026-05-13T21:02:33Z`
+- Generated: `2026-05-13T21:13:24Z`
 - Registry: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/semantic_veto_system_registry_en_es.json`
-- Entries: `411`
+- Entries: `414`
 - Passes: `7`
 
 ## Current Candidate
@@ -115,6 +115,7 @@
 | P1 | done | Create a product-feel manual review packet from public online pages using the isolated active-only helper fixture. | runtime_path | `semantic_veto_active_only_helper_runtime_smoke_report`, `semantic_veto_active_only_live_page_scan_manifest`, `semantic_veto_active_only_live_page_scan_report` | The live page scan fetches 17 public Wikipedia pages, extracts source-trigger sentences from the current 24-rule active-only fixture, runs them through helper semantic_admit_batch with the browser-style active-only policy, and writes 113 review rows with 88 abstain decisions, 25 replace decisions, 113 policy decisions, 0 fallback decisions, and 0 page fetch errors. | Run the live page scan with --fail-on-review, focused pytest for the harness, registry summary, doc-reference checks, Ruff, and git diff whitespace checks. |
 | P1 | done | Freeze and run the smallest meaningful active-only semantic-veto PoC enrichment batch end to end. | research_harness | `evidence_gap_active_only_poc_requests_harness`, `evidence_gap_active_only_poc_requests_packet`, `evidence_gap_generation_run_active_only_poc_report`, `evidence_gap_generation_admission_active_only_poc_report`, `evidence_gap_generation_contribution_active_only_poc_report`, `evidence_gap_generation_score_contribution_active_only_poc_report`, `difficulty_stratification_research_plan` | The active-only PoC batch freezes 24 active evidence requests across the existing 8 high-need, 8 middle-control, and 8 low-control families, with 48 expected active examples and no shadow/no-winner generation. The live run accepted 24 responses and 48 generated items, used 11,421 input tokens and 4,177 output tokens, had 0 API errors and 0 invalid outputs, and admission accepted all 48 items with 0 rejects, 0 shortfall, and 0 waived coverage. Contribution review found 48 candidate active evidence items, 0 semantic-review-required items, and 0 possible active-role pollution. Score contribution on 91 frozen repaired-full cases improved decision accuracy from 50.5% to 73.6%, replace recall from 8.3% to 52.1%, false abstains from 44 to 23, winner accuracy from 70.1% to 80.6%, and kept harmful replacements at 1. | Run the active-only request freezer with --fail-on-review, live generation with explicit count and spend guards, generated-response admission with --fail-on-review, contribution and score-contribution with --fail-on-review, focused pytest, Ruff, registry summary, doc-reference checks, and git diff whitespace checks. |
 | P1 | done | Package the selected active-only PoC generated examples as canonical semantic source evidence without runtime publication. | data_artifacts | `evidence_gap_generation_admission_active_only_poc_report`, `evidence_gap_generation_postprocess_active_only_poc_report`, `semantic_veto_active_only_source_packaging_report`, `semantic_veto_active_only_source_packaging_normalized_evidence` | The source-packaging report packages 45 anchor_cue rows from the no_high_eval_overlap_sentence_only view, excludes 3 high-eval-overlap rows, preserves prompt/model/token provenance, and confirms 0 runtime_publishable rows. | Run the active-only source-packaging harness with --fail-on-review, focused pytest for the harness, registry summary, doc-reference checks, Ruff, and git diff whitespace checks. |
+| P1 | done | Record the current semantic-veto denominator layers before cleanup and future corpus-expansion decisions. | data_artifacts | `srs_zipf_bridge_latest_report`, `active_only_full_generation_post_tranche_011_plan_report`, `semantic_veto_denominator_audit_latest_report`, `semantic_veto_denominator_current_state_doc` | The denominator audit verifies that the current SRS learner-target universe has 1,984 Spanish target lemmas, the semantic-veto replacement denominator has 570 source-target families, tranche-011 covers 455 families, the remaining 115 are source-target review exclusions, and the active-only generation queue has 0 selected requests. | Run the denominator audit with --fail-on-review, focused denominator audit tests, registry summary, doc references, state audit, Ruff checks, and whitespace checks before commit. |
 | P1 | done | Bridge the wider English ambiguous inventory to the LLM data-priority scanner while preserving the stage gate that inventory-only rows need Spanish target/shadow family construction before LLM active/shadow/phrase generation. | research_harness | `non_v10_inventory_candidates_wave7_source_class_breadth_v1_latest`, `llm_data_priority_scan_latest_report`, `llm_data_priority_inventory_bridge_harness`, `llm_data_priority_inventory_bridge_latest_report`, `difficulty_stratification_research_plan` | The bridge report reads 100 non-v10 inventory candidates, identifies 16 already-scored trigger rows, leaves 84 rows in the target/shadow family construction stage, and verifies that inventory-only rows receive no LLM packet recommendations. | Run the inventory bridge with --fail-on-review, focused unit test, registry summary, doc-reference checks, Ruff, and git diff whitespace checks. |
 | P1 | done | Add a programmatic-feature-only scanner that ranks trigger/target pairs by expected LLM data value without using manual case labels, gold labels, or product outcomes as ranking inputs. | research_harness | `difficulty_stratification_latest_report`, `llm_data_priority_scan_harness`, `llm_data_priority_scan_latest_report`, `difficulty_stratification_research_plan` | The scan reads the current 240-row difficulty-stratification output, aggregates 35 trigger/target pairs, declares 19 allowed programmatic features, forbids 8 label/outcome fields from the ranking feature vector, and emits active/shadow/phrase LLM packet recommendations. | Run the LLM data priority scan with --fail-on-review, focused unit test, registry summary, doc-reference checks, Ruff, and git diff whitespace checks. |
 | P1 | done | Construct a stage-gated Spanish target/shadow family queue for the bridge's top inventory-only rows while separating source-ready drafts from weak diagnostic drafts and blocked rows. | research_harness | `llm_data_priority_inventory_bridge_latest_report`, `non_v10_inventory_candidates_wave7_source_class_breadth_v1_latest`, `llm_data_priority_target_family_construction_harness`, `llm_data_priority_target_family_construction_latest_report`, `llm_data_priority_target_family_construction_dataset`, `llm_data_priority_target_family_construction_queue`, `difficulty_stratification_research_plan` | The construction report attempts 34 top inventory-only rows, creates 3 source-ready family drafts, retains 25 weak diagnostic drafts, blocks 6 rows, and emits only source-ready families into the scored-probe dataset. | Run the target-family construction harness with --fail-on-review, focused unit test, registry summary, doc-reference checks, Ruff, and git diff whitespace checks. |
@@ -140,11 +141,11 @@
 
 ### Entry States
 - `current_candidate`: `12`
-- `current_reference`: `27`
+- `current_reference`: `29`
 - `current_research`: `94`
 - `current_runtime`: `16`
 - `diagnostic_only`: `1`
-- `generated_evidence`: `252`
+- `generated_evidence`: `253`
 - `historical_reference`: `5`
 - `superseded`: `2`
 - `supporting_current`: `2`
@@ -152,10 +153,10 @@
 ### Components
 - `candidate_wave6`: `11`
 - `decision_research`: `29`
-- `diagnostics`: `199`
+- `diagnostics`: `201`
 - `evaluation_data`: `45`
 - `historical_or_seed`: `7`
-- `process_governance`: `15`
+- `process_governance`: `16`
 - `runtime_path`: `35`
 - `source_admission`: `70`
 
@@ -300,6 +301,7 @@
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | Phrase rows must not become broad semantic competitors without a dedicated ablation. | assumptions |
 | translation_sense_adapter | supporting_current | candidate_wave6 | Translation-sense text must stay source-backed and not target-lemma-derived. | overfit_leakage |
 | decision_rule_comparison_plan | current_reference | decision_research | Decision-rule methodology can be misread as source-admission proof, runtime policy, or a current candidate claim if not routed through the registry and generated evidence. | archive_consolidation |
+| semantic_veto_denominator_audit_harness | current_reference | diagnostics | Reads existing generated artifacts, so stale bridge or plan inputs must be refreshed before using it for a new denominator expansion decision. | data_artifacts |
 | evidence_gap_control_pilot_plan_manifest | current_reference | evaluation_data | Planning manifest only; it must be paired with generated evidence and downstream rescoring before any allocator or product-quality claim. | data_artifacts |
 | formula_shape_bakeoff_manifest | current_reference | evaluation_data | The internal split is advisory and the formula defaults plus sampled weights are research probes, not trained production coefficients. | research_harness |
 | full_family_representative_manual_dataset | current_reference | evaluation_data | Not locked evaluation; rows are deterministic agent drafts and require review or replacement before product evidence claims. | data_artifacts |
@@ -320,6 +322,7 @@
 | semantic_veto_archive_consolidation_ledger | current_reference | process_governance | Archive rows can go stale if new old artifacts are cited as current authority without being classified. | archive_consolidation |
 | semantic_veto_artifact_authority_audit | current_reference | process_governance | Must be updated when dirty output disposition or methodology-doc reconciliation changes artifact authority. | data_artifacts |
 | semantic_veto_assumption_ledger | current_reference | process_governance | Assumptions can be mistaken for proof if row status and evidence links are not preserved. | archive_consolidation |
+| semantic_veto_denominator_current_state_doc | current_reference | process_governance | Must be refreshed if the SRS frequency/source corpus, rulegen output, or source-target review policy changes. | data_artifacts |
 | semantic_veto_local_output_disposition | current_reference | process_governance | Must not be read as semantic evidence or as a reason to promote local latest reports. | archive_consolidation |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | Must stay concise enough to guide later turns. | runtime_path |
 | semantic_veto_system_registry | current_reference | process_governance | If action state drifts, agents can follow research remediation before finishing integrity audits. | data_artifacts |
@@ -469,6 +472,7 @@
 | semantic_veto_active_only_inventory_replay_candidate_inventory | generated_evidence | diagnostics | Experiment inventory only; it must not be confused with a helper-published srs_semantic_inventory_en-es.json sidecar. | data_artifacts |
 | semantic_veto_active_only_inventory_replay_report | generated_evidence | diagnostics | Not helper-published production evidence; it proves the inventory-shaped path before runtime smoke. | data_artifacts |
 | semantic_veto_active_only_live_page_scan_report | generated_evidence | diagnostics | Prod-like manual review packet only; sentence extraction and online page contents can drift between runs. | runtime_path |
+| semantic_veto_denominator_audit_latest_report | generated_evidence | diagnostics | Current-resource denominator only; not a claim about all en-es vocabulary or broad veto accuracy. | data_artifacts |
 | srs_case_mix_prior_latest_report | generated_evidence | diagnostics | Generated evidence only; it reweights current repaired-full conditional metrics with static priors and does not prove the true real-browser case-type distribution. | data_artifacts |
 | srs_zipf_bridge_latest_report | generated_evidence | diagnostics | Planning evidence only; it should guide denominator and cost modeling, not promote a runtime semantic-veto rule. | data_artifacts |
 | translation_ambiguity_heuristic_latest_report | generated_evidence | diagnostics | Generated evidence only; translation fanout and WordNet ambiguity are not currently strong enough for budget allocation, and the evidence-gap signal must be tested with top/middle/low controls before spend decisions. | data_artifacts |
@@ -709,6 +713,7 @@
 | alternate_sense_phrase_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_wordnet_alternate_sense_phrase_evidence_en_es.py | Wave6 phrase/no-winner coverage foundation. |
 | translation_sense_adapter | supporting_current | candidate_wave6 | scripts/testing/semantic_translation_sense_evidence_batch_en_es.py | Wave6 selected-sense source coverage foundation. |
 | decision_rule_comparison_plan | current_reference | decision_research | docs/rulegen/semantic_decision_rule_comparison_plan.md | Methodology guardrail before changing decision rules, now including the wave6 source/guard finding as research-only context; not current candidate evidence by itself. |
+| semantic_veto_denominator_audit_harness | current_reference | diagnostics | scripts/testing/semantic_veto_denominator_audit_en_es.py | No-spend denominator cleanup harness; does not run rulegen, LLM generation, or runtime policy changes. |
 | evidence_gap_control_pilot_plan_manifest | current_reference | evaluation_data | docs/test_inputs/semantic_veto_evidence_gap_control_pilot_plan_en_es.json | Defines the next control-bearing pilot: 8 high-need, 8 middle-control, and 8 low-control families selected without observed-outcome leakage, each with the same three planned slots. |
 | formula_shape_bakeoff_manifest | current_reference | evaluation_data | docs/test_inputs/semantic_veto_formula_shape_bakeoff_en_es.json | Manifest for comparing mathematically distinct heuristic formula shapes and deterministic parameter sweeps before spending broader manual or LLM data budget. |
 | full_family_representative_manual_dataset | current_reference | evaluation_data | docs/test_inputs/semantic_routing_cases/en_es_full_family_representative_manual_v1.json | Contains 58 families and 206 cases with explicit source-band, target-band, polysemy, POS-shape, case-type, and review-state dimensions. |
@@ -729,6 +734,7 @@
 | semantic_veto_archive_consolidation_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_archive_consolidation.md | Archive triage ledger for preventing old latest reports from steering current candidate decisions. |
 | semantic_veto_artifact_authority_audit | current_reference | process_governance | docs/rulegen/semantic_veto_artifact_authority_audit.md | Current handoff guardrail for continuing auditing before more wave7 research remediation. |
 | semantic_veto_assumption_ledger | current_reference | process_governance | docs/rulegen/semantic_veto_assumption_ledger.md | Current assumption ledger for the wave6 auth-frame raw-sentence rescue candidate. |
+| semantic_veto_denominator_current_state_doc | current_reference | process_governance | docs/rulegen/semantic_veto_denominator_current_state.md | Keeps cleanup/productization discussion from mixing SRS target count, replacement-family count, evidence coverage, and review exclusions. |
 | semantic_veto_local_output_disposition | current_reference | process_governance | docs/rulegen/semantic_veto_local_output_disposition.md | Documents which local outputs were committed as historical support and which remain local-only or out of scope. |
 | semantic_veto_reconciliation_workstream | current_reference | process_governance | docs/rulegen/semantic_veto_reconciliation_workstream.md | Top-level reconciliation entrypoint. |
 | semantic_veto_system_registry | current_reference | process_governance | docs/test_inputs/semantic_veto_system_registry_en_es.json | Primary source for action state, artifact authority, and rendered handoff summary. |
@@ -878,6 +884,7 @@
 | semantic_veto_active_only_inventory_replay_candidate_inventory | generated_evidence | diagnostics | docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-poc-v5-inventory-replay-latest_semantic_inventory.json | Input/output artifact for the inventory-shaped replay before helper publication. |
 | semantic_veto_active_only_inventory_replay_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_inventory_replay_en_es_latest.md | Shows 45/45 packaged rows applied across 24 families and 91 cases, with decision accuracy 50.5% to 73.6%, replace recall 8.3% to 50.0%, false abstains 44 to 24, and harmful replacements 1 to 0 under the replay policy. |
 | semantic_veto_active_only_live_page_scan_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_active_only_live_page_scan_en_es_latest.md | Shows 17 scanned pages, 113 review rows, 88 abstain decisions, 25 replace decisions, 113 policy decisions, 0 fallback decisions, and 0 page fetch errors. |
+| semantic_veto_denominator_audit_latest_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md | Shows 1,984 SRS-admissible Spanish target lemmas, 570 rulegen-produced source-target families, 455 active-only covered families, 115 source-target review exclusions, and 0 remaining active-only generation queue rows. |
 | srs_case_mix_prior_latest_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_srs_case_mix_prior_en_es_latest.md | Shows 570 source-target pairs, 536 unique sources, 540 WordNet-known pairs, base no-winner priors from 15.3% very-common down to 6.9% rare, and sentence-transformer estimated SRS-weighted success of 82.3% overall with 77.1% to 85.7% no-winner sensitivity. |
 | srs_zipf_bridge_latest_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_latest.md | Shows 1984 full SRS-admissible targets with 404 very-common/common targets, 200 journey candidate-slice targets with 172 very-common/common targets, 7 latest admitted targets, 10 journey source-target pairs, and 570 full generated source-target pairs. |
 | translation_ambiguity_heuristic_latest_report | generated_evidence | diagnostics | docs/test_outputs/semantic_veto_translation_ambiguity_heuristic_en_es_latest.md | Shows 49 families, 98 scorer-family observations, 15 fixed formulas, 16,383 sweep formulas, and evidence_gap_only as the best stable signal with TF-IDF discovery Spearman 0.5934 and locked-proxy Spearman 0.8084; no strong allocator is promoted. |

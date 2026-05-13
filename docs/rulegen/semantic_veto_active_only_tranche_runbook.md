@@ -8,6 +8,7 @@ Purpose: make future active-only semantic-veto data tranches repeatable, guarded
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
 - `docs/rulegen/semantic_llm_generation_queueing_plan.md`
+- `docs/rulegen/semantic_veto_denominator_current_state.md`
 - `docs/rulegen/semantic_llm_generation_budget_reference.md`
 - `docs/rulegen/semantic_pack_operator_smoke_runbook.md`
 - `docs/rulegen/semantic_routing_data_update_lifecycle.md`
@@ -30,6 +31,8 @@ operator-accepted checkpoint evidence.
 Current checkpoint:
 
 - automated-clean active-only coverage: `455 / 570` current SRS-derived source-target families,
+- current SRS learner-target universe: `1,984` Spanish target lemmas under the
+  installed frequency/source resources,
 - remaining uncovered families: `115`,
 - remaining active-only generation queue rows: `0`,
 - remaining uncovered rows are excluded from active-only generation by source-target review,

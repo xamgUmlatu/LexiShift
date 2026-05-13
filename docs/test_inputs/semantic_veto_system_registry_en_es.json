@@ -634,7 +634,17 @@
       "combined_full_tranche_011_operator_checkpoint_policy_id": "en_es_sentence_veto_v2",
       "combined_full_tranche_011_operator_checkpoint_min_active_score": 0.015,
       "combined_full_tranche_011_operator_checkpoint_basis": "Operator accepted tranche 011 as OK after reviewing the completed final active-only follow-through summary; no separate hands-on browser smoke was repeated for this pack.",
-      "combined_full_tranche_011_operator_checkpoint_interpretation": "The 455-rule active-only tranche-011 pack is accepted as the current product checkpoint for the soft-assist PoC, while tranche-003 remains the latest hands-on browser-extension smoke."
+      "combined_full_tranche_011_operator_checkpoint_interpretation": "The 455-rule active-only tranche-011 pack is accepted as the current product checkpoint for the soft-assist PoC, while tranche-003 remains the latest hands-on browser-extension smoke.",
+      "semantic_veto_denominator_audit_status": "ok",
+      "semantic_veto_denominator_accounting_identity": "570 = 49 pre-full-generation covered + 406 reviewed/generated + 115 excluded",
+      "srs_learner_target_universe_count": 1984,
+      "srs_seed_row_count": 2000,
+      "semantic_veto_replacement_denominator_families": 570,
+      "semantic_veto_replacement_denominator_source_triggers": 536,
+      "semantic_veto_replacement_denominator_targets": 342,
+      "semantic_veto_denominator_excluded_no_visible_replacement": 27,
+      "semantic_veto_denominator_excluded_weak_source_target_mapping": 88,
+      "semantic_veto_denominator_generation_queue_families": 0
     },
     "promotion_blockers": [
       "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data unless installed through the explicit default-root debug flow",
@@ -2416,6 +2426,22 @@
       "evidence_needed": "The operator stated “OK. That is fine then. Let's mark tranche 011 itself as OK, and move on to cleanup and then discuss the denominator” after reviewing the completed tranche-011 follow-through summary. The checkpoint records that tranche 011 is accepted as the latest product checkpoint based on automated follow-through evidence; tranche 003 remains the latest hands-on browser-extension smoke.",
       "validation": "Registry summary and doc references should keep the distinction between automated checkpoint acceptance and hands-on browser smoke explicit.",
       "next_step": "Move to cleanup and denominator discussion; do not run another active-only paid generation tranche unless the SRS denominator or source-target review policy changes."
+    },
+    {
+      "action_id": "semantic_veto_denominator_audit_current_state",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "data_artifacts",
+      "source_artifacts": [
+        "srs_zipf_bridge_latest_report",
+        "active_only_full_generation_post_tranche_011_plan_report",
+        "semantic_veto_denominator_audit_latest_report",
+        "semantic_veto_denominator_current_state_doc"
+      ],
+      "action": "Record the current semantic-veto denominator layers before cleanup and future corpus-expansion decisions.",
+      "evidence_needed": "The denominator audit verifies that the current SRS learner-target universe has 1,984 Spanish target lemmas, the semantic-veto replacement denominator has 570 source-target families, tranche-011 covers 455 families, the remaining 115 are source-target review exclusions, and the active-only generation queue has 0 selected requests.",
+      "validation": "Run the denominator audit with --fail-on-review, focused denominator audit tests, registry summary, doc references, state audit, Ruff checks, and whitespace checks before commit.",
+      "next_step": "Use the denominator audit to decide whether expansion should target SRS frequency/source data, rulegen dictionary/filter coverage, or source-target review policy."
     }
   ],
   "entries": [
@@ -9185,6 +9211,54 @@
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_live_page_scan_en_es_latest.json",
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_pack_install_en_es_latest.json",
         "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_denominator_audit_harness",
+      "title": "Semantic veto denominator audit harness",
+      "component": "diagnostics",
+      "state": "current_reference",
+      "path": "scripts/testing/semantic_veto_denominator_audit_en_es.py",
+      "role": "Explains the current en-es semantic-veto denominator by joining the SRS Zipf bridge, post-tranche active-only plan, source-target review manifest, and registry checkpoint counts.",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "current_use": "No-spend denominator cleanup harness; does not run rulegen, LLM generation, or runtime policy changes.",
+      "risk": "Reads existing generated artifacts, so stale bridge or plan inputs must be refreshed before using it for a new denominator expansion decision.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_denominator_audit_en_es.py",
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_denominator_audit_latest_report",
+      "title": "Semantic veto denominator audit latest report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md",
+      "role": "Records the current denominator distinction between the SRS learner-target universe and semantic-veto replacement-family universe.",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "current_use": "Shows 1,984 SRS-admissible Spanish target lemmas, 570 rulegen-produced source-target families, 455 active-only covered families, 115 source-target review exclusions, and 0 remaining active-only generation queue rows.",
+      "risk": "Current-resource denominator only; not a claim about all en-es vocabulary or broad veto accuracy.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.json",
+        "scripts/testing/semantic_veto_denominator_audit_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_denominator_current_state_doc",
+      "title": "Semantic veto denominator current state doc",
+      "component": "process_governance",
+      "state": "current_reference",
+      "path": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "role": "Human-facing explanation of the current denominator layers and expansion levers after tranche-011 acceptance.",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "current_use": "Keeps cleanup/productization discussion from mixing SRS target count, replacement-family count, evidence coverage, and review exclusions.",
+      "risk": "Must be refreshed if the SRS frequency/source corpus, rulegen output, or source-target review policy changes.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md",
+        "scripts/testing/semantic_veto_denominator_audit_en_es.py"
       ]
     }
   ]

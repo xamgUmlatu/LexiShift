@@ -1300,6 +1300,22 @@
       "validation": "Run the active-only source-packaging harness with --fail-on-review, focused pytest for the harness, registry summary, doc-reference checks, Ruff, and git diff whitespace checks."
     },
     {
+      "action": "Record the current semantic-veto denominator layers before cleanup and future corpus-expansion decisions.",
+      "action_id": "semantic_veto_denominator_audit_current_state",
+      "evidence_needed": "The denominator audit verifies that the current SRS learner-target universe has 1,984 Spanish target lemmas, the semantic-veto replacement denominator has 570 source-target families, tranche-011 covers 455 families, the remaining 115 are source-target review exclusions, and the active-only generation queue has 0 selected requests.",
+      "pass_id": "data_artifacts",
+      "priority": "P1",
+      "promotion_impact": "",
+      "source_artifacts": [
+        "srs_zipf_bridge_latest_report",
+        "active_only_full_generation_post_tranche_011_plan_report",
+        "semantic_veto_denominator_audit_latest_report",
+        "semantic_veto_denominator_current_state_doc"
+      ],
+      "status": "done",
+      "validation": "Run the denominator audit with --fail-on-review, focused denominator audit tests, registry summary, doc references, state audit, Ruff checks, and whitespace checks before commit."
+    },
+    {
       "action": "Bridge the wider English ambiguous inventory to the LLM data-priority scanner while preserving the stage gate that inventory-only rows need Spanish target/shadow family construction before LLM active/shadow/phrase generation.",
       "action_id": "semantic_veto_llm_data_priority_inventory_bridge",
       "evidence_needed": "The bridge report reads 100 non-v10 inventory candidates, identifies 16 already-scored trigger rows, leaves 84 rows in the target/shadow family construction stage, and verifies that inventory-only rows receive no LLM packet recommendations.",
@@ -1679,10 +1695,10 @@
   "component_counts": {
     "candidate_wave6": 11,
     "decision_research": 29,
-    "diagnostics": 199,
+    "diagnostics": 201,
     "evaluation_data": 45,
     "historical_or_seed": 7,
-    "process_governance": 15,
+    "process_governance": 16,
     "runtime_path": 35,
     "source_admission": 70
   },
@@ -2189,7 +2205,17 @@
       "scale_tranche_journal_inclusive_output_tokens": 3079,
       "scale_tranche_packaged_canonical_rows": 32,
       "scale_tranche_rejected_generated_items": 0,
-      "score_cases": 189
+      "score_cases": 189,
+      "semantic_veto_denominator_accounting_identity": "570 = 49 pre-full-generation covered + 406 reviewed/generated + 115 excluded",
+      "semantic_veto_denominator_audit_status": "ok",
+      "semantic_veto_denominator_excluded_no_visible_replacement": 27,
+      "semantic_veto_denominator_excluded_weak_source_target_mapping": 88,
+      "semantic_veto_denominator_generation_queue_families": 0,
+      "semantic_veto_replacement_denominator_families": 570,
+      "semantic_veto_replacement_denominator_source_triggers": 536,
+      "semantic_veto_replacement_denominator_targets": 342,
+      "srs_learner_target_universe_count": 1984,
+      "srs_seed_row_count": 2000
     },
     "production_status": "operator_accepted_product_checkpoint",
     "promotion_blockers": [
@@ -4333,6 +4359,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_denominator_audit_harness",
+      "component": "diagnostics",
+      "current_use": "No-spend denominator cleanup harness; does not run rulegen, LLM generation, or runtime policy changes.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "path": "scripts/testing/semantic_veto_denominator_audit_en_es.py",
+      "risk": "Reads existing generated artifacts, so stale bridge or plan inputs must be refreshed before using it for a new denominator expansion decision.",
+      "role": "Explains the current en-es semantic-veto denominator by joining the SRS Zipf bridge, post-tranche active-only plan, source-target review manifest, and registry checkpoint counts.",
+      "state": "current_reference",
+      "title": "Semantic veto denominator audit harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_denominator_audit_en_es.py",
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.json"
+      ]
+    },
+    {
       "artifact_id": "evidence_gap_control_pilot_plan_manifest",
       "component": "evaluation_data",
       "current_use": "Defines the next control-bearing pilot: 8 high-need, 8 middle-control, and 8 low-control families selected without observed-outcome leakage, each with the same three planned slots.",
@@ -4668,6 +4710,22 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md",
         "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_denominator_current_state_doc",
+      "component": "process_governance",
+      "current_use": "Keeps cleanup/productization discussion from mixing SRS target count, replacement-family count, evidence coverage, and review exclusions.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "path": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "risk": "Must be refreshed if the SRS frequency/source corpus, rulegen output, or source-target review policy changes.",
+      "role": "Human-facing explanation of the current denominator layers and expansion levers after tranche-011 acceptance.",
+      "state": "current_reference",
+      "title": "Semantic veto denominator current state doc",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md",
+        "scripts/testing/semantic_veto_denominator_audit_en_es.py"
       ]
     },
     {
@@ -7144,6 +7202,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_denominator_audit_latest_report",
+      "component": "diagnostics",
+      "current_use": "Shows 1,984 SRS-admissible Spanish target lemmas, 570 rulegen-produced source-target families, 455 active-only covered families, 115 source-target review exclusions, and 0 remaining active-only generation queue rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "path": "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md",
+      "risk": "Current-resource denominator only; not a claim about all en-es vocabulary or broad veto accuracy.",
+      "role": "Records the current denominator distinction between the SRS learner-target universe and semantic-veto replacement-family universe.",
+      "state": "generated_evidence",
+      "title": "Semantic veto denominator audit latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.json",
+        "scripts/testing/semantic_veto_denominator_audit_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "srs_case_mix_prior_latest_report",
       "component": "diagnostics",
       "current_use": "Shows 570 source-target pairs, 536 unique sources, 540 WordNet-known pairs, base no-winner priors from 15.3% very-common down to 6.9% rare, and sentence-transformer estimated SRS-weighted success of 82.3% overall with 77.1% to 85.7% no-winner sensitivity.",
@@ -9068,8 +9142,8 @@
       ]
     }
   ],
-  "entry_count": 411,
-  "generated_at": "2026-05-13T21:02:33Z",
+  "entry_count": 414,
+  "generated_at": "2026-05-13T21:13:24Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -11218,6 +11292,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_denominator_audit_harness",
+      "component": "diagnostics",
+      "current_use": "No-spend denominator cleanup harness; does not run rulegen, LLM generation, or runtime policy changes.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "path": "scripts/testing/semantic_veto_denominator_audit_en_es.py",
+      "risk": "Reads existing generated artifacts, so stale bridge or plan inputs must be refreshed before using it for a new denominator expansion decision.",
+      "role": "Explains the current en-es semantic-veto denominator by joining the SRS Zipf bridge, post-tranche active-only plan, source-target review manifest, and registry checkpoint counts.",
+      "state": "current_reference",
+      "title": "Semantic veto denominator audit harness",
+      "verification_artifacts": [
+        "core/tests/dev/test_semantic_veto_denominator_audit_en_es.py",
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.json"
+      ]
+    },
+    {
       "artifact_id": "evidence_gap_control_pilot_plan_manifest",
       "component": "evaluation_data",
       "current_use": "Defines the next control-bearing pilot: 8 high-need, 8 middle-control, and 8 low-control families selected without observed-outcome leakage, each with the same three planned slots.",
@@ -11553,6 +11643,22 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_system_registry_latest.md",
         "scripts/testing/semantic_veto_system_registry_summary.py"
+      ]
+    },
+    {
+      "artifact_id": "semantic_veto_denominator_current_state_doc",
+      "component": "process_governance",
+      "current_use": "Keeps cleanup/productization discussion from mixing SRS target count, replacement-family count, evidence coverage, and review exclusions.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "path": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "risk": "Must be refreshed if the SRS frequency/source corpus, rulegen output, or source-target review policy changes.",
+      "role": "Human-facing explanation of the current denominator layers and expansion levers after tranche-011 acceptance.",
+      "state": "current_reference",
+      "title": "Semantic veto denominator current state doc",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md",
+        "scripts/testing/semantic_veto_denominator_audit_en_es.py"
       ]
     },
     {
@@ -14029,6 +14135,22 @@
       ]
     },
     {
+      "artifact_id": "semantic_veto_denominator_audit_latest_report",
+      "component": "diagnostics",
+      "current_use": "Shows 1,984 SRS-admissible Spanish target lemmas, 570 rulegen-produced source-target families, 455 active-only covered families, 115 source-target review exclusions, and 0 remaining active-only generation queue rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_veto_denominator_current_state.md",
+      "path": "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md",
+      "risk": "Current-resource denominator only; not a claim about all en-es vocabulary or broad veto accuracy.",
+      "role": "Records the current denominator distinction between the SRS learner-target universe and semantic-veto replacement-family universe.",
+      "state": "generated_evidence",
+      "title": "Semantic veto denominator audit latest report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.json",
+        "scripts/testing/semantic_veto_denominator_audit_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "srs_case_mix_prior_latest_report",
       "component": "diagnostics",
       "current_use": "Shows 570 source-target pairs, 536 unique sources, 540 WordNet-known pairs, base no-winner priors from 15.3% very-common down to 6.9% rare, and sentence-transformer estimated SRS-weighted success of 82.3% overall with 77.1% to 85.7% no-winner sensitivity.",
@@ -15850,11 +15972,11 @@
   "schema_version": 1,
   "state_counts": {
     "current_candidate": 12,
-    "current_reference": 27,
+    "current_reference": 29,
     "current_research": 94,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 252,
+    "generated_evidence": 253,
     "historical_reference": 5,
     "superseded": 2,
     "supporting_current": 2

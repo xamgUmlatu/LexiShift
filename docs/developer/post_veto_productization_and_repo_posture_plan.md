@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-05-14
-Last verified: 2026-05-14 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-011 automated follow-through artifacts, tranche-011 operator product checkpoint, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 hands-on operator smoke evidence, and the semantic-pack operator smoke runbook
+Last verified: 2026-05-14 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-011 automated follow-through artifacts, tranche-011 operator product checkpoint, semantic-veto denominator audit, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 hands-on operator smoke evidence, and the semantic-pack operator smoke runbook
 Purpose: organize the work after the first successful semantic-veto product smoke, without reopening open-ended veto research by default
 Source-of-truth: planning document only; current implementation truth lives in source code, `docs/developer/feature_state_matrix.md`, and the semantic-veto registry artifacts
 
@@ -20,6 +20,7 @@ The semantic-veto workstream has reached a real product-smoke checkpoint:
 - Tranche-003 remains the latest formally recorded hands-on browser-extension smoke.
 - Tranche-011 has passed paid generation, admission, postprocess, source packaging, isolated pack install, automated live-page scan, and operator acceptance from the completed follow-through summary.
 - The active-only SRS-derived generation queue is now exhausted under the current reviewed 570-family denominator: `455` families are covered and the remaining `115` are excluded from active-only generation as weak or non-visible source-target rows.
+- The denominator audit now keeps the two denominator layers separate: `1,984` SRS-admissible Spanish target lemmas versus `570` rulegen-produced English-source / Spanish-target replacement families.
 
 This is not full `en-es` semantic coverage, and it is not a near-zero-harmful replacement guarantee.
 It is a bounded soft-assist feature checkpoint: many good replacements become visible, some bad replacements are still expected, and false abstains remain acceptable if the browsing experience still improves.
@@ -155,7 +156,7 @@ Exit criteria:
 
 1. Treat the active-only generation lane as complete under the current 570-family denominator unless the SRS corpus or source-target review policy changes.
 2. Cleanup/productization posture: simplify current-truth docs, preserve the debug/operator install path, and separate demo-facing claims from research artifacts.
-3. Denominator discussion: audit what creates the current `570` source-target family universe and what would be required to expand it.
+3. Denominator discussion: use `docs/rulegen/semantic_veto_denominator_current_state.md` and `docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md` to decide whether expansion should target SRS frequency/source data, rulegen dictionary/filter coverage, or source-target review policy.
 
 ## Verification
 

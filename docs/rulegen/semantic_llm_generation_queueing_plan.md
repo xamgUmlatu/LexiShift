@@ -13,6 +13,7 @@ Related docs:
 - `docs/rulegen/semantic_feedback_promotion_flow.md`
 - `docs/rulegen/semantic_llm_generation_budget_reference.md`
 - `docs/rulegen/semantic_veto_active_only_tranche_runbook.md`
+- `docs/rulegen/semantic_veto_denominator_current_state.md`
 - `docs/rulegen/semantic_routing_data_contract.md`
 - `docs/rulegen/semantic_routing_runtime_readiness.md`
 - `docs/test_inputs/semantic_routing/semantic_family_inventory.schema.json`
@@ -859,6 +860,10 @@ The post-tranche-011 coverage artifact is:
 
 - `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.md`
 
+The current denominator audit is:
+
+- `docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md`
+
 The tranche-011 product checkpoint artifact is:
 
 - `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_operator_checkpoint_en_es_latest.md`
@@ -866,6 +871,8 @@ The tranche-011 product checkpoint artifact is:
 Post-tranche-011 state:
 
 - current active-only coverage is `455/570` families, or `79.8%`,
+- the separate SRS learner-target universe is `1,984` Spanish target lemmas
+  from `2,000` seed rows under the current installed frequency/source resources,
 - remaining uncovered active-only families are `115`,
 - the remaining generation queue has `0` unreviewed source-target rows after
   excluding the `115` cumulative rejected rows,
@@ -895,9 +902,11 @@ The scale-generation program should therefore proceed in lanes:
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is now cleanup and denominator discussion. Do not
-run another active-only paid generation tranche unless the SRS-derived
-source-target denominator or the review policy changes.
+The immediate engineering gap is now cleanup and denominator discussion. The
+next denominator-expansion decision belongs to SRS frequency/source data,
+rulegen dictionary/filter coverage, or source-target review policy. Do not run
+another active-only paid generation tranche unless that denominator or review
+policy changes.
 
 Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the
 repeatable active-only tranche cycle. That runbook owns the step-by-step gates,
