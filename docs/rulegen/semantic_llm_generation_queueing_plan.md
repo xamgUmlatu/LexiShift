@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-13 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, post-tranche-003 coverage plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 operator browser-extension smoke
+Last verified: 2026-05-13 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, post-tranche-003 coverage plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator browser-extension smoke, and tranche-004 pre-spend source-target review/request plan
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -215,6 +215,7 @@ Current boundary artifact:
 - `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_pack_install_en_es_latest.json`
 - `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_live_page_scan_en_es_latest.md`
 - `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_004_pre_spend_en_es_latest.md`
 
 ## Full `en-es` generation boundary
 
@@ -442,6 +443,30 @@ Operator live-smoke result:
   replacements are tolerated, and narrow source-target mappings such as
   `tax -> imponer` are not a blocker for this checkpoint.
 
+The tranche-004 pre-spend review slice has now been prepared without making
+paid calls:
+
+- the cumulative source-target review manifest covers `200` reviewed rows,
+  with `175` cumulative approvals and `25` cumulative exclusions,
+- tranche-004 prep reviewed the first `50` still-unreviewed rows after
+  tranche-003 coverage and exclusions, global need ranks `22-71`,
+- tranche-004 prep approves `46` of those rows and excludes `4` weak mappings
+  (`leader -> amo`, `quote -> mencionar`, `sharp -> justamente`, and
+  `soft -> dulce`),
+- the refreshed tranche-004 request plan is `ok` and selects only those `46`
+  approved families,
+- the request packet expects `92` active cue rows, estimates `24,061` input
+  tokens, and budgets `12,880` output tokens,
+- `321` remaining uncovered rows are still unreviewed after this prep slice.
+
+The tranche-004 prep artifact is:
+
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_004_pre_spend_en_es_latest.md`
+
+That changes the current engineering gate from source-target review to explicit
+paid-generation approval for the prepared tranche-004 packet. Paid generation
+has not started.
+
 The scale-generation program should therefore proceed in lanes:
 
 1. Freeze the current `active_only_combined_product_scope_v1` pack as the
@@ -462,8 +487,9 @@ The scale-generation program should therefore proceed in lanes:
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is now the next source-target review slice before
-any tranche-004 spend. Do not attempt to spend the whole budget at once.
+The immediate engineering gap is now explicit operator approval before running
+the bounded tranche-004 paid generation command. Do not attempt to spend the
+whole budget at once.
 
 Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the
 repeatable active-only tranche cycle. That runbook owns the step-by-step gates,
