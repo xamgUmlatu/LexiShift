@@ -101,6 +101,10 @@ Both files are TEI dictionaries; they support opposite directional rulegen needs
   - `en-es` currently has a wired bilingual source (`freedict-es-en`), but that source is not coverage-adequate for production SRS publication on its own.
   - The current failure mode is not just ranking noise; some normal admitted lemmas have no usable ES->EN headword coverage in the installed FreeDict inventory.
   - Evidence: installed-resource SRS journey leaves `movimiento` due-but-unpublished in `docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md`.
+- Future Spanish SRS-corpus expansion:
+  - The current `freq-es-cde` pack is a sample-sized Spanish frequency resource; observed local metadata contains `2,000` rows and produces `1,984` unique Spanish SRS target lemmas after dedupe in the current semantic-veto bridge.
+  - Treat that as a current installed-resource boundary, not as a final `en-es` product corpus cap.
+  - Future research should identify a broader licensing-safe Spanish frequency source or pack strategy, verify POS/rank quality, and re-run SRS admission/rulegen/semantic-veto denominator reports before expanding paid evidence generation beyond the current corpus.
 - Current replacement direction:
   - The active replacement plan for `en-es` is a Kaikki/Wiktionary-backed compatibility SQLite generated from Spanish entries in the English-edition Kaikki dump.
   - The active reverse-check replacement plan is a separate Kaikki/Wiktionary compatibility SQLite generated from English entries in the same English-edition dump.

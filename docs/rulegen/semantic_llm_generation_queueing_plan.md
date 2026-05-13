@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-13 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, post-tranche-003 coverage plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator browser-extension smoke, tranche-004 pre-spend source-target review/request plan, tranche-004 paid generation/repaired admission/source packaging, combined 224-family pack build, named-pack install smoke, live-page scan, and post-tranche-004 coverage plan
+Last verified: 2026-05-13 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, post-tranche-003 coverage plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator browser-extension smoke, tranche-004 pre-spend source-target review/request plan, tranche-004 paid generation/repaired admission/source packaging, combined 224-family pack build, named-pack install smoke, live-page scan, post-tranche-004 coverage plan, tranche-005 pre-spend source-target review/request plan, tranche-005 paid generation/repaired admission/source packaging, combined 261-family pack build, named-pack install smoke, live-page scan, and post-tranche-005 coverage plan
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -512,8 +512,67 @@ Post-tranche-004 state:
 - the post-tranche-004 request packet is intentionally empty until the next
   pre-spend source-target review approves more rows.
 
-Tranche-004 is automated-clean and ready for operator smoke. Tranche-003 remains
-the latest operator-approved browser-extension smoke until tranche-004 is tested.
+Tranche-004 is historical automated-clean evidence. Tranche-005 is now the latest
+automated-clean pack and is ready for operator smoke. Tranche-003 remains the
+latest formally recorded operator-approved browser-extension smoke until a later
+tranche is tested and recorded.
+
+The tranche-005 pre-spend review slice and paid follow-through have also
+completed:
+
+- the cumulative source-target review manifest covers `250` reviewed rows,
+  with `212` cumulative approvals and `38` cumulative exclusions,
+- tranche-005 prep reviewed the first `50` still-unreviewed rows after
+  tranche-004 coverage and exclusions, global need ranks `26-75`,
+- tranche-005 prep approved `37` of those rows and excluded `13` weak mappings
+  (`workplace -> taller`, `ask -> demandar`, `offer -> pretensión`,
+  `show -> designar`, `become -> acontecer`, `front -> frontón`,
+  `barn -> puesto`, `centennial -> siglo`, `compartment -> departamento`,
+  `dismal -> común`, `beg -> demandar`, `bid -> demandar`, and
+  `blank -> formulario`),
+- the reviewed tranche-005 request plan selected only those `37` approved
+  families, expected `74` active cue rows, estimated `20,540` input tokens, and
+  budgeted `10,360` output tokens,
+- live `gpt-5.4-mini` generation accepted `37/37` responses after one guarded
+  retry for request metadata drift on `commencement -> principio`,
+- the final generated-response bundle applied one explicit runtime-token repair
+  for `bed -> cauce`, changing a `riverbed` compound into standalone `bed of
+  the river`,
+- repaired admission accepted `74/74` active items with `0` rejects and `0`
+  coverage shortfall,
+- source packaging produced `74` canonical `anchor_cue` rows across `37`
+  families with `0` exclusions,
+- the live run recorded `19,644` input tokens and `6,827` output tokens, about
+  `$0.045` at the 2026-05-13 `gpt-5.4-mini` standard rates,
+- the combined active-only pack now has `534` normalized evidence rows across
+  `261` families,
+- the combined semantic inventory has `261` triggers, `303` senses, and `261`
+  competition sets,
+- the isolated named-pack install wrote `261` helper rules, `238` active-only
+  competition sets, and `23` shadowed/mixed sets,
+- live public-page scan over the installed 261-rule fixture produced `120`
+  policy decisions, `0` fallback decisions, `70` replace decisions, `50`
+  abstain decisions, and `0` page fetch errors.
+
+The tranche-005 artifacts are:
+
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_005_pre_spend_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_generation_run_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_repaired_generation_admission_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_source_packaging_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-005_pack_builder_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_pack_install_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_live_page_scan_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.md`
+
+Post-tranche-005 state:
+
+- current active-only coverage is `261/570` families, or `45.8%`,
+- remaining uncovered active-only families are `309`,
+- the remaining generation queue has `271` unreviewed source-target rows after
+  excluding the `38` cumulative rejected rows,
+- the post-tranche-005 request packet is intentionally empty until the next
+  pre-spend source-target review approves more rows.
 
 The scale-generation program should therefore proceed in lanes:
 
@@ -535,8 +594,8 @@ The scale-generation program should therefore proceed in lanes:
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is now tranche-004 operator smoke, followed by the
-next source-target review slice before any tranche-005 spend. Do not attempt to
+The immediate engineering gap is now tranche-005 operator smoke, followed by the
+next source-target review slice before any tranche-006 spend. Do not attempt to
 spend the whole budget at once.
 
 Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the

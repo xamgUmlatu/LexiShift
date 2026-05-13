@@ -10,7 +10,7 @@ and pass the rates explicitly to the run harness.
 
 ## Current Price Snapshot
 
-Snapshot date: 2026-05-12.
+Snapshot date: 2026-05-13.
 
 | Model | Input / 1M tokens | Output / 1M tokens | Notes |
 | --- | ---: | ---: | --- |
@@ -283,6 +283,42 @@ The raw run was structurally cleaner than tranches 002 and 003, but the semantic
 repair count exposed a prompt underspecification: the model needed the reviewed
 intended-sense rationale, not only the source and target labels. Future request
 plans now include that review rationale in active evidence and prompt text.
+
+## Observed Full Active-Only Tranche 005 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_repaired_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `37` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- first completed bundle accepted `36/37` responses and reported `1` invalid
+  metadata output for `commencement -> principio`
+- one guarded retry accepted the `commencement -> principio` response
+- the final generated-response bundle applied `1` explicit runtime-token
+  operator repair for `bed -> cauce`, replacing compound `riverbed` with
+  standalone `bed of the river`
+- repaired admitted active items: `74/74`
+- source packaging produced `74` canonical `anchor_cue` rows across `37`
+  families
+- combined pack build now covers `261/570` current SRS-derived source-target
+  families with `534` normalized evidence rows
+
+Recorded accepted-run usage:
+
+- accepted outcomes: `37`
+- invalid-output outcomes: `1`
+- input tokens: `19,644`
+- output tokens: `6,827`
+- actual cost at the 2026-05-13 `gpt-5.4-mini` snapshot: about `$0.045`
+
+The fifth tranche stayed well below the small-batch guardrails. The only
+operator repair was mechanical runtime-trigger restoration, not a sense rewrite.
 
 ## Observed Balanced v1 Follow-Through Cost Anchor
 
