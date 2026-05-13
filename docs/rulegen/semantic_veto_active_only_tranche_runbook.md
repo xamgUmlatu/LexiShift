@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-14
-Last verified: 2026-05-14 against tranche-001/tranche-006 artifacts, the post-tranche-006 coverage plan, tranche-005 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
+Last verified: 2026-05-14 against tranche-001/tranche-006 artifacts, the post-tranche-006 coverage plan, tranche-007 source-target review/request plan, tranche-005 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -30,17 +30,19 @@ Current checkpoint:
 
 - automated-clean active-only coverage: `300 / 570` current SRS-derived source-target families,
 - remaining uncovered families: `270`,
-- remaining unreviewed generation queue rows after tranche-006 follow-through: `221`,
-- next runnable paid request packet: none until the tranche-007 source-target review slice is added,
-- next required work: operator checkpoint for tranche-006 if desired, then tranche-007 source-target review.
+- remaining unreviewed generation queue rows after tranche-007 source-target review prep: `171`,
+- next runnable paid request packet: tranche-007 pre-spend packet with `38` reviewed families and `76` expected active cue rows,
+- next required work: operator checkpoint for tranche-006 if desired, then explicit approval/current pricing before tranche-007 paid generation.
 
 Do not start another paid run from the post-tranche-006 plan directly.
-The tranche-006 pre-spend request packet below is now historical evidence of the
-just-completed paid run, not the next packet to spend.
+The tranche-006 pre-spend request packet below is historical evidence of the
+completed paid run. The tranche-007 pre-spend packet is the current reviewed
+paid-generation candidate, but it has not been executed.
 
 ```text
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.md
 ```
 
 ## What This Runbook Improves
@@ -83,13 +85,13 @@ For the next tranche:
 3. Append a new `reviewed_slices` entry.
 4. Add one decision row per reviewed source-target family.
 
-This has already been completed for tranche-006 and must be repeated for tranche-007 before any more spend:
+This has already been completed for tranche-007 and must be repeated for tranche-008 before any spend after tranche-007:
 
-- reviewed rows: global need ranks `39-88`,
-- approved rows: `39`,
-- excluded rows: `11`,
+- reviewed rows: global need ranks `50-99`,
+- approved rows: `38`,
+- excluded rows: `12`,
 - historical request packet:
-  `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md`.
+  `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.md`.
 
 Allowed review outcomes:
 
@@ -149,6 +151,15 @@ Commit point:
 
 - commit the no-spend pre-spend packet and review manifest when the packet is ready for approval.
 
+Current tranche-007 result:
+
+- status: `ok`,
+- selected request families: `38`,
+- expected active cue rows: `76`,
+- estimated input tokens: `20,811`,
+- output-token budget: `10,640`,
+- review status over uncovered rows: `approved:38, excluded:61, unreviewed:171`.
+
 ### Gate 3. Paid Generation
 
 Goal: execute only the reviewed request packet, with count and cost guards.
@@ -170,8 +181,8 @@ Minimum live-run guard shape:
 python3 scripts/testing/semantic_veto_evidence_gap_generation_run_en_es.py \
   --request-json docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.json \
   --run-id en-es-active-only-full-v1-tranche-007-approved \
-  --max-requests <selected-request-count> \
-  --require-selected-request-count <selected-request-count> \
+  --max-requests 38 \
+  --require-selected-request-count 38 \
   --expected-output-tokens 280 \
   --input-rate-per-1m <current-input-rate> \
   --output-rate-per-1m <current-output-rate> \
@@ -215,17 +226,21 @@ Postprocess:
 
 ```bash
 python3 scripts/testing/semantic_veto_evidence_gap_generation_postprocess_en_es.py \
-  --admission-json docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_repaired_generation_admission_en_es_latest.json \
+  --admission-json docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_admission_en_es_latest.json \
   --json-out docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_postprocess_en_es_latest.json \
   --markdown-out docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_postprocess_en_es_latest.md \
   --fail-on-review
 ```
 
+If admission requires a repaired admission artifact, use that repaired artifact
+for both postprocess and source packaging. Do not mix repaired and unrepaired
+admission files within the same tranche.
+
 Source packaging:
 
 ```bash
 python3 scripts/testing/semantic_veto_active_only_source_packaging_en_es.py \
-  --admission docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_repaired_generation_admission_en_es_latest.json \
+  --admission docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_admission_en_es_latest.json \
   --generation-run docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_run_en_es_latest.json \
   --postprocess docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_postprocess_en_es_latest.json \
   --run-id active-only-full-v1-tranche-007 \
@@ -295,7 +310,7 @@ Operator smoke:
 - only after the isolated install and page scan are clean,
 - the newly built tranche is automated-clean and ready for this smoke after its isolated
   install and page scan pass,
-- tranche-003 remains the rollback/latest operator-approved pack until
+- tranche-005 remains the latest operator-accepted pack until
   a later tranche is tested and accepted.
 
 Commit point:

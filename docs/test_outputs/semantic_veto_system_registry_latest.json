@@ -209,7 +209,7 @@
     {
       "action": "Review the next source-target slice after tranche 005 and render the bounded tranche-006 pre-spend request packet without making paid calls.",
       "action_id": "active_only_full_generation_tranche_006_pre_spend_prep",
-      "evidence_needed": "The cumulative source-target review manifest now covers 300 rows, approving 251 and excluding 49. Tranche 006 prep reviewed global need ranks 39-88 from the still-unreviewed post-tranche-005 queue, approved 39 families, excluded 11 weak mappings, and rendered an ok 39-request pre-spend plan for 78 expected active cue rows with 21,302 estimated input tokens and 10,920 output-token budget. Paid generation has not started.",
+      "evidence_needed": "At prep time, the cumulative source-target review manifest covered 300 rows, approving 251 and excluding 49. Tranche 006 prep reviewed global need ranks 39-88 from the still-unreviewed post-tranche-005 queue, approved 39 families, excluded 11 weak mappings, and rendered an ok 39-request pre-spend plan for 78 expected active cue rows with 21,302 estimated input tokens and 10,920 output-token budget. This prep action is now superseded by the tranche-006 paid follow-through action.",
       "pass_id": "data_artifacts",
       "priority": "P1",
       "promotion_impact": "",
@@ -220,6 +220,21 @@
       ],
       "status": "done",
       "validation": "Run the active-only full generation planner with --fail-on-review against the tranche-005 combined normalized evidence and the expanded source-target review manifest, then run registry summary, doc references, state audit, whitespace check, and focused registry/install tests before commit."
+    },
+    {
+      "action": "Review the next source-target slice after tranche 006 and render the bounded tranche-007 pre-spend request packet without making paid calls.",
+      "action_id": "active_only_full_generation_tranche_007_pre_spend_prep",
+      "evidence_needed": "The cumulative source-target review manifest now covers 350 rows, approving 289 and excluding 61. Tranche 007 prep reviewed global need ranks 50-99 from the still-unreviewed post-tranche-006 queue, approved 38 families, excluded 12 weak mappings, and rendered an ok 38-request pre-spend plan for 76 expected active cue rows with 20,811 estimated input tokens and 10,640 output-token budget. Paid generation has not started.",
+      "pass_id": "data_artifacts",
+      "priority": "P1",
+      "promotion_impact": "",
+      "source_artifacts": [
+        "active_only_full_generation_post_tranche_006_plan_report",
+        "active_only_generation_source_target_review_manifest",
+        "active_only_full_generation_tranche_007_pre_spend_plan_report"
+      ],
+      "status": "done",
+      "validation": "Run the active-only full generation planner with --fail-on-review against the tranche-006 combined normalized evidence and the expanded source-target review manifest, then run registry summary, doc references, state audit, whitespace check, and focused registry/install tests before commit."
     },
     {
       "action": "Run the first fresh active-only scale tranche and combine all active-only source evidence across the current 49-family product-scope denominator.",
@@ -1490,7 +1505,7 @@
   "component_counts": {
     "candidate_wave6": 11,
     "decision_research": 29,
-    "diagnostics": 171,
+    "diagnostics": 172,
     "evaluation_data": 45,
     "historical_or_seed": 7,
     "process_governance": 15,
@@ -1651,12 +1666,13 @@
       "full_active_only_fourth_tranche_output_tokens": 8450,
       "full_active_only_fourth_tranche_packaged_rows": 92,
       "full_active_only_fourth_tranche_rejected_items": 0,
-      "full_active_only_generation_queue_families_after_review": 221,
+      "full_active_only_generation_queue_families_after_review": 209,
       "full_active_only_generation_queue_unreviewed_after_tranche_003": 371,
       "full_active_only_generation_queue_unreviewed_after_tranche_004_review": 321,
       "full_active_only_generation_queue_unreviewed_after_tranche_005_review": 271,
       "full_active_only_generation_queue_unreviewed_after_tranche_006_review": 221,
-      "full_active_only_planned_generated_rows": 442,
+      "full_active_only_generation_queue_unreviewed_after_tranche_007_review": 171,
+      "full_active_only_planned_generated_rows": 418,
       "full_active_only_post_tranche_002_covered_families": 135,
       "full_active_only_post_tranche_002_generation_queue_families_after_review": 421,
       "full_active_only_post_tranche_002_planned_generated_rows": 842,
@@ -1677,9 +1693,9 @@
       "full_active_only_post_tranche_006_generation_queue_families_after_review": 221,
       "full_active_only_post_tranche_006_planned_generated_rows": 442,
       "full_active_only_post_tranche_006_uncovered_families": 270,
-      "full_active_only_reviewed_cumulative_approved": 251,
-      "full_active_only_reviewed_cumulative_candidates": 300,
-      "full_active_only_reviewed_cumulative_excluded": 49,
+      "full_active_only_reviewed_cumulative_approved": 289,
+      "full_active_only_reviewed_cumulative_candidates": 350,
+      "full_active_only_reviewed_cumulative_excluded": 61,
       "full_active_only_reviewed_first_tranche_approved": 42,
       "full_active_only_reviewed_first_tranche_candidates": 50,
       "full_active_only_reviewed_first_tranche_excluded": 8,
@@ -1698,6 +1714,9 @@
       "full_active_only_reviewed_tranche_006_approved": 39,
       "full_active_only_reviewed_tranche_006_candidates": 50,
       "full_active_only_reviewed_tranche_006_excluded": 11,
+      "full_active_only_reviewed_tranche_007_approved": 38,
+      "full_active_only_reviewed_tranche_007_candidates": 50,
+      "full_active_only_reviewed_tranche_007_excluded": 12,
       "full_active_only_second_tranche_accepted_responses_before_repair": 42,
       "full_active_only_second_tranche_admitted_items": 88,
       "full_active_only_second_tranche_coverage_shortfall": 0,
@@ -1766,6 +1785,15 @@
       "full_active_only_tranche_006_pre_spend_uncovered_families": 309,
       "full_active_only_tranche_006_pre_spend_unreviewed_rows": 221,
       "full_active_only_tranche_006_request_families": 39,
+      "full_active_only_tranche_007_estimated_input_tokens": 20811,
+      "full_active_only_tranche_007_expected_rows": 76,
+      "full_active_only_tranche_007_output_token_budget": 10640,
+      "full_active_only_tranche_007_pre_spend_covered_families": 300,
+      "full_active_only_tranche_007_pre_spend_generation_queue_families_after_review": 209,
+      "full_active_only_tranche_007_pre_spend_selected_request_families": 38,
+      "full_active_only_tranche_007_pre_spend_uncovered_families": 270,
+      "full_active_only_tranche_007_pre_spend_unreviewed_rows": 171,
+      "full_active_only_tranche_007_request_families": 38,
       "full_active_only_uncovered_families": 270,
       "full_srs_active_target_count": 342,
       "full_srs_source_target_denominator_families": 570,
@@ -1797,8 +1825,8 @@
     "promotion_blockers": [
       "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data unless installed through the explicit default-root debug flow",
       "the 49-family denominator is still a repaired product-scope research suite, not full en-es language-wide proof",
-      "the full current SRS-derived source-target family universe is measured at 570 families, and the first four paid tranches raise automated-clean active-only coverage to 224 families; 346 active-only families remain uncovered, with 321 still requiring later pre-spend source-target review",
-      "manual browser/helper behavior is approved for tranche-003 as qualitative product-feel evidence; tranche-004 is automated-clean and ready for operator smoke but not yet operator-approved",
+      "the full current SRS-derived source-target family universe is measured at 570 families, and the first six paid tranches raise automated-clean active-only coverage to 300 families; 270 active-only families remain uncovered, with 171 still requiring later pre-spend source-target review after tranche-007 prep",
+      "manual browser/helper behavior is approved for tranche-003 as qualitative product-feel evidence; tranche-005 is the latest operator-accepted product checkpoint, and tranche-006 is automated-clean but not yet operator-approved",
       "rollback and generation identity must stay aligned with ruleset, snapshot, semantic inventory, and manifest publication"
     ],
     "runtime_policy_change": "selection_mode=active_only can score ready active evidence without shadow senses and auto-selects en_es_sentence_veto_v2 for active-only en-es inventories when no policy override is requested; en_es_sentence_veto_v2 now uses the product-soft floor min_active_score=0.015 / min_margin=0.0 after live browser review accepted fewer abstains with some harmful-replace risk"
@@ -4776,11 +4804,11 @@
     {
       "artifact_id": "active_only_full_generation_post_tranche_006_plan_report",
       "component": "diagnostics",
-      "current_use": "Shows 300/570 covered families, 270 uncovered families, 221 unreviewed queue rows, 49 excluded rows, and no next paid request packet before the tranche-007 review slice is added.",
+      "current_use": "Shows the immediate post-tranche-006 state before tranche-007 review: 300/570 covered families, 270 uncovered families, 221 unreviewed queue rows, 49 excluded rows, and no paid request packet.",
       "next_audit_pass": "data_artifacts",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
       "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.md",
-      "risk": "Review-status artifact by design; the empty request packet is expected until the next source-target review manifest is expanded.",
+      "risk": "Historical review-status artifact by design; the current paid candidate is the separate tranche-007 pre-spend plan after review expansion.",
       "role": "Recomputes the full SRS-derived active-only coverage plan after installing tranche 006 into the combined evidence input.",
       "state": "generated_evidence",
       "title": "Semantic veto active-only full generation post-tranche 006 plan report",
@@ -4863,11 +4891,11 @@
     {
       "artifact_id": "active_only_full_generation_tranche_006_pre_spend_plan_report",
       "component": "diagnostics",
-      "current_use": "Current next paid request packet: active-only coverage remains 261/570 families, with 39 approved tranche-006 request families, 78 expected active cue rows, 21,302 estimated input tokens, 10,920 output-token budget, 49 cumulative exclusions, and 221 still-unreviewed uncovered rows.",
+      "current_use": "Historical pre-spend packet for the now-completed sixth tranche: before generation it showed active-only coverage at 261/570 families, 39 approved tranche-006 request families, 78 expected active cue rows, 21,302 estimated input tokens, 10,920 output-token budget, 49 cumulative exclusions, and 221 still-unreviewed uncovered rows.",
       "next_audit_pass": "data_artifacts",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
       "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md",
-      "risk": "No-spend request-packet artifact only; paid generation has not started.",
+      "risk": "No-spend request-packet artifact only; it is superseded for current state by the tranche-006 generation/admission/packaging artifacts and post-tranche-006 plan.",
       "role": "Recomputes the active-only full-generation plan after expanding the cumulative source-target review manifest for the sixth uncovered slice.",
       "state": "generated_evidence",
       "title": "Semantic veto active-only full generation tranche 006 pre-spend plan report",
@@ -4875,6 +4903,24 @@
         "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.json",
         "docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es.json",
         "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-005-normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_generation_tranche_007_pre_spend_plan_report",
+      "component": "diagnostics",
+      "current_use": "Current next paid request packet: active-only coverage remains 300/570 families, with 38 approved tranche-007 request families, 76 expected active cue rows, 20,811 estimated input tokens, 10,640 output-token budget, 61 cumulative exclusions, and 171 still-unreviewed uncovered rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.md",
+      "risk": "No-spend request-packet artifact only; paid generation has not started.",
+      "role": "Recomputes the active-only full-generation plan after expanding the cumulative source-target review manifest for the seventh uncovered slice.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full generation tranche 007 pre-spend plan report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006-normalized_evidence.json",
         "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py"
       ]
     },
@@ -7952,8 +7998,8 @@
       ]
     }
   ],
-  "entry_count": 368,
-  "generated_at": "2026-05-13T17:44:56Z",
+  "entry_count": 369,
+  "generated_at": "2026-05-13T17:55:16Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -10943,11 +10989,11 @@
     {
       "artifact_id": "active_only_full_generation_post_tranche_006_plan_report",
       "component": "diagnostics",
-      "current_use": "Shows 300/570 covered families, 270 uncovered families, 221 unreviewed queue rows, 49 excluded rows, and no next paid request packet before the tranche-007 review slice is added.",
+      "current_use": "Shows the immediate post-tranche-006 state before tranche-007 review: 300/570 covered families, 270 uncovered families, 221 unreviewed queue rows, 49 excluded rows, and no paid request packet.",
       "next_audit_pass": "data_artifacts",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
       "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.md",
-      "risk": "Review-status artifact by design; the empty request packet is expected until the next source-target review manifest is expanded.",
+      "risk": "Historical review-status artifact by design; the current paid candidate is the separate tranche-007 pre-spend plan after review expansion.",
       "role": "Recomputes the full SRS-derived active-only coverage plan after installing tranche 006 into the combined evidence input.",
       "state": "generated_evidence",
       "title": "Semantic veto active-only full generation post-tranche 006 plan report",
@@ -11030,11 +11076,11 @@
     {
       "artifact_id": "active_only_full_generation_tranche_006_pre_spend_plan_report",
       "component": "diagnostics",
-      "current_use": "Current next paid request packet: active-only coverage remains 261/570 families, with 39 approved tranche-006 request families, 78 expected active cue rows, 21,302 estimated input tokens, 10,920 output-token budget, 49 cumulative exclusions, and 221 still-unreviewed uncovered rows.",
+      "current_use": "Historical pre-spend packet for the now-completed sixth tranche: before generation it showed active-only coverage at 261/570 families, 39 approved tranche-006 request families, 78 expected active cue rows, 21,302 estimated input tokens, 10,920 output-token budget, 49 cumulative exclusions, and 221 still-unreviewed uncovered rows.",
       "next_audit_pass": "data_artifacts",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
       "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md",
-      "risk": "No-spend request-packet artifact only; paid generation has not started.",
+      "risk": "No-spend request-packet artifact only; it is superseded for current state by the tranche-006 generation/admission/packaging artifacts and post-tranche-006 plan.",
       "role": "Recomputes the active-only full-generation plan after expanding the cumulative source-target review manifest for the sixth uncovered slice.",
       "state": "generated_evidence",
       "title": "Semantic veto active-only full generation tranche 006 pre-spend plan report",
@@ -11042,6 +11088,24 @@
         "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.json",
         "docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es.json",
         "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-005-normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_generation_tranche_007_pre_spend_plan_report",
+      "component": "diagnostics",
+      "current_use": "Current next paid request packet: active-only coverage remains 300/570 families, with 38 approved tranche-007 request families, 76 expected active cue rows, 20,811 estimated input tokens, 10,640 output-token budget, 61 cumulative exclusions, and 171 still-unreviewed uncovered rows.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.md",
+      "risk": "No-spend request-packet artifact only; paid generation has not started.",
+      "role": "Recomputes the active-only full-generation plan after expanding the cumulative source-target review manifest for the seventh uncovered slice.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full generation tranche 007 pre-spend plan report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006-normalized_evidence.json",
         "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py"
       ]
     },
@@ -14020,7 +14084,7 @@
     "current_research": 94,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 209,
+    "generated_evidence": 210,
     "historical_reference": 5,
     "superseded": 2,
     "supporting_current": 2

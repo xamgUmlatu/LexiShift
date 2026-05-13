@@ -5,8 +5,8 @@
   "decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
   "reviewed_at": "2026-05-14",
   "review_scope": {
-    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json",
-    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue",
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json",
+    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue; tranche 007 prep reviewed the first 50 unreviewed rows after tranche 006 coverage/exclusion, global_need_rank 50-99 in the post-tranche-006 queue",
     "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
   },
   "reviewed_slices": [
@@ -51,6 +51,13 @@
       "selection": "first 50 source_target_review_status=unreviewed rows after tranche 005 coverage and exclusions, global_need_rank 39-88",
       "approved_count": 39,
       "excluded_count": 11
+    },
+    {
+      "slice_id": "tranche_007_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json",
+      "selection": "first 50 source_target_review_status=unreviewed rows after tranche 006 coverage and exclusions, global_need_rank 50-99",
+      "approved_count": 38,
+      "excluded_count": 12
     }
   ],
   "review_policy": {
@@ -2164,6 +2171,356 @@
       "approved_for_active_only_generation": true,
       "decision": "approve_direct_mapping",
       "rationale": "Direct food noun mapping."
+    },
+    {
+      "source": "sale",
+      "target": "deducción",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Sale normally maps to venta or rebaja; deducción means deduction, so this is too weak for visible replacement."
+    },
+    {
+      "source": "sentence",
+      "target": "condenar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for sentencing someone legally; narrow because sentence is usually a noun."
+    },
+    {
+      "source": "separate",
+      "target": "apartar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable verb mapping for separating or setting aside; narrow because separate is also a common adjective."
+    },
+    {
+      "source": "ski",
+      "target": "esquí",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct winter-sport/equipment noun mapping."
+    },
+    {
+      "source": "stable",
+      "target": "cuadra",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid noun mapping for a horse stable; narrow because stable is usually an adjective."
+    },
+    {
+      "source": "storm",
+      "target": "tempestad",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct weather noun mapping."
+    },
+    {
+      "source": "suggest",
+      "target": "designar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Suggest usually maps to sugerir or proponer; designar means designate/appoint, so this is too weak."
+    },
+    {
+      "source": "supplement",
+      "target": "suplemento",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for an added supplement."
+    },
+    {
+      "source": "swedish",
+      "target": "sueco",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct nationality/language adjective and noun mapping."
+    },
+    {
+      "source": "transfer",
+      "target": "atravesar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Transfer normally maps to transferir or trasladar; atravesar means cross/traverse, so this is too weak."
+    },
+    {
+      "source": "transport",
+      "target": "transportar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "yield",
+      "target": "ceder",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable mapping for yielding/giving way or ceding; narrow because yield can also mean produce."
+    },
+    {
+      "source": "abiding",
+      "target": "continuo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable adjective mapping for lasting/continuing; narrow because abiding can also mean compliant or faithful."
+    },
+    {
+      "source": "abstraction",
+      "target": "robo",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Abstraction normally means abstraction; robo means theft, so this rare legal sense is too weak for visible replacement."
+    },
+    {
+      "source": "accountable",
+      "target": "responsable",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for accountable/responsible."
+    },
+    {
+      "source": "argentine",
+      "target": "argentino",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct nationality adjective/noun mapping."
+    },
+    {
+      "source": "axle",
+      "target": "eje",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct mechanical noun mapping."
+    },
+    {
+      "source": "bark",
+      "target": "barco",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Bark normally means dog sound or tree covering; the ship sense is rare/archaic, and barco is too broad for paid active evidence."
+    },
+    {
+      "source": "baton",
+      "target": "palo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable mapping for a stick/baton; narrow because palo is broader than baton."
+    },
+    {
+      "source": "cane",
+      "target": "palo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable mapping for a walking stick or cane; narrow because palo is broader than cane."
+    },
+    {
+      "source": "chunk",
+      "target": "bola",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Chunk normally means a piece or trozo; bola means ball/lump and is too loose for visible replacement."
+    },
+    {
+      "source": "colleague",
+      "target": "colega",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "commence",
+      "target": "comenzar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "continual",
+      "target": "continuo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping."
+    },
+    {
+      "source": "courtyard",
+      "target": "patio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "cramped",
+      "target": "estrecho",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable adjective mapping for cramped/narrow spaces."
+    },
+    {
+      "source": "delegate",
+      "target": "diputado",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Delegate normally maps to delegado or delegar; diputado is a specific elected deputy and too weak here."
+    },
+    {
+      "source": "dial",
+      "target": "marcar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid phone-action verb mapping; narrow because dial is also a noun."
+    },
+    {
+      "source": "elegant",
+      "target": "elegante",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping."
+    },
+    {
+      "source": "exploit",
+      "target": "explotar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for exploiting resources or people; narrow because exploit is also a noun meaning feat."
+    },
+    {
+      "source": "faint",
+      "target": "débil",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable adjective mapping for faint/weak or dim; narrow because faint is also a verb."
+    },
+    {
+      "source": "grease",
+      "target": "grasa",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct noun mapping for grease/fat; narrow because grease can also be a verb."
+    },
+    {
+      "source": "haste",
+      "target": "prisa",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "invoke",
+      "target": "llamar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable call-upon/invoke mapping; narrow because llamar is broader and invocar is the closer target."
+    },
+    {
+      "source": "junction",
+      "target": "reunión",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Junction usually means crossing/join/union; reunión means meeting/gathering, so this is too weak."
+    },
+    {
+      "source": "lump",
+      "target": "bola",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable mapping for a rounded lump or clump; narrow because bola is broader and more ball-like."
+    },
+    {
+      "source": "nationality",
+      "target": "nacionalidad",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "restrain",
+      "target": "gobernar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Restrain normally maps to contener or reprimir; gobernar means govern, so this is too weak."
+    },
+    {
+      "source": "supper",
+      "target": "cena",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct meal noun mapping."
+    },
+    {
+      "source": "tasty",
+      "target": "rico",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for tasty/delicious."
+    },
+    {
+      "source": "thief",
+      "target": "ladrón",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "tidy",
+      "target": "arreglar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for tidying or putting in order; narrow because tidy is often an adjective."
+    },
+    {
+      "source": "urgency",
+      "target": "prisa",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable noun mapping where urgency means haste; narrow because urgencia is the closer general target."
+    },
+    {
+      "source": "utilize",
+      "target": "explotar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Utilize usually maps to utilizar or aprovechar; explotar is exploit and too narrow/misleading here."
+    },
+    {
+      "source": "vocabulary",
+      "target": "diccionario",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Vocabulary means vocabulario; diccionario means dictionary, so this is too weak for visible replacement."
+    },
+    {
+      "source": "adjacent",
+      "target": "contiguo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping."
+    },
+    {
+      "source": "cap",
+      "target": "birrete",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid academic-cap mapping; narrow because cap has many other headwear and limit senses."
+    },
+    {
+      "source": "command",
+      "target": "capitanear",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for commanding or captaining a group; narrow because command often means order or instruction."
+    },
+    {
+      "source": "decrease",
+      "target": "decrecer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for becoming smaller."
+    },
+    {
+      "source": "divide",
+      "target": "segregar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Divide usually maps to dividir or separar; segregar means segregate, so this is too narrow/misleading."
     }
   ]
 }
