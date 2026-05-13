@@ -1,0 +1,172 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:en-es-active-only-combined-full-v1-tranche-010",
+      "family_count": 446,
+      "row_count": 904,
+      "source_family": "internal_rulegen_artifact",
+      "source_id": "en-es-active-only-combined-full-v1-tranche-010",
+      "source_type": "internal"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-011",
+      "family_count": 9,
+      "row_count": 18,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-011",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-13T20:41:56Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-011_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+      "target": "decrecer",
+      "trigger": "abate"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+      "target": "yerro",
+      "trigger": "aberration"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+      "target": "exhortación",
+      "trigger": "admonition"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+      "target": "confiscar",
+      "trigger": "confiscate"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+      "target": "exhortación",
+      "trigger": "exhortation"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+      "target": "rezagado",
+      "trigger": "laggard"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+      "target": "rezagado",
+      "trigger": "straggler"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+      "target": "transitivo",
+      "trigger": "transitive"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+      "target": "reñir",
+      "trigger": "wrangle"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-011",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 18,
+    "base_normalized_row_count": 904,
+    "combined_normalized_row_count": 922,
+    "competition_set_count": 455,
+    "duplicate_row_count": 0,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 18,
+    "new_family_count": 9,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+        "target": "decrecer",
+        "trigger": "abate"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+        "target": "yerro",
+        "trigger": "aberration"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+        "target": "exhortación",
+        "trigger": "admonition"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+        "target": "confiscar",
+        "trigger": "confiscate"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+        "target": "exhortación",
+        "trigger": "exhortation"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+        "target": "rezagado",
+        "trigger": "laggard"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+        "target": "rezagado",
+        "trigger": "straggler"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+        "target": "transitivo",
+        "trigger": "transitive"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+        "target": "reñir",
+        "trigger": "wrangle"
+      }
+    ],
+    "sense_count": 497,
+    "trigger_count": 455
+  }
+}

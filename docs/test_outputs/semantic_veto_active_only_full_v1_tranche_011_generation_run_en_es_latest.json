@@ -1,0 +1,272 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 18,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "failures_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_failures.jsonl",
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json",
+    "raw_responses_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.jsonl",
+    "request_queue_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_request_queue.jsonl",
+    "run_manifest_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_run_manifest.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-011-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-13T20:41:07Z",
+  "pair": "en-es",
+  "pilot_id": "en-es-active-only-full-v1-tranche-011",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+      "first_sentence": "As the storm moved offshore, the winds began to abate by nightfall.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_007beb92d93b19e7016a04e1e48b2081968b954d09055cd1a5",
+      "slot_id": "en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 561,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 199,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 760
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+      "first_sentence": "The clerk caught the aberration in the ledger before it became a costly mistake.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0af30b5cfba1086c016a04e1e682d0819491b4cbd067657bec",
+      "slot_id": "en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 582,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 224,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 806
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+      "first_sentence": "The coach's admonition to keep pushing through the final mile lifted the whole team.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_08ec1fde865e2ece016a04e1e8a214819090f3b39a31e29cbc",
+      "slot_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 576,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 202,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 778
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+      "first_sentence": "Customs officers can confiscate undeclared cigarettes at the border.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0c314d7f8864f8e8016a04e1eb1e308197a8b5c336b6fdcd11",
+      "slot_id": "en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 567,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 747
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+      "first_sentence": "The mayor's exhortation to save water was repeated at every town meeting.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_042392964440880c016a04e1ecd00081949d5afcddfa472f87",
+      "slot_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 566,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 194,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 760
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+      "first_sentence": "The project was a laggard, finishing weeks after the others.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_050fe4069e635658016a04e1eedb1081949f7aedfb6c4a4548",
+      "slot_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 571,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 198,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 769
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+      "first_sentence": "The straggler finally caught up with the rest of the hiking group at the trail marker.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_049c91a4385b4962016a04e1f09fb881949a6d93625c2a9251",
+      "slot_id": "en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 565,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 202,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 767
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+      "first_sentence": "The verb take is transitive because it requires a direct object.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0fd688505da70324016a04e1f264408196a748f2e258be1623",
+      "slot_id": "en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 552,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 199,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 751
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+      "first_sentence": "The siblings began to wrangle over who should clean the kitchen.",
+      "item_count": 2,
+      "pilot_arm": "P3_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json#en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0918b2172294070c016a04e1f3de248196b775417a26b770c4",
+      "slot_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 581,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 197,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 778
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": null,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 18,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 18
+    },
+    "accepted_response_count": 9,
+    "accepted_responses_by_arm": {
+      "P3_exposure_first": 9
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 9
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 18,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 5121,
+    "invalid_output_count": 0,
+    "output_tokens": 1795,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 9
+  }
+}

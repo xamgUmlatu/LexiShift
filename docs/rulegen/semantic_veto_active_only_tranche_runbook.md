@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-14
-Last verified: 2026-05-14 against tranche-001/tranche-010 artifacts, the post-tranche-010 coverage plan, tranche-005 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
+Last verified: 2026-05-14 against tranche-001/tranche-011 artifacts, the post-tranche-011 coverage plan, tranche-005 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -18,28 +18,27 @@ Related docs:
 The latest automated-clean soft-assist pack is:
 
 ```text
-en-es-active-only-combined-full-v1-tranche-010
+en-es-active-only-combined-full-v1-tranche-011
 ```
 
 The latest operator-accepted product checkpoint is tranche-005. That acceptance
 is based on the tranche-005 automated follow-through summary; the latest
-hands-on browser-extension smoke remains tranche-003. Tranche-009 is
-now historical automated-clean evidence; tranche-010 is automated-clean and
+hands-on browser-extension smoke remains tranche-003. Tranche-010 is
+now historical automated-clean evidence; tranche-011 is automated-clean and
 ready for the same kind of operator checkpoint if desired.
 
 Current checkpoint:
 
-- automated-clean active-only coverage: `446 / 570` current SRS-derived source-target families,
-- remaining uncovered families: `124`,
-- remaining unreviewed generation queue rows after tranche-010 source-target review prep: `21`,
-- next runnable paid request packet: none until the remaining source-target review candidates are approved or excluded,
-- next required work: operator checkpoint for tranche-010 if desired, then review the final `21` candidates before any tranche-011 paid generation.
+- automated-clean active-only coverage: `455 / 570` current SRS-derived source-target families,
+- remaining uncovered families: `115`,
+- remaining active-only generation queue rows: `0`,
+- remaining uncovered rows are excluded from active-only generation by source-target review,
+- next required work: operator checkpoint for tranche-011 if desired; do not run more active-only generation unless the SRS denominator or source-target review policy changes.
 
-Do not start another paid run from the post-tranche-010 plan directly.
-The tranche-006, tranche-007, tranche-008, tranche-009, and tranche-010 pre-spend
-request packets below are historical evidence of completed paid runs. A
-tranche-011 pre-spend packet does not exist until source-target review is
-expanded again.
+Do not start another paid run from the post-tranche-011 plan directly.
+The tranche-006 through tranche-011 pre-spend request packets below are
+historical evidence of completed paid runs. A future pre-spend packet does not
+exist unless source-target review or the SRS denominator is expanded again.
 
 ```text
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md
@@ -52,6 +51,8 @@ docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_009_pre
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_009_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_010_pre_spend_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_010_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_011_pre_spend_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.md
 ```
 
 ## What This Runbook Improves
@@ -86,22 +87,22 @@ Current review manifest:
 docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es.json
 ```
 
-For the next tranche:
+For a future tranche, only after the denominator or review policy changes:
 
 1. Start from the latest post-tranche plan:
-   `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_010_en_es_latest.md`.
+   `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.md`.
 2. Review the next tranche-size block of `source_target_review_status=unreviewed` rows.
 3. Append a new `reviewed_slices` entry.
 4. Add one decision row per reviewed source-target family.
 
-This has already been completed for tranche-010 and must be repeated for tranche-011 before any spend after tranche-010.
+This has already been completed for tranche-011; there are no still-unreviewed active-only generation queue rows under the current denominator.
 The latest completed review slice was:
 
-- reviewed rows: global need ranks `84-133`,
-- approved rows: `30`,
-- excluded rows: `20`,
+- reviewed rows: global need ranks `104-124`,
+- approved rows: `9`,
+- excluded rows: `12`,
 - current request packet:
-  `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_010_pre_spend_en_es_latest.md`.
+  `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_011_pre_spend_en_es_latest.md`.
 
 Allowed review outcomes:
 
@@ -123,7 +124,7 @@ Commit point:
 Goal: prove the next paid packet is non-empty, reviewed, deduped, and costable.
 
 Use the current approved combined evidence as coverage input.
-For tranche-011, the expected base evidence is:
+For the latest completed tranche-011 run, the base evidence was:
 
 ```text
 docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-normalized_evidence.json
@@ -196,6 +197,15 @@ Completed tranche-010 pre-spend result:
 - estimated input tokens: `17,431`,
 - output-token budget: `8,400`,
 - review status over uncovered rows: `approved:30, excluded:103, unreviewed:21`.
+
+Completed tranche-011 pre-spend result:
+
+- status: `ok`,
+- selected request families: `9`,
+- expected active cue rows: `18`,
+- estimated input tokens: `5,304`,
+- output-token budget: `2,520`,
+- review status over uncovered rows: `approved:9, excluded:115`.
 
 ### Gate 3. Paid Generation
 
@@ -418,6 +428,21 @@ Completed tranche-010 follow-through:
   decisions, `68` replaces, `52` abstains, `0` fallback decisions, and `0`
   page fetch errors.
 
+Completed tranche-011 follow-through:
+
+- live generation accepted `9/9` responses with `0` invalid outputs,
+- admission accepted `18/18` active items across `9/9` expected responses with
+  `0` rejects and `0` coverage shortfall,
+- source packaging produced `18` canonical `anchor_cue` rows across `9`
+  families with `0` exclusions,
+- the combined pack now has `922` normalized evidence rows across `455`
+  families, with `455` triggers, `497` senses, and `455` competition sets,
+- isolated install wrote `455` helper rules with `432` active-only and `23`
+  shadowed/mixed competition sets,
+- live public-page scan over the installed fixture produced `120` policy
+  decisions, `68` replaces, `52` abstains, `0` fallback decisions, and `0`
+  page fetch errors.
+
 Operator smoke:
 
 - use `docs/rulegen/semantic_pack_operator_smoke_runbook.md`,
@@ -452,11 +477,11 @@ Refresh the post-tranche plan with the new combined evidence:
 
 ```bash
 python3 scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py \
-  --existing-evidence-json docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-normalized_evidence.json \
-  --pilot-id en-es-active-only-full-v1-post-tranche-010 \
+  --existing-evidence-json docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-normalized_evidence.json \
+  --pilot-id en-es-active-only-full-v1-post-tranche-011 \
   --request-family-limit 50 \
-  --json-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_010_en_es_latest.json \
-  --markdown-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_010_en_es_latest.md \
+  --json-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.md \
   --fail-on-review
 ```
 
@@ -466,17 +491,15 @@ Expected post-tranche behavior:
 - the remaining unreviewed queue count should shrink by the reviewed tranche size,
 - coverage should increase by the accepted generated families.
 
-Current actual post-tranche-010 state:
+Current actual post-tranche-011 state:
 
-- status is `review`, because the remaining source-target review candidates
-  have not been approved or excluded yet,
-- covered families are `446 / 570`, or `78.2%`,
-- remaining uncovered families are `124`,
-- remaining unreviewed generation queue rows are `21` after `103` cumulative
+- status is `ok`,
+- covered families are `455 / 570`, or `79.8%`,
+- remaining uncovered families are `115`,
+- remaining active-only generation queue rows are `0` after `115` cumulative
   exclusions,
-- selected request count is `0` until the next reviewed slice is added,
-- expected generated rows for all currently unreviewed queue families are
-  `42`.
+- selected request count is `0`,
+- expected generated rows for all currently queued families are `0`.
 
 Commit point:
 

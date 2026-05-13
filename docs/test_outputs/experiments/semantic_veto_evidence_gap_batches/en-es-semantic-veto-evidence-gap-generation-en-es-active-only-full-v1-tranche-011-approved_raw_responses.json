@@ -1,0 +1,978 @@
+{
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-011-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-13T20:41:07Z",
+  "pair": "en-es",
+  "pilot_id": "en-es-active-only-full-v1-tranche-011",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_count": 9,
+  "requests": [
+    {
+      "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:abate:decrecer:a89e2928\",\"slot_id\":\"en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"abate\",\"target_lemma\":\"decrecer\",\"items\":[{\"sentence\":\"As the storm moved offshore, the winds began to abate by nightfall.\",\"evidence_note\":\"abate means to lessen or decrease in intensity.\"},{\"sentence\":\"After the medication took effect, her fever started to abate steadily.\",\"evidence_note\":\"abate is used in the sense of declining or decreasing.\"}],\"target_lemma\":\"decrecer\"}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\nfamily_id: en-es:srs-source-target:abate:decrecer:a89e2928\nslot_id: en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: abate\ntarget_lemma: decrecer\nactive_target_lemma: decrecer\nactive_evidence_text: Use 'abate' in natural English contexts where the intended Spanish replacement is 'decrecer'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Direct verb mapping for lessen, subside, or decrease.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:abate:decrecer:a89e2928\", \"slot_id\": \"en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"abate\", \"target_lemma\": \"decrecer\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_007beb92d93b19e7016a04e1e48b2081968b954d09055cd1a5",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704870.0,
+        "conversation": null,
+        "created_at": 1778704868.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_007beb92d93b19e7016a04e1e48b2081968b954d09055cd1a5",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:abate:decrecer:a89e2928",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:abate:decrecer:a89e2928\",\"slot_id\":\"en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"abate\",\"target_lemma\":\"decrecer\",\"items\":[{\"sentence\":\"As the storm moved offshore, the winds began to abate by nightfall.\",\"evidence_note\":\"abate means to lessen or decrease in intensity.\"},{\"sentence\":\"After the medication took effect, her fever started to abate steadily.\",\"evidence_note\":\"abate is used in the sense of declining or decreasing.\"}],\"target_lemma\":\"decrecer\"}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_007beb92d93b19e7016a04e1e508bc8196968d176e816fdf4e",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 561,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 199,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 760
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:abate:decrecer:a89e2928:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 561,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 199,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 760
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:aberration:yerro:4e3d998f\",\"slot_id\":\"en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"aberration\",\"target_lemma\":\"yerro\",\"items\":[{\"sentence\":\"The clerk caught the aberration in the ledger before it became a costly mistake.\",\"evidence_note\":\"aberration refers to a specific error in a record, matching the narrow mistake sense of yerro.\"},{\"sentence\":\"Her sudden aberration in the final answer was a simple slip, not a change in opinion.\",\"evidence_note\":\"aberration is used for a single mistaken action, clearly aligning with yerro rather than a broad deviation sense.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\nfamily_id: en-es:srs-source-target:aberration:yerro:4e3d998f\nslot_id: en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: aberration\ntarget_lemma: yerro\nactive_target_lemma: yerro\nactive_evidence_text: Use 'aberration' in natural English contexts where the intended Spanish replacement is 'yerro'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Visible noun with a narrow error/mistake sense compatible with yerro, separate from broader deviation senses.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:aberration:yerro:4e3d998f\", \"slot_id\": \"en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"aberration\", \"target_lemma\": \"yerro\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0af30b5cfba1086c016a04e1e682d0819491b4cbd067657bec",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704872.0,
+        "conversation": null,
+        "created_at": 1778704870.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0af30b5cfba1086c016a04e1e682d0819491b4cbd067657bec",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:aberration:yerro:4e3d998f",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:aberration:yerro:4e3d998f\",\"slot_id\":\"en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"aberration\",\"target_lemma\":\"yerro\",\"items\":[{\"sentence\":\"The clerk caught the aberration in the ledger before it became a costly mistake.\",\"evidence_note\":\"aberration refers to a specific error in a record, matching the narrow mistake sense of yerro.\"},{\"sentence\":\"Her sudden aberration in the final answer was a simple slip, not a change in opinion.\",\"evidence_note\":\"aberration is used for a single mistaken action, clearly aligning with yerro rather than a broad deviation sense.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0af30b5cfba1086c016a04e1e7063c819493373ac3f384bd7d",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 582,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 224,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 806
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:aberration:yerro:4e3d998f:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 582,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 224,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 806
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:admonition:exhortacion:d75f45fe\",\"slot_id\":\"en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"admonition\",\"target_lemma\":\"exhortación\",\"items\":[{\"sentence\":\"The coach's admonition to keep pushing through the final mile lifted the whole team.\",\"evidence_note\":\"Visible urging to continue and give effort; fits an exhortation sense.\"},{\"sentence\":\"Her admonition to speak up for the vulnerable was repeated throughout the meeting.\",\"evidence_note\":\"A clear call to action and moral urging, matching exhortación.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\nfamily_id: en-es:srs-source-target:admonition:exhortacion:d75f45fe\nslot_id: en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: admonition\ntarget_lemma: exhortación\nactive_target_lemma: exhortación\nactive_evidence_text: Use 'admonition' in natural English contexts where the intended Spanish replacement is 'exhortación'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Visible noun with an advice/urging/warning sense that can map narrowly to exhortación.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:admonition:exhortacion:d75f45fe\", \"slot_id\": \"en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"admonition\", \"target_lemma\": \"exhortación\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_08ec1fde865e2ece016a04e1e8a214819090f3b39a31e29cbc",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704874.0,
+        "conversation": null,
+        "created_at": 1778704872.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_08ec1fde865e2ece016a04e1e8a214819090f3b39a31e29cbc",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:admonition:exhortacion:d75f45fe\",\"slot_id\":\"en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"admonition\",\"target_lemma\":\"exhortación\",\"items\":[{\"sentence\":\"The coach's admonition to keep pushing through the final mile lifted the whole team.\",\"evidence_note\":\"Visible urging to continue and give effort; fits an exhortation sense.\"},{\"sentence\":\"Her admonition to speak up for the vulnerable was repeated throughout the meeting.\",\"evidence_note\":\"A clear call to action and moral urging, matching exhortación.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_08ec1fde865e2ece016a04e1e91c8c8190954b372eaeaa5458",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 576,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 202,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 778
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:admonition:exhortacion:d75f45fe:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 576,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 202,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 778
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:confiscate:confiscar:6016e741\",\"slot_id\":\"en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"confiscate\",\"target_lemma\":\"confiscar\",\"items\":[{\"sentence\":\"Customs officers can confiscate undeclared cigarettes at the border.\",\"evidence_note\":\"Authority seizes prohibited goods.\"},{\"sentence\":\"The police may confiscate the fake passports during the investigation.\",\"evidence_note\":\"Official seizure by law enforcement.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\nfamily_id: en-es:srs-source-target:confiscate:confiscar:6016e741\nslot_id: en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: confiscate\ntarget_lemma: confiscar\nactive_target_lemma: confiscar\nactive_evidence_text: Use 'confiscate' in natural English contexts where the intended Spanish replacement is 'confiscar'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Direct verb mapping for seize by authority.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:confiscate:confiscar:6016e741\", \"slot_id\": \"en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"confiscate\", \"target_lemma\": \"confiscar\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0c314d7f8864f8e8016a04e1eb1e308197a8b5c336b6fdcd11",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704876.0,
+        "conversation": null,
+        "created_at": 1778704875.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0c314d7f8864f8e8016a04e1eb1e308197a8b5c336b6fdcd11",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:confiscate:confiscar:6016e741",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:confiscate:confiscar:6016e741\",\"slot_id\":\"en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"confiscate\",\"target_lemma\":\"confiscar\",\"items\":[{\"sentence\":\"Customs officers can confiscate undeclared cigarettes at the border.\",\"evidence_note\":\"Authority seizes prohibited goods.\"},{\"sentence\":\"The police may confiscate the fake passports during the investigation.\",\"evidence_note\":\"Official seizure by law enforcement.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0c314d7f8864f8e8016a04e1eb90a48197a787957728a61990",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 567,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 180,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 747
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:confiscate:confiscar:6016e741:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 567,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 747
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:exhortation:exhortacion:219d6592\",\"slot_id\":\"en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"exhortation\",\"target_lemma\":\"exhortación\",\"items\":[{\"sentence\":\"The mayor's exhortation to save water was repeated at every town meeting.\",\"evidence_note\":\"Clear urging or call to action in a public address.\"},{\"sentence\":\"Her exhortation to the team came just before they rushed onto the field.\",\"evidence_note\":\"Shows a forceful appeal meant to motivate action.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\nfamily_id: en-es:srs-source-target:exhortation:exhortacion:219d6592\nslot_id: en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: exhortation\ntarget_lemma: exhortación\nactive_target_lemma: exhortación\nactive_evidence_text: Use 'exhortation' in natural English contexts where the intended Spanish replacement is 'exhortación'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Direct noun mapping for urging or exhorting.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:exhortation:exhortacion:219d6592\", \"slot_id\": \"en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"exhortation\", \"target_lemma\": \"exhortación\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_042392964440880c016a04e1ecd00081949d5afcddfa472f87",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704878.0,
+        "conversation": null,
+        "created_at": 1778704876.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_042392964440880c016a04e1ecd00081949d5afcddfa472f87",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:exhortation:exhortacion:219d6592\",\"slot_id\":\"en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"exhortation\",\"target_lemma\":\"exhortación\",\"items\":[{\"sentence\":\"The mayor's exhortation to save water was repeated at every town meeting.\",\"evidence_note\":\"Clear urging or call to action in a public address.\"},{\"sentence\":\"Her exhortation to the team came just before they rushed onto the field.\",\"evidence_note\":\"Shows a forceful appeal meant to motivate action.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_042392964440880c016a04e1ed419c8194ad14f3337758371d",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 566,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 194,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 760
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:exhortation:exhortacion:219d6592:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 566,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 194,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 760
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:laggard:rezagado:59ff6b32\",\"slot_id\":\"en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"laggard\",\"target_lemma\":\"rezagado\",\"items\":[{\"sentence\":\"The project was a laggard, finishing weeks after the others.\",\"evidence_note\":\"Describes something that falls behind the rest in progress and timing.\"},{\"sentence\":\"In the race, she started fast, but one laggard runner trailed far behind the pack.\",\"evidence_note\":\"Shows a person who lags behind the others.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\nfamily_id: en-es:srs-source-target:laggard:rezagado:59ff6b32\nslot_id: en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: laggard\ntarget_lemma: rezagado\nactive_target_lemma: rezagado\nactive_evidence_text: Use 'laggard' in natural English contexts where the intended Spanish replacement is 'rezagado'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Direct noun/adjective mapping for someone or something that lags behind.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:laggard:rezagado:59ff6b32\", \"slot_id\": \"en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"laggard\", \"target_lemma\": \"rezagado\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_050fe4069e635658016a04e1eedb1081949f7aedfb6c4a4548",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704880.0,
+        "conversation": null,
+        "created_at": 1778704878.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_050fe4069e635658016a04e1eedb1081949f7aedfb6c4a4548",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:laggard:rezagado:59ff6b32\",\"slot_id\":\"en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"laggard\",\"target_lemma\":\"rezagado\",\"items\":[{\"sentence\":\"The project was a laggard, finishing weeks after the others.\",\"evidence_note\":\"Describes something that falls behind the rest in progress and timing.\"},{\"sentence\":\"In the race, she started fast, but one laggard runner trailed far behind the pack.\",\"evidence_note\":\"Shows a person who lags behind the others.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_050fe4069e635658016a04e1ef1ab081948090b125160fd538",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 571,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 198,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 769
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:laggard:rezagado:59ff6b32:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 571,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 198,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 769
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:straggler:rezagado:e9269d35\",\"slot_id\":\"en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"straggler\",\"target_lemma\":\"rezagado\",\"items\":[{\"sentence\":\"The straggler finally caught up with the rest of the hiking group at the trail marker.\",\"evidence_note\":\"A person who fell behind and later rejoined the group.\"},{\"sentence\":\"After the sprint, one straggler was still coming down the track while the others had already finished.\",\"evidence_note\":\"Someone lagging behind the others in a race.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\nfamily_id: en-es:srs-source-target:straggler:rezagado:e9269d35\nslot_id: en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: straggler\ntarget_lemma: rezagado\nactive_target_lemma: rezagado\nactive_evidence_text: Use 'straggler' in natural English contexts where the intended Spanish replacement is 'rezagado'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Direct noun mapping for someone who falls behind the group.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:straggler:rezagado:e9269d35\", \"slot_id\": \"en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"straggler\", \"target_lemma\": \"rezagado\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_049c91a4385b4962016a04e1f09fb881949a6d93625c2a9251",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704882.0,
+        "conversation": null,
+        "created_at": 1778704880.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_049c91a4385b4962016a04e1f09fb881949a6d93625c2a9251",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:straggler:rezagado:e9269d35",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:straggler:rezagado:e9269d35\",\"slot_id\":\"en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"straggler\",\"target_lemma\":\"rezagado\",\"items\":[{\"sentence\":\"The straggler finally caught up with the rest of the hiking group at the trail marker.\",\"evidence_note\":\"A person who fell behind and later rejoined the group.\"},{\"sentence\":\"After the sprint, one straggler was still coming down the track while the others had already finished.\",\"evidence_note\":\"Someone lagging behind the others in a race.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_049c91a4385b4962016a04e1f0e25c81948f4770c55c9ec97d",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 565,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 202,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 767
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:straggler:rezagado:e9269d35:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 565,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 202,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 767
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:transitive:transitivo:08c49e29\",\"slot_id\":\"en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"transitive\",\"target_lemma\":\"transitivo\",\"items\":[{\"sentence\":\"The verb take is transitive because it requires a direct object.\",\"evidence_note\":\"Uses transitive in the grammatical sense of a verb that takes a direct object.\"},{\"sentence\":\"In her notes, she marked run as intransitive and give as transitive.\",\"evidence_note\":\"Contrasts transitive with intransitive to show the grammatical property clearly.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\nfamily_id: en-es:srs-source-target:transitive:transitivo:08c49e29\nslot_id: en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: transitive\ntarget_lemma: transitivo\nactive_target_lemma: transitivo\nactive_evidence_text: Use 'transitive' in natural English contexts where the intended Spanish replacement is 'transitivo'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Direct grammatical adjective mapping.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:transitive:transitivo:08c49e29\", \"slot_id\": \"en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"transitive\", \"target_lemma\": \"transitivo\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0fd688505da70324016a04e1f264408196a748f2e258be1623",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704883.0,
+        "conversation": null,
+        "created_at": 1778704882.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0fd688505da70324016a04e1f264408196a748f2e258be1623",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:transitive:transitivo:08c49e29",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:transitive:transitivo:08c49e29\",\"slot_id\":\"en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"transitive\",\"target_lemma\":\"transitivo\",\"items\":[{\"sentence\":\"The verb take is transitive because it requires a direct object.\",\"evidence_note\":\"Uses transitive in the grammatical sense of a verb that takes a direct object.\"},{\"sentence\":\"In her notes, she marked run as intransitive and give as transitive.\",\"evidence_note\":\"Contrasts transitive with intransitive to show the grammatical property clearly.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0fd688505da70324016a04e1f29d0c81969f38789d8a8fc0a7",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 552,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 199,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 751
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:transitive:transitivo:08c49e29:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 552,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 199,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 751
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+      "model_id": "gpt-5.4-mini",
+      "output_text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:wrangle:renir:2f7db0f0\",\"slot_id\":\"en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"wrangle\",\"target_lemma\":\"reñir\",\"items\":[{\"sentence\":\"The siblings began to wrangle over who should clean the kitchen.\",\"evidence_note\":\"Active quarrel or argue sense, matching reñir.\"},{\"sentence\":\"Neighbors started to wrangle about the noise late into the night.\",\"evidence_note\":\"Visible argument between people, the intended active sense of reñir.\"}]}",
+      "pilot_arm": "P3_exposure_first",
+      "prompt_text": "Return exactly one JSON object. Preserve request_id, family_id, slot_id, slot_type, source_phrase, and target_lemma exactly as given. Do not include markdown. Generated English sentences must not contain Spanish target lemmas unless a target lemma is exactly identical to source_phrase; in that exact cognate case, the required source token is allowed. Do not add labels like allow, abstain, active, shadow, or no-winner inside generated sentences. Every generated sentence must contain source_phrase as an exact standalone browser-replaceable token separated by spaces or ordinary punctuation. Do not hide source_phrase inside filenames, URLs, code identifiers, hashtags, handles, underscores, camelCase, or compounds. Return exactly requested_items item objects unless you are returning the explicit unable_to_find_distinct_competitor marker.\n\nrequest_id: en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\nfamily_id: en-es:srs-source-target:wrangle:renir:2f7db0f0\nslot_id: en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\nslot_type: active_evidence_expansion\nsource_phrase: wrangle\ntarget_lemma: reñir\nactive_target_lemma: reñir\nactive_evidence_text: Use 'wrangle' in natural English contexts where the intended Spanish replacement is 'reñir'. The sentence should make that source-target sense clear without using the Spanish word. Reviewed intended-sense note: Visible verb meaning quarrel or argue, compatible with reñir in the active sense.\nknown_shadow_targets: -\nrequested_items: 2\n\nRequired top-level JSON fields and exact values:\n{\"request_id\": \"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\", \"family_id\": \"en-es:srs-source-target:wrangle:renir:2f7db0f0\", \"slot_id\": \"en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\", \"slot_type\": \"active_evidence_expansion\", \"source_phrase\": \"wrangle\", \"target_lemma\": \"reñir\", \"items\": \"...\"}\n\nTask: generate concise English evidence examples for the active sense. Each item should be a natural sentence containing the source_phrase and making the active target sense clear from context.\nSchema: {request_id, family_id, slot_id, slot_type, source_phrase, target_lemma, items:[{sentence, evidence_note}]}",
+      "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0918b2172294070c016a04e1f3de248196b775417a26b770c4",
+      "response_json": {
+        "background": false,
+        "billing": {
+          "payer": "developer"
+        },
+        "completed_at": 1778704885.0,
+        "conversation": null,
+        "created_at": 1778704883.0,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "id": "resp_0918b2172294070c016a04e1f3de248196b775417a26b770c4",
+        "incomplete_details": null,
+        "instructions": null,
+        "max_output_tokens": 700,
+        "max_tool_calls": null,
+        "metadata": {
+          "family_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0",
+          "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+          "request_id": "en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+          "slot_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion"
+        },
+        "model": "gpt-5.4-mini-2026-03-17",
+        "moderation": null,
+        "object": "response",
+        "output": [
+          {
+            "content": [
+              {
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"request_id\":\"en-es-active-only-full-v1-tranche-011:en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\",\"family_id\":\"en-es:srs-source-target:wrangle:renir:2f7db0f0\",\"slot_id\":\"en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion\",\"slot_type\":\"active_evidence_expansion\",\"source_phrase\":\"wrangle\",\"target_lemma\":\"reñir\",\"items\":[{\"sentence\":\"The siblings began to wrangle over who should clean the kitchen.\",\"evidence_note\":\"Active quarrel or argue sense, matching reñir.\"},{\"sentence\":\"Neighbors started to wrangle about the noise late into the night.\",\"evidence_note\":\"Visible argument between people, the intended active sense of reñir.\"}]}",
+                "type": "output_text"
+              }
+            ],
+            "id": "msg_0918b2172294070c016a04e1f4463081969c86b1451d5bf303",
+            "phase": "final_answer",
+            "role": "assistant",
+            "status": "completed",
+            "type": "message"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": "in_memory",
+        "reasoning": {
+          "effort": "none",
+          "generate_summary": null,
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "status": "completed",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_object"
+          },
+          "verbosity": "medium"
+        },
+        "tool_choice": "auto",
+        "tools": [],
+        "top_logprobs": 0,
+        "top_p": 0.98,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 581,
+          "input_tokens_details": {
+            "cached_tokens": 0
+          },
+          "output_tokens": 197,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 778
+        },
+        "user": null
+      },
+      "response_status": "completed",
+      "slot_id": "en-es:srs-source-target:wrangle:renir:2f7db0f0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "completed",
+      "temperature": null,
+      "usage": {
+        "input_tokens": 581,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 197,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 778
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": null
+}

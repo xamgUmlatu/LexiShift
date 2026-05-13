@@ -79,6 +79,13 @@
       "selection": "first 50 source_target_review_status=unreviewed rows after tranche 009 coverage and exclusions, global_need_rank 84-133",
       "approved_count": 30,
       "excluded_count": 20
+    },
+    {
+      "slice_id": "tranche_011_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_010_en_es_latest.json",
+      "selection": "remaining 21 source_target_review_status=unreviewed rows after tranche 010 coverage and exclusions, global_need_rank 104-124",
+      "approved_count": 9,
+      "excluded_count": 12
     }
   ],
   "review_policy": {
@@ -3592,6 +3599,153 @@
       "approved_for_active_only_generation": false,
       "decision": "exclude_no_visible_replacement",
       "rationale": "Fused phrase artifact for go beyond, and the target cross/traverse is not reliable for the phrase."
+    },
+    {
+      "source": "mosaicwork",
+      "target": "mosaico",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for mosaic work; not a useful standalone browser trigger."
+    },
+    {
+      "source": "offerofparriage",
+      "target": "pretensión",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Malformed fused phrase artifact, likely offer of marriage; not a useful standalone browser trigger."
+    },
+    {
+      "source": "polishwoman",
+      "target": "polaca",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for Polish woman; the visible browser form should be separate words, not this trigger."
+    },
+    {
+      "source": "reverseside",
+      "target": "reverso",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for reverse side; not a useful standalone browser trigger."
+    },
+    {
+      "source": "turnaway",
+      "target": "apartar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrasal-verb artifact for turn away; not a useful standalone browser trigger in this source form."
+    },
+    {
+      "source": "withoutaname",
+      "target": "anónimo",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for without a name; not a useful standalone browser trigger."
+    },
+    {
+      "source": "abate",
+      "target": "decrecer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for lessen, subside, or decrease."
+    },
+    {
+      "source": "aberration",
+      "target": "yerro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Visible noun with a narrow error/mistake sense compatible with yerro, separate from broader deviation senses."
+    },
+    {
+      "source": "admonition",
+      "target": "exhortación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Visible noun with an advice/urging/warning sense that can map narrowly to exhortación."
+    },
+    {
+      "source": "battlefront",
+      "target": "frontón",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Battlefront means a battle line or combat front; frontón is a court/wall sense and is not the active target."
+    },
+    {
+      "source": "begrudge",
+      "target": "deplorar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Begrudge means envy, resent, or give reluctantly; deplorar means deplore or lament and is not the active target."
+    },
+    {
+      "source": "beret",
+      "target": "birrete",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Beret normally maps to boina; birrete is a mortarboard or formal cap, so this source-target mapping is weak for runtime replacement."
+    },
+    {
+      "source": "confiscate",
+      "target": "confiscar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for seize by authority."
+    },
+    {
+      "source": "exhortation",
+      "target": "exhortación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for urging or exhorting."
+    },
+    {
+      "source": "frontage",
+      "target": "frontón",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Frontage means the front of a property or facade; frontón is a court/wall sense and is not the active target."
+    },
+    {
+      "source": "haddock",
+      "target": "merluza",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Haddock is not the same fish as merluza/hake, so the mapping is too weak for active cue generation."
+    },
+    {
+      "source": "laggard",
+      "target": "rezagado",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun/adjective mapping for someone or something that lags behind."
+    },
+    {
+      "source": "straggler",
+      "target": "rezagado",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for someone who falls behind the group."
+    },
+    {
+      "source": "transitive",
+      "target": "transitivo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct grammatical adjective mapping."
+    },
+    {
+      "source": "wrangle",
+      "target": "reñir",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Visible verb meaning quarrel or argue, compatible with reñir in the active sense."
+    },
+    {
+      "source": "taketheplaceof",
+      "target": "relevar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for take the place of; not a useful standalone browser trigger."
     }
   ]
 }
