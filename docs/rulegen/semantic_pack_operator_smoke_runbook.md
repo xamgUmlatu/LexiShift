@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-13
-Last verified: 2026-05-13 against the `en-es-active-only-combined-full-v1-tranche-003` default pack id, Advanced debug install flow wiring, helper/native-host install command, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 automated install/page-scan evidence, and tranche-003 operator smoke evidence
+Last verified: 2026-05-13 against the `en-es-active-only-combined-full-v1-tranche-004` default pack id, Advanced debug install flow wiring, helper/native-host install command, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-004 automated install/page-scan evidence, and tranche-003 operator smoke evidence
 Purpose: give a tester a repeatable way to install and smoke-test the current semantic-veto pack without relying on chat history
 Source-of-truth: operational runbook only; implementation truth lives in `core/lexishift_core/helper/use_cases/semantic_pack_install.py`, `scripts/helper/lexishift_native_host.py`, `apps/chrome-extension/options.html`, and the extension helper client
 Related docs:
@@ -18,7 +18,7 @@ Related docs:
 This runbook is for the current private/operator semantic-veto smoke path:
 
 - pair: `en-es`
-- pack id: `en-es-active-only-combined-full-v1-tranche-003`
+- pack id: `en-es-active-only-combined-full-v1-tranche-004`
 - runtime policy: `en_es_sentence_veto_v2`
 - active-only floor: `min_active_score=0.015`
 - install surface: extension Options -> Advanced debug tools -> semantic pack installer
@@ -29,15 +29,14 @@ soft-assist smoke path.
 
 ## Current Approval Status
 
-The tranche-003 pack is operator-approved for the current soft-assist PoC.
-This approval was recorded after the runtime began sending surrounding
-sentence/block context instead of tiny split-inline text-node fragments, and
-after the semantic admission batching speedup. The operator tested tranche-003
-in the browser runtime and judged the product feel good enough to mark the
-checkpoint successful.
+The tranche-004 pack is automated-clean and ready for operator smoke. It has
+passed repaired admission, source packaging, isolated install, and automated
+live-page scan, but it is not yet operator-approved.
 
-The previous tranche-002 data remains a useful rollback/comparison pack, but it
-is no longer the latest operator-approved pack.
+The previous tranche-003 data remains the latest operator-approved
+browser-extension soft-assist PoC. That approval was recorded after the runtime
+began sending surrounding sentence/block context instead of tiny split-inline
+text-node fragments, and after the semantic admission batching speedup.
 
 Rerun it when:
 
@@ -89,17 +88,17 @@ That is usually better than a disconnected temp root for live browser review.
 5. Enable SRS practice mode.
 6. Open `Advanced debug tools`.
 7. Leave `Semantic inventory path override` blank.
-8. Leave `Semantic pack id` as `en-es-active-only-combined-full-v1-tranche-003`.
+8. Leave `Semantic pack id` as `en-es-active-only-combined-full-v1-tranche-004`.
 9. For live extension smoke, leave `Install to default helper data folder` checked.
 10. Click `Install semantic pack...`.
 11. Confirm the overwrite prompt.
 
 Expected current install result:
 
-- pack id: `en-es-active-only-combined-full-v1-tranche-003`
+- pack id: `en-es-active-only-combined-full-v1-tranche-004`
 - profile id: the selected profile, usually `default`
-- rules: `178`
-- competition sets: `178`
+- rules: `224`
+- competition sets: `224`
 
 The install route writes both:
 
@@ -137,7 +136,7 @@ That is not an install failure by itself.
 
 Use ordinary pages that contain words from the current pack.
 
-Known useful pages from the tranche-003 automated scan and earlier tranche-002
+Known useful pages from the tranche-004 automated scan and earlier tranche-003
 smoke:
 
 - `https://en.wikipedia.org/wiki/Dentist`
@@ -151,6 +150,8 @@ smoke:
 - `https://en.wikipedia.org/wiki/Brother`
 - `https://en.wikipedia.org/wiki/Rebate_(marketing)`
 - `https://en.wikipedia.org/wiki/Smile`
+- `https://en.wikipedia.org/wiki/December`
+- `https://en.wikipedia.org/wiki/Latin`
 
 The first operator smoke also used:
 
@@ -175,6 +176,14 @@ Useful current pack triggers include:
 - `work`
 - `light`
 - `report`
+- `jack`
+- `japanese`
+- `judge`
+- `knock`
+- `latin`
+- `male`
+- `measure`
+- `regulation`
 
 Do not treat the page list as a benchmark.
 It is a product-feel smoke surface.
@@ -238,7 +247,7 @@ Product-like default helper-root install:
 python3 scripts/helper/lexishift_helper.py install_semantic_pack \
   --pair en-es \
   --profile-id default \
-  --pack-id en-es-active-only-combined-full-v1-tranche-003 \
+  --pack-id en-es-active-only-combined-full-v1-tranche-004 \
   --allow-default-data-root
 ```
 
@@ -248,7 +257,7 @@ Disposable materialization check:
 python3 scripts/helper/lexishift_helper.py install_semantic_pack \
   --pair en-es \
   --profile-id default \
-  --pack-id en-es-active-only-combined-full-v1-tranche-003 \
+  --pack-id en-es-active-only-combined-full-v1-tranche-004 \
   --data-root /tmp/lexishift-semantic-pack-smoke
 ```
 
@@ -258,7 +267,7 @@ Dry-run preview:
 python3 scripts/helper/lexishift_helper.py install_semantic_pack \
   --pair en-es \
   --profile-id default \
-  --pack-id en-es-active-only-combined-full-v1-tranche-003 \
+  --pack-id en-es-active-only-combined-full-v1-tranche-004 \
   --allow-default-data-root \
   --dry-run
 ```
@@ -274,7 +283,7 @@ For the default helper root, the low-risk rollback is to reinstall the previous 
 The previous operator-approved named semantic pack remains:
 
 ```text
-en-es-active-only-combined-full-v1-tranche-002
+en-es-active-only-combined-full-v1-tranche-003
 ```
 
 If the goal is only to stop semantic-veto behavior temporarily, disable SRS practice mode or test with a profile that has no semantic-ready publication.

@@ -444,13 +444,19 @@ def _generation_family_row(row: Mapping[str, object]) -> dict[str, object]:
     source = str(row.get("source") or "")
     target = str(row.get("target") or "")
     score = _priority_score(row)
+    active_evidence_hint = _active_evidence_hint(source=source, target=target)
+    review_rationale = str(row.get("source_target_review_rationale") or "").strip()
+    if review_rationale:
+        active_evidence_hint = (
+            f"{active_evidence_hint} Reviewed intended-sense note: {review_rationale}"
+        )
     return {
         **dict(row),
         "family_id": _family_id(source=source, target=target),
         "trigger": source,
         "active": {
             "target_lemma": target,
-            "evidence_text": _active_evidence_hint(source=source, target=target),
+            "evidence_text": active_evidence_hint,
         },
         "shadows": [],
         "target_lemma": target,
@@ -468,6 +474,12 @@ def _request_from_family(
     requested_items: int,
 ) -> dict[str, object]:
     active = _as_mapping(family.get("active"))
+    active_evidence_text = str(active.get("evidence_text") or "")
+    review_rationale = str(family.get("source_target_review_rationale") or "").strip()
+    if review_rationale and "Reviewed intended-sense note:" not in active_evidence_text:
+        active_evidence_text = (
+            f"{active_evidence_text} Reviewed intended-sense note: {review_rationale}"
+        )
     request = {
         "request_id": f"{pilot_id}:{family.get('family_id')}:{ACTIVE_SLOT}",
         "request_kind": REQUEST_KIND,
@@ -480,7 +492,7 @@ def _request_from_family(
         "predicted_need": family.get("predicted_need"),
         "trigger": str(family.get("trigger") or ""),
         "active_target_lemma": str(active.get("target_lemma") or family.get("target") or ""),
-        "active_evidence_text": str(active.get("evidence_text") or ""),
+        "active_evidence_text": active_evidence_text,
         "known_shadow_targets": [],
         "slot_id": f"{family.get('family_id')}:{ACTIVE_SLOT}",
         "slot_type": ACTIVE_SLOT,

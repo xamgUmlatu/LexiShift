@@ -4,7 +4,7 @@ Status: active plan
 Role: Planning / pre-scan framing
 Purpose: define what semantic-routing data should eventually be generated with LLM support, which units deserve queueing, what can be inferred automatically versus what remains hypothesis, and how to avoid redundant generation work
 Last updated: 2026-05-12
-Last verified: 2026-05-13 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, post-tranche-003 coverage plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator browser-extension smoke, and tranche-004 pre-spend source-target review/request plan
+Last verified: 2026-05-13 active-only prompt-variant bakeoff, generated-evidence admission, postprocess scoring over the frozen 24-family PoC denominator, the product-scope band-grading v1 active-only reuse tranche, the active-only scale tranche through combined 49-family packaging, inventory replay, helper runtime smoke, live-page scan, named-pack installer smoke, initial browser review with the product-soft `min_active_score=0.015` active-only policy, the no-spend full active-only generation denominator plan over the current 570-family installed SRS source-target universe, first-tranche pre-spend source-target review, first paid full active-only tranche generation/admission/source packaging, combined 91-family pack build, named-pack install smoke, live-page scan, post-tranche coverage plan, tranche-002 pre-spend source-target review/request plan, tranche-002 paid generation/admission/source packaging, combined 135-family pack build, named-pack install smoke, live-page scan, post-tranche-002 coverage plan, tranche-003 pre-spend source-target review/request plan, tranche-003 paid generation/admission/source packaging, combined 178-family pack build, named-pack install smoke, live-page scan, post-tranche-003 coverage plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator browser-extension smoke, tranche-004 pre-spend source-target review/request plan, tranche-004 paid generation/repaired admission/source packaging, combined 224-family pack build, named-pack install smoke, live-page scan, and post-tranche-004 coverage plan
 Source-of-truth: planning doc only; current implemented truth still lives in the semantic-routing contracts, inventory publication code, and offline evidence normalization seam
 Related docs:
 - `docs/rulegen/semantic_shadow_source_intake_plan.md`
@@ -216,6 +216,13 @@ Current boundary artifact:
 - `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_003_live_page_scan_en_es_latest.md`
 - `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.md`
 - `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_004_pre_spend_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_generation_run_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_repaired_generation_admission_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_source_packaging_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-004_pack_builder_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_004_pack_install_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_004_live_page_scan_en_es_latest.md`
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.md`
 
 ## Full `en-es` generation boundary
 
@@ -463,9 +470,50 @@ The tranche-004 prep artifact is:
 
 - `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_004_pre_spend_en_es_latest.md`
 
-That changes the current engineering gate from source-target review to explicit
-paid-generation approval for the prepared tranche-004 packet. Paid generation
-has not started.
+The fourth paid tranche has now been executed against that reviewed request
+packet:
+
+- live `gpt-5.4-mini` generation accepted `46/46` responses with `0` API
+  errors and `0` invalid outputs,
+- the raw generated content still needed `7` semantic operator repairs where
+  the prompt did not give the model enough reviewed source-target sense
+  guidance (`jack -> gato`, `knock -> llamar`, `naked -> desnudo`,
+  `protest -> protesta`, `quiet -> silencio`, `regulation -> regla`, and
+  `taste -> gusto`),
+- the active-only planner now carries the source-target review rationale into
+  future prompt evidence so later tranches get the reviewed intended-sense note
+  directly,
+- repaired admission accepted `92/92` active items with `0` rejects and `0`
+  coverage shortfall,
+- source packaging produced `92` canonical `anchor_cue` rows across `46`
+  families with `0` exclusions under `no_high_eval_overlap_sentence_only`,
+- the live run used `23,358` input tokens and `8,450` output tokens, about
+  `$0.056` at the 2026-05-12 `gpt-5.4-mini` standard rates,
+- the combined active-only pack now has `460` normalized evidence rows across
+  `224` families,
+- the combined semantic inventory has `224` triggers, `266` senses, and `224`
+  competition sets,
+- the isolated named-pack install wrote `224` helper rules, `201` active-only
+  competition sets, and `23` shadowed/mixed sets,
+- live public-page scan over the installed 224-rule fixture produced `120`
+  policy decisions, `0` fallback decisions, `73` replace decisions, `47`
+  abstain decisions, and `0` page fetch errors.
+
+The post-tranche-004 coverage artifact is:
+
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.md`
+
+Post-tranche-004 state:
+
+- current active-only coverage is `224/570` families, or `39.3%`,
+- remaining uncovered active-only families are `346`,
+- the remaining generation queue has `321` unreviewed source-target rows after
+  excluding the `25` cumulative rejected rows,
+- the post-tranche-004 request packet is intentionally empty until the next
+  pre-spend source-target review approves more rows.
+
+Tranche-004 is automated-clean and ready for operator smoke. Tranche-003 remains
+the latest operator-approved browser-extension smoke until tranche-004 is tested.
 
 The scale-generation program should therefore proceed in lanes:
 
@@ -487,9 +535,9 @@ The scale-generation program should therefore proceed in lanes:
 7. Keep phrase/no-winner controls as a separate lane; active cue generation does
    not solve those cases.
 
-The immediate engineering gap is now explicit operator approval before running
-the bounded tranche-004 paid generation command. Do not attempt to spend the
-whole budget at once.
+The immediate engineering gap is now tranche-004 operator smoke, followed by the
+next source-target review slice before any tranche-005 spend. Do not attempt to
+spend the whole budget at once.
 
 Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the
 repeatable active-only tranche cycle. That runbook owns the step-by-step gates,

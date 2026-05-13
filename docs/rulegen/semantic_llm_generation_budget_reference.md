@@ -248,6 +248,42 @@ The cost pattern remains consistent with tranches 001 and 002. The operational
 limiter remains source-target review and downstream generated-row hygiene, not
 budget.
 
+## Observed Full Active-Only Tranche 004 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_repaired_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_004_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `46` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- live run accepted `46/46` responses with `0` API errors and `0` invalid
+  outputs
+- the final generated-response bundle applied `7` semantic operator repairs
+  where raw generated sentences drifted from the reviewed intended source-target
+  sense
+- repaired admitted active items: `92/92`
+- source packaging produced `92` canonical `anchor_cue` rows across `46`
+  families
+- combined pack build now covers `224/570` current SRS-derived source-target
+  families with `460` normalized evidence rows
+
+Live-run usage:
+
+- completed outcomes: `46`
+- input tokens: `23,358`
+- output tokens: `8,450`
+- actual cost at the 2026-05-12 `gpt-5.4-mini` snapshot: about `$0.056`
+
+The raw run was structurally cleaner than tranches 002 and 003, but the semantic
+repair count exposed a prompt underspecification: the model needed the reviewed
+intended-sense rationale, not only the source and target labels. Future request
+plans now include that review rationale in active evidence and prompt text.
+
 ## Observed Balanced v1 Follow-Through Cost Anchor
 
 Artifact:

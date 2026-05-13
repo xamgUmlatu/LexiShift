@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-05-13
-Last verified: 2026-05-13 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-003 automated follow-through artifacts, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator smoke evidence, and the semantic-pack operator smoke runbook
+Last verified: 2026-05-13 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-004 automated follow-through artifacts, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator smoke evidence, and the semantic-pack operator smoke runbook
 Purpose: organize the work after the first successful semantic-veto product smoke, without reopening open-ended veto research by default
 Source-of-truth: planning document only; current implementation truth lives in source code, `docs/developer/feature_state_matrix.md`, and the semantic-veto registry artifacts
 
@@ -11,12 +11,13 @@ Source-of-truth: planning document only; current implementation truth lives in s
 
 The semantic-veto workstream has reached a real product-smoke checkpoint:
 
-- `en-es-active-only-combined-full-v1-tranche-003` is the latest automated-clean generated-data pack.
-- The pack has `178` source-target families, `368` normalized evidence rows, and installs as `178` helper rules.
-- Installed competition sets are `155` active-only and `23` shadowed/mixed.
+- `en-es-active-only-combined-full-v1-tranche-004` is the latest automated-clean generated-data pack.
+- The pack has `224` source-target families, `460` normalized evidence rows, and installs as `224` helper rules.
+- Installed competition sets are `201` active-only and `23` shadowed/mixed.
 - The extension Advanced debug install flow can install the named pack without pasting an inventory file path.
 - Live browser smoke accepted the tranche-003 pack with the `en_es_sentence_veto_v2` active-only policy and `min_active_score=0.015` as useful soft-assist behavior after the runtime began using surrounding sentence/block context for split-inline DOM text and after semantic batching was optimized.
-- Tranche-003 has passed generated-data admission, postprocess, source packaging, isolated pack install, automated live-page scan, and operator browser-extension smoke. It is the current operator-approved soft-assist PoC pack.
+- Tranche-004 has passed paid generation, repaired admission, postprocess, source packaging, isolated pack install, and automated live-page scan. It is ready for operator browser-extension smoke.
+- Tranche-003 remains the current operator-approved soft-assist PoC pack until tranche-004 is tested.
 
 This is not full `en-es` semantic coverage, and it is not a near-zero-harmful replacement guarantee.
 It is a bounded soft-assist feature checkpoint: many good replacements become visible, some bad replacements are still expected, and false abstains remain acceptable if the browsing experience still improves.
@@ -56,7 +57,7 @@ Work:
 
 - keep `feature_state_matrix.md` aligned with the current pack, runtime policy, and known gaps,
 - keep the semantic-veto registry summary clean,
-- preserve the tranche-003 pack artifacts and install path,
+- preserve the tranche-004 pack artifacts and install path,
 - avoid touching unrelated untracked research files unless explicitly routed,
 - document any broad repo-safety blocker separately from semantic-veto success.
 
@@ -99,7 +100,7 @@ Work:
 Exit criteria:
 
 - each paid tranche is independently resumable and auditable,
-- coverage increases from the current `178 / 570` family checkpoint with no hidden data mutation,
+- coverage increases from the current `224 / 570` automated-clean family checkpoint with no hidden data mutation,
 - the next tranche is never treated as approved until source-target review and no-spend request planning pass.
 
 ### 4. Repo Presentation And Employer-Facing Posture
@@ -139,8 +140,8 @@ Exit criteria:
 
 ## Immediate Next Slices
 
-1. Keep the tranche-003 operator-smoke success recorded as product-feel evidence, not a statistical accuracy claim.
-2. Prepare the next source-target review slice before any tranche-004 spend.
+1. Run operator smoke on tranche-004 and record whether it becomes the latest approved product-feel checkpoint.
+2. Prepare the next source-target review slice before any tranche-005 spend.
 3. Product install polish and public README posture remain separate slices after the generated-data checkpoint is safe.
 
 ## Verification

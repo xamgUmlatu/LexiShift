@@ -85,6 +85,7 @@ class SemanticVetoActiveOnlyFullGenerationPlanTests(unittest.TestCase):
                         "target": "corriente",
                         "approved_for_active_only_generation": True,
                         "decision": "approve_direct_mapping",
+                        "rationale": "Use the electricity or flowing-water sense, not current as present time.",
                     },
                 ],
             },
@@ -106,6 +107,14 @@ class SemanticVetoActiveOnlyFullGenerationPlanTests(unittest.TestCase):
             report["e2e_checks"]["selected_rows_review_approved_or_review_inactive"], True
         )
         self.assertNotIn("bank:banco", report["requests"][0]["request_id"])
+        self.assertIn(
+            "Reviewed intended-sense note: Use the electricity or flowing-water sense",
+            report["requests"][0]["active_evidence_text"],
+        )
+        self.assertIn(
+            "Reviewed intended-sense note: Use the electricity or flowing-water sense",
+            report["requests"][0]["prompt_text"],
+        )
 
 
 def _bridge_payload() -> dict[str, object]:

@@ -1,0 +1,499 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-004",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:jack:gato:21a0c7d2",
+      "packaged_row_count": 2,
+      "targets": [
+        "gato"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:japanese:japones:7c592e26",
+      "packaged_row_count": 2,
+      "targets": [
+        "japonés"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:journalist:periodista:c76583ad",
+      "packaged_row_count": 2,
+      "targets": [
+        "periodista"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:judge:juzgar:910b13c1",
+      "packaged_row_count": 2,
+      "targets": [
+        "juzgar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:knock:llamar:f8f82ff1",
+      "packaged_row_count": 2,
+      "targets": [
+        "llamar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:latin:latino:d0454267",
+      "packaged_row_count": 2,
+      "targets": [
+        "latino"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:lie:mentir:6bb59bc8",
+      "packaged_row_count": 2,
+      "targets": [
+        "mentir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:load:cargar:6c55b531",
+      "packaged_row_count": 2,
+      "targets": [
+        "cargar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:male:masculino:fad87de3",
+      "packaged_row_count": 2,
+      "targets": [
+        "masculino"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:measure:medir:c4ec7b4d",
+      "packaged_row_count": 2,
+      "targets": [
+        "medir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:mention:mencionar:f6e3a5ea",
+      "packaged_row_count": 2,
+      "targets": [
+        "mencionar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:musician:musico:251f9acf",
+      "packaged_row_count": 2,
+      "targets": [
+        "músico"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:naked:desnudo:f17bb95a",
+      "packaged_row_count": 2,
+      "targets": [
+        "desnudo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:narrow:estrecho:5b115c3b",
+      "packaged_row_count": 2,
+      "targets": [
+        "estrecho"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:nasty:feo:958f0b48",
+      "packaged_row_count": 2,
+      "targets": [
+        "feo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:nearby:vecino:d8344c09",
+      "packaged_row_count": 2,
+      "targets": [
+        "vecino"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:nude:desnudo:3a6f6972",
+      "packaged_row_count": 2,
+      "targets": [
+        "desnudo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:obligation:deber:ce7c9640",
+      "packaged_row_count": 2,
+      "targets": [
+        "deber"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:orange:naranja:3cba3b7d",
+      "packaged_row_count": 2,
+      "targets": [
+        "naranja"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:parallel:paralelo:bbdd79de",
+      "packaged_row_count": 2,
+      "targets": [
+        "paralelo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:portal:entrada:5f9ad337",
+      "packaged_row_count": 2,
+      "targets": [
+        "entrada"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:presence:presencia:3b298ef5",
+      "packaged_row_count": 2,
+      "targets": [
+        "presencia"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:protest:protesta:95e969d1",
+      "packaged_row_count": 2,
+      "targets": [
+        "protesta"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:quiet:silencio:295540d6",
+      "packaged_row_count": 2,
+      "targets": [
+        "silencio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:regulation:regla:0a221166",
+      "packaged_row_count": 2,
+      "targets": [
+        "regla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:representative:diputado:79019d0c",
+      "packaged_row_count": 2,
+      "targets": [
+        "diputado"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:responsible:responsable:821f2082",
+      "packaged_row_count": 2,
+      "targets": [
+        "responsable"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:restaurant:restaurante:5463419e",
+      "packaged_row_count": 2,
+      "targets": [
+        "restaurante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:rule:regla:b262f3ea",
+      "packaged_row_count": 2,
+      "targets": [
+        "regla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:shade:sombra:8c2a9e55",
+      "packaged_row_count": 2,
+      "targets": [
+        "sombra"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:shadow:sombra:9fa0d65a",
+      "packaged_row_count": 2,
+      "targets": [
+        "sombra"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:shout:grito:a3b76172",
+      "packaged_row_count": 2,
+      "targets": [
+        "grito"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:silence:silencio:d21f13e8",
+      "packaged_row_count": 2,
+      "targets": [
+        "silencio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:skin:piel:23ec6b68",
+      "packaged_row_count": 2,
+      "targets": [
+        "piel"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:smile:sonrisa:72937b33",
+      "packaged_row_count": 2,
+      "targets": [
+        "sonrisa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:stick:palo:f575af81",
+      "packaged_row_count": 2,
+      "targets": [
+        "palo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:stomach:estomago:03b89077",
+      "packaged_row_count": 2,
+      "targets": [
+        "estómago"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:sweet:dulce:9db13909",
+      "packaged_row_count": 2,
+      "targets": [
+        "dulce"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:taste:gusto:e9cee15b",
+      "packaged_row_count": 2,
+      "targets": [
+        "gusto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:tea:te:cc8413e1",
+      "packaged_row_count": 2,
+      "targets": [
+        "té"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:theatre:teatro:ce27b0e4",
+      "packaged_row_count": 2,
+      "targets": [
+        "teatro"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:theft:robo:d1b0a65e",
+      "packaged_row_count": 2,
+      "targets": [
+        "robo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:throat:garganta:ce59fa6d",
+      "packaged_row_count": 2,
+      "targets": [
+        "garganta"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:train:tren:ff007f9b",
+      "packaged_row_count": 2,
+      "targets": [
+        "tren"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:ugly:feo:e577b198",
+      "packaged_row_count": 2,
+      "targets": [
+        "feo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:weak:debil:d144a479",
+      "packaged_row_count": 2,
+      "targets": [
+        "débil"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-13T02:46:37Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_repaired_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_004_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 23358,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 7,
+    "operator_repairs": [
+      {
+        "family_id": "en-es:srs-source-target:jack:gato:21a0c7d2",
+        "repair_reason": "replace cat-like generated sentences with the reviewed mechanical-jack sense for gato",
+        "repair_type": "semantic_sense_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-004:en-es:srs-source-target:jack:gato:21a0c7d2:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:jack:gato:21a0c7d2:active_evidence_expansion",
+        "source_phrase": "jack",
+        "target_lemma": "gato"
+      },
+      {
+        "family_id": "en-es:srs-source-target:knock:llamar:f8f82ff1",
+        "repair_reason": "replace ungrammatical contact/call examples with the reviewed knock-at-the-door sense",
+        "repair_type": "semantic_sense_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-004:en-es:srs-source-target:knock:llamar:f8f82ff1:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:knock:llamar:f8f82ff1:active_evidence_expansion",
+        "source_phrase": "knock",
+        "target_lemma": "llamar"
+      },
+      {
+        "family_id": "en-es:srs-source-target:naked:desnudo:f17bb95a",
+        "repair_reason": "replace the figurative no-jacket sentence with physical unclothed uses",
+        "repair_type": "semantic_sense_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-004:en-es:srs-source-target:naked:desnudo:f17bb95a:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:naked:desnudo:f17bb95a:active_evidence_expansion",
+        "source_phrase": "naked",
+        "target_lemma": "desnudo"
+      },
+      {
+        "family_id": "en-es:srs-source-target:protest:protesta:95e969d1",
+        "repair_reason": "replace verb-protest examples with the reviewed noun sense for protesta",
+        "repair_type": "semantic_sense_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-004:en-es:srs-source-target:protest:protesta:95e969d1:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:protest:protesta:95e969d1:active_evidence_expansion",
+        "source_phrase": "protest",
+        "target_lemma": "protesta"
+      },
+      {
+        "family_id": "en-es:srs-source-target:quiet:silencio:295540d6",
+        "repair_reason": "replace adjective quiet examples with the reviewed noun sense for silence",
+        "repair_type": "semantic_sense_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-004:en-es:srs-source-target:quiet:silencio:295540d6:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:quiet:silencio:295540d6:active_evidence_expansion",
+        "source_phrase": "quiet",
+        "target_lemma": "silencio"
+      },
+      {
+        "family_id": "en-es:srs-source-target:regulation:regla:0a221166",
+        "repair_reason": "make both examples clearly use regulation as a simple rule rather than broad legal regulation",
+        "repair_type": "semantic_sense_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-004:en-es:srs-source-target:regulation:regla:0a221166:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:regulation:regla:0a221166:active_evidence_expansion",
+        "source_phrase": "regulation",
+        "target_lemma": "regla"
+      },
+      {
+        "family_id": "en-es:srs-source-target:taste:gusto:e9cee15b",
+        "repair_reason": "replace flavor examples with preference/style examples for gusto",
+        "repair_type": "semantic_sense_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-004:en-es:srs-source-target:taste:gusto:e9cee15b:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:taste:gusto:e9cee15b:active_evidence_expansion",
+        "source_phrase": "taste",
+        "target_lemma": "gusto"
+      }
+    ],
+    "output_tokens": 8450,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 92,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 46,
+    "packaged_row_count": 92,
+    "promotion_state_counts": {
+      "proposed": 92
+    },
+    "relation_type_counts": {
+      "anchor_cue": 92
+    },
+    "review_state_counts": {
+      "unreviewed": 92
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

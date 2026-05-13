@@ -175,7 +175,11 @@ def render_markdown(report: Mapping[str, object]) -> str:
     if "helper_runtime_smoke_decision_accuracy" in result:
         if "combined_full_pack_families" in result:
             current_pack_prefix = ""
-            for prefix in ("combined_full_tranche_003", "combined_full_tranche_002"):
+            for prefix in (
+                "combined_full_tranche_004",
+                "combined_full_tranche_003",
+                "combined_full_tranche_002",
+            ):
                 if result.get(f"{prefix}_pack_families"):
                     current_pack_prefix = prefix
                     break
@@ -277,8 +281,21 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"`{result.get('combined_full_tranche_003_live_page_scan_page_fetch_errors', '')}` page errors / "
                 f"`{result.get('combined_full_tranche_003_live_page_scan_fallback_decisions', '')}` fallbacks"
             )
+        if "combined_full_tranche_004_live_page_scan_review_rows" in result:
+            lines.append(
+                "- Combined full tranche-004 live page scan: "
+                f"`{result.get('combined_full_tranche_004_live_page_scan_review_rows', '')}` review rows / "
+                f"`{result.get('combined_full_tranche_004_live_page_scan_replace_decisions', '')}` replace / "
+                f"`{result.get('combined_full_tranche_004_live_page_scan_abstain_decisions', '')}` abstain / "
+                f"`{result.get('combined_full_tranche_004_live_page_scan_page_fetch_errors', '')}` page errors / "
+                f"`{result.get('combined_full_tranche_004_live_page_scan_fallback_decisions', '')}` fallbacks"
+            )
         operator_smoke_prefix = ""
-        for prefix in ("combined_full_tranche_003", "combined_full_tranche_002"):
+        for prefix in (
+            "combined_full_tranche_004",
+            "combined_full_tranche_003",
+            "combined_full_tranche_002",
+        ):
             if result.get(f"{prefix}_operator_extension_smoke_status"):
                 operator_smoke_prefix = prefix
                 break
