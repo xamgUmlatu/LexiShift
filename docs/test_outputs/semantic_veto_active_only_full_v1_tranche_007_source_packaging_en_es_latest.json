@@ -1,0 +1,383 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-007",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:abiding:continuo:7dc7af5e",
+      "packaged_row_count": 2,
+      "targets": [
+        "continuo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:accountable:responsable:ff12b139",
+      "packaged_row_count": 2,
+      "targets": [
+        "responsable"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:adjacent:contiguo:f84671dc",
+      "packaged_row_count": 2,
+      "targets": [
+        "contiguo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:argentine:argentino:90e01172",
+      "packaged_row_count": 2,
+      "targets": [
+        "argentino"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:axle:eje:824a7d8b",
+      "packaged_row_count": 2,
+      "targets": [
+        "eje"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:baton:palo:9f42189b",
+      "packaged_row_count": 2,
+      "targets": [
+        "palo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cane:palo:26b2cc41",
+      "packaged_row_count": 2,
+      "targets": [
+        "palo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cap:birrete:2c38ba9f",
+      "packaged_row_count": 2,
+      "targets": [
+        "birrete"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:colleague:colega:611ca572",
+      "packaged_row_count": 2,
+      "targets": [
+        "colega"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:command:capitanear:f0a3599a",
+      "packaged_row_count": 2,
+      "targets": [
+        "capitanear"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:commence:comenzar:f16e86f0",
+      "packaged_row_count": 2,
+      "targets": [
+        "comenzar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:continual:continuo:dd6785fe",
+      "packaged_row_count": 2,
+      "targets": [
+        "continuo"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:courtyard:patio:c222c02d",
+      "packaged_row_count": 2,
+      "targets": [
+        "patio"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cramped:estrecho:bb254e89",
+      "packaged_row_count": 2,
+      "targets": [
+        "estrecho"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:decrease:decrecer:12483615",
+      "packaged_row_count": 2,
+      "targets": [
+        "decrecer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:dial:marcar:11669297",
+      "packaged_row_count": 2,
+      "targets": [
+        "marcar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:elegant:elegante:aff70883",
+      "packaged_row_count": 2,
+      "targets": [
+        "elegante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:exploit:explotar:ec3f35a0",
+      "packaged_row_count": 2,
+      "targets": [
+        "explotar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:faint:debil:f95344a8",
+      "packaged_row_count": 2,
+      "targets": [
+        "débil"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:grease:grasa:fb197e68",
+      "packaged_row_count": 2,
+      "targets": [
+        "grasa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:haste:prisa:522c32d1",
+      "packaged_row_count": 2,
+      "targets": [
+        "prisa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6",
+      "packaged_row_count": 2,
+      "targets": [
+        "llamar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:lump:bola:418e0094",
+      "packaged_row_count": 2,
+      "targets": [
+        "bola"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:nationality:nacionalidad:8b8ed371",
+      "packaged_row_count": 2,
+      "targets": [
+        "nacionalidad"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:sentence:condenar:fe937d64",
+      "packaged_row_count": 2,
+      "targets": [
+        "condenar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:separate:apartar:0ac512f9",
+      "packaged_row_count": 2,
+      "targets": [
+        "apartar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:ski:esqui:0b2a73fb",
+      "packaged_row_count": 2,
+      "targets": [
+        "esquí"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:stable:cuadra:38ad8110",
+      "packaged_row_count": 2,
+      "targets": [
+        "cuadra"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:storm:tempestad:b0697466",
+      "packaged_row_count": 2,
+      "targets": [
+        "tempestad"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:supper:cena:b34f3646",
+      "packaged_row_count": 2,
+      "targets": [
+        "cena"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:supplement:suplemento:d5d7d4a5",
+      "packaged_row_count": 2,
+      "targets": [
+        "suplemento"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:swedish:sueco:2a789fc2",
+      "packaged_row_count": 2,
+      "targets": [
+        "sueco"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:tasty:rico:690a6d05",
+      "packaged_row_count": 2,
+      "targets": [
+        "rico"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:thief:ladron:b47556b9",
+      "packaged_row_count": 2,
+      "targets": [
+        "ladrón"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:tidy:arreglar:9dbc8b04",
+      "packaged_row_count": 2,
+      "targets": [
+        "arreglar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:transport:transportar:d8440aa5",
+      "packaged_row_count": 2,
+      "targets": [
+        "transportar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:urgency:prisa:892de2a1",
+      "packaged_row_count": 2,
+      "targets": [
+        "prisa"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:yield:ceder:8a2b7b73",
+      "packaged_row_count": 2,
+      "targets": [
+        "ceder"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-13T18:01:47Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_repaired_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 20068,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 2,
+    "operator_repairs": [
+      {
+        "family_id": "en-es:srs-source-target:storm:tempestad:b0697466",
+        "invalid_output_family_id": "en-es-srs-source-target:storm:tempestad:b0697466",
+        "invalid_output_request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "invalid_output_slot_id": "en-es-srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "repair_reason": "generator repeatedly changed en-es colon metadata to en-es hyphen metadata for storm; sentence content preserved and metadata restored to the reviewed request packet",
+        "repair_type": "metadata_id_restoration_after_repeated_invalid_output",
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": false,
+        "slot_id": "en-es:srs-source-target:storm:tempestad:b0697466:active_evidence_expansion",
+        "source_phrase": "storm",
+        "target_lemma": "tempestad"
+      },
+      {
+        "family_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6",
+        "repair_reason": "replace inflected invoked with exact standalone invoke so the generated sentence exercises the browser-replaceable runtime token while preserving the intended call-upon sense",
+        "repair_type": "runtime_trigger_restoration",
+        "request_id": "en-es-active-only-full-v1-tranche-007:en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "reviewed_by": "codex_operator",
+        "sentence_content_changed": true,
+        "slot_id": "en-es:srs-source-target:invoke:llamar:f7c06ec6:active_evidence_expansion",
+        "source_phrase": "invoke",
+        "target_lemma": "llamar"
+      }
+    ],
+    "output_tokens": 7120,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "operator_repaired_after_generation",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 76,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 38,
+    "packaged_row_count": 76,
+    "promotion_state_counts": {
+      "proposed": 76
+    },
+    "relation_type_counts": {
+      "anchor_cue": 76
+    },
+    "review_state_counts": {
+      "unreviewed": 76
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

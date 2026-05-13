@@ -10,7 +10,7 @@ and pass the rates explicitly to the run harness.
 
 ## Current Price Snapshot
 
-Snapshot date: 2026-05-13.
+Snapshot date: 2026-05-14.
 
 | Model | Input / 1M tokens | Output / 1M tokens | Notes |
 | --- | ---: | ---: | --- |
@@ -353,6 +353,56 @@ Recorded accepted-run usage:
 
 The sixth tranche needed no generated-row semantic or runtime-token repairs
 after the metadata retry. Admission accepted every generated item.
+
+## Observed Full Active-Only Tranche 007 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_007_repaired_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_007_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `38` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- latest raw run report remained `partial`, with `37/38` accepted responses,
+  `74` accepted generated items, and `1` repeated metadata-drift invalid output
+  for `storm -> tempestad`
+- retries accepted the `invoke -> llamar` metadata shape, but one generated
+  sentence still used inflected `invoked` instead of exact runtime token
+  `invoke`
+- the final generated-response bundle applied `2` explicit operator repairs:
+  restored exact metadata for `storm -> tempestad`, and rewrote the one
+  `invoke -> llamar` sentence to contain exact standalone `invoke`
+- repaired admission accepted active items: `76/76`
+- source packaging produced `76` canonical `anchor_cue` rows across `38`
+  families
+- combined pack build now covers `338/570` current SRS-derived source-target
+  families with `688` normalized evidence rows
+
+Latest raw-run usage:
+
+- accepted responses: `37`
+- invalid outputs in latest run report: `1`
+- input tokens: `20,068`
+- output tokens: `7,120`
+- actual cost at the 2026-05-14 `gpt-5.4-mini` snapshot: about `$0.047`
+
+Journal-inclusive paid outcome usage:
+
+- outcome events: `41`
+- accepted outcomes: `37`
+- invalid-output outcomes: `4`
+- input tokens: `21,616`
+- output tokens: `7,638`
+- actual cost at the 2026-05-14 `gpt-5.4-mini` snapshot: about `$0.051`
+
+The seventh tranche reinforces the existing cost pattern: even with repeated
+metadata drift, active-only generation remains far below the `$100` budget.
+The operating limiter is still source-target review and admission quality, not
+token spend.
 
 ## Observed Balanced v1 Follow-Through Cost Anchor
 

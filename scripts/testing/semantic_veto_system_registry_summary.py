@@ -176,6 +176,9 @@ def render_markdown(report: Mapping[str, object]) -> str:
         if "combined_full_pack_families" in result:
             current_pack_prefix = ""
             for prefix in (
+                "combined_full_tranche_007",
+                "combined_full_tranche_006",
+                "combined_full_tranche_005",
                 "combined_full_tranche_004",
                 "combined_full_tranche_003",
                 "combined_full_tranche_002",
@@ -263,35 +266,22 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"`{result.get('combined_full_live_page_scan_page_fetch_errors', '')}` page errors / "
                 f"`{result.get('combined_full_live_page_scan_fallback_decisions', '')}` fallbacks"
             )
-        if "combined_full_tranche_002_live_page_scan_review_rows" in result:
-            lines.append(
-                "- Combined full tranche-002 live page scan: "
-                f"`{result.get('combined_full_tranche_002_live_page_scan_review_rows', '')}` review rows / "
-                f"`{result.get('combined_full_tranche_002_live_page_scan_replace_decisions', '')}` replace / "
-                f"`{result.get('combined_full_tranche_002_live_page_scan_abstain_decisions', '')}` abstain / "
-                f"`{result.get('combined_full_tranche_002_live_page_scan_page_fetch_errors', '')}` page errors / "
-                f"`{result.get('combined_full_tranche_002_live_page_scan_fallback_decisions', '')}` fallbacks"
-            )
-        if "combined_full_tranche_003_live_page_scan_review_rows" in result:
-            lines.append(
-                "- Combined full tranche-003 live page scan: "
-                f"`{result.get('combined_full_tranche_003_live_page_scan_review_rows', '')}` review rows / "
-                f"`{result.get('combined_full_tranche_003_live_page_scan_replace_decisions', '')}` replace / "
-                f"`{result.get('combined_full_tranche_003_live_page_scan_abstain_decisions', '')}` abstain / "
-                f"`{result.get('combined_full_tranche_003_live_page_scan_page_fetch_errors', '')}` page errors / "
-                f"`{result.get('combined_full_tranche_003_live_page_scan_fallback_decisions', '')}` fallbacks"
-            )
-        if "combined_full_tranche_004_live_page_scan_review_rows" in result:
-            lines.append(
-                "- Combined full tranche-004 live page scan: "
-                f"`{result.get('combined_full_tranche_004_live_page_scan_review_rows', '')}` review rows / "
-                f"`{result.get('combined_full_tranche_004_live_page_scan_replace_decisions', '')}` replace / "
-                f"`{result.get('combined_full_tranche_004_live_page_scan_abstain_decisions', '')}` abstain / "
-                f"`{result.get('combined_full_tranche_004_live_page_scan_page_fetch_errors', '')}` page errors / "
-                f"`{result.get('combined_full_tranche_004_live_page_scan_fallback_decisions', '')}` fallbacks"
-            )
+        for tranche in ("007", "006", "005", "004", "003", "002"):
+            prefix = f"combined_full_tranche_{tranche}"
+            if f"{prefix}_live_page_scan_review_rows" in result:
+                lines.append(
+                    f"- Combined full tranche-{tranche} live page scan: "
+                    f"`{result.get(f'{prefix}_live_page_scan_review_rows', '')}` review rows / "
+                    f"`{result.get(f'{prefix}_live_page_scan_replace_decisions', '')}` replace / "
+                    f"`{result.get(f'{prefix}_live_page_scan_abstain_decisions', '')}` abstain / "
+                    f"`{result.get(f'{prefix}_live_page_scan_page_fetch_errors', '')}` page errors / "
+                    f"`{result.get(f'{prefix}_live_page_scan_fallback_decisions', '')}` fallbacks"
+                )
         operator_smoke_prefix = ""
         for prefix in (
+            "combined_full_tranche_007",
+            "combined_full_tranche_006",
+            "combined_full_tranche_005",
             "combined_full_tranche_004",
             "combined_full_tranche_003",
             "combined_full_tranche_002",
@@ -305,6 +295,23 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"`{result.get(f'{operator_smoke_prefix}_operator_extension_smoke_status', '')}` / "
                 f"`{result.get(f'{operator_smoke_prefix}_operator_extension_smoke_pack_id', '')}` / "
                 f"`{result.get(f'{operator_smoke_prefix}_operator_extension_smoke_policy_id', '')}` / "
+                "accepted product-soft `min_active_score=0.015` behavior"
+            )
+        operator_checkpoint_prefix = ""
+        for prefix in (
+            "combined_full_tranche_007",
+            "combined_full_tranche_006",
+            "combined_full_tranche_005",
+        ):
+            if result.get(f"{prefix}_operator_checkpoint_status"):
+                operator_checkpoint_prefix = prefix
+                break
+        if operator_checkpoint_prefix:
+            lines.append(
+                "- Operator checkpoint: "
+                f"`{result.get(f'{operator_checkpoint_prefix}_operator_checkpoint_status', '')}` / "
+                f"`{result.get(f'{operator_checkpoint_prefix}_operator_checkpoint_pack_id', '')}` / "
+                f"`{result.get(f'{operator_checkpoint_prefix}_operator_checkpoint_policy_id', '')}` / "
                 "accepted product-soft `min_active_score=0.015` behavior"
             )
     else:

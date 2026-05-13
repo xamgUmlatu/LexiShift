@@ -58,7 +58,7 @@
       const competitionCount = Number(summary.competition_set_count || 0);
       const profileId = String((result && result.profile_id) || "default");
       const packId = String(
-        (result && result.pack_id) || "en-es-active-only-combined-full-v1-tranche-004"
+        (result && result.pack_id) || "en-es-active-only-combined-full-v1-tranche-007"
       );
       const rulesetPath = String(paths.ruleset || "");
       return [

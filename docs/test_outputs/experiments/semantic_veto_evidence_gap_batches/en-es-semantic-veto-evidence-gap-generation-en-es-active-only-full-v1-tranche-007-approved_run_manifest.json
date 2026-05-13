@@ -1,0 +1,49 @@
+{
+  "artifacts": {
+    "failures_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_failures.jsonl",
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_raw_responses.json",
+    "raw_responses_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_raw_responses.jsonl",
+    "request_queue_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_request_queue.jsonl",
+    "run_manifest_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_run_manifest.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-007-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-13T18:00:01Z",
+  "manifest_kind": "semantic_veto_evidence_gap_generation_run",
+  "pair": "en-es",
+  "pilot_id": "en-es-active-only-full-v1-tranche-007",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_request_count": 38,
+  "selected_request_hash": "bd2f971a89bb3bf06e551db34f02e7ba4d6d96ca387e1169cd6a53a011c60d1c",
+  "selected_temperature": null,
+  "status": "partial",
+  "summary": {
+    "accepted_generated_item_count": 74,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 74
+    },
+    "accepted_response_count": 37,
+    "accepted_responses_by_arm": {
+      "P2_exposure_first": 37
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 37
+    },
+    "admission_status": "review",
+    "admitted_item_count": 73,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 3,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 20068,
+    "invalid_output_count": 1,
+    "output_tokens": 7120,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 1,
+    "selected_request_count": 38
+  }
+}
