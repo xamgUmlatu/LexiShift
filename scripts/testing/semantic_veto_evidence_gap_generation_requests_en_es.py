@@ -261,10 +261,16 @@ def _build_requests(plan: Mapping[str, object]) -> list[dict[str, object]]:
 
 def _prompt_text(request: Mapping[str, object]) -> str:
     slot_type = str(request.get("slot_type") or "")
+    source_phrase = str(request.get("trigger") or "")
+    blocked_target_instruction = (
+        "Generated English sentences must not contain Spanish target lemmas unless a "
+        "target lemma is exactly identical to source_phrase; in that exact cognate case, "
+        "the required source token is allowed. "
+    )
     common = (
         "Return exactly one JSON object. Preserve request_id, family_id, slot_id, "
         "slot_type, source_phrase, and target_lemma exactly as given. Do not include "
-        "markdown. Generated English sentences must not contain Spanish target lemmas. "
+        f"markdown. {blocked_target_instruction}"
         "Do not add labels like allow, abstain, active, shadow, or no-winner inside "
         "generated sentences. Every generated sentence must contain source_phrase as an "
         "exact standalone browser-replaceable token separated by spaces or ordinary "
@@ -276,7 +282,7 @@ def _prompt_text(request: Mapping[str, object]) -> str:
         f"family_id: {request.get('family_id')}\n"
         f"slot_id: {request.get('slot_id')}\n"
         f"slot_type: {slot_type}\n"
-        f"source_phrase: {request.get('trigger')}\n"
+        f"source_phrase: {source_phrase}\n"
         f"target_lemma: {request.get('slot_target_lemma')}\n"
         f"active_target_lemma: {request.get('active_target_lemma')}\n"
         f"active_evidence_text: {request.get('active_evidence_text')}\n"

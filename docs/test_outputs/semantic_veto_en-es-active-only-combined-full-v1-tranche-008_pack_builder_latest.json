@@ -1,0 +1,184 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-008-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-008_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:en-es-active-only-combined-full-v1-tranche-007",
+      "family_count": 338,
+      "row_count": 688,
+      "source_family": "internal_rulegen_artifact",
+      "source_id": "en-es-active-only-combined-full-v1-tranche-007",
+      "source_type": "internal"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-008",
+      "family_count": 40,
+      "row_count": 80,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-008",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-13T18:48:03Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-008_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-007_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-007-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:abolish:abolir:d755cc57",
+      "target": "abolir",
+      "trigger": "abolish"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:accompaniment:acompanamiento:f2f574e0",
+      "target": "acompañamiento",
+      "trigger": "accompaniment"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:accuse:acusar:cc4136e2",
+      "target": "acusar",
+      "trigger": "accuse"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:adjective:adjetivo:6cf7d8bd",
+      "target": "adjetivo",
+      "trigger": "adjective"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:adjoining:adyacente:5a9d600d",
+      "target": "adyacente",
+      "trigger": "adjoining"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:ankle:tobillo:61afc3b3",
+      "target": "tobillo",
+      "trigger": "ankle"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:appease:calmar:b6360fd5",
+      "target": "calmar",
+      "trigger": "appease"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:asphalt:asfalto:83e8497c",
+      "target": "asfalto",
+      "trigger": "asphalt"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:ballet:ballet:1d74d0bf",
+      "target": "ballet",
+      "trigger": "ballet"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:barbarian:barbaro:6b190974",
+      "target": "bárbaro",
+      "trigger": "barbarian"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-008",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 80,
+    "base_normalized_row_count": 688,
+    "combined_normalized_row_count": 768,
+    "competition_set_count": 378,
+    "duplicate_row_count": 0,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 80,
+    "new_family_count": 40,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:abolish:abolir:d755cc57",
+        "target": "abolir",
+        "trigger": "abolish"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:accompaniment:acompanamiento:f2f574e0",
+        "target": "acompañamiento",
+        "trigger": "accompaniment"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:accuse:acusar:cc4136e2",
+        "target": "acusar",
+        "trigger": "accuse"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:adjective:adjetivo:6cf7d8bd",
+        "target": "adjetivo",
+        "trigger": "adjective"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:adjoining:adyacente:5a9d600d",
+        "target": "adyacente",
+        "trigger": "adjoining"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:ankle:tobillo:61afc3b3",
+        "target": "tobillo",
+        "trigger": "ankle"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:appease:calmar:b6360fd5",
+        "target": "calmar",
+        "trigger": "appease"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:asphalt:asfalto:83e8497c",
+        "target": "asfalto",
+        "trigger": "asphalt"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:ballet:ballet:1d74d0bf",
+        "target": "ballet",
+        "trigger": "ballet"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:barbarian:barbaro:6b190974",
+        "target": "bárbaro",
+        "trigger": "barbarian"
+      }
+    ],
+    "sense_count": 420,
+    "trigger_count": 378
+  }
+}

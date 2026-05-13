@@ -730,11 +730,21 @@ def _slug(value: str) -> str:
 
 
 def _active_evidence_hint(*, source: str, target: str) -> str:
+    if _normalize_generation_token(source) == _normalize_generation_token(target):
+        return (
+            f"Use {source!r} in natural English contexts where the intended Spanish "
+            f"replacement is the identical cognate {target!r}. The sentence should make "
+            "that direct cognate source-target sense clear."
+        )
     return (
         f"Use {source!r} in natural English contexts where the intended Spanish "
         f"replacement is {target!r}. The sentence should make that source-target sense "
         "clear without using the Spanish word."
     )
+
+
+def _normalize_generation_token(value: str) -> str:
+    return " ".join(value.casefold().split())
 
 
 def _ratio(numerator: int, denominator: int) -> float | None:

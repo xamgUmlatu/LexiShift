@@ -1,0 +1,1016 @@
+{
+  "admission_preview": {
+    "admitted_item_count": 80,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "decision": "generated_items_admitted_for_pilot_rescoring",
+    "rejected_item_count": 0,
+    "status": "ok"
+  },
+  "artifacts": {
+    "failures_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_failures.jsonl",
+    "generated_responses_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_generated_responses.json",
+    "journal_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_journal.jsonl",
+    "raw_response_bundle_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json",
+    "raw_responses_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.jsonl",
+    "request_queue_jsonl": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_request_queue.jsonl",
+    "run_manifest_json": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_run_manifest.json"
+  },
+  "batch_id": "en-es:semantic-veto-evidence-gap-generation:en-es-active-only-full-v1-tranche-008-approved",
+  "execution_mode": "live",
+  "generated_at": "2026-05-13T18:47:36Z",
+  "pair": "en-es",
+  "pilot_id": "en-es-active-only-full-v1-tranche-008",
+  "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "replay_source": "",
+  "request_rows": [
+    {
+      "family_id": "en-es:srs-source-target:error:yerro:7c08ace0",
+      "first_sentence": "I admitted the error and corrected the report before sending it to the client.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:error:yerro:7c08ace0:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:error:yerro:7c08ace0:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_015dbebcb16a6c60016a04c6455228819584dfe2dda6938c19",
+      "slot_id": "en-es:srs-source-target:error:yerro:7c08ace0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 526,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 190,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 716
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:lighter:mechero:a40daff1",
+      "first_sentence": "He flicked the lighter to light the candle.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:lighter:mechero:a40daff1:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:lighter:mechero:a40daff1:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0d1efeef3eb8d69c016a04c6479dd481968eb11aba3ff85cdf",
+      "slot_id": "en-es:srs-source-target:lighter:mechero:a40daff1:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 526,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 708
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:mistake:yerro:9c7cb23b",
+      "first_sentence": "It was a mistake to sign the contract before reading the final clause.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:mistake:yerro:9c7cb23b:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:mistake:yerro:9c7cb23b:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_07acb94813aced6e016a04c64a29f08195ac2a67d9c7f84d00",
+      "slot_id": "en-es:srs-source-target:mistake:yerro:9c7cb23b:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 542,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 187,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 729
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:regret:deplorar:53ad27b8",
+      "first_sentence": "We regret the loss of the historic theater and urge the city to restore it.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:regret:deplorar:53ad27b8:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:regret:deplorar:53ad27b8:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_06efcf1e95852a50016a04c64c481881938750bb2b8bd7160e",
+      "slot_id": "en-es:srs-source-target:regret:deplorar:53ad27b8:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 542,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 199,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 741
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:scale:incrustacion:671ce924",
+      "first_sentence": "The kettle had a thick scale on the inside, so we scrubbed it before using it again.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:scale:incrustacion:671ce924:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:scale:incrustacion:671ce924:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_08f633685f80a018016a04c64e60508196b356fd84682d2984",
+      "slot_id": "en-es:srs-source-target:scale:incrustacion:671ce924:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 544,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 196,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 740
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:separate:segregar:fa6519f6",
+      "first_sentence": "The school will separate boys and girls during the assembly.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:separate:segregar:fa6519f6:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:separate:segregar:fa6519f6:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03a0b19d0a537892016a04c650c1508193a26a491331602fef",
+      "slot_id": "en-es:srs-source-target:separate:segregar:fa6519f6:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 546,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 191,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 737
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:severe:inclemente:09d05188",
+      "first_sentence": "The hikers turned back when severe weather rolled in over the pass.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:severe:inclemente:09d05188:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:severe:inclemente:09d05188:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0df4b1b7ed90d796016a04c652e2708190a6a2ae00798777f8",
+      "slot_id": "en-es:srs-source-target:severe:inclemente:09d05188:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 546,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 194,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 740
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:sweat:transpirar:b7fb23bc",
+      "first_sentence": "I started to sweat after the long run in the summer heat.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:sweat:transpirar:b7fb23bc:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:sweat:transpirar:b7fb23bc:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0c051bf67ecc8aee016a04c654f59c8193bee467e3582183ae",
+      "slot_id": "en-es:srs-source-target:sweat:transpirar:b7fb23bc:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 535,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 720
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:abolish:abolir:d755cc57",
+      "first_sentence": "The council voted to abolish the old licensing fee next year.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:abolish:abolir:d755cc57:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:abolish:abolir:d755cc57:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0953b7423bed7664016a04c657ce348196af0c537f6594bddd",
+      "slot_id": "en-es:srs-source-target:abolish:abolir:d755cc57:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 515,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 695
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:accompaniment:acompanamiento:f2f574e0",
+      "first_sentence": "The chef served the grilled fish with a light accompaniment of lemon rice.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:accompaniment:acompanamiento:f2f574e0:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:accompaniment:acompanamiento:f2f574e0:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b27c0582788a59f016a04c65a18888197b7fc9b611cfb38db",
+      "slot_id": "en-es:srs-source-target:accompaniment:acompanamiento:f2f574e0:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 542,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 196,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 738
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:accuse:acusar:cc4136e2",
+      "first_sentence": "The prosecutor will accuse the manager of fraud in court.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:accuse:acusar:cc4136e2:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:accuse:acusar:cc4136e2:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_080c20f059baa1fe016a04c65c558481939c36a990f89d095a",
+      "slot_id": "en-es:srs-source-target:accuse:acusar:cc4136e2:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 526,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 174,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 700
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:adjective:adjetivo:6cf7d8bd",
+      "first_sentence": "In the sentence 'The bright lamp glowed softly,' the word bright is an adjective.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:adjective:adjetivo:6cf7d8bd:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:adjective:adjetivo:6cf7d8bd:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a7125945b84bbc5016a04c65e1098819580dd2b3318c4355d",
+      "slot_id": "en-es:srs-source-target:adjective:adjetivo:6cf7d8bd:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 543,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 202,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 745
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:adjoining:adyacente:5a9d600d",
+      "first_sentence": "The hotel booked us a room in the adjoining building, just across the courtyard.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:adjoining:adyacente:5a9d600d:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:adjoining:adyacente:5a9d600d:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_02dbeac4ac87febf016a04c6600f248194b11487d82706fd58",
+      "slot_id": "en-es:srs-source-target:adjoining:adyacente:5a9d600d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 546,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 198,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 744
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:ankle:tobillo:61afc3b3",
+      "first_sentence": "She twisted her ankle while stepping off the curb.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:ankle:tobillo:61afc3b3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:ankle:tobillo:61afc3b3:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0f019ce833588ece016a04c66230248193904289c8c6c3c0ea",
+      "slot_id": "en-es:srs-source-target:ankle:tobillo:61afc3b3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 535,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 196,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 731
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:appease:calmar:b6360fd5",
+      "first_sentence": "The coach tried to appease the crowd by explaining the delay and offering refunds.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:appease:calmar:b6360fd5:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:appease:calmar:b6360fd5:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_02a3802b83c6e31a016a04c664c6248194af173a103af1254f",
+      "slot_id": "en-es:srs-source-target:appease:calmar:b6360fd5:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 527,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 184,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 711
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:asphalt:asfalto:83e8497c",
+      "first_sentence": "The workers laid fresh asphalt on the road before the morning rush.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:asphalt:asfalto:83e8497c:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:asphalt:asfalto:83e8497c:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_027154bbc08924d4016a04c666b3b881949620557d7026b6f6",
+      "slot_id": "en-es:srs-source-target:asphalt:asfalto:83e8497c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 526,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 188,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 714
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:ballet:ballet:1d74d0bf",
+      "first_sentence": "She has practiced ballet since childhood and performs with remarkable grace.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:ballet:ballet:1d74d0bf:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:ballet:ballet:1d74d0bf:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0ad179f3fd38a1d7016a04c669bfe88193847d42ccb373410b",
+      "slot_id": "en-es:srs-source-target:ballet:ballet:1d74d0bf:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 520,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 191,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 711
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:barbarian:barbaro:6b190974",
+      "first_sentence": "The invaders were treated as a barbarian horde that burned villages and looted homes.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:barbarian:barbaro:6b190974:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:barbarian:barbaro:6b190974:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0a90151d98c863a8016a04c66bd3888190b9e9820b70d7e7b2",
+      "slot_id": "en-es:srs-source-target:barbarian:barbaro:6b190974:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 543,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 209,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 752
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:beggar:mendigo:2f86d288",
+      "first_sentence": "A beggar sat by the station entrance with a cup for spare change.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:beggar:mendigo:2f86d288:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:beggar:mendigo:2f86d288:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_07afaa87914eed47016a04c66dc900819085561310a15e1ef9",
+      "slot_id": "en-es:srs-source-target:beggar:mendigo:2f86d288:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 529,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 193,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 722
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:bore:aburrir:60624c8a",
+      "first_sentence": "The lecture can bore even the most patient students.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:bore:aburrir:60624c8a:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:bore:aburrir:60624c8a:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0581a0f73256986a016a04c6701f6081968c70aa7bce27fb28",
+      "slot_id": "en-es:srs-source-target:bore:aburrir:60624c8a:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 541,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 179,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 720
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:bracelet:pulsera:0ebb98ac",
+      "first_sentence": "She fastened the silver bracelet around her wrist before leaving for the party.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:bracelet:pulsera:0ebb98ac:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:bracelet:pulsera:0ebb98ac:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0838b94f09cd03ec016a04c67245d88196aad91e034b4bd5a0",
+      "slot_id": "en-es:srs-source-target:bracelet:pulsera:0ebb98ac:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 520,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 176,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 696
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:butterfly:mariposa:aeaab721",
+      "first_sentence": "A butterfly landed on the sunflower by the window.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:butterfly:mariposa:aeaab721:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:butterfly:mariposa:aeaab721:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0f1ea78b2e3a6a2f016a04c67523c0819080577b43aa233e6b",
+      "slot_id": "en-es:srs-source-target:butterfly:mariposa:aeaab721:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 532,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 180,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 712
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:calculate:calcular:4d2896e9",
+      "first_sentence": "We need to calculate the total cost before placing the order.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:calculate:calcular:4d2896e9:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:calculate:calcular:4d2896e9:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04284831ff3e51ce016a04c677892881979fc98a7029cd0185",
+      "slot_id": "en-es:srs-source-target:calculate:calcular:4d2896e9:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 522,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 182,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 704
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:capsule:capsula:981a3d71",
+      "first_sentence": "The pharmacist handed me a capsule to swallow after dinner.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:capsule:capsula:981a3d71:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:capsule:capsula:981a3d71:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_03e3d77f17f06d0f016a04c67970cc8193ad2a34bb2b393d4d",
+      "slot_id": "en-es:srs-source-target:capsule:capsula:981a3d71:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 530,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 188,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 718
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:chemist:farmaceutico:3366dd37",
+      "first_sentence": "The chemist checked my prescription and told me how often to take the medicine.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:chemist:farmaceutico:3366dd37:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:chemist:farmaceutico:3366dd37:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_00e69f014a874ee1016a04c6b5f78c8190984266c0775517b2",
+      "slot_id": "en-es:srs-source-target:chemist:farmaceutico:3366dd37:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 535,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 190,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 725
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:citadel:ciudadela:7356a6b3",
+      "first_sentence": "The old citadel sits on the hill above the town, guarding the harbor.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:citadel:ciudadela:7356a6b3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:citadel:ciudadela:7356a6b3:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_092e20cadd0af3db016a04c67d942c819689cff2f1c7b3e09c",
+      "slot_id": "en-es:srs-source-target:citadel:ciudadela:7356a6b3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 541,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 207,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 748
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:claw:garra:2ee752ed",
+      "first_sentence": "The eagle used its claw to grip the branch tightly.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:claw:garra:2ee752ed:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:claw:garra:2ee752ed:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_022a6f7e6bb13a5b016a04c68102cc8196838eeac2a0dd894e",
+      "slot_id": "en-es:srs-source-target:claw:garra:2ee752ed:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 520,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 192,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 712
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:cockroach:cucaracha:ce172ab7",
+      "first_sentence": "A cockroach scurried across the kitchen floor when I turned on the light.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:cockroach:cucaracha:ce172ab7:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:cockroach:cucaracha:ce172ab7:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_06e691577ca9c28b016a04c68302b48194a745566dcd410eb2",
+      "slot_id": "en-es:srs-source-target:cockroach:cucaracha:ce172ab7:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 525,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 178,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 703
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:cocoa:cacao:c0463e7c",
+      "first_sentence": "The farmer dried the cocoa beans in the sun before shipping the harvest.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:cocoa:cacao:c0463e7c:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:cocoa:cacao:c0463e7c:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0bb454674601475a016a04c684f2748197bd8afa138e085d62",
+      "slot_id": "en-es:srs-source-target:cocoa:cacao:c0463e7c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 512,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 195,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 707
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:condemn:condenar:bb4dea72",
+      "first_sentence": "The judge will condemn the defendant to five years in prison.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:condemn:condenar:bb4dea72:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:condemn:condenar:bb4dea72:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0b1fb5d938d80d5b016a04c68711e481949f5890d5de60b38d",
+      "slot_id": "en-es:srs-source-target:condemn:condenar:bb4dea72:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 533,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 181,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 714
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:cylinder:cilindro:3b96b6d2",
+      "first_sentence": "The mechanic replaced the worn cylinder in the engine.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:cylinder:cilindro:3b96b6d2:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:cylinder:cilindro:3b96b6d2:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0af5dd403c12252c016a04c689427481959c1d20bf2fa8455d",
+      "slot_id": "en-es:srs-source-target:cylinder:cilindro:3b96b6d2:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 540,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 191,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 731
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:delegate:delegar:a3ca9172",
+      "first_sentence": "The manager will delegate the approval process to her deputy so the team can move faster.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:delegate:delegar:a3ca9172:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:delegate:delegar:a3ca9172:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0293011ac1f06687016a04c68b21cc8196ab260fcaa16bcca2",
+      "slot_id": "en-es:srs-source-target:delegate:delegar:a3ca9172:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 521,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 191,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 712
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:denounce:acusar:724ffca3",
+      "first_sentence": "The auditor decided to denounce the contractor after finding evidence of fraud in the invoices.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:denounce:acusar:724ffca3:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:denounce:acusar:724ffca3:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0c3d0cc2fbab4ac6016a04c68d09848190a1c7da64c492b28e",
+      "slot_id": "en-es:srs-source-target:denounce:acusar:724ffca3:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 537,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 193,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 730
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:detain:retener:ff75c7b6",
+      "first_sentence": "The border officer chose to detain the passport until the inspection was complete.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:detain:retener:ff75c7b6:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:detain:retener:ff75c7b6:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_04751114da284d15016a04c68eff508190a63b050da662d6b6",
+      "slot_id": "en-es:srs-source-target:detain:retener:ff75c7b6:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 539,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 189,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 728
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:distract:distraer:5fc36fad",
+      "first_sentence": "The manager asked me to distract the guests while the surprise setup was finished in the next room.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:distract:distraer:5fc36fad:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:distract:distraer:5fc36fad:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_094c8b8a2a039e4b016a04c6910b9c81979e60b73f1dbc024d",
+      "slot_id": "en-es:srs-source-target:distract:distraer:5fc36fad:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 530,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 197,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 727
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:divert:distraer:a1455a00",
+      "first_sentence": "The comedian tried to divert the crowd with a few quick jokes.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:divert:distraer:a1455a00:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:divert:distraer:a1455a00:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_014881d30548e3e8016a04c6935b588190b81b82cfde53b98b",
+      "slot_id": "en-es:srs-source-target:divert:distraer:a1455a00:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 539,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 194,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 733
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:entertain:distraer:70c5dd1d",
+      "first_sentence": "I put on a funny movie to entertain the kids during the long flight.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:entertain:distraer:70c5dd1d:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:entertain:distraer:70c5dd1d:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_061b639163cf51be016a04c6b8112c8193b150a9dc0f29a27f",
+      "slot_id": "en-es:srs-source-target:entertain:distraer:70c5dd1d:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 554,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 198,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 752
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:exaggerate:exagerar:c2748496",
+      "first_sentence": "Please don't exaggerate the damage; the repair is serious, but not catastrophic.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:exaggerate:exagerar:c2748496:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:exaggerate:exagerar:c2748496:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0bc059f63d04072f016a04c697cb34819584d57191bce518a2",
+      "slot_id": "en-es:srs-source-target:exaggerate:exagerar:c2748496:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 531,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 203,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 734
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:feather:pluma:c5f49966",
+      "first_sentence": "A single feather drifted down from the pillow onto the floor.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:feather:pluma:c5f49966:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:feather:pluma:c5f49966:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_082ce6c244da2c99016a04c69a410881969f460f5d50ec5772",
+      "slot_id": "en-es:srs-source-target:feather:pluma:c5f49966:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 520,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 189,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 709
+      }
+    },
+    {
+      "family_id": "en-es:srs-source-target:fog:niebla:478a217c",
+      "first_sentence": "Early in the morning, fog covered the valley and made the hills hard to see.",
+      "item_count": 2,
+      "pilot_arm": "P2_exposure_first",
+      "raw_response_ref": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json#en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:fog:niebla:478a217c:active_evidence_expansion",
+      "request_id": "en-es-active-only-full-v1-tranche-008:en-es:srs-source-target:fog:niebla:478a217c:active_evidence_expansion",
+      "requested_items": 2,
+      "response_id": "resp_0d67084ce4d5c585016a04c69d3908819384fc52ce559da346",
+      "slot_id": "en-es:srs-source-target:fog:niebla:478a217c:active_evidence_expansion",
+      "slot_type": "active_evidence_expansion",
+      "status": "accepted",
+      "usage": {
+        "input_tokens": 512,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 697
+      }
+    }
+  ],
+  "schema_version": 1,
+  "selected_model_id": "gpt-5.4-mini",
+  "selected_temperature": null,
+  "status": "ok",
+  "summary": {
+    "accepted_generated_item_count": 80,
+    "accepted_items_by_slot_type": {
+      "active_evidence_expansion": 80
+    },
+    "accepted_response_count": 40,
+    "accepted_responses_by_arm": {
+      "P2_exposure_first": 40
+    },
+    "accepted_responses_by_slot_type": {
+      "active_evidence_expansion": 40
+    },
+    "admission_status": "ok",
+    "admitted_item_count": 80,
+    "api_error_count": 0,
+    "coverage_shortfall_count": 0,
+    "coverage_waived_item_count": 0,
+    "input_tokens": 21293,
+    "invalid_output_count": 0,
+    "output_tokens": 7613,
+    "reasoning_tokens": 0,
+    "rejected_item_count": 0,
+    "selected_request_count": 40
+  }
+}

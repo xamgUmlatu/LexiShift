@@ -542,13 +542,24 @@ def _blocked_target_lemmas(
     response: Mapping[str, object],
     request: Mapping[str, object],
 ) -> list[str]:
+    source_lemmas = {
+        _normalize_text(str(request.get("trigger") or "")),
+        _normalize_text(str(response.get("source_phrase") or "")),
+    }
+    source_lemmas.discard("")
     values: list[str] = []
     values.append(str(request.get("active_target_lemma") or ""))
     values.append(str(request.get("slot_target_lemma") or ""))
     values.append(str(response.get("target_lemma") or ""))
     values.append(str(response.get("proposed_competitor_target_lemma") or ""))
     values.extend(str(value) for value in request.get("known_shadow_targets") or ())
-    return sorted({value.strip() for value in values if value and value.strip()})
+    return sorted(
+        {
+            value.strip()
+            for value in values
+            if value and value.strip() and _normalize_text(value) not in source_lemmas
+        }
+    )
 
 
 def _issue(subject: str, severity: str, message: str) -> dict[str, object]:

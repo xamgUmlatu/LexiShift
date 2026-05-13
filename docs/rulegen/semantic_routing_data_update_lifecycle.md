@@ -3,7 +3,7 @@
 Status: active plan
 Role: Planning / operational
 Last updated: 2026-05-12
-Last verified: 2026-05-14 helper CLI/native-host semantic-pack installer tests, named-pack resolver tests, default tranche-007 dev pack, and disposable product-root install smoke
+Last verified: 2026-05-14 helper CLI/native-host semantic-pack installer tests, named-pack resolver tests, default tranche-008 dev pack, and disposable product-root install smoke
 Purpose: define the update process for semantic-routing data so LexiShift can add mined, manual, and later LLM-derived evidence without creating awkward runtime coupling, redundant storage, or unsafe publication flow
 Source-of-truth: planning doc only; current implemented truth still lives in helper publication/runtime code and the semantic-routing contracts
 Related docs:
@@ -425,7 +425,7 @@ product-shaped route. When it is omitted, the helper resolves the requested
    `<data-root>/language_packs/<pair>/semantic_packs/<pack-id>/semantic_inventory.json`
 2. an explicit semantic-pack catalog file from `LEXISHIFT_SEMANTIC_PACK_CATALOG`
 3. the current repo dev-pack path for named development packs, including the
-   current default `en-es-active-only-combined-full-v1-tranche-007`
+   current default `en-es-active-only-combined-full-v1-tranche-008`
 
 That keeps tests and first product checks honest: the UI/backend contract is
 "install this named pack into this profile/data root", while file paths remain

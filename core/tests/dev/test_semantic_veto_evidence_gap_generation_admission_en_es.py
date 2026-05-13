@@ -241,6 +241,43 @@ class SemanticVetoEvidenceGapGenerationAdmissionTests(unittest.TestCase):
         self.assertEqual(reasons["label_leakage_in_sentence"], 1)
         self.assertEqual(report["summary"]["admitted_item_count"], 1)
 
+    def test_allows_target_lemma_when_it_is_identical_to_source_phrase(self) -> None:
+        request_payload = _request_payload()
+        active_request = request_payload["requests"][0]
+        active_request["family_id"] = "family:ballet:ballet"
+        active_request["trigger"] = "ballet"
+        active_request["active_target_lemma"] = "ballet"
+        active_request["slot_target_lemma"] = "ballet"
+        active_request["known_shadow_targets"] = []
+        response = _active_response()
+        response["family_id"] = "family:ballet:ballet"
+        response["source_phrase"] = "ballet"
+        response["target_lemma"] = "ballet"
+        response["items"] = [
+            {
+                "sentence": "She has practiced ballet since childhood.",
+                "evidence_note": "Direct cognate dance-form sense.",
+            },
+            {
+                "sentence": "The theater will host a new ballet next month.",
+                "evidence_note": "Direct cognate staged-performance sense.",
+            },
+        ]
+
+        report = build_evidence_gap_generation_admission_report(
+            generation_requests_payload=request_payload,
+            generated_responses_payload={
+                "selected_request_ids": ["pilot:req:active"],
+                "responses": [response],
+            },
+            generated_at="2026-05-08T00:00:00Z",
+        )
+
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual(report["summary"]["admitted_item_count"], 2)
+        self.assertEqual(report["summary"]["rejected_item_count"], 0)
+        self.assertNotIn("spanish_target_lemma_in_sentence", report["rejection_reasons"])
+
     def test_rejects_response_alignment_mismatch(self) -> None:
         response = _active_response()
         response["target_lemma"] = "orilla"

@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-14
-Last verified: 2026-05-14 against tranche-001/tranche-007 artifacts, the post-tranche-007 coverage plan, tranche-005 operator checkpoint, active-only generation planner, live generation runner, repaired admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
+Last verified: 2026-05-14 against tranche-001/tranche-008 artifacts, the post-tranche-008 coverage plan, tranche-005 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -18,26 +18,26 @@ Related docs:
 The latest automated-clean soft-assist pack is:
 
 ```text
-en-es-active-only-combined-full-v1-tranche-007
+en-es-active-only-combined-full-v1-tranche-008
 ```
 
 The latest operator-accepted product checkpoint is tranche-005. That acceptance
 is based on the tranche-005 automated follow-through summary; the latest
-hands-on browser-extension smoke remains tranche-003. Tranche-007 is
+hands-on browser-extension smoke remains tranche-003. Tranche-008 is
 automated-clean and ready for the same kind of operator checkpoint if desired.
 
 Current checkpoint:
 
-- automated-clean active-only coverage: `338 / 570` current SRS-derived source-target families,
-- remaining uncovered families: `232`,
+- automated-clean active-only coverage: `378 / 570` current SRS-derived source-target families,
+- remaining uncovered families: `192`,
 - remaining unreviewed generation queue rows after tranche-008 source-target review prep: `121`,
-- next runnable paid request packet: tranche-008 pre-spend packet with `40` reviewed families and `80` expected active cue rows,
-- next required work: operator checkpoint for tranche-007 if desired, then explicit approval/current pricing before tranche-008 paid generation.
+- next runnable paid request packet: none until tranche-009 source-target review expands the queue,
+- next required work: operator checkpoint for tranche-008 if desired, then expand review before any tranche-009 paid generation.
 
-Do not start another paid run from the post-tranche-007 plan directly.
-The tranche-006 and tranche-007 pre-spend request packets below are historical
-evidence of completed paid runs. The tranche-008 pre-spend packet is the
-current reviewed paid-generation candidate, but it has not been executed.
+Do not start another paid run from the post-tranche-008 plan directly.
+The tranche-006, tranche-007, and tranche-008 pre-spend request packets below
+are historical evidence of completed paid runs. A tranche-009 pre-spend packet
+does not exist until source-target review is expanded again.
 
 ```text
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md
@@ -45,6 +45,7 @@ docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_00
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_008_pre_spend_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_008_en_es_latest.md
 ```
 
 ## What This Runbook Improves
@@ -82,7 +83,7 @@ docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es
 For the next tranche:
 
 1. Start from the latest post-tranche plan:
-   `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.md`.
+   `docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_008_en_es_latest.md`.
 2. Review the next tranche-size block of `source_target_review_status=unreviewed` rows.
 3. Append a new `reviewed_slices` entry.
 4. Add one decision row per reviewed source-target family.
@@ -162,7 +163,7 @@ Completed tranche-007 pre-spend result:
 - output-token budget: `10,640`,
 - review status over uncovered rows: `approved:38, excluded:61, unreviewed:171`.
 
-Current tranche-008 result:
+Completed tranche-008 pre-spend result:
 
 - status: `ok`,
 - selected request families: `40`,
@@ -340,6 +341,24 @@ Completed tranche-007 follow-through:
   decisions, `68` replaces, `52` abstains, `0` fallback decisions, and `0`
   page fetch errors.
 
+Completed tranche-008 follow-through:
+
+- live generation accepted `40/40` responses after guarded retries for `2`
+  metadata-drift outputs, with `80` accepted generated items, `0` API errors,
+  `21,293` input tokens, and `7,613` output tokens,
+- admission accepted `80/80` active items across `40/40` expected responses
+  with `0` rejects and `0` coverage shortfall after the guard was corrected for
+  exact source-target cognates such as `ballet -> ballet`,
+- source packaging produced `80` canonical `anchor_cue` rows across `40`
+  families with `0` exclusions,
+- the combined pack now has `768` normalized evidence rows across `378`
+  families, with `378` triggers, `420` senses, and `378` competition sets,
+- isolated install wrote `378` helper rules with `355` active-only and `23`
+  shadowed/mixed competition sets,
+- live public-page scan over the installed fixture produced `120` policy
+  decisions, `68` replaces, `52` abstains, `0` fallback decisions, and `0`
+  page fetch errors.
+
 Operator smoke:
 
 - use `docs/rulegen/semantic_pack_operator_smoke_runbook.md`,
@@ -388,17 +407,17 @@ Expected post-tranche behavior:
 - the remaining unreviewed queue count should shrink by the reviewed tranche size,
 - coverage should increase by the accepted generated families.
 
-Actual post-tranche-007 state:
+Actual post-tranche-008 state:
 
-- status is `review`, because tranche-008 source-target review has not been
+- status is `review`, because tranche-009 source-target review has not been
   added yet,
-- covered families are `338 / 570`, or `59.3%`,
-- remaining uncovered families are `232`,
-- remaining unreviewed generation queue rows are `171` after `61` cumulative
+- covered families are `378 / 570`, or `66.3%`,
+- remaining uncovered families are `192`,
+- remaining unreviewed generation queue rows are `121` after `71` cumulative
   exclusions,
 - selected request count is `0` until the next reviewed slice is added,
 - expected generated rows for all currently unreviewed queue families are
-  `342`.
+  `242`.
 
 Commit point:
 
