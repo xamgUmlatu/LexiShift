@@ -153,7 +153,7 @@ Exit criteria:
 ## Immediate Next Slices
 
 1. Record an operator checkpoint for tranche-007 if desired.
-2. Prepare the next source-target review slice before any tranche-008 spend.
+2. Execute tranche-008 paid generation only after explicit approval/current pricing; the no-spend source-target review packet is already prepared.
 3. Product install polish and public README posture remain separate slices after the generated-data checkpoint is safe.
 
 ## Verification

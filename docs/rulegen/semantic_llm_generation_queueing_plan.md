@@ -708,6 +708,29 @@ Post-tranche-007 state:
 - the post-tranche-007 request packet is intentionally empty until the next
   pre-spend source-target review approves more rows.
 
+The tranche-008 pre-spend review slice has now been prepared without making
+paid calls:
+
+- the cumulative source-target review manifest covers `400` reviewed rows,
+  with `329` cumulative approvals and `71` cumulative exclusions,
+- tranche-008 prep reviewed the first `50` still-unreviewed rows after
+  tranche-007 coverage and exclusions, global need ranks `62-111`,
+- tranche-008 prep approved `40` of those rows and excluded `10` weak or
+  non-visible mappings (`fur -> incrustación`, `grow -> acontecer`,
+  `nearby -> contiguo`, `strict -> inclemente`, `trite -> común`,
+  `turnon -> poner`, `abandonment -> cesión`,
+  `acquaintance -> notoriedad`, `builder -> labrador`, and
+  `familiarity -> notoriedad`),
+- the refreshed tranche-008 request plan is `ok` and selects only those `40`
+  approved families,
+- the request packet expects `80` active cue rows, estimates `21,892` input
+  tokens, and budgets `11,200` output tokens,
+- `121` remaining uncovered rows are still unreviewed after this prep slice.
+
+The tranche-008 prep artifact is:
+
+- `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_008_pre_spend_en_es_latest.md`
+
 The scale-generation program should therefore proceed in lanes:
 
 1. Freeze the current `active_only_combined_product_scope_v1` pack as the
@@ -729,8 +752,7 @@ The scale-generation program should therefore proceed in lanes:
    not solve those cases.
 
 The immediate engineering gap is now tranche-007 operator checkpoint if desired,
-followed by tranche-008 source-target review before any additional paid
-generation.
+followed by explicit approval/current pricing for tranche-008 paid generation.
 Do not attempt to spend the whole budget at once.
 
 Use `docs/rulegen/semantic_veto_active_only_tranche_runbook.md` for the

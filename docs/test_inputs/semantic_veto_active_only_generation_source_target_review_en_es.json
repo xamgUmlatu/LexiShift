@@ -5,8 +5,8 @@
   "decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
   "reviewed_at": "2026-05-14",
   "review_scope": {
-    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json",
-    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue; tranche 007 prep reviewed the first 50 unreviewed rows after tranche 006 coverage/exclusion, global_need_rank 50-99 in the post-tranche-006 queue",
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.json",
+    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue; tranche 007 prep reviewed the first 50 unreviewed rows after tranche 006 coverage/exclusion, global_need_rank 50-99 in the post-tranche-006 queue; tranche 008 prep reviewed the first 50 unreviewed rows after tranche 007 coverage/exclusion, global_need_rank 62-111 in the post-tranche-007 queue",
     "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
   },
   "reviewed_slices": [
@@ -58,6 +58,13 @@
       "selection": "first 50 source_target_review_status=unreviewed rows after tranche 006 coverage and exclusions, global_need_rank 50-99",
       "approved_count": 38,
       "excluded_count": 12
+    },
+    {
+      "slice_id": "tranche_008_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.json",
+      "selection": "first 50 source_target_review_status=unreviewed rows after tranche 007 coverage and exclusions, global_need_rank 62-111",
+      "approved_count": 40,
+      "excluded_count": 10
     }
   ],
   "review_policy": {
@@ -2521,6 +2528,356 @@
       "approved_for_active_only_generation": false,
       "decision": "exclude_weak_source_target_mapping",
       "rationale": "Divide usually maps to dividir or separar; segregar means segregate, so this is too narrow/misleading."
+    },
+    {
+      "source": "error",
+      "target": "yerro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for error or mistake; yerro is formal but usable visible replacement evidence."
+    },
+    {
+      "source": "fur",
+      "target": "incrustación",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Fur usually maps to pelaje/piel; incrustación means encrustation or deposit and is not a useful visible replacement."
+    },
+    {
+      "source": "grow",
+      "target": "acontecer",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Grow means increase, cultivate, or become; acontecer means happen/occur, so the source-target mapping is visibly wrong."
+    },
+    {
+      "source": "lighter",
+      "target": "mechero",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for a cigarette or flame lighter."
+    },
+    {
+      "source": "mistake",
+      "target": "yerro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for mistake/error; yerro is formal but usable."
+    },
+    {
+      "source": "nearby",
+      "target": "contiguo",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Nearby usually maps to cerca/cercano; contiguo means adjoining/contiguous and is too specific for the source."
+    },
+    {
+      "source": "regret",
+      "target": "deplorar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable verb mapping for regretting or deploring something."
+    },
+    {
+      "source": "scale",
+      "target": "incrustación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid narrow noun mapping for hard deposit or encrustation, though scale has many common measure/device/size senses."
+    },
+    {
+      "source": "separate",
+      "target": "segregar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable narrow verb mapping for segregating or setting apart, though separate is broader and often maps to separar/apartar."
+    },
+    {
+      "source": "severe",
+      "target": "inclemente",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid narrow adjective mapping in harsh or inclement weather/context uses; severe is broader in general contexts."
+    },
+    {
+      "source": "strict",
+      "target": "inclemente",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Strict usually maps to estricto; inclemente means inclement/harsh weather and is not a good visible replacement."
+    },
+    {
+      "source": "sweat",
+      "target": "transpirar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for perspiring."
+    },
+    {
+      "source": "trite",
+      "target": "común",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Trite means banal/hackneyed; común only means common and loses the intended pejorative sense."
+    },
+    {
+      "source": "turnon",
+      "target": "poner",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "The source is a fused turnon artifact rather than the browser-replaceable phrase turn on."
+    },
+    {
+      "source": "abandonment",
+      "target": "cesión",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Abandonment usually maps to abandono; cesión means cession/transfer and is too different for visible replacement."
+    },
+    {
+      "source": "abolish",
+      "target": "abolir",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "accompaniment",
+      "target": "acompañamiento",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "accuse",
+      "target": "acusar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "acquaintance",
+      "target": "notoriedad",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Acquaintance means a known person or familiarity; notoriedad means notoriety/fame and is not a useful replacement."
+    },
+    {
+      "source": "adjective",
+      "target": "adjetivo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct grammar-term mapping."
+    },
+    {
+      "source": "adjoining",
+      "target": "adyacente",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for adjacent/adjoining."
+    },
+    {
+      "source": "ankle",
+      "target": "tobillo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct body-part mapping."
+    },
+    {
+      "source": "appease",
+      "target": "calmar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable verb mapping for calming or pacifying."
+    },
+    {
+      "source": "asphalt",
+      "target": "asfalto",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "ballet",
+      "target": "ballet",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct cognate noun mapping."
+    },
+    {
+      "source": "barbarian",
+      "target": "bárbaro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun/adjective mapping."
+    },
+    {
+      "source": "beggar",
+      "target": "mendigo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "bore",
+      "target": "aburrir",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for making someone bored; bore also has unrelated noun/verb senses."
+    },
+    {
+      "source": "bracelet",
+      "target": "pulsera",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "builder",
+      "target": "labrador",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Builder usually maps to constructor; labrador means farmer/farmworker or Labrador and is not a useful replacement."
+    },
+    {
+      "source": "butterfly",
+      "target": "mariposa",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "calculate",
+      "target": "calcular",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "capsule",
+      "target": "cápsula",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "chemist",
+      "target": "farmacéutico",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid British-English noun mapping for pharmacist; chemist is also a chemistry professional."
+    },
+    {
+      "source": "citadel",
+      "target": "ciudadela",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "claw",
+      "target": "garra",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "cockroach",
+      "target": "cucaracha",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "cocoa",
+      "target": "cacao",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "condemn",
+      "target": "condenar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for condemning or sentencing."
+    },
+    {
+      "source": "cylinder",
+      "target": "cilindro",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "delegate",
+      "target": "delegar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for assigning authority; delegate is also a noun."
+    },
+    {
+      "source": "denounce",
+      "target": "acusar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable verb mapping where denounce means accuse or report; denounce can also mean condemn publicly."
+    },
+    {
+      "source": "detain",
+      "target": "retener",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable verb mapping for holding or detaining."
+    },
+    {
+      "source": "distract",
+      "target": "distraer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "divert",
+      "target": "distraer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid mapping where divert means distract/amuse; divert also means reroute."
+    },
+    {
+      "source": "entertain",
+      "target": "distraer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable mapping where entertain means amuse/distract; entertain also means host or consider."
+    },
+    {
+      "source": "exaggerate",
+      "target": "exagerar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "familiarity",
+      "target": "notoriedad",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Familiarity means acquaintance or closeness; notoriedad means fame/notoriety and is not a useful replacement."
+    },
+    {
+      "source": "feather",
+      "target": "pluma",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "fog",
+      "target": "niebla",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
     }
   ]
 }

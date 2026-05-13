@@ -30,20 +30,21 @@ Current checkpoint:
 
 - automated-clean active-only coverage: `338 / 570` current SRS-derived source-target families,
 - remaining uncovered families: `232`,
-- remaining unreviewed generation queue rows after tranche-007 follow-through: `171`,
-- next runnable paid request packet: none until tranche-008 source-target review is completed,
-- next required work: operator checkpoint for tranche-007 if desired, then tranche-008 source-target review and no-spend request planning before any further paid generation.
+- remaining unreviewed generation queue rows after tranche-008 source-target review prep: `121`,
+- next runnable paid request packet: tranche-008 pre-spend packet with `40` reviewed families and `80` expected active cue rows,
+- next required work: operator checkpoint for tranche-007 if desired, then explicit approval/current pricing before tranche-008 paid generation.
 
 Do not start another paid run from the post-tranche-007 plan directly.
 The tranche-006 and tranche-007 pre-spend request packets below are historical
-evidence of completed paid runs. A tranche-008 pre-spend packet must be created
-from the post-tranche-007 plan before any further spend.
+evidence of completed paid runs. The tranche-008 pre-spend packet is the
+current reviewed paid-generation candidate, but it has not been executed.
 
 ```text
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.md
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_008_pre_spend_en_es_latest.md
 ```
 
 ## What This Runbook Improves
@@ -86,13 +87,13 @@ For the next tranche:
 3. Append a new `reviewed_slices` entry.
 4. Add one decision row per reviewed source-target family.
 
-This has already been completed for tranche-007 and must be repeated for tranche-008 before any spend after tranche-007:
+This has already been completed for tranche-008 and must be repeated for tranche-009 before any spend after tranche-008:
 
-- reviewed rows: global need ranks `50-99`,
-- approved rows: `38`,
-- excluded rows: `12`,
-- historical request packet:
-  `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_007_pre_spend_en_es_latest.md`.
+- reviewed rows: global need ranks `62-111`,
+- approved rows: `40`,
+- excluded rows: `10`,
+- current request packet:
+  `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_008_pre_spend_en_es_latest.md`.
 
 Allowed review outcomes:
 
@@ -160,6 +161,15 @@ Completed tranche-007 pre-spend result:
 - estimated input tokens: `20,811`,
 - output-token budget: `10,640`,
 - review status over uncovered rows: `approved:38, excluded:61, unreviewed:171`.
+
+Current tranche-008 result:
+
+- status: `ok`,
+- selected request families: `40`,
+- expected active cue rows: `80`,
+- estimated input tokens: `21,892`,
+- output-token budget: `11,200`,
+- review status over uncovered rows: `approved:40, excluded:71, unreviewed:121`.
 
 ### Gate 3. Paid Generation
 
