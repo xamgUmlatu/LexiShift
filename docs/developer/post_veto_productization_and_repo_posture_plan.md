@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-05-13
-Last verified: 2026-05-13 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-005 automated follow-through artifacts, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 operator smoke evidence, and the semantic-pack operator smoke runbook
+Last verified: 2026-05-14 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-005 automated follow-through artifacts, tranche-005 operator product checkpoint, tranche-006 pre-spend request plan, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 hands-on operator smoke evidence, and the semantic-pack operator smoke runbook
 Purpose: organize the work after the first successful semantic-veto product smoke, without reopening open-ended veto research by default
 Source-of-truth: planning document only; current implementation truth lives in source code, `docs/developer/feature_state_matrix.md`, and the semantic-veto registry artifacts
 
@@ -16,8 +16,9 @@ The semantic-veto workstream has reached a real product-smoke checkpoint:
 - Installed competition sets are `238` active-only and `23` shadowed/mixed.
 - The extension Advanced debug install flow can install the named pack without pasting an inventory file path.
 - Live browser smoke accepted the tranche-003 pack with the `en_es_sentence_veto_v2` active-only policy and `min_active_score=0.015` as useful soft-assist behavior after the runtime began using surrounding sentence/block context for split-inline DOM text and after semantic batching was optimized.
-- Tranche-005 has passed paid generation, repaired admission, postprocess, source packaging, isolated pack install, and automated live-page scan. It is ready for operator browser-extension smoke.
-- Tranche-003 remains the current formally recorded operator-approved soft-assist PoC pack until a later tranche is tested and recorded.
+- Tranche-005 has passed paid generation, repaired admission, postprocess, source packaging, isolated pack install, automated live-page scan, and operator acceptance of the automated follow-through checkpoint.
+- Tranche-003 remains the latest formally recorded hands-on browser-extension smoke. Tranche-005 is the latest operator-accepted product checkpoint.
+- Tranche-006 has a no-spend request packet ready: `39` reviewed families, `78` expected active cue rows, `21,302` estimated input tokens, and `10,920` output-token budget.
 
 This is not full `en-es` semantic coverage, and it is not a near-zero-harmful replacement guarantee.
 It is a bounded soft-assist feature checkpoint: many good replacements become visible, some bad replacements are still expected, and false abstains remain acceptable if the browsing experience still improves.
@@ -151,8 +152,8 @@ Exit criteria:
 
 ## Immediate Next Slices
 
-1. Run operator smoke on tranche-005 and record whether it becomes the latest approved product-feel checkpoint.
-2. Prepare the next source-target review slice before any tranche-006 spend.
+1. Run paid tranche-006 generation only after explicit spend confirmation.
+2. Follow the normal gate sequence: admission, repair if needed, postprocess, source packaging, pack build, isolated install, live-page scan, registry/docs update, then commit and push.
 3. Product install polish and public README posture remain separate slices after the generated-data checkpoint is safe.
 
 ## Verification

@@ -3,10 +3,10 @@
   "pair": "en-es",
   "review_id": "en-es-active-only-full-v1-cumulative-source-target-review",
   "decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
-  "reviewed_at": "2026-05-13",
+  "reviewed_at": "2026-05-14",
   "review_scope": {
-    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json",
-    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue",
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json",
+    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue",
     "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
   },
   "reviewed_slices": [
@@ -44,6 +44,13 @@
       "selection": "first 50 source_target_review_status=unreviewed rows after tranche 004 coverage and exclusions, global_need_rank 26-75",
       "approved_count": 37,
       "excluded_count": 13
+    },
+    {
+      "slice_id": "tranche_006_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json",
+      "selection": "first 50 source_target_review_status=unreviewed rows after tranche 005 coverage and exclusions, global_need_rank 39-88",
+      "approved_count": 39,
+      "excluded_count": 11
     }
   ],
   "review_policy": {
@@ -1807,6 +1814,356 @@
       "approved_for_active_only_generation": true,
       "decision": "approve_narrow_active_mapping",
       "rationale": "Direct noun mapping for a brush tool; narrow because the verb maps to cepillar and brush also has encounter or vegetation senses."
+    },
+    {
+      "source": "burst",
+      "target": "grieta",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Burst usually means an explosion, sudden outbreak, or rapid action; grieta means crack/fissure, so this is too skewed for visible replacement."
+    },
+    {
+      "source": "calm",
+      "target": "calmar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable verb mapping for calming someone or something; narrow because calm is also an adjective or noun."
+    },
+    {
+      "source": "chase",
+      "target": "cazar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Chase normally means pursue; cazar means hunt/capture game, so ordinary browser contexts would usually want perseguir, not cazar."
+    },
+    {
+      "source": "clay",
+      "target": "arcilla",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct material noun mapping."
+    },
+    {
+      "source": "climb",
+      "target": "trepar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for climbing up or over something."
+    },
+    {
+      "source": "copy",
+      "target": "trasladar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Copy normally maps to copiar; trasladar means transfer/move, so this is too weak for visible replacement."
+    },
+    {
+      "source": "count",
+      "target": "calcular",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Count normally maps to contar; calcular is calculate, so this would be wrong in many ordinary contexts."
+    },
+    {
+      "source": "counter",
+      "target": "mostrador",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct noun mapping for a service/shop counter; narrow because counter also means oppose, a device, or opposite."
+    },
+    {
+      "source": "crack",
+      "target": "grieta",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct noun mapping for a crack/fissure; narrow because crack also has verb, joke, drug, and attempt senses."
+    },
+    {
+      "source": "demand",
+      "target": "deducción",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Demand does not mean deduction; this mapping is too weak for visible replacement."
+    },
+    {
+      "source": "divide",
+      "target": "apartar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable active mapping for separating or setting apart; narrow because divide often means split mathematically or partition."
+    },
+    {
+      "source": "drunk",
+      "target": "ebrio",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective/person-state mapping."
+    },
+    {
+      "source": "ear",
+      "target": "oreja",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct body-part noun mapping."
+    },
+    {
+      "source": "eighth",
+      "target": "octavo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct ordinal mapping."
+    },
+    {
+      "source": "error",
+      "target": "equivocación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct mistake/error noun mapping."
+    },
+    {
+      "source": "escort",
+      "target": "acompañamiento",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Escort usually maps to escolta or acompañar; acompañamiento is accompaniment/company and is too weak for ordinary escort contexts."
+    },
+    {
+      "source": "extract",
+      "target": "extracto",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct noun mapping for an extract/excerpt; narrow because extract is also a verb meaning remove or derive."
+    },
+    {
+      "source": "farmer",
+      "target": "campesino",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct person noun mapping."
+    },
+    {
+      "source": "feed",
+      "target": "alimentar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct verb mapping for feeding/nourishing; narrow because feed is also a noun or data stream."
+    },
+    {
+      "source": "fly",
+      "target": "mosca",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct insect noun mapping; narrow because fly is also a high-frequency verb."
+    },
+    {
+      "source": "guest",
+      "target": "huésped",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct person noun mapping."
+    },
+    {
+      "source": "heat",
+      "target": "calentar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct verb mapping for heating something; narrow because heat is also a noun meaning calor."
+    },
+    {
+      "source": "height",
+      "target": "elevación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable mapping for elevation/height in vertical measurement contexts; narrow because ordinary height often maps better to altura."
+    },
+    {
+      "source": "hip",
+      "target": "cadera",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct body-part noun mapping."
+    },
+    {
+      "source": "honest",
+      "target": "honrado",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for honest/upright."
+    },
+    {
+      "source": "hunt",
+      "target": "cazar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for hunting."
+    },
+    {
+      "source": "indicate",
+      "target": "designar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Indicate usually means show/point out/suggest; designar means designate/appoint, so this repeats the weak designar mapping pattern."
+    },
+    {
+      "source": "joke",
+      "target": "bromear",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct verb mapping for joking; narrow because joke is also a noun."
+    },
+    {
+      "source": "kick",
+      "target": "patada",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct noun mapping for a kick; narrow because the verb would map to patear."
+    },
+    {
+      "source": "kiss",
+      "target": "besar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct verb mapping for kissing; narrow because the noun kiss would map to beso."
+    },
+    {
+      "source": "lamb",
+      "target": "cordero",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct animal/meat noun mapping."
+    },
+    {
+      "source": "mistake",
+      "target": "equivocación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct mistake/error noun mapping."
+    },
+    {
+      "source": "nearby",
+      "target": "adyacente",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Nearby means close or near; adyacente means adjacent, so this is too narrow and often false."
+    },
+    {
+      "source": "pepper",
+      "target": "pimienta",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct spice noun mapping."
+    },
+    {
+      "source": "petty",
+      "target": "mezquino",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for petty/mean-spirited."
+    },
+    {
+      "source": "pink",
+      "target": "rosado",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct color adjective/noun mapping."
+    },
+    {
+      "source": "plain",
+      "target": "llanura",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct noun mapping for a plain/flatland; narrow because plain is also a common adjective."
+    },
+    {
+      "source": "plane",
+      "target": "cepillo",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid woodworking-tool noun mapping; narrow because plane usually means aircraft or geometric plane."
+    },
+    {
+      "source": "pleasure",
+      "target": "agrado",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Usable noun mapping for pleasure/liking/satisfaction."
+    },
+    {
+      "source": "prefer",
+      "target": "preferir",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "proposal",
+      "target": "pretensión",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Proposal normally maps to propuesta; pretensión means claim/pretension, so this is too weak for visible replacement."
+    },
+    {
+      "source": "quiet",
+      "target": "calmar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable verb mapping for quieting/calming someone or something; narrow because quiet is usually an adjective/noun."
+    },
+    {
+      "source": "refuse",
+      "target": "rechazar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct verb mapping for rejecting/refusing; narrow because refuse can also be a noun meaning trash."
+    },
+    {
+      "source": "reject",
+      "target": "rechazar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "remove",
+      "target": "abolir",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Remove usually means quitar/eliminar; abolir is abolish, so this is only a rare legal/policy sense and too weak here."
+    },
+    {
+      "source": "replacement",
+      "target": "suplemento",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Replacement means substitute/replacement; suplemento means supplement, so this is too weak for visible replacement."
+    },
+    {
+      "source": "reserve",
+      "target": "reservar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Direct verb mapping for reserving/booking; narrow because reserve is also a noun."
+    },
+    {
+      "source": "retain",
+      "target": "retener",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "reverse",
+      "target": "reverso",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Usable noun/adjective mapping for reverse side/back; narrow because reverse is also a verb."
+    },
+    {
+      "source": "salad",
+      "target": "ensalada",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct food noun mapping."
     }
   ]
 }

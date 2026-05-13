@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-13
-Last verified: 2026-05-13 against tranche-001/tranche-005 artifacts, the post-tranche-005 coverage plan, active-only generation planner, live generation runner, repaired admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 operator browser-extension smoke
+Last verified: 2026-05-14 against tranche-001/tranche-005 artifacts, the post-tranche-005 coverage plan, tranche-005 operator checkpoint, tranche-006 no-spend request plan, active-only generation planner, live generation runner, repaired admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -21,18 +21,17 @@ The latest automated-clean soft-assist pack is:
 en-es-active-only-combined-full-v1-tranche-005
 ```
 
-The latest operator-approved browser-extension smoke is still tranche-003.
-Tranche-005 has completed paid generation, repaired admission, source
-packaging, pack build, isolated install, and automated page scan, but it still
-needs operator smoke before it should be called operator-approved.
+The latest operator-accepted product checkpoint is tranche-005. That acceptance
+is based on the tranche-005 automated follow-through summary; the latest
+hands-on browser-extension smoke remains tranche-003.
 
 Current checkpoint:
 
 - automated-clean active-only coverage: `261 / 570` current SRS-derived source-target families,
 - remaining uncovered families: `309`,
 - remaining unreviewed generation queue rows after tranche-005 follow-through: `271`,
-- next runnable paid request packet: none until the next source-target review slice is added,
-- next required work: operator smoke for tranche-005, then tranche-006 source-target review.
+- next runnable paid request packet: tranche-006 pre-spend plan with `39` reviewed families and `78` expected active cue rows,
+- next required work: paid tranche-006 generation only after explicit spend confirmation.
 
 Do not start another paid run from the post-tranche-005 plan directly.
 The tranche-005 pre-spend request packet below is now historical evidence of the
@@ -41,6 +40,12 @@ just-completed paid run, not the next packet to spend.
 ```text
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_005_pre_spend_en_es_latest.md
 docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.md
+```
+
+Use this current tranche-006 pre-spend packet for the next paid run:
+
+```text
+docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md
 ```
 
 ## What This Runbook Improves
@@ -57,7 +62,8 @@ It does not change:
 
 - the semantic decision algorithm,
 - the product-soft `0.015` active-only policy,
-- the tranche-003 operator smoke result.
+- the tranche-005 operator checkpoint or tranche-003 hands-on browser smoke
+  result.
 
 ## Tranche Loop
 
@@ -81,6 +87,14 @@ For the next tranche:
 2. Review the next tranche-size block of `source_target_review_status=unreviewed` rows.
 3. Append a new `reviewed_slices` entry.
 4. Add one decision row per reviewed source-target family.
+
+This has already been completed for tranche-006:
+
+- reviewed rows: global need ranks `39-88`,
+- approved rows: `39`,
+- excluded rows: `11`,
+- request packet:
+  `docs/test_outputs/semantic_veto_active_only_full_generation_plan_tranche_006_pre_spend_en_es_latest.md`.
 
 Allowed review outcomes:
 
