@@ -3,7 +3,7 @@
 Status: active planning
 Role: Planning / WIP
 Last updated: 2026-05-14
-Last verified: 2026-05-14 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-011 automated follow-through artifacts, tranche-005 operator product checkpoint, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 hands-on operator smoke evidence, and the semantic-pack operator smoke runbook
+Last verified: 2026-05-14 doc-routing slice against `feature_state_matrix.md`, semantic-veto registry summary, tranche-011 automated follow-through artifacts, tranche-011 operator product checkpoint, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-003 hands-on operator smoke evidence, and the semantic-pack operator smoke runbook
 Purpose: organize the work after the first successful semantic-veto product smoke, without reopening open-ended veto research by default
 Source-of-truth: planning document only; current implementation truth lives in source code, `docs/developer/feature_state_matrix.md`, and the semantic-veto registry artifacts
 
@@ -16,9 +16,9 @@ The semantic-veto workstream has reached a real product-smoke checkpoint:
 - Installed competition sets are `432` active-only and `23` shadowed/mixed.
 - The extension Advanced debug install flow can install the named pack without pasting an inventory file path.
 - Live browser smoke accepted the tranche-003 pack with the `en_es_sentence_veto_v2` active-only policy and `min_active_score=0.015` as useful soft-assist behavior after the runtime began using surrounding sentence/block context for split-inline DOM text and after semantic batching was optimized.
-- Tranche-005 remains the latest operator-accepted product checkpoint.
+- Tranche-011 is the latest operator-accepted product checkpoint from automated follow-through evidence.
 - Tranche-003 remains the latest formally recorded hands-on browser-extension smoke.
-- Tranche-011 has passed paid generation, admission, postprocess, source packaging, isolated pack install, and automated live-page scan. It is automated-clean and ready for an operator checkpoint if desired.
+- Tranche-011 has passed paid generation, admission, postprocess, source packaging, isolated pack install, automated live-page scan, and operator acceptance from the completed follow-through summary.
 - The active-only SRS-derived generation queue is now exhausted under the current reviewed 570-family denominator: `455` families are covered and the remaining `115` are excluded from active-only generation as weak or non-visible source-target rows.
 
 This is not full `en-es` semantic coverage, and it is not a near-zero-harmful replacement guarantee.
@@ -153,9 +153,9 @@ Exit criteria:
 
 ## Immediate Next Slices
 
-1. Record an operator checkpoint for tranche-011 if desired.
-2. Treat the active-only generation lane as complete under the current 570-family denominator unless the SRS corpus or source-target review policy changes.
-3. Product install polish and public README posture remain separate slices after the generated-data checkpoint is safe.
+1. Treat the active-only generation lane as complete under the current 570-family denominator unless the SRS corpus or source-target review policy changes.
+2. Cleanup/productization posture: simplify current-truth docs, preserve the debug/operator install path, and separate demo-facing claims from research artifacts.
+3. Denominator discussion: audit what creates the current `570` source-target family universe and what would be required to expand it.
 
 ## Verification
 

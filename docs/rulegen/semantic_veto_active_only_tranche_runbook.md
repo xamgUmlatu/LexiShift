@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-14
-Last verified: 2026-05-14 against tranche-001/tranche-011 artifacts, the post-tranche-011 coverage plan, tranche-005 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
+Last verified: 2026-05-14 against tranche-001/tranche-011 artifacts, the post-tranche-011 coverage plan, tranche-011 operator checkpoint, active-only generation planner, live generation runner, admission gate, source packaging, pack builder, semantic-pack installer, live-page scanner, registry summary, cost reference, split-inline DOM semantic-context runtime fix, optimized semantic batching, and tranche-003 hands-on browser-extension smoke
 Purpose: make future active-only semantic-veto data tranches repeatable, guarded, and easy to checkpoint without reopening algorithm research
 Source-of-truth: operational runbook only; current implementation truth lives in the scripts and generated artifacts named below
 Related docs:
@@ -21,11 +21,11 @@ The latest automated-clean soft-assist pack is:
 en-es-active-only-combined-full-v1-tranche-011
 ```
 
-The latest operator-accepted product checkpoint is tranche-005. That acceptance
-is based on the tranche-005 automated follow-through summary; the latest
-hands-on browser-extension smoke remains tranche-003. Tranche-010 is
-now historical automated-clean evidence; tranche-011 is automated-clean and
-ready for the same kind of operator checkpoint if desired.
+The latest operator-accepted product checkpoint is tranche-011. That acceptance
+is based on the tranche-011 automated follow-through summary; the latest
+hands-on browser-extension smoke remains tranche-003. Tranche-010 is now
+historical automated-clean evidence, and tranche-005 is historical
+operator-accepted checkpoint evidence.
 
 Current checkpoint:
 
@@ -33,7 +33,7 @@ Current checkpoint:
 - remaining uncovered families: `115`,
 - remaining active-only generation queue rows: `0`,
 - remaining uncovered rows are excluded from active-only generation by source-target review,
-- next required work: operator checkpoint for tranche-011 if desired; do not run more active-only generation unless the SRS denominator or source-target review policy changes.
+- next required work: cleanup and denominator discussion; do not run more active-only generation unless the SRS denominator or source-target review policy changes.
 
 Do not start another paid run from the post-tranche-011 plan directly.
 The tranche-006 through tranche-011 pre-spend request packets below are
@@ -69,7 +69,7 @@ It does not change:
 
 - the semantic decision algorithm,
 - the product-soft `0.015` active-only policy,
-- the tranche-005 operator checkpoint or tranche-003 hands-on browser smoke
+- the tranche-011 operator checkpoint or tranche-003 hands-on browser smoke
   result.
 
 ## Tranche Loop
@@ -375,6 +375,9 @@ Completed tranche-007 follow-through:
 - live public-page scan over the installed fixture produced `120` policy
   decisions, `68` replaces, `52` abstains, `0` fallback decisions, and `0`
   page fetch errors.
+- operator accepted tranche-011 as the current product checkpoint from this
+  automated follow-through evidence. This did not repeat the hands-on
+  browser-extension smoke flow; tranche-003 remains the latest hands-on smoke.
 
 Completed tranche-008 follow-through:
 
@@ -449,8 +452,8 @@ Operator smoke:
 - only after the isolated install and page scan are clean,
 - the newly built tranche is automated-clean and ready for this smoke after its isolated
   install and page scan pass,
-- tranche-005 remains the latest operator-accepted pack until
-  a later tranche is tested and accepted.
+- tranche-011 is now the latest operator-accepted product checkpoint,
+- tranche-003 remains the latest hands-on browser-extension smoke.
 
 Commit point:
 

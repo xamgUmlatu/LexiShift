@@ -15,6 +15,7 @@
     "operator_statement": "Good enough, proceed",
     "operator_statement_date": "2026-05-14",
     "basis": "operator accepted the tranche-005 automated follow-through summary as sufficient to move forward",
+    "current_status": "historical_checkpoint_superseded_by_tranche_011",
     "hands_on_browser_smoke_repeated_for_this_pack": false,
     "latest_hands_on_browser_smoke_pack_id": "en-es-active-only-combined-full-v1-tranche-003"
   },
@@ -38,7 +39,7 @@
       "this does not prove broad en-es language-wide accuracy",
       "tranche-005 was accepted from automated follow-through evidence rather than a separate hands-on browser smoke"
     ],
-    "operator_read": "The 261-rule tranche-005 active-only pack is accepted as good enough to proceed to the next reviewed data tranche."
+    "operator_read": "The 261-rule tranche-005 active-only pack was accepted as good enough to proceed to the next reviewed data tranche. It is now historical checkpoint evidence superseded by tranche-011."
   },
   "scope_notes": [
     "This is a product checkpoint, not a statistical accuracy estimate.",

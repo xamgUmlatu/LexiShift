@@ -7,12 +7,14 @@
 - Runtime policy: `en_es_sentence_veto_v2`
 - Product thresholds: `min_active_score=0.015`, `min_margin=0.0`
 - Basis: operator accepted the tranche-005 automated follow-through summary as good enough to proceed
+- Current status: historical checkpoint superseded by `en-es-active-only-combined-full-v1-tranche-011`
 - Latest hands-on browser-extension smoke remains: `en-es-active-only-combined-full-v1-tranche-003`
 
 ## Operator Read
 
-The 261-rule active-only tranche-005 pack is accepted as good enough to proceed
-to the next reviewed data tranche.
+The 261-rule active-only tranche-005 pack was accepted as good enough to
+proceed to the next reviewed data tranche. It remains valid historical
+checkpoint evidence, but it is no longer the latest product checkpoint.
 
 This checkpoint is based on the tranche-005 follow-through artifacts: repaired
 admission, source packaging, combined pack build, isolated install, and
@@ -40,5 +42,6 @@ same hands-on browser smoke flow used for tranche-003.
 ## Scope
 
 This report records a product checkpoint, not a statistical accuracy estimate.
-It is enough to move the data-generation workflow forward, while keeping
-hands-on browser smoke and automated follow-through as separate evidence types.
+It was enough to move the data-generation workflow forward at that point, while
+keeping hands-on browser smoke and automated follow-through as separate
+evidence types.

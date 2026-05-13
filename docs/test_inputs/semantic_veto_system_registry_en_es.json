@@ -131,10 +131,10 @@
   ],
   "current_candidate": {
     "candidate_id": "active_only_combined_full_v1_tranche_011",
-    "production_status": "automated_clean_ready_for_operator_smoke",
+    "production_status": "operator_accepted_product_checkpoint",
     "runtime_policy_change": "selection_mode=active_only can score ready active evidence without shadow senses and auto-selects en_es_sentence_veto_v2 for active-only en-es inventories when no policy override is requested; en_es_sentence_veto_v2 now uses the product-soft floor min_active_score=0.015 / min_margin=0.0 after live browser review accepted fewer abstains with some harmful-replace risk",
     "control": "base repaired-full active-only inventory/helper state before generated active evidence",
-    "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus all reviewed SRS-derived full-generation tranches through tranche 011. The latest automated-clean pack covers 455 source-target families; the remaining 115 uncovered families are excluded from active-only generation by source-target review. Tranche-005 remains the latest operator-accepted product checkpoint and tranche-003 remains the latest hands-on browser-extension smoke. Generated shadows and no-winner rows remain paused.",
+    "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus all reviewed SRS-derived full-generation tranches through tranche 011. The latest accepted product checkpoint covers 455 source-target families; the remaining 115 uncovered families are excluded from active-only generation by source-target review. Tranche-011 is accepted from automated follow-through evidence, while tranche-003 remains the latest hands-on browser-extension smoke. Generated shadows and no-winner rows remain paused.",
     "current_result": {
       "families": 49,
       "score_cases": 189,
@@ -169,8 +169,8 @@
       "scale_tranche_journal_inclusive_output_tokens": 3079,
       "scale_tranche_estimated_mini_cost_usd": 0.02,
       "initial_live_browser_review_status": "accepted_for_soft_assist_smoke",
-      "current_data_approval_status": "automated_clean_tranche_011_ready_for_operator_checkpoint; tranche_005_operator_accepted_product_checkpoint; tranche_003_latest_hands_on_browser_smoke",
-      "runtime_publication_status": "default_debug_pack_ready_for_operator_smoke",
+      "current_data_approval_status": "tranche_011_operator_accepted_product_checkpoint; tranche_003_latest_hands_on_browser_smoke",
+      "runtime_publication_status": "default_debug_pack_operator_checkpoint_ready",
       "full_srs_source_target_denominator_families": 570,
       "full_srs_source_trigger_count": 536,
       "full_srs_active_target_count": 342,
@@ -382,7 +382,7 @@
       "combined_full_tranche_005_operator_checkpoint_policy_id": "en_es_sentence_veto_v2",
       "combined_full_tranche_005_operator_checkpoint_min_active_score": 0.015,
       "combined_full_tranche_005_operator_checkpoint_basis": "Operator accepted the tranche-005 automated follow-through summary as good enough to proceed; no separate hands-on browser smoke was repeated for this pack.",
-      "combined_full_tranche_005_operator_checkpoint_interpretation": "The 261-rule active-only tranche-005 pack is accepted as the latest product checkpoint for the soft-assist PoC, while tranche-003 remains the latest hands-on browser-extension smoke.",
+      "combined_full_tranche_005_operator_checkpoint_interpretation": "The 261-rule active-only tranche-005 pack was accepted as a historical product checkpoint for the soft-assist PoC, while tranche-003 remains the latest hands-on browser-extension smoke. It is now superseded as the latest product checkpoint by tranche-011.",
       "full_active_only_reviewed_tranche_006_candidates": 50,
       "full_active_only_reviewed_tranche_006_approved": 39,
       "full_active_only_reviewed_tranche_006_excluded": 11,
@@ -628,13 +628,19 @@
       "combined_full_tranche_011_live_page_scan_replace_decisions": 68,
       "combined_full_tranche_011_live_page_scan_abstain_decisions": 52,
       "combined_full_tranche_011_live_page_scan_fallback_decisions": 0,
-      "combined_full_tranche_011_live_page_scan_page_fetch_errors": 0
+      "combined_full_tranche_011_live_page_scan_page_fetch_errors": 0,
+      "combined_full_tranche_011_operator_checkpoint_status": "success",
+      "combined_full_tranche_011_operator_checkpoint_pack_id": "en-es-active-only-combined-full-v1-tranche-011",
+      "combined_full_tranche_011_operator_checkpoint_policy_id": "en_es_sentence_veto_v2",
+      "combined_full_tranche_011_operator_checkpoint_min_active_score": 0.015,
+      "combined_full_tranche_011_operator_checkpoint_basis": "Operator accepted tranche 011 as OK after reviewing the completed final active-only follow-through summary; no separate hands-on browser smoke was repeated for this pack.",
+      "combined_full_tranche_011_operator_checkpoint_interpretation": "The 455-rule active-only tranche-011 pack is accepted as the current product checkpoint for the soft-assist PoC, while tranche-003 remains the latest hands-on browser-extension smoke."
     },
     "promotion_blockers": [
       "the current helper-published sidecar is an isolated smoke fixture under docs/test_outputs, not real user profile data unless installed through the explicit default-root debug flow",
       "the 49-family denominator is still a repaired product-scope research suite, not full en-es language-wide proof",
       "the full current SRS-derived source-target family universe is measured at 570 families, and the reviewed active-only generation lane now covers 455 families while excluding the remaining 115 weak or non-visible source-target rows from active-only spend",
-      "manual browser/helper behavior is approved for tranche-003 as qualitative product-feel evidence; tranche-005 is the latest operator-accepted product checkpoint, and tranche-011 is automated-clean but not yet operator-approved",
+      "manual browser/helper behavior is approved for tranche-003 as qualitative product-feel evidence; tranche-011 is the latest operator-accepted product checkpoint from automated follow-through evidence, not a repeated hands-on browser smoke",
       "rollback and generation identity must stay aligned with ruleset, snapshot, semantic inventory, and manifest publication"
     ]
   },
@@ -2198,7 +2204,7 @@
         "active_only_full_tranche_005_operator_checkpoint_report"
       ],
       "action": "Record operator acceptance of the tranche-005 automated follow-through checkpoint while keeping hands-on browser smoke separate.",
-      "evidence_needed": "The operator stated “Good enough, proceed” after reviewing the tranche-005 completion summary. The checkpoint records that tranche 005 is accepted as the latest product checkpoint based on automated follow-through evidence; tranche 003 remains the latest hands-on browser-extension smoke.",
+      "evidence_needed": "The operator stated “Good enough, proceed” after reviewing the tranche-005 completion summary. The checkpoint recorded tranche 005 as accepted based on automated follow-through evidence at the time; tranche 003 remains the latest hands-on browser-extension smoke, and tranche 011 now supersedes tranche 005 as the latest product checkpoint.",
       "validation": "Registry summary and doc references should keep the distinction between automated checkpoint acceptance and hands-on browser smoke explicit.",
       "next_step": "Proceed with tranche-006 paid generation only after explicit spend confirmation."
     },
@@ -2393,7 +2399,23 @@
       "action": "Run the eleventh paid full active-only tranche, admit and postprocess it without repair, package it with the existing combined-full pack, install it into an isolated helper profile, and scan public pages for operator-checkpoint review.",
       "evidence_needed": "Live gpt-5.4-mini generation accepted 9/9 responses with 0 invalid outputs, using 5,121 input tokens and 1,795 output tokens, about $0.012 at the checked gpt-5.4-mini rates. Admission accepted 18/18 active items with 0 rejects and 0 shortfall. Source packaging produced 18 anchor_cue rows across 9 families. The combined pack now covers 455/570 families with 922 normalized evidence rows, installs as 455 helper rules, and the isolated public-page scan produced 120 policy decisions with 68 replaces, 52 abstains, 0 fallback decisions, and 0 page fetch errors. The post-tranche plan has no remaining active-only generation queue rows under the current reviewed denominator.",
       "validation": "Run admission, postprocess, source packaging, pack builder, isolated install, live-page scan, post-tranche plan, registry summary, doc reference check, state check, SRS quality harness, whitespace check, and focused semantic-pack/registry/admission tests before the follow-through commit.",
-      "next_step": "Operator-checkpoint tranche 011 if desired, then treat the active-only SRS-derived generation lane as complete under the current 570-family denominator unless the SRS corpus or source-target review policy changes."
+      "next_step": "Treat the active-only SRS-derived generation lane as complete under the current 570-family denominator unless the SRS corpus or source-target review policy changes."
+    },
+    {
+      "action_id": "active_only_full_generation_tranche_011_operator_checkpoint",
+      "priority": "P1",
+      "status": "done",
+      "pass_id": "data_artifacts",
+      "source_artifacts": [
+        "active_only_full_tranche_011_pack_install_report",
+        "active_only_full_tranche_011_live_page_scan_report",
+        "active_only_full_generation_post_tranche_011_plan_report",
+        "active_only_full_tranche_011_operator_checkpoint_report"
+      ],
+      "action": "Record operator acceptance of the tranche-011 automated follow-through checkpoint while keeping hands-on browser smoke separate.",
+      "evidence_needed": "The operator stated “OK. That is fine then. Let's mark tranche 011 itself as OK, and move on to cleanup and then discuss the denominator” after reviewing the completed tranche-011 follow-through summary. The checkpoint records that tranche 011 is accepted as the latest product checkpoint based on automated follow-through evidence; tranche 003 remains the latest hands-on browser-extension smoke.",
+      "validation": "Registry summary and doc references should keep the distinction between automated checkpoint acceptance and hands-on browser smoke explicit.",
+      "next_step": "Move to cleanup and denominator discussion; do not run another active-only paid generation tranche unless the SRS denominator or source-target review policy changes."
     }
   ],
   "entries": [
@@ -8303,7 +8325,7 @@
       "path": "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_operator_checkpoint_en_es_latest.md",
       "role": "Records operator acceptance of the tranche-005 automated follow-through checkpoint without claiming a repeated hands-on browser smoke.",
       "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
-      "current_use": "Marks the 261-rule tranche-005 active-only pack as the latest operator-accepted product checkpoint for the soft-assist PoC, while tranche-003 remains the latest hands-on browser-extension smoke.",
+      "current_use": "Historical operator-accepted product checkpoint for the 261-rule tranche-005 active-only pack; tranche-011 now supersedes it as the latest product checkpoint, while tranche-003 remains the latest hands-on browser-extension smoke.",
       "risk": "Product checkpoint only; not a statistical accuracy estimate and not a hands-on browser smoke replay.",
       "next_audit_pass": "data_artifacts",
       "verification_artifacts": [
@@ -9145,6 +9167,24 @@
         "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.json",
         "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-normalized_evidence.json",
         "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_011_operator_checkpoint_report",
+      "title": "Semantic veto active-only combined full tranche 011 operator product checkpoint report",
+      "component": "diagnostics",
+      "state": "generated_evidence",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_operator_checkpoint_en_es_latest.md",
+      "role": "Records operator acceptance of the tranche-011 automated follow-through checkpoint without claiming a repeated hands-on browser smoke.",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "current_use": "Marks the 455-rule tranche-011 active-only pack as the current operator-accepted product checkpoint for the soft-assist PoC, while tranche-003 remains the latest hands-on browser-extension smoke.",
+      "risk": "Product checkpoint only; not a statistical accuracy estimate and not a hands-on browser smoke replay.",
+      "next_audit_pass": "data_artifacts",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_operator_checkpoint_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_live_page_scan_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_pack_install_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.json"
       ]
     }
   ]

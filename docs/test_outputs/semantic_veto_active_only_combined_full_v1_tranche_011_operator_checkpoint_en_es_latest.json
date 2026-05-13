@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "operator_product_checkpoint_success",
+  "generated_at": "2026-05-14",
+  "pair": "en-es",
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-011",
+  "runtime_policy_id": "en_es_sentence_veto_v2",
+  "selection_mode": "active_only",
+  "product_thresholds": {
+    "min_active_score": 0.015,
+    "min_margin": 0.0
+  },
+  "checkpoint_basis": {
+    "operator_statement": "OK. That is fine then. Let's mark tranche 011 itself as OK, and move on to cleanup and then discuss the denominator",
+    "operator_statement_date": "2026-05-14",
+    "basis": "operator accepted the completed final active-only tranche-011 follow-through summary as sufficient to move to cleanup and denominator discussion",
+    "hands_on_browser_smoke_repeated_for_this_pack": false,
+    "latest_hands_on_browser_smoke_pack_id": "en-es-active-only-combined-full-v1-tranche-003"
+  },
+  "automated_followthrough": {
+    "pack_rule_count": 455,
+    "normalized_evidence_rows": 922,
+    "covered_source_target_families": 455,
+    "denominator_source_target_families": 570,
+    "active_only_competition_sets": 432,
+    "shadowed_or_mixed_competition_sets": 23,
+    "live_page_scan_review_rows": 120,
+    "live_page_scan_replaces": 68,
+    "live_page_scan_abstains": 52,
+    "live_page_scan_fallback_decisions": 0,
+    "live_page_scan_page_fetch_errors": 0,
+    "remaining_active_only_generation_queue_rows": 0,
+    "remaining_uncovered_excluded_families": 115
+  },
+  "interpretation": {
+    "product_checkpoint_result": "success",
+    "accepted_imperfection_policy": "soft_assist_poc",
+    "known_imperfections_accepted_for_now": [
+      "false abstains remain acceptable",
+      "some harmful replacements are expected",
+      "this does not prove broad en-es language-wide accuracy",
+      "tranche-011 was accepted from automated follow-through evidence rather than a separate hands-on browser smoke",
+      "remaining uncovered families are excluded from active-only generation under the current review policy"
+    ],
+    "operator_read": "The 455-rule tranche-011 active-only pack is accepted as the current product checkpoint for moving into cleanup and denominator discussion."
+  },
+  "scope_notes": [
+    "This is a product checkpoint, not a statistical accuracy estimate.",
+    "This does not claim a repeated hands-on browser-extension smoke for tranche-011.",
+    "Do not run another active-only paid generation tranche unless the SRS denominator or source-target review policy changes."
+  ],
+  "source_artifacts": [
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_pack_install_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_live_page_scan_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_011_generation_admission_en_es_latest.json",
+    "docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-011_pack_builder_latest.json",
+    "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.json"
+  ],
+  "next_step": "Move to cleanup and denominator discussion; active-only paid generation is exhausted under the current reviewed denominator."
+}

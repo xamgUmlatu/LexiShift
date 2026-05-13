@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-14
-Last verified: 2026-05-14 against the `en-es-active-only-combined-full-v1-tranche-011` default pack id, Advanced debug install flow wiring, helper/native-host install command, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-011 automated install/page-scan evidence, tranche-005 operator checkpoint evidence, and tranche-003 hands-on operator smoke evidence
+Last verified: 2026-05-14 against the `en-es-active-only-combined-full-v1-tranche-011` default pack id, Advanced debug install flow wiring, helper/native-host install command, split-inline DOM semantic-context runtime fix, optimized semantic batching, tranche-011 automated install/page-scan evidence, tranche-011 operator checkpoint evidence, and tranche-003 hands-on operator smoke evidence
 Purpose: give a tester a repeatable way to install and smoke-test the current semantic-veto pack without relying on chat history
 Source-of-truth: operational runbook only; implementation truth lives in `core/lexishift_core/helper/use_cases/semantic_pack_install.py`, `scripts/helper/lexishift_native_host.py`, `apps/chrome-extension/options.html`, and the extension helper client
 Related docs:
@@ -29,15 +29,15 @@ soft-assist smoke path.
 
 ## Current Approval Status
 
-The tranche-011 pack is automated-clean and ready for operator smoke. It has
-passed admission, source packaging, isolated install, and automated
-live-page scan, but it is not yet operator-approved.
+The tranche-011 pack is the latest operator-accepted product checkpoint. It has
+passed admission, source packaging, isolated install, automated live-page scan,
+and operator acceptance from the completed follow-through summary.
 
-Tranche-005 remains the latest operator-accepted product checkpoint. The latest
-hands-on browser-extension smoke remains tranche-003. That hands-on approval was
-recorded after the runtime began sending surrounding sentence/block context
-instead of tiny split-inline text-node fragments, and after the semantic
-admission batching speedup.
+The latest hands-on browser-extension smoke remains tranche-003. That hands-on
+approval was recorded after the runtime began sending surrounding
+sentence/block context instead of tiny split-inline text-node fragments, and
+after the semantic admission batching speedup. Tranche-011 acceptance does not
+claim that the tranche-003 hands-on smoke was repeated.
 
 Rerun it when:
 
@@ -281,10 +281,10 @@ Normal product-shaped testing should use `--pack-id`.
 For a disposable test profile, reset or replace the profile-local SRS publication files.
 
 For the default helper root, the low-risk rollback is to reinstall the previous pack id or refresh the profile from normal SRS/rulegen publication.
-The latest operator-accepted product checkpoint remains:
+The latest operator-accepted product checkpoint is:
 
 ```text
-en-es-active-only-combined-full-v1-tranche-005
+en-es-active-only-combined-full-v1-tranche-011
 ```
 
 The latest hands-on browser-extension smoke remains
