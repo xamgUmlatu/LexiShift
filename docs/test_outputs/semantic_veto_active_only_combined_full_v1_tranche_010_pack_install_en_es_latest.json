@@ -1,0 +1,35 @@
+{
+  "data_root": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-product-install-data-root",
+  "decision": "semantic_pack_materialized",
+  "generated_at": "2026-05-13T20:17:43Z",
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-010",
+  "pair": "en-es",
+  "profile_id": "default",
+  "schema_version": 1,
+  "source": {
+    "semantic_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010_semantic_inventory.json",
+    "semantic_inventory_sha1": "f5e798b32fdea74e44d85ccc6c620a9e019fd37b",
+    "source_pack_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-product-install-data-root/language_packs/en-es/semantic_packs/en-es-active-only-combined-full-v1-tranche-010/semantic_inventory.json"
+  },
+  "status": "ok",
+  "summary": {
+    "active_only_competition_set_count": 423,
+    "competition_set_count": 446,
+    "rule_count": 446,
+    "sense_count": 488,
+    "shadowed_competition_set_count": 23,
+    "trigger_count": 446
+  },
+  "target_paths": {
+    "publication_manifest": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-product-install-data-root/srs/profiles/default/srs_publication_manifest_en-es.json",
+    "ruleset": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-product-install-data-root/srs/profiles/default/srs_ruleset_en-es.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-product-install-data-root/srs/profiles/default/srs_semantic_inventory_en-es.json",
+    "snapshot": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-010-product-install-data-root/srs/profiles/default/srs_rulegen_snapshot_en-es.json"
+  },
+  "written": {
+    "publication_manifest": true,
+    "ruleset": true,
+    "semantic_inventory": true,
+    "snapshot": true
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-010",
+  "decision": "active_only_source_packaging_ready_for_inventory_compile",
+  "excluded_items": [],
+  "family_rows": [
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:aberration:equivocacion:eed9e2e0",
+      "packaged_row_count": 2,
+      "targets": [
+        "equivocación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:abrogate:abolir:1a6f502d",
+      "packaged_row_count": 2,
+      "targets": [
+        "abolir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:annotation:anotacion:b70561fc",
+      "packaged_row_count": 2,
+      "targets": [
+        "anotación"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:attitudinizer:farsante:e89734ee",
+      "packaged_row_count": 2,
+      "targets": [
+        "farsante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:bleak:lugubre:9183708a",
+      "packaged_row_count": 2,
+      "targets": [
+        "lúgubre"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:blunt:despuntar:7081ec92",
+      "packaged_row_count": 2,
+      "targets": [
+        "despuntar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:cede:ceder:1beb9937",
+      "packaged_row_count": 2,
+      "targets": [
+        "ceder"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:crevice:grieta:06d2c631",
+      "packaged_row_count": 2,
+      "targets": [
+        "grieta"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:depute:delegar:fe176465",
+      "packaged_row_count": 2,
+      "targets": [
+        "delegar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:diminish:decrecer:2ccb68e8",
+      "packaged_row_count": 2,
+      "targets": [
+        "decrecer"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:dismal:lugubre:11add06c",
+      "packaged_row_count": 2,
+      "targets": [
+        "lúgubre"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:dreary:lugubre:61b7b231",
+      "packaged_row_count": 2,
+      "targets": [
+        "lúgubre"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:envious:envidioso:5ab729bf",
+      "packaged_row_count": 2,
+      "targets": [
+        "envidioso"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:housefly:mosca:446bc1da",
+      "packaged_row_count": 2,
+      "targets": [
+        "mosca"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:inflate:inflar:6886dd14",
+      "packaged_row_count": 2,
+      "targets": [
+        "inflar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:mitten:guante:0f4371c7",
+      "packaged_row_count": 2,
+      "targets": [
+        "guante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:mourn:deplorar:b5818a32",
+      "packaged_row_count": 2,
+      "targets": [
+        "deplorar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:nourish:alimentar:451f69a1",
+      "packaged_row_count": 2,
+      "targets": [
+        "alimentar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:omelette:tortilla:16795c29",
+      "packaged_row_count": 2,
+      "targets": [
+        "tortilla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:overlay:forrar:330a4a3d",
+      "packaged_row_count": 2,
+      "targets": [
+        "forrar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:pheasant:faisan:1bed1589",
+      "packaged_row_count": 2,
+      "targets": [
+        "faisán"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:poseur:farsante:1e40a586",
+      "packaged_row_count": 2,
+      "targets": [
+        "farsante"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:prussian:prusiano:202f6858",
+      "packaged_row_count": 2,
+      "targets": [
+        "prusiano"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:quarrel:renir:a5a2e69f",
+      "packaged_row_count": 2,
+      "targets": [
+        "reñir"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:roast:asar:d6aec1e3",
+      "packaged_row_count": 2,
+      "targets": [
+        "asar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:scuffle:batalla:91630d1f",
+      "packaged_row_count": 2,
+      "targets": [
+        "batalla"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:sigh:suspirar:596d0999",
+      "packaged_row_count": 2,
+      "targets": [
+        "suspirar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:skilful:experto:56d1cc58",
+      "packaged_row_count": 2,
+      "targets": [
+        "experto"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:toast:asar:56f84c41",
+      "packaged_row_count": 2,
+      "targets": [
+        "asar"
+      ]
+    },
+    {
+      "excluded_row_count": 0,
+      "family_id": "en-es:srs-source-target:watercourse:cauce:94292db0",
+      "packaged_row_count": 2,
+      "targets": [
+        "cauce"
+      ]
+    }
+  ],
+  "generated_at": "2026-05-13T20:17:28Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_010_generation_admission_en_es_latest.json",
+    "generation_run_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_010_generation_run_en_es_latest.json",
+    "postprocess_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_010_generation_postprocess_en_es_latest.json"
+  },
+  "issues": [],
+  "normalization_version": "semantic_evidence_v1",
+  "pair": "en-es",
+  "provenance_summary": {
+    "input_tokens": 16744,
+    "model_id": "gpt-5.4-mini",
+    "operator_repair_count": 0,
+    "operator_repairs": [],
+    "output_tokens": 5893,
+    "postprocess_status": "ok",
+    "prompt_id": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+    "raw_output_mutation": "none",
+    "temperature": null
+  },
+  "runtime_boundary": [
+    "normalized rows remain runtime_publishable=false",
+    "this output is canonical source evidence, not a semantic inventory sidecar",
+    "the next step is an inventory compiler that appends packaged anchor cues to ready active-sense evidence_views",
+    "runtime policy and thresholds remain unchanged"
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "admitted_input_item_count": 60,
+    "excluded_row_count": 0,
+    "exclusion_reason_counts": {},
+    "family_count": 30,
+    "packaged_row_count": 60,
+    "promotion_state_counts": {
+      "proposed": 60
+    },
+    "relation_type_counts": {
+      "anchor_cue": 60
+    },
+    "review_state_counts": {
+      "unreviewed": 60
+    },
+    "runtime_publishable_row_count": 0
+  },
+  "view_id": "no_high_eval_overlap_sentence_only"
+}

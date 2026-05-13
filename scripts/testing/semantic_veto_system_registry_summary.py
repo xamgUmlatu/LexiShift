@@ -176,6 +176,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
         if "combined_full_pack_families" in result:
             current_pack_prefix = ""
             for prefix in (
+                "combined_full_tranche_010",
                 "combined_full_tranche_009",
                 "combined_full_tranche_008",
                 "combined_full_tranche_007",
@@ -268,7 +269,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"`{result.get('combined_full_live_page_scan_page_fetch_errors', '')}` page errors / "
                 f"`{result.get('combined_full_live_page_scan_fallback_decisions', '')}` fallbacks"
             )
-        for tranche in ("009", "008", "007", "006", "005", "004", "003", "002"):
+        for tranche in ("010", "009", "008", "007", "006", "005", "004", "003", "002"):
             prefix = f"combined_full_tranche_{tranche}"
             if f"{prefix}_live_page_scan_review_rows" in result:
                 lines.append(
@@ -281,6 +282,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 )
         operator_smoke_prefix = ""
         for prefix in (
+            "combined_full_tranche_010",
             "combined_full_tranche_009",
             "combined_full_tranche_008",
             "combined_full_tranche_007",
@@ -303,6 +305,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
             )
         operator_checkpoint_prefix = ""
         for prefix in (
+            "combined_full_tranche_010",
             "combined_full_tranche_009",
             "combined_full_tranche_008",
             "combined_full_tranche_007",

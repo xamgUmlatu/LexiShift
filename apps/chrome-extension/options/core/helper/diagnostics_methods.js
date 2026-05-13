@@ -254,8 +254,8 @@
         pair: pair,
         profile_id: profileId,
         semantic_inventory_path: semanticInventoryPath || undefined,
-        pack_id: String(opts.packId || "en-es-active-only-combined-full-v1-tranche-009").trim()
-          || "en-es-active-only-combined-full-v1-tranche-009",
+        pack_id: String(opts.packId || "en-es-active-only-combined-full-v1-tranche-010").trim()
+          || "en-es-active-only-combined-full-v1-tranche-010",
         data_root: dataRoot || undefined,
         allow_default_data_root: allowDefaultDataRoot,
         dry_run: opts.dryRun === true,

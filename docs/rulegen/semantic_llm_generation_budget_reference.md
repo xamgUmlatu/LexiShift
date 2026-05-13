@@ -468,6 +468,32 @@ Journal-inclusive paid usage:
 - output tokens: `7,411`
 - actual cost at the 2026-05-14 `gpt-5.4-mini` snapshot: about `$0.0495`
 
+## Observed Full Active-Only Tranche 010 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_010_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_010_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_010_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `30` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- live generation accepted `30/30` responses with `0` invalid outputs
+- admission accepted active items: `60/60`
+- source packaging produced `60` canonical `anchor_cue` rows across `30`
+  families
+- combined pack build now covers `446/570` current SRS-derived source-target
+  families with `904` normalized evidence rows
+
+Paid usage:
+
+- input tokens: `16,744`
+- output tokens: `5,893`
+- actual cost at the 2026-05-14 `gpt-5.4-mini` snapshot: about `$0.0391`
+
 The ninth tranche confirms the cost pattern: a small active-only tranche remains
 around five cents even with one retried metadata drift. The limiter remains
 source-target review and generated-row usefulness, not spend.

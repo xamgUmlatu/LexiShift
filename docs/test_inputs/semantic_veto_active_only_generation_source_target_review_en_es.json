@@ -5,8 +5,8 @@
   "decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
   "reviewed_at": "2026-05-14",
   "review_scope": {
-    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_008_en_es_latest.json",
-    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue; tranche 007 prep reviewed the first 50 unreviewed rows after tranche 006 coverage/exclusion, global_need_rank 50-99 in the post-tranche-006 queue; tranche 008 prep reviewed the first 50 unreviewed rows after tranche 007 coverage/exclusion, global_need_rank 62-111 in the post-tranche-007 queue; tranche 009 prep reviewed the first 50 unreviewed rows after tranche 008 coverage and exclusions, global_need_rank 72-121 in the post-tranche-008 queue",
+    "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_001_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_002_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_003_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_004_en_es_latest.json, docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_005_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_007_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_008_en_es_latest.json, and docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_009_en_es_latest.json",
+    "selected_global_need_ranks": "tranche 001 reviewed ranks 1-50 from the original queue; tranche 002 prep reviewed the first 50 unreviewed rows after tranche 001 coverage/exclusion, global_need_rank 9-58 in the post-tranche queue; tranche 003 prep reviewed the first 50 unreviewed rows after tranche 002 coverage/exclusion, global_need_rank 15-64 in the post-tranche-002 queue; tranche 004 prep reviewed the first 50 unreviewed rows after tranche 003 coverage/exclusion, global_need_rank 22-71 in the post-tranche-003 queue; tranche 005 prep reviewed the first 50 unreviewed rows after tranche 004 coverage/exclusion, global_need_rank 26-75 in the post-tranche-004 queue; tranche 006 prep reviewed the first 50 unreviewed rows after tranche 005 coverage/exclusion, global_need_rank 39-88 in the post-tranche-005 queue; tranche 007 prep reviewed the first 50 unreviewed rows after tranche 006 coverage/exclusion, global_need_rank 50-99 in the post-tranche-006 queue; tranche 008 prep reviewed the first 50 unreviewed rows after tranche 007 coverage/exclusion, global_need_rank 62-111 in the post-tranche-007 queue; tranche 009 prep reviewed the first 50 unreviewed rows after tranche 008 coverage and exclusions, global_need_rank 72-121 in the post-tranche-008 queue; tranche 010 prep reviewed the first 50 unreviewed rows after tranche 009 coverage and exclusions, global_need_rank 84-133 in the post-tranche-009 queue",
     "purpose": "prevent paid active-only evidence generation for rows that are not useful visible source->target replacement families"
   },
   "reviewed_slices": [
@@ -72,6 +72,13 @@
       "selection": "first 50 source_target_review_status=unreviewed rows after tranche 008 coverage and exclusions, global_need_rank 72-121",
       "approved_count": 38,
       "excluded_count": 12
+    },
+    {
+      "slice_id": "tranche_010_pre_spend",
+      "input_plan": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_009_en_es_latest.json",
+      "selection": "first 50 source_target_review_status=unreviewed rows after tranche 009 coverage and exclusions, global_need_rank 84-133",
+      "approved_count": 30,
+      "excluded_count": 20
     }
   ],
   "review_policy": {
@@ -3235,6 +3242,356 @@
       "approved_for_active_only_generation": true,
       "decision": "approve_narrow_active_mapping",
       "rationale": "Valid verb mapping for resting; repose is also a noun and has broader senses."
+    },
+    {
+      "source": "scuffle",
+      "target": "batalla",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid narrow noun/verb-family mapping for a small fight or skirmish; broader battle wording is stronger than the source."
+    },
+    {
+      "source": "skilful",
+      "target": "experto",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid adjective mapping for skilled/expert ability; British spelling is a visible standalone trigger."
+    },
+    {
+      "source": "bleak",
+      "target": "lúgubre",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for gloomy or desolate tone."
+    },
+    {
+      "source": "blunt",
+      "target": "despuntar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid only for the verb sense of making something less pointed or sharp; adjectival senses remain broader."
+    },
+    {
+      "source": "diminish",
+      "target": "decrecer",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping for decreasing or becoming less."
+    },
+    {
+      "source": "dismal",
+      "target": "lúgubre",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for gloomy or depressing tone."
+    },
+    {
+      "source": "dove",
+      "target": "pichón",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Dove normally maps to paloma; pichón is a young bird/chick sense and is too narrow for the source trigger."
+    },
+    {
+      "source": "dreary",
+      "target": "lúgubre",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping for gloomy or dull mood."
+    },
+    {
+      "source": "envious",
+      "target": "envidioso",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct adjective mapping."
+    },
+    {
+      "source": "govern",
+      "target": "capitanear",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Govern normally maps to gobernar or rule; capitanear means captain/lead and is not a reliable active target."
+    },
+    {
+      "source": "inflate",
+      "target": "inflar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "lovable",
+      "target": "afable",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Lovable means endearing or easy to love; afable means affable/friendly and is not the same active sense."
+    },
+    {
+      "source": "mourn",
+      "target": "deplorar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid lament/deplore sense; mourn also has grief/ritual senses."
+    },
+    {
+      "source": "obstruct",
+      "target": "cercar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Obstruct means block or impede; cercar means surround/fence in and is not a reliable active target."
+    },
+    {
+      "source": "overlay",
+      "target": "forrar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid cover/line with a layer sense; overlay has broader technical and noun senses."
+    },
+    {
+      "source": "pheasant",
+      "target": "faisán",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "pigeon",
+      "target": "pichón",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Pigeon normally maps to paloma; pichón is a young-bird/nestling sense and is too narrow for the source trigger."
+    },
+    {
+      "source": "prussian",
+      "target": "prusiano",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct demonym/adjective mapping."
+    },
+    {
+      "source": "quarrel",
+      "target": "reñir",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid verb mapping for arguing or quarreling; noun uses and milder disagreement senses remain broader."
+    },
+    {
+      "source": "restrain",
+      "target": "capitanear",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Restrain means hold back or suppress; capitanear means lead/captain and is not a valid active target."
+    },
+    {
+      "source": "roast",
+      "target": "asar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid cooking verb mapping; roast also has noun and mock/criticize senses."
+    },
+    {
+      "source": "sigh",
+      "target": "suspirar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "toast",
+      "target": "asar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid only for heating/roasting food over heat; toast also has bread, salute, and noun senses."
+    },
+    {
+      "source": "trumpet",
+      "target": "trombón",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Trumpet maps to trompeta, while trombón is trombone; this is a wrong instrument target."
+    },
+    {
+      "source": "beburntdown",
+      "target": "quemar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for be burned down, not a useful standalone browser trigger."
+    },
+    {
+      "source": "campingsite",
+      "target": "campamento",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for camping site, not a useful standalone browser trigger."
+    },
+    {
+      "source": "femalejournalist",
+      "target": "periodista",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for female journalist, not a useful standalone browser trigger."
+    },
+    {
+      "source": "germanlanguage",
+      "target": "alemán",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for German language, not a useful standalone browser trigger."
+    },
+    {
+      "source": "japaneselanguage",
+      "target": "japonés",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for Japanese language, not a useful standalone browser trigger."
+    },
+    {
+      "source": "middaymeal",
+      "target": "cena",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Fused phrase artifact and the target cena means dinner rather than midday meal."
+    },
+    {
+      "source": "tellalie",
+      "target": "mentir",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for tell a lie, not a useful standalone browser trigger."
+    },
+    {
+      "source": "tentedcamp",
+      "target": "campamento",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for tented camp, not a useful standalone browser trigger."
+    },
+    {
+      "source": "aberration",
+      "target": "equivocación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid only for aberration as an error or deviation; other abnormality/deviation senses are broader."
+    },
+    {
+      "source": "abrogate",
+      "target": "abolir",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct legal/formal verb mapping for abolish or repeal."
+    },
+    {
+      "source": "annotation",
+      "target": "anotación",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping."
+    },
+    {
+      "source": "cede",
+      "target": "ceder",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "crevice",
+      "target": "grieta",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for crack/fissure."
+    },
+    {
+      "source": "depute",
+      "target": "delegar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid formal verb mapping for delegating or appointing a deputy."
+    },
+    {
+      "source": "housefly",
+      "target": "mosca",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid visible compound noun mapping to fly; target is broader than the source."
+    },
+    {
+      "source": "mitten",
+      "target": "guante",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid type-of-glove noun mapping; target is broader than mitten."
+    },
+    {
+      "source": "nourish",
+      "target": "alimentar",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct verb mapping."
+    },
+    {
+      "source": "omelette",
+      "target": "tortilla",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid food mapping in Spanish usage; tortilla is broader and regional."
+    },
+    {
+      "source": "poseur",
+      "target": "farsante",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Valid noun mapping for pretender/fraud; source has a social affectation nuance."
+    },
+    {
+      "source": "replenishment",
+      "target": "suplemento",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Replenishment means refill/resupply; suplemento means supplement/addition and is not a reliable active target."
+    },
+    {
+      "source": "sty",
+      "target": "cuadra",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Sty is a pigpen; cuadra is usually stable/block, so the active target is too weak."
+    },
+    {
+      "source": "watercourse",
+      "target": "cauce",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_direct_mapping",
+      "rationale": "Direct noun mapping for a channel or course of water."
+    },
+    {
+      "source": "attitudinizer",
+      "target": "farsante",
+      "approved_for_active_only_generation": true,
+      "decision": "approve_narrow_active_mapping",
+      "rationale": "Rare but visible noun meaning a poseur/affected pretender; valid narrow mapping to faker/pretender."
+    },
+    {
+      "source": "conversance",
+      "target": "notoriedad",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_weak_source_target_mapping",
+      "rationale": "Conversance means familiarity or knowledge; notoriedad means notoriety/fame and is not the active sense."
+    },
+    {
+      "source": "gobackwards",
+      "target": "retroceder",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for go backwards, not a useful standalone browser trigger."
+    },
+    {
+      "source": "gobeyond",
+      "target": "atravesar",
+      "approved_for_active_only_generation": false,
+      "decision": "exclude_no_visible_replacement",
+      "rationale": "Fused phrase artifact for go beyond, and the target cross/traverse is not reliable for the phrase."
     }
   ]
 }

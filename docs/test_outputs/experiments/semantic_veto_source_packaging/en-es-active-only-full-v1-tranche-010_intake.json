@@ -1,0 +1,3168 @@
+{
+  "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-010",
+  "cost_metadata": {
+    "input_tokens": 16744,
+    "output_tokens": 5893,
+    "reasoning_tokens": 0
+  },
+  "generated_at": "2026-05-13T20:15:31Z",
+  "ingested_at": "2026-05-13T20:17:28Z",
+  "items": [
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "scuffle -> batalla",
+        "target_key": "batalla"
+      },
+      "active_target": "batalla",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "scuffle -> batalla",
+        "target_key": "batalla"
+      },
+      "candidate_target": "batalla",
+      "evidence_text": "The rivals had a brief scuffle before security stepped in to stop the fight.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 49,
+        "evidence_note": "Small physical fight that fits the intended battle-like sense.",
+        "family_id": "en-es:srs-source-target:scuffle:batalla:91630d1f",
+        "global_need_rank": 84,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:001",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:001",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4795,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion",
+        "source_sentence": "The rivals had a brief scuffle before security stepped in to stop the fight."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-001-scuffle-batalla",
+      "runtime_publishable": false,
+      "trigger": "scuffle"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "scuffle -> batalla",
+        "target_key": "batalla"
+      },
+      "active_target": "batalla",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "scuffle -> batalla",
+        "target_key": "batalla"
+      },
+      "candidate_target": "batalla",
+      "evidence_text": "A scuffle broke out in the hallway, with shoves and raised voices but no serious injuries.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 49,
+        "evidence_note": "Describes a minor skirmish rather than a broad conflict.",
+        "family_id": "en-es:srs-source-target:scuffle:batalla:91630d1f",
+        "global_need_rank": 84,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:002",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:002",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4795,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion",
+        "source_sentence": "A scuffle broke out in the hallway, with shoves and raised voices but no serious injuries."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:scuffle:batalla:91630d1f:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-002-scuffle-batalla",
+      "runtime_publishable": false,
+      "trigger": "scuffle"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "skilful -> experto",
+        "target_key": "experto"
+      },
+      "active_target": "experto",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "skilful -> experto",
+        "target_key": "experto"
+      },
+      "candidate_target": "experto",
+      "evidence_text": "She is a skilful surgeon who handles complex operations with calm precision.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 50,
+        "evidence_note": "Describes expert ability in a professional context.",
+        "family_id": "en-es:srs-source-target:skilful:experto:56d1cc58",
+        "global_need_rank": 85,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:003",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:003",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4795,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion",
+        "source_sentence": "She is a skilful surgeon who handles complex operations with calm precision."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-003-skilful-experto",
+      "runtime_publishable": false,
+      "trigger": "skilful"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "skilful -> experto",
+        "target_key": "experto"
+      },
+      "active_target": "experto",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "skilful -> experto",
+        "target_key": "experto"
+      },
+      "candidate_target": "experto",
+      "evidence_text": "The skilful mechanic diagnosed the fault quickly and fixed the engine on the first try.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 50,
+        "evidence_note": "Shows expert competence through fast, accurate problem-solving.",
+        "family_id": "en-es:srs-source-target:skilful:experto:56d1cc58",
+        "global_need_rank": 85,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:004",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P2_exposure_first",
+        "postprocess_audit_id": "generated_active_item:004",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.4795,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion",
+        "source_sentence": "The skilful mechanic diagnosed the fault quickly and fixed the engine on the first try."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:skilful:experto:56d1cc58:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-004-skilful-experto",
+      "runtime_publishable": false,
+      "trigger": "skilful"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "bleak -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "active_target": "lúgubre",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "bleak -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "candidate_target": "lúgubre",
+      "evidence_text": "The old mansion felt bleak, with dark hallways and a funeral hush that made everyone uneasy.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Describes a gloomy, haunting atmosphere matching lúgubre.",
+        "family_id": "en-es:srs-source-target:bleak:lugubre:9183708a",
+        "global_need_rank": 86,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:005",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:005",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion",
+        "source_sentence": "The old mansion felt bleak, with dark hallways and a funeral hush that made everyone uneasy."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-005-bleak-l-gubre",
+      "runtime_publishable": false,
+      "trigger": "bleak"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "bleak -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "active_target": "lúgubre",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "bleak -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "candidate_target": "lúgubre",
+      "evidence_text": "Her bleak poem painted a cemetery at dusk, full of sorrow and shadow.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 1,
+        "evidence_note": "Uses bleak for a desolate, morbid tone consistent with lúgubre.",
+        "family_id": "en-es:srs-source-target:bleak:lugubre:9183708a",
+        "global_need_rank": 86,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:006",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "critical_label_leakage_in_sentence",
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:006",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion",
+        "source_sentence": "Her bleak poem painted a cemetery at dusk, full of sorrow and shadow."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:bleak:lugubre:9183708a:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-006-bleak-l-gubre",
+      "runtime_publishable": false,
+      "trigger": "bleak"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "blunt -> despuntar",
+        "target_key": "despuntar"
+      },
+      "active_target": "despuntar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "blunt -> despuntar",
+        "target_key": "despuntar"
+      },
+      "candidate_target": "despuntar",
+      "evidence_text": "She used a file to blunt the tip of the metal rod before packing it away.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 2,
+        "evidence_note": "Active verb sense: making a pointed object less sharp or pointed.",
+        "family_id": "en-es:srs-source-target:blunt:despuntar:7081ec92",
+        "global_need_rank": 87,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:007",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:007",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion",
+        "source_sentence": "She used a file to blunt the tip of the metal rod before packing it away."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-007-blunt-despuntar",
+      "runtime_publishable": false,
+      "trigger": "blunt"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "blunt -> despuntar",
+        "target_key": "despuntar"
+      },
+      "active_target": "despuntar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "blunt -> despuntar",
+        "target_key": "despuntar"
+      },
+      "candidate_target": "despuntar",
+      "evidence_text": "Carefully blunt the end of each skewer so it will not poke through the wrapper.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 2,
+        "evidence_note": "Active verb sense: intentionally reducing a point to make it safer.",
+        "family_id": "en-es:srs-source-target:blunt:despuntar:7081ec92",
+        "global_need_rank": 87,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:008",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:008",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion",
+        "source_sentence": "Carefully blunt the end of each skewer so it will not poke through the wrapper."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:blunt:despuntar:7081ec92:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-008-blunt-despuntar",
+      "runtime_publishable": false,
+      "trigger": "blunt"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "diminish -> decrecer",
+        "target_key": "decrecer"
+      },
+      "active_target": "decrecer",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "diminish -> decrecer",
+        "target_key": "decrecer"
+      },
+      "candidate_target": "decrecer",
+      "evidence_text": "After the new regulations took effect, the company’s profits began to diminish.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "Shows the amount becoming less over time.",
+        "family_id": "en-es:srs-source-target:diminish:decrecer:2ccb68e8",
+        "global_need_rank": 88,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:009",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:009",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion",
+        "source_sentence": "After the new regulations took effect, the company’s profits began to diminish."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-009-diminish-decrecer",
+      "runtime_publishable": false,
+      "trigger": "diminish"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "diminish -> decrecer",
+        "target_key": "decrecer"
+      },
+      "active_target": "decrecer",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "diminish -> decrecer",
+        "target_key": "decrecer"
+      },
+      "candidate_target": "decrecer",
+      "evidence_text": "As the storm moved inland, the winds continued to diminish.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 3,
+        "evidence_note": "Clear context of decreasing intensity.",
+        "family_id": "en-es:srs-source-target:diminish:decrecer:2ccb68e8",
+        "global_need_rank": 88,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:010",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:010",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion",
+        "source_sentence": "As the storm moved inland, the winds continued to diminish."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:diminish:decrecer:2ccb68e8:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-010-diminish-decrecer",
+      "runtime_publishable": false,
+      "trigger": "diminish"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dismal -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "active_target": "lúgubre",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dismal -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "candidate_target": "lúgubre",
+      "evidence_text": "The old house felt dismal, with its dark hallways and silent rooms.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Describes a gloomy, depressing atmosphere.",
+        "family_id": "en-es:srs-source-target:dismal:lugubre:11add06c",
+        "global_need_rank": 89,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:011",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:011",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion",
+        "source_sentence": "The old house felt dismal, with its dark hallways and silent rooms."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-011-dismal-l-gubre",
+      "runtime_publishable": false,
+      "trigger": "dismal"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dismal -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "active_target": "lúgubre",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dismal -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "candidate_target": "lúgubre",
+      "evidence_text": "After the funeral, the room had a dismal air that matched the somber mood.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 4,
+        "evidence_note": "Uses dismal for a bleak, mournful setting.",
+        "family_id": "en-es:srs-source-target:dismal:lugubre:11add06c",
+        "global_need_rank": 89,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:012",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:012",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion",
+        "source_sentence": "After the funeral, the room had a dismal air that matched the somber mood."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dismal:lugubre:11add06c:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-012-dismal-l-gubre",
+      "runtime_publishable": false,
+      "trigger": "dismal"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dreary -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "active_target": "lúgubre",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dreary -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "candidate_target": "lúgubre",
+      "evidence_text": "The old house had a dreary, haunted look after sunset.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Describes a gloomy, dark atmosphere matching the intended sense.",
+        "family_id": "en-es:srs-source-target:dreary:lugubre:61b7b231",
+        "global_need_rank": 91,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:013",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:013",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion",
+        "source_sentence": "The old house had a dreary, haunted look after sunset."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-013-dreary-l-gubre",
+      "runtime_publishable": false,
+      "trigger": "dreary"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dreary -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "active_target": "lúgubre",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "dreary -> lúgubre",
+        "target_key": "lúgubre"
+      },
+      "candidate_target": "lúgubre",
+      "evidence_text": "His dreary office and silent hallway made the whole place feel lifeless.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 6,
+        "evidence_note": "Shows a dull, gloomy mood in a setting, fitting the target sense.",
+        "family_id": "en-es:srs-source-target:dreary:lugubre:61b7b231",
+        "global_need_rank": 91,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:014",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:014",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion",
+        "source_sentence": "His dreary office and silent hallway made the whole place feel lifeless."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:dreary:lugubre:61b7b231:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-014-dreary-l-gubre",
+      "runtime_publishable": false,
+      "trigger": "dreary"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "envious -> envidioso",
+        "target_key": "envidioso"
+      },
+      "active_target": "envidioso",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "envious -> envidioso",
+        "target_key": "envidioso"
+      },
+      "candidate_target": "envidioso",
+      "evidence_text": "She felt envious when her brother got the promotion she had wanted.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 7,
+        "evidence_note": "Shows jealous desire for someone else's success or advantage.",
+        "family_id": "en-es:srs-source-target:envious:envidioso:5ab729bf",
+        "global_need_rank": 92,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:015",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:015",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion",
+        "source_sentence": "She felt envious when her brother got the promotion she had wanted."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-015-envious-envidioso",
+      "runtime_publishable": false,
+      "trigger": "envious"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "envious -> envidioso",
+        "target_key": "envidioso"
+      },
+      "active_target": "envidioso",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "envious -> envidioso",
+        "target_key": "envidioso"
+      },
+      "candidate_target": "envidioso",
+      "evidence_text": "He was envious of their new house and wished he could afford one like it.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 7,
+        "evidence_note": "Clear comparison with another person's possession, matching the intended adjective sense.",
+        "family_id": "en-es:srs-source-target:envious:envidioso:5ab729bf",
+        "global_need_rank": 92,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:016",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "predicative",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:016",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion",
+        "source_sentence": "He was envious of their new house and wished he could afford one like it."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:envious:envidioso:5ab729bf:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-016-envious-envidioso",
+      "runtime_publishable": false,
+      "trigger": "envious"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "inflate -> inflar",
+        "target_key": "inflar"
+      },
+      "active_target": "inflar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "inflate -> inflar",
+        "target_key": "inflar"
+      },
+      "candidate_target": "inflar",
+      "evidence_text": "Please inflate the beach ball before we go outside.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 9,
+        "evidence_note": "Direct physical pumping sense; source_phrase is the verb meaning to make something larger with air.",
+        "family_id": "en-es:srs-source-target:inflate:inflar:6886dd14",
+        "global_need_rank": 94,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:017",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:017",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion",
+        "source_sentence": "Please inflate the beach ball before we go outside."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-017-inflate-inflar",
+      "runtime_publishable": false,
+      "trigger": "inflate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "inflate -> inflar",
+        "target_key": "inflar"
+      },
+      "active_target": "inflar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "inflate -> inflar",
+        "target_key": "inflar"
+      },
+      "candidate_target": "inflar",
+      "evidence_text": "He used a pump to inflate the mattress for the guest room.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 9,
+        "evidence_note": "Clear action of filling an object with air, matching the intended active sense.",
+        "family_id": "en-es:srs-source-target:inflate:inflar:6886dd14",
+        "global_need_rank": 94,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:018",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:018",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion",
+        "source_sentence": "He used a pump to inflate the mattress for the guest room."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:inflate:inflar:6886dd14:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-018-inflate-inflar",
+      "runtime_publishable": false,
+      "trigger": "inflate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mourn -> deplorar",
+        "target_key": "deplorar"
+      },
+      "active_target": "deplorar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mourn -> deplorar",
+        "target_key": "deplorar"
+      },
+      "candidate_target": "deplorar",
+      "evidence_text": "The council members mourn the decision to cut funding for the shelter.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 11,
+        "evidence_note": "Here mourn means to lament or deplore a policy decision.",
+        "family_id": "en-es:srs-source-target:mourn:deplorar:b5818a32",
+        "global_need_rank": 96,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:019",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:019",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion",
+        "source_sentence": "The council members mourn the decision to cut funding for the shelter."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-019-mourn-deplorar",
+      "runtime_publishable": false,
+      "trigger": "mourn"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mourn -> deplorar",
+        "target_key": "deplorar"
+      },
+      "active_target": "deplorar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mourn -> deplorar",
+        "target_key": "deplorar"
+      },
+      "candidate_target": "deplorar",
+      "evidence_text": "Many residents mourn the city's choice to close the public clinic.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 11,
+        "evidence_note": "Here mourn expresses strong regret and disapproval of an action.",
+        "family_id": "en-es:srs-source-target:mourn:deplorar:b5818a32",
+        "global_need_rank": 96,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:020",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:020",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion",
+        "source_sentence": "Many residents mourn the city's choice to close the public clinic."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mourn:deplorar:b5818a32:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-020-mourn-deplorar",
+      "runtime_publishable": false,
+      "trigger": "mourn"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "overlay -> forrar",
+        "target_key": "forrar"
+      },
+      "active_target": "forrar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "overlay -> forrar",
+        "target_key": "forrar"
+      },
+      "candidate_target": "forrar",
+      "evidence_text": "She used a soft fabric overlay to line the inside of the box and protect the contents.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 13,
+        "evidence_note": "Overlay means a covering layer used to line or protect the inside of an object.",
+        "family_id": "en-es:srs-source-target:overlay:forrar:330a4a3d",
+        "global_need_rank": 98,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:021",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:021",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion",
+        "source_sentence": "She used a soft fabric overlay to line the inside of the box and protect the contents."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-021-overlay-forrar",
+      "runtime_publishable": false,
+      "trigger": "overlay"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "overlay -> forrar",
+        "target_key": "forrar"
+      },
+      "active_target": "forrar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "overlay -> forrar",
+        "target_key": "forrar"
+      },
+      "candidate_target": "forrar",
+      "evidence_text": "The craft project needs a paper overlay to cover the cardboard and give it a smooth finish.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 13,
+        "evidence_note": "Overlay clearly refers to adding a covering layer, matching the forrar sense.",
+        "family_id": "en-es:srs-source-target:overlay:forrar:330a4a3d",
+        "global_need_rank": 98,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:022",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:022",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion",
+        "source_sentence": "The craft project needs a paper overlay to cover the cardboard and give it a smooth finish."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:overlay:forrar:330a4a3d:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-022-overlay-forrar",
+      "runtime_publishable": false,
+      "trigger": "overlay"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "pheasant -> faisán",
+        "target_key": "faisán"
+      },
+      "active_target": "faisán",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "pheasant -> faisán",
+        "target_key": "faisán"
+      },
+      "candidate_target": "faisán",
+      "evidence_text": "A pheasant flushed from the hedge and startled the walkers.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 14,
+        "evidence_note": "Direct bird noun usage in a wildlife context.",
+        "family_id": "en-es:srs-source-target:pheasant:faisan:1bed1589",
+        "global_need_rank": 99,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:023",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:023",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion",
+        "source_sentence": "A pheasant flushed from the hedge and startled the walkers."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-023-pheasant-fais-n",
+      "runtime_publishable": false,
+      "trigger": "pheasant"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "pheasant -> faisán",
+        "target_key": "faisán"
+      },
+      "active_target": "faisán",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "pheasant -> faisán",
+        "target_key": "faisán"
+      },
+      "candidate_target": "faisán",
+      "evidence_text": "We spotted a pheasant pecking near the edge of the cornfield at dawn.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 14,
+        "evidence_note": "Clear reference to the bird seen in farmland.",
+        "family_id": "en-es:srs-source-target:pheasant:faisan:1bed1589",
+        "global_need_rank": 99,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:024",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:024",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion",
+        "source_sentence": "We spotted a pheasant pecking near the edge of the cornfield at dawn."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:pheasant:faisan:1bed1589:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-024-pheasant-fais-n",
+      "runtime_publishable": false,
+      "trigger": "pheasant"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "prussian -> prusiano",
+        "target_key": "prusiano"
+      },
+      "active_target": "prusiano",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "prussian -> prusiano",
+        "target_key": "prusiano"
+      },
+      "candidate_target": "prusiano",
+      "evidence_text": "The museum displayed a prussian helmet from the 19th century.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 16,
+        "evidence_note": "prussian is used as the adjective for something from Prussia, matching the intended demonym sense.",
+        "family_id": "en-es:srs-source-target:prussian:prusiano:202f6858",
+        "global_need_rank": 101,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:025",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:025",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion",
+        "source_sentence": "The museum displayed a prussian helmet from the 19th century."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-025-prussian-prusiano",
+      "runtime_publishable": false,
+      "trigger": "prussian"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "prussian -> prusiano",
+        "target_key": "prusiano"
+      },
+      "active_target": "prusiano",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "prussian -> prusiano",
+        "target_key": "prusiano"
+      },
+      "candidate_target": "prusiano",
+      "evidence_text": "He studied prussian military reforms under Frederick the Great.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 16,
+        "evidence_note": "prussian clearly modifies reforms associated with Prussia, supporting the active demonym/adjectival meaning.",
+        "family_id": "en-es:srs-source-target:prussian:prusiano:202f6858",
+        "global_need_rank": 101,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:026",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:026",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion",
+        "source_sentence": "He studied prussian military reforms under Frederick the Great."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:prussian:prusiano:202f6858:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-026-prussian-prusiano",
+      "runtime_publishable": false,
+      "trigger": "prussian"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "quarrel -> reñir",
+        "target_key": "reñir"
+      },
+      "active_target": "reñir",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "quarrel -> reñir",
+        "target_key": "reñir"
+      },
+      "candidate_target": "reñir",
+      "evidence_text": "My parents began to quarrel after the meeting, and their voices grew sharp and angry.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 17,
+        "evidence_note": "Active verb sense: to argue intensely, matching the intended Spanish verb.",
+        "family_id": "en-es:srs-source-target:quarrel:renir:a5a2e69f",
+        "global_need_rank": 102,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:027",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:027",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion",
+        "source_sentence": "My parents began to quarrel after the meeting, and their voices grew sharp and angry."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-027-quarrel-re-ir",
+      "runtime_publishable": false,
+      "trigger": "quarrel"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "quarrel -> reñir",
+        "target_key": "reñir"
+      },
+      "active_target": "reñir",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "quarrel -> reñir",
+        "target_key": "reñir"
+      },
+      "candidate_target": "reñir",
+      "evidence_text": "The neighbors quarrel every time the parking spot is taken, turning a small issue into a loud fight.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 17,
+        "evidence_note": "Strong verbal conflict makes the intended argument sense clear.",
+        "family_id": "en-es:srs-source-target:quarrel:renir:a5a2e69f",
+        "global_need_rank": 102,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:028",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:028",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion",
+        "source_sentence": "The neighbors quarrel every time the parking spot is taken, turning a small issue into a loud fight."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:quarrel:renir:a5a2e69f:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-028-quarrel-re-ir",
+      "runtime_publishable": false,
+      "trigger": "quarrel"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "roast -> asar",
+        "target_key": "asar"
+      },
+      "active_target": "asar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "roast -> asar",
+        "target_key": "asar"
+      },
+      "candidate_target": "asar",
+      "evidence_text": "I’ll roast the chicken until the skin is crisp and golden.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 19,
+        "evidence_note": "Cooking verb sense: heat in an oven, matching Spanish asar.",
+        "family_id": "en-es:srs-source-target:roast:asar:d6aec1e3",
+        "global_need_rank": 104,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:029",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:029",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion",
+        "source_sentence": "I’ll roast the chicken until the skin is crisp and golden."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-029-roast-asar",
+      "runtime_publishable": false,
+      "trigger": "roast"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "roast -> asar",
+        "target_key": "asar"
+      },
+      "active_target": "asar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "roast -> asar",
+        "target_key": "asar"
+      },
+      "candidate_target": "asar",
+      "evidence_text": "She likes to roast the vegetables with olive oil and garlic.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 19,
+        "evidence_note": "Food-preparation sense: bake or cook by dry heat, matching asar.",
+        "family_id": "en-es:srs-source-target:roast:asar:d6aec1e3",
+        "global_need_rank": 104,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:030",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:030",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion",
+        "source_sentence": "She likes to roast the vegetables with olive oil and garlic."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:roast:asar:d6aec1e3:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-030-roast-asar",
+      "runtime_publishable": false,
+      "trigger": "roast"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sigh -> suspirar",
+        "target_key": "suspirar"
+      },
+      "active_target": "suspirar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sigh -> suspirar",
+        "target_key": "suspirar"
+      },
+      "candidate_target": "suspirar",
+      "evidence_text": "She let out a long sigh before answering the question.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 20,
+        "evidence_note": "The verb shows a deliberate breath out, matching the intended sense of suspirar.",
+        "family_id": "en-es:srs-source-target:sigh:suspirar:596d0999",
+        "global_need_rank": 105,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:031",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:031",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion",
+        "source_sentence": "She let out a long sigh before answering the question."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-031-sigh-suspirar",
+      "runtime_publishable": false,
+      "trigger": "sigh"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sigh -> suspirar",
+        "target_key": "suspirar"
+      },
+      "active_target": "suspirar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "sigh -> suspirar",
+        "target_key": "suspirar"
+      },
+      "candidate_target": "suspirar",
+      "evidence_text": "He had to sigh to steady himself before he walked onto the stage.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 20,
+        "evidence_note": "The context clearly uses sigh as an act of exhaling with feeling, not as a noun.",
+        "family_id": "en-es:srs-source-target:sigh:suspirar:596d0999",
+        "global_need_rank": 105,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:032",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:032",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion",
+        "source_sentence": "He had to sigh to steady himself before he walked onto the stage."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:sigh:suspirar:596d0999:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-032-sigh-suspirar",
+      "runtime_publishable": false,
+      "trigger": "sigh"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "toast -> asar",
+        "target_key": "asar"
+      },
+      "active_target": "asar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "toast -> asar",
+        "target_key": "asar"
+      },
+      "candidate_target": "asar",
+      "evidence_text": "We can toast the peppers over the open flame until the skins blacken.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 21,
+        "evidence_note": "Heat/roast food over fire, matching the active sense.",
+        "family_id": "en-es:srs-source-target:toast:asar:56f84c41",
+        "global_need_rank": 106,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:033",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:033",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion",
+        "source_sentence": "We can toast the peppers over the open flame until the skins blacken."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-033-toast-asar",
+      "runtime_publishable": false,
+      "trigger": "toast"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "toast -> asar",
+        "target_key": "asar"
+      },
+      "active_target": "asar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "toast -> asar",
+        "target_key": "asar"
+      },
+      "candidate_target": "asar",
+      "evidence_text": "She likes to toast the nuts in a dry pan before adding them to the salad.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 21,
+        "evidence_note": "Cooking with heat to brown or roast the food.",
+        "family_id": "en-es:srs-source-target:toast:asar:56f84c41",
+        "global_need_rank": 106,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:034",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:034",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.436,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion",
+        "source_sentence": "She likes to toast the nuts in a dry pan before adding them to the salad."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:toast:asar:56f84c41:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-034-toast-asar",
+      "runtime_publishable": false,
+      "trigger": "toast"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> equivocación",
+        "target_key": "equivocación"
+      },
+      "active_target": "equivocación",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> equivocación",
+        "target_key": "equivocación"
+      },
+      "candidate_target": "equivocación",
+      "evidence_text": "The typo in the final paragraph was an aberration, not a sign that the author had changed his style.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 31,
+        "evidence_note": "aberration means a mistake or slip, with context showing it was an isolated error.",
+        "family_id": "en-es:srs-source-target:aberration:equivocacion:eed9e2e0",
+        "global_need_rank": 116,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:035",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:035",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion",
+        "source_sentence": "The typo in the final paragraph was an aberration, not a sign that the author had changed his style."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-035-aberration-equivocaci-n",
+      "runtime_publishable": false,
+      "trigger": "aberration"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> equivocación",
+        "target_key": "equivocación"
+      },
+      "active_target": "equivocación",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "aberration -> equivocación",
+        "target_key": "equivocación"
+      },
+      "candidate_target": "equivocación",
+      "evidence_text": "Her missed turn was a brief aberration; she usually navigates the route without any problem.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 31,
+        "evidence_note": "aberration clearly refers to a one-time error or mistake, matching the intended sense.",
+        "family_id": "en-es:srs-source-target:aberration:equivocacion:eed9e2e0",
+        "global_need_rank": 116,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:036",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:036",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion",
+        "source_sentence": "Her missed turn was a brief aberration; she usually navigates the route without any problem."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:aberration:equivocacion:eed9e2e0:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-036-aberration-equivocaci-n",
+      "runtime_publishable": false,
+      "trigger": "aberration"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abrogate -> abolir",
+        "target_key": "abolir"
+      },
+      "active_target": "abolir",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abrogate -> abolir",
+        "target_key": "abolir"
+      },
+      "candidate_target": "abolir",
+      "evidence_text": "The parliament voted to abrogate the outdated law that criminalized small home businesses.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 32,
+        "evidence_note": "Formal legal context where abrogate means to abolish or repeal a law.",
+        "family_id": "en-es:srs-source-target:abrogate:abolir:1a6f502d",
+        "global_need_rank": 117,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:037",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:037",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion",
+        "source_sentence": "The parliament voted to abrogate the outdated law that criminalized small home businesses."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-037-abrogate-abolir",
+      "runtime_publishable": false,
+      "trigger": "abrogate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abrogate -> abolir",
+        "target_key": "abolir"
+      },
+      "active_target": "abolir",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "abrogate -> abolir",
+        "target_key": "abolir"
+      },
+      "candidate_target": "abolir",
+      "evidence_text": "After years of debate, the committee decided to abrogate the rule and replace it with a fairer policy.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 32,
+        "evidence_note": "Clear repeal/abolition sense in a policy setting.",
+        "family_id": "en-es:srs-source-target:abrogate:abolir:1a6f502d",
+        "global_need_rank": 117,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:038",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "critical_label_leakage_in_sentence",
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.0,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:038",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion",
+        "source_sentence": "After years of debate, the committee decided to abrogate the rule and replace it with a fairer policy."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:abrogate:abolir:1a6f502d:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-038-abrogate-abolir",
+      "runtime_publishable": false,
+      "trigger": "abrogate"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "annotation -> anotación",
+        "target_key": "anotación"
+      },
+      "active_target": "anotación",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "annotation -> anotación",
+        "target_key": "anotación"
+      },
+      "candidate_target": "anotación",
+      "evidence_text": "Please add an annotation to the margin explaining why the quotation is important.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 33,
+        "evidence_note": "Direct noun sense: a note added to explain or clarify text.",
+        "family_id": "en-es:srs-source-target:annotation:anotacion:b70561fc",
+        "global_need_rank": 118,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:039",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:039",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion",
+        "source_sentence": "Please add an annotation to the margin explaining why the quotation is important."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-039-annotation-anotaci-n",
+      "runtime_publishable": false,
+      "trigger": "annotation"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "annotation -> anotación",
+        "target_key": "anotación"
+      },
+      "active_target": "anotación",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "annotation -> anotación",
+        "target_key": "anotación"
+      },
+      "candidate_target": "anotación",
+      "evidence_text": "The editor inserted an annotation beside the paragraph to define the unfamiliar term.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 33,
+        "evidence_note": "Clear active sense of an explanatory note attached to written content.",
+        "family_id": "en-es:srs-source-target:annotation:anotacion:b70561fc",
+        "global_need_rank": 118,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:040",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:040",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion",
+        "source_sentence": "The editor inserted an annotation beside the paragraph to define the unfamiliar term."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:annotation:anotacion:b70561fc:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-040-annotation-anotaci-n",
+      "runtime_publishable": false,
+      "trigger": "annotation"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cede -> ceder",
+        "target_key": "ceder"
+      },
+      "active_target": "ceder",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cede -> ceder",
+        "target_key": "ceder"
+      },
+      "candidate_target": "ceder",
+      "evidence_text": "After hours of negotiation, the board decided to cede control of the project to the local team.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 34,
+        "evidence_note": "cede means to give up control or yield to another party.",
+        "family_id": "en-es:srs-source-target:cede:ceder:1beb9937",
+        "global_need_rank": 119,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:041",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:041",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion",
+        "source_sentence": "After hours of negotiation, the board decided to cede control of the project to the local team."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-041-cede-ceder",
+      "runtime_publishable": false,
+      "trigger": "cede"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cede -> ceder",
+        "target_key": "ceder"
+      },
+      "active_target": "ceder",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "cede -> ceder",
+        "target_key": "ceder"
+      },
+      "candidate_target": "ceder",
+      "evidence_text": "If the company cede the trademark, the new owner will manage it from here on.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 34,
+        "evidence_note": "cede indicates transferring or surrendering ownership or rights.",
+        "family_id": "en-es:srs-source-target:cede:ceder:1beb9937",
+        "global_need_rank": 119,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:042",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:042",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion",
+        "source_sentence": "If the company cede the trademark, the new owner will manage it from here on."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:cede:ceder:1beb9937:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-042-cede-ceder",
+      "runtime_publishable": false,
+      "trigger": "cede"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "crevice -> grieta",
+        "target_key": "grieta"
+      },
+      "active_target": "grieta",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "crevice -> grieta",
+        "target_key": "grieta"
+      },
+      "candidate_target": "grieta",
+      "evidence_text": "A thin line of water disappeared into the crevice between the stones.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 35,
+        "evidence_note": "Shows crevice as a narrow crack or fissure in stone.",
+        "family_id": "en-es:srs-source-target:crevice:grieta:06d2c631",
+        "global_need_rank": 120,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:043",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:043",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion",
+        "source_sentence": "A thin line of water disappeared into the crevice between the stones."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-043-crevice-grieta",
+      "runtime_publishable": false,
+      "trigger": "crevice"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "crevice -> grieta",
+        "target_key": "grieta"
+      },
+      "active_target": "grieta",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "crevice -> grieta",
+        "target_key": "grieta"
+      },
+      "candidate_target": "grieta",
+      "evidence_text": "Dust had collected in the crevice running along the old wall.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 35,
+        "evidence_note": "Uses crevice for a visible crack-like opening in a surface.",
+        "family_id": "en-es:srs-source-target:crevice:grieta:06d2c631",
+        "global_need_rank": 120,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:044",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:044",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion",
+        "source_sentence": "Dust had collected in the crevice running along the old wall."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:crevice:grieta:06d2c631:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-044-crevice-grieta",
+      "runtime_publishable": false,
+      "trigger": "crevice"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "depute -> delegar",
+        "target_key": "delegar"
+      },
+      "active_target": "delegar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "depute -> delegar",
+        "target_key": "delegar"
+      },
+      "candidate_target": "delegar",
+      "evidence_text": "The director will depute the contract review to the legal team while she is traveling.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 36,
+        "evidence_note": "depute means to assign or delegate the task to others.",
+        "family_id": "en-es:srs-source-target:depute:delegar:fe176465",
+        "global_need_rank": 121,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:045",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:045",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion",
+        "source_sentence": "The director will depute the contract review to the legal team while she is traveling."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-045-depute-delegar",
+      "runtime_publishable": false,
+      "trigger": "depute"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "depute -> delegar",
+        "target_key": "delegar"
+      },
+      "active_target": "delegar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "depute -> delegar",
+        "target_key": "delegar"
+      },
+      "candidate_target": "delegar",
+      "evidence_text": "To keep the project moving, he decided to depute routine approvals to his assistant.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 36,
+        "evidence_note": "depute means to hand over authority or responsibility.",
+        "family_id": "en-es:srs-source-target:depute:delegar:fe176465",
+        "global_need_rank": 121,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:046",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_infinitive",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:046",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion",
+        "source_sentence": "To keep the project moving, he decided to depute routine approvals to his assistant."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:depute:delegar:fe176465:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-046-depute-delegar",
+      "runtime_publishable": false,
+      "trigger": "depute"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "housefly -> mosca",
+        "target_key": "mosca"
+      },
+      "active_target": "mosca",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "housefly -> mosca",
+        "target_key": "mosca"
+      },
+      "candidate_target": "mosca",
+      "evidence_text": "A housefly landed on the kitchen table and then buzzed back toward the window.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 37,
+        "evidence_note": "Refers to a common fly indoors, matching the broad sense of mosca.",
+        "family_id": "en-es:srs-source-target:housefly:mosca:446bc1da",
+        "global_need_rank": 122,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:047",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "adverb",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:047",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion",
+        "source_sentence": "A housefly landed on the kitchen table and then buzzed back toward the window."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-047-housefly-mosca",
+      "runtime_publishable": false,
+      "trigger": "housefly"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "housefly -> mosca",
+        "target_key": "mosca"
+      },
+      "active_target": "mosca",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "housefly -> mosca",
+        "target_key": "mosca"
+      },
+      "candidate_target": "mosca",
+      "evidence_text": "She swatted the housefly that kept circling the fruit bowl.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 37,
+        "evidence_note": "Uses housefly as a typical fly in a domestic setting, clear for the general fly sense.",
+        "family_id": "en-es:srs-source-target:housefly:mosca:446bc1da",
+        "global_need_rank": 122,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:048",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "adverb",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:048",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion",
+        "source_sentence": "She swatted the housefly that kept circling the fruit bowl."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:housefly:mosca:446bc1da:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-048-housefly-mosca",
+      "runtime_publishable": false,
+      "trigger": "housefly"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mitten -> guante",
+        "target_key": "guante"
+      },
+      "active_target": "guante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mitten -> guante",
+        "target_key": "guante"
+      },
+      "candidate_target": "guante",
+      "evidence_text": "He slipped on a leather mitten before riding his motorcycle.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 38,
+        "evidence_note": "mitten refers to a type of glove worn on the hand.",
+        "family_id": "en-es:srs-source-target:mitten:guante:0f4371c7",
+        "global_need_rank": 123,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:049",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:049",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion",
+        "source_sentence": "He slipped on a leather mitten before riding his motorcycle."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-049-mitten-guante",
+      "runtime_publishable": false,
+      "trigger": "mitten"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mitten -> guante",
+        "target_key": "guante"
+      },
+      "active_target": "guante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "mitten -> guante",
+        "target_key": "guante"
+      },
+      "candidate_target": "guante",
+      "evidence_text": "The museum displayed a mitten made for winter work in the mountains.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 38,
+        "evidence_note": "mitten is used as a hand-covering garment, matching the broader glove sense.",
+        "family_id": "en-es:srs-source-target:mitten:guante:0f4371c7",
+        "global_need_rank": 123,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:050",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:050",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion",
+        "source_sentence": "The museum displayed a mitten made for winter work in the mountains."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:mitten:guante:0f4371c7:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-050-mitten-guante",
+      "runtime_publishable": false,
+      "trigger": "mitten"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nourish -> alimentar",
+        "target_key": "alimentar"
+      },
+      "active_target": "alimentar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nourish -> alimentar",
+        "target_key": "alimentar"
+      },
+      "candidate_target": "alimentar",
+      "evidence_text": "A balanced diet can nourish the body and support healthy growth.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 39,
+        "evidence_note": "Physical feeding sense: nourish means to provide food and help the body grow.",
+        "family_id": "en-es:srs-source-target:nourish:alimentar:451f69a1",
+        "global_need_rank": 124,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:051",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "verb_after_modal",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:051",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion",
+        "source_sentence": "A balanced diet can nourish the body and support healthy growth."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-051-nourish-alimentar",
+      "runtime_publishable": false,
+      "trigger": "nourish"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nourish -> alimentar",
+        "target_key": "alimentar"
+      },
+      "active_target": "alimentar",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "nourish -> alimentar",
+        "target_key": "alimentar"
+      },
+      "candidate_target": "alimentar",
+      "evidence_text": "Good teachers nourish curiosity in their students with patient encouragement and clear examples.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 39,
+        "evidence_note": "Extended active sense: nourish means to foster or feed the growth of something.",
+        "family_id": "en-es:srs-source-target:nourish:alimentar:451f69a1",
+        "global_need_rank": 124,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:052",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "unknown",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:052",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion",
+        "source_sentence": "Good teachers nourish curiosity in their students with patient encouragement and clear examples."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:nourish:alimentar:451f69a1:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-052-nourish-alimentar",
+      "runtime_publishable": false,
+      "trigger": "nourish"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "omelette -> tortilla",
+        "target_key": "tortilla"
+      },
+      "active_target": "tortilla",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "omelette -> tortilla",
+        "target_key": "tortilla"
+      },
+      "candidate_target": "tortilla",
+      "evidence_text": "She flipped the omelette in the pan and served it with potatoes and onions for dinner.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 40,
+        "evidence_note": "Breakfast-style egg dish; matches the Spanish sense of tortilla de huevo or a potato omelette.",
+        "family_id": "en-es:srs-source-target:omelette:tortilla:16795c29",
+        "global_need_rank": 125,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:053",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:053",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion",
+        "source_sentence": "She flipped the omelette in the pan and served it with potatoes and onions for dinner."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-053-omelette-tortilla",
+      "runtime_publishable": false,
+      "trigger": "omelette"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "omelette -> tortilla",
+        "target_key": "tortilla"
+      },
+      "active_target": "tortilla",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "omelette -> tortilla",
+        "target_key": "tortilla"
+      },
+      "candidate_target": "tortilla",
+      "evidence_text": "At the café, I ordered an omelette stuffed with cheese, peppers, and ham.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 40,
+        "evidence_note": "Egg-based savory dish with fillings; the intended Spanish equivalent is tortilla.",
+        "family_id": "en-es:srs-source-target:omelette:tortilla:16795c29",
+        "global_need_rank": 125,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:054",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak",
+            "target_lemma_in_evidence_note"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.7,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": true
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:054",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion",
+        "source_sentence": "At the café, I ordered an omelette stuffed with cheese, peppers, and ham."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:omelette:tortilla:16795c29:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-054-omelette-tortilla",
+      "runtime_publishable": false,
+      "trigger": "omelette"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "poseur -> farsante",
+        "target_key": "farsante"
+      },
+      "active_target": "farsante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "poseur -> farsante",
+        "target_key": "farsante"
+      },
+      "candidate_target": "farsante",
+      "evidence_text": "He was a poseur, dressing up his thin résumé and fake success to impress investors.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 41,
+        "evidence_note": "Signals a pretender who puts on a false social image to deceive others.",
+        "family_id": "en-es:srs-source-target:poseur:farsante:1e40a586",
+        "global_need_rank": 126,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:055",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:055",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion",
+        "source_sentence": "He was a poseur, dressing up his thin résumé and fake success to impress investors."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-055-poseur-farsante",
+      "runtime_publishable": false,
+      "trigger": "poseur"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "poseur -> farsante",
+        "target_key": "farsante"
+      },
+      "active_target": "farsante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "poseur -> farsante",
+        "target_key": "farsante"
+      },
+      "candidate_target": "farsante",
+      "evidence_text": "Her old friends saw through the poseur immediately, because his polished stories and borrowed accents never matched the truth.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 41,
+        "evidence_note": "Shows an affected impostor whose showy manner hides that he is a fraud.",
+        "family_id": "en-es:srs-source-target:poseur:farsante:1e40a586",
+        "global_need_rank": 126,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:056",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:056",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion",
+        "source_sentence": "Her old friends saw through the poseur immediately, because his polished stories and borrowed accents never matched the truth."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:poseur:farsante:1e40a586:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-056-poseur-farsante",
+      "runtime_publishable": false,
+      "trigger": "poseur"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "watercourse -> cauce",
+        "target_key": "cauce"
+      },
+      "active_target": "cauce",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "watercourse -> cauce",
+        "target_key": "cauce"
+      },
+      "candidate_target": "cauce",
+      "evidence_text": "The hiker followed the watercourse down the valley to reach the village.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 44,
+        "evidence_note": "Refers to a natural channel or course that carries water through the valley.",
+        "family_id": "en-es:srs-source-target:watercourse:cauce:94292db0",
+        "global_need_rank": 129,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:057",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:057",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion",
+        "source_sentence": "The hiker followed the watercourse down the valley to reach the village."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-057-watercourse-cauce",
+      "runtime_publishable": false,
+      "trigger": "watercourse"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "watercourse -> cauce",
+        "target_key": "cauce"
+      },
+      "active_target": "cauce",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "watercourse -> cauce",
+        "target_key": "cauce"
+      },
+      "candidate_target": "cauce",
+      "evidence_text": "After the storm, the narrow watercourse filled quickly and rushed toward the river.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 44,
+        "evidence_note": "Describes a channel for flowing water, matching the intended sense of a course or channel.",
+        "family_id": "en-es:srs-source-target:watercourse:cauce:94292db0",
+        "global_need_rank": 129,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:058",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_subject",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:058",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.392,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion",
+        "source_sentence": "After the storm, the narrow watercourse filled quickly and rushed toward the river."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:watercourse:cauce:94292db0:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-058-watercourse-cauce",
+      "runtime_publishable": false,
+      "trigger": "watercourse"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "attitudinizer -> farsante",
+        "target_key": "farsante"
+      },
+      "active_target": "farsante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "attitudinizer -> farsante",
+        "target_key": "farsante"
+      },
+      "candidate_target": "farsante",
+      "evidence_text": "Everyone at the gala saw him as an attitudinizer, all polished pose and no real character.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 45,
+        "evidence_note": "Shows the source phrase as a pretentious poseur, matching the intended active sense.",
+        "family_id": "en-es:srs-source-target:attitudinizer:farsante:e89734ee",
+        "global_need_rank": 130,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion:item:001",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:059",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:059",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.335,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion",
+        "source_sentence": "Everyone at the gala saw him as an attitudinizer, all polished pose and no real character."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion:item:001",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-059-attitudinizer-farsante",
+      "runtime_publishable": false,
+      "trigger": "attitudinizer"
+    },
+    {
+      "active_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "attitudinizer -> farsante",
+        "target_key": "farsante"
+      },
+      "active_target": "farsante",
+      "candidate_sense_hint": {
+        "note": "active-only generated anchor cue",
+        "sense_label": "attitudinizer -> farsante",
+        "target_key": "farsante"
+      },
+      "candidate_target": "farsante",
+      "evidence_text": "Her speech made the journalist sound like an attitudinizer who cared more about appearances than honesty.",
+      "input_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion",
+      "metadata": {
+        "arm_rank": 45,
+        "evidence_note": "Context clearly frames the source phrase as a pretender or faker.",
+        "family_id": "en-es:srs-source-target:attitudinizer:farsante:e89734ee",
+        "global_need_rank": 130,
+        "item_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion:item:002",
+        "packaging_audit": {
+          "audit_id": "generated_active_item:060",
+          "definition_like_sentence": false,
+          "eval_overlap_case_id": "",
+          "eval_overlap_risk": "low",
+          "expected_pos": "",
+          "flags": [
+            "pos_weak"
+          ],
+          "observed_source_syntax": "noun_determined",
+          "quality_score": 0.8,
+          "shadow_confusability_risk": "low",
+          "target_lemma_in_evidence_note": false
+        },
+        "pilot_arm": "P3_exposure_first",
+        "postprocess_audit_id": "generated_active_item:060",
+        "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+        "predicted_need": 0.335,
+        "request_id": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion",
+        "slot_id": "en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion",
+        "source_sentence": "Her speech made the journalist sound like an attitudinizer who cared more about appearances than honesty."
+      },
+      "promotion_state": "proposed",
+      "prompt_slot": "active_evidence_expansion",
+      "raw_response_ref": "en-es-active-only-full-v1-tranche-010:en-es:srs-source-target:attitudinizer:farsante:e89734ee:active_evidence_expansion:item:002",
+      "relation_type": "anchor_cue",
+      "review_state": "unreviewed",
+      "row_id": "active-only-full-v1-tranche-010-source-row-060-attitudinizer-farsante",
+      "runtime_publishable": false,
+      "trigger": "attitudinizer"
+    }
+  ],
+  "model_id": "gpt-5.4-mini",
+  "pair": "en-es",
+  "prompt_version": "semantic_veto_evidence_gap_generation_v7_shadow_target_correctness",
+  "provenance": {
+    "admission_generated_at": "2026-05-13T20:17:15Z",
+    "admitted_input_item_count": 60,
+    "evidence_variant": "sentence_only",
+    "excluded_item_count": 0,
+    "operator_repair_count": 0,
+    "operator_repairs": [],
+    "postprocess_generated_at": "2026-05-13T20:17:20Z",
+    "postprocess_view_id": "no_high_eval_overlap_sentence_only",
+    "raw_output_mutation": "none",
+    "selected_item_count": 60,
+    "source_packaging_run_id": "active-only-full-v1-tranche-010"
+  },
+  "review_state": "unreviewed",
+  "roles": [
+    "cue_generation"
+  ],
+  "schema_version": 1,
+  "source_family": "silver_llm_generation",
+  "source_id": "active-only-full-v1-tranche-010",
+  "source_type": "llm",
+  "temperature": null
+}

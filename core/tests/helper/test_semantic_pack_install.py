@@ -132,7 +132,7 @@ class TestSemanticPackInstall(unittest.TestCase):
             self.assertTrue(resolved.exists())
             self.assertEqual(
                 resolved.name,
-                "en-es-active-only-combined-full-v1-tranche-009_semantic_inventory.json",
+                "en-es-active-only-combined-full-v1-tranche-010_semantic_inventory.json",
             )
 
 
