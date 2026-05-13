@@ -1,0 +1,184 @@
+{
+  "artifacts": {
+    "combined_normalized_evidence": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006-normalized_evidence.json",
+    "semantic_inventory": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006_semantic_inventory.json"
+  },
+  "component_batches": [
+    {
+      "batch_id": "en-es:semantic-veto:en-es-active-only-combined-full-v1-tranche-005",
+      "family_count": 261,
+      "row_count": 534,
+      "source_family": "internal_rulegen_artifact",
+      "source_id": "en-es-active-only-combined-full-v1-tranche-005",
+      "source_type": "internal"
+    },
+    {
+      "batch_id": "en-es:semantic-veto:active-only-full-v1-tranche-006",
+      "family_count": 39,
+      "row_count": 78,
+      "source_family": "silver_llm_generation",
+      "source_id": "active-only-full-v1-tranche-006",
+      "source_type": "llm"
+    }
+  ],
+  "decision": "active_only_full_pack_ready_for_named_install",
+  "duplicate_samples": [],
+  "existing_family_append_samples": [],
+  "generated_at": "2026-05-13T17:39:23Z",
+  "inputs": {
+    "add_normalized_evidence_paths": [
+      "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-006_normalized_evidence.json"
+    ],
+    "base_inventory_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-005_semantic_inventory.json",
+    "base_normalized_evidence_path": "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-005-normalized_evidence.json"
+  },
+  "issues": [],
+  "methodology": {
+    "existing_family_policy": "append generated evidence to existing active sense by trigger-target key",
+    "merge_scope": "append active-only anchor cues, preserve existing shadows and phrase sets",
+    "new_family_policy": "create active-only competition set when trigger-target pair is absent",
+    "runtime_policy_change": "none",
+    "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer"
+  },
+  "new_family_samples": [
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:calm:calmar:24e626f0",
+      "target": "calmar",
+      "trigger": "calm"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:clay:arcilla:47b07f42",
+      "target": "arcilla",
+      "trigger": "clay"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:climb:trepar:df03815d",
+      "target": "trepar",
+      "trigger": "climb"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:counter:mostrador:c63c4bbc",
+      "target": "mostrador",
+      "trigger": "counter"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:crack:grieta:5edf24f8",
+      "target": "grieta",
+      "trigger": "crack"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:divide:apartar:a7b07d34",
+      "target": "apartar",
+      "trigger": "divide"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:drunk:ebrio:1e2004fe",
+      "target": "ebrio",
+      "trigger": "drunk"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:ear:oreja:59a21c69",
+      "target": "oreja",
+      "trigger": "ear"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:eighth:octavo:4c75543d",
+      "target": "octavo",
+      "trigger": "eighth"
+    },
+    {
+      "evidence_row_count": 2,
+      "family_id": "en-es:srs-source-target:error:equivocacion:10a4b3bd",
+      "target": "equivocación",
+      "trigger": "error"
+    }
+  ],
+  "pack_id": "en-es-active-only-combined-full-v1-tranche-006",
+  "pair": "en-es",
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "add_normalized_row_count": 78,
+    "base_normalized_row_count": 534,
+    "combined_normalized_row_count": 612,
+    "competition_set_count": 300,
+    "duplicate_row_count": 0,
+    "existing_family_append_count": 0,
+    "existing_family_append_samples": [],
+    "merged_evidence_row_count": 78,
+    "new_family_count": 39,
+    "new_family_samples": [
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:calm:calmar:24e626f0",
+        "target": "calmar",
+        "trigger": "calm"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:clay:arcilla:47b07f42",
+        "target": "arcilla",
+        "trigger": "clay"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:climb:trepar:df03815d",
+        "target": "trepar",
+        "trigger": "climb"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:counter:mostrador:c63c4bbc",
+        "target": "mostrador",
+        "trigger": "counter"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:crack:grieta:5edf24f8",
+        "target": "grieta",
+        "trigger": "crack"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:divide:apartar:a7b07d34",
+        "target": "apartar",
+        "trigger": "divide"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:drunk:ebrio:1e2004fe",
+        "target": "ebrio",
+        "trigger": "drunk"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:ear:oreja:59a21c69",
+        "target": "oreja",
+        "trigger": "ear"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:eighth:octavo:4c75543d",
+        "target": "octavo",
+        "trigger": "eighth"
+      },
+      {
+        "evidence_row_count": 2,
+        "family_id": "en-es:srs-source-target:error:equivocacion:10a4b3bd",
+        "target": "equivocación",
+        "trigger": "error"
+      }
+    ],
+    "sense_count": 342,
+    "trigger_count": 300
+  }
+}

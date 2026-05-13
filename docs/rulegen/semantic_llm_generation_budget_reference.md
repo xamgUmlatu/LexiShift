@@ -320,6 +320,40 @@ Recorded accepted-run usage:
 The fifth tranche stayed well below the small-batch guardrails. The only
 operator repair was mechanical runtime-trigger restoration, not a sense rewrite.
 
+## Observed Full Active-Only Tranche 006 Cost Anchor
+
+Artifacts:
+
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_run_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_admission_en_es_latest.json`
+- `docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_pack_install_en_es_latest.json`
+
+Observed run shape:
+
+- model: `gpt-5.4-mini`
+- request scope: `39` reviewed/approved uncovered active-only SRS-derived
+  source-target families
+- first completed bundle accepted `36/39` responses and reported `3` invalid
+  metadata outputs for `height -> elevación`, `hip -> cadera`, and
+  `reserve -> reservar`
+- one guarded retry accepted all `3` invalid-output rows
+- admission accepted active items: `78/78`
+- source packaging produced `78` canonical `anchor_cue` rows across `39`
+  families
+- combined pack build now covers `300/570` current SRS-derived source-target
+  families with `612` normalized evidence rows
+
+Recorded accepted-run usage:
+
+- accepted outcomes: `39`
+- invalid-output outcomes: `3`
+- input tokens: `20,628`
+- output tokens: `7,223`
+- actual cost at the 2026-05-14 `gpt-5.4-mini` snapshot: about `$0.048`
+
+The sixth tranche needed no generated-row semantic or runtime-token repairs
+after the metadata retry. Admission accepted every generated item.
+
 ## Observed Balanced v1 Follow-Through Cost Anchor
 
 Artifact:

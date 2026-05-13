@@ -187,6 +187,26 @@
       "validation": "Registry summary and doc references should keep the distinction between automated checkpoint acceptance and hands-on browser smoke explicit."
     },
     {
+      "action": "Run the sixth paid full active-only tranche, package it with the existing combined-full pack, install it into an isolated helper profile, and scan public pages for operator-checkpoint review.",
+      "action_id": "active_only_full_generation_tranche_006_followthrough",
+      "evidence_needed": "Live gpt-5.4-mini generation accepted 39/39 responses after guarded retries for 3 metadata-drift outputs, using 20,628 input tokens and 7,223 output tokens. Admission accepted 78/78 active items with 0 rejects and 0 shortfall. Source packaging produced 78 anchor_cue rows across 39 families. The combined pack now covers 300/570 families with 612 normalized evidence rows, installs as 300 helper rules, and the isolated public-page scan produced 120 policy decisions with 68 replaces, 52 abstains, 0 fallback decisions, and 0 page fetch errors.",
+      "pass_id": "data_artifacts",
+      "priority": "P1",
+      "promotion_impact": "",
+      "source_artifacts": [
+        "active_only_full_generation_tranche_006_pre_spend_plan_report",
+        "active_only_full_tranche_006_generation_run_report",
+        "active_only_full_tranche_006_generation_admission_report",
+        "active_only_full_tranche_006_source_packaging_report",
+        "active_only_full_tranche_006_pack_builder_report",
+        "active_only_full_tranche_006_pack_install_report",
+        "active_only_full_tranche_006_live_page_scan_report",
+        "active_only_full_generation_post_tranche_006_plan_report"
+      ],
+      "status": "done",
+      "validation": "Run admission, postprocess, source packaging, pack builder, isolated install, live-page scan, post-tranche plan, registry summary, doc reference check, state check, whitespace check, and focused semantic-pack/registry tests before the follow-through commit."
+    },
+    {
       "action": "Review the next source-target slice after tranche 005 and render the bounded tranche-006 pre-spend request packet without making paid calls.",
       "action_id": "active_only_full_generation_tranche_006_pre_spend_prep",
       "evidence_needed": "The cumulative source-target review manifest now covers 300 rows, approving 251 and excluding 49. Tranche 006 prep reviewed global need ranks 39-88 from the still-unreviewed post-tranche-005 queue, approved 39 families, excluded 11 weak mappings, and rendered an ok 39-request pre-spend plan for 78 expected active cue rows with 21,302 estimated input tokens and 10,920 output-token budget. Paid generation has not started.",
@@ -1470,16 +1490,16 @@
   "component_counts": {
     "candidate_wave6": 11,
     "decision_research": 29,
-    "diagnostics": 169,
+    "diagnostics": 171,
     "evaluation_data": 45,
     "historical_or_seed": 7,
     "process_governance": 15,
-    "runtime_path": 27,
-    "source_admission": 58
+    "runtime_path": 29,
+    "source_admission": 61
   },
   "current_candidate": {
-    "candidate_id": "active_only_combined_full_v1_tranche_005",
-    "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first five SRS-derived full-generation tranches. The latest automated-clean and operator-accepted product checkpoint covers 261 source-target families; tranche-003 remains the latest hands-on browser-extension smoke. The tranche-006 no-spend request packet is ready with 39 reviewed families, but paid generation has not started. Generated shadows and no-winner rows remain paused.",
+    "candidate_id": "active_only_combined_full_v1_tranche_006",
+    "candidate_summary": "Soft-assist active-only generated evidence using the v5/v7 active cue path, no_high_eval_overlap_sentence_only postprocess view, combined PoC + v1 reuse + scale-tranche source evidence over the 49-family repaired product-scope denominator, plus the first six SRS-derived full-generation tranches. The latest automated-clean pack covers 300 source-target families; tranche-005 remains the latest operator-accepted product checkpoint and tranche-003 remains the latest hands-on browser-extension smoke. Generated shadows and no-winner rows remain paused.",
     "control": "base repaired-full active-only inventory/helper state before generated active evidence",
     "current_result": {
       "admitted_active_evidence_items": 32,
@@ -1575,11 +1595,24 @@
       "combined_full_tranche_005_pack_normalized_rows": 534,
       "combined_full_tranche_005_pack_sense_count": 303,
       "combined_full_tranche_005_pack_trigger_count": 261,
+      "combined_full_tranche_006_live_page_scan_abstain_decisions": 52,
+      "combined_full_tranche_006_live_page_scan_fallback_decisions": 0,
+      "combined_full_tranche_006_live_page_scan_page_fetch_errors": 0,
+      "combined_full_tranche_006_live_page_scan_replace_decisions": 68,
+      "combined_full_tranche_006_live_page_scan_review_rows": 120,
+      "combined_full_tranche_006_pack_competition_set_count": 300,
+      "combined_full_tranche_006_pack_families": 300,
+      "combined_full_tranche_006_pack_installed_active_only_competition_sets": 277,
+      "combined_full_tranche_006_pack_installed_rule_count": 300,
+      "combined_full_tranche_006_pack_installed_shadowed_competition_sets": 23,
+      "combined_full_tranche_006_pack_normalized_rows": 612,
+      "combined_full_tranche_006_pack_sense_count": 342,
+      "combined_full_tranche_006_pack_trigger_count": 300,
       "combined_inventory_replay_applied_rows": 112,
       "combined_packaged_canonical_rows": 112,
-      "current_data_approval_status": "tranche_005_operator_accepted_product_checkpoint; tranche_003_latest_hands_on_browser_smoke",
+      "current_data_approval_status": "automated_clean_tranche_006_ready_for_operator_checkpoint; tranche_005_operator_accepted_product_checkpoint; tranche_003_latest_hands_on_browser_smoke",
       "families": 49,
-      "full_active_only_covered_families": 261,
+      "full_active_only_covered_families": 300,
       "full_active_only_fifth_tranche_accepted_responses": 37,
       "full_active_only_fifth_tranche_admitted_items": 74,
       "full_active_only_fifth_tranche_coverage_shortfall": 0,
@@ -1618,12 +1651,12 @@
       "full_active_only_fourth_tranche_output_tokens": 8450,
       "full_active_only_fourth_tranche_packaged_rows": 92,
       "full_active_only_fourth_tranche_rejected_items": 0,
-      "full_active_only_generation_queue_families_after_review": 260,
+      "full_active_only_generation_queue_families_after_review": 221,
       "full_active_only_generation_queue_unreviewed_after_tranche_003": 371,
       "full_active_only_generation_queue_unreviewed_after_tranche_004_review": 321,
       "full_active_only_generation_queue_unreviewed_after_tranche_005_review": 271,
       "full_active_only_generation_queue_unreviewed_after_tranche_006_review": 221,
-      "full_active_only_planned_generated_rows": 542,
+      "full_active_only_planned_generated_rows": 442,
       "full_active_only_post_tranche_002_covered_families": 135,
       "full_active_only_post_tranche_002_generation_queue_families_after_review": 421,
       "full_active_only_post_tranche_002_planned_generated_rows": 842,
@@ -1640,6 +1673,10 @@
       "full_active_only_post_tranche_005_generation_queue_families_after_review": 271,
       "full_active_only_post_tranche_005_planned_generated_rows": 542,
       "full_active_only_post_tranche_005_uncovered_families": 309,
+      "full_active_only_post_tranche_006_covered_families": 300,
+      "full_active_only_post_tranche_006_generation_queue_families_after_review": 221,
+      "full_active_only_post_tranche_006_planned_generated_rows": 442,
+      "full_active_only_post_tranche_006_uncovered_families": 270,
       "full_active_only_reviewed_cumulative_approved": 251,
       "full_active_only_reviewed_cumulative_candidates": 300,
       "full_active_only_reviewed_cumulative_excluded": 49,
@@ -1673,6 +1710,19 @@
       "full_active_only_second_tranche_operator_repairs": 2,
       "full_active_only_second_tranche_packaged_rows": 88,
       "full_active_only_second_tranche_rejected_items": 0,
+      "full_active_only_sixth_tranche_accepted_responses": 39,
+      "full_active_only_sixth_tranche_admitted_items": 78,
+      "full_active_only_sixth_tranche_coverage_shortfall": 0,
+      "full_active_only_sixth_tranche_estimated_mini_cost_usd": 0.048,
+      "full_active_only_sixth_tranche_expected_rows": 78,
+      "full_active_only_sixth_tranche_families": 39,
+      "full_active_only_sixth_tranche_input_tokens": 20628,
+      "full_active_only_sixth_tranche_invalid_outputs": 0,
+      "full_active_only_sixth_tranche_invalid_outputs_before_retry": 3,
+      "full_active_only_sixth_tranche_operator_repairs": 0,
+      "full_active_only_sixth_tranche_output_tokens": 7223,
+      "full_active_only_sixth_tranche_packaged_rows": 78,
+      "full_active_only_sixth_tranche_rejected_items": 0,
       "full_active_only_third_tranche_accepted_responses_before_retry": 42,
       "full_active_only_third_tranche_admitted_items": 86,
       "full_active_only_third_tranche_coverage_shortfall": 0,
@@ -1716,7 +1766,7 @@
       "full_active_only_tranche_006_pre_spend_uncovered_families": 309,
       "full_active_only_tranche_006_pre_spend_unreviewed_rows": 221,
       "full_active_only_tranche_006_request_families": 39,
-      "full_active_only_uncovered_families": 309,
+      "full_active_only_uncovered_families": 270,
       "full_srs_active_target_count": 342,
       "full_srs_source_target_denominator_families": 570,
       "full_srs_source_trigger_count": 536,
@@ -4724,6 +4774,23 @@
       ]
     },
     {
+      "artifact_id": "active_only_full_generation_post_tranche_006_plan_report",
+      "component": "diagnostics",
+      "current_use": "Shows 300/570 covered families, 270 uncovered families, 221 unreviewed queue rows, 49 excluded rows, and no next paid request packet before the tranche-007 review slice is added.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.md",
+      "risk": "Review-status artifact by design; the empty request packet is expected until the next source-target review manifest is expanded.",
+      "role": "Recomputes the full SRS-derived active-only coverage plan after installing tranche 006 into the combined evidence input.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full generation post-tranche 006 plan report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006-normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "active_only_full_generation_tranche_002_pre_spend_plan_report",
       "component": "diagnostics",
       "current_use": "Shows active-only coverage still at 91/570 families, 44 approved tranche-002 request families, 88 expected active cue rows, 23,006 estimated input tokens, 12,320 output-token budget, 14 cumulative exclusions, and 421 still-unreviewed uncovered rows.",
@@ -4941,6 +5008,22 @@
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_operator_checkpoint_en_es_latest.json",
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_live_page_scan_en_es_latest.json",
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_pack_install_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_live_page_scan_report",
+      "component": "diagnostics",
+      "current_use": "Shows 120 policy decisions, 68 replace decisions, 52 abstains, 0 fallback decisions, and 0 page fetch errors over the installed combined-full tranche-006 fixture.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_live_page_scan_en_es_latest.md",
+      "risk": "Manual page-feel packet only; it is not a statistical language-wide accuracy claim.",
+      "role": "Runs public-page sentences through the isolated 300-rule helper fixture for manual product-feel review.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only combined full tranche 006 live page scan report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_live_page_scan_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json"
       ]
     },
     {
@@ -6891,6 +6974,40 @@
       ]
     },
     {
+      "artifact_id": "active_only_full_tranche_006_pack_builder_report",
+      "component": "runtime_path",
+      "current_use": "Shows 612 combined normalized rows across 300 families, 39 newly added active-only families, and a 300-trigger / 342-sense / 300-competition-set semantic inventory.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-006_pack_builder_latest.md",
+      "risk": "Newly added SRS-derived families do not have frozen manual sentence cases, so this artifact supports product-shaped smoke rather than benchmark lift claims.",
+      "role": "Records the combined active-only semantic inventory pack produced from the 261-family tranche-005 fixture plus full tranche 006.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only combined full tranche 006 pack builder report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-006_pack_builder_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006_semantic_inventory.json",
+        "scripts/testing/semantic_veto_active_only_full_pack_builder_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_pack_install_report",
+      "component": "runtime_path",
+      "current_use": "Shows 300 helper rules written with 277 active-only and 23 shadowed competition sets, plus ruleset, snapshot, semantic inventory, and publication manifest paths.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_pack_install_en_es_latest.json",
+      "risk": "Install target is an isolated docs/test_outputs fixture, not a real user profile unless separately installed through the explicit default-root debug path.",
+      "role": "Records named semantic-pack materialization into an isolated helper data root.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only combined full tranche 006 pack install report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_pack_install_en_es_latest.json",
+        "scripts/helper/lexishift_helper.py",
+        "core/lexishift_core/helper/use_cases/semantic_pack_install.py"
+      ]
+    },
+    {
       "artifact_id": "active_only_full_tranche_001_generation_admission_report",
       "component": "source_admission",
       "current_use": "Accepts 84/84 active evidence items with 0 rejected items and 0 coverage shortfall; records the explicit operator repair for work->trabajar.",
@@ -7138,6 +7255,56 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_source_packaging_en_es_latest.json",
         "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-005_normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_generation_admission_report",
+      "component": "source_admission",
+      "current_use": "Accepts 78/78 active evidence items with 0 rejected items and 0 coverage shortfall; no operator repair artifact was needed after metadata retry.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_admission_en_es_latest.md",
+      "risk": "Admission checks runtime-like token shape and structural fields; semantic product value still needs helper-page smoke and operator review.",
+      "role": "Admits the generated-response bundle for the sixth full active-only tranche.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full tranche 006 admission report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_admission_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-006-approved_generated_responses.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_admission_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_generation_run_report",
+      "component": "source_admission",
+      "current_use": "Shows 39 selected requests, 39 accepted gpt-5.4-mini responses after retrying 3 metadata-drift outputs, 78 generated items, 0 API errors, 0 final invalid outputs, and 20,628 input / 7,223 output tokens.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_run_en_es_latest.md",
+      "risk": "Raw generation was structurally valid after retry; use the admission report for accepted source evidence.",
+      "role": "Records the sixth paid full active-only SRS-derived generation tranche.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full tranche 006 generation run report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_run_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-006-approved_journal.jsonl"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_source_packaging_report",
+      "component": "source_admission",
+      "current_use": "Produces 78 proposed anchor_cue rows across 39 SRS-derived source-target families, with 0 exclusions.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_source_packaging_en_es_latest.md",
+      "risk": "Normalized source evidence remains runtime_publishable=false; runtime publication comes from a later semantic inventory pack build/install step.",
+      "role": "Packages admitted active-only tranche 006 rows as canonical normalized anchor_cue evidence.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full tranche 006 source packaging report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_source_packaging_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-006_normalized_evidence.json",
         "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py"
       ]
     },
@@ -7785,8 +7952,8 @@
       ]
     }
   ],
-  "entry_count": 361,
-  "generated_at": "2026-05-13T17:33:15Z",
+  "entry_count": 368,
+  "generated_at": "2026-05-13T17:44:56Z",
   "issues": [],
   "next_passes": [],
   "pass_count": 7,
@@ -10774,6 +10941,23 @@
       ]
     },
     {
+      "artifact_id": "active_only_full_generation_post_tranche_006_plan_report",
+      "component": "diagnostics",
+      "current_use": "Shows 300/570 covered families, 270 uncovered families, 221 unreviewed queue rows, 49 excluded rows, and no next paid request packet before the tranche-007 review slice is added.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.md",
+      "risk": "Review-status artifact by design; the empty request packet is expected until the next source-target review manifest is expanded.",
+      "role": "Recomputes the full SRS-derived active-only coverage plan after installing tranche 006 into the combined evidence input.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full generation post-tranche 006 plan report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_006_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006-normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py"
+      ]
+    },
+    {
       "artifact_id": "active_only_full_generation_tranche_002_pre_spend_plan_report",
       "component": "diagnostics",
       "current_use": "Shows active-only coverage still at 91/570 families, 44 approved tranche-002 request families, 88 expected active cue rows, 23,006 estimated input tokens, 12,320 output-token budget, 14 cumulative exclusions, and 421 still-unreviewed uncovered rows.",
@@ -10991,6 +11175,22 @@
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_operator_checkpoint_en_es_latest.json",
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_live_page_scan_en_es_latest.json",
         "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_005_pack_install_en_es_latest.json"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_live_page_scan_report",
+      "component": "diagnostics",
+      "current_use": "Shows 120 policy decisions, 68 replace decisions, 52 abstains, 0 fallback decisions, and 0 page fetch errors over the installed combined-full tranche-006 fixture.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_live_page_scan_en_es_latest.md",
+      "risk": "Manual page-feel packet only; it is not a statistical language-wide accuracy claim.",
+      "role": "Runs public-page sentences through the isolated 300-rule helper fixture for manual product-feel review.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only combined full tranche 006 live page scan report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_live_page_scan_en_es_latest.json",
+        "docs/test_inputs/semantic_veto_active_only_live_page_scan_en_es.json"
       ]
     },
     {
@@ -12941,6 +13141,40 @@
       ]
     },
     {
+      "artifact_id": "active_only_full_tranche_006_pack_builder_report",
+      "component": "runtime_path",
+      "current_use": "Shows 612 combined normalized rows across 300 families, 39 newly added active-only families, and a 300-trigger / 342-sense / 300-competition-set semantic inventory.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-006_pack_builder_latest.md",
+      "risk": "Newly added SRS-derived families do not have frozen manual sentence cases, so this artifact supports product-shaped smoke rather than benchmark lift claims.",
+      "role": "Records the combined active-only semantic inventory pack produced from the 261-family tranche-005 fixture plus full tranche 006.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only combined full tranche 006 pack builder report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_en-es-active-only-combined-full-v1-tranche-006_pack_builder_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-006_semantic_inventory.json",
+        "scripts/testing/semantic_veto_active_only_full_pack_builder_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_pack_install_report",
+      "component": "runtime_path",
+      "current_use": "Shows 300 helper rules written with 277 active-only and 23 shadowed competition sets, plus ruleset, snapshot, semantic inventory, and publication manifest paths.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_pack_install_en_es_latest.json",
+      "risk": "Install target is an isolated docs/test_outputs fixture, not a real user profile unless separately installed through the explicit default-root debug path.",
+      "role": "Records named semantic-pack materialization into an isolated helper data root.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only combined full tranche 006 pack install report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_006_pack_install_en_es_latest.json",
+        "scripts/helper/lexishift_helper.py",
+        "core/lexishift_core/helper/use_cases/semantic_pack_install.py"
+      ]
+    },
+    {
       "artifact_id": "active_only_full_tranche_001_generation_admission_report",
       "component": "source_admission",
       "current_use": "Accepts 84/84 active evidence items with 0 rejected items and 0 coverage shortfall; records the explicit operator repair for work->trabajar.",
@@ -13188,6 +13422,56 @@
       "verification_artifacts": [
         "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_005_source_packaging_en_es_latest.json",
         "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-005_normalized_evidence.json",
+        "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_generation_admission_report",
+      "component": "source_admission",
+      "current_use": "Accepts 78/78 active evidence items with 0 rejected items and 0 coverage shortfall; no operator repair artifact was needed after metadata retry.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_admission_en_es_latest.md",
+      "risk": "Admission checks runtime-like token shape and structural fields; semantic product value still needs helper-page smoke and operator review.",
+      "role": "Admits the generated-response bundle for the sixth full active-only tranche.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full tranche 006 admission report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_admission_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-006-approved_generated_responses.json",
+        "scripts/testing/semantic_veto_evidence_gap_generation_admission_en_es.py"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_generation_run_report",
+      "component": "source_admission",
+      "current_use": "Shows 39 selected requests, 39 accepted gpt-5.4-mini responses after retrying 3 metadata-drift outputs, 78 generated items, 0 API errors, 0 final invalid outputs, and 20,628 input / 7,223 output tokens.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_run_en_es_latest.md",
+      "risk": "Raw generation was structurally valid after retry; use the admission report for accepted source evidence.",
+      "role": "Records the sixth paid full active-only SRS-derived generation tranche.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full tranche 006 generation run report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_run_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-006-approved_journal.jsonl"
+      ]
+    },
+    {
+      "artifact_id": "active_only_full_tranche_006_source_packaging_report",
+      "component": "source_admission",
+      "current_use": "Produces 78 proposed anchor_cue rows across 39 SRS-derived source-target families, with 0 exclusions.",
+      "next_audit_pass": "data_artifacts",
+      "owner_doc": "docs/rulegen/semantic_llm_generation_queueing_plan.md",
+      "path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_source_packaging_en_es_latest.md",
+      "risk": "Normalized source evidence remains runtime_publishable=false; runtime publication comes from a later semantic inventory pack build/install step.",
+      "role": "Packages admitted active-only tranche 006 rows as canonical normalized anchor_cue evidence.",
+      "state": "generated_evidence",
+      "title": "Semantic veto active-only full tranche 006 source packaging report",
+      "verification_artifacts": [
+        "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_source_packaging_en_es_latest.json",
+        "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-full-v1-tranche-006_normalized_evidence.json",
         "scripts/testing/semantic_veto_active_only_source_packaging_en_es.py"
       ]
     },
@@ -13736,7 +14020,7 @@
     "current_research": 94,
     "current_runtime": 16,
     "diagnostic_only": 1,
-    "generated_evidence": 202,
+    "generated_evidence": 209,
     "historical_reference": 5,
     "superseded": 2,
     "supporting_current": 2

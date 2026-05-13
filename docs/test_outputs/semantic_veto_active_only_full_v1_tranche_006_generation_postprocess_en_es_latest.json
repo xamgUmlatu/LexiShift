@@ -1,0 +1,2922 @@
+{
+  "decision": "generated_evidence_postprocess_ready_for_interpretation",
+  "generated_at": "2026-05-13T17:39:01Z",
+  "inputs": {
+    "admission_path": "docs/test_outputs/semantic_veto_active_only_full_v1_tranche_006_generation_admission_en_es_latest.json",
+    "dataset_path": "docs/test_inputs/semantic_routing_cases/en_es_full_family_repaired_full_v1.json"
+  },
+  "item_audits": [
+    {
+      "audit_id": "generated_active_item:001",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "calm is used as a verb meaning to soothe or settle someone down.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:calm:calmar:24e626f0",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:calm:calmar:24e626f0:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I tried to calm the crying child before the meeting began.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "calm",
+      "target_lemma": "calmar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:002",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "calm clearly means to make someone less upset or anxious.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:calm:calmar:24e626f0",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:calm:calmar:24e626f0:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The nurse spoke softly to calm the patient after the bad news.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "calm",
+      "target_lemma": "calmar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:003",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Direct material noun sense: clay as the raw earth used to make pottery.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:clay:arcilla:47b07f42",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:clay:arcilla:47b07f42:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The potter shaped the bowl from wet clay on the wheel.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "clay",
+      "target_lemma": "arcilla",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:004",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Natural material sense: clay as a type of soil or earth.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:clay:arcilla:47b07f42",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:clay:arcilla:47b07f42:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "After the rain, the garden path turned into sticky clay that clung to our boots.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "clay",
+      "target_lemma": "arcilla",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:005",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Direct physical climbing up and over a barrier.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:climb:trepar:df03815d",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:climb:trepar:df03815d:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The cat can climb the fence to get into the garden.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "climb",
+      "target_lemma": "trepar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:006",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Literal upward climbing on a tree.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:climb:trepar:df03815d",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:climb:trepar:df03815d:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "To reach the bird nest, we had to climb the tall tree.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "climb",
+      "target_lemma": "trepar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:007",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Service-shop counter where a customer pays and is served.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:counter:mostrador:c63c4bbc",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:counter:mostrador:c63c4bbc:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I paid for the sandwiches at the counter before finding a seat.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "counter",
+      "target_lemma": "mostrador",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:008",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Front desk or service counter in a store or office setting.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:counter:mostrador:c63c4bbc",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:counter:mostrador:c63c4bbc:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The receptionist pointed me to the counter to pick up my package.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "counter",
+      "target_lemma": "mostrador",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:009",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Physical fissure in a solid surface.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:crack:grieta:5edf24f8",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:crack:grieta:5edf24f8:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "A crack ran across the sidewalk after the freeze.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "crack",
+      "target_lemma": "grieta",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:010",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Structural opening or split, not the verb or joke sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:crack:grieta:5edf24f8",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:crack:grieta:5edf24f8:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "We sealed the crack in the wall before the rain came in.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "crack",
+      "target_lemma": "grieta",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:011",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows separating items into different groups.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:divide:apartar:a7b07d34",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:divide:apartar:a7b07d34:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Please divide the red cards from the blue cards before we start the game.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "divide",
+      "target_lemma": "apartar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:012",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Uses divide in the sense of setting one thing apart from another.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:divide:apartar:a7b07d34",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:divide:apartar:a7b07d34:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "We need to divide the noise from the work area so the team can focus.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "divide",
+      "target_lemma": "apartar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:013",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Describes a person in an intoxicated state, matching the intended adjective sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:drunk:ebrio:1e2004fe",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:drunk:ebrio:1e2004fe:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "After the celebration, he was too drunk to drive home.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "drunk",
+      "target_lemma": "ebrio",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:014",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Uses drunk as a noun for an intoxicated person, reinforcing the same active sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:drunk:ebrio:1e2004fe",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:drunk:ebrio:1e2004fe:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The drunk guest kept laughing loudly at the table.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "drunk",
+      "target_lemma": "ebrio",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:015",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Body-part context clearly refers to the external ear.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:ear:oreja:59a21c69",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:ear:oreja:59a21c69:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She tucked a strand of hair behind her ear before speaking.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "ear",
+      "target_lemma": "oreja",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:016",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Medical context identifies the physical ear.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:ear:oreja:59a21c69",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:ear:oreja:59a21c69:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The doctor looked inside his ear to check for wax buildup.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "ear",
+      "target_lemma": "oreja",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:017",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Ordinal ranking context clearly matches the direct ordinal sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:eighth:octavo:4c75543d",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:eighth:octavo:4c75543d:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She finished in eighth place after the final sprint.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "eighth",
+      "target_lemma": "octavo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:018",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Floor numbering uses the same ordinal meaning needed for the target sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:eighth:octavo:4c75543d",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:eighth:octavo:4c75543d:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.1111,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The museum is on the eighth floor of the building.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "eighth",
+      "target_lemma": "octavo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:019",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Error means a mistake in judgment or action that was acknowledged and fixed.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:error:equivocacion:10a4b3bd",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:error:equivocacion:10a4b3bd:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0667,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I admitted my error and corrected the report before anyone sent it out.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "error",
+      "target_lemma": "equivocación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:020",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Error refers to a simple mistake that needs correction.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:error:equivocacion:10a4b3bd",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:error:equivocacion:10a4b3bd:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0667,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The clerk noticed an error in the address, so she updated it right away.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "error",
+      "target_lemma": "equivocación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:021",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Here extract means a brief passage quoted from a larger text.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:extract:extracto:91870427",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:extract:extracto:91870427:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Please read the short extract from the novel before class.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "extract",
+      "target_lemma": "extracto",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:022",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Here extract refers to a selected excerpt, not the verb meaning remove.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:extract:extracto:91870427",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:extract:extracto:91870427:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The museum brochure included an extract from the curator's speech.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "extract",
+      "target_lemma": "extracto",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:023",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Refers to a person who cultivates the land, matching the intended rural worker sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:farmer:campesino:e099e4a4",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:farmer:campesino:e099e4a4:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The farmer woke before sunrise to work the fields by hand.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "farmer",
+      "target_lemma": "campesino",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:024",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Describes a person managing crops on a farm, clear direct person-noun mapping.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:farmer:campesino:e099e4a4",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:farmer:campesino:e099e4a4:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "After the rain, the farmer checked the soil and planned the next planting.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "farmer",
+      "target_lemma": "campesino",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:025",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Direct verb sense: giving food to a child.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:feed:alimentar:2f52e402",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:feed:alimentar:2f52e402:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "We need to feed the baby before she gets sleepy.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "feed",
+      "target_lemma": "alimentar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:026",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Direct verb sense: providing food to animals.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:feed:alimentar:2f52e402",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:feed:alimentar:2f52e402:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Farmers feed the chickens at dawn every day.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "feed",
+      "target_lemma": "alimentar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:027",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "The insect sense is clear from the kitchen setting, buzzing, and landing on fruit.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:fly:mosca:118bae77",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:fly:mosca:118bae77:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adverb",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "A fly landed on the kitchen window and buzzed around the fruit bowl.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "fly",
+      "target_lemma": "mosca",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:028",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "The small insect context makes fly refer to a bug, not the verb.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:fly:mosca:118bae77",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:fly:mosca:118bae77:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "adverb",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She swatted the fly before it could bother the picnic guests.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "fly",
+      "target_lemma": "mosca",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:029",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Direct person-noun context; a visitor staying at the accommodation.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:guest:huesped:d9de8e00",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:guest:huesped:d9de8e00:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.1538,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The guest was shown to the room and given a fresh set of towels.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "guest",
+      "target_lemma": "huésped",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:030",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Hospitality context clearly refers to a person being hosted.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:guest:huesped:d9de8e00",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:guest:huesped:d9de8e00:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.1538,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "As our guest, you can join breakfast in the dining room at any time before ten.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "guest",
+      "target_lemma": "huésped",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:031",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Active verb sense: apply heat to food to make it hot.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:heat:calentar:868c9fe3",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:heat:calentar:868c9fe3:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Please heat the soup until it is steaming.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "heat",
+      "target_lemma": "calentar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:032",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Active verb sense: warm an object by applying heat.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:heat:calentar:868c9fe3",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:heat:calentar:868c9fe3:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Heat the pan before you add the vegetables.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "heat",
+      "target_lemma": "calentar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:033",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Vertical measurement in an elevation context.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:height:elevacion:06c1ab59",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:height:elevacion:06c1ab59:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "From the valley floor, the cliff reached a height of 300 meters above sea level.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "height",
+      "target_lemma": "elevación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:034",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Uses height as an elevation reading above a reference point.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:height:elevacion:06c1ab59",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:height:elevacion:06c1ab59:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The survey marked the cabin's height relative to the river as 1,200 feet.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "height",
+      "target_lemma": "elevación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:035",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Direct body-part use: hip refers to the side of the pelvis.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:hip:cadera:8a314b45",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:hip:cadera:8a314b45:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She felt a sharp pain in her hip after the long run.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "hip",
+      "target_lemma": "cadera",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:036",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Medical context clearly uses hip as the body part near the pelvis.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:hip:cadera:8a314b45",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:hip:cadera:8a314b45:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The doctor examined his hip to check the injury.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "hip",
+      "target_lemma": "cadera",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:037",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Describes upright behavior in handling money, matching the intended sense of reliable moral honesty.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:honest:honrado:9d7feef5",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:honest:honrado:9d7feef5:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The honest clerk returned the extra cash to the customer.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "honest",
+      "target_lemma": "honrado",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:038",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows truthful, upright speech in a moral context rather than politeness or approximation.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:honest:honrado:9d7feef5",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:honest:honrado:9d7feef5:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She gave an honest answer even though the truth made her look bad.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "honest",
+      "target_lemma": "honrado",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:039",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Active verb use for pursuing wild animals to kill them.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:hunt:cazar:a479f3fb",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:hunt:cazar:a479f3fb:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "At dawn, the villagers hunt deer in the forest to get food for the winter.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "hunt",
+      "target_lemma": "cazar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:040",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Clear hunting context with animals as the direct object.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:hunt:cazar:a479f3fb",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:hunt:cazar:a479f3fb:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The tribe would hunt elk across the open plains every autumn.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "hunt",
+      "target_lemma": "cazar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:041",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Uses joke as the verb meaning to banter playfully.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:joke:bromear:4a96f853",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:joke:bromear:4a96f853:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "He likes to joke with his friends after work.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "joke",
+      "target_lemma": "bromear",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:042",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Clear active verb sense of making light-hearted comments.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:joke:bromear:4a96f853",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:joke:bromear:4a96f853:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Please joke around a little; the mood is too serious.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "joke",
+      "target_lemma": "bromear",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:043",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "kick is a noun meaning a striking action with the foot.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:kick:patada:2bb59b5f",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:kick:patada:2bb59b5f:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The referee called the kick a foul because it hit the player in the shin.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "kick",
+      "target_lemma": "patada",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:044",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "kick is used as a noun for the foot strike itself.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:kick:patada:2bb59b5f",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:kick:patada:2bb59b5f:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She scored with a quick kick from the corner of the box.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "kick",
+      "target_lemma": "patada",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:045",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "The verb kiss clearly describes the action of kissing someone, matching the intended verb sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:kiss:besar:b7dc5aea",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:kiss:besar:b7dc5aea:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.1429,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Before leaving, they stopped to kiss at the doorway.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "kiss",
+      "target_lemma": "besar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:046",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "This uses kiss as an active verb for a physical act of affection, which is the intended sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:kiss:besar:b7dc5aea",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:kiss:besar:b7dc5aea:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.1429,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "He leaned down to kiss her on the cheek.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "kiss",
+      "target_lemma": "besar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:047",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Meat dish context makes the intended sense clear.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:lamb:cordero:04e29225",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:lamb:cordero:04e29225:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_subject",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The roast lamb was served with rosemary and potatoes.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "lamb",
+      "target_lemma": "cordero",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:048",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Food-ordering context clearly indicates the animal meat meaning.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:lamb:cordero:04e29225",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:lamb:cordero:04e29225:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She ordered lamb at the restaurant for dinner.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "lamb",
+      "target_lemma": "cordero",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:049",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Clear error in a simple action; no alternate sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:mistake:equivocacion:a93179fb",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:mistake:equivocacion:a93179fb:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I made a mistake in the address, so the package went to the wrong house.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "mistake",
+      "target_lemma": "equivocación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:050",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Refers to a factual error that led to a problem.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:mistake:equivocacion:a93179fb",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:mistake:equivocacion:a93179fb:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Her mistake on the report caused the numbers to be entered incorrectly.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "mistake",
+      "target_lemma": "equivocación",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:051",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "pepper is used as the spice added to food.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:pepper:pimienta:7b7b85a3",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:pepper:pimienta:7b7b85a3:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I added pepper to the soup after tasting it.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "pepper",
+      "target_lemma": "pimienta",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:052",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "pepper clearly refers to the seasoning ingredient.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:pepper:pimienta:7b7b85a3",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:pepper:pimienta:7b7b85a3:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The recipe calls for a pinch of pepper on the roasted potatoes.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "pepper",
+      "target_lemma": "pimienta",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:053",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Uses petty to mean small-minded and mean-spirited in a personal conflict.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:petty:mezquino:7c1a6321",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:petty:mezquino:7c1a6321:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "predicative",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "It was petty of him to hide her keys after the argument.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "petty",
+      "target_lemma": "mezquino",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:054",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows petty as a mean-spirited, trivial jab that should be dismissed.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:petty:mezquino:7c1a6321",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:petty:mezquino:7c1a6321:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She ignored the petty comment and kept the meeting focused on the budget.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "petty",
+      "target_lemma": "mezquino",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:055",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Color adjective for a light red shade on a decorative item.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:pink:rosado:8c5e63a5",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:pink:rosado:8c5e63a5:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She chose a pink ribbon for the baby shower.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "pink",
+      "target_lemma": "rosado",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:056",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Describes a pale color used for interior decoration.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:pink:rosado:8c5e63a5",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:pink:rosado:8c5e63a5:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The nursery walls were painted pink to create a soft, calm look.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "pink",
+      "target_lemma": "rosado",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:057",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "plain is a noun meaning a flat, open land area.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:plain:llanura:aacc40b8",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:plain:llanura:aacc40b8:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The ranch sits on a wide plain stretching to the horizon.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "plain",
+      "target_lemma": "llanura",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:058",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "plain clearly refers to a broad flatland, not the adjective.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:plain:llanura:aacc40b8",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:plain:llanura:aacc40b8:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "From the hill, we could see the entire plain below us.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "plain",
+      "target_lemma": "llanura",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:059",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Woodworking tool context makes plane mean a hand tool for smoothing wood.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:plane:cepillo:a65235b7",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:plane:cepillo:a65235b7:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "He used a sharp plane to smooth the oak board before assembly.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "plane",
+      "target_lemma": "cepillo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:060",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "The sentence clearly refers to the woodworking tool, not an aircraft or geometric plane.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:plane:cepillo:a65235b7",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:plane:cepillo:a65235b7:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0714,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "After several passes with the plane, the tabletop felt perfectly even.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "plane",
+      "target_lemma": "cepillo",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:061",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "pleasant social approval and liking",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:pleasure:agrado:8c1e73ec",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:pleasure:agrado:8c1e73ec:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "It was a pleasure to meet her, and her warm smile showed immediate liking.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "pleasure",
+      "target_lemma": "agrado",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:062",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "pleasure used as satisfaction and positive response",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:pleasure:agrado:8c1e73ec",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:pleasure:agrado:8c1e73ec:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.0833,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "To my pleasure, the guests accepted the invitation with genuine satisfaction.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "pleasure",
+      "target_lemma": "agrado",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:063",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows a direct choice between two options, matching the intended verb sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:prefer:preferir:67dbaf16",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:prefer:preferir:67dbaf16:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I prefer tea to coffee in the morning.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "prefer",
+      "target_lemma": "preferir",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:064",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Expresses choosing one option over another in a natural, active context.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:prefer:preferir:67dbaf16",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:prefer:preferir:67dbaf16:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "They prefer to travel by train because it is quieter.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "prefer",
+      "target_lemma": "preferir",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:065",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Quiet is used as a verb meaning to calm the baby.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:quiet:calmar:42cc1154",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:quiet:calmar:42cc1154:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She tried to quiet the crying baby with a soft song.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "quiet",
+      "target_lemma": "calmar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:066",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Quiet means to calm and soothe the child.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:quiet:calmar:42cc1154",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:quiet:calmar:42cc1154:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The nurse spoke gently to quiet the frightened child.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "quiet",
+      "target_lemma": "calmar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:067",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "refuse means to reject an offer.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:refuse:rechazar:79afa548",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:refuse:rechazar:79afa548:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She chose to refuse the offer because it did not fit her goals.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "refuse",
+      "target_lemma": "rechazar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:068",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "refuse means to turn down a proposal.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:refuse:rechazar:79afa548",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:refuse:rechazar:79afa548:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The committee will refuse the proposal unless the safety issues are fixed.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "refuse",
+      "target_lemma": "rechazar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:069",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows an active decision to refuse acceptance of a submission.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:reject:rechazar:fc5e66dd",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:reject:rechazar:fc5e66dd:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The editor decided to reject the article because it repeated the same claim without evidence.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "reject",
+      "target_lemma": "rechazar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:070",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows a deliberate refusal to accept a proposal based on criteria.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:reject:rechazar:fc5e66dd",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:reject:rechazar:fc5e66dd:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0625,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The committee will reject any proposal that fails to meet the safety requirements.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "reject",
+      "target_lemma": "rechazar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:071",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Active booking context; reserve means to book ahead.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:reserve:reservar:c8fca95c",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:reserve:reservar:c8fca95c:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Please reserve two seats for us at the 7 p.m. show.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "reserve",
+      "target_lemma": "reservar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:072",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Active restaurant booking context; clear intended sense is to make a reservation.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:reserve:reservar:c8fca95c",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:reserve:reservar:c8fca95c:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_infinitive",
+      "peer_similarity_max": 0.0769,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I need to reserve a table for dinner on Friday.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "reserve",
+      "target_lemma": "reservar",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:073",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows the sense of keeping something in possession or holding onto it.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:retain:retener:0c953fd9",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:retain:retener:0c953fd9:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Please retain a copy of the receipt for your records.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "retain",
+      "target_lemma": "retener",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:074",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Shows the sense of keeping selected items and not discarding them.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:retain:retener:0c953fd9",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:retain:retener:0c953fd9:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "verb_after_modal",
+      "peer_similarity_max": 0.0909,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The team will retain the best ideas from the draft and revise the rest.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "retain",
+      "target_lemma": "retener",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:075",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "reverse is used as the back side of an object.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:reverse:reverso:e7dbae18",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:reverse:reverso:e7dbae18:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "The mirror has a small crack on the reverse, but the front still looks perfect.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "reverse",
+      "target_lemma": "reverso",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:076",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "reverse clearly refers to the back side, matching the intended noun sense.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:reverse:reverso:e7dbae18",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:reverse:reverso:e7dbae18:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.125,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "Please print the address on the reverse of the card so the front stays clean.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "reverse",
+      "target_lemma": "reverso",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:077",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Food context shows salad as a mixed dish of ingredients.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:salad:ensalada:0ed3bd84",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:salad:ensalada:0ed3bd84:active_evidence_expansion:item:001",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "unknown",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "I ordered a chicken salad for lunch.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "salad",
+      "target_lemma": "ensalada",
+      "target_lemma_in_evidence_note": false
+    },
+    {
+      "audit_id": "generated_active_item:078",
+      "definition_like_sentence": false,
+      "eval_overlap": {
+        "case_id": "",
+        "gold_decision": "",
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "sentence": ""
+      },
+      "evidence_note": "Preparation context clearly refers to the edible dish.",
+      "expected_pos": "",
+      "family_id": "en-es:srs-source-target:salad:ensalada:0ed3bd84",
+      "flags": [
+        "pos_weak"
+      ],
+      "item_id": "en-es-active-only-full-v1-tranche-006:en-es:srs-source-target:salad:ensalada:0ed3bd84:active_evidence_expansion:item:002",
+      "model_diversity_note": "",
+      "model_source_pos_frame": "",
+      "model_topic_frame": "",
+      "observed_source_syntax": "noun_determined",
+      "peer_similarity_max": 0.1,
+      "pos_anchor_strength": 0.5,
+      "quality_score": 0.8,
+      "sentence": "She tossed the salad with olive oil and lemon before serving it.",
+      "shadow_confusability": {
+        "max_jaccard": 0.0,
+        "risk": "low",
+        "shadow_id": ""
+      },
+      "source_phrase": "salad",
+      "target_lemma": "ensalada",
+      "target_lemma_in_evidence_note": false
+    }
+  ],
+  "limitations": [
+    "offline no-spend postprocess over already generated active-only rows",
+    "heuristic POS and overlap labels are diagnostic, not gold labels",
+    "note-only views are diagnostics and should not be promoted as runtime evidence",
+    "same selected-family denominator is held across views for comparability",
+    "this does not validate shadow or no-winner generation at scale"
+  ],
+  "methodology": {
+    "context_view": "masked_sentence",
+    "current_control_view": "all_sentence_plus_note",
+    "evidence_view": "all_evidence_text",
+    "llm_call": "none",
+    "postprocess_role": "audit_raw_generated_items_then_score_derived_views",
+    "raw_llm_output_mutation": "none",
+    "runtime_policy_change": "none",
+    "scorer_id": "tfidf_cosine"
+  },
+  "pair": "en-es",
+  "recommendations": [
+    "Prefer sentence-only evidence for the next generated batch because it preserves or improves the control without explanatory-note leakage.",
+    "Use the conservative sentence-only view as the safety check before any paid scale-up; it removes high-overlap and weak-POS rows while keeping the denominator fixed."
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "active_item_count": 78,
+    "definition_like_count": 0,
+    "family_count": 39,
+    "high_eval_overlap_count": 0,
+    "high_shadow_confusable_count": 0,
+    "issues": [],
+    "medium_eval_overlap_count": 0,
+    "model_source_pos_frame_count": 0,
+    "model_topic_frame_count": 0,
+    "pos_weak_count": 78,
+    "target_lemma_in_note_count": 0,
+    "view_count": 11
+  },
+  "view_scores": [
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "control: current scoring appends generated sentence plus evidence_note",
+      "evidence_variant": "sentence_plus_note",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "all_sentence_plus_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "mechanically remove target lemmas and meta labels from evidence_note",
+      "evidence_variant": "sentence_plus_scrubbed_note",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "sentence_plus_scrubbed_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "use generated browser sentences only, dropping explanatory notes",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "sentence_only_all"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "diagnostic: evidence_note only, to see whether notes are driving lift",
+      "evidence_variant": "note_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "note_only_diagnostic"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "drop generated rows with high lexical overlap against frozen eval cases",
+      "evidence_variant": "sentence_plus_note",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "no_high_eval_overlap_sentence_plus_note"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "drop high eval-overlap rows and use sentence-only evidence",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "no_high_eval_overlap_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "keep rows whose generated source usage mechanically matches expected POS",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 0,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "pos_anchored_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "drop definition-like generated browser sentences and use sentence-only evidence",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "no_definition_like_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "sentence-only rows with no high eval overlap, POS anchor, no definition-like sentence, and no high shadow confusability",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 0,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "conservative_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "keep one highest-quality sentence-only row per family",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 39,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "quality_top1_sentence_only"
+    },
+    {
+      "case_change_counts": {
+        "fixed": 0,
+        "regressed": 0,
+        "still_correct": 0,
+        "still_wrong": 0
+      },
+      "comparison": {},
+      "description": "keep up to two highest-quality sentence-only rows per family after audit scoring",
+      "evidence_variant": "sentence_only",
+      "fixed_cases_sample": [],
+      "generated_active_only": {},
+      "item_count": 78,
+      "regressions": [],
+      "score_issues": [
+        "no_matching_families_in_dataset"
+      ],
+      "score_status": "review",
+      "view_id": "quality_top2_sentence_only"
+    }
+  ]
+}
