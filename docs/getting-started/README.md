@@ -1,5 +1,14 @@
 # LexiShift Getting Started
 
+<!--
+Status: active fallback onboarding guide
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; UI walkthrough content not fully re-audited
+Purpose: provide the repository-view fallback onboarding guide when the rendered GitHub Pages manual is unavailable
+Source-of-truth: user-facing fallback guide only; current behavior truth lives in source code, tests, and canonical developer/domain docs.
+-->
+
 This page is the canonical onboarding guide for the desktop GUI app and the fallback public manual target when GitHub Pages is unavailable.
 
 Setup steps use verbatim UI labels (button/menu text) so operators can follow them exactly.

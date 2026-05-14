@@ -1,5 +1,12 @@
 # SRS Wi Selector — Weighted Scoring Technical Spec
 
+Status: active planning spec
+Role: Planning / WIP
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; selector model not re-audited
+Purpose: preserve the planned weighted selector model for future candidate ranking and personalization work
+Source-of-truth: planning spec only; current executable selector/admission truth lives in `core/lexishift_core/srs/selector.py`, `admission_policy.py`, `profile_bootstrap.py`, and SRS tests.
+
 ## Purpose
 Define a stable, modular weighting algorithm for selecting Wi (new and active learning words)
 from a candidate pool. The algorithm must be:

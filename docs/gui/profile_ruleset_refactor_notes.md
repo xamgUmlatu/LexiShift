@@ -1,6 +1,11 @@
 # Profile/Ruleset Refactor Notes
 
+Status: active refactor notes
+Role: Planning / WIP
 Last updated: 2026-02-18
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus spot-check of extracted profile/ruleset service modules and tests
+Purpose: document profile/ruleset behavior boundaries and the staged refactor sequence for GUI policy extraction
+Source-of-truth: planning/refactor notes only; current behavior lives in profile/ruleset GUI services, dialogs, main-window code, and focused GUI tests.
 
 ## Goal
 

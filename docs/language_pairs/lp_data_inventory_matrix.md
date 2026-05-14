@@ -1,7 +1,10 @@
 # LP Data Inventory Matrix (Phase 0 Baseline)
 
-Status: Drafted for POS normalization Phase 0
+Status: active mixed inventory matrix
+Role: Mixed
 Last updated: 2026-03-22
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; inventory matrix not fully re-audited
+Source-of-truth: mixed LP data inventory; executable truth remains in language-pack definitions, LP capability/resource code, converters, tests, and generated audit artifacts.
 
 ## Purpose
 

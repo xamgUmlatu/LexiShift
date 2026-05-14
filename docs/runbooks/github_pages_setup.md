@@ -5,6 +5,13 @@ title: GitHub Pages Setup
 
 # GitHub Pages Setup
 
+Status: active runbook
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; Pages build not rerun
+Purpose: document the active GitHub Pages deployment model and local preview workflow
+Source-of-truth: operational runbook; current hosted behavior lives in `.github/workflows/pages.yml` and GitHub repository Pages settings.
+
 Use this after the repository includes `docs/index.md`.
 
 ## Required Repo Setting

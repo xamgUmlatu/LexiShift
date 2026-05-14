@@ -1,7 +1,7 @@
 # Semantic Veto Artifact Authority Audit
 
 Status: current reference
-Role: Integrity audit snapshot
+Role: Mixed
 Last updated: 2026-05-01
 Last verified: 2026-05-01 against `git status --short`,
 `semantic_veto_system_registry_en_es.json`,

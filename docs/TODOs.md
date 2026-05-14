@@ -1,7 +1,11 @@
 # LexiShift TODOs
 
 Status: Active backlog
+Role: Planning / WIP
 Last updated: 2026-03-26
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; backlog content not re-audited
+Purpose: consolidated product and architecture backlog retained after root README cleanup
+Source-of-truth: backlog planning only; current implementation truth lives in source code, tests, and `docs/developer/feature_state_matrix.md`.
 
 This file is the consolidated TODO source of truth. It replaces the large TODO and plan sections that previously lived in the root `README.md`.
 

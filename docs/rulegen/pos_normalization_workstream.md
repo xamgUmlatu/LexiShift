@@ -1,7 +1,10 @@
 # POS Normalization Workstream (SRS + Rulegen + LP Onboarding)
 
 Status: Completed (Phases 0-6 implemented)
+Role: Mixed
 Last updated: 2026-02-23
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; POS implementation claims not re-audited
+Source-of-truth: completed workstream reference; current POS behavior truth lives in POS normalization code, SRS/rulegen consumers, focused tests, and generated POS audit artifacts.
 
 ## Purpose
 

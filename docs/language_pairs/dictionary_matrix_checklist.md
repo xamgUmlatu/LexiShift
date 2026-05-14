@@ -1,5 +1,11 @@
 # Dictionary Matrix Checklist
 
+Status: review-required checklist
+Role: Planning / WIP
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; checklist claims not re-audited
+Source-of-truth: planning checklist only; current LP resource truth lives in `lp_resource_requirements.md`, `lp_data_inventory_matrix.md`, code, tests, and generated audits.
+
 Goal: support EN→JP, JP→EN, EN→DE, DE→EN, EN→ES, ES→EN, JP→JP, and ES→ES with clear synonym vs translation separation, feature gating, and graceful fallbacks.
 
 ## 1) Inventory & Capability Matrix

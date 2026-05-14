@@ -1,5 +1,14 @@
 # Getting Started Screenshot Checklist
 
+<!--
+Status: active screenshot checklist
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; screenshots were not captured or refreshed
+Purpose: define expected screenshot filenames and capture guidance for the getting-started guide
+Source-of-truth: screenshot checklist only; rendered guide truth lives in the getting-started pages and actual screenshot artifacts when present.
+-->
+
 Drop chapter screenshots in this folder using these filenames.
 
 1. `ch01-first-launch-workspace.png`

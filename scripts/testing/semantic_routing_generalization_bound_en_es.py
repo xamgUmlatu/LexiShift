@@ -16,6 +16,18 @@ for candidate in (str(SCRIPT_ROOT), str(CORE_ROOT)):
         sys.path.insert(0, candidate)
 
 from lexishift_core.helper.paths import resolve_data_root  # noqa: E402
+from semantic_routing_generalization_bound_configs import (  # noqa: E402
+    FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG,
+    FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG,
+    FIXED_SHADOW_CONTROL_CONFIG,
+    FIXED_SHADOW_LADDER_CONFIG,
+    FIXED_SHADOW_LADDER_METRIC_DIRECTIONS,
+    FIXED_SHADOW_METRIC_DIRECTIONS,
+    FIXED_SHADOW_REFERENCE_CONFIG,
+    FIXED_SHADOW_RESCUE_OVERLAY_CONFIG,
+    VETO_PROXY_METRIC_DIRECTIONS,
+)
+from semantic_routing_generalization_bound_corridor import build_confidence_corridor  # noqa: E402
 from semantic_routing_generalization_bound_helpers import (  # noqa: E402
     build_surface_bound as _build_surface_bound,
     extend_with_split_surfaces as _extend_with_split_surfaces,
@@ -28,11 +40,9 @@ from semantic_routing_generalization_bound_reporting import (  # noqa: E402
 )
 from semantic_routing_generalization_bound_splits import (  # noqa: E402
     build_split_lookup,
-    find_row,
     load_generalization_split_manifest,
     resolve_overlap_family_split_id,
     resolve_sentence_veto_split_id,
-    select_best_source_only_row,
 )
 from semantic_routing_sentence_veto_support import (  # noqa: E402
     DEFAULT_SENTENCE_VETO_DATASET,
@@ -64,114 +74,6 @@ DEFAULT_SPLIT_MANIFEST = (
 DEFAULT_BOOTSTRAP_ITERATIONS = 2000
 DEFAULT_RANDOM_SEED = 1729
 DEFAULT_CONFIDENCE_LEVEL = 0.95
-
-FIXED_SHADOW_CONTROL_CONFIG = {
-    "label": "Fixed-shadow runtime control",
-    "scorer_id": "tfidf_cosine",
-    "context_view": "masked_sentence",
-    "evidence_view": "all_evidence_text",
-    "min_active_score": 0.05,
-    "min_margin": 0.0,
-    "phrase_control_mode": "noun_family_frame_guard",
-    "active_rescue_mode": "sense_label_near_tie_active_rescue",
-}
-
-FIXED_SHADOW_REFERENCE_CONFIG = {
-    "label": "Sentence-transformer phrase-guard candidate",
-    "scorer_id": "sentence_transformer_cosine",
-    "context_view": "masked_sentence",
-    "evidence_view": "all_evidence_text",
-    "min_active_score": 0.0,
-    "min_margin": 0.0,
-    "phrase_control_mode": "noun_family_frame_guard",
-    "active_rescue_mode": "sense_label_near_tie_active_rescue",
-}
-
-FIXED_SHADOW_ACTIVE_ONLY_REFERENCE_CONFIG = {
-    "label": "Sentence-transformer active-sense phrase-guard experiment",
-    "scorer_id": "sentence_transformer_cosine",
-    "context_view": "masked_sentence",
-    "evidence_view": "all_evidence_text",
-    "min_active_score": 0.0,
-    "min_margin": 0.0,
-    "phrase_control_mode": "noun_family_frame_guard",
-    "phrase_guard_pos_scope": "active_only",
-    "active_rescue_mode": "sense_label_near_tie_active_rescue",
-    "experimental": True,
-}
-
-FIXED_SHADOW_LADDER_CONFIG = {
-    "label": "Sentence-transformer zero-noise soft ladder",
-    "scorer_id": "sentence_transformer_cosine",
-    "context_view": "masked_sentence",
-    "evidence_view": "all_evidence_text",
-    "min_active_score": 0.0,
-    "min_margin": 0.0,
-    "phrase_control_mode": "noun_family_frame_guard",
-    "active_rescue_mode": "sense_label_near_tie_active_rescue",
-    "soft_min_active_score": 0.55,
-    "soft_min_margin": -0.03,
-    "apply_over_current_abstains_only": True,
-}
-
-FIXED_SHADOW_RESCUE_OVERLAY_CONFIG = {
-    "label": "Sentence-transformer widened-rescue candidate (simulated)",
-    "scorer_id": "sentence_transformer_cosine",
-    "context_view": "masked_sentence",
-    "evidence_view": "all_evidence_text",
-    "min_active_score": 0.0,
-    "min_margin": 0.0,
-    "phrase_control_mode": "noun_family_frame_guard",
-    "active_rescue_mode": "sense_label_near_tie_active_rescue",
-    "backup_evidence_view": "sense_label",
-    "primary_margin_floor": -0.05,
-    "backup_margin_floor": 0.02,
-    "simulated": True,
-}
-
-FIXED_SHADOW_ACTIVE_ONLY_RESCUE_OVERLAY_CONFIG = {
-    "label": "Sentence-transformer active-sense phrase-guard overlay (simulated)",
-    "scorer_id": "sentence_transformer_cosine",
-    "context_view": "masked_sentence",
-    "evidence_view": "all_evidence_text",
-    "min_active_score": 0.0,
-    "min_margin": 0.0,
-    "phrase_control_mode": "noun_family_frame_guard",
-    "phrase_guard_pos_scope": "active_only",
-    "active_rescue_mode": "sense_label_near_tie_active_rescue",
-    "backup_evidence_view": "sense_label",
-    "primary_margin_floor": -0.05,
-    "backup_margin_floor": 0.02,
-    "simulated": True,
-    "experimental": True,
-}
-
-FIXED_SHADOW_METRIC_DIRECTIONS = {
-    "decision_accuracy": "higher",
-    "replace_precision": "higher",
-    "replace_recall": "higher",
-    "harmful_replace_rate": "lower",
-    "false_abstain_rate": "lower",
-    "winner_accuracy": "higher",
-    "shadow_winner_accuracy": "higher",
-}
-
-FIXED_SHADOW_LADDER_METRIC_DIRECTIONS = {
-    "hard_replace_recall": "higher",
-    "hard_harmful_replace_rate": "lower",
-    "replace_or_soft_recall": "higher",
-    "soft_noise_rate": "lower",
-    "surfaced_precision": "higher",
-    "remaining_missed_replace_rate": "lower",
-}
-
-VETO_PROXY_METRIC_DIRECTIONS = {
-    "overall_accuracy": "higher",
-    "abstain_recall": "higher",
-    "harmful_allow_rate": "lower",
-    "allow_precision": "higher",
-    "overblocking_rate": "lower",
-}
 
 
 def _parse_args() -> argparse.Namespace:
@@ -706,205 +608,16 @@ def build_generalization_bound_report(
             resolve_split_id=resolve_overlap_family_split_id,
         )
 
-    source_only_row = select_best_source_only_row(veto_proxy_rows)
-    reviewed_auto_row = find_row(veto_proxy_rows, "reviewed_auto_shadows")
-    curated_row = find_row(veto_proxy_rows, "curated_shadows")
-    fixed_shadow_control_surface = fixed_shadow_surfaces[0] if fixed_shadow_surfaces else {}
-
-    def _metric_view(surface: Mapping[str, object], metric_name: str) -> Mapping[str, object]:
-        metric_views = surface.get("metric_views")
-        if isinstance(metric_views, Mapping):
-            metric_view = metric_views.get(metric_name)
-            if isinstance(metric_view, Mapping):
-                return metric_view
-        return {}
-
-    source_only_surface = None
-    source_only_source_id = ""
-    if isinstance(source_only_row, Mapping):
-        source_only_source_id = str(source_only_row.get("source_id") or "").strip()
-        source_only_surface = next(
-            (
-                surface
-                for surface in veto_proxy_surfaces
-                if isinstance(surface.get("config"), Mapping)
-                and str(surface["config"].get("source_id") or "").strip() == source_only_source_id
-            ),
-            None,
-        )
-
-    confidence_corridor = {
-        "source_only_source_id": source_only_source_id,
-        "source_only_abstain_recall_conservative_floor": (
-            _metric_view(source_only_surface or {}, "abstain_recall").get("conservative_floor")
-            if isinstance(source_only_surface, Mapping)
-            else None
-        ),
-        "source_only_harmful_allow_conservative_ceiling": (
-            _metric_view(source_only_surface or {}, "harmful_allow_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(source_only_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_replace_recall_conservative_floor": _metric_view(
-            fixed_shadow_control_surface, "replace_recall"
-        ).get("conservative_floor"),
-        "fixed_shadow_harmful_replace_conservative_ceiling": _metric_view(
-            fixed_shadow_control_surface, "harmful_replace_rate"
-        ).get("conservative_ceiling"),
-        "fixed_shadow_reference_label": (
-            str(reference_surface.get("label") or "")
-            if isinstance(reference_surface, Mapping)
-            else ""
-        ),
-        "fixed_shadow_reference_replace_recall_conservative_floor": (
-            _metric_view(reference_surface or {}, "replace_recall").get("conservative_floor")
-            if isinstance(reference_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_reference_harmful_replace_conservative_ceiling": (
-            _metric_view(reference_surface or {}, "harmful_replace_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(reference_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_reference_false_abstain_conservative_ceiling": (
-            _metric_view(reference_surface or {}, "false_abstain_rate").get("conservative_ceiling")
-            if isinstance(reference_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_active_only_reference_label": (
-            str(active_only_reference_surface.get("label") or "")
-            if isinstance(active_only_reference_surface, Mapping)
-            else ""
-        ),
-        "fixed_shadow_active_only_reference_replace_recall_conservative_floor": (
-            _metric_view(active_only_reference_surface or {}, "replace_recall").get(
-                "conservative_floor"
-            )
-            if isinstance(active_only_reference_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_active_only_reference_harmful_replace_conservative_ceiling": (
-            _metric_view(active_only_reference_surface or {}, "harmful_replace_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(active_only_reference_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_active_only_reference_false_abstain_conservative_ceiling": (
-            _metric_view(active_only_reference_surface or {}, "false_abstain_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(active_only_reference_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_ladder_label": (
-            str(ladder_surface.get("label") or "") if isinstance(ladder_surface, Mapping) else ""
-        ),
-        "fixed_shadow_ladder_replace_or_soft_recall_conservative_floor": (
-            _metric_view(ladder_surface or {}, "replace_or_soft_recall").get("conservative_floor")
-            if isinstance(ladder_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_ladder_soft_noise_conservative_ceiling": (
-            _metric_view(ladder_surface or {}, "soft_noise_rate").get("conservative_ceiling")
-            if isinstance(ladder_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_rescue_overlay_label": (
-            str(rescue_overlay_surface.get("label") or "")
-            if isinstance(rescue_overlay_surface, Mapping)
-            else ""
-        ),
-        "fixed_shadow_rescue_overlay_replace_recall_conservative_floor": (
-            _metric_view(rescue_overlay_surface or {}, "replace_recall").get("conservative_floor")
-            if isinstance(rescue_overlay_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_rescue_overlay_harmful_replace_conservative_ceiling": (
-            _metric_view(rescue_overlay_surface or {}, "harmful_replace_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(rescue_overlay_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_rescue_overlay_false_abstain_conservative_ceiling": (
-            _metric_view(rescue_overlay_surface or {}, "false_abstain_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(rescue_overlay_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_active_only_rescue_overlay_label": (
-            str(active_only_rescue_overlay_surface.get("label") or "")
-            if isinstance(active_only_rescue_overlay_surface, Mapping)
-            else ""
-        ),
-        "fixed_shadow_active_only_rescue_overlay_replace_recall_conservative_floor": (
-            _metric_view(active_only_rescue_overlay_surface or {}, "replace_recall").get(
-                "conservative_floor"
-            )
-            if isinstance(active_only_rescue_overlay_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_active_only_rescue_overlay_harmful_replace_conservative_ceiling": (
-            _metric_view(active_only_rescue_overlay_surface or {}, "harmful_replace_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(active_only_rescue_overlay_surface, Mapping)
-            else None
-        ),
-        "fixed_shadow_active_only_rescue_overlay_false_abstain_conservative_ceiling": (
-            _metric_view(active_only_rescue_overlay_surface or {}, "false_abstain_rate").get(
-                "conservative_ceiling"
-            )
-            if isinstance(active_only_rescue_overlay_surface, Mapping)
-            else None
-        ),
-        "reviewed_auto_abstain_recall_conservative_floor": None,
-        "reviewed_auto_harmful_allow_conservative_ceiling": None,
-        "curated_abstain_recall_conservative_floor": None,
-        "curated_harmful_allow_conservative_ceiling": None,
-    }
-    if isinstance(reviewed_auto_row, Mapping):
-        reviewed_auto_surface = next(
-            (
-                surface
-                for surface in veto_proxy_surfaces
-                if isinstance(surface.get("config"), Mapping)
-                and str(surface["config"].get("source_id") or "").strip()
-                == str(reviewed_auto_row.get("source_id") or "").strip()
-            ),
-            None,
-        )
-        if isinstance(reviewed_auto_surface, Mapping):
-            confidence_corridor["reviewed_auto_abstain_recall_conservative_floor"] = _metric_view(
-                reviewed_auto_surface, "abstain_recall"
-            ).get("conservative_floor")
-            confidence_corridor["reviewed_auto_harmful_allow_conservative_ceiling"] = _metric_view(
-                reviewed_auto_surface, "harmful_allow_rate"
-            ).get("conservative_ceiling")
-    if isinstance(curated_row, Mapping):
-        curated_surface = next(
-            (
-                surface
-                for surface in veto_proxy_surfaces
-                if isinstance(surface.get("config"), Mapping)
-                and str(surface["config"].get("source_id") or "").strip()
-                == str(curated_row.get("source_id") or "").strip()
-            ),
-            None,
-        )
-        if isinstance(curated_surface, Mapping):
-            confidence_corridor["curated_abstain_recall_conservative_floor"] = _metric_view(
-                curated_surface, "abstain_recall"
-            ).get("conservative_floor")
-            confidence_corridor["curated_harmful_allow_conservative_ceiling"] = _metric_view(
-                curated_surface, "harmful_allow_rate"
-            ).get("conservative_ceiling")
+    confidence_corridor = build_confidence_corridor(
+        veto_proxy_rows=veto_proxy_rows,
+        veto_proxy_surfaces=veto_proxy_surfaces,
+        fixed_shadow_surfaces=fixed_shadow_surfaces,
+        reference_surface=reference_surface,
+        active_only_reference_surface=active_only_reference_surface,
+        ladder_surface=ladder_surface,
+        rescue_overlay_surface=rescue_overlay_surface,
+        active_only_rescue_overlay_surface=active_only_rescue_overlay_surface,
+    )
 
     return {
         "schema_version": 1,

@@ -1,7 +1,7 @@
 # Semantic Routing Generalization Evaluation Plan
 
 Status: active planning
-Role: production-stabilization plan
+Role: Planning / WIP
 Purpose: define the evaluation workstream required to move semantic veto from the narrow `en-es` emitted-sibling runtime slice to a production-trustworthy, more general blocker system
 Last updated: 2026-04-24
 Last verified: 2026-04-24 fixed-shadow runtime/bound refresh against the current `v10` dataset and held-out corridor artifacts

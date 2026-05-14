@@ -1,7 +1,7 @@
 # Semantic Veto Local Output Disposition
 
 Status: current reference
-Role: Integrity audit snapshot
+Role: Mixed
 Last updated: 2026-05-01
 Last verified: 2026-05-01 against `git status --short`,
 `git ls-files --others --exclude-standard`, exact-reference searches, and JSON

@@ -1,7 +1,7 @@
 # Semantic Sentence-Veto Algorithm
 
 Status: active reference
-Role: Algorithm reference / research alignment
+Role: Mixed
 Last updated: 2026-05-13
 Last verified: 2026-05-13 against `semantic_routing_runtime_scoring.py`, `semantic_routing_runtime_policy.py`, current decision-rule matrix manifests, latest phrasing/order plus context-conditioned evidence bakeoff artifacts, the product-scope algorithm bakeoff, the corrected product-scope candidate/band rerun, the browser extension `context_text` assembly path plus edge-case context resolver contracts, and a live fetched Castle-page DOM-split regression
 Purpose: describe the semantic sentence-veto algorithm end to end so runtime behavior, source-admission work, phrase handling, and decision-rule experiments stay aligned
@@ -437,6 +437,26 @@ Deferred performance follow-up:
   material first-visible regression at `96`, revisit viewport-first or hybrid
   scheduling; otherwise keep the single default batch to avoid unnecessary
   scheduler complexity.
+- Viewport-first scheduling needs a dedicated AI/chat-style smoke page where
+  the initial visible content may sit near the end of the DOM or may be inserted
+  after hydration. The current scan-order pass already classifies text nodes by
+  viewport intersection using layout geometry, so bottom-visible nodes should
+  outrank earlier offscreen DOM nodes when their parent element has an accurate
+  rectangle. The risky cases are huge parent containers whose rectangle makes
+  every descendant look visible/near, virtualized lists where visible rows enter
+  the DOM after the first scan, and scroll containers whose visible region is
+  not the top-level window viewport.
+- Mechanical follow-ups for those cases should stay scheduler-local:
+  1. Use `Range.getClientRects()` for text-node visibility when the parent
+     element rectangle is too coarse or very large.
+  2. Reprioritize newly inserted or newly visible nodes from `MutationObserver`
+     and scroll events ahead of far-offscreen backlog work.
+  3. Treat nested scroll containers as viewport roots when their overflow clips
+     visible content.
+  4. Defer far-offscreen semantic work to idle time only after visible and
+     near-viewport queues are drained.
+  These are mechanical scheduling improvements; they should not change semantic
+  context assembly, helper scoring, or text-node-local replacement edits.
 - If `helperBatchMaxSize` remains `1`, use the scan scheduler counters:
   - if `scanNodeBatchMaxSize` is also `1` and
     `scanNodeSerialBudgetBatches > 0`, the browser is still running an older

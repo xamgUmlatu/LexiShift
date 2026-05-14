@@ -1,5 +1,11 @@
 # Reverse-Check EN-ES Aggressive Expansion (2026-03-13)
 
+Status: dated reverse-check evidence snapshot
+Role: Archive / legacy
+Last updated: 2026-03-13
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; expansion evidence not rerun
+Source-of-truth: historical reverse-check review evidence only; current rulegen status lives in code, benchmark/gate/triage artifacts, and `docs/developer/feature_state_matrix.md`.
+
 Purpose:
 - widen the `en-es` benchmark much more aggressively before further non-reverse scoring changes
 - keep the exact added words and proposed labels visible for manual review

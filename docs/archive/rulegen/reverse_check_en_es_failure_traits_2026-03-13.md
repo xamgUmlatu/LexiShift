@@ -1,5 +1,11 @@
 # Reverse-Check EN-ES Failure Traits (2026-03-13)
 
+Status: dated reverse-check evidence snapshot
+Role: Archive / legacy
+Last updated: 2026-03-13
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; failure-trait evidence not rerun
+Source-of-truth: historical reverse-check review evidence only; current rulegen status lives in code, benchmark/gate/triage artifacts, and `docs/developer/feature_state_matrix.md`.
+
 Purpose:
 - classify the current `en-es` hard cases after widening the benchmark slice
 - separate "tunable with current reverse-check model" from "needs a different signal"
@@ -19,7 +25,7 @@ Method:
   - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
 
 Aggressive expansion note:
-- a second pass added 14 more `en-es` cases; see `docs/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
+- a second pass added 14 more `en-es` cases; see `docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
 - the named reverse lane on the widened 38-case slice now reaches:
   - top-1: `97.37%`
   - top-3: `97.37%` (objective winner) / `100.00%` (`mr=none` comparison row)

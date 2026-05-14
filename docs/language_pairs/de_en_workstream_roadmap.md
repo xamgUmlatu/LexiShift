@@ -1,7 +1,7 @@
 # `de-en` Workstream Roadmap
 
 Status: active planning doc
-Role: execution roadmap / proof-LP plan
+Role: Planning / WIP
 Purpose: define the concrete `de-en` workstream now that baseline enablement has landed, and record when it should become the active LP workstream again after the current data-source normalization board stabilizes.
 Last updated: 2026-04-03
 Last verified: 2026-04-03

@@ -1,7 +1,7 @@
 # Kaikki `en-es` Integration Plan
 
 Status: draft implementation contract
-Role: working design note
+Role: Planning / WIP
 Last updated: 2026-03-26
 Source-of-truth: current implementation still lives in code; this note records the intended contract for the first Kaikki-backed `en-es` rollout.
 

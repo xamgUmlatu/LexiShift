@@ -1,5 +1,11 @@
 # LexiShift Theme Schema (Draft)
 
+Status: draft planning reference
+Role: Planning / WIP
+Last updated: 2026-05-14
+Purpose: preserve the target GUI theme schema while the customization surface remains planning-only
+Source-of-truth: planning draft only; current GUI theme behavior still verifies in source code and GUI tests.
+
 This schema describes user-provided themes for the GUI. It is not wired yet, but it is the target format for future customization.
 
 ## Theme object (draft)

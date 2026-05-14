@@ -50,6 +50,7 @@
         "content/runtime/dom_scan/semantic_performance_metrics.js",
         "content/runtime/dom_scan/semantic_node_scheduler.js",
         "content/runtime/dom_scan/scan_counters.js",
+        "content/runtime/dom_scan/semantic_context_support.js",
         "content/runtime/dom_scan/semantic_context.js",
         "content/runtime/dom_scan/text_node_processor.js",
         "content/runtime/dom_scan_runtime.js",

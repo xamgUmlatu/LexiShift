@@ -1,7 +1,7 @@
 # Semantic Shadow Source Intake Plan
 
 Status: active plan
-Role: Planning / operational
+Role: Planning / WIP
 Purpose: prepare broad data-source experimentation for semantic-shadow mining without turning runtime veto into a source-specific heuristic pile
 Last updated: 2026-04-25
 Last verified: 2026-04-25 filtered remediation source runs, surface-POS prototype guard, and quality-gate pass against the frozen `v10` queue

@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sqlite3
@@ -19,6 +18,7 @@ for candidate in (str(CORE_ROOT), str(Path(__file__).resolve().parent)):
 
 from lexishift_core.helper.paths import resolve_data_root  # noqa: E402
 from semantic_example_frame_source_adapter_support import slug as _slug  # noqa: E402
+from semantic_non_v10_wave_builder_io import _load_json, _utc_now, _write_json  # noqa: E402
 from semantic_non_v10_wave_builder_support import (  # noqa: E402
     active_visible_target_aliases as _active_visible_target_aliases,
     alternate_same_pos as _alternate_same_pos,
@@ -738,15 +738,6 @@ def _connect_optional(path: Path | None) -> sqlite3.Connection | None:
     return conn
 
 
-def _load_json(path: Path) -> dict[str, object]:
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def _write_json(path: Path, payload: Mapping[str, object]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-
 def _as_mapping(value: object) -> Mapping[str, object]:
     return value if isinstance(value, Mapping) else {}
 
@@ -755,10 +746,6 @@ def _as_sequence(value: object) -> Sequence[object]:
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
         return value
     return ()
-
-
-def _utc_now() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def main() -> int:

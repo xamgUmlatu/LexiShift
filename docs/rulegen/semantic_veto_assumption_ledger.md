@@ -1,7 +1,7 @@
 # Semantic Veto Assumption Ledger
 
 Status: current reference
-Role: Reconciliation ledger
+Role: Draft decision log
 Last updated: 2026-05-01
 Scope: current `wave6_auth_frame_raw_sentence_surface_pos_rescue` candidate only
 

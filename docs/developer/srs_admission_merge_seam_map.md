@@ -1,7 +1,7 @@
 # SRS Admission Merge Seam Map
 
 Status: active plan
-Role: integration handoff
+Role: Planning / WIP
 Last updated: 2026-04-15
 Purpose: record the known schema-contract issues from `codex/srs-admission-checkpoint` and map the selective-merge seams onto `codex/veto-data-sources-exp` so the admission workstream can be ported without regressing the current semantic runtime/publication contract
 Source-of-truth: planning doc only; code truth still lives in the current branch and the reviewed admission branch worktree

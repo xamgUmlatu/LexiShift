@@ -1,7 +1,7 @@
 # Rulegen Benchmark Optimization Plan
 
 Status: active implementation plan
-Role: planning / architecture
+Role: Planning / WIP
 Purpose: Define the non-throwaway optimization plan for the rulegen benchmark stack, with immediate focus on the canonical `en-es` sweep while steering toward a long-term compiled benchmark architecture that can later support vectorized CPU and optional GPU execution, broad pack/pair-global maxima search, and later trait-conditioned runtime profile selection.
 Last updated: 2026-03-28
 Last verified: 2026-03-28

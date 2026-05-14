@@ -1,6 +1,10 @@
 # Semantic Veto Breadth Expansion Gate
 
+Status: active planning gate
+Role: Planning / WIP
 Last updated: 2026-04-30
+Last verified: 2026-05-14 metadata-only Lane 1 semantic authority note; breadth gate was not executed
+Source-of-truth: planning gate only; execution truth will live in the required tracked artifacts and registry summaries after the gate is run.
 
 This gate names the next breadth test for the current
 `wave6_auth_frame_raw_sentence_surface_pos_rescue` candidate. It is a test

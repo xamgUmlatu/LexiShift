@@ -1,7 +1,7 @@
 # Semantic Veto Archive Consolidation
 
 Status: current reference
-Role: Archive and supersession ledger
+Role: Canonical current
 Last updated: 2026-05-01
 Scope: semantic-veto research artifacts that remain useful but should not steer
 the current candidate directly

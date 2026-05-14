@@ -1,5 +1,7 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const support = root.contentDomScanSemanticContextSupport || {};
+  const clipContext = typeof support.clipContext === "function" ? support.clipContext : null;
   const MAX_WORDS = 48;
   const MAX_CHARS = 1200;
   const MAX_TEXT_NODES = 80;
@@ -10,7 +12,6 @@
   const FALLBACK_CONTAINER_TAGS = new Set(["ARTICLE", "SECTION", "MAIN", "DIV"]);
   const SKIP_TAGS = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE"]);
   const WORD_RE = /[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*/g;
-  const STRONG_BOUNDARIES = new Set([".", "?", "!"]);
 
   function countWords(text) {
     const matches = String(text || "").match(WORD_RE);
@@ -353,77 +354,6 @@
     return buildContextBuffer(textNode, filters, container);
   }
 
-  function findPreviousStrongBoundary(text, index) {
-    for (let cursor = Math.max(0, index - 1); cursor >= 0; cursor -= 1) {
-      if (STRONG_BOUNDARIES.has(text[cursor])) return cursor + 1;
-    }
-    return 0;
-  }
-
-  function findNextStrongBoundary(text, index) {
-    for (let cursor = Math.max(0, index); cursor < text.length; cursor += 1) {
-      if (STRONG_BOUNDARIES.has(text[cursor])) return cursor + 1;
-    }
-    return text.length;
-  }
-
-  function collectWordSpans(text, start, end) {
-    const spans = [];
-    const pattern = new RegExp(WORD_RE.source, "g");
-    let match = pattern.exec(text);
-    while (match) {
-      const wordStart = match.index;
-      const wordEnd = wordStart + match[0].length;
-      if (wordEnd > start && wordStart < end) spans.push({ start: wordStart, end: wordEnd });
-      if (wordStart >= end) break;
-      match = pattern.exec(text);
-    }
-    return spans;
-  }
-
-  function clipToWordBudget(text, start, end, matchStart, matchEnd) {
-    const wordSpans = collectWordSpans(text, start, end);
-    if (wordSpans.length <= MAX_WORDS) return { start, end };
-    let matchWordIndex = wordSpans.findIndex((span) => span.end > matchStart && span.start < matchEnd);
-    if (matchWordIndex < 0) matchWordIndex = wordSpans.findIndex((span) => span.start >= matchStart);
-    if (matchWordIndex < 0) matchWordIndex = Math.max(0, wordSpans.length - 1);
-    const halfWindow = Math.floor(MAX_WORDS / 2);
-    let firstWordIndex = Math.max(0, matchWordIndex - halfWindow);
-    let lastWordIndex = Math.min(wordSpans.length, firstWordIndex + MAX_WORDS);
-    if (lastWordIndex - firstWordIndex < MAX_WORDS) {
-      firstWordIndex = Math.max(0, lastWordIndex - MAX_WORDS);
-    }
-    return {
-      start: Math.max(start, wordSpans[firstWordIndex].start),
-      end: Math.min(end, wordSpans[lastWordIndex - 1].end)
-    };
-  }
-
-  function trimContext(text, start, end, matchStart, matchEnd) {
-    let trimmedStart = start;
-    let trimmedEnd = end;
-    while (trimmedStart < matchStart && /\s/.test(text[trimmedStart] || "")) trimmedStart += 1;
-    while (trimmedEnd > matchEnd && /\s/.test(text[trimmedEnd - 1] || "")) trimmedEnd -= 1;
-    if (matchStart < trimmedStart || matchEnd > trimmedEnd || matchStart >= matchEnd) return null;
-    return {
-      contextText: text.slice(trimmedStart, trimmedEnd),
-      matchStart: matchStart - trimmedStart,
-      matchEnd: matchEnd - trimmedStart
-    };
-  }
-
-  function clipContext(text, matchStart, matchEnd) {
-    if (!text || matchStart < 0 || matchEnd <= matchStart || matchEnd > text.length) return null;
-    let start = findPreviousStrongBoundary(text, matchStart);
-    let end = findNextStrongBoundary(text, matchEnd);
-    if (end <= start || matchStart < start || matchEnd > end) {
-      start = 0;
-      end = text.length;
-    }
-    const clipped = clipToWordBudget(text, start, end, matchStart, matchEnd);
-    return trimContext(text, clipped.start, clipped.end, matchStart, matchEnd);
-  }
-
   function createResolver(textNode, options) {
     const opts = options && typeof options === "object" ? options : {};
     const filters = normalizeFilters(opts.nodeFilters);
@@ -442,6 +372,7 @@
       if (!cachedBuffer) return null;
       const contextStart = cachedBuffer.textNodeStart + localStart;
       const contextEnd = cachedBuffer.textNodeStart + localEnd;
+      if (!clipContext) return null;
       return clipContext(cachedBuffer.text, contextStart, contextEnd);
     };
   }

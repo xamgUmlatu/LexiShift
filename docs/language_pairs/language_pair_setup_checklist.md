@@ -1,5 +1,11 @@
 # Language Pair Setup Checklist
 
+Status: active LP onboarding runbook
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-15 Lane 1 LP authority-map routing update; setup sequence not re-audited
+Source-of-truth: operational onboarding checklist; current LP capability truth still lives in capability/resource code, canonical architecture docs, tests, and generated audits.
+
 Purpose:
 - Provide a formal, reusable checklist for implementing a new LP (Language Pair) end-to-end.
 - Keep implementation work consistent across GUI, extension, helper, core rulegen, and SRS.
@@ -9,10 +15,17 @@ Scope:
 - This checklist covers setup for both synonym generation and SRS-backed runtime usage.
 
 Related:
+- Language-pair docs authority map: `docs/language_pairs/README.md`.
 - Core LP architecture contract: `docs/architecture/srs_lp_architecture.md`.
 - For extension + helper focused rollout sequencing, see `docs/language_pairs/extension_lp_generalization_checklist.md`.
 - POS normalization implementation plan: `docs/rulegen/pos_normalization_workstream.md`.
 - Rulegen onboarding operating model: `docs/rulegen/lp_onboarding_operating_model.md`.
+
+Routing note: this checklist is the cross-surface operational runbook. Use
+`docs/language_pairs/README.md` to choose the owning LP doc before changing
+status, resource, or onboarding claims. Use
+`docs/rulegen/lp_onboarding_operating_model.md` for rulegen-specific mature-pair
+bring-up.
 
 ## 0) Implementation Sequence (Use This Order Every Time)
 

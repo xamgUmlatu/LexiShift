@@ -694,7 +694,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on` = `no`
 - Last documented checkpoint: `2026-04-04` `en-de` now also wires reverse resource resolution, metadata emission, ranking consumption, and probe surface, with the first focused Kaikki reverse experiment recorded separately
-- Last verified: `2026-04-10` feature-state evidence sync against the clean branch after preserving the separate `en-de` benchmark WIP branch
+- Last verified: `2026-05-14` Lane 1 reverse-check archive prep updated dated `en-es` evidence paths to `docs/archive/rulegen/` and refreshed active reverse-check routing without rerunning benchmark artifacts
 - Default behavior:
   - Configurable and pair-aware for `en-es`, `es-en`, and `en-de`.
   - Not yet promoted to default production tuning.
@@ -708,9 +708,9 @@ Use this file when:
 - Evidence:
   - `docs/rulegen/reverse_check_scoring_phase1.md`
   - `docs/rulegen/reverse_check_rollout_matrix.md`
-  - `docs/rulegen/reverse_check_en_es_case_review_2026-03-13.md`
-  - `docs/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
-  - `docs/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`
+  - `docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md`
+  - `docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
+  - `docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md`
   - `core/lexishift_core/rulegen/ranking.py`
   - `core/lexishift_core/rulegen/pairs/en_es.py`
   - `core/lexishift_core/rulegen/pairs/es_en.py`
@@ -821,7 +821,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
 - Last documented checkpoint: `2026-05-14` the active-only soft-assist candidate is packaged as canonical source evidence, replayed through an inventory-shaped evaluator, published into an isolated helper runtime smoke fixture, exercised against a balanced public-page sentence scan for manual product-feel review, and materializable through helper CLI, native-host install command, and the extension Advanced debug install flow into an explicit profile/data root. The installer now resolves named semantic pack ids before using a file-path override, so product-like testing no longer requires pasting an inventory path. After the split-inline DOM semantic-context fix and semantic batching optimization, the tranche-003 data remains the latest hands-on browser-extension soft-assist PoC. Tranche-011 is now the latest operator-accepted product checkpoint from automated follow-through evidence, with `455` families, `922` normalized rows, `455` helper rules, `432` active-only competition sets, `23` shadowed/mixed sets, and a clean automated page scan. The active-only generation queue is exhausted under the current reviewed 570-family replacement denominator, with `115` weak or non-visible source-target rows excluded from active-only spend; the separate current SRS learner-target universe is `1,984` Spanish target lemmas. The fixture does not mutate real profile data unless the default data-root safety flag is explicitly passed.
-- Last verified: `2026-05-14` active-only source packaging, inventory replay, helper runtime smoke, live page scan, productization readiness, semantic pack installer tests, named-pack resolver tests, native-host installer routing tests, semantic runtime policy tests, split-inline, edge-case, cache-reuse, performance-instrumentation, same-context helper-coalescing, successful inventory-resolution reuse, per-match-fit cross-context helper-batching, and budgeted semantic-scan preflight DOM semantic-context contract tests, live fetched Castle-page DOM-split regression plus optimized call-topology measurement, live Castle budgeted-batch reload showing helper round trips reduced from `266` to `137` while preserving `267` semantic requests, live Castle scheduler tuning showing batch `96` preserved first-visible latency while reducing scan/helper time versus `24`, tranche-011 registry summary, doc reference checks, state checks, SRS quality harness, Ruff checks, and whitespace checks
+- Last verified: `2026-05-14` active-only source packaging, inventory replay, helper runtime smoke, live page scan, productization readiness, semantic pack installer tests, named-pack resolver tests, native-host installer routing tests, semantic runtime policy tests, split-inline, edge-case, cache-reuse, performance-instrumentation, same-context helper-coalescing, successful inventory-resolution reuse, per-match-fit cross-context helper-batching, and budgeted semantic-scan preflight DOM semantic-context contract tests, live fetched Castle-page DOM-split regression plus optimized call-topology measurement, live Castle budgeted-batch reload showing helper round trips reduced from `266` to `137` while preserving `267` semantic requests, live Castle scheduler tuning showing batch `96` preserved first-visible latency while reducing scan/helper time versus `24`, tranche-011 registry summary, doc reference checks, state checks, SRS quality harness, Ruff checks, and whitespace checks; `2026-05-15` Lane 3 L3-A feature-state truth pass, focused semantic publication/runtime tests, doc-reference check, state check, and diff hygiene
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -1194,6 +1194,7 @@ Use this file when:
     - phrase/idiom preemption as a separate lane from semantic veto
     - runtime observability for why a replacement applied or abstained
 - Evidence:
+  - `docs/developer/productization_lane3_feature_state_truth_inventory.md`
   - `docs/rulegen/semantic_routing_runtime_readiness.md`
   - `docs/rulegen/semantic_shadow_source_intake_plan.md`
   - `docs/rulegen/semantic_llm_prompt_bakeoff_plan.md`
@@ -1339,7 +1340,10 @@ Use this file when:
   - Two additional precision ideas now have negative `en-es` results on the current reviewed overlap proxy:
     - active-vs-shadow frequency-band similarity leaves the best row unchanged, with the sweep preferring `frequency_similarity_weight=0.0`
     - same-sense representative pruning by normalized `sense_label` plus POS also leaves the best row unchanged, with the sweep preferring pruning `off`
-  - There is no runtime decision policy yet for hard replace vs soft affordance vs abstain.
+  - Runtime decision policy now exists for helper-side semantic scoring and fallback outcomes, but rendered soft-affordance UX is still not productized:
+    - current browser DOM behavior applies only `replace`
+    - `abstain` and `soft_affordance` both keep the original text today
+    - future work still needs a visible soft-affordance interaction and rollout policy
   - Current encouraging semantic-routing benchmark results from prototype work should not be read as proof of fully automatic end-to-end sense discovery or runtime readiness.
 
 ## POS Normalization

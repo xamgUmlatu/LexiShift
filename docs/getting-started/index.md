@@ -3,6 +3,15 @@ layout: default
 title: LexiShift Getting Started
 ---
 
+<!--
+Status: active Pages onboarding guide
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; UI walkthrough content not fully re-audited
+Purpose: present the rendered interactive getting-started guide for LexiShift users
+Source-of-truth: user-facing onboarding guide only; current GUI, extension, plugin, and SRS behavior truth lives in source code, tests, and canonical developer/domain docs.
+-->
+
 <script>
 (() => {
   const themeKey = "lexishift_guide_theme";

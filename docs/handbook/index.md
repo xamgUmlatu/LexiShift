@@ -3,6 +3,15 @@ layout: default
 title: LexiShift Handbook
 ---
 
+<!--
+Status: active Pages handbook entrypoint
+Role: Canonical current
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; handbook links not fully re-audited
+Purpose: route GitHub Pages readers through user onboarding, developer workflow, architecture, release, and diagram pages
+Source-of-truth: Pages handbook navigation only; developer authority remains in `docs/developer/README.md`, `docs/README.md`, and the linked canonical domain docs.
+-->
+
 # LexiShift Handbook
 
 This handbook is the organized entrypoint for operating and developing LexiShift on GitHub Pages.

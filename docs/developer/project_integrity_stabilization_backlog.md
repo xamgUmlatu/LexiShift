@@ -2,11 +2,13 @@
 
 Status: active backlog
 Role: Planning / WIP
-Last updated: 2026-04-21
-Last verified: 2026-04-21 post-closure follow-on queue checkpoint plus doc-safety checks
+Last updated: 2026-05-15
+Last verified: 2026-05-15 first Lane 2 sentence-veto/generalization splits and project-health report refresh
 Purpose: break the stabilization program into small seam-scoped passes that improve trustworthiness without broad mixed cleanup
 Source-of-truth: planning doc only; current truth still lives in code, tests, `feature_state_matrix.md`, and seam-specific evidence artifacts
 Related docs:
+- `productization_closure_roadmap.md`
+- `productization_lane2_code_disposition_inventory.md`
 - `project_integrity_stabilization_runbook.md`
 - `documentation_governance.md`
 - `feature_state_matrix.md`
@@ -59,7 +61,7 @@ Execution rule:
 - every backlog item must follow the per-slice checklist in `project_integrity_stabilization_runbook.md`
 - do not start a slice until the bounded re-onboarding packet, pre-edit truth table, and validation bundle are explicit
 
-## Current Working Snapshot (2026-04-19)
+## Current Working Snapshot (2026-05-15)
 
 Verified for the current backlog refresh:
 
@@ -76,14 +78,15 @@ Verified for the current backlog refresh:
 Current structural pressure from the latest advisory project-health report:
 
 - advisory violations: none
-- near-limit watchlist:
-  - `core/lexishift_core/rulegen/pairs/en_es_compiled_selection.py` (`882` lines)
-  - `core/lexishift_core/rulegen/pairs/en_es_support.py` (`841` lines)
+- near-limit watchlist: none
 
 Recent branch-state implications:
 
 1. The earlier "clean-tree baseline" snapshot is now historical only; use the latest checkpoint commit plus the current dirty-worktree reality when planning the next pass.
-2. Structural-health pressure has shifted away from the earlier large monolith list toward the newer extracted `en_es` support modules, so future hotspot work should follow the split seams rather than the retired pre-split file boundaries.
+2. Structural-health pressure that shifted into semantic testing/support
+   scripts and extension semantic-context runtime code has been cleared for the
+   current hotlist. There are no current advisory violations or near-limit
+   warnings.
 3. Generated evidence files are now part of normal ongoing work on this branch, so each pass should explicitly say whether it is reading current artifacts, refreshing them, or leaving them untouched.
 
 Explicit contradictions already logged in current docs:

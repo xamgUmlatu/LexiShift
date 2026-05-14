@@ -1,5 +1,11 @@
 # Rulegen LP Profiles
 
+Status: active profile-directory guide
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 auxiliary README note; profile validators were not rerun
+Source-of-truth: operational guide for static LP profile contracts; implemented/default-on/verified state remains in `docs/developer/feature_state_matrix.md`.
+
 Purpose:
 - Store machine-readable rulegen language-pair profiles.
 - Make LP onboarding more systematic by separating static pair wiring from dynamic state/evidence.

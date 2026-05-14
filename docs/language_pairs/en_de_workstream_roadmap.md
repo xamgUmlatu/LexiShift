@@ -1,10 +1,10 @@
 # `en-de` Workstream Roadmap
 
 Status: active planning doc
-Role: execution roadmap / advisory quality-lane plan
+Role: Planning / WIP
 Purpose: define the German-target `en-de` quality workstream now that baseline pair enablement exists and the next step is to give the lane a durable benchmark/gate/triage surface modeled on `en-es` without pretending the pair is already at `en-es` maturity.
-Last updated: 2026-04-03
-Last verified: 2026-04-03
+Last updated: 2026-05-14
+Last verified: 2026-05-14 Lane 1 reverse-check authority pass against feature-state evidence, rollout matrix, LP support guide, and adapter/probe code references; benchmark artifacts were not rerun
 Source-of-truth: planning doc only; executable truth still lives in code, tests, benchmark artifacts, and `docs/developer/feature_state_matrix.md`.
 
 ## Scope
@@ -30,7 +30,8 @@ Primary non-goals:
 
 - do not claim `en-de` is already at `en-es` quality maturity
 - do not block the quality-lane scaffold on the missing `freq-de-default.sqlite`
-- do not front-load reverse-check or Kaikki-style provenance work before the baseline lane is stable enough to measure them
+- do not promote reverse-check or Kaikki-style provenance work before the
+  baseline lane is stable enough to measure them
 - do not invent a separate benchmark architecture for `en-de`
 
 ## Current Starting Point
@@ -55,7 +56,7 @@ Current known benchmark picture:
 
 What does not exist yet:
 
-- no reverse-check implementation
+- no promoted reverse-check lane or default-on decision
 - no `en-es`-style richer scoring frontier
 - no hard-gated pair status
 - no broad enough benchmark corpus to support strong pair-level claims
@@ -208,24 +209,30 @@ Definition of done:
 
 Status:
 
-- not started
+- partially wired; not promoted
 
 Goal:
 
-- decide whether `en-de` should become a reverse-check pair after the baseline lane is stable
+- decide whether `en-de` should become a promoted reverse-check pair after the baseline lane is stable
 
 Entry rule:
 
 - do not start this phase just because `en-es` has reverse-check
-- start it only if the `en-de` baseline lane is stable enough that reverse evidence can be measured cleanly
+- do not promote it unless the `en-de` baseline lane is stable enough that
+  reverse evidence can be measured cleanly
 
-Concrete work if started:
+Completed low-level wiring:
 
 1. add reverse resource resolution
 2. add reverse metadata emission
 3. add ranking-hook support
 4. add pair-specific tests
-5. add a separate reverse experimental lane before any default-on decision
+
+Remaining promotion work:
+
+1. add a committed reverse experimental lane,
+2. compare it against the current `rev=off` advisory and Kaikki lanes,
+3. only then decide whether any default-on policy is warranted.
 
 Current checkpoint:
 
@@ -235,7 +242,9 @@ Current checkpoint:
 
 Definition of done:
 
-- `en-de` reaches at least `wired` in the reverse-check rollout matrix with committed artifact evidence
+- `en-de` has committed reverse-lane artifact evidence strong enough to justify
+  either a promoted next-step workstream or an explicit "do not promote yet"
+  decision.
 
 ## Phase 4: Pair-Specific Scoring Frontier
 
@@ -291,7 +300,8 @@ For now, treat `en-de` as acceptable to move forward when all of these are true:
 3. failures are visible in triage rather than hidden in prose
 4. the lane still clearly says:
    - advisory, not hard-gated
-   - no reverse-check yet
+   - no promoted reverse-check lane yet
    - no richer scoring frontier yet
 
-Only after that should the workstream move toward reverse-check or deeper pair-specific tuning.
+Only after that should the workstream move toward promoted reverse-check or
+deeper pair-specific tuning.

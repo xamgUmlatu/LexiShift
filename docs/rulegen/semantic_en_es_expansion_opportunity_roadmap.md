@@ -1,7 +1,7 @@
 # Semantic en-es Expansion Opportunity Roadmap
 
 Status: active opportunity ledger
-Role: Planning / backlog
+Role: Planning / WIP
 Purpose: preserve every known direction opened by the reverse-aux plus WordNet plus Wiktextract semantic-source result
 Last updated: 2026-04-29
 Source-of-truth: planning doc only; executable truth lives in source-admission scripts and generated artifacts

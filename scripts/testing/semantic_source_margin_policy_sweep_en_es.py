@@ -3,8 +3,6 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
-from datetime import datetime, timezone
-import json
 from pathlib import Path
 import sys
 from typing import Mapping, Sequence
@@ -37,6 +35,13 @@ from semantic_source_margin_policy_sweep_rendering import (  # noqa: E402
 )
 from semantic_source_margin_policy_support import (  # noqa: E402
     limitations_for_margin_recommendation,
+)
+from semantic_source_margin_policy_sweep_io import (  # noqa: E402
+    _load_json,
+    _repo_relative,
+    _resolve_repo_path,
+    _utc_now,
+    _write_json,
 )
 from semantic_source_heldout_validation_en_es import (  # noqa: E402
     DEFAULT_CONTEXT_VIEW,
@@ -748,36 +753,6 @@ def _round_float(value: object) -> float:
 
 def _as_mapping(value: object) -> Mapping[str, object]:
     return value if isinstance(value, Mapping) else {}
-
-
-def _repo_relative(path: Path) -> str:
-    try:
-        return str(path.resolve().relative_to(PROJECT_ROOT))
-    except ValueError:
-        return str(path)
-
-
-def _resolve_repo_path(value: object) -> Path:
-    path = Path(str(value or "").strip())
-    if path.is_absolute():
-        return path
-    return PROJECT_ROOT / path
-
-
-def _load_json(path: Path) -> dict[str, object]:
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        raise ValueError(f"Expected JSON object in {path}.")
-    return payload
-
-
-def _write_json(path: Path, payload: Mapping[str, object]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-
-def _utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def main() -> int:

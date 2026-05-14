@@ -1,7 +1,10 @@
 # Reverse-Check Scoring (Phase 1) Specification
 
 Status: implemented (configurable, conservative defaults)
+Role: Mixed
 Last updated: 2026-03-13
+Last verified: 2026-05-14 Lane 1 reverse-check archive prep against feature-state evidence, rollout matrix, LP support guide, and exact references; benchmark artifacts were not rerun
+Source-of-truth: mixed phase specification; current behavior truth lives in rulegen/ranking code, helper configuration, tests, benchmark artifacts, and feature-state evidence.
 
 ## Goal
 
@@ -15,6 +18,26 @@ Primary immediate target:
 
 1. `en-es`
 2. `es-en`
+
+## Current Product Status
+
+Reverse-check scoring is implemented, configurable, and default-off.
+
+Current cleanup interpretation:
+
+1. `en-es` has the strongest committed reverse-check evidence and a named
+   reverse lane, but reverse-check is still not a production default.
+2. `es-en` is wired but does not yet have committed pair benchmark/gate/triage
+   evidence proving rollout maturity.
+3. `en-de` now has reverse resource resolution, metadata emission, ranking
+   consumption, and probe support, but its first focused local reverse
+   experiment did not beat `rev=off`, and no promoted reverse lane exists.
+4. `en-ja` remains unsupported for this Phase 1 reverse-check model.
+5. The dated `en-es` review docs now live under `docs/archive/rulegen/` as
+   historical evidence snapshots, not current policy docs.
+
+Use `docs/rulegen/reverse_check_rollout_matrix.md` and
+`docs/developer/feature_state_matrix.md` for the current rollout state.
 
 ## Problem Statement
 
@@ -136,7 +159,8 @@ Rollout defaults (current):
 
 1. Global default: disabled.
 2. Pair-level tuning and runtime overrides are fully wired (`rulegen/tuning.py`, helper job config, benchmark sweep).
-3. Enable for benchmark experiments on `en-es` and `es-en`.
+3. Enable for benchmark experiments on `en-es`, `es-en`, and `en-de` only when
+   the pair-specific lane is explicitly measuring reverse-check.
 4. Promote to production pair defaults only after benchmark/triage acceptance.
 
 ## Implementation Steps

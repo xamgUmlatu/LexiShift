@@ -1,7 +1,7 @@
 # Semantic LLM Prompt Bakeoff Plan
 
 Status: active plan
-Role: Planning / operational
+Role: Planning / WIP
 Purpose: define a cheap, rigorous prompt-selection workflow for semantic LLM cue and shadow generation before LexiShift spends a larger semantic-generation budget
 Last updated: 2026-04-25
 Last verified: 2026-04-25 no-spend downstream, failure-diagnostic, and source/insertion probe artifacts

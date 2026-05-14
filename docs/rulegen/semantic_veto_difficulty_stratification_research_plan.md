@@ -1,7 +1,7 @@
 # Semantic Veto Difficulty Stratification Research Plan
 
 Status: active research plan
-Role: semantic-veto plus SRS-admission planning reference
+Role: Planning / WIP
 Pair focus: `en-es` first, with the intended shape generalized later
 Runtime policy change: none
 Source evidence promotion: none

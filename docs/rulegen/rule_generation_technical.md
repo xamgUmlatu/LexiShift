@@ -1,5 +1,11 @@
 # LexiShift Rule Generation: Precomputed Rules + Confidence Scoring
 
+Status: active mixed technical reference
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; rulegen behavior claims not re-audited
+Source-of-truth: mixed technical reference; current implementation truth lives in rulegen/helper/SRS code, focused tests, benchmark artifacts, and `docs/developer/feature_state_matrix.md`.
+
 Purpose
 - Define a generalized, language‑pair aware pipeline for precomputing replacement rules from a target set S.
 - Attach a confidence score to each rule so generation-time thresholds and downstream tooling can inspect or prune outputs.

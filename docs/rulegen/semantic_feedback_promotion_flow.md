@@ -1,7 +1,7 @@
 # Semantic Feedback Promotion Flow
 
 Status: active plan
-Role: Planning / governance
+Role: Planning / WIP
 Purpose: define how future semantic user reports can be captured, acted on locally, and promoted conservatively without poisoning shared semantic truth
 Last updated: 2026-04-15
 Last verified: 2026-04-15 repo-doc review against the semantic-routing data lifecycle, queueing plan, and existing extension/helper feedback architecture

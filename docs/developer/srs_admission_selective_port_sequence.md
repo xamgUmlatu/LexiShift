@@ -1,7 +1,7 @@
 # SRS Admission Selective Port Sequence
 
 Status: phases 1-5 implemented; phase 6 pending
-Role: execution runbook
+Role: Runbook / operational
 Last updated: 2026-04-18
 Purpose: define the exact sequence for porting the admission/preferences workstream from `codex/srs-admission-checkpoint` onto `codex/veto-data-sources-exp` without regressing the current semantic publication/runtime contract
 Related docs:

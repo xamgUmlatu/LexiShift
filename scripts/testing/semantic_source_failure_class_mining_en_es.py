@@ -12,6 +12,8 @@ from semantic_source_failure_class_mining_support import (
     _as_mapping,
     _as_sequence,
     _best_comparator,
+    _build_quality_gate_distance,
+    _decision_from_gate_and_leverage,
     _family_token,
     _heldout_family_ids,
     _item_at,
@@ -21,6 +23,8 @@ from semantic_source_failure_class_mining_support import (
     _reason_count_ids,
     _safe_ratio,
     _sense_sidecar_for,
+    _manual_overfit_risk,
+    _next_steps,
     _utc_now,
     _write_json,
 )
@@ -640,138 +644,6 @@ def _build_leverage_summary(
         "manual_overfit_reasons": overfit_risk["reasons"],
         "generalization_signals": overfit_risk["signals"],
     }
-
-
-def _build_quality_gate_distance(
-    *,
-    primary_admission: Mapping[str, object],
-    primary_heldout: Mapping[str, object],
-    additional_heldouts: Sequence[Mapping[str, object]],
-    leverage: Mapping[str, object],
-) -> dict[str, object]:
-    blockers: list[str] = []
-    tracked: list[str] = []
-    all_heldouts = (primary_heldout, *additional_heldouts)
-    if len(_as_sequence(primary_admission.get("semantic_gap_family_keys"))) > 0:
-        blockers.append("semantic_contract_gap")
-    if any(int(row.get("harmful_replace_count") or 0) > 0 for row in all_heldouts):
-        blockers.append("heldout_harmful_replace")
-    if int(primary_admission.get("seed_harmful_replace_count") or 0) > 0:
-        blockers.append("seed_harmful_replace")
-    if any(int(row.get("false_abstain_count") or 0) > 0 for row in all_heldouts):
-        tracked.append("heldout_false_abstain")
-    if int(primary_admission.get("seed_false_abstain_count") or 0) > 0:
-        tracked.append("seed_ablation_false_abstain")
-    if int(primary_admission.get("sense_rejected_row_count") or 0) > 0:
-        tracked.append("sense_filter_rejects")
-    if len(_as_sequence(primary_admission.get("phrase_gap_family_keys"))) > 0:
-        tracked.append("phrase_contract_gap")
-    if int(leverage.get("family_breadth_gap") or 0) > 0:
-        tracked.append("insufficient_family_breadth")
-    if int(leverage.get("case_breadth_gap") or 0) > 0:
-        tracked.append("insufficient_case_breadth")
-    heldout_clean = all(
-        str(row.get("status") or "") == "ok"
-        and str(row.get("decision") or "") == "heldout_pass"
-        and int(row.get("harmful_replace_count") or 0) == 0
-        and int(row.get("false_abstain_count") or 0) == 0
-        for row in all_heldouts
-    )
-    if blockers:
-        readiness = "blocked"
-        distance = "semantic_risk_blockers"
-    elif not heldout_clean:
-        readiness = "needs_heldout_cleanup"
-        distance = "heldout_residuals"
-    elif tracked:
-        readiness = "ready_for_broader_breadth"
-        distance = "breadth_and_residual_tracking"
-    else:
-        readiness = "ready_for_broader_breadth"
-        distance = "breadth_only"
-    return {
-        "promotion_readiness": readiness,
-        "distance": distance,
-        "blockers": blockers,
-        "tracked_residuals": tracked,
-        "heldout_clean": heldout_clean,
-    }
-
-
-def _decision_from_gate_and_leverage(
-    *, quality_gate: Mapping[str, object], leverage: Mapping[str, object]
-) -> str:
-    if _as_sequence(quality_gate.get("blockers")):
-        return "fix_blocking_failure_classes"
-    if not bool(quality_gate.get("heldout_clean")):
-        return "mine_heldout_failure_clusters"
-    if str(leverage.get("manual_overfit_risk") or "") in {"medium", "high"}:
-        return "seed_pass_expand_inventory"
-    return "scale_candidate"
-
-
-def _next_steps(
-    *, decision: str, quality_gate: Mapping[str, object], leverage: Mapping[str, object]
-) -> list[str]:
-    if decision == "fix_blocking_failure_classes":
-        return [
-            "resolve blocking semantic-risk classes before claiming source expansion",
-            "rerun admission, held-out validation, margin sweep, and this mining harness",
-            "only expand breadth after harmful replacements and semantic contract gaps are clean",
-        ]
-    if decision == "mine_heldout_failure_clusters":
-        return [
-            "cluster held-out failures by family token, relation type, and source evidence mode",
-            "test a no-spend source-mode or margin-policy sweep before adding manual cases",
-            "promote only rules that improve multiple cases or families without adding harmful replacements",
-        ]
-    if decision == "seed_pass_expand_inventory":
-        return [
-            "build automatic non-v10 inventory candidate generation instead of tuning this small slice further",
-            "run WordNet definition-preferred extraction across the expanded inventory and rerun admission",
-            "use this mining report to separate reusable failure clusters from one-off manual cases",
-            "keep phrase containment as a tracked residual lane until source data or policy exists for it",
-        ]
-    return [
-        "promote the candidate to the next breadth tier",
-        "freeze the current evidence manifest and compare future deltas against it",
-        "raise broad-family and broad-case thresholds before considering runtime publication",
-    ]
-
-
-def _manual_overfit_risk(
-    *,
-    family_gap: int,
-    case_gap: int,
-    heldout: Mapping[str, object],
-    primary_admission: Mapping[str, object],
-    false_abstain_delta: int,
-    sense_reject_delta: int,
-) -> dict[str, object]:
-    reasons: list[str] = []
-    signals: list[str] = []
-    risk = "low"
-    if family_gap > 0:
-        reasons.append("family_inventory_below_broad_threshold")
-        risk = "medium"
-    if case_gap > 0:
-        reasons.append("heldout_cases_below_broad_threshold")
-        risk = "medium"
-    if int(primary_admission.get("seed_false_abstain_count") or 0) > 0:
-        reasons.append("seed_ablation_false_abstains_remain")
-    if len(_as_sequence(primary_admission.get("phrase_gap_family_keys"))) > 0:
-        reasons.append("phrase_contract_not_yet_sourced")
-    if int(heldout.get("harmful_replace_count") or 0) == 0:
-        signals.append("no_heldout_harmful_replacements")
-    if int(heldout.get("false_abstain_count") or 0) == 0:
-        signals.append("no_heldout_false_abstains")
-    if false_abstain_delta < 0:
-        signals.append("source_mode_reduced_seed_false_abstains")
-    if sense_reject_delta < 0:
-        signals.append("source_mode_reduced_sense_rejects")
-    if not signals and reasons:
-        risk = "high"
-    return {"risk": risk, "reasons": reasons, "signals": signals}
 
 
 def main() -> int:

@@ -7,7 +7,7 @@ Purpose:
 - Make new language-pair support easier to extend without rediscovering `en-es` by code spelunking.
 - Define the benchmark/probe workflow used to justify pair-level ranking changes.
 Last updated: 2026-04-04
-Last verified: 2026-04-04 against `core/lexishift_core/rulegen/`, `scripts/testing/`, and latest `en-de` / `en-es` benchmark artifacts
+Last verified: 2026-05-14 Lane 1 reverse-check authority pass against `feature_state_matrix.md`, `reverse_check_rollout_matrix.md`, `en_de_workstream_roadmap.md`, adapter/probe code references, and exact doc references; benchmark artifacts were not rerun
 Source-of-truth: current rulegen support reference; implementation truth lives in source code and generated benchmark artifacts
 Verification:
 - `core/lexishift_core/rulegen/adapters.py`
@@ -105,7 +105,7 @@ Use this table when evaluating a pair.
 | Variants | Yes | Yes | Yes | Pair-specific morphology behavior still differs. |
 | Exact phrase-level demotion overrides | Yes | Opt-in | Opt-in | Default-off for canonical benchmarks. |
 | Source-side commonness / frequency prior | Yes | No | Experimental | `en-de` now has a default-off source-frequency prior backed by an English frequency DB; current evidence improves top3 recovery more than top1 cleanup. |
-| Reverse-check | Yes | Yes | No | `en-de` sweep exposes knobs but adapter/pair do not consume them yet. |
+| Reverse-check | Yes | Default-off; benchmarked for `en-es` | Default-off; wired/probe-supported for `en-de` | `en-es` has the named reverse lane; `en-de` consumes reverse metadata and ranking config, but its canonical advisory/latest lanes keep `rev=off` and no promoted reverse lane exists. |
 | Kaikki live demotion | Yes | Yes | Experimental | `en-de` now consumes default-off Kaikki risk-family live demotion when the translation source is a Wiktionary/Kaikki-style SQLite with metadata. |
 | Kaikki risk-family controls | Yes | Yes | Experimental | Same as above; the sweep knobs are now live for `en-de` when Kaikki metadata is present. |
 | Late-sense competition penalty | Yes | Yes | Experimental | `en-de` now has a minimal Kaikki-backed late-sense penalty path, but no committed Kaikki benchmark lane yet. |
@@ -116,6 +116,13 @@ Important operational rule:
 
 - A sweep knob only matters if the pair actually consumes that mechanism.
 - Do not interpret low-sensitivity sweeps as "weights are done" when half the knobs are inert for the pair.
+
+Reverse-check cleanup note:
+
+- `docs/rulegen/reverse_check_rollout_matrix.md` owns the current pair rollout
+  state.
+- The dated `en-es` reverse-check review docs are archive evidence under
+  `docs/archive/rulegen/`, not current policy docs.
 
 ## Benchmark Artifacts: What Is Saved
 

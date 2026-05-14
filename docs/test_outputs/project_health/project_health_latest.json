@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-04-19T03:30:34.754Z",
+  "generated_at_utc": "2026-05-14T19:12:47.676Z",
   "repo_root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "options": {
     "advisory": true,
@@ -14,7 +14,7 @@
     "enforce_all": false
   },
   "summary": {
-    "files_checked": 451,
+    "files_checked": 693,
     "violations": 0,
     "warnings": 0,
     "changed_only": false,

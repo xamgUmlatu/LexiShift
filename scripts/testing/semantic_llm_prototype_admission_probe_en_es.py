@@ -2,8 +2,6 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
-import json
 from pathlib import Path
 import sys
 from types import SimpleNamespace
@@ -57,6 +55,15 @@ from semantic_llm_prototype_admission_config import (  # noqa: E402
     DEFAULT_PHRASE_PROTOTYPE_MARGIN,
     PROTOTYPE_CONFIGS,
     phrase_preemption_should_apply,
+)
+from semantic_llm_prototype_admission_probe_support import (  # noqa: E402
+    _config_label,
+    _prototype_source_label,
+    _round_float,
+    _source_shape,
+    _unique_texts,
+    _utc_now,
+    _write_json,
 )
 from semantic_reverse_aux_text_pilot_en_es import build_queue_subset_dataset  # noqa: E402
 from semantic_routing_sentence_veto_helpers import (  # noqa: E402
@@ -150,9 +157,7 @@ def build_prototype_admission_report(
     generated_at: str | None = None,
 ) -> dict[str, object]:
     if generated_at is None:
-        generated_at = (
-            datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
-        )
+        generated_at = _utc_now()
     if all_dataset_families:
         subset_dataset = _all_family_dataset(dataset_payload)
         effective_queue = _all_family_queue_payload(dataset_payload, generated_at=generated_at)
@@ -756,41 +761,6 @@ def _classify_gold_winner_type(gold_winner: str, *, active_sense_id: str) -> str
     return "shadow"
 
 
-def _config_label(label: str, prototype_source_label: str) -> str:
-    source_label = str(prototype_source_label or "").strip() or "reviewed examples"
-    return str(label).replace("reviewed examples", source_label)
-
-
-def _prototype_source_label(evidence_source_id: str) -> str:
-    source_id = str(evidence_source_id or "").strip()
-    if not source_id or source_id == "reviewed_sentence_veto_example_frames":
-        return "reviewed examples"
-    return source_id
-
-
-def _source_shape(evidence_source_id: str) -> str:
-    source_id = str(evidence_source_id or "").strip()
-    if source_id:
-        return f"{source_id}_as_per_sense_prototypes"
-    return "reviewed_sentence_veto_examples_as_per_sense_prototypes"
-
-
-def _round_float(value: object) -> float:
-    try:
-        return round(float(value), 4)
-    except (TypeError, ValueError):
-        return 0.0
-
-
-def _unique_texts(values: Sequence[str]) -> list[str]:
-    texts: list[str] = []
-    for value in values:
-        text = str(value or "").strip()
-        if text and text not in texts:
-            texts.append(text)
-    return texts
-
-
 def main() -> int:
     args = _parse_args()
     queue_payload = _load_json(args.queue_json)
@@ -811,10 +781,7 @@ def main() -> int:
         window_tokens=max(0, int(args.window_tokens)),
         mask_token=str(args.mask_token or "").strip() or DEFAULT_SENTENCE_VETO_MASK_TOKEN,
     )
-    args.json_out.parent.mkdir(parents=True, exist_ok=True)
-    args.json_out.write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
+    _write_json(args.json_out, report)
     args.markdown_out.parent.mkdir(parents=True, exist_ok=True)
     args.markdown_out.write_text(render_prototype_admission_markdown(report), encoding="utf-8")
     print(f"Wrote JSON artifact to {args.json_out}")

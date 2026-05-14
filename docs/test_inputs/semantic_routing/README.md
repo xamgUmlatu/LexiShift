@@ -1,7 +1,11 @@
 # Semantic Routing Schema References
 
 Status: mixed current plus offline-intake staging
-Role: schema reference for shipped semantic-routing seams plus planning/research semantic-routing surfaces
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 role-normalization pass; schema files were not revalidated
+Purpose: explain why this semantic-routing schema directory intentionally contains both shipped seams and planning/research surfaces
+Source-of-truth: directory guide only; schema truth lives in the JSON schema files, runtime code, tests, and canonical semantic-routing docs.
 
 This directory is mixed on purpose.
 

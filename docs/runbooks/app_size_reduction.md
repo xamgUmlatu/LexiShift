@@ -1,5 +1,12 @@
 # LexiShift App Size Reduction Notes
 
+Status: active notes
+Role: Planning / WIP
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; size measurements not rerun
+Purpose: preserve practical packaging-size reduction ideas and measurement commands for future build optimization work
+Source-of-truth: planning notes only; current package/build truth lives in build scripts, release runbooks, and fresh size measurements.
+
 ## Scope
 This document captures practical ways to reduce installed app size for the macOS desktop build.
 

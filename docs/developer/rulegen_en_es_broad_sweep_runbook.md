@@ -1,7 +1,7 @@
 # `en-es` Broad Sweep Runbook
 
 Status: active experiment runbook
-Role: practical sweep execution guide
+Role: Runbook / operational
 Purpose: Define the staged `en-es` broad-sweep order, named presets, and artifact/output discipline for the first large PC-side sweep pass.
 Last updated: 2026-03-28
 Last verified: 2026-03-28

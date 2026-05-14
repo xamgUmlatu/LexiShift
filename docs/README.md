@@ -2,8 +2,8 @@
 
 Status: active docs routing
 Role: Canonical current
-Last updated: 2026-04-16
-Last verified: 2026-04-16 docs-routing audit
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 2 semantic sentence-veto/generalization splits and validation
 Purpose: route contributors to the current documentation surfaces before planning, archive, or generated evidence
 Source-of-truth: routing guide only; defer implementation truth to source code, `developer/feature_state_matrix.md`, and linked domain docs.
 
@@ -28,9 +28,10 @@ If you need to understand how the extension works end-to-end, read in this order
 
 If you need SRS/core behavior next:
 
-1. `architecture/srs_lp_architecture.md`
-2. `srs/srs_schema.md`
-3. `srs/srs_set_planning_technical.md`
+1. `srs/README.md`
+2. `architecture/srs_lp_architecture.md`
+3. `srs/srs_schema.md`
+4. `srs/srs_set_planning_technical.md`
 
 ## Current Routing And References
 
@@ -56,7 +57,9 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Documentation grooming handoff: `developer/documentation_grooming_workstream.md`
 - Project integrity stabilization backlog: `developer/project_integrity_stabilization_backlog.md`
 - Project health remediation workstream: `developer/project_health_remediation_workstream.md`
+- Productization Lane 2 code disposition inventory: `developer/productization_lane2_code_disposition_inventory.md`
 - Windows GUI parity workstream: `developer/windows_gui_parity_workstream.md`
+- GUI docs authority map: `gui/README.md`
 - GUI app fix workstream: `gui/gui_app_fix_workstream.md`
 - GUI UX decision log: `gui/gui_ux_decisions.md`
 - Diagram workplan (all six core diagrams): `architecture/design_diagram_workplan.md`
@@ -65,6 +68,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 ## Folders
 
 - `architecture/`: system and extension architecture, integration design, and implementation plans.
+- `archive/`: historical or superseded docs retained after current-truth value is routed elsewhere.
 - `developer/`: developer setup, build/release workflows, and resume checklist.
 - `handbook/`: GitHub Pages-friendly handbook entrypoints (developer, architecture, release, diagrams).
 - `gui/`: desktop GUI UX workstreams, fix plans, and implementation notes.
@@ -85,8 +89,11 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Options architecture: `architecture/options_controllers_architecture.md`
 - Popup module architecture (mixed current + target): `architecture/popup_modules_pattern.md`
 - Diagram status tracker + files: `architecture/diagrams/README.md`
+- SRS docs authority map: `srs/README.md`
 - SRS roadmap: `srs/srs_roadmap.md`
+- Language-pair docs authority map: `language_pairs/README.md`
 - Rulegen technical design: `rulegen/rule_generation_technical.md`
+- Semantic/rulegen authority map: `rulegen/semantic_rulegen_authority_map.md`
 - Rulegen LP onboarding operating model: `rulegen/lp_onboarding_operating_model.md`
 - Rulegen LP onboarding checklist template: `rulegen/lp_onboarding_checklist_template.md`
 - Rulegen LP support guide (mechanism stack + LP bring-up): `rulegen/rulegen_lp_support_guide.md`

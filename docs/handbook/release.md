@@ -3,6 +3,15 @@ layout: default
 title: Release Guide
 ---
 
+<!--
+Status: active Pages release guide
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; release commands not rerun
+Purpose: provide a concise Pages guide for packaging, installer validation, and Chrome Web Store readiness checks
+Source-of-truth: user-facing release guide only; current build/release truth lives in build scripts, CWS runbooks, preflight outputs, and feature-state evidence.
+-->
+
 # Release Guide
 
 This page is the concise release flow for packaging and Chrome Web Store readiness.

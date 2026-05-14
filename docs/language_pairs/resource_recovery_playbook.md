@@ -1,7 +1,10 @@
 # Resource Recovery Playbook (Frequency + Dictionary Baseline)
 
-Status: Phase 0 baseline playbook  
+Status: active recovery playbook
+Role: Runbook / operational
 Last updated: 2026-02-22
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; recovery commands not rerun
+Source-of-truth: operational recovery playbook; current resource requirements and executable truth live in LP resource docs, capability/resource code, audit scripts, and generated audit outputs.
 
 ## Purpose
 

@@ -1,5 +1,11 @@
 # Extension LP Generalization Checklist
 
+Status: active mixed rollout checklist
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; checklist claims not re-audited
+Source-of-truth: mixed rollout checklist; current implementation truth lives in `docs/architecture/srs_lp_architecture.md`, helper/SRS/rulegen code, tests, and `docs/developer/feature_state_matrix.md`.
+
 Purpose:
 - Generalize SRS behavior for the Chrome extension so it works with the selected LP (Language Pair), not just `en-ja`.
 - Keep scope limited to extension + helper + core SRS/rulegen paths.

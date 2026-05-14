@@ -1,6 +1,10 @@
 # Semantic Veto Current Wave6 Rerun Chain
 
+Status: active rerun runbook
+Role: Runbook / operational
+Last updated: 2026-05-14
 Last verified: 2026-04-30
+Source-of-truth: rerun runbook only; current semantic-veto policy truth lives in code, generated artifacts, registry summaries, and canonical semantic-veto docs.
 
 This runbook rebuilds the current `wave6_auth_frame_raw_sentence_surface_pos_rescue`
 research lane from tracked inputs. It does not promote a runtime policy.

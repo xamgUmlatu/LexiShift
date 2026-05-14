@@ -1,5 +1,12 @@
 # LexiShift JSON Schemas
 
+Status: active reference
+Role: Canonical current
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; schema content not re-audited
+Purpose: describe JSON structures LexiShift reads and writes across rulesets, settings, resources, and semantic-routing seams
+Source-of-truth: schema reference; implementation truth still lives in source code, tests, and dedicated schema files where present.
+
 This document describes the JSON formats LexiShift reads/writes today. All fields are ASCII and lowercase in JSON.
 
 ## 1) Ruleset (VocabDataset)

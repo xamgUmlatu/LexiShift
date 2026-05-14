@@ -1,5 +1,12 @@
 # LexiShift Glossary
 
+Status: active reference
+Role: Canonical current
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; glossary content not re-audited
+Purpose: define shared LexiShift terms used across docs, code comments, and generated evidence
+Source-of-truth: terminology reference only; runtime behavior still verifies in source code, tests, and `docs/developer/feature_state_matrix.md`.
+
 This glossary defines the major concepts, data objects, and workflows used across the LexiShift ecosystem (GUI app, Chrome extension, BetterDiscord plugin, and core engine).
 
 ## Core Entities

@@ -1,5 +1,11 @@
 # Semantic LLM Generation Budget Reference
 
+Status: active planning reference
+Role: Planning / WIP
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 semantic authority note; pricing was not re-checked
+Source-of-truth: budget planning reference only; before live spend, re-check current provider pricing and pass explicit rates to the run harness.
+
 Purpose: keep the token and cost arithmetic for semantic-veto LLM generation in one
 small reference so future paid batches can be priced before they run and reconciled
 after they finish.

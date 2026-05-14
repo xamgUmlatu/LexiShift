@@ -1,5 +1,12 @@
 # Helper Tray + Native Messaging Debug Summary (for external review)
 
+Status: review-required debug summary
+Role: Planning / WIP
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization; helper behavior not re-audited
+Purpose: preserve a historical helper-tray and native-messaging debug packet for external review or future diagnosis
+Source-of-truth: debug summary only; current helper/runtime truth lives in source code, tests, logs, and `docs/developer/feature_state_matrix.md`.
+
 This document summarizes the current issues, observed logs, and build/runtime behaviors for the LexiShift helper tray + native messaging integration. It is intended for a fresh external review.
 
 ## Scope / Components

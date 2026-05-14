@@ -1,7 +1,7 @@
 # Data Source Normalization Architecture
 
 Status: active planning doc with first executable slice
-Role: architecture target / implementation plan
+Role: Planning / WIP
 Purpose: define the final desired architecture for installed language/data packs so rulegen, helper, and benchmark code consume a normalized contract instead of provider-specific raw files.
 Last updated: 2026-04-19
 Last verified: 2026-04-03 helper/gui path and manifest slice plus manifest-backed translation pack refs, helper/journey-installed translation-pack seam cleanup, the first frequency pack-ref/runtime-diagnostics seam, the first embedding pack-id activation/runtime-resolution seam, and the internal helper translation-dictionary seam cleanup

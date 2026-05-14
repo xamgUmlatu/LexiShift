@@ -1,0 +1,50 @@
+# en-es SRS Corpus Expansion Audit
+
+- Status: `review`
+- Decision: `srs_corpus_expansion_candidates_audited`
+- Generated: `2026-05-14T01:42:09.478329+00:00`
+- Candidate DBs: `1`
+- Current candidate unique lemmas: `1984`
+- Largest candidate unique lemmas: `1984`
+- Candidate reaching 5k: `False`
+- Candidate reaching 10k: `False`
+
+## Why This Exists
+
+Compare possible Spanish learner-corpus/frequency-pack sources before expanding SRS admission, rulegen denominator, or semantic-veto generation.
+
+This is a source-readiness audit. It does not change SRS admission, rulegen, semantic-veto evidence, runtime policy, or paid generation.
+
+## Candidate Summary
+
+| Candidate | Status | Unique Lemmas | Rows | Rank | Frequency | POS Share | Topic Share | Issues |
+| --- | --- | ---: | ---: | --- | --- | ---: | ---: | --- |
+| `current_bridge_frequency_db` | `review` | 1984 | 2000 | `id` | `freq` | 100.0% | 0.0% | `below_smallest_target_size:2000`, `below_5000_distinct_lemmas`, `missing_or_empty_topic_domain_metadata` |
+
+## Target Readiness
+
+| Candidate | Target | Reaches Target | Shortfall | Available Share |
+| --- | ---: | --- | ---: | ---: |
+| `current_bridge_frequency_db` | 2000 | `False` | 16 | 99.2% |
+| `current_bridge_frequency_db` | 5000 | `False` | 3016 | 39.7% |
+| `current_bridge_frequency_db` | 10000 | `False` | 8016 | 19.8% |
+
+## Candidate Source Research Matrix
+
+| Source Family | What It Could Improve | Main Risk | First Check |
+| --- | --- | --- | --- |
+| Recovered or rebuilt Spanish 20k frequency list | Fastest path if it preserves the current pack's ordering semantics. | May still lack topic/domain metadata and license/provenance clarity. | Confirm provenance, row count, POS coverage, and pack schema. |
+| General frequency corpus | Broad 5k-10k coverage for ordinary browsing and SRS. | Frequency alone may overvalue function words or weak learner targets. | Measure lemma/POS quality and compare overlap with current 2k. |
+| Learner-level or CEFR-style list | Better alignment with staged learner progression. | May be smaller, licensed restrictively, or missing frequency values. | Check level coverage and mergeability with frequency ranks. |
+| Dictionary-derived lemma expansion | Large coverage without waiting for a frequency source. | No natural ranking; may admit obscure or awkward lemmas. | Require rank backfill, POS validation, and exclusion filters. |
+| Domain/topic overlays | Makes user preference SRS useful for medicine, law, travel, etc. | Domain value is high but general-frequency comparability is weak. | Keep source/domain tags and blend as an overlay, not a replacement. |
+| Hybrid base-frequency plus overlays | Most product-aligned path: general coverage plus user-specific depth. | Merge policy can hide provenance and duplicate lemmas if not audited. | Version the merged pack and audit per-source contribution. |
+
+## Recommended Next Steps
+
+1. Keep the current 2k frequency pack frozen as the baseline denominator.
+2. Recover or recreate the apparent Spanish 20k source before choosing a new corpus source.
+3. Run this audit on every candidate SQLite pack and compare row count, unique lemmas, POS coverage, and topic/domain coverage.
+4. Treat topic/domain metadata as a second-track requirement: absence should not block a 5k general expansion, but it must be visible before claiming profile-personalized coverage.
+5. Do not start another paid semantic-veto generation wave until a larger learner-corpus source is installed or linked.
+6. After selecting a candidate source, rerun the SRS Zipf bridge with full rulegen and then refresh the semantic-veto denominator audit.

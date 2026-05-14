@@ -1,6 +1,11 @@
 # GUI App Fix Workstream
 
+Status: review-required workstream
+Role: Planning / WIP
 Last updated: 2026-02-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus spot-check of referenced GUI seams; workstream content not re-audited
+Purpose: preserve the GUI fix plan, accepted progress snapshot, and remaining UX/state-management cleanup queue
+Source-of-truth: planning workstream only; current GUI behavior lives in `apps/gui/src/`, `apps/gui/tests/`, and `docs/developer/feature_state_matrix.md`.
 
 ## Context
 

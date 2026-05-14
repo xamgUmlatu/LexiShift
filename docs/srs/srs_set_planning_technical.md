@@ -1,5 +1,12 @@
 # SRS Set Planning Technical Notes
 
+Status: active mixed technical reference
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; set-planning content not fully re-audited
+Purpose: document current SRS planning modules, helper APIs, sizing policy, strategy status, and planned follow-through
+Source-of-truth: mixed technical reference; current planning/mutation truth lives in SRS planner/policy code, helper use cases, and SRS harness/tests.
+
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
 

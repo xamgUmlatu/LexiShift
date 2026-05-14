@@ -13,6 +13,9 @@ TEXT_NODE_PROCESSOR_JS = (
 SEMANTIC_CONTEXT_JS = (
     PROJECT_ROOT / "apps/chrome-extension/content/runtime/dom_scan/semantic_context.js"
 )
+SEMANTIC_CONTEXT_SUPPORT_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/content/runtime/dom_scan/semantic_context_support.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -40,6 +43,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const semanticContextPath = {json.dumps(str(SEMANTIC_CONTEXT_JS))};
+const semanticContextSupportPath = {json.dumps(str(SEMANTIC_CONTEXT_SUPPORT_JS))};
 const modulePath = {json.dumps(str(TEXT_NODE_PROCESSOR_JS))};
 const context = vm.createContext({{
   console,
@@ -51,6 +55,7 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(semanticContextSupportPath, "utf8"), context, {{ filename: semanticContextSupportPath }});
 vm.runInContext(fs.readFileSync(semanticContextPath, "utf8"), context, {{ filename: semanticContextPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -148,6 +153,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const semanticContextPath = {json.dumps(str(SEMANTIC_CONTEXT_JS))};
+const semanticContextSupportPath = {json.dumps(str(SEMANTIC_CONTEXT_SUPPORT_JS))};
 const modulePath = {json.dumps(str(TEXT_NODE_PROCESSOR_JS))};
 const context = vm.createContext({{
   console,
@@ -159,6 +165,7 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(semanticContextSupportPath, "utf8"), context, {{ filename: semanticContextSupportPath }});
 vm.runInContext(fs.readFileSync(semanticContextPath, "utf8"), context, {{ filename: semanticContextPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -244,6 +251,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const semanticContextPath = {json.dumps(str(SEMANTIC_CONTEXT_JS))};
+const semanticContextSupportPath = {json.dumps(str(SEMANTIC_CONTEXT_SUPPORT_JS))};
 const context = vm.createContext({{
   console,
   WeakMap,
@@ -254,6 +262,7 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(semanticContextSupportPath, "utf8"), context, {{ filename: semanticContextSupportPath }});
 vm.runInContext(fs.readFileSync(semanticContextPath, "utf8"), context, {{ filename: semanticContextPath }});
 
 function textNode(value) {{
@@ -371,6 +380,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const semanticContextPath = {json.dumps(str(SEMANTIC_CONTEXT_JS))};
+const semanticContextSupportPath = {json.dumps(str(SEMANTIC_CONTEXT_SUPPORT_JS))};
 const context = vm.createContext({{
   console,
   WeakMap,
@@ -381,6 +391,7 @@ const context = vm.createContext({{
 }});
 context.globalThis = context;
 context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(semanticContextSupportPath, "utf8"), context, {{ filename: semanticContextSupportPath }});
 vm.runInContext(fs.readFileSync(semanticContextPath, "utf8"), context, {{ filename: semanticContextPath }});
 
 function textNode(value) {{

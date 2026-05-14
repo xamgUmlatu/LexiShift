@@ -1,7 +1,7 @@
 # Language Pair Generalization Roadmap
 
 Status: active planning doc
-Role: roadmap / sequencing
+Role: Planning / WIP
 Purpose: Define the recommended order for generalizing the current `en-es`-optimized rulegen and benchmark stack so it can support additional language pairs and additional data-source families without duplicating pair-specific infrastructure.
 Last updated: 2026-04-03
 Last verified: 2026-04-03

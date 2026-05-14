@@ -1,5 +1,12 @@
 # SRS Schema (Current + Planned)
 
+Status: active mixed schema reference
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; schema content not fully re-audited
+Purpose: separate implemented SRS settings/store/signal shapes from planned extension fields
+Source-of-truth: mixed schema reference; current persisted-shape truth lives in SRS store/settings code, helper use cases, and SRS tests.
+
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
 

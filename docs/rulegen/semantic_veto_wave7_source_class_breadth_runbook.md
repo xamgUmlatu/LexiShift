@@ -1,7 +1,7 @@
 # Semantic Veto Wave7 Source-Class Breadth Runbook
 
 Status: current reference
-Role: Execution setup / runbook
+Role: Runbook / operational
 Last updated: 2026-05-01
 Gate: `wave7_source_class_breadth_v1`
 

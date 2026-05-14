@@ -1,7 +1,7 @@
 # Semantic Decision Rule Comparison Plan
 
 Status: active plan with first offline matrix implemented
-Role: Testing design / decision-rule backlog
+Role: Planning / WIP
 Purpose: compare the final semantic-veto YES/NO decision algorithms without confusing them with source-coverage work
 Last updated: 2026-04-29
 Source-of-truth: planning doc plus `scripts/testing/semantic_decision_rule_matrix_en_es.py` and generated `docs/test_outputs/semantic_decision_*_en_es_latest.*` artifacts

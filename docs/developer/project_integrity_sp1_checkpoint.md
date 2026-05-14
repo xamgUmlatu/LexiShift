@@ -1,7 +1,7 @@
 # SP1 Checkpoint
 
 Status: active checkpoint
-Role: Summary / checkpoint
+Role: Mixed
 Last updated: 2026-04-18
 Last verified: 2026-04-18 after `SP1.8` validation and commit
 Purpose: summarize what the `SP1` secondary-pass track covered, what it fixed, what it verified, and what still remains before treating the track as effectively complete

@@ -1,10 +1,15 @@
 # GUI UX Decision Log
 
+Status: active decision log
+Role: Draft decision log
 Last updated: 2026-02-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus spot-check of referenced GUI tests; decision content not re-audited
+Purpose: preserve accepted GUI UX and interaction decisions with rationale and implementation references
+Source-of-truth: decision rationale log only; current behavior lives in GUI source, tests, and feature-state evidence.
 
 ## Purpose
 
-This log tracks accepted UX and interaction decisions for the experimental GUI overhaul.  
+This log tracks accepted UX and interaction decisions for the experimental GUI overhaul.
 When implementation changes quickly, this file is the source of truth for why a behavior exists.
 
 ## Decision Rules

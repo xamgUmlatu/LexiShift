@@ -1,5 +1,12 @@
 # SRS Profile Schema (Draft v3)
 
+Status: active mixed schema reference
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; schema content not fully re-audited
+Purpose: describe the current SRS profile signal shapes, helper profile context, and sizing fields while preserving planned schema context
+Source-of-truth: mixed schema reference; executable truth lives in extension SRS profile/settings code, helper SRS planning code, and focused profile-schema tests.
+
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
 - `docs/srs/srs_set_planning_technical.md`

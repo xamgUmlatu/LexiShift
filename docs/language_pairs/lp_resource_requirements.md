@@ -1,5 +1,11 @@
 # LP Resource Requirements Matrix
 
+Status: active mixed requirements matrix
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; LP requirement claims not fully re-audited
+Source-of-truth: mixed LP requirements matrix; current implementation truth lives in LP capability/resource code, rulegen/SRS code, tests, and regenerated resource/POS audits.
+
 Purpose:
 - List all known LPs (Language Pairs).
 - Separate resource classes (translation dictionary, synonym dictionary, frequency DB, stopwords).

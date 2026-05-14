@@ -1,7 +1,10 @@
 # POS Source And Pipeline Reference
 
 Status: active reference for POS behavior across SRS, rulegen, converters, and audits.
+Role: Canonical current
 Last updated: 2026-03-22
+Last verified: 2026-05-14 metadata-only Lane 1 language-pair authority note; POS claims not fully re-audited
+Source-of-truth: POS source and pipeline reference; executable truth remains in POS normalization, SRS admission, rulegen, converter code, tests, and generated POS audits.
 
 ## Purpose
 

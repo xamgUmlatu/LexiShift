@@ -1,7 +1,7 @@
 # Rulegen Test Pipeline
 
 Status: active architecture guide
-Role: high-level workflow / black-box contract
+Role: Mixed
 Purpose: Describe the end-to-end rulegen test pipeline as broad stages, canonical artifacts, and skip conditions, separate from the lower-level optimization details.
 Last updated: 2026-03-28
 Last verified: 2026-03-28

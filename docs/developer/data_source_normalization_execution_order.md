@@ -1,7 +1,7 @@
 # Data Source Normalization Execution Order
 
 Status: active execution roadmap
-Role: ordered implementation plan
+Role: Planning / WIP
 Purpose: turn the normalization architecture target into an explicit, resumable sequence of remaining work.
 Last updated: 2026-04-16
 Last verified: 2026-04-16 code/doc review after benchmark translation/source-frequency resource-identity cleanup plus embedding settings-panel managed/manual split cleanup

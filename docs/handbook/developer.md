@@ -3,6 +3,15 @@ layout: default
 title: Developer Workflow
 ---
 
+<!--
+Status: active Pages workflow guide
+Role: Runbook / operational
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; commands not rerun
+Purpose: provide a concise contributor-facing workflow page for setup, validation, build safety, and local Pages preview
+Source-of-truth: user-facing workflow guide only; canonical developer routing and current verification policy live in `docs/developer/README.md`, `docs/developer/developer_reference.md`, and `docs/developer/feature_state_matrix.md`.
+-->
+
 # Developer Workflow
 
 This page is the quick daily loop for LexiShift contributors.

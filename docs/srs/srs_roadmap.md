@@ -1,8 +1,24 @@
 # SRS Roadmap (Set S + Practice Layer)
 
+Status: active mixed roadmap
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-15 Lane 1 SRS authority-map routing update; roadmap claims not fully re-audited
+Purpose: preserve the SRS current-state snapshot, remaining E2E gaps, and roadmap workstreams
+Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/extension code, SRS harnesses, and `docs/developer/feature_state_matrix.md`.
+
 Related design:
+- `docs/srs/README.md`
 - `docs/srs/srs_hybrid_model_technical.md`
 - `docs/architecture/srs_lp_architecture.md`
+
+Routing note:
+- use `docs/srs/README.md` to decide which SRS doc owns a claim before
+  editing or archiving SRS docs
+- use `docs/developer/feature_state_matrix.md` for implemented/default-on/
+  verified status
+- treat this roadmap as mixed current snapshot plus planned work, not as proof
+  that a behavior is shipped
 
 ## Goal
 Ship a non-destructive SRS layer where:

@@ -1,7 +1,7 @@
 # Semantic Veto Denominator Current State
 
 Status: active reference
-Role: Current-state explanation
+Role: Canonical current
 Last updated: 2026-05-14
 Last verified: 2026-05-14 against `docs/test_outputs/semantic_veto_denominator_audit_en_es_latest.md`
 Purpose: keep the active-only semantic-veto denominator understandable before product cleanup or future corpus expansion
@@ -75,6 +75,11 @@ The main levers are:
    currently excluded weak or no-visible mappings.
 4. Generate shadow or phrase/no-winner data only for already covered families
    where active-only evidence leaves clear harmful-replacement classes.
+
+The corpus-expansion decision path is tracked in
+`docs/rulegen/semantic_veto_srs_corpus_expansion_plan.md`. Use that plan and
+`scripts/testing/semantic_veto_srs_corpus_expansion_audit_en_es.py` before
+choosing a new 5k-10k Spanish source or running more paid generation.
 
 ## Product Posture
 

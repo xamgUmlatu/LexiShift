@@ -1,5 +1,11 @@
 # Reverse-Check EN-ES Case Review (2026-03-13)
 
+Status: dated reverse-check evidence snapshot
+Role: Archive / legacy
+Last updated: 2026-03-13
+Last verified: 2026-05-14 metadata-only Lane 1 rulegen authority note; case-review evidence not rerun
+Source-of-truth: historical reverse-check review evidence only; current rulegen status lives in code, benchmark/gate/triage artifacts, and `docs/developer/feature_state_matrix.md`.
+
 Purpose:
 - record the first reverse-check-focused `en-es` benchmark expansion slice
 - keep the proposed Green / Gray / Red intent explicit for manual review
@@ -38,7 +44,7 @@ Artifacts:
 ## Second Expansion
 
 - A second, more aggressive `en-es` expansion pass added 14 more cases.
-- Review artifact: `docs/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
+- Review artifact: `docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`
 - The `en-es` benchmark slice now totals 38 cases before the next tuning pass.
 
 ## Notes

@@ -1,5 +1,12 @@
 # Rulegen Benchmark Cases
 
+Status: active dataset guide
+Role: Canonical current
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 auxiliary README note; benchmark cases were not revalidated
+Purpose: document the LP-specific benchmark-case directory and authoring rules for rulegen benchmark labels
+Source-of-truth: directory guide plus LP-specific JSON files; current quality state remains in benchmark/gate/triage artifacts and `docs/developer/feature_state_matrix.md`.
+
 Source-of-truth benchmark labels now live in LP-specific JSON files in this directory.
 
 - `en_de.json`

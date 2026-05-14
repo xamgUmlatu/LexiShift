@@ -1,7 +1,7 @@
 # Semantic Routing Data Update Lifecycle
 
 Status: active plan
-Role: Planning / operational
+Role: Planning / WIP
 Last updated: 2026-05-14
 Last verified: 2026-05-14 helper CLI/native-host semantic-pack installer tests, named-pack resolver tests, default tranche-011 dev pack, and disposable product-root install smoke
 Purpose: define the update process for semantic-routing data so LexiShift can add mined, manual, and later LLM-derived evidence without creating awkward runtime coupling, redundant storage, or unsafe publication flow

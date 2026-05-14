@@ -1,5 +1,12 @@
 # SRS Practice Layer — Design (Current + Target)
 
+Status: active mixed design
+Role: Mixed
+Last updated: 2026-05-14
+Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; practice-layer content not fully re-audited
+Purpose: explain how SRS practice gating fits into runtime replacement behavior while keeping current due-only publication gaps explicit
+Source-of-truth: mixed design reference; current runtime truth lives in helper publication code, extension SRS gate code, SRS quality/journey harnesses, and feature-state evidence.
+
 Canonical hybrid-model details:
 - `docs/srs/srs_hybrid_model_technical.md`
 

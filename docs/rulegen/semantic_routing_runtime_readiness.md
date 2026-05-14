@@ -2,8 +2,8 @@
 
 Status: active mixed readiness
 Role: Mixed
-Last updated: 2026-04-24
-Last verified: 2026-04-24 runtime-eval truth pass against the current `v10` fixed-shadow artifacts, held-out bound, phrase-leak probe, queue-review note, and canonical state docs
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 3 feature-state truth pass against the capability-gated runtime, named semantic pack installer, runtime decision-policy code, and current feature-state matrix
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -144,7 +144,7 @@ Current operational boundaries:
 What the shipped gate is not:
 
 - not a broad shadow-mined semantic runtime
-- not a default-on feature
+- not generally active without a capable local SRS publication and semantic inventory
 - not a rendered soft-affordance UX yet
 - not proof that automatic blocker discovery is rollout-ready
 
