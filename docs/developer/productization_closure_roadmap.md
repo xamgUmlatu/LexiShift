@@ -253,6 +253,11 @@ Current Lane 3 progress:
   distribution. It also keeps due-serving, runtime confidence filtering,
   debug semantic overrides, non-rendered `soft_affordance`, and debug-gated
   runtime diagnostics as separate status claims.
+- L3-F now records the packaging/platform parity truth pass. No feature-state
+  status change was needed: `check` remains the default repo-safety gate,
+  `build`/`build:report` remain build contracts, hosted Ubuntu
+  `build:ci:report` remains a partial non-GUI lane, and Windows parity remains
+  a required evidence gate rather than full release certification.
 
 ### Lane 4: Verification Gate Consolidation
 

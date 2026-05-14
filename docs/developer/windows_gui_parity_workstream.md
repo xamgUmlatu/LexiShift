@@ -2,8 +2,8 @@
 
 Status: active parity workstream
 Role: Planning / WIP
-Last updated: 2026-03-17
-Last verified: 2026-03-17 parity-command inventory review + feature-state check
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 3 packaging/platform parity truth pass, Windows parity audit, parity summary render, focused workflow/build/parity tests, doc-reference check, state check, and diff hygiene
 Purpose: track remaining Windows parity confidence gaps and rollout priorities without redefining the active parity gate
 Source-of-truth: current parity gate behavior lives in `feature_state_matrix.md`, `scripts/dev/windows_parity_audit.py`, and `scripts/package.json`.
 

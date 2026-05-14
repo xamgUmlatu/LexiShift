@@ -110,13 +110,14 @@ def _list_windows_lexishift_processes() -> list[tuple[int, str]]:
     shell = shutil.which("powershell") or shutil.which("pwsh")
     if not shell:
         return []
+    process_names = ",".join(f'"{name}"' for name in WINDOWS_PROCESS_NAMES)
     command = [
         shell,
         "-NoProfile",
         "-Command",
         (
             "$procs = Get-Process -Name "
-            f"{','.join(f'\"{name}\"' for name in WINDOWS_PROCESS_NAMES)} "
+            f"{process_names} "
             "-ErrorAction SilentlyContinue | "
             "Where-Object { $_.Path } | "
             "Select-Object Id, Path; "

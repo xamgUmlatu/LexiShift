@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-03-17
-Last verified: 2026-03-17 package-script inventory review + build-script path audit
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 3 packaging/platform parity truth pass, Windows parity audit, parity summary render, focused workflow/build/parity tests, doc-reference check, state check, and diff hygiene
 Purpose: current build, packaging, signing, and release entrypoints for maintained surfaces
 Source-of-truth: build/release runbook; operational behavior is defined by `scripts/package.json`, `scripts/dev/dev_workflow_build.py`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -21,8 +21,8 @@ npm --prefix scripts run build
 Notes:
 - `check` is the stable non-mutating repo safety loop and now includes the strict Windows parity audit.
 - `build` is the local build smoke for surfaces with maintained build paths.
-- `build:report` is the full build contract and is what hosted macOS CI runs.
-- `build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly skip macOS-only GUI validation on unsupported hosts.
+- `build:report` is the full build contract and is what hosted macOS and Windows CI run.
+- `build:ci` / `build:ci:report` run the same build workflow in CI-safe mode and explicitly record GUI-validation skips on unsupported hosts.
 - Repo-wide style lint is now part of `check`; use `check:style:report` / `check:style:summary` when you want durable style artifacts without running the full safety loop.
 
 ## GUI App Packaging (PyInstaller)

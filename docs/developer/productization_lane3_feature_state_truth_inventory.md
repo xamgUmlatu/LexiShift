@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, helper/native-host route, rulegen LP onboarding, and browser replacement runtime truth passes; focused semantic, SRS, helper route, native-host, rulegen onboarding, browser runtime, and parity tests; SRS quality harness; doc-reference check; state check; and diff hygiene
+Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, helper/native-host route, rulegen LP onboarding, browser replacement runtime, and packaging/platform parity truth passes; focused semantic, SRS, helper route, native-host, rulegen onboarding, browser runtime, workflow/build, and parity tests; SRS quality harness; Windows parity audit; doc-reference check; state check; and diff hygiene
 Purpose: record feature-state reconciliation slices so implemented, default-on, verified, and still-planned claims stay separate before expansion resumes
 Source-of-truth: inventory only; current runtime truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -34,6 +34,7 @@ Completed slices:
 3. L3-C: helper/native-host route state.
 4. L3-D: rulegen LP support and onboarding state.
 5. L3-E: browser replacement runtime behavior.
+6. L3-F: packaging and Windows/macOS parity state.
 
 This pass reconciles status claims only. It does not change runtime behavior,
 promotion thresholds, generated artifacts, corpus sources, or semantic-veto
@@ -396,11 +397,79 @@ DOM scan packet:
 4. debug decision overrides and runtime last-state persistence remain
    debug/operator observability, not normal reading-mode controls.
 
+## L3-F Read-Only Inputs
+
+Primary docs:
+
+- `feature_state_matrix.md`
+- `build_and_release.md`
+- `windows_gui_parity_workstream.md`
+- `genai_workflow_architecture.md`
+- `local_setup.md`
+
+Primary code, workflows, artifacts, and tests:
+
+- `scripts/package.json`
+- `.github/workflows/ci.yml`
+- `.pre-commit-config.yaml`
+- `scripts/dev/dev_workflow_check.py`
+- `scripts/dev/dev_workflow_changed_check.py`
+- `scripts/dev/dev_workflow_build.py`
+- `scripts/dev/dev_workflow_summary.py`
+- `scripts/dev/ci_report_gate.py`
+- `scripts/dev/windows_parity_audit.py`
+- `scripts/dev/windows_parity_summary.py`
+- `scripts/build/gui_app.py`
+- `scripts/build/installer.py`
+- `scripts/build/validate_app_bundle.py`
+- `apps/gui/packaging/pyinstaller.spec`
+- `docs/test_outputs/dev_workflow/check_latest.json`
+- `docs/test_outputs/dev_workflow/build_latest.json`
+- `docs/test_outputs/dev_workflow/build_ci_latest.json`
+- `docs/test_outputs/dev_workflow/windows_parity_latest.json`
+- `docs/test_outputs/dev_workflow/windows_parity_summary_latest.md`
+- `core/tests/dev/test_dev_workflow_build.py`
+- `core/tests/dev/test_dev_workflow_check.py`
+- `core/tests/dev/test_ci_report_gate.py`
+- `core/tests/dev/test_gui_app_build.py`
+- `core/tests/dev/test_windows_parity_audit.py`
+- `core/tests/dev/test_windows_parity_summary.py`
+- `core/tests/dev/test_windows_installer_distribution.py`
+- `core/tests/dev/test_helper_installer_autostart.py`
+
+## L3-F Packaging/Parity Ledger
+
+| Claim | Implemented | Default State | Verified | Current Disposition |
+| --- | --- | --- | --- | --- |
+| `check` is the default repo-safety gate and includes strict Windows parity. | Yes. `scripts/package.json` routes `check` through the dev workflow, and the workflow invokes the strict Windows parity audit. | Default local safety command and pre-push mirror once hooks are installed. | Yes. `check_latest.json`, workflow tests, parity tests, and `check:state` cover the contract. | Current product-development seam. Do not treat it as a build/package certification gate. |
+| `check:changed` is a narrower branch-scope gate. | Yes. The changed-check workflow infers heavier quality loops from substantive changed files and can run parity when parity-related files change. | Default recommendation for branch-scope local review, not a full replacement for `check`. | Yes. Dev-workflow tests cover changed-file inference and report behavior. | Current productivity seam. Long-running branches can still surface unrelated branch debt. |
+| `build` is the maintained local build smoke. | Yes. `dev_workflow_build.py` builds the BetterDiscord bundle and GUI artifacts, adding GUI validation on Darwin/Windows hosts. | Operator/developer command, not part of every docs-only edit loop. | Yes. Build workflow tests and historical `build_latest.json`/`build_ci_latest.json` artifacts cover expected artifact records. | Current build smoke. It is intentionally slower than `check`. |
+| `build:report` is the full build-report contract for desktop-capable hosts. | Yes. The report path records command results and expected artifacts; hosted macOS and Windows jobs use the full build path. | Hosted macOS/Windows CI and explicit local command. | Yes. Workflow tests cover command/report shape, and historical reports show macOS BetterDiscord plus GUI bundle validation. | Current full build contract. The committed latest reports are historical snapshots unless regenerated in the current slice. |
+| `build:ci:report` is equivalent to full desktop packaging everywhere. | No. CI-safe mode keeps the same workflow but records explicit GUI-validation skips on unsupported hosts. | Default only for unsupported-host CI lanes such as Ubuntu. | Yes. Build workflow tests and CI workflow review cover the partial lane. | Partial proof lane. Do not cite Ubuntu `build:ci:report` as full desktop packaging evidence. |
+| Windows parity audit is a release certification. | No. It verifies code/workflow evidence for Windows GUI/helper/build parity; it does not prove installer signing, every browser environment, or sustained hosted stability. | Required workflow gate, not release certification. | Yes. Current parity audit reports `PASS` with `9` pass, `0` warn, `0` fail when green. | Current parity gate with explicit scope limits. Release certification remains a separate product-ops concern. |
+| Windows helper/native-messaging browser coverage is universal. | No. The GUI/helper parity coverage is limited to supported browser environments: `chrome`, `chromium`, and `brave`. | Default only for those supported environments. | Yes. Native-host route tests and parity audit cover the supported set. | Known scope limit. Keep Firefox/Edge-style claims out unless separately implemented and verified. |
+| Signing/notarization/AuthentiCode and installer packaging are routine safety-gate outputs. | No. `installer.py` exposes DMG/EXE packaging and signing/notarization arguments, but routine `check`/`build` gates do not prove signed release installers. | Operator/release command. | Partially verified through installer/build tests and runbook review, not by default safety gates. | Release readiness gap. Lane 7 should own product-ops certification and rollback proof. |
+
+## L3-F Corrections Applied
+
+No feature-state status change was needed in this slice. The current matrix
+already separates development safety, build reporting, hosted OS coverage, and
+Windows parity. This inventory adds the narrower productization boundary:
+
+1. `check` is the default safety gate, while `build`/`build:report` are build
+   contracts,
+2. hosted Ubuntu `build:ci:report` is an explicit non-GUI/partial packaging
+   proof lane, not full desktop packaging,
+3. Windows parity is required and verified, but it is not release
+   certification,
+4. signing/notarization/AuthentiCode and installer production remain explicit
+   release/operator concerns.
+
 ## Lane 3 Next Work
 
-Next Lane 3 slices should stay narrow:
-
-1. L3-F: packaging and Windows/macOS parity state.
+Lane 3 has now covered the priority feature-state surfaces named in the
+roadmap. The next productization pass should move to Lane 4 and consolidate the
+trusted validation bundles by change type.
 
 ## Validation
 
@@ -413,6 +482,27 @@ python3 -m pytest \
   core/tests/dev/test_extension_semantic_gate_runtime_contract.py \
   core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py \
   core/tests/helper/test_helper_rulegen.py
+
+python3 scripts/dev/check_doc_references.py
+npm --prefix scripts run check:state
+git diff --check
+```
+
+For L3-F, use:
+
+```bash
+npm --prefix scripts run check:windows:parity
+npm --prefix scripts run check:windows:parity:summary
+
+python3 -m pytest \
+  core/tests/dev/test_dev_workflow_build.py \
+  core/tests/dev/test_windows_parity_audit.py \
+  core/tests/dev/test_windows_parity_summary.py \
+  core/tests/dev/test_gui_app_build.py \
+  core/tests/dev/test_windows_installer_distribution.py \
+  core/tests/dev/test_helper_installer_autostart.py \
+  core/tests/dev/test_dev_workflow_check.py \
+  core/tests/dev/test_ci_report_gate.py
 
 python3 scripts/dev/check_doc_references.py
 npm --prefix scripts run check:state

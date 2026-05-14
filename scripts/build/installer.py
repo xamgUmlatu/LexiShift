@@ -210,6 +210,7 @@ def _build_windows_installer(
             f"Installer output directory must be outside the dist directory: {output_dir}"
         )
     relative_exe_path = exe_path.relative_to(content_dir)
+    relative_exe_define = "\\".join(relative_exe_path.parts)
     output_dir.mkdir(parents=True, exist_ok=True)
     iscc = _ensure_iscc()
     iss_path = repo_root / "apps" / "gui" / "packaging" / "installer_windows.iss"
@@ -217,7 +218,7 @@ def _build_windows_installer(
         iscc,
         f"/DAppName={app_name}",
         f"/DAppVersion={app_version}",
-        f"/DAppExePath={str(relative_exe_path)}",
+        f"/DAppExePath={relative_exe_define}",
         f"/DDistDir={str(content_dir)}",
         f"/DOutputDir={str(output_dir)}",
         str(iss_path),

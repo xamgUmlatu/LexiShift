@@ -493,7 +493,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-04-19` Ruff fallback resolution + explicit unavailable reporting for workflow style checks
-- Last verified: `2026-04-19` targeted dev-workflow unit tests + wrapper-driven `check:style` report + `check:changed:local`
+- Last verified: `2026-04-19` targeted dev-workflow unit tests + wrapper-driven `check:style` report + `check:changed:local`; `2026-05-15` Lane 3 L3-F packaging/platform parity truth pass, Windows parity audit, parity summary render, focused workflow/build/parity tests, doc-reference check, state check, and diff hygiene
 - Default behavior:
   - `npm --prefix scripts run check` is the stable non-mutating repo safety command.
   - `npm --prefix scripts run check` now includes the strict Windows parity audit, so parity regressions fail the default local safety gate and pre-push hook.
@@ -585,7 +585,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on`
 - Last documented checkpoint: `2026-03-12`
-- Last verified: `2026-03-12` parity audit rerun + repo-safety integration + changed-scope/CI workflow wiring review
+- Last verified: `2026-03-12` parity audit rerun + repo-safety integration + changed-scope/CI workflow wiring review; `2026-05-15` Lane 3 L3-F parity audit rerun, parity summary render, focused Windows parity tests, doc-reference check, state check, and diff hygiene
 - Default behavior:
   - `npm --prefix scripts run check` now runs the strict Windows parity audit as part of repo safety and pre-push.
   - `npm --prefix scripts run check:windows:parity` writes a machine-readable parity audit of Windows GUI/helper/build parity.
