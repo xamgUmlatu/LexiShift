@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 focused helper, extension, SRS harness, SRS summary, feedback simulation, semantic gate/runtime, DOM-scan metrics, SRS settings, diagnostics, action formatter, and semantic policy tests plus SRS quality harness artifact refresh
+Last verified: 2026-05-15 focused helper, extension, SRS harness, SRS summary, feedback simulation, semantic gate/runtime exception containment, DOM-scan metrics, SRS settings, diagnostics, action formatter, and semantic policy tests plus SRS quality harness artifact refresh
 Purpose: record high-risk runtime seam closure slices so runtime behavior is fixed, tested, and documented before expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -24,6 +24,7 @@ Completed slices:
 1. L5-A: due-aware SRS runtime serving.
 2. L5-B: semantic admission unavailable-scoring fallback.
 3. L5-C: semantic fallback reason diagnostics.
+4. L5-D: semantic helper decision-service exception containment.
 
 This inventory records runtime closure work only. It does not promote new
 frequency/corpus sources, change semantic-veto thresholds, or certify release
@@ -204,3 +205,50 @@ L5-C does not yet close:
 2. durable cross-session trend reporting,
 3. BetterDiscord/plugin runtime parity,
 4. user-facing explanations for individual abstained replacements.
+
+## L5-D Semantic Helper Decision-Service Exception Containment
+
+Product claim:
+
+- A thrown helper semantic decision-service exception should not abort page
+  scanning or silently bypass semantic admission when the current runtime is
+  capable.
+
+Before this slice:
+
+| Surface | Current Truth Before L5-D |
+| --- | --- |
+| Helper decision service | A thrown `semanticAdmitBatch(...)` call could reject the queued admission batch instead of being recorded as a helper service fallback. |
+| Diagnostics | Non-throwing helper decision-service failures were visible through existing error fields and fallback reason counts, but thrown helper exceptions were not contained at the semantic gate boundary. |
+
+Closure action:
+
+- Helper semantic-admission exceptions are caught per helper request chunk.
+- The gate converts those failures into the existing fail-closed fallback path:
+  - `decision_service_error` for helper decision-service exceptions
+- The corresponding `helperError` field is populated so debug logs and
+  persisted diagnostics retain the failure message.
+
+After this slice:
+
+| Surface | Current Truth After L5-D |
+| --- | --- |
+| Runtime gate | Thrown helper semantic decision-service failures are contained and resolve through the configured fallback policy, which defaults to `abstain_on_unavailable`. |
+| Scan continuity | A helper semantic exception no longer rejects the whole queued admission batch for the current page scan. |
+| Diagnostics | Existing fallback reason diagnostics now include thrown helper decision-service failures via `decision_service_error`. |
+| Scoring policy | Scorer behavior and decision thresholds are unchanged; this only hardens the failure boundary. |
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_extension_semantic_gate_runtime_contract.py
+```
+
+L5-D does not yet close:
+
+1. semantic inventory-resolution exception containment,
+2. automatic retry/backoff after helper semantic service errors,
+3. durable cross-session trend reporting,
+4. BetterDiscord/plugin runtime parity,
+5. user-facing explanations for individual abstained replacements.

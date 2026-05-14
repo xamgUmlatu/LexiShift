@@ -364,16 +364,23 @@
         for (const descriptorChunk of chunkDescriptors(group.descriptors)) {
           const requestMatches = descriptorChunk.map((descriptor) => descriptor.requestMatch);
           const helperStartedAt = nowMs();
-          const response = await helperRulesRuntime.semanticAdmitBatch({
-            schema_version: 1,
-            pair: group.pair,
-            profile_id: group.profileId,
-            offset_encoding: "utf16_code_unit",
-            fallback_policy: group.fallbackPolicy,
-            fit_scope: SEMANTIC_HELPER_BATCH_FIT_SCOPE,
-            surface_kind: "browser_page",
-            matches: requestMatches
-          }, SEMANTIC_HELPER_BATCH_TIMEOUT_MS);
+          let response = null;
+          try {
+            const payload = {
+              schema_version: 1, pair: group.pair, profile_id: group.profileId,
+              offset_encoding: "utf16_code_unit", fallback_policy: group.fallbackPolicy,
+              fit_scope: SEMANTIC_HELPER_BATCH_FIT_SCOPE, surface_kind: "browser_page", matches: requestMatches
+            };
+            response = await helperRulesRuntime.semanticAdmitBatch(payload, SEMANTIC_HELPER_BATCH_TIMEOUT_MS);
+          } catch (error) {
+            summarizeHelperBatch(metricSummary, requestMatches.length, nowMs() - helperStartedAt);
+            const message = error && typeof error === "object" && error.message ? String(error.message) : String(error || "Helper semantic admission failed.");
+            for (const state of groupStates({ ...group, descriptors: descriptorChunk })) if (!state.summary.helperError) state.summary.helperError = message;
+            for (const descriptor of descriptorChunk) {
+              addFallbackDecision(descriptor, resolveFallbackDecision(descriptor.state.fallbackPolicy), ["decision_service_error"]);
+            }
+            continue;
+          }
           summarizeHelperBatch(metricSummary, requestMatches.length, nowMs() - helperStartedAt);
           const payload = response && response.response && typeof response.response === "object" ? response.response : null;
           const decisions = payload && Array.isArray(payload.decisions) ? payload.decisions : null;

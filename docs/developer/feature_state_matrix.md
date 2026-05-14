@@ -824,8 +824,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-05-15` Lane 5 adds semantic fallback reason diagnostics on top of the fail-closed `abstain_on_unavailable` default for unavailable semantic scoring
-- Last verified: `2026-05-15` Lane 5 L5-C semantic fallback reason diagnostics validation with focused semantic gate/runtime, DOM-scan metrics, SRS runtime diagnostics, and action formatter tests
+- Last documented checkpoint: `2026-05-15` Lane 5 contains thrown helper semantic decision-service exceptions inside the fail-closed semantic admission fallback path
+- Last verified: `2026-05-15` Lane 5 L5-D semantic helper exception containment validation with focused semantic gate/runtime tests
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -843,6 +843,7 @@ Use this file when:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
     - runtime activation now depends on computed capability (`active`, `published_unready`, `unavailable`, `error`) rather than a visible toggle
     - the shipped runtime defaults to `abstain_on_unavailable` for ready-rule inventory/helper failure cases, so unavailable semantic scoring fails closed instead of silently allowing replacement
+    - thrown helper decision-service exceptions are contained inside the semantic gate and become existing fail-closed fallback reason codes instead of rejecting the page scan
     - `legacy_on_unavailable` remains an accepted explicit compatibility policy, but it is not the default runtime/profile posture
     - `selection_mode=active_only` is now an explicit ready competition-set shape for active-only cue evidence with no shadows; for `en-es`, active-only inventories auto-select `en_es_sentence_veto_v2` when the request does not provide a decision-policy override, while ordinary `automatic`, `manual`, and `mixed` ready competition sets still require real shadow senses
     - the schema still reserves `soft_affordance` as a future optional non-replace outcome, but current DOM behavior only acts on `replace` and otherwise keeps the original text

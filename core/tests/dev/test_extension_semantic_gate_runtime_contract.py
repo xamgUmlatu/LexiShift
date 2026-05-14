@@ -1147,6 +1147,117 @@ const readyMatch = {{
 """
         _run_node(script)
 
+    def test_gate_abstains_by_default_when_helper_semantic_batch_throws(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const requestContextPath = {json.dumps(str(SEMANTIC_REQUEST_CONTEXT_JS))};
+const summaryPath = {json.dumps(str(SEMANTIC_GATE_SUMMARY_JS))};
+const batchPath = {json.dumps(str(SEMANTIC_GATE_BATCH_JS))};
+const modulePath = {json.dumps(str(SEMANTIC_GATE_RUNTIME_JS))};
+const calls = [];
+const nowValues = [100, 104, 200, 209];
+const context = vm.createContext({{
+  console,
+  document: {{ documentElement: {{ lang: "en" }} }},
+  location: {{ href: "https://example.com/article" }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(summaryPath, "utf8"), context, {{ filename: summaryPath }});
+vm.runInContext(fs.readFileSync(requestContextPath, "utf8"), context, {{ filename: requestContextPath }});
+vm.runInContext(fs.readFileSync(batchPath, "utf8"), context, {{ filename: batchPath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const runtime = context.LexiShift.contentSemanticGateRuntime.createRuntime({{
+  helperRulesRuntime: {{
+    async resolveSemanticInventory(pair, profileId) {{
+      calls.push({{ kind: "inventory", pair, profileId }});
+      return {{ inventory: {{ pair, profile_id: profileId }}, source: "helper", error: null }};
+    }},
+    async semanticAdmitBatch(payload) {{
+      calls.push({{ kind: "batch", payload: JSON.parse(JSON.stringify(payload)) }});
+      throw new Error("semantic route crashed");
+    }}
+  }},
+  getRuleOrigin: (rule) => String(rule && rule.metadata && rule.metadata.lexishift_origin || "ruleset"),
+  normalizeProfileId: (value) => String(value || "").trim() || "default",
+  ruleOriginSrs: "srs",
+  nowMs: () => nowValues.shift()
+}});
+
+const readyMatch = {{
+  startWordIndex: 5,
+  endWordIndex: 5,
+  rule: {{
+    source_phrase: "bank",
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: "en-es",
+      semantic_admission: {{
+        schema_version: 1,
+        status: "ready",
+        trigger_id: "trigger:bank",
+        sense_id: "sense:banco",
+        competition_set_id: "comp:bank"
+      }}
+    }}
+  }}
+}};
+
+(async () => {{
+  const result = await runtime.admitMatches({{
+    text: "I deposited cash at the bank yesterday.",
+    tokens: [
+      {{ text: "I " }},
+      {{ text: "deposited " }},
+      {{ text: "cash " }},
+      {{ text: "at " }},
+      {{ text: "the " }},
+      {{ text: "bank" }},
+      {{ text: " yesterday." }}
+    ],
+    wordPositions: [0, 1, 2, 3, 4, 5, 6],
+    matches: [readyMatch],
+    settings: {{
+      srsEnabled: true,
+      srsSemanticAdmissionEnabled: true,
+      srsProfileId: "default",
+      srsPair: "en-es"
+    }}
+  }});
+
+  assert.equal(calls.filter((entry) => entry.kind === "inventory").length, 1);
+  assert.equal(calls.filter((entry) => entry.kind === "batch").length, 1);
+  assert.equal(result.summary.eligible, 1);
+  assert.equal(result.summary.ready, 1);
+  assert.equal(result.summary.fallbackAbstains, 1);
+  assert.equal(result.summary.helperError, "semantic route crashed");
+  assert.equal(result.summary.helperBatchCalls, 1);
+  assert.equal(result.summary.helperRequestCount, 1);
+  assert.equal(result.summary.helperLatencyMsTotal, 9);
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(result.summary.fallbackReasonCounts)),
+    {{ decision_service_error: 1 }}
+  );
+  assert.equal(result.matches.includes(readyMatch), false);
+
+  const decision = result.decisionMap.get(readyMatch);
+  assert.equal(decision.decision, "abstain");
+  assert.equal(decision.decision_source, "fallback_policy");
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(decision.reason_codes)),
+    ["decision_service_error"]
+  );
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_gate_debug_flush_window_batches_later_admissions(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

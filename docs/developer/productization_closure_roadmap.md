@@ -343,6 +343,9 @@ Current Lane 5 progress:
   `semantic_fallback_reason_counts`, so non-ready metadata, inventory failures,
   and helper decision-service failures are distinguishable from the options
   diagnostics surface.
+- L5-D contains thrown helper semantic decision-service exceptions inside the
+  semantic gate, converting them to the existing fail-closed fallback reason
+  code instead of rejecting the page scan.
 
 ### Lane 6: Data Provenance And Pack Lifecycle
 
