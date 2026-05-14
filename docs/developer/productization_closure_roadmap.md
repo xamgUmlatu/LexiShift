@@ -241,6 +241,12 @@ Current Lane 3 progress:
   explicit semantic pack install are implemented/verified seams; same-browser
   host-path sharing, extension-installed proof, and release-certification
   limits remain known gaps.
+- L3-D now records the rulegen LP support/onboarding truth pass. No
+  feature-state status change was needed: runtime rulegen modes exist for
+  `en-ja`, `de-en`, `en-de`, `en-es`, and `es-en`, but only `en-es` and
+  `en-de` currently have machine-readable LP profiles and dedicated latest
+  benchmark lanes. Case files, runtime support, profile conformance, and
+  promotion readiness should remain separate status claims.
 
 ### Lane 4: Verification Gate Consolidation
 

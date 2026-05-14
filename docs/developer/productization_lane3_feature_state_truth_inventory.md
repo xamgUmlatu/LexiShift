@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, and helper/native-host route truth passes; focused semantic, SRS, helper route, native-host, and parity tests; SRS quality harness; doc-reference check; state check; and diff hygiene
+Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, helper/native-host route, and rulegen LP onboarding truth passes; focused semantic, SRS, helper route, native-host, rulegen onboarding, and parity tests; SRS quality harness; doc-reference check; state check; and diff hygiene
 Purpose: record feature-state reconciliation slices so implemented, default-on, verified, and still-planned claims stay separate before expansion resumes
 Source-of-truth: inventory only; current runtime truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -17,12 +17,20 @@ Related docs:
 - `../rulegen/semantic_rulegen_authority_map.md`
 - `../rulegen/semantic_veto_denominator_current_state.md`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
+- `../rulegen/rulegen_lp_support_guide.md`
+- `../rulegen/lp_onboarding_operating_model.md`
+- `../rulegen/lp_onboarding_checklist_template.md`
 
 ## Scope
 
 Lane: Lane 3, feature-state truth pass.
 
-Slice: L3-A, semantic runtime and semantic pack lifecycle.
+Completed slices:
+
+1. L3-A: semantic runtime and semantic pack lifecycle.
+2. L3-B: SRS admission, refresh, reset, and publication.
+3. L3-C: helper/native-host route state.
+4. L3-D: rulegen LP support and onboarding state.
 
 This pass reconciles status claims only. It does not change runtime behavior,
 promotion thresholds, generated artifacts, corpus sources, or semantic-veto
@@ -237,15 +245,95 @@ operational limits:
    active;
 5. Windows parity is a required safety gate, not full release certification.
 
+## L3-D Read-Only Inputs
+
+Primary docs:
+
+- `feature_state_matrix.md`
+- `../rulegen/rulegen_lp_support_guide.md`
+- `../rulegen/lp_onboarding_operating_model.md`
+- `../rulegen/lp_onboarding_checklist_template.md`
+- `../rulegen/rule_generation_technical.md`
+- `../rulegen/rulegen_congruity_implementation_plan.md`
+- `../rulegen/pos_normalization_workstream.md`
+- `../developer/ai_workflow.md`
+- `../developer/genai_workflow_architecture.md`
+- `../developer/rulegen_test_pipeline.md`
+- `../language_pairs/de_en_workstream_roadmap.md`
+- `../language_pairs/en_de_workstream_roadmap.md`
+- `../test_inputs/rulegen_lp_profiles/README.md`
+- `../test_inputs/rulegen_benchmark_cases/README.md`
+
+Primary code and tests:
+
+- `core/lexishift_core/helper/lp_capabilities.py`
+- `core/lexishift_core/rulegen/adapters.py`
+- `core/lexishift_core/rulegen/pairs/__init__.py`
+- `core/lexishift_core/rulegen/pairs/en_es.py`
+- `core/lexishift_core/rulegen/pairs/en_de.py`
+- `core/lexishift_core/rulegen/pairs/en_ja.py`
+- `core/lexishift_core/rulegen/pairs/es_en.py`
+- `core/lexishift_core/rulegen/pairs/de_en.py`
+- `docs/test_inputs/rulegen_lp_profiles/en_es.json`
+- `docs/test_inputs/rulegen_lp_profiles/en_de.json`
+- `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
+- `docs/test_inputs/rulegen_benchmark_cases/en_de.json`
+- `docs/test_inputs/rulegen_benchmark_cases/en_ja.json`
+- `docs/test_inputs/rulegen_benchmark_cases/es_en.json`
+- `docs/test_inputs/rulegen_benchmark_presets.json`
+- `scripts/dev/check_rulegen_lp_profiles.py`
+- `scripts/dev/check_rulegen_lp_conformance.py`
+- `scripts/dev/scaffold_rulegen_lp.py`
+- `core/tests/dev/test_check_rulegen_lp_conformance.py`
+- `core/tests/dev/test_scaffold_rulegen_lp.py`
+- `core/tests/dev/test_rulegen_benchmark_dataset.py`
+- `core/tests/dev/test_rulegen_benchmark_cli.py`
+- `core/tests/rulegen/test_rulegen_adapters.py`
+- `core/tests/helper/test_lp_capabilities.py`
+
+## L3-D Pair State Ledger
+
+| Pair | Runtime Rulegen Mode | LP Profile | Dedicated Latest Benchmark Lane | Current Disposition |
+| --- | --- | --- | --- | --- |
+| `en-es` | Yes: `en_es`. | Yes: `docs/test_inputs/rulegen_lp_profiles/en_es.json`. | Yes: `docs/test_outputs/rulegen_benchmark_en_es_latest.json` plus canonical summary/gate/triage artifacts. | Primary strict/canonical lane. Still known-red on quality floor and rule volume, so expansion should not treat it as fully solved. |
+| `en-de` | Yes: `en_de`. | Yes: `docs/test_inputs/rulegen_lp_profiles/en_de.json`. | Yes: `docs/test_outputs/rulegen_benchmark_en_de_latest.json` plus dedicated advisory gate/triage artifacts. | First advisory profiled lane. It is implemented/verified, but not repo-wide hard-gated or accepted as a quality baseline. |
+| `en-ja` | Yes: `en_ja`. | No machine-readable LP profile yet. | No dedicated `rulegen_benchmark_en_ja_latest.json`; benchmark cases exist under `rulegen_benchmark_cases/en_ja.json`. | Runtime support exists, but current onboarding/profile/gate state is not at profiled-lane parity. |
+| `es-en` | Yes: `es_en`. | No machine-readable LP profile yet. | No dedicated `rulegen_benchmark_es_en_latest.json`; benchmark cases exist under `rulegen_benchmark_cases/es_en.json`. | Runtime support exists, but current onboarding/profile/gate state is not at profiled-lane parity. |
+| `de-en` | Yes: `de_en`. | No machine-readable LP profile yet. | No LP-specific benchmark case file or dedicated latest lane. | Baseline helper/rulegen enablement only. Do not treat as benchmarkable or promotable without a new onboarding slice. |
+
+## L3-D Claim Ledger
+
+| Claim | Implemented | Default State | Verified | Current Disposition |
+| --- | --- | --- | --- | --- |
+| Runtime rulegen support exists for all pairs listed by helper capabilities. | Yes. `supported_rulegen_pairs()` currently returns `en-ja`, `de-en`, `en-de`, `en-es`, and `es-en`, and adapter registrations exist for those modes. | Default-on when the helper route is configured and the pair's required dictionary resources are present. | Yes. LP capability and adapter tests cover the registry and representative generation paths. | Current product seam. Runtime support is not the same as benchmark/profile maturity. |
+| Machine-readable LP profiles cover every runtime-supported rulegen pair. | No. The active profile directory currently contains only `en_es.json` and `en_de.json`. | Not default-on for unprofiled pairs. | Yes. Profile and conformance checks pass for exactly two profiles. | Known onboarding gap. Do not claim profile-owned onboarding for `en-ja`, `es-en`, or `de-en` yet. |
+| The LP conformance audit proves profiled pairs line up with repo wiring. | Yes. It checks case-file naming, latest artifact presence, preset pair targeting, wrapper command pair mention, pair-module symbols, pair exports, adapter registration, and helper capability registration. | Explicit repo-safety command, not a substitute for rulegen quality results. | Yes. `check_rulegen_lp_conformance.py` and focused tests cover the contract. | Current governance seam. It proves wiring shape for profiled pairs, not quality parity. |
+| Benchmark case files imply a full promoted benchmark lane. | No. `en-ja` and `es-en` have case files, but no dedicated latest benchmark/gate/triage lane comparable to `en-es` or `en-de`. | Not promoted by case-file presence alone. | Verified by current benchmark-case directory and latest artifact inventory. | Keep case authoring, latest artifacts, and promotion status separate. |
+| `en-de` is mature enough to join the strict required pair gate. | No. It has a profiled advisory lane, but the current feature-state matrix still records it as outside `required_benchmark_pairs` with quality gaps and missing accepted baseline. | Advisory, not hard-gated. | Yes. Dedicated latest artifacts and state docs record the advisory lane. | Current improvement frontier, not a release-quality default. |
+| The LP scaffold can safely complete central wiring for a new pair by itself. | No. It can generate profiles, case stubs, optional roadmap/code/test stubs, integration handoff, and preset starter text, but central adapter/preset/export/capability wiring remains a follow-up. | Operator-only scaffold. | Yes. Scaffold tests and conformance tests cover generated shape and explicit handoff behavior. | Current safe scaffold. Preserve the handoff boundary until a stronger registry updater exists. |
+| A new expansion pair can start from tuning immediately. | No. The onboarding model requires source audit, scaffold, benchmarkability, baseline evidence, and then isolated mechanisms. | Not supported. | Verified by onboarding docs and profile/conformance gates. | Expansion should begin with profile/case/gate readiness, not scoring changes. |
+
+## L3-D Corrections Applied
+
+No feature-state status change was needed in this slice. The current docs
+already separate the strict `en-es` lane, the advisory `en-de` lane, and the
+baseline `de-en` enablement slice. This inventory adds the compact
+cross-pair truth table so future expansion does not flatten four different
+states into one word like "supported":
+
+1. runtime rulegen mode,
+2. machine-readable LP profile coverage,
+3. benchmark case ownership,
+4. dedicated latest benchmark/gate/triage artifacts,
+5. promotion or hard-gate readiness.
+
 ## Lane 3 Next Work
 
 Next Lane 3 slices should stay narrow:
 
-1. L3-D: rulegen LP support and onboarding state, with separate
-   implemented/default-on/verified rows per pair.
-2. L3-E: browser replacement runtime behavior, including DOM scan ordering,
+1. L3-E: browser replacement runtime behavior, including DOM scan ordering,
    semantic batching, debug overrides, and failure diagnostics.
-3. L3-F: packaging and Windows/macOS parity state.
+2. L3-F: packaging and Windows/macOS parity state.
 
 ## Validation
 
@@ -258,6 +346,26 @@ python3 -m pytest \
   core/tests/dev/test_extension_semantic_gate_runtime_contract.py \
   core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py \
   core/tests/helper/test_helper_rulegen.py
+
+python3 scripts/dev/check_doc_references.py
+npm --prefix scripts run check:state
+git diff --check
+```
+
+For L3-D, use:
+
+```bash
+PYTHONPATH=core python3 -c "from lexishift_core.helper.lp_capabilities import supported_rulegen_pairs; print(','.join(supported_rulegen_pairs()))"
+python3 scripts/dev/check_rulegen_lp_profiles.py
+python3 scripts/dev/check_rulegen_lp_conformance.py
+
+python3 -m pytest \
+  core/tests/dev/test_check_rulegen_lp_conformance.py \
+  core/tests/dev/test_scaffold_rulegen_lp.py \
+  core/tests/dev/test_rulegen_benchmark_dataset.py \
+  core/tests/dev/test_rulegen_benchmark_cli.py \
+  core/tests/rulegen/test_rulegen_adapters.py \
+  core/tests/helper/test_lp_capabilities.py
 
 python3 scripts/dev/check_doc_references.py
 npm --prefix scripts run check:state
