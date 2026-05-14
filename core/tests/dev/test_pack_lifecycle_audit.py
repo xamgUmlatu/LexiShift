@@ -20,6 +20,7 @@ from lexishift_core.helper.installed_packs import write_installed_pack_manifest 
 from lexishift_core.helper.pack_provenance import PACK_PROVENANCE_FILENAME  # noqa: E402
 from pack_lifecycle_audit import (  # noqa: E402
     audit_candidate_sqlite,
+    audit_manual_resource_settings,
     build_pack_lifecycle_audit_report,
     render_pack_lifecycle_markdown,
 )
@@ -111,12 +112,80 @@ class PackLifecycleAuditTests(unittest.TestCase):
         self.assertIn("Candidate SQLite", markdown)
         self.assertIn("candidate.sqlite", markdown)
 
+    def test_report_surfaces_manual_resource_settings_for_disposition(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data_root = Path(tmp) / "data"
+            language_root = data_root / "language_packs"
+            pack_root = language_root / "freedict-en-es"
+            pack_root.mkdir(parents=True)
+            managed_artifact = pack_root / "main.sqlite"
+            managed_artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                language_root,
+                pack_id="freedict-en-es",
+                pack_kind="language",
+                provider="freedict",
+                local_kind="file",
+                build_mode="freedict_tei_to_sqlite",
+                artifact_path=managed_artifact,
+                source_filename="eng-spa.tei",
+                sqlite_filename="main.sqlite",
+            )
+            (pack_root / PACK_PROVENANCE_FILENAME).write_text(
+                json.dumps(_valid_provenance(pack_id="freedict-en-es", pack_kind="language")),
+                encoding="utf-8",
+            )
+            manual_freq = data_root / "imports" / "manual-frequency.sqlite"
+            manual_freq.parent.mkdir(parents=True)
+            manual_freq.write_bytes(b"SQLite format 3\x00")
+            manual_embedding = data_root / "imports" / "manual.vec"
+            manual_embedding.write_text("hola 0.1 0.2\n", encoding="utf-8")
+            settings_path = data_root / "settings.json"
+            settings_path.write_text(
+                json.dumps(
+                    {
+                        "synonyms": {
+                            "managed_language_pack_ids": ["freedict-en-es"],
+                            "language_pack_paths": {
+                                "freedict-en-es": str(managed_artifact),
+                                "wordnet-en": str(data_root / "missing-wordnet"),
+                            },
+                            "frequency_pack_paths": {"freq-manual": str(manual_freq)},
+                            "embedding_pair_paths": {"en-es": [str(manual_embedding)]},
+                        }
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
 
-def _valid_provenance() -> dict[str, object]:
+            manual_report = audit_manual_resource_settings(settings_path)
+            report = build_pack_lifecycle_audit_report(
+                data_root=data_root,
+                generated_at="2026-05-15T00:00:00+00:00",
+            )
+            markdown = render_pack_lifecycle_markdown(report)
+
+        self.assertEqual(manual_report["status"], "review")
+        self.assertEqual(manual_report["manual_path_count"], 4)
+        self.assertEqual(manual_report["manual_path_missing_count"], 1)
+        self.assertEqual(manual_report["managed_artifact_manual_path_count"], 1)
+        self.assertEqual(report["summary"]["status"], "review")
+        self.assertEqual(report["summary"]["manual_resource_path_count"], 4)
+        self.assertEqual(report["summary"]["manual_resource_review_count"], 2)
+        self.assertIn("Manual Resource Settings", markdown)
+        self.assertIn("migrate_to_managed_pack_id", markdown)
+
+
+def _valid_provenance(
+    *,
+    pack_id: str = "freq-es-expanded-v1",
+    pack_kind: str = "frequency",
+) -> dict[str, object]:
     return {
         "schema_version": 1,
-        "pack_id": "freq-es-expanded-v1",
-        "pack_kind": "frequency",
+        "pack_id": pack_id,
+        "pack_kind": pack_kind,
         "provider": "corpus-del-espanol",
         "source": {
             "source_name": "Corpus del Espanol frequency sample",
