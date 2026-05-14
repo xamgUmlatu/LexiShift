@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, and source-admission sub-registries
+Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, and Lane 6 current pack/source provenance inventory
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -13,6 +13,7 @@ Related docs:
 - `productization_lane3_feature_state_truth_inventory.md`
 - `productization_lane4_validation_gate_inventory.md`
 - `productization_lane5_runtime_seam_inventory.md`
+- `productization_lane6_data_provenance_inventory.md`
 - `project_health_remediation_workstream.md`
 - `project_integrity_stabilization_runbook.md`
 - `project_integrity_stabilization_backlog.md`
@@ -371,6 +372,22 @@ Primary checks:
 
 This lane is the bridge back to corpus expansion. It should close source and
 pack uncertainty before any larger Spanish corpus is promoted.
+
+Current Lane 6 progress:
+
+- `docs/developer/productization_lane6_data_provenance_inventory.md` now
+  records L6-A, the current pack/source provenance inventory.
+- L6-A maps the pack catalog, pack source manifest, installed-pack manifests,
+  pack refs/resolvers, semantic pack-copy manifest, profile publication
+  manifest, generated evidence artifacts, and current en-es corpus-expansion
+  audit boundary.
+- The main finding is explicit: managed pack roots and publication manifests
+  exist, but installed manifests are not complete source/license/generation
+  provenance records, manual/legacy paths can still bypass manifest-backed
+  provenance, and no central pack-lifecycle audit command exists yet.
+- The next Lane 6 slices are the pack provenance contract, lifecycle audit
+  command, semantic generation lineage, en-es candidate readiness runbook, and
+  manual-path disposition pass.
 
 ### Lane 7: Product Ops And Release Readiness
 

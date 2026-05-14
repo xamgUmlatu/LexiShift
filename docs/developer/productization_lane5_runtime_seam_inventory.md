@@ -10,6 +10,7 @@ Related docs:
 - `productization_closure_roadmap.md`
 - `productization_lane3_feature_state_truth_inventory.md`
 - `productization_lane4_validation_gate_inventory.md`
+- `productization_lane6_data_provenance_inventory.md`
 - `feature_state_matrix.md`
 - `../srs/README.md`
 - `../srs/srs_practice_layer_design.md`
@@ -322,7 +323,7 @@ Must fix before broad expansion:
 | Item | Owner Lane | Rationale |
 | --- | --- | --- |
 | Pack/source provenance and installed-resource auditability | Lane 6 | Expansion adds more local/generated data. The next release-quality risk is knowing exactly which source files, generated SQLite packs, manifests, installed paths, and licenses are active. |
-| Expansion readiness checklist | Lane 6 / closure roadmap | Expansion should resume only when runtime truth, diagnostics truth, pack provenance, validation commands, and artifact ownership are explicitly linked. |
+| Expansion readiness checklist | Lane 6 / closure roadmap | Expansion should resume only when runtime truth, diagnostics truth, pack provenance, validation commands, and artifact ownership are explicitly linked. Start from `productization_lane6_data_provenance_inventory.md`. |
 
 Useful but not expansion-blocking runtime hardening:
 
