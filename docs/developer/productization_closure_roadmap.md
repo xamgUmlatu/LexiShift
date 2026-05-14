@@ -346,6 +346,9 @@ Current Lane 5 progress:
 - L5-D contains thrown helper semantic decision-service exceptions inside the
   semantic gate, converting them to the existing fail-closed fallback reason
   code instead of rejecting the page scan.
+- L5-E contains thrown semantic inventory-resolution exceptions inside the
+  semantic gate, converting them to the existing fail-closed
+  `semantic_inventory_unavailable` path instead of rejecting the page scan.
 
 ### Lane 6: Data Provenance And Pack Lifecycle
 

@@ -331,18 +331,22 @@
             });
             addReadyDescriptor(readyGroups, descriptor);
           } else {
-            addFallbackDecision(
-              descriptor,
-              resolveFallbackDecision(state.fallbackPolicy),
-              [status ? `semantic_status_${status}` : "semantic_status_missing"]
-            );
+            addFallbackDecision(descriptor, resolveFallbackDecision(state.fallbackPolicy), [status ? `semantic_status_${status}` : "semantic_status_missing"]);
           }
         }
       }
 
       for (const group of readyGroups.values()) {
         const metricSummary = group.descriptors[0].state.summary;
-        const inventoryResolution = await resolveInventoryForGroup(group, metricSummary);
+        let inventoryResolution = null;
+        try {
+          inventoryResolution = await resolveInventoryForGroup(group, metricSummary);
+        } catch (error) {
+          const message = error && typeof error === "object" && error.message ? String(error.message) : String(error || "Semantic inventory resolution failed.");
+          for (const state of groupStates(group)) if (!state.summary.inventoryError) state.summary.inventoryError = message;
+          for (const descriptor of group.descriptors) addFallbackDecision(descriptor, resolveFallbackDecision(descriptor.state.fallbackPolicy), ["semantic_inventory_unavailable"]);
+          continue;
+        }
         setInventorySummary(group, inventoryResolution);
         const inventory = inventoryResolution && inventoryResolution.inventory
           && typeof inventoryResolution.inventory === "object"
@@ -392,11 +396,7 @@
               const reasonCode = !payload || !decisions
                 ? (metricSummary.helperError ? "decision_service_error" : "decision_response_missing")
                 : "decision_record_missing";
-              addFallbackDecision(
-                descriptor,
-                resolveFallbackDecision(descriptor.state.fallbackPolicy),
-                [reasonCode]
-              );
+              addFallbackDecision(descriptor, resolveFallbackDecision(descriptor.state.fallbackPolicy), [reasonCode]);
               continue;
             }
             const decisionRecord = {

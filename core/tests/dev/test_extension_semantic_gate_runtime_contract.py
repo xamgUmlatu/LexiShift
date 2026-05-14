@@ -1258,6 +1258,104 @@ const readyMatch = {{
 """
         _run_node(script)
 
+    def test_gate_abstains_by_default_when_inventory_resolution_throws(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const requestContextPath = {json.dumps(str(SEMANTIC_REQUEST_CONTEXT_JS))};
+const summaryPath = {json.dumps(str(SEMANTIC_GATE_SUMMARY_JS))};
+const batchPath = {json.dumps(str(SEMANTIC_GATE_BATCH_JS))};
+const modulePath = {json.dumps(str(SEMANTIC_GATE_RUNTIME_JS))};
+const calls = [];
+const context = vm.createContext({{
+  console,
+  document: {{ documentElement: {{ lang: "en" }} }},
+  location: {{ href: "https://example.com/article" }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(summaryPath, "utf8"), context, {{ filename: summaryPath }});
+vm.runInContext(fs.readFileSync(requestContextPath, "utf8"), context, {{ filename: requestContextPath }});
+vm.runInContext(fs.readFileSync(batchPath, "utf8"), context, {{ filename: batchPath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const runtime = context.LexiShift.contentSemanticGateRuntime.createRuntime({{
+  helperRulesRuntime: {{
+    async resolveSemanticInventory(pair, profileId) {{
+      calls.push({{ kind: "inventory", pair, profileId }});
+      throw new Error("inventory route crashed");
+    }},
+    async semanticAdmitBatch(_payload) {{
+      calls.push({{ kind: "batch" }});
+      throw new Error("semanticAdmitBatch should not be called when inventory throws");
+    }}
+  }},
+  getRuleOrigin: (rule) => String(rule && rule.metadata && rule.metadata.lexishift_origin || "ruleset"),
+  normalizeProfileId: (value) => String(value || "").trim() || "default",
+  ruleOriginSrs: "srs"
+}});
+
+const readyMatch = {{
+  startWordIndex: 0,
+  endWordIndex: 0,
+  rule: {{
+    source_phrase: "bank",
+    metadata: {{
+      lexishift_origin: "srs",
+      language_pair: "en-es",
+      semantic_admission: {{
+        schema_version: 1,
+        status: "ready",
+        trigger_id: "trigger:bank",
+        sense_id: "sense:banco",
+        competition_set_id: "comp:bank"
+      }}
+    }}
+  }}
+}};
+
+(async () => {{
+  const result = await runtime.admitMatches({{
+    text: "bank",
+    tokens: [{{ text: "bank" }}],
+    wordPositions: [0],
+    matches: [readyMatch],
+    settings: {{
+      srsEnabled: true,
+      srsSemanticAdmissionEnabled: true,
+      srsProfileId: "default",
+      srsPair: "en-es"
+    }}
+  }});
+
+  assert.equal(calls.filter((entry) => entry.kind === "inventory").length, 1);
+  assert.equal(calls.some((entry) => entry.kind === "batch"), false);
+  assert.equal(result.summary.eligible, 1);
+  assert.equal(result.summary.ready, 1);
+  assert.equal(result.summary.fallbackAbstains, 1);
+  assert.equal(result.summary.inventoryError, "inventory route crashed");
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(result.summary.fallbackReasonCounts)),
+    {{ semantic_inventory_unavailable: 1 }}
+  );
+  assert.equal(result.matches.includes(readyMatch), false);
+
+  const decision = result.decisionMap.get(readyMatch);
+  assert.equal(decision.decision, "abstain");
+  assert.equal(decision.decision_source, "fallback_policy");
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(decision.reason_codes)),
+    ["semantic_inventory_unavailable"]
+  );
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_gate_debug_flush_window_batches_later_admissions(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

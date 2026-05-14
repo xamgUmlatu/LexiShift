@@ -3,7 +3,7 @@
 Status: active mixed readiness
 Role: Mixed
 Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 5 L5-D semantic helper decision-service exception containment validation against semantic gate/runtime contracts and current feature-state matrix
+Last verified: 2026-05-15 Lane 5 L5-E semantic inventory exception containment validation against semantic gate/runtime contracts and current feature-state matrix
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -127,7 +127,7 @@ Current shipped behavior:
    - semantic inventory resolved successfully
    - helper semantic-admission transport is available
 10. the shipped runtime defaults to `abstain_on_unavailable` for ready-rule transport/inventory failures; `legacy_on_unavailable` remains an explicit compatibility policy rather than the default
-11. thrown helper decision-service exceptions are contained at the semantic gate boundary and converted into the same fail-closed fallback path
+11. thrown inventory-resolution and helper decision-service exceptions are contained at the semantic gate boundary and converted into the same fail-closed fallback path
 12. fallback decisions aggregate their `reason_codes` into runtime diagnostics without changing scorer behavior
 13. only `decision=replace` survives into DOM apply today
 14. `abstain` and the currently reserved `soft_affordance` outcome both keep the original text in the shipped DOM path

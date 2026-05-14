@@ -25,6 +25,7 @@ Completed slices:
 2. L5-B: semantic admission unavailable-scoring fallback.
 3. L5-C: semantic fallback reason diagnostics.
 4. L5-D: semantic helper decision-service exception containment.
+5. L5-E: semantic inventory exception containment.
 
 This inventory records runtime closure work only. It does not promote new
 frequency/corpus sources, change semantic-veto thresholds, or certify release
@@ -247,8 +248,53 @@ python3 -m pytest \
 
 L5-D does not yet close:
 
-1. semantic inventory-resolution exception containment,
-2. automatic retry/backoff after helper semantic service errors,
-3. durable cross-session trend reporting,
-4. BetterDiscord/plugin runtime parity,
-5. user-facing explanations for individual abstained replacements.
+1. automatic retry/backoff after helper semantic service errors,
+2. durable cross-session trend reporting,
+3. BetterDiscord/plugin runtime parity,
+4. user-facing explanations for individual abstained replacements.
+
+## L5-E Semantic Inventory Exception Containment
+
+Product claim:
+
+- A thrown semantic inventory-resolution exception should not abort page
+  scanning or silently bypass semantic admission when the current runtime is
+  capable.
+
+Before this slice:
+
+| Surface | Current Truth Before L5-E |
+| --- | --- |
+| Inventory resolution | A rejected `resolveSemanticInventory(...)` call could reject the semantic admission batch instead of returning a fail-closed fallback decision. |
+| Diagnostics | Non-throwing inventory failures were visible through existing error fields and fallback reason counts, but thrown inventory exceptions were not contained at the semantic gate boundary. |
+
+Closure action:
+
+- Semantic inventory resolution exceptions are caught per ready group.
+- The gate converts those failures into the existing fail-closed fallback path:
+  - `semantic_inventory_unavailable` for inventory exceptions
+- The corresponding `inventoryError` field is populated so debug logs and
+  persisted diagnostics retain the failure message.
+
+After this slice:
+
+| Surface | Current Truth After L5-E |
+| --- | --- |
+| Runtime gate | Thrown semantic inventory-resolution failures are contained and resolve through the configured fallback policy, which defaults to `abstain_on_unavailable`. |
+| Scan continuity | An inventory route exception no longer rejects the whole queued admission batch for the current page scan. |
+| Diagnostics | Existing fallback reason diagnostics now include thrown inventory failures via `semantic_inventory_unavailable`. |
+| Scoring policy | Scorer behavior and decision thresholds are unchanged; this only hardens the failure boundary. |
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_extension_semantic_gate_runtime_contract.py
+```
+
+L5-E does not yet close:
+
+1. automatic retry/backoff after helper semantic service errors,
+2. durable cross-session trend reporting,
+3. BetterDiscord/plugin runtime parity,
+4. user-facing explanations for individual abstained replacements.
