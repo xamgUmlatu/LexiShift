@@ -11,6 +11,7 @@ Related docs:
 - `productization_lane2_code_disposition_inventory.md`
 - `productization_lane2_semantic_testing_script_registry.md`
 - `productization_lane3_feature_state_truth_inventory.md`
+- `productization_lane4_validation_gate_inventory.md`
 - `project_health_remediation_workstream.md`
 - `project_integrity_stabilization_runbook.md`
 - `project_integrity_stabilization_backlog.md`
@@ -283,6 +284,17 @@ Expected command families:
 - rulegen benchmark/quality/triage loop when rulegen scoring, filtering, POS,
   or LP tuning changes
 - semantic publication/runtime tests when semantic helper/runtime paths change
+
+Current Lane 4 progress:
+
+- `docs/developer/productization_lane4_validation_gate_inventory.md` now maps
+  change types to the smallest honest validation bundle, while preserving
+  `scripts/package.json` as the command authority.
+- The first Lane 4 slice separates branch-scope, local/staged, report-producing,
+  SRS, rulegen, semantic runtime, helper/native-host, packaging/platform parity,
+  GitHub Pages, CWS, and release/product-ops gates.
+- It also records artifact freshness rules so `*_latest` outputs stay evidence
+  snapshots from the run that produced them, not architecture authority.
 
 ### Lane 5: High-Risk Runtime Seams
 

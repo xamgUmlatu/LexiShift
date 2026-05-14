@@ -2,10 +2,10 @@
 
 Status: Active handbook
 Role: Canonical current
-Last updated: 2026-04-16
-Last verified: 2026-04-16 developer routing audit + script inventory spot-check
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate routing review and doc-reference check
 Purpose: developer-facing repository map and current source-of-truth routing for implementation work
-Source-of-truth: developer reference guide; command details defer to `local_setup.md` and `build_and_release.md`, and runtime claims verify in source code and `feature_state_matrix.md`.
+Source-of-truth: developer reference guide; command details defer to `local_setup.md`, `build_and_release.md`, and `productization_lane4_validation_gate_inventory.md`, and runtime claims verify in source code and `feature_state_matrix.md`.
 
 This document is the primary developer-facing reference for LexiShift implementation work.
 Use it as a map and routing handbook, not as the only authority for fast-moving command surfaces.
@@ -122,6 +122,7 @@ Specialty runbooks, policies, and ledgers live in:
 
 - `local_setup.md`
 - `build_and_release.md`
+- `productization_lane4_validation_gate_inventory.md`
 - `documentation_governance.md`
 - `feature_state_matrix.md`
 - `project_health_gate_structure.md`

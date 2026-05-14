@@ -2,8 +2,8 @@
 
 Status: active meta workflow
 Role: Runbook / operational
-Last updated: 2026-03-21
-Last verified: 2026-03-21 workflow-doc review + package/CI inventory check
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate command routing review against `scripts/package.json`, CI workflow, and build/release docs
 Purpose: meta workflow contract for how GenAI-driven implementation work should interact with repo safeties, harnesses, and verification evidence
 Source-of-truth: meta workflow contract; defer implementation truth to code, `AGENTS.md`, and `ai_workflow.md`.
 
@@ -223,8 +223,8 @@ Current intent:
 - `check:changed` is the preferred branch-scope workflow command before heavier quality work.
 - `check:docs` / `check:docs:report` are the dedicated canonical-doc integrity surfaces; `check:changed` reruns that audit when canonical docs or referenced source files change materially.
 - `build` is a local build smoke for maintained build surfaces.
-- `build:report` is the full build contract; hosted macOS CI should use it directly instead of a custom job-local command.
-- `build:ci` / `build:ci:report` are the explicit non-macOS hosted-runner build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
+- `build:report` is the full build contract; hosted macOS and Windows CI should use it directly instead of a custom job-local command.
+- `build:ci` / `build:ci:report` are the explicit unsupported-host build surfaces; they use the same script with explicit unsupported-surface skips instead of a separate CI-only build policy.
 - `check` now includes the strict Windows parity audit; `check:windows:parity` remains the dedicated inventory/report command, `check:changed` runs it automatically when parity-related files change, and Windows CI uses the strict variant to fail regressions.
 - `check` now enforces repo-wide Ruff style directly. `check:style`, `check:style:report`, and `check:style:summary` remain useful when you want a style-only loop or dedicated style artifacts.
 - `check:changed` now tracks both total changed files and substantive changed files; heavy follow-on loops should key off the substantive set so Python AST-equivalent churn, JSON pretty-print churn, and Markdown/text reflow do not force unnecessary audits.

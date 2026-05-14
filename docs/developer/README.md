@@ -3,7 +3,7 @@
 Status: active developer hub
 Role: Canonical current
 Last updated: 2026-05-15
-Last verified: 2026-05-15 productization Lane 2 semantic sentence-veto/generalization splits and validation
+Last verified: 2026-05-15 Lane 4 validation-gate routing review and doc-reference check
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -30,6 +30,7 @@ Use these first when you need current behavior or current operating commands:
 - GenAI workflow architecture and harness policy: `genai_workflow_architecture.md`
 - Project health gate structure: `project_health_gate_structure.md`
 - Productization closure roadmap: `productization_closure_roadmap.md`
+- Productization Lane 4 validation gate inventory: `productization_lane4_validation_gate_inventory.md`
 - Productization Lane 2 code disposition inventory: `productization_lane2_code_disposition_inventory.md`
 - Productization Lane 2 semantic testing script registry: `productization_lane2_semantic_testing_script_registry.md`
 - Project integrity stabilization runbook: `project_integrity_stabilization_runbook.md`

@@ -6,8 +6,8 @@ title: Developer Workflow
 <!--
 Status: active Pages workflow guide
 Role: Runbook / operational
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 site-doc authority note; commands not rerun
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate command routing review against `scripts/package.json`, build/release docs, and CI workflow
 Purpose: provide a concise contributor-facing workflow page for setup, validation, build safety, and local Pages preview
 Source-of-truth: user-facing workflow guide only; canonical developer routing and current verification policy live in `docs/developer/README.md`, `docs/developer/developer_reference.md`, and `docs/developer/feature_state_matrix.md`.
 -->
@@ -70,7 +70,7 @@ Hosted-runner build normalization:
 npm --prefix scripts run build:ci:report
 ```
 
-Hosted macOS CI runs the full `npm --prefix scripts run build:report` path; `build:ci:report` is the explicit non-macOS partial lane.
+Hosted macOS and Windows CI run the full `npm --prefix scripts run build:report` path; `build:ci:report` is the explicit unsupported-host partial lane.
 
 ## Run Surfaces
 
