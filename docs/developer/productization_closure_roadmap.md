@@ -229,6 +229,12 @@ Current Lane 3 progress:
   when the current SRS publication is capable, named pack install remains
   operator-only, and runtime decision policy exists even though rendered
   soft-affordance UX is still planned/partial.
+- L3-B now records the SRS admission/publication truth pass. No feature-state
+  status change was needed: frequency bootstrap, active inventory, explicit
+  refresh publication, and reset are current seams; profile bootstrap,
+  broad profile growth, due-only serving, automatic adaptive refresh, and
+  runtime confidence gating remain non-default or planned as previously
+  documented.
 
 ### Lane 4: Verification Gate Consolidation
 

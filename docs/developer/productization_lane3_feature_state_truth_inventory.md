@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only semantic runtime and pack-lifecycle truth pass, focused semantic publication/runtime tests, doc-reference check, state check, and diff hygiene
+Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, and SRS admission/publication truth passes; focused semantic and SRS tests; SRS quality harness; doc-reference check; state check; and diff hygiene
 Purpose: record feature-state reconciliation slices so implemented, default-on, verified, and still-planned claims stay separate before expansion resumes
 Source-of-truth: inventory only; current runtime truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -108,22 +108,88 @@ This slice updates current docs to avoid two common status mistakes:
    state is default-on when capable, with explicit operator-only semantic pack
    install for checkpoint packs.
 
-## L3-A Next Work
+## L3-B Read-Only Inputs
+
+Primary docs:
+
+- `feature_state_matrix.md`
+- `../srs/README.md`
+- `../srs/srs_roadmap.md`
+- `../srs/srs_set_planning_technical.md`
+- `../srs/srs_hybrid_model_technical.md`
+- `../srs/srs_practice_layer_design.md`
+
+Primary code and tests:
+
+- `core/lexishift_core/helper/use_cases/initialize_set.py`
+- `core/lexishift_core/helper/use_cases/refresh_set.py`
+- `core/lexishift_core/helper/use_cases/rebalance_set.py`
+- `core/lexishift_core/helper/use_cases/reset.py`
+- `core/lexishift_core/helper/use_cases/rulegen_job.py`
+- `core/lexishift_core/helper/rulegen.py`
+- `core/lexishift_core/helper/rulegen_outputs.py`
+- `core/lexishift_core/helper/use_cases/runtime_diagnostics.py`
+- `core/lexishift_core/srs/admission_refresh.py`
+- `core/lexishift_core/srs/inventory.py`
+- `core/lexishift_core/srs/scheduler.py`
+- `core/lexishift_core/srs/rebalance.py`
+- `apps/chrome-extension/shared/srs/srs_gate.js`
+- `scripts/testing/srs_quality_harness.py`
+- `scripts/testing/srs_quality_summary.py`
+- `core/tests/helper/test_helper_engine.py`
+- `core/tests/srs/test_srs_inventory.py`
+- `core/tests/srs/test_srs_rebalance.py`
+- `core/tests/srs/test_srs_feedback_simulation.py`
+- `core/tests/srs/test_srs_lp_e2e.py`
+- `core/tests/dev/test_extension_srs_runtime_gate_contract.py`
+
+## L3-B Claim Ledger
+
+| Claim | Implemented | Default State | Verified | Current Disposition |
+| --- | --- | --- | --- | --- |
+| Frequency bootstrap initializes `S` and publishes helper runtime artifacts. | Yes. `initialize_srs_set` resolves pair resources, writes the profile store/inventory, runs helper rulegen over active ids, and publishes ruleset/snapshot/semantic inventory family when available. | Default executable initialization path. | Yes. Helper tests, LP E2E tests, and SRS quality harness cover bootstrap publication. | Current product seam. Keep `frequency_bootstrap` as implemented/default-on/verified. |
+| Profile bootstrap is the default helper initialization strategy. | No. Profile scoring/diagnostics exist, but helper initialization still executes the frequency-bootstrap baseline when mutation is required. | Not default-on. | Partially verified as planner/scoring diagnostics and strategy-contract tests. | Implemented but not default execution. Do not mark as shipped helper behavior yet. |
+| Refresh can admit new items and republish helper artifacts. | Yes. `refresh_srs_set` applies admission refresh, merges active ids, persists store/inventory when configured, runs rulegen, and writes updated publication artifacts. | Default explicit/manual refresh path, not automatic adaptive refresh. | Yes. Helper tests, feedback simulation, LP E2E tests, and SRS quality harness cover refresh publication. | Current product seam. Keep automatic adaptive refresh separate. |
+| Profile growth is a broad growth-admission strategy for `S`. | No. `profile_growth` is executable through rebalance preview/apply, but not general refresh/admission execution. | Not default-on. | Verified for rebalance-specific behavior. | Keep as implemented-for-rebalance only. Do not use it as the general growth-admission status. |
+| Pair-local active inventory is the runtime publication input. | Yes. Initialize, refresh, rebalance, and rulegen job flows resolve/backfill pair-local `active_item_ids`; helper rulegen filters to those ids when provided. | Default-on, with store fallback when inventory is missing or stale. | Yes. Inventory tests, helper tests, diagnostics tests, and current SRS harness cover this. | Current product seam. Inventory remains forgiving, not strict authority. |
+| Reset removes pair/profile SRS publication artifacts. | Yes. `reset_srs_data` removes store items by scope, pair inventory, ruleset, snapshot, semantic inventory, and publication manifest. | Default maintenance route behind options workflow confirmation. | Yes. Helper reset tests and extension maintenance workflow tests cover reset behavior. | Current product seam. Keep double-confirmed UI workflow separate from helper reset implementation. |
+| Runtime SRS gate serves only due items. | No. The scheduler can compute due queues, but helper publication writes active/admitted inventory and extension `srs_gate.js` accepts all helper-published SRS rules. | Not default-on. | Verified as an intentional gap: SRS quality harness warns on broader-than-due publication, and extension gate contract tests assert all helper rules are accepted. | Planned. Do not mark due-aware serving shipped until helper publication and extension gating use an explicit due subset. |
+| Feedback changes scheduling and can influence future admissions. | Yes. Feedback updates scheduler fields and signal events; refresh admission uses feedback-window signals to pause/resume growth. | Default-on for explicit feedback/refresh flow, not automatic refresh triggering. | Yes. Feedback simulation and SRS quality harness cover growth/pause/growth behavior. | Current explicit lifecycle seam. Automatic adaptive refresh remains planned. |
+| Runtime confidence gating filters helper-published rules after publication. | No. Rulegen can filter by `confidence_threshold` before emission, but extension helper-rule runtime does not apply a live confidence threshold. | Not default-on. | Verified as absent by extension helper-rule confidence contract tests and feature-state audit. | Planned. Keep generation-time confidence filtering distinct from runtime gating. |
+| Synthetic SRS quality harness is a full LP/user-runtime coverage gate. | No. It covers synthetic bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle scenario. | Default required SRS workflow gate for SRS changes, with limited scenario coverage. | Yes. Harness emits stable latest JSON and explicit warning counts. | Current quality gate with known scope limits. It does not prove `en-es`/`es-en` SRS parity or due-aware serving. |
+
+## L3-B Corrections Applied
+
+No feature-state status change was needed in this slice. The current matrix
+already keeps the main SRS boundaries separate:
+
+1. `frequency_bootstrap` is shipped; `profile_bootstrap` is implemented but not
+   default helper execution.
+2. refresh publication is implemented; automatic adaptive refresh is still
+   planned.
+3. active inventory publication is implemented; due-only serving is still
+   planned.
+4. generation-time confidence filtering exists; runtime helper-rule confidence
+   gating is still planned.
+
+The value of this slice is the compact claim ledger above, which gives future
+agents a smaller SRS truth packet before any runtime or publication edits.
+
+## Lane 3 Next Work
 
 Next Lane 3 slices should stay narrow:
 
-1. L3-B: SRS admission, refresh, reset, due-aware serving, and publication.
-2. L3-C: helper/native-host route matrix, including route availability,
+1. L3-C: helper/native-host route matrix, including route availability,
    default data-root behavior, and diagnostics.
-3. L3-D: rulegen LP support and onboarding state, with separate
+2. L3-D: rulegen LP support and onboarding state, with separate
    implemented/default-on/verified rows per pair.
-4. L3-E: browser replacement runtime behavior, including DOM scan ordering,
+3. L3-E: browser replacement runtime behavior, including DOM scan ordering,
    semantic batching, debug overrides, and failure diagnostics.
-5. L3-F: packaging and Windows/macOS parity state.
+4. L3-F: packaging and Windows/macOS parity state.
 
 ## Validation
 
-For this slice, use:
+For L3-A, use:
 
 ```bash
 python3 -m pytest \
@@ -132,6 +198,29 @@ python3 -m pytest \
   core/tests/dev/test_extension_semantic_gate_runtime_contract.py \
   core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py \
   core/tests/helper/test_helper_rulegen.py
+
+python3 scripts/dev/check_doc_references.py
+npm --prefix scripts run check:state
+git diff --check
+```
+
+For L3-B, use:
+
+```bash
+python3 scripts/testing/srs_quality_harness.py \
+  --json-out docs/test_outputs/srs_quality_latest.json
+
+python3 scripts/testing/srs_quality_summary.py \
+  --quality-json docs/test_outputs/srs_quality_latest.json \
+  --markdown-out docs/test_outputs/srs_quality_summary_latest.md
+
+python3 -m pytest \
+  core/tests/helper/test_helper_engine.py \
+  core/tests/srs/test_srs_inventory.py \
+  core/tests/srs/test_srs_rebalance.py \
+  core/tests/srs/test_srs_feedback_simulation.py \
+  core/tests/srs/test_srs_lp_e2e.py \
+  core/tests/dev/test_extension_srs_runtime_gate_contract.py
 
 python3 scripts/dev/check_doc_references.py
 npm --prefix scripts run check:state
