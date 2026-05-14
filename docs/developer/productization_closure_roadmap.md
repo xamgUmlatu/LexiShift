@@ -235,6 +235,12 @@ Current Lane 3 progress:
   broad profile growth, due-only serving, automatic adaptive refresh, and
   runtime confidence gating remain non-default or planned as previously
   documented.
+- L3-C now records the helper/native-host route truth pass. No feature-state
+  status change was needed: configured native-messaging routes, diagnostics,
+  semantic inventory/admission, SRS workflow routes, profile routes, and
+  explicit semantic pack install are implemented/verified seams; same-browser
+  host-path sharing, extension-installed proof, and release-certification
+  limits remain known gaps.
 
 ### Lane 4: Verification Gate Consolidation
 

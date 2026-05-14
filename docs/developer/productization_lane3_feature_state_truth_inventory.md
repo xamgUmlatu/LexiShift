@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, and SRS admission/publication truth passes; focused semantic and SRS tests; SRS quality harness; doc-reference check; state check; and diff hygiene
+Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, and helper/native-host route truth passes; focused semantic, SRS, helper route, native-host, and parity tests; SRS quality harness; doc-reference check; state check; and diff hygiene
 Purpose: record feature-state reconciliation slices so implemented, default-on, verified, and still-planned claims stay separate before expansion resumes
 Source-of-truth: inventory only; current runtime truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -175,17 +175,77 @@ already keeps the main SRS boundaries separate:
 The value of this slice is the compact claim ledger above, which gives future
 agents a smaller SRS truth packet before any runtime or publication edits.
 
+## L3-C Read-Only Inputs
+
+Primary docs:
+
+- `feature_state_matrix.md`
+- `../architecture/native_messaging_design.md`
+- `../developer/windows_gui_parity_workstream.md`
+- `../developer/project_integrity_sp6_feature_state_refresh_packet.md`
+- `../developer/project_integrity_sp7_share_center_copy_packet.md`
+
+Primary code and tests:
+
+- `scripts/helper/lexishift_native_host.py`
+- `scripts/helper/lexishift_helper.py`
+- `apps/chrome-extension/background.js`
+- `apps/chrome-extension/shared/helper/helper_client.js`
+- `apps/chrome-extension/shared/helper/helper_transport_extension.js`
+- `apps/chrome-extension/shared/helper/helper_error_copy.js`
+- `apps/chrome-extension/options/core/helper/base_methods.js`
+- `apps/chrome-extension/options/core/helper/diagnostics_methods.js`
+- `apps/chrome-extension/options/core/helper/srs_set_methods.js`
+- `apps/gui/src/helper_installer.py`
+- `apps/gui/src/helper_connections_dialog.py`
+- `apps/gui/src/helper_connection_inspection.py`
+- `core/tests/dev/test_helper_translation_dict_entrypoints.py`
+- `core/tests/dev/test_helper_installer_native_messaging.py`
+- `core/tests/dev/test_helper_browser_connections.py`
+- `core/tests/dev/test_extension_helper_error_localization_contract.py`
+- `core/tests/dev/test_extension_helper_error_surface_contract.py`
+- `core/tests/dev/test_extension_helper_status_profile_contract.py`
+- `core/tests/dev/test_native_host_startup_logging.py`
+
+## L3-C Route Ledger
+
+| Claim | Implemented | Default State | Verified | Current Disposition |
+| --- | --- | --- | --- | --- |
+| Native host protocol is available through the extension service-worker bridge. | Yes. `background.js` bridges extension messages to `chrome.runtime.sendNativeMessage`; `helper_transport_extension.js` exposes the bridge to extension pages/runtime code. | Default-on when the browser native-messaging host is configured. | Yes. Extension helper error and status/profile contract tests cover bridge behavior. | Current product seam. Keep bridge failure handling explicit. |
+| Helper client and native host expose matching route names. | Mostly yes. Client/native host cover `hello`, `status`, ruleset/snapshot, semantic inventory/admission, SRS diagnostics, feedback/exposure, rulegen, SRS initialize/plan/preview/refresh/rebalance/reset, profiles, profile rulesets, open data dir, and semantic pack install. | Default-on for configured helper routes; route use still depends on calling surface. | Yes. Native-host, helper-entrypoint, SRS workflow, semantic pack, and diagnostics tests cover representative routes. | Current route surface. Keep route additions contract-tested. |
+| Semantic pack install can mutate the platform default data root without an explicit operator decision. | No. Native host requires `payload.data_root` or `payload.allow_default_data_root`; options UI requires a data root unless the default-root checkbox is enabled. | Operator-only. | Yes. CLI/native-host tests cover the explicit data-root guard, named pack resolution, and profile-local publication output. | Current safety seam. Preserve fail-closed behavior around profile-local publication mutation. |
+| Helper/native-host diagnostics expose route health and runtime publication state. | Yes. `srs_diagnostics`, `status`, extension options diagnostics, and runtime last-state formatting expose store/ruleset/snapshot/cache, semantic inventory/capability, generation ids, helper/cache source, and route errors. | Default-on for explicit diagnostics actions and runtime reports. | Yes. Helper engine, SRS action formatter, SRS runtime diagnostics, and helper status/profile contract tests cover this. | Current product seam. Diagnostics are observability, not proof of every planned behavior. |
+| Native-host startup/import failures have deterministic local evidence. | Yes. `lexishift_native_host.py` writes startup import/runtime tracebacks to `logs/native_host.log` under the LexiShift data root. | Default-on for native-host startup failures. | Yes. `test_native_host_startup_logging.py` covers the log path behavior. | Current support seam. Keep browser transport error and local host log concepts separate. |
+| Browser connection manager can install, inspect, and auto-repair helper manifests. | Yes. GUI helper connection code writes manifests, tracks fixed-ID and unpacked-dev rows, wraps workspace hosts with a pinned interpreter, and auto-repairs known stale states. | Default-on in GUI connection surfaces and startup repair for saved connections. | Yes. Browser connection, helper installer, and Windows parity tests cover install/inspect/repair contracts. | Current product seam. Still not a release certification. |
+| Same-browser production and unpacked-dev extensions can use different host paths simultaneously. | No. Native messaging still uses one manifest per browser host name, so allowed origins in the same browser share one host path. | Not supported. | Verified as a documented known gap through feature-state/native-messaging docs and installer behavior. | Known limitation. Do not claim independent same-browser host paths. |
+| GUI/native-host install can prove the extension is installed and active in the browser. | No. The app can verify manifest/origin/host freshness, but cannot prove the extension is currently installed and enabled. | Not supported. | Recorded as a feature-state known gap. | Known limitation. Keep connection health distinct from extension-install health. |
+| Windows native-host install parity is covered by the normal repo gate. | Yes. Windows parity audit covers GUI/helper/build parity, native-host executable expectations, manifest registry behavior, and CI-safe checks. | Default-on through repo safety gates. | Yes. `check:windows:parity` and helper installer tests cover the contract. | Current verification seam, not complete release certification. |
+
+## L3-C Corrections Applied
+
+No feature-state status change was needed in this slice. Current docs already
+separate implemented helper/native-host route behavior from the remaining
+operational limits:
+
+1. a configured native-messaging host is required before extension helper routes
+   are actually reachable;
+2. semantic pack install remains explicit and operator-controlled because it
+   mutates profile-local helper artifacts;
+3. one browser manifest owns all allowed origins for that browser, so prod and
+   unpacked-dev origins still share one host path;
+4. manifest freshness does not prove the browser extension is installed or
+   active;
+5. Windows parity is a required safety gate, not full release certification.
+
 ## Lane 3 Next Work
 
 Next Lane 3 slices should stay narrow:
 
-1. L3-C: helper/native-host route matrix, including route availability,
-   default data-root behavior, and diagnostics.
-2. L3-D: rulegen LP support and onboarding state, with separate
+1. L3-D: rulegen LP support and onboarding state, with separate
    implemented/default-on/verified rows per pair.
-3. L3-E: browser replacement runtime behavior, including DOM scan ordering,
+2. L3-E: browser replacement runtime behavior, including DOM scan ordering,
    semantic batching, debug overrides, and failure diagnostics.
-4. L3-F: packaging and Windows/macOS parity state.
+3. L3-F: packaging and Windows/macOS parity state.
 
 ## Validation
 
@@ -199,6 +259,24 @@ python3 -m pytest \
   core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py \
   core/tests/helper/test_helper_rulegen.py
 
+python3 scripts/dev/check_doc_references.py
+npm --prefix scripts run check:state
+git diff --check
+```
+
+For L3-C, use:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_helper_translation_dict_entrypoints.py \
+  core/tests/dev/test_helper_installer_native_messaging.py \
+  core/tests/dev/test_helper_browser_connections.py \
+  core/tests/dev/test_extension_helper_error_localization_contract.py \
+  core/tests/dev/test_extension_helper_error_surface_contract.py \
+  core/tests/dev/test_extension_helper_status_profile_contract.py \
+  core/tests/dev/test_native_host_startup_logging.py
+
+npm --prefix scripts run check:windows:parity
 python3 scripts/dev/check_doc_references.py
 npm --prefix scripts run check:state
 git diff --check
