@@ -299,6 +299,11 @@ Current Lane 4 progress:
   `scripts/README.md` back to the validation-gate inventory and corrects their
   build-lane wording so Windows full `build:report` coverage is not flattened
   into the unsupported-host `build:ci:report` partial lane.
+- The third Lane 4 slice records handoff artifact freshness policy: refresh
+  generated workflow artifacts only when their producing command is part of the
+  honest validation bundle, render summaries from matching source JSON, and call
+  historical artifacts historical instead of refreshing heavyweight outputs for
+  timestamp freshness.
 
 ### Lane 5: High-Risk Runtime Seams
 
