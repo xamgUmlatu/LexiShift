@@ -1,12 +1,22 @@
 from __future__ import annotations
 
 import json
+import os
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-from lexishift_core.helper.paths import build_helper_paths
-from lexishift_core.helper.use_cases.semantic_pack_install import (
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.pack_provenance import (  # noqa: E402
+    PACK_PROVENANCE_FILENAME,
+    validate_pack_provenance_file,
+)
+from lexishift_core.helper.use_cases.semantic_pack_install import (  # noqa: E402
     DEFAULT_PACK_ID,
     SemanticPackInstallConfig,
     install_semantic_pack,
@@ -77,8 +87,24 @@ class TestSemanticPackInstall(unittest.TestCase):
                 / "semantic_inventory.json"
             )
             pack_manifest = pack_inventory.with_name("manifest.json")
+            pack_provenance = pack_inventory.with_name(PACK_PROVENANCE_FILENAME)
             self.assertTrue(pack_inventory.exists())
             self.assertTrue(pack_manifest.exists())
+            self.assertTrue(pack_provenance.exists())
+            pack_manifest_payload = json.loads(pack_manifest.read_text(encoding="utf-8"))
+            self.assertEqual(
+                pack_manifest_payload["lineage"]["source_inventory_sha1"],
+                report["source"]["semantic_inventory_sha1"],
+            )
+            self.assertEqual(
+                pack_manifest_payload["artifacts"]["provenance"]["path"],
+                str(pack_provenance),
+            )
+            self.assertEqual(validate_pack_provenance_file(pack_provenance), ())
+            self.assertEqual(
+                report["source"]["source_pack_provenance_path"],
+                str(pack_provenance),
+            )
 
     def test_installs_named_pack_from_existing_pack_copy_without_source_path(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

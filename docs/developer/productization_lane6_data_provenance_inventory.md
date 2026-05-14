@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, focused pack-provenance validator tests, and focused pack-lifecycle audit tests
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, focused pack-provenance validator tests, focused pack-lifecycle audit tests, and semantic-pack provenance install tests
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -20,6 +20,7 @@ Related docs:
 - `../../core/lexishift_core/helper/installed_packs.py`
 - `../../core/lexishift_core/helper/pack_provenance.py`
 - `../../core/lexishift_core/helper/rulegen_outputs.py`
+- `../../core/lexishift_core/helper/semantic_pack_provenance.py`
 - `../../core/lexishift_core/helper/use_cases/semantic_pack_install.py`
 - `../../scripts/testing/pack_lifecycle_audit.py`
 - `../../core/tests/helper/test_pack_provenance.py`
@@ -34,6 +35,7 @@ Completed slices:
 1. L6-A: current pack/source provenance inventory.
 2. L6-B: pack provenance sidecar contract.
 3. L6-C: pack lifecycle audit command.
+4. L6-D: semantic pack provenance and lineage sidecar.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -58,7 +60,7 @@ Explicitly out of scope:
 | Provenance sidecar | `core/lexishift_core/helper/pack_provenance.py`, future `<pack_root>/provenance.json` | Versioned contract for source identity, license status, source pointer, raw artifact checksums, build mode, generated artifact identity, and optional SQLite metrics. | No installer writes this file yet; the lifecycle audit only reports whether it exists and validates. |
 | Lifecycle audit | `scripts/testing/pack_lifecycle_audit.py` | Read-only JSON/Markdown audit of installed pack manifests, optional provenance sidecars, semantic pack copies, profile publication manifests, catalog pack ids, and optional candidate SQLite metadata. | It does not write provenance sidecars, prove licenses, replace the source-readiness audit, or promote packs. |
 | Pack refs/resolvers | `frequency_packs.py`, `translation_packs.py`, `embedding_packs.py`, `pair_resources.py`, `lp_capabilities.py` | Runtime-facing pack id, provider, source/POS profile, resolved path, and managed-vs-fallback resolution. | Full provenance for manual paths or legacy fallback files. |
-| Semantic pack copy | `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/manifest.json` from `semantic_pack_install.py` | Semantic pack id/pair, generated timestamp, source path, raw/normalized inventory hashes, installed semantic inventory artifact hash/bytes. | Upstream source-batch lineage, source license/review state, release manifest identity, or why the compiled generation was selected. |
+| Semantic pack copy | `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/manifest.json` and `provenance.json` from `semantic_pack_install.py` | Semantic pack id/pair, generated timestamp, source path, raw/normalized inventory hashes, source inventory generation fields when present, installed semantic inventory artifact hash/bytes, and validated sidecar provenance. | Upstream source-batch lineage when the source inventory lacks it, release manifest identity, or why the compiled generation was selected. |
 | Profile publication manifest | `<data_root>/srs/profiles/<profile_id>/srs_publication_manifest_<pair>.json` from `rulegen_outputs.py` | Ruleset/snapshot/semantic inventory family identity, `generation_id`, artifact hashes/bytes, and family-valid flag. | Source provenance for the data that produced the generation. It is a runtime publication manifest, not a source manifest. |
 | Generated evidence | `docs/test_outputs/` audit, benchmark, and experiment artifacts | Evidence from the command that produced the artifact. | Architecture authority or current runtime truth without a source/code/test pointer. |
 
@@ -114,6 +116,9 @@ What is already solid:
 7. `pack_lifecycle_audit.py` now reports installed manifests, optional
    provenance sidecars, semantic pack copies, publication manifests, catalog
    ids, and optional candidate SQLite metadata into one JSON/Markdown surface.
+8. Semantic pack install now writes a validated `provenance.json` sidecar for
+   copied semantic packs and records a manifest `lineage` block without
+   removing the older manifest fields.
 
 Loose ends to close before broad expansion:
 
@@ -127,7 +132,7 @@ Loose ends to close before broad expansion:
 4. Generated SQLite schema, row counts, POS coverage, and topic/domain coverage
    are audit outputs, not pack-manifest fields.
 5. Semantic publication manifests validate runtime artifact family integrity,
-   but not upstream source-batch or review lineage.
+   but do not yet carry upstream source-batch or review lineage.
 6. Named semantic dev packs currently resolve through repo-local generated
    experiment paths, which is acceptable for operator work but not a release
    pack lifecycle.
@@ -263,13 +268,70 @@ python3 -m ruff format --check \
   core/tests/helper/test_pack_provenance.py
 ```
 
+## L6-D Semantic Pack Provenance And Lineage
+
+Product claim:
+
+- A semantic pack copy should be able to explain which source inventory it came
+  from and provide a sidecar provenance record that the lifecycle audit can
+  validate.
+
+Current implementation:
+
+- `core/lexishift_core/helper/semantic_pack_provenance.py` builds semantic pack
+  lineage and sidecar provenance payloads.
+- `install_semantic_pack(..., copy_pack=True)` now writes
+  `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/provenance.json`.
+- The existing semantic pack `manifest.json` keeps `source_path`,
+  `raw_inventory_sha1`, and `normalized_inventory_sha1`, and now also includes:
+  - `lineage`,
+  - `artifacts.provenance`.
+- The install report now includes `source.source_pack_provenance_path`.
+- The lineage block records:
+  - source inventory path,
+  - source inventory SHA-1,
+  - source inventory `generated_at` and `generation_id` when present,
+  - source inventory pair/profile when present,
+  - normalized inventory SHA-1,
+  - trigger, sense, competition-set, and phrase-set counts.
+- The sidecar uses the L6-B `provenance.json` contract with
+  `pack_kind = "semantic_inventory_pack"` and
+  `artifact_kind = "semantic_inventory"`.
+
+Boundaries:
+
+1. Existing source inventories, including the current tranche dev inventory, do
+   not always carry upstream source-batch ids or release-manifest ids. L6-D
+   records absent fields as empty rather than inventing them.
+2. Profile publication manifests still identify the runtime artifact family;
+   they do not yet embed semantic source lineage.
+3. `copy_pack=False` does not rewrite an existing installed semantic pack copy.
+4. This does not promote any semantic pack to a release channel.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_semantic_pack_install.py \
+  core/tests/helper/test_pack_provenance.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff check \
+  core/lexishift_core/helper/semantic_pack_provenance.py \
+  core/lexishift_core/helper/use_cases/semantic_pack_install.py \
+  core/tests/helper/test_semantic_pack_install.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/semantic_pack_provenance.py \
+  core/lexishift_core/helper/use_cases/semantic_pack_install.py \
+  core/tests/helper/test_semantic_pack_install.py
+```
+
 ## Planned Lane 6 Slices
 
 | Slice | Goal | First Output |
 | --- | --- | --- |
 | L6-B Pack provenance contract | Initial sidecar validator completed; future work should wire installers/audits to it. | `pack_provenance.py` and focused validator tests. |
 | L6-C Pack lifecycle audit command | Initial read-only audit completed; future work should wire sidecar production and richer source-readiness checks. | `pack_lifecycle_audit.py` with JSON/Markdown output and focused tests. |
-| L6-D Semantic generation lineage | Tie semantic source/evidence batches to compiled inventory, semantic pack copy, and profile publication manifest. | Generation/release manifest fields or sidecar plus installer validation. |
+| L6-D Semantic generation lineage | Initial semantic pack sidecar and manifest lineage completed; future work should add upstream source-batch/release ids when source inventories carry them. | `semantic_pack_provenance.py`, installer wiring, and focused install tests. |
 | L6-E En-es expansion candidate runbook | Convert the corpus-expansion plan into a candidate-pack checklist that another agent can run without re-deriving context. | Candidate pack readiness checklist and validation command bundle. |
 | L6-F Manual path disposition | Decide which manual paths remain supported import/debug surfaces and which should be demoted before release. | Updated installed-vs-manual contract and targeted cleanup tasks. |
 

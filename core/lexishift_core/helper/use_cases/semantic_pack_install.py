@@ -12,7 +12,12 @@ import tempfile
 from typing import Mapping, Sequence
 
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.pack_provenance import PACK_PROVENANCE_FILENAME
 from lexishift_core.helper.rulegen_outputs import build_snapshot, write_rulegen_outputs
+from lexishift_core.helper.semantic_pack_provenance import (
+    build_semantic_pack_lineage,
+    write_semantic_pack_provenance,
+)
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
 
 
@@ -142,12 +147,14 @@ def install_semantic_pack(
     )
     raw_inventory = _load_inventory(config, resolved_inventory_path)
     source_pack_ref = ""
+    source_pack_provenance_ref = ""
     if config.copy_pack:
         source_pack_ref = _semantic_pack_inventory_path(
             paths=paths,
             pair=pair,
             pack_id=config.pack_id,
         )
+        source_pack_provenance_ref = str(Path(source_pack_ref).with_name(PACK_PROVENANCE_FILENAME))
     inventory = normalize_semantic_inventory_for_helper(
         raw_inventory,
         pair=pair,
@@ -209,6 +216,7 @@ def install_semantic_pack(
             "semantic_inventory_path": str(resolved_inventory_path or ""),
             "semantic_inventory_sha1": _sha1_json(raw_inventory),
             "source_pack_inventory_path": str(source_pack_ref),
+            "source_pack_provenance_path": source_pack_provenance_ref,
         },
         "summary": {
             "rule_count": len(rules),
@@ -450,6 +458,24 @@ def _write_pack_copy(
     inventory_path = pack_root / "semantic_inventory.json"
     manifest_path = pack_root / "manifest.json"
     _write_json(inventory_path, normalized_inventory)
+    provenance_path = write_semantic_pack_provenance(
+        pack_root=pack_root,
+        inventory_path=inventory_path,
+        pair=pair,
+        pack_id=str(pack_id or DEFAULT_PACK_ID).strip() or DEFAULT_PACK_ID,
+        raw_inventory=raw_inventory,
+        normalized_inventory=normalized_inventory,
+        source_path=source_path,
+        generated_at=generated_at,
+    )
+    lineage = build_semantic_pack_lineage(
+        pair=pair,
+        pack_id=str(pack_id or DEFAULT_PACK_ID).strip() or DEFAULT_PACK_ID,
+        raw_inventory=raw_inventory,
+        normalized_inventory=normalized_inventory,
+        source_path=source_path,
+        generated_at=generated_at,
+    )
     _write_json(
         manifest_path,
         {
@@ -458,6 +484,7 @@ def _write_pack_copy(
             "pack_id": str(pack_id or DEFAULT_PACK_ID).strip() or DEFAULT_PACK_ID,
             "pair": pair,
             "generated_at": generated_at,
+            "lineage": lineage,
             "source_path": str(source_path or ""),
             "raw_inventory_sha1": _sha1_json(raw_inventory),
             "normalized_inventory_sha1": _sha1_json(normalized_inventory),
@@ -466,7 +493,12 @@ def _write_pack_copy(
                     "path": str(inventory_path),
                     "sha1": _sha1_file(inventory_path),
                     "bytes": inventory_path.stat().st_size,
-                }
+                },
+                "provenance": {
+                    "path": str(provenance_path),
+                    "sha1": _sha1_file(provenance_path),
+                    "bytes": provenance_path.stat().st_size,
+                },
             },
         },
     )
