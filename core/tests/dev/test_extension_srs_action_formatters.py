@@ -133,7 +133,7 @@ const diagnosticsText = formatters.buildRuntimeDiagnosticsOutput({{
       semantic_runtime_reason_code: "ready_rules_available",
       semantic_pointer_rule_count: 9,
       semantic_ready_rule_count: 4,
-      semantic_fallback_policy: "legacy_on_unavailable",
+      semantic_fallback_policy: "abstain_on_unavailable",
       semantic_inventory_loaded: true,
       semantic_inventory_source: "helper",
       semantic_matches_eligible: 6,

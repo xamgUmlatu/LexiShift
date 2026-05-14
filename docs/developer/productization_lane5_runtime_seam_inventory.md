@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 focused helper, extension, SRS harness, SRS summary, feedback simulation tests plus SRS quality harness artifact refresh
+Last verified: 2026-05-15 focused helper, extension, SRS harness, SRS summary, feedback simulation, semantic gate/runtime, SRS settings, diagnostics, and semantic policy tests plus SRS quality harness artifact refresh
 Purpose: record high-risk runtime seam closure slices so runtime behavior is fixed, tested, and documented before expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -22,6 +22,7 @@ Lane: Lane 5, high-risk runtime seams.
 Completed slices:
 
 1. L5-A: due-aware SRS runtime serving.
+2. L5-B: semantic admission unavailable-scoring fallback.
 
 This inventory records runtime closure work only. It does not promote new
 frequency/corpus sources, change semantic-veto thresholds, or certify release
@@ -99,3 +100,56 @@ L5-A does not yet close:
 3. metadata migration for old cached helper rules before the next publication,
 4. broader real-user LP coverage beyond the synthetic SRS quality harness,
 5. the separate extension-side helper-rule confidence gate.
+
+## L5-B Semantic Admission Unavailable-Scoring Fallback
+
+Product claim:
+
+- If a rule is semantically gated because the current publication is capable,
+  missing inventory or unavailable semantic decision service should not silently
+  allow a potentially harmful replacement.
+
+Before this slice:
+
+| Surface | Current Truth Before L5-B |
+| --- | --- |
+| Helper policy | Helper-side runtime semantic policy defaulted to `abstain_on_unavailable`. |
+| Extension defaults | Extension settings, active-rule resolution, semantic gate, options profile save, and diagnostics defaulted to `legacy_on_unavailable`. |
+| Failure behavior | Ready-rule inventory/helper failures could fall back to `replace` unless the runtime settings explicitly carried `abstain_on_unavailable`. |
+
+Closure action:
+
+- Extension semantic-admission defaults now use `abstain_on_unavailable`.
+- The legacy `legacy_on_unavailable` policy remains accepted as an explicit
+  compatibility policy, but it is no longer the default posture.
+- Semantic gate contract coverage now verifies inventory-unavailable ready
+  matches abstain by default and do not reach DOM replacement.
+
+After this slice:
+
+| Surface | Current Truth After L5-B |
+| --- | --- |
+| Helper policy | Helper and extension defaults both fail closed with `abstain_on_unavailable`. |
+| Runtime gate | Ready semantic matches abstain when inventory or helper semantic scoring is unavailable unless an explicit legacy fallback is supplied. |
+| Diagnostics | Runtime state reports `abstain_on_unavailable` as the default semantic fallback policy. |
+| Compatibility | `legacy_on_unavailable` remains an allowed policy for explicit migration or debug scenarios. |
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_extension_semantic_gate_runtime_contract.py \
+  core/tests/dev/test_extension_helper_rule_confidence_contract.py \
+  core/tests/dev/test_extension_srs_settings_contract.py \
+  core/tests/dev/test_extension_srs_action_formatters.py \
+  core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py \
+  core/tests/rulegen/test_semantic_routing_runtime_policy.py \
+  core/tests/helper/test_helper_engine.py
+```
+
+L5-B does not yet close:
+
+1. rendered `soft_affordance` UX,
+2. automatic semantic pack rollout,
+3. BetterDiscord/plugin runtime parity,
+4. persistent helper-side semantic service error surfacing beyond existing diagnostics.

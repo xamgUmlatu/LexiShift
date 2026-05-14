@@ -334,6 +334,10 @@ Current Lane 5 progress:
 - The SRS quality harness now verifies the runtime due-active count is bounded
   by the due count in the feedback scenario, while keeping the absence of a
   dedicated due-only publication artifact explicit.
+- L5-B changes semantic admission's unavailable-scoring default from
+  `legacy_on_unavailable` to `abstain_on_unavailable`, aligning extension
+  runtime/profile/diagnostic defaults with the helper-side safety default while
+  preserving `legacy_on_unavailable` as an explicit compatibility policy.
 
 ### Lane 6: Data Provenance And Pack Lifecycle
 

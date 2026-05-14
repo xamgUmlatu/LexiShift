@@ -3,7 +3,7 @@
 Status: active mixed readiness
 Role: Mixed
 Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 3 feature-state truth pass against the capability-gated runtime, named semantic pack installer, runtime decision-policy code, and current feature-state matrix
+Last verified: 2026-05-15 Lane 5 L5-B semantic fallback default validation against semantic gate/runtime contracts, SRS settings/profile defaults, diagnostics, helper semantic admission, runtime decision-policy code, and current feature-state matrix
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -126,7 +126,7 @@ Current shipped behavior:
    - the match status is `ready`
    - semantic inventory resolved successfully
    - helper semantic-admission transport is available
-10. the shipped runtime still uses internal `legacy_on_unavailable` fallback for ready-rule transport/inventory failures; non-ready publications stay on standard SRS behavior instead of exposing a user-facing fallback selector
+10. the shipped runtime defaults to `abstain_on_unavailable` for ready-rule transport/inventory failures; `legacy_on_unavailable` remains an explicit compatibility policy rather than the default
 10. only `decision=replace` survives into DOM apply today
 11. `abstain` and the currently reserved `soft_affordance` outcome both keep the original text in the shipped DOM path
 

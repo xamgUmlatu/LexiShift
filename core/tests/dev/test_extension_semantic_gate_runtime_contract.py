@@ -1029,7 +1029,7 @@ const readyMatch = {{
 """
         _run_node(script)
 
-    def test_gate_falls_back_locally_when_inventory_is_unavailable(self) -> None:
+    def test_gate_abstains_by_default_when_inventory_is_unavailable(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1109,7 +1109,6 @@ const readyMatch = {{
     settings: {{
       srsEnabled: true,
       srsSemanticAdmissionEnabled: true,
-      srsSemanticAdmissionFallbackPolicy: "legacy_on_unavailable",
       srsProfileId: "default",
       srsPair: "en-es"
     }}
@@ -1120,13 +1119,14 @@ const readyMatch = {{
 
   assert.equal(result.summary.eligible, 1);
   assert.equal(result.summary.ready, 1);
-  assert.equal(result.summary.fallbackReplaces, 1);
+  assert.equal(result.summary.fallbackReplaces, 0);
+  assert.equal(result.summary.fallbackAbstains, 1);
   assert.equal(result.summary.inventorySource, "helper");
   assert.equal(result.summary.inventoryError, "Helper offline.");
-  assert.equal(result.matches.includes(readyMatch), true);
+  assert.equal(result.matches.includes(readyMatch), false);
 
   const readyDecision = result.decisionMap.get(readyMatch);
-  assert.equal(readyDecision.decision, "replace");
+  assert.equal(readyDecision.decision, "abstain");
   assert.equal(readyDecision.decision_source, "fallback_policy");
   assert.deepEqual(
     JSON.parse(JSON.stringify(readyDecision.reason_codes)),

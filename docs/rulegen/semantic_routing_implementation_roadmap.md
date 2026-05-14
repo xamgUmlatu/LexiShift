@@ -243,6 +243,7 @@ Deliverables:
   - `legacy_on_unavailable`
   - `abstain_on_unavailable`
   - later `soft_affordance_on_unavailable`
+- current extension/helper default: `abstain_on_unavailable`; legacy fallback is compatibility-only
 
 Implementation notes:
 
