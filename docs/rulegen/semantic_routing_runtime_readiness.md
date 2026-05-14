@@ -860,8 +860,8 @@ Already present today:
   - helper source-of-truth payload for ruleset/snapshot/semantic-inventory/publication-manifest state
   - extension-cache payload for cached ruleset/snapshot/semantic-inventory presence and counts
   - current tab/runtime last state for live semantic gate behavior
-- apply/runtime last-state diagnostics record fallback policy, inventory source/error, and aggregate eligible / ready / replace / abstain counts
-- that current tab/runtime state is persisted through `chrome.storage.local` under `srsRuntimeLastState`
+- apply/runtime last-state diagnostics can record fallback policy, inventory source/error, and aggregate eligible / ready / replace / abstain counts
+- that current tab/runtime state is persisted through `chrome.storage.local` under `srsRuntimeLastState` only when runtime debug diagnostics are enabled
 - per-replacement detail payloads can already carry semantic decision fields such as:
   - `decision`
   - `decision_source`

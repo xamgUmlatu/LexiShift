@@ -64,8 +64,8 @@ Reasoning:
 
 The intended current contract is:
 
-1. `scan_order.js` only reorders nodes when page-level budgets are active
-2. the full-scan reorder is deterministic for the same page/profile seed and can vary across profile/page seeds
+1. `scan_order.js` always prioritizes visible and near-viewport text nodes before far-offscreen nodes when viewport geometry is available
+2. page-level budgets add deterministic within-band distribution for the same page/profile seed and can vary across profile/page seeds
 3. `page_budget_tracker.js` seeds page budget usage from already-rendered `.lexishift-replacement` spans and increments usage as new replacements are applied
 4. `dom_scan_runtime.js` builds page budget state before reordering nodes and before per-node processing in a full scan
 5. the manifest-order test and current architecture docs must list `scan_order.js` as a first-class dependency before `dom_scan_runtime.js`
@@ -74,7 +74,7 @@ The intended current contract is:
 
 | Claim | Owning code/tests | Evidence surface | Current status |
 |---|---|---|---|
-| Scan reordering is disabled when page budgets are off and deterministic when budgets are on. | `scan_order.js` | new Node-backed DOM-scan contract test | `verified for this slice` |
+| Full-scan ordering prioritizes viewport bands, keeps stable within-band order when budgets are off, and becomes deterministic page/profile distribution when budgets are on. | `scan_order.js` | Node-backed DOM-scan contract test | `verified for this slice` |
 | Page budget state seeds from existing replacement spans and updates usage incrementally. | `page_budget_tracker.js` | new Node-backed DOM-scan contract test | `verified for this slice` |
 | Full-scan runtime builds budget state before node reorder and processes the reordered node list. | `dom_scan_runtime.js` | new Node-backed DOM-scan contract test | `verified for this slice` |
 | Manifest-order structure checks include the full DOM scan helper stack. | `manifest.json`, structure test | updated structure test | `fixed and verified in this slice` |
@@ -82,17 +82,18 @@ The intended current contract is:
 
 ## Invariants
 
-1. page-budget enforcement must not silently depend on raw DOM order alone when distribution is enabled
-2. full-scan ordering must be deterministic for the same page/profile context
-3. existing replacement spans must count against page budgets during later full scans or rescans
-4. manifest-order tests and docs must describe every live DOM scan dependency that `dom_scan_runtime.js` requires
+1. visible-first full-scan behavior must not be mistaken for budget-only reordering
+2. page-budget enforcement must not silently depend on raw DOM order alone when distribution is enabled
+3. budgeted full-scan ordering must be deterministic for the same page/profile context
+4. existing replacement spans must count against page budgets during later full scans or rescans
+5. manifest-order tests and docs must describe every live DOM scan dependency that `dom_scan_runtime.js` requires
 
 ## Scenario Matrix
 
 | Scenario | What to verify |
 |---|---|
-| Budgets disabled | node order remains unchanged |
-| Budgets enabled | node order is deterministic and redistributed |
+| Budgets disabled | visible and near-viewport nodes are prioritized, with stable within-band order |
+| Budgets enabled | node order is deterministic and redistributed within viewport bands |
 | Existing page replacements | seeded budget counts reflect already-rendered spans |
 | New replacement accounting | budget state increments on newly applied replacements |
 | Full scan | runtime builds budget state, reorders nodes, then processes them |

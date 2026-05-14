@@ -247,6 +247,12 @@ Current Lane 3 progress:
   `en-de` currently have machine-readable LP profiles and dedicated latest
   benchmark lanes. Case files, runtime support, profile conformance, and
   promotion readiness should remain separate status claims.
+- L3-E now records the browser replacement runtime truth pass and corrects a
+  stale scan-order claim: full scans already prioritize visible and
+  near-viewport nodes, while page budgets add deterministic within-band
+  distribution. It also keeps due-serving, runtime confidence filtering,
+  debug semantic overrides, non-rendered `soft_affordance`, and debug-gated
+  runtime diagnostics as separate status claims.
 
 ### Lane 4: Verification Gate Consolidation
 

@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, helper/native-host route, and rulegen LP onboarding truth passes; focused semantic, SRS, helper route, native-host, rulegen onboarding, and parity tests; SRS quality harness; doc-reference check; state check; and diff hygiene
+Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, helper/native-host route, rulegen LP onboarding, and browser replacement runtime truth passes; focused semantic, SRS, helper route, native-host, rulegen onboarding, browser runtime, and parity tests; SRS quality harness; doc-reference check; state check; and diff hygiene
 Purpose: record feature-state reconciliation slices so implemented, default-on, verified, and still-planned claims stay separate before expansion resumes
 Source-of-truth: inventory only; current runtime truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -20,6 +20,8 @@ Related docs:
 - `../rulegen/rulegen_lp_support_guide.md`
 - `../rulegen/lp_onboarding_operating_model.md`
 - `../rulegen/lp_onboarding_checklist_template.md`
+- `../architecture/chrome_extension_technical.md`
+- `../architecture/extension_system_map.md`
 
 ## Scope
 
@@ -31,6 +33,7 @@ Completed slices:
 2. L3-B: SRS admission, refresh, reset, and publication.
 3. L3-C: helper/native-host route state.
 4. L3-D: rulegen LP support and onboarding state.
+5. L3-E: browser replacement runtime behavior.
 
 This pass reconciles status claims only. It does not change runtime behavior,
 promotion thresholds, generated artifacts, corpus sources, or semantic-veto
@@ -327,13 +330,77 @@ states into one word like "supported":
 4. dedicated latest benchmark/gate/triage artifacts,
 5. promotion or hard-gate readiness.
 
+## L3-E Read-Only Inputs
+
+Primary docs:
+
+- `feature_state_matrix.md`
+- `../architecture/chrome_extension_technical.md`
+- `../architecture/extension_system_map.md`
+- `../developer/project_integrity_sp5_dom_scan_packet.md`
+- `../developer/project_integrity_b4_semantic_diagnostics_packet.md`
+- `../developer/project_integrity_d7_runtime_diagnostics_packet.md`
+- `../rulegen/semantic_routing_runtime_readiness.md`
+- `../rulegen/semantic_routing_publication_contract.md`
+- `../rulegen/semantic_pack_operator_smoke_runbook.md`
+
+Primary code and tests:
+
+- `apps/chrome-extension/content/runtime/apply_settings_pipeline.js`
+- `apps/chrome-extension/content/runtime/apply_runtime_actions.js`
+- `apps/chrome-extension/content/runtime/rules/active_rules_runtime.js`
+- `apps/chrome-extension/content/runtime/rules/helper_rules_runtime.js`
+- `apps/chrome-extension/content/runtime/dom_scan_runtime.js`
+- `apps/chrome-extension/content/runtime/dom_scan/scan_order.js`
+- `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
+- `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
+- `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
+- `apps/chrome-extension/content/runtime/semantic/semantic_gate_runtime.js`
+- `apps/chrome-extension/content/runtime/semantic/semantic_gate_batch.js`
+- `apps/chrome-extension/content/runtime/diagnostics/apply_diagnostics_reporter.js`
+- `apps/chrome-extension/content/processing/replacements.js`
+- `apps/chrome-extension/content/processing/replacement_semantic_override.js`
+- `core/tests/dev/test_extension_dom_scan_runtime_contract.py`
+- `core/tests/dev/test_extension_semantic_gate_runtime_contract.py`
+- `core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py`
+- `core/tests/dev/test_extension_helper_rule_confidence_contract.py`
+- `core/tests/dev/test_extension_replacements_contract.py`
+- `core/tests/dev/test_extension_srs_runtime_gate_contract.py`
+- `core/tests/architecture/test_extension_structure.py`
+
+## L3-E Runtime Ledger
+
+| Claim | Implemented | Default State | Verified | Current Disposition |
+| --- | --- | --- | --- | --- |
+| Browser runtime resolves active rules from local rules plus helper/cache SRS rules. | Yes. `active_rules_runtime.js` merges profile/custom rules with helper rules, tags origins, applies the SRS gate, and reports helper/cache source and errors. | Default-on when SRS is enabled and helper/cache rules are available. | Yes. Helper-rule confidence, SRS runtime gate, and diagnostics contract tests cover the behavior. | Current product seam. Source/origin diagnostics are important because local and SRS rules can coexist. |
+| Extension runtime filters helper-published SRS rules by due state. | No. The current SRS gate accepts all helper-published SRS rules and records helper-ruleset mode. | Not default-on. | Yes. The SRS runtime gate contract test asserts future-due and due helper rules both remain active. | Known product gap already tracked by L3-B. Keep due-serving separate from browser rule activation. |
+| Extension runtime filters helper-published rules by confidence after publication. | No. Confidence filtering happens before helper emission; already-emitted helper rules stay eligible if enabled. | Not default-on. | Yes. The helper-rule confidence contract test keeps low- and high-confidence emitted rules active. | Known product gap already tracked by L3-B. Keep generation-time confidence filtering separate from runtime filtering. |
+| Full DOM scans are raw DOM order unless page budgets are enabled. | No. `scan_order.js` always prioritizes visible and near-viewport nodes before far-offscreen nodes when viewport geometry is available; page budgets add deterministic within-band distribution. | Default-on for full scans. | Yes. DOM scan runtime contract tests cover visible-first stable ordering without budgets and page/profile distribution with budgets. | Corrected in this slice. Do not describe scan ordering as budget-only behavior. |
+| Page budgets seed from existing replacements and preserve ordered rendering. | Yes. `page_budget_tracker.js` seeds from `.lexishift-replacement` spans and `dom_scan_runtime.js` builds budget state before full-scan reordering and per-node processing. | Default-on when page/lemma caps are configured. | Yes. DOM scan runtime contract tests cover seeding, updating, and full-scan ordering. | Current product seam. Mutation scans still process mutation-provided nodes rather than full-scan distribution. |
+| Semantic scan batching preserves final page-budget behavior. | Yes. `semantic_node_scheduler.js` uses concurrent batches when safe; for budgeted scans it preflights semantic decisions, then renders serially with result overrides against the live page budget. | Default-on when semantic admission is active. | Yes. DOM scan and replacement override tests cover preflight/reuse with page-budget rendering. | Current performance seam. Keep the two-phase budgeted path explicit. |
+| Semantic helper calls are batched and inventory resolution is reused. | Yes. `semantic_gate_batch.js` groups by pair/profile/fallback policy, reuses inventory resolution with a TTL, chunks helper requests, and sends `fit_scope=per_match`. | Default-on when semantic admission is active. | Yes. Semantic gate and diagnostics tests cover ready-only helper batching, fallback counts, policy ids, and performance metrics. | Current product seam. Helper batching changes must preserve per-match scoring semantics. |
+| Debug semantic decision override is a product user control. | No. It only applies when debug is enabled and records `debug_override` metadata/metrics. | Debug-only. | Yes. Semantic gate and diagnostics tests cover override fields and counts. | Debug aid only. Do not treat it as a supported reading-mode policy. |
+| `soft_affordance` is rendered in the page. | No. It is counted/reserved as a non-replace decision; the DOM still replaces only effective `replace` decisions and keeps original text otherwise. | Not default-on. | Verified by semantic gate filtering and replacement-span contract tests. | Planned UI gap. Keep soft-affordance schema/metrics separate from rendered UX. |
+| Runtime semantic diagnostics persist for all normal users. | No. Apply-time last-state persistence is gated behind `debugEnabled`; options diagnostics can surface the persisted/debug runtime state plus helper/cache diagnostics when available. | Debug/operator diagnostics, not always-on telemetry. | Yes. Runtime diagnostics contract tests cover persistence with debug on and skip behavior with debug off. | Current observability seam. Do not rely on always-present tab runtime state for normal sessions. |
+
+## L3-E Corrections Applied
+
+This slice fixes stale scan-order wording in the extension architecture docs and
+DOM scan packet:
+
+1. visible/near-viewport priority is default full-scan behavior,
+2. page budgets add deterministic within-band distribution, rather than being
+   the only reason scan order changes,
+3. semantic batching is current product behavior, but budgeted scans still use
+   a preflight-plus-serial-render path to preserve final page-budget semantics,
+4. debug decision overrides and runtime last-state persistence remain
+   debug/operator observability, not normal reading-mode controls.
+
 ## Lane 3 Next Work
 
 Next Lane 3 slices should stay narrow:
 
-1. L3-E: browser replacement runtime behavior, including DOM scan ordering,
-   semantic batching, debug overrides, and failure diagnostics.
-2. L3-F: packaging and Windows/macOS parity state.
+1. L3-F: packaging and Windows/macOS parity state.
 
 ## Validation
 
@@ -366,6 +433,23 @@ python3 -m pytest \
   core/tests/dev/test_rulegen_benchmark_cli.py \
   core/tests/rulegen/test_rulegen_adapters.py \
   core/tests/helper/test_lp_capabilities.py
+
+python3 scripts/dev/check_doc_references.py
+npm --prefix scripts run check:state
+git diff --check
+```
+
+For L3-E, use:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_extension_dom_scan_runtime_contract.py \
+  core/tests/dev/test_extension_semantic_gate_runtime_contract.py \
+  core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py \
+  core/tests/dev/test_extension_helper_rule_confidence_contract.py \
+  core/tests/dev/test_extension_replacements_contract.py \
+  core/tests/dev/test_extension_srs_runtime_gate_contract.py \
+  core/tests/architecture/test_extension_structure.py
 
 python3 scripts/dev/check_doc_references.py
 npm --prefix scripts run check:state

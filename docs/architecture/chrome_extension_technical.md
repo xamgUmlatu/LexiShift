@@ -93,7 +93,8 @@ Module layout
 - `apps/chrome-extension/content/runtime/dom_scan/page_budget_tracker.js`
   - Builds and updates page-level replacement budget state (`maxReplacementsPerPage`, per-lemma cap).
 - `apps/chrome-extension/content/runtime/dom_scan/scan_order.js`
-  - Deterministically redistributes full-scan node order by page/profile when page budgets are active.
+  - Prioritizes visible and near-viewport text nodes during full scans.
+  - When page budgets are active, deterministically redistributes node order within viewport bands by page/profile seed.
 - `apps/chrome-extension/content/runtime/dom_scan/semantic_node_scheduler.js`
   - Batches semantic text-node preflight work, including the two-phase path that preserves ordered page-budget rendering.
 - `apps/chrome-extension/content/runtime/dom_scan/scan_counters.js`
