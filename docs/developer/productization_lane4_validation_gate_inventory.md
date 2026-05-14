@@ -183,12 +183,12 @@ Known limits:
 
 ## Lane 4 Next Work
 
-The next Lane 4 slice should reconcile this gate map with the remaining
-highest-traffic handoff docs:
+The highest-traffic handoff docs now route contributors here instead of
+duplicating the full matrix. The next Lane 4 slice should focus on generated
+workflow artifacts:
 
-1. `local_setup.md`,
-2. `ai_workflow.md`,
-3. `scripts/README.md`.
-
-The goal is not to duplicate this matrix everywhere. The goal is to route
-contributors here when they need the by-change-type bundle.
+1. decide which `*_latest` workflow reports should be refreshed as part of a
+   normal handoff,
+2. keep report-producing commands paired with the summaries that consume them,
+3. avoid refreshing heavyweight build/rulegen/SRS artifacts unless the touched
+   surface requires them.

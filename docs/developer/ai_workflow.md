@@ -2,10 +2,10 @@
 
 Status: active workflow
 Role: Runbook / operational
-Last updated: 2026-04-11
-Last verified: 2026-04-11 benchmark slice-metadata scaffold review
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate routing review against `AGENTS.md`, `scripts/package.json`, and quality-loop docs
 Purpose: current rulegen/POS and SRS quality-loop runbook for quality-affecting changes
-Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`.
+Source-of-truth: rulegen/SRS quality-loop policy; canonical commands remain the scripts listed here plus `AGENTS.md`; broader change-type validation routing lives in `productization_lane4_validation_gate_inventory.md`.
 
 Purpose:
 - Keep rulegen tuning fast without sacrificing stability.
@@ -13,6 +13,9 @@ Purpose:
 - Convert benchmark failures into durable labeled cases.
 
 This workflow is focused on rulegen/POS quality loops, not general coding.
+For non-rulegen/SRS change types, use
+`productization_lane4_validation_gate_inventory.md` to choose the validation
+bundle.
 
 ## Why this exists
 
@@ -41,6 +44,7 @@ The scripts and policy below enforce a tighter loop.
 - Change-aware audit wrapper: `scripts/testing/rulegen_auto_audit.py`
 - Feature state ledger: `docs/developer/feature_state_matrix.md`
 - GenAI workflow contract: `docs/developer/genai_workflow_architecture.md`
+- Validation gate inventory: `docs/developer/productization_lane4_validation_gate_inventory.md`
 
 ## Standard loop
 

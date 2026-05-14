@@ -295,6 +295,10 @@ Current Lane 4 progress:
   GitHub Pages, CWS, and release/product-ops gates.
 - It also records artifact freshness rules so `*_latest` outputs stay evidence
   snapshots from the run that produced them, not architecture authority.
+- The second Lane 4 slice routes `local_setup.md`, `ai_workflow.md`, and
+  `scripts/README.md` back to the validation-gate inventory and corrects their
+  build-lane wording so Windows full `build:report` coverage is not flattened
+  into the unsupported-host `build:ci:report` partial lane.
 
 ### Lane 5: High-Risk Runtime Seams
 

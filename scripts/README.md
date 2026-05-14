@@ -2,10 +2,10 @@
 
 Status: active script map
 Role: Runbook / operational
-Last updated: 2026-03-21
-Last verified: 2026-03-21 script-map routing review + package inventory check
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 4 validation-gate routing review against `scripts/package.json`, workflow docs, and staged-scope safety
 Purpose: route contributors to the current workflow entrypoints first, then to specialty build/data/testing tools
-Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`.
+Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`; by-change-type validation routing lives in `../docs/developer/productization_lane4_validation_gate_inventory.md`.
 
 Scripts are grouped by workflow type so build/release and data tooling stay separated.
 
@@ -34,6 +34,8 @@ Use the package-script workflow surfaces first when they exist:
 - SRS journey installed-resource lane: `npm --prefix scripts run quality:srs:journey:installed`
 
 Use the raw script paths below when there is no package-script surface or when you need direct CLI control.
+Use `../docs/developer/productization_lane4_validation_gate_inventory.md` when
+you need to choose the smallest honest bundle for a specific change type.
 
 ## Workflow Entry Points
 
