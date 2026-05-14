@@ -318,6 +318,7 @@ Current tab/runtime last-state diagnostics:
 - `semantic_fallback_replaces`
 - `semantic_fallback_abstains`
 - `semantic_fallback_soft_affordances`
+- `semantic_fallback_reason_counts`
 - `semantic_decision_policy_id`
 
 Current join-point limits:

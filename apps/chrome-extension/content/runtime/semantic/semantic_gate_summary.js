@@ -13,6 +13,7 @@
       fallbackReplaces: 0,
       fallbackAbstains: 0,
       fallbackSoftAffordances: 0,
+      fallbackReasonCounts: {},
       inventorySource: "none",
       inventoryError: "",
       helperError: "",
@@ -39,6 +40,15 @@
     };
   }
 
+  function incrementReasonCounts(counts, reasonCodes) {
+    if (!counts || typeof counts !== "object" || !Array.isArray(reasonCodes)) return;
+    for (const rawCode of reasonCodes) {
+      const code = String(rawCode || "").trim();
+      if (!code) continue;
+      counts[code] = Number(counts[code] || 0) + 1;
+    }
+  }
+
   function summarizeDecision(summary, decisionRecord, admission) {
     if (!summary || !decisionRecord) return;
     summary.eligible += 1;
@@ -52,6 +62,7 @@
       else summary.policyAbstains += 1;
       return;
     }
+    incrementReasonCounts(summary.fallbackReasonCounts, decisionRecord.reason_codes);
     if (decision === "replace") summary.fallbackReplaces += 1;
     else if (decision === "soft_affordance") summary.fallbackSoftAffordances += 1;
     else summary.fallbackAbstains += 1;

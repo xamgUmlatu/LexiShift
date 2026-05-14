@@ -338,6 +338,11 @@ Current Lane 5 progress:
   `legacy_on_unavailable` to `abstain_on_unavailable`, aligning extension
   runtime/profile/diagnostic defaults with the helper-side safety default while
   preserving `legacy_on_unavailable` as an explicit compatibility policy.
+- L5-C keeps semantic scoring behavior unchanged but carries fallback
+  `reason_codes` into aggregate scan/runtime diagnostics as
+  `semantic_fallback_reason_counts`, so non-ready metadata, inventory failures,
+  and helper decision-service failures are distinguishable from the options
+  diagnostics surface.
 
 ### Lane 6: Data Provenance And Pack Lifecycle
 

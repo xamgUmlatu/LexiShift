@@ -25,7 +25,6 @@
       return `${resourceType}: ${resourcePath}`;
     }).join("; ");
   }
-
   function formatPairPolicySummary(pairPolicy) {
     if (!pairPolicy || typeof pairPolicy !== "object") {
       return "n/a";
@@ -284,6 +283,7 @@
       ["semantic_fallback_replaces", runtimeState ? runtimeState.semantic_fallback_replaces ?? "n/a" : "n/a"],
       ["semantic_fallback_abstains", runtimeState ? runtimeState.semantic_fallback_abstains ?? "n/a" : "n/a"],
       ["semantic_fallback_soft_affordances", runtimeState ? runtimeState.semantic_fallback_soft_affordances ?? "n/a" : "n/a"],
+      ["semantic_fallback_reason_counts", runtimeState ? JSON.stringify(runtimeState.semantic_fallback_reason_counts || {}) : "n/a"],
       ["semantic_decision_policy_id", runtimeState ? runtimeState.semantic_decision_policy_id || "none" : "n/a"],
       ["semantic_inventory_error", runtimeState ? runtimeState.semantic_inventory_error || "none" : "n/a"],
       ["helper_rules_error", runtimeState ? runtimeState.helper_rules_error || "none" : "n/a"],

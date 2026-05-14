@@ -203,6 +203,10 @@ const noAdmissionMatch = {{
   assert.equal(result.summary.ready, 1);
   assert.equal(result.summary.policyReplaces, 1);
   assert.equal(result.summary.fallbackAbstains, 1);
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(result.summary.fallbackReasonCounts)),
+    {{ semantic_status_pending: 1 }}
+  );
   assert.equal(result.summary.decisionPolicyId, "en_es_sentence_veto_v3");
 
   assert.equal(result.matches.includes(readyMatch), true);
@@ -1121,6 +1125,10 @@ const readyMatch = {{
   assert.equal(result.summary.ready, 1);
   assert.equal(result.summary.fallbackReplaces, 0);
   assert.equal(result.summary.fallbackAbstains, 1);
+  assert.deepEqual(
+    JSON.parse(JSON.stringify(result.summary.fallbackReasonCounts)),
+    {{ semantic_inventory_unavailable: 1 }}
+  );
   assert.equal(result.summary.inventorySource, "helper");
   assert.equal(result.summary.inventoryError, "Helper offline.");
   assert.equal(result.matches.includes(readyMatch), false);

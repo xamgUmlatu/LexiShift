@@ -14,6 +14,17 @@
     const normalizeTiming = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value))
       ? Number(value)
       : null;
+    const normalizeCountMap = (value) => {
+      const source = value && typeof value === "object" ? value : {};
+      const result = {};
+      for (const key of Object.keys(source).sort()) {
+        const normalizedKey = String(key || "").trim();
+        const count = Number(source[key]);
+        if (!normalizedKey || !Number.isFinite(count) || count <= 0) continue;
+        result[normalizedKey] = count;
+      }
+      return result;
+    };
     return {
       ts: state.ts ? String(state.ts) : new Date().toISOString(),
       pair: state.pair ? String(state.pair) : "",
@@ -84,6 +95,7 @@
       )
         ? Number(state.semantic_fallback_soft_affordances)
         : 0,
+      semantic_fallback_reason_counts: normalizeCountMap(state.semantic_fallback_reason_counts),
       semantic_policy_decision_total: Number.isFinite(Number(state.semantic_policy_decision_total))
         ? Number(state.semantic_policy_decision_total)
         : 0,

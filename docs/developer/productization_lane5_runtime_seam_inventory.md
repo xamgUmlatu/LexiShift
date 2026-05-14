@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 focused helper, extension, SRS harness, SRS summary, feedback simulation, semantic gate/runtime, SRS settings, diagnostics, and semantic policy tests plus SRS quality harness artifact refresh
+Last verified: 2026-05-15 focused helper, extension, SRS harness, SRS summary, feedback simulation, semantic gate/runtime, DOM-scan metrics, SRS settings, diagnostics, action formatter, and semantic policy tests plus SRS quality harness artifact refresh
 Purpose: record high-risk runtime seam closure slices so runtime behavior is fixed, tested, and documented before expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -23,6 +23,7 @@ Completed slices:
 
 1. L5-A: due-aware SRS runtime serving.
 2. L5-B: semantic admission unavailable-scoring fallback.
+3. L5-C: semantic fallback reason diagnostics.
 
 This inventory records runtime closure work only. It does not promote new
 frequency/corpus sources, change semantic-veto thresholds, or certify release
@@ -153,3 +154,53 @@ L5-B does not yet close:
 2. automatic semantic pack rollout,
 3. BetterDiscord/plugin runtime parity,
 4. persistent helper-side semantic service error surfacing beyond existing diagnostics.
+
+## L5-C Semantic Fallback Reason Diagnostics
+
+Product claim:
+
+- Runtime diagnostics should show why semantic admission fell back, not just how
+  many matches used a fallback decision.
+
+Before this slice:
+
+| Surface | Current Truth Before L5-C |
+| --- | --- |
+| Decision detail | Individual semantic decisions carried `reason_codes`. |
+| Aggregate scan state | DOM scan and runtime diagnostics preserved aggregate fallback replace/abstain/soft-affordance counts, but not reason-code buckets. |
+| Options diagnostics | The SRS runtime diagnostics action could show that fallback happened, but not whether the dominant cause was non-ready metadata, missing inventory, helper transport, or malformed helper response. |
+
+Closure action:
+
+- Semantic gate summaries now aggregate fallback decision `reason_codes`.
+- DOM scan metrics merge those buckets across text-node admissions.
+- Apply diagnostics persist the aggregate as
+  `semantic_fallback_reason_counts` in the last runtime state.
+- The options-page SRS runtime diagnostics formatter renders those counts as a
+  JSON object.
+
+After this slice:
+
+| Surface | Current Truth After L5-C |
+| --- | --- |
+| Runtime gate | Scoring behavior is unchanged; only aggregate observability changed. |
+| Debug logs | Semantic apply summaries include fallback reason buckets when eligible matches used fallback policy. |
+| Persisted diagnostics | `srsRuntimeLastState.semantic_fallback_reason_counts` records normalized aggregate counts such as `semantic_status_pending`, `semantic_inventory_unavailable`, and `decision_service_error`. |
+| Options diagnostics | `SRS runtime diagnostics` includes `semantic_fallback_reason_counts`, so operators can distinguish non-ready metadata from helper/inventory failures without inspecting per-replacement DOM attributes. |
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_extension_semantic_gate_runtime_contract.py \
+  core/tests/dev/test_extension_dom_scan_runtime_contract.py \
+  core/tests/dev/test_extension_srs_runtime_diagnostics_contract.py \
+  core/tests/dev/test_extension_srs_action_formatters.py
+```
+
+L5-C does not yet close:
+
+1. automatic remediation or retry behavior for helper semantic service errors,
+2. durable cross-session trend reporting,
+3. BetterDiscord/plugin runtime parity,
+4. user-facing explanations for individual abstained replacements.

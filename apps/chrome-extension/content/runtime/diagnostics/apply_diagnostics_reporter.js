@@ -32,6 +32,18 @@
       return value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
     }
 
+    function normalizeCountMap(value) {
+      const source = value && typeof value === "object" ? value : {};
+      const result = {};
+      for (const key of Object.keys(source).sort()) {
+        const normalizedKey = String(key || "").trim();
+        const count = Number(source[key]);
+        if (!normalizedKey || !Number.isFinite(count) || count <= 0) continue;
+        result[normalizedKey] = count;
+      }
+      return result;
+    }
+
     function buildSemanticDecisionMetrics(scanSummary) {
       const summary = scanSummary && typeof scanSummary === "object" ? scanSummary : {};
       const policyDecisionTotal = (
@@ -158,6 +170,9 @@
         : null;
       const semanticDecisionMetrics = buildSemanticDecisionMetrics(scanSummary);
       const semanticPerformanceMetrics = buildSemanticPerformanceMetrics(scanSummary);
+      const semanticFallbackReasonCounts = scanSummary
+        ? normalizeCountMap(scanSummary.semanticFallbackReasonCounts)
+        : {};
       let srsRulesWithScriptForms = 0;
       let activeSrsRulesWithScriptForms = 0;
       let srsRulesWithWordPackage = 0;
@@ -264,6 +279,7 @@
           fallbackReplaces: Number(scanSummary.semanticFallbackReplaces || 0),
           fallbackAbstains: Number(scanSummary.semanticFallbackAbstains || 0),
           fallbackSoftAffordances: Number(scanSummary.semanticFallbackSoftAffordances || 0),
+          fallbackReasonCounts: semanticFallbackReasonCounts,
           decisionPolicyId: String(scanSummary.semanticDecisionPolicyId || ""),
           policyAbstainRate: semanticDecisionMetrics.policyAbstainRate,
           fallbackAbstainRate: semanticDecisionMetrics.fallbackAbstainRate,
@@ -321,6 +337,7 @@
           semantic_fallback_soft_affordances: scanSummary
             ? Number(scanSummary.semanticFallbackSoftAffordances || 0)
             : 0,
+          semantic_fallback_reason_counts: semanticFallbackReasonCounts,
           semantic_policy_decision_total: semanticDecisionMetrics.policyDecisionTotal,
           semantic_fallback_decision_total: semanticDecisionMetrics.fallbackDecisionTotal,
           semantic_overall_decision_total: semanticDecisionMetrics.overallDecisionTotal,

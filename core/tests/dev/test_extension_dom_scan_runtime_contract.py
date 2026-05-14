@@ -38,6 +38,49 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionDomScanRuntimeContract(unittest.TestCase):
+    def test_semantic_performance_metrics_aggregate_fallback_reason_counts(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(SEMANTIC_PERFORMANCE_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const metrics = context.LexiShift.contentDomScanSemanticPerformanceMetrics;
+const counter = metrics.createCounterDefaults();
+
+metrics.mergeSummaryIntoCounter(counter, {{
+  eligible: 2,
+  ready: 1,
+  fallbackAbstains: 2,
+  fallbackReasonCounts: {{
+    decision_service_error: 1,
+    semantic_status_pending: 1
+  }}
+}});
+metrics.mergeSummaryIntoCounter(counter, {{
+  eligible: 1,
+  fallbackAbstains: 1,
+  fallbackReasonCounts: {{
+    semantic_status_pending: 2
+  }}
+}});
+
+assert.deepEqual(
+  JSON.parse(JSON.stringify(counter.semanticFallbackReasonCounts)),
+  {{ decision_service_error: 1, semantic_status_pending: 3 }}
+);
+assert.deepEqual(
+  JSON.parse(JSON.stringify(metrics.buildAdmissionLogSummary(counter).fallbackReasonCounts)),
+  {{ decision_service_error: 1, semantic_status_pending: 3 }}
+);
+"""
+        _run_node(script)
+
     def test_scan_order_prioritizes_viewport_nodes_and_keeps_stable_order_without_budgets(
         self,
     ) -> None:

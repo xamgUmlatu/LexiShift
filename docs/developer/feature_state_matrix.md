@@ -824,8 +824,8 @@ Use this file when:
 ## Semantic Routing Runtime Admission Layer
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
-- Last documented checkpoint: `2026-05-15` Lane 5 changes semantic admission unavailable-scoring defaults to fail closed with `abstain_on_unavailable` across extension settings, runtime, profile save/import, and diagnostics while preserving explicit `legacy_on_unavailable` compatibility
-- Last verified: `2026-05-15` Lane 5 L5-B semantic fallback default validation with focused semantic gate/runtime, SRS settings, diagnostics, helper, and policy tests
+- Last documented checkpoint: `2026-05-15` Lane 5 adds semantic fallback reason diagnostics on top of the fail-closed `abstain_on_unavailable` default for unavailable semantic scoring
+- Last verified: `2026-05-15` Lane 5 L5-C semantic fallback reason diagnostics validation with focused semantic gate/runtime, DOM-scan metrics, SRS runtime diagnostics, and action formatter tests
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -837,7 +837,7 @@ Use this file when:
     - helper CLI/native-host can now materialize a compiled semantic pack into a profile-local publication family and pair-level pack copy, while requiring an explicit data root unless the caller explicitly opts into the platform default; the installer can resolve a named pack id from an installed pack copy, `LEXISHIFT_SEMANTIC_PACK_CATALOG`, or the current repo dev pack before falling back to a developer inventory-path override; the shared extension helper client and Advanced debug options flow now expose a named `installSemanticPack` route
     - extension helper cache/runtime can now persist and resolve semantic inventory in parallel with ruleset/snapshot
     - helper source-of-truth diagnostics can inspect pointer coverage, sidecar coverage, publication generation ids, and recomputed manifest-family state from the live helper artifacts
-    - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, helper semantic capability/reason state, runtime semantic capability/pointer/ready counts, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, semantic helper batch/latency metrics, semantic scan scheduler metrics, DOM context-cache reuse metrics, and the last resolved `decision_policy_id` from the shipped runtime path
+    - extension options/runtime diagnostics can surface best-effort cache counts plus cached snapshot/semantic generation ids and simple alignment, helper semantic capability/reason state, runtime semantic capability/pointer/ready counts, live semantic gate enablement, helper vs helper-cache source/error, aggregate ready/replace/abstain/soft-affordance counts, aggregate semantic fallback `reason_codes`, semantic helper batch/latency metrics, semantic scan scheduler metrics, DOM context-cache reuse metrics, and the last resolved `decision_policy_id` from the shipped runtime path
     - helper/native-host can now also answer `semantic_admit_batch` using a named shared policy registry, and the extension runtime can call that service when semantic admission is active
   - The shipped runtime gate is still intentionally conservative:
     - only SRS-origin rules that already carry `metadata.semantic_admission` are eligible
@@ -857,6 +857,7 @@ Use this file when:
     - lexical trie matching happens first
     - semantic admission activates only when the current enabled SRS rules have nonzero `status=ready` coverage and semantic inventory resolves cleanly
     - eligible matches are counted, but only `status=ready` eligible matches are batched to helper `semantic_admit_batch`
+    - fallback decisions now roll up reason-code counts such as `semantic_status_pending`, `semantic_inventory_unavailable`, and `decision_service_error` into runtime diagnostics without changing replacement behavior
     - ready semantic helper requests use bounded block/sentence-window DOM context when inline markup splits the visible sentence across text nodes, with scan-local context-buffer reuse for small complete blocks, same-context helper-call coalescing, pair/profile inventory-resolution reuse across serial admissions, explicit `fit_scope=per_match` batching across different context strings, and two-phase semantic preflight for budgeted scans so TF-IDF-style scoring keeps one-match semantics while native helper calls are reduced; the default semantic scan node batch is now `96` with no helper flush delay, based on the live Castle first-visible/throughput tuning; replacement edits remain scoped to the original text node and final page-budget enforcement remains ordered
     - non-ready eligible matches still resolve locally through the shipped internal legacy fallback posture
     - runtime replaces only `replace` decisions and keeps the original otherwise

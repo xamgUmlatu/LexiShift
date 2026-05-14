@@ -21,6 +21,7 @@
       semanticFallbackReplaces: 0,
       semanticFallbackAbstains: 0,
       semanticFallbackSoftAffordances: 0,
+      semanticFallbackReasonCounts: {},
       semanticDecisionPolicyId: "",
       semanticDebugDecisionOverride: "",
       semanticDebugOverrideApplied: 0,
@@ -42,6 +43,18 @@
       semanticScanNodeSerialBudgetBatches: 0,
       semanticContextCacheStats: null
     };
+  }
+
+  function mergeCountMap(currentCounts, nextCounts) {
+    const merged = currentCounts && typeof currentCounts === "object" ? currentCounts : {};
+    const source = nextCounts && typeof nextCounts === "object" ? nextCounts : {};
+    for (const [rawKey, rawValue] of Object.entries(source)) {
+      const key = String(rawKey || "").trim();
+      const value = Number(rawValue || 0);
+      if (!key || !Number.isFinite(value) || value <= 0) continue;
+      merged[key] = Number(merged[key] || 0) + value;
+    }
+    return merged;
   }
 
   function createFallbackScanCounters(options) {
@@ -94,6 +107,10 @@
     counter.semanticFallbackReplaces += Number(summary.fallbackReplaces || 0);
     counter.semanticFallbackAbstains += Number(summary.fallbackAbstains || 0);
     counter.semanticFallbackSoftAffordances += Number(summary.fallbackSoftAffordances || 0);
+    counter.semanticFallbackReasonCounts = mergeCountMap(
+      counter.semanticFallbackReasonCounts,
+      summary.fallbackReasonCounts
+    );
     counter.semanticDebugOverrideApplied += Number(summary.debugOverrideApplied || 0);
     counter.semanticInventoryLookupCalls += Number(summary.inventoryLookupCalls || 0);
     counter.semanticInventoryLookupLatencyMsTotal += Number(summary.inventoryLookupLatencyMsTotal || 0);
@@ -228,6 +245,7 @@
       fallbackReplaces: counter.semanticFallbackReplaces,
       fallbackAbstains: counter.semanticFallbackAbstains,
       fallbackSoftAffordances: counter.semanticFallbackSoftAffordances,
+      fallbackReasonCounts: { ...(counter.semanticFallbackReasonCounts || {}) },
       decisionPolicyId: counter.semanticDecisionPolicyId || "",
       debugDecisionOverride: counter.semanticDebugDecisionOverride || "",
       debugOverrideApplied: counter.semanticDebugOverrideApplied || 0

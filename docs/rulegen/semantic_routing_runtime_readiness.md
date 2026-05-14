@@ -3,7 +3,7 @@
 Status: active mixed readiness
 Role: Mixed
 Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 5 L5-B semantic fallback default validation against semantic gate/runtime contracts, SRS settings/profile defaults, diagnostics, helper semantic admission, runtime decision-policy code, and current feature-state matrix
+Last verified: 2026-05-15 Lane 5 L5-C semantic fallback reason diagnostics validation against semantic gate/runtime contracts, DOM-scan metrics, SRS runtime diagnostics, action formatters, and current feature-state matrix
 Purpose: describe the current shipped semantic-routing runtime seam and the remaining readiness boundary so rollout work stays grounded in executable behavior instead of research-only optimism
 Source-of-truth: mixed as-is + readiness boundary; current runtime truth still lives in code, tests, and `docs/developer/feature_state_matrix.md`
 Verification:
@@ -127,8 +127,9 @@ Current shipped behavior:
    - semantic inventory resolved successfully
    - helper semantic-admission transport is available
 10. the shipped runtime defaults to `abstain_on_unavailable` for ready-rule transport/inventory failures; `legacy_on_unavailable` remains an explicit compatibility policy rather than the default
-10. only `decision=replace` survives into DOM apply today
-11. `abstain` and the currently reserved `soft_affordance` outcome both keep the original text in the shipped DOM path
+11. fallback decisions aggregate their `reason_codes` into runtime diagnostics without changing scorer behavior
+12. only `decision=replace` survives into DOM apply today
+13. `abstain` and the currently reserved `soft_affordance` outcome both keep the original text in the shipped DOM path
 
 Current operational boundaries:
 
@@ -139,7 +140,8 @@ Current operational boundaries:
   - which fallback policy is active
   - whether semantic inventory resolved
   - whether inventory came from helper or helper-cache
-  - aggregate eligible / ready / replace / abstain / soft-affordance counts plus the current `decision_policy_id`
+  - aggregate eligible / ready / replace / abstain / soft-affordance counts
+  - aggregate fallback reason-code counts plus the current `decision_policy_id`
 
 What the shipped gate is not:
 
@@ -860,7 +862,7 @@ Already present today:
   - helper source-of-truth payload for ruleset/snapshot/semantic-inventory/publication-manifest state
   - extension-cache payload for cached ruleset/snapshot/semantic-inventory presence and counts
   - current tab/runtime last state for live semantic gate behavior
-- apply/runtime last-state diagnostics can record fallback policy, inventory source/error, and aggregate eligible / ready / replace / abstain counts
+- apply/runtime last-state diagnostics can record fallback policy, inventory source/error, aggregate eligible / ready / replace / abstain counts, and aggregate fallback reason-code counts
 - that current tab/runtime state is persisted through `chrome.storage.local` under `srsRuntimeLastState` only when runtime debug diagnostics are enabled
 - per-replacement detail payloads can already carry semantic decision fields such as:
   - `decision`
