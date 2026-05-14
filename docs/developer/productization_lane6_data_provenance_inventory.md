@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, and the en-es corpus-expansion audit plan
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, and focused pack-provenance validator tests
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -18,8 +18,10 @@ Related docs:
 - `../pack_source_manifest.json`
 - `../../apps/gui/src/language_packs_catalog.py`
 - `../../core/lexishift_core/helper/installed_packs.py`
+- `../../core/lexishift_core/helper/pack_provenance.py`
 - `../../core/lexishift_core/helper/rulegen_outputs.py`
 - `../../core/lexishift_core/helper/use_cases/semantic_pack_install.py`
+- `../../core/tests/helper/test_pack_provenance.py`
 
 ## Scope
 
@@ -28,6 +30,7 @@ Lane: Lane 6, data provenance and pack lifecycle.
 Completed slices:
 
 1. L6-A: current pack/source provenance inventory.
+2. L6-B: pack provenance sidecar contract.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -49,6 +52,7 @@ Explicitly out of scope:
 | Pack catalog | `apps/gui/src/language_packs_catalog.py` | Available app-managed packs, provider labels, URLs, Wayback URLs, filenames, build modes, required files, parse configs. | Whether a specific user has installed a pack, source license status, raw/download checksum, converter version, or row/schema audit results. |
 | Pack source manifest | `docs/pack_source_manifest.json`, `apps/gui/src/pack_source_manifest.py` | Remote transport overrides, expected content type, TTL/cache policy. | Pack provenance, licensing, current installed state, generated artifact identity, or runtime default status. |
 | Installed-pack manifest | `core/lexishift_core/helper/installed_packs.py`, `<data_root>/{language_packs,frequency_packs,embeddings}/<pack_id>/manifest.json` | Pack id/kind/provider, local kind, build mode, artifact relpath/kind, installed timestamp, source/sqlite filenames, required files, raw-retention flag. | Source URL, license/reuse status, raw source checksum, source dump/version, converter command/version, generated SQLite schema, row counts, POS/domain coverage, or current runtime adoption. |
+| Provenance sidecar | `core/lexishift_core/helper/pack_provenance.py`, future `<pack_root>/provenance.json` | Versioned contract for source identity, license status, source pointer, raw artifact checksums, build mode, generated artifact identity, and optional SQLite metrics. | No installer writes this file yet, and no lifecycle audit consumes it yet. |
 | Pack refs/resolvers | `frequency_packs.py`, `translation_packs.py`, `embedding_packs.py`, `pair_resources.py`, `lp_capabilities.py` | Runtime-facing pack id, provider, source/POS profile, resolved path, and managed-vs-fallback resolution. | Full provenance for manual paths or legacy fallback files. |
 | Semantic pack copy | `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/manifest.json` from `semantic_pack_install.py` | Semantic pack id/pair, generated timestamp, source path, raw/normalized inventory hashes, installed semantic inventory artifact hash/bytes. | Upstream source-batch lineage, source license/review state, release manifest identity, or why the compiled generation was selected. |
 | Profile publication manifest | `<data_root>/srs/profiles/<profile_id>/srs_publication_manifest_<pair>.json` from `rulegen_outputs.py` | Ruleset/snapshot/semantic inventory family identity, `generation_id`, artifact hashes/bytes, and family-valid flag. | Source provenance for the data that produced the generation. It is a runtime publication manifest, not a source manifest. |
@@ -100,6 +104,9 @@ What is already solid:
    counts, and family-valid state.
 5. The en-es corpus-expansion plan already keeps the current 2k pack frozen and
    requires no-spend source-readiness audits before generation decisions.
+6. `pack_provenance.py` now defines and validates a first `provenance.json`
+   sidecar contract for the source/build/generated-artifact data that the
+   installed manifest does not currently carry.
 
 Loose ends to close before broad expansion:
 
@@ -121,11 +128,61 @@ Loose ends to close before broad expansion:
    installed manifests, semantic pack copies, publication manifests, and
    candidate SQLite metadata into one JSON/Markdown report.
 
+## L6-B Pack Provenance Sidecar Contract
+
+Product claim:
+
+- Future app-managed corpus, dictionary, embedding, and semantic pack promotion
+  needs an auditable source/build/generated-artifact record beyond the current
+  install manifest.
+
+Current implementation:
+
+- `core/lexishift_core/helper/pack_provenance.py` defines
+  `PACK_PROVENANCE_FILENAME = "provenance.json"` and
+  `PACK_PROVENANCE_SCHEMA_VERSION = 1`.
+- The validator requires top-level `pack_id`, `pack_kind`, `provider`,
+  `source`, `build`, and `artifact` sections.
+- `source` must include `source_name`, explicit `license_status`, and either
+  `source_url` or `local_source_path`.
+- `license_status` is intentionally explicit. Valid values are `confirmed`,
+  `requires_review`, `unknown`, `not_redistributable`, and `internal_only`.
+- Raw source artifacts can carry `filename`, `sha1`, and `sha256`.
+- `build` must include `build_mode`; it can also carry command/parser/converter
+  detail as optional data.
+- `artifact` must include `artifact_relpath` and `artifact_kind`, can carry
+  checksums, and can carry metrics such as `row_count`,
+  `distinct_lemma_count`, `pos_rows`, and `topic_domain_rows`.
+- The validator checks SHA-1/SHA-256 shape, non-negative metrics, and coverage
+  metrics that do not exceed total row count.
+
+Boundaries:
+
+1. This is a sidecar contract, not a replacement for installed
+   `manifest.json`.
+2. No installer writes `provenance.json` yet.
+3. Manual paths and legacy fallback paths are still outside this contract until
+   the lifecycle audit and manual-path disposition slices land.
+4. The contract allows `license_status = "unknown"` or `requires_review`, but
+   that only makes the uncertainty visible; it does not approve promotion.
+
+Validation:
+
+```bash
+python3 -m pytest core/tests/helper/test_pack_provenance.py
+python3 -m ruff check \
+  core/lexishift_core/helper/pack_provenance.py \
+  core/tests/helper/test_pack_provenance.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_provenance.py \
+  core/tests/helper/test_pack_provenance.py
+```
+
 ## Planned Lane 6 Slices
 
 | Slice | Goal | First Output |
 | --- | --- | --- |
-| L6-B Pack provenance contract | Define the minimum source/license/raw/build/generated fields needed beyond the current installed manifest. | A schema/design doc and focused tests for manifest parsing/validation. |
+| L6-B Pack provenance contract | Initial sidecar validator completed; future work should wire installers/audits to it. | `pack_provenance.py` and focused validator tests. |
 | L6-C Pack lifecycle audit command | Read catalog entries, installed manifests, source manifest overrides, candidate SQLite metadata, and semantic publication manifests into one report. | `scripts/testing/...` audit with JSON/Markdown output and focused tests. |
 | L6-D Semantic generation lineage | Tie semantic source/evidence batches to compiled inventory, semantic pack copy, and profile publication manifest. | Generation/release manifest fields or sidecar plus installer validation. |
 | L6-E En-es expansion candidate runbook | Convert the corpus-expansion plan into a candidate-pack checklist that another agent can run without re-deriving context. | Candidate pack readiness checklist and validation command bundle. |
