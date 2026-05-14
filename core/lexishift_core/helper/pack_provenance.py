@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
+import tempfile
 from typing import Mapping, Sequence
 
 
@@ -65,6 +67,96 @@ def validate_pack_provenance_payload(payload: object) -> tuple[str, ...]:
         _validate_artifact(artifact, "artifact", errors)
 
     return tuple(errors)
+
+
+def write_app_managed_pack_provenance(
+    *,
+    pack_root: Path,
+    pack_id: str,
+    pack_kind: str,
+    provider: str,
+    source_name: str,
+    source_url: str,
+    build_mode: str,
+    artifact_path: Path,
+    source_filename: str | None = None,
+    sqlite_filename: str | None = None,
+    required_files: Sequence[str] = (),
+    wayback_url: str | None = None,
+    license_status: str = "requires_review",
+) -> Path:
+    target_root = Path(pack_root)
+    artifact = Path(artifact_path)
+    payload = build_app_managed_pack_provenance_payload(
+        pack_root=target_root,
+        pack_id=pack_id,
+        pack_kind=pack_kind,
+        provider=provider,
+        source_name=source_name,
+        source_url=source_url,
+        build_mode=build_mode,
+        artifact_path=artifact,
+        source_filename=source_filename,
+        sqlite_filename=sqlite_filename,
+        required_files=required_files,
+        wayback_url=wayback_url,
+        license_status=license_status,
+    )
+    provenance_path = target_root / PACK_PROVENANCE_FILENAME
+    _write_json(provenance_path, payload)
+    return provenance_path
+
+
+def build_app_managed_pack_provenance_payload(
+    *,
+    pack_root: Path,
+    pack_id: str,
+    pack_kind: str,
+    provider: str,
+    source_name: str,
+    source_url: str,
+    build_mode: str,
+    artifact_path: Path,
+    source_filename: str | None = None,
+    sqlite_filename: str | None = None,
+    required_files: Sequence[str] = (),
+    wayback_url: str | None = None,
+    license_status: str = "requires_review",
+) -> dict[str, object]:
+    raw_filename = _optional_text(source_filename) or Path(source_url).name or str(pack_id)
+    artifact_relpath = _artifact_relpath(Path(pack_root), Path(artifact_path))
+    raw_artifact: dict[str, object] = {"filename": raw_filename}
+    source: dict[str, object] = {
+        "source_name": _optional_text(source_name) or _optional_text(provider) or str(pack_id),
+        "source_url": str(source_url or "").strip(),
+        "license_status": str(license_status or "requires_review").strip(),
+        "raw_artifacts": [raw_artifact],
+    }
+    if wayback_url_text := _optional_text(wayback_url):
+        source["wayback_url"] = wayback_url_text
+    build: dict[str, object] = {
+        "build_mode": str(build_mode or "").strip() or "download_only",
+    }
+    if sqlite_filename_text := _optional_text(sqlite_filename):
+        build["sqlite_filename"] = sqlite_filename_text
+    required_file_values = tuple(
+        str(item or "").strip() for item in required_files if str(item or "").strip()
+    )
+    if required_file_values:
+        build["required_files"] = list(required_file_values)
+    return {
+        "schema_version": PACK_PROVENANCE_SCHEMA_VERSION,
+        "pack_id": str(pack_id or "").strip(),
+        "pack_kind": str(pack_kind or "").strip(),
+        "provider": str(provider or "").strip(),
+        "source": source,
+        "build": build,
+        "artifact": {
+            "artifact_relpath": artifact_relpath,
+            "artifact_kind": _infer_artifact_kind(Path(artifact_path)),
+            "sha1": _sha1_file(Path(artifact_path)) if Path(artifact_path).is_file() else None,
+        },
+    }
 
 
 def _validate_schema_version(payload: Mapping[str, object], errors: list[str]) -> None:
@@ -232,3 +324,60 @@ def _optional_non_negative_int(
         errors.append(f"{field_path}.{key} must be a non-negative integer")
         return None
     return value
+
+
+def _write_json(path: Path, payload: Mapping[str, object]) -> None:
+    _write_text_atomic(
+        path,
+        json.dumps(dict(payload), ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+    )
+
+
+def _write_text_atomic(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_name = ""
+    try:
+        with tempfile.NamedTemporaryFile(
+            "w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as handle:
+            temp_name = handle.name
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp_name, path)
+    finally:
+        if temp_name and Path(temp_name).exists():
+            Path(temp_name).unlink()
+
+
+def _sha1_file(path: Path) -> str:
+    from hashlib import sha1
+
+    return sha1(path.read_bytes()).hexdigest()
+
+
+def _artifact_relpath(pack_root: Path, artifact_path: Path) -> str:
+    resolved_root = pack_root.resolve()
+    resolved_artifact = artifact_path.resolve()
+    if resolved_artifact == resolved_root:
+        return "."
+    try:
+        return resolved_artifact.relative_to(resolved_root).as_posix()
+    except ValueError:
+        return artifact_path.name
+
+
+def _infer_artifact_kind(path: Path) -> str:
+    if path.is_dir():
+        return "directory"
+    suffix = path.suffix.lower()
+    if suffix in {".sqlite", ".sqlite3", ".db"}:
+        return "sqlite"
+    if suffix in {".vec", ".bin"}:
+        return "embedding"
+    return "file"

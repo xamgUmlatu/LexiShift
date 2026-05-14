@@ -15,6 +15,7 @@ from lexishift_core.helper.pack_provenance import (  # noqa: E402
     PACK_PROVENANCE_FILENAME,
     validate_pack_provenance_file,
     validate_pack_provenance_payload,
+    write_app_managed_pack_provenance,
 )
 
 
@@ -74,6 +75,34 @@ class TestPackProvenance(unittest.TestCase):
             errors = validate_pack_provenance_file(path)
 
         self.assertEqual(errors, ())
+
+    def test_writes_app_managed_pack_provenance(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            pack_root = Path(tmp) / "frequency_packs" / "freq-es-expanded-v1"
+            pack_root.mkdir(parents=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+
+            provenance_path = write_app_managed_pack_provenance(
+                pack_root=pack_root,
+                pack_id="freq-es-expanded-v1",
+                pack_kind="frequency",
+                provider="corpus-del-espanol",
+                source_name="Corpus del Espanol",
+                source_url="https://example.com/spanish_lemmas20k.txt",
+                wayback_url="https://web.archive.org/web/*/https://example.com/spanish_lemmas20k.txt",
+                build_mode="convert_archive",
+                artifact_path=artifact,
+                source_filename="spanish_lemmas20k.txt",
+                sqlite_filename="main.sqlite",
+            )
+
+            payload = json.loads(provenance_path.read_text(encoding="utf-8"))
+
+        self.assertEqual(validate_pack_provenance_payload(payload), ())
+        self.assertEqual(payload["source"]["license_status"], "requires_review")
+        self.assertEqual(payload["artifact"]["artifact_relpath"], "main.sqlite")
+        self.assertEqual(payload["artifact"]["artifact_kind"], "sqlite")
 
 
 def _valid_frequency_payload() -> dict[str, object]:

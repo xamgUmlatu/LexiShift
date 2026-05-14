@@ -10,6 +10,7 @@ from language_packs import (
     download_log_path,
 )
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
+from lexishift_core.helper.pack_provenance import write_app_managed_pack_provenance
 from pack_download_failures import (
     PACK_DOWNLOAD_FAILURE_BLOCKED,
     PACK_DOWNLOAD_FAILURE_CANCELLED,
@@ -323,6 +324,8 @@ class LanguagePackPanelTransferMixin:
         if self._is_sqlite_db(resolved_path) and self._is_app_data_path(
             resolved_path, embeddings=True
         ):
+            artifact_path = Path(resolved_path)
+            pack_root = Path(self._embedding_pack_dir) / pack_id
             write_installed_pack_manifest(
                 Path(self._embedding_pack_dir),
                 pack_id=pack_id,
@@ -330,10 +333,23 @@ class LanguagePackPanelTransferMixin:
                 provider=str(pack.source or "").strip().lower(),
                 local_kind="file",
                 build_mode="convert_to_sqlite",
-                artifact_path=Path(resolved_path),
+                artifact_path=artifact_path,
                 source_filename=pack.filename,
                 sqlite_filename=os.path.basename(resolved_path),
                 raw_retained=False,
+            )
+            write_app_managed_pack_provenance(
+                pack_root=pack_root,
+                pack_id=pack_id,
+                pack_kind="embedding",
+                provider=str(pack.source or "").strip().lower(),
+                source_name=str(pack.source or "").strip(),
+                source_url=str(pack.url or "").strip(),
+                wayback_url=pack.wayback_url,
+                build_mode="convert_to_sqlite",
+                artifact_path=artifact_path,
+                source_filename=pack.filename,
+                sqlite_filename=os.path.basename(resolved_path),
             )
             if (
                 prior_path

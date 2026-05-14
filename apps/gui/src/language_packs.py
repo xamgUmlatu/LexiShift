@@ -19,6 +19,7 @@ from lexishift_core.frequency.sqlite import (
 from lexishift_core.helper.installed_packs import (
     write_installed_pack_manifest,
 )
+from lexishift_core.helper.pack_provenance import write_app_managed_pack_provenance
 from lexishift_core.resources.freedict_sqlite import convert_freedict_tei_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_glosses_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_translations_to_sqlite
@@ -239,6 +240,7 @@ class LanguagePackDownloadThread(QThread):
 
     def _write_manifest(self, final_path: str) -> None:
         pack_root = Path(self._dest_path).parent
+        artifact_path = self._manifest_artifact_path(Path(final_path))
         write_installed_pack_manifest(
             pack_root.parent,
             pack_id=self._pack_id,
@@ -246,11 +248,25 @@ class LanguagePackDownloadThread(QThread):
             provider=str(self._pack.source or "").strip().lower(),
             local_kind=self._pack.local_kind,
             build_mode=self._pack.build_mode,
-            artifact_path=self._manifest_artifact_path(Path(final_path)),
+            artifact_path=artifact_path,
             source_filename=self._pack.source_filename or self._pack.filename,
             sqlite_filename=self._pack.sqlite_filename,
             required_files=self._pack.required_files,
             raw_retained=False,
+        )
+        write_app_managed_pack_provenance(
+            pack_root=pack_root,
+            pack_id=self._pack_id,
+            pack_kind=self._pack_kind,
+            provider=str(self._pack.source or "").strip().lower(),
+            source_name=str(self._pack.source or "").strip(),
+            source_url=str(self._pack.url or "").strip(),
+            wayback_url=self._pack.wayback_url,
+            build_mode=self._pack.build_mode,
+            artifact_path=artifact_path,
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
+            required_files=self._pack.required_files,
         )
 
     def _manifest_artifact_path(self, final_path: Path) -> Path:
@@ -438,6 +454,7 @@ class FrequencyPackDownloadThread(QThread):
 
     def _write_manifest(self, sqlite_path: str) -> None:
         pack_root = Path(self._sqlite_path).parent
+        artifact_path = Path(sqlite_path)
         write_installed_pack_manifest(
             pack_root.parent,
             pack_id=self._pack_id,
@@ -445,10 +462,23 @@ class FrequencyPackDownloadThread(QThread):
             provider=str(self._pack.source or "").strip().lower(),
             local_kind="file",
             build_mode=self._pack.build_mode,
-            artifact_path=Path(sqlite_path),
+            artifact_path=artifact_path,
             source_filename=self._pack.source_filename or self._pack.filename,
             sqlite_filename=self._pack.sqlite_filename,
             raw_retained=False,
+        )
+        write_app_managed_pack_provenance(
+            pack_root=pack_root,
+            pack_id=self._pack_id,
+            pack_kind="frequency",
+            provider=str(self._pack.source or "").strip().lower(),
+            source_name=str(self._pack.source or "").strip(),
+            source_url=str(self._pack.url or "").strip(),
+            wayback_url=self._pack.wayback_url,
+            build_mode=self._pack.build_mode,
+            artifact_path=artifact_path,
+            source_filename=self._pack.source_filename or self._pack.filename,
+            sqlite_filename=self._pack.sqlite_filename,
         )
 
     def _convert_to_sqlite(self, archive_path: str) -> str:

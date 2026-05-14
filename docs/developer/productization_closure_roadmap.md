@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, and en-es candidate readiness runbook routing
+Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, and app-managed non-semantic pack sidecar tests
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -379,8 +379,8 @@ Current Lane 6 progress:
 - `docs/developer/productization_lane6_data_provenance_inventory.md` now
   records L6-A, the current pack/source provenance inventory, and L6-B, the
   pack provenance sidecar contract, L6-C, the pack lifecycle audit command, and
-  L6-D, semantic pack provenance and lineage, and L6-E, the en-es candidate
-  readiness runbook.
+  L6-D, semantic pack provenance and lineage, L6-E, the en-es candidate
+  readiness runbook, and L6-F, app-managed non-semantic installer provenance.
 - L6-A maps the pack catalog, pack source manifest, installed-pack manifests,
   pack refs/resolvers, semantic pack-copy manifest, profile publication
   manifest, generated evidence artifacts, and current en-es corpus-expansion
@@ -402,14 +402,19 @@ Current Lane 6 progress:
   copy-pasteable sequence for pack lifecycle audit, source-readiness audit, SRS
   Zipf bridge, denominator audit, and canonical doc updates before any expanded
   Spanish corpus promotion.
+- L6-F makes app-managed translation, frequency, and embedding installs write
+  conservative `provenance.json` sidecars with source URL, Wayback URL when
+  present, source filename, build mode, SQLite filename when present, generated
+  artifact identity, and `requires_review` license status.
 - The main finding is explicit: managed pack roots and publication manifests
   exist, but installed manifests are not complete source/license/generation
-  provenance records, manual/legacy paths can still bypass sidecar-backed
-  provenance, and the current lifecycle audit reports gaps but does not write
-  sidecars or promote packs.
-- The next Lane 6 slices are installer provenance writing for non-semantic pack
-  families, richer source-batch/release lineage once upstream inventories carry
-  those ids, and manual-path disposition pass.
+  provenance records, existing/manual/legacy paths can still bypass
+  sidecar-backed provenance, and the current lifecycle audit reports gaps but
+  does not backfill sidecars or promote packs.
+- The next Lane 6 slices are manual-path disposition, richer
+  source-batch/release lineage once upstream inventories carry those ids,
+  source/license review handling, and optional backfill/migration for existing
+  installs.
 
 ### Lane 7: Product Ops And Release Readiness
 
