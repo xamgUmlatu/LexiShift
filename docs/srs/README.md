@@ -3,7 +3,7 @@
 Status: active SRS routing
 Role: Canonical current
 Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 1 SRS supersession review against SRS docs, feature-state SRS entries, and doc-reference checks; SRS behavior and harness artifacts were not rerun
+Last verified: 2026-05-15 Lane 5 due-aware runtime serving closure, SRS quality harness artifact refresh, and SRS doc current-truth update
 Purpose: route SRS cleanup work to the right current, mixed, planning, schema, or harness document without treating roadmap text as implementation truth
 Source-of-truth: SRS documentation routing only; implementation truth lives in SRS/helper/extension code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -24,7 +24,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | LP capability contract for SRS | `docs/architecture/srs_lp_architecture.md` | Canonical LP/SRS architecture contract, centered on `lp_capabilities.py`. | Pair-specific tuning or roadmap status. |
 | Current SRS roadmap and remaining work | `docs/srs/srs_roadmap.md` | Mixed current snapshot plus roadmap workstream tracker. | Claiming roadmap checkboxes are verified implementation without feature-state or test evidence. |
 | SRS model semantics (`S`, due set, passive exposure, feedback) | `docs/srs/srs_hybrid_model_technical.md` | Mixed model reference for the adopted hybrid inventory/scheduling model. | Exact persisted schema truth when code/tests differ. |
-| Runtime practice-layer boundary | `docs/srs/srs_practice_layer_design.md` | Mixed design reference for helper publication/runtime gating and due-only gaps. | Marking due-aware serving shipped end to end. |
+| Runtime practice-layer boundary | `docs/srs/srs_practice_layer_design.md` | Mixed design reference for helper publication/runtime gating and due-only publication gaps. | Claiming a due-only publication artifact exists. |
 | Persisted SRS settings/store/signal shape | `docs/srs/srs_schema.md` | Mixed schema reference separating implemented fields from planned extensions. | Assuming planned schema sections are already written by runtime. |
 | Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming profile strategies are default execution paths. |
 | Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Treating `profile_growth` as broad admission execution. |
@@ -59,9 +59,12 @@ update changes the owning docs:
   initialization default path;
 - `profile_growth` is executable for rebalance preview/apply, not broad
   growth-admission into `S`;
-- due-aware serving is still planned end to end: scheduler code can build due
-  queues, but helper publication and extension gating still use the broader
-  active/admitted inventory;
+- due-aware serving is implemented through helper rulegen SRS due metadata plus
+  extension runtime gating when regenerated helper rules carry that metadata;
+- helper publication still uses the broader active/admitted inventory rather
+  than a dedicated due-only artifact;
+- metadata-free cached helper rules remain active as a legacy compatibility
+  fallback until regenerated;
 - helper-rule confidence gating at runtime remains planned;
 - SRS harness coverage is useful but limited to the scenarios documented in the
   harness and feature-state entries.

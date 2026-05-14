@@ -38,6 +38,8 @@ from srs_quality_harness_support import (  # noqa: E402
     build_pair_resources as _build_pair_resources,
     build_seed_candidates as _build_seed_candidates,
     create_frequency_db as _create_frequency_db,
+    ruleset_due_active_target_count as _ruleset_due_active_target_count,
+    ruleset_srs_due_metadata_count as _ruleset_srs_due_metadata_count,
     ruleset_unique_target_count as _ruleset_unique_target_count,
     snapshot_target_count as _snapshot_target_count,
     stub_run_rulegen_for_pair as _stub_run_rulegen_for_pair,
@@ -207,6 +209,12 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
         ruleset_unique_targets = (
             _ruleset_unique_target_count(ruleset_path) if ruleset_path.exists() else 0
         )
+        srs_due_metadata_count = (
+            _ruleset_srs_due_metadata_count(ruleset_path) if ruleset_path.exists() else 0
+        )
+        runtime_due_active_count = (
+            _ruleset_due_active_target_count(ruleset_path) if ruleset_path.exists() else 0
+        )
         snapshot_target_count = (
             _snapshot_target_count(snapshot_path) if snapshot_path.exists() else 0
         )
@@ -366,6 +374,8 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
             "store_items_for_pair": store_items_for_pair,
             "due_count": len(due_items),
             "ruleset_unique_targets": ruleset_unique_targets,
+            "srs_due_metadata_count": srs_due_metadata_count,
+            "runtime_due_active_count": runtime_due_active_count,
             "snapshot_target_count": snapshot_target_count,
             "findings": findings,
         }
@@ -439,6 +449,12 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                 .get("feedback_window", {})
                 .get("retention_ratio"),
                 "ruleset_count": _ruleset_unique_target_count(ruleset_path)
+                if ruleset_path.exists()
+                else 0,
+                "srs_due_metadata_count": _ruleset_srs_due_metadata_count(ruleset_path)
+                if ruleset_path.exists()
+                else 0,
+                "runtime_due_active_count": _ruleset_due_active_target_count(ruleset_path)
                 if ruleset_path.exists()
                 else 0,
                 "snapshot_target_count": _snapshot_target_count(snapshot_path)
@@ -562,7 +578,36 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
             ),
             None,
         )
-        if due_scope_broader_than_due is not None:
+        due_runtime_verified = (
+            due_scope_broader_than_due is not None
+            and int(due_scope_broader_than_due["srs_due_metadata_count"])
+            >= int(due_scope_broader_than_due["ruleset_count"])
+            and int(due_scope_broader_than_due["runtime_due_active_count"])
+            <= int(due_scope_broader_than_due["due_count"])
+        )
+        if due_runtime_verified:
+            findings.append(
+                _finding(
+                    level="PASS",
+                    code="SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED",
+                    pair=pair,
+                    message=(
+                        "Helper ruleset may remain broader than due, but due metadata supports "
+                        "runtime due-aware serving."
+                    ),
+                    details=(
+                        f"phase={due_scope_broader_than_due['label']} "
+                        f"total_items={int(due_scope_broader_than_due['total_items_for_pair'])} "
+                        f"due_count={int(due_scope_broader_than_due['due_count'])} "
+                        f"ruleset_count={int(due_scope_broader_than_due['ruleset_count'])} "
+                        "srs_due_metadata_count="
+                        f"{int(due_scope_broader_than_due['srs_due_metadata_count'])} "
+                        "runtime_due_active_count="
+                        f"{int(due_scope_broader_than_due['runtime_due_active_count'])}"
+                    ),
+                )
+            )
+        elif due_scope_broader_than_due is not None:
             findings.append(
                 _finding(
                     level="WARN",

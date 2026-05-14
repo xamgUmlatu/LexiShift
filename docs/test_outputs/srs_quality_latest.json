@@ -8,9 +8,9 @@
   ],
   "unsupported_pairs": [],
   "summary": {
-    "status": "WARN",
-    "pass_count": 15,
-    "warn_count": 1,
+    "status": "PASS",
+    "pass_count": 16,
+    "warn_count": 0,
     "fail_count": 0,
     "should_fail": false
   },
@@ -536,6 +536,8 @@
       "store_items_for_pair": 48,
       "due_count": 48,
       "ruleset_unique_targets": 48,
+      "srs_due_metadata_count": 48,
+      "runtime_due_active_count": 48,
       "snapshot_target_count": 48,
       "findings": [
         {
@@ -1104,6 +1106,8 @@
       "store_items_for_pair": 48,
       "due_count": 48,
       "ruleset_unique_targets": 48,
+      "srs_due_metadata_count": 48,
+      "runtime_due_active_count": 48,
       "snapshot_target_count": 48,
       "findings": [
         {
@@ -1163,6 +1167,8 @@
         "feedback_count": 8,
         "retention_ratio": 1.0,
         "ruleset_count": 3,
+        "srs_due_metadata_count": 3,
+        "runtime_due_active_count": 2,
         "snapshot_target_count": 3,
         "due_count": 2
       },
@@ -1175,6 +1181,8 @@
         "feedback_count": 8,
         "retention_ratio": 0.0,
         "ruleset_count": 3,
+        "srs_due_metadata_count": 3,
+        "runtime_due_active_count": 2,
         "snapshot_target_count": 3,
         "due_count": 2
       },
@@ -1187,6 +1195,8 @@
         "feedback_count": 8,
         "retention_ratio": 1.0,
         "ruleset_count": 5,
+        "srs_due_metadata_count": 5,
+        "runtime_due_active_count": 4,
         "snapshot_target_count": 5,
         "due_count": 4
       }
@@ -1214,11 +1224,11 @@
         "details": null
       },
       {
-        "level": "WARN",
-        "code": "SRS_DUE_AWARE_PUBLISH_UNVERIFIED",
+        "level": "PASS",
+        "code": "SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED",
         "pair": "en-ja",
-        "message": "Published ruleset appears to cover admitted items beyond the due subset.",
-        "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3"
+        "message": "Helper ruleset may remain broader than due, but due metadata supports runtime due-aware serving.",
+        "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3 srs_due_metadata_count=3 runtime_due_active_count=2"
       }
     ]
   },
@@ -1329,11 +1339,11 @@
       "details": null
     },
     {
-      "level": "WARN",
-      "code": "SRS_DUE_AWARE_PUBLISH_UNVERIFIED",
+      "level": "PASS",
+      "code": "SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED",
       "pair": "en-ja",
-      "message": "Published ruleset appears to cover admitted items beyond the due subset.",
-      "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3"
+      "message": "Helper ruleset may remain broader than due, but due metadata supports runtime due-aware serving.",
+      "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3 srs_due_metadata_count=3 runtime_due_active_count=2"
     }
   ],
   "artifact_normalization": {

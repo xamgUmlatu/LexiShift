@@ -268,7 +268,7 @@ Require explicit human review or sign-off for:
 These are active mismatches, not wording accidents:
 
 1. Reverse-check is implemented and tunable, but not yet default-on.
-2. SRS docs define due-aware serving, but current helper publication and runtime gating are not yet verified as due-aware end to end.
+2. SRS serving is due-aware at the runtime gate when helper due metadata is present, but helper publication still uses the broader active/admitted inventory rather than a dedicated due-only artifact.
 3. Rulegen docs describe runtime confidence filtering, but the live helper-rule runtime still has no post-emission confidence gate.
 4. SRS planner docs describe multiple strategies, but executable behavior is still dominated by `frequency_bootstrap`.
 
@@ -277,6 +277,6 @@ These items should remain visible in `feature_state_matrix.md` until code, docs,
 ## Near-Term Meta Priorities
 
 1. Keep reverse-check experiments in the standard audit loop while the feature is being tuned.
-2. Keep the SRS synthetic quality harness in the loop for scheduler/admission/publication changes and expand it as due-aware serving becomes executable.
+2. Keep the SRS synthetic quality harness in the loop for scheduler/admission/publication/runtime-serving changes and expand its pair/user coverage beyond the current synthetic scenarios.
 3. Preserve a fresh-reviewer step for ranking, SRS scheduler, and harness changes.
 4. Keep feature-state dates exact so future agents can recover current behavior quickly.

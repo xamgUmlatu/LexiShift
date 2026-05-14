@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-04-25
+Last updated: 2026-05-15
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -376,25 +376,29 @@ Use this file when:
 
 ## SRS Quality Harness
 
-- Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication workflow
-- Last documented checkpoint: `2026-04-21` the published `docs/test_outputs/srs_quality_latest.json` artifact now normalizes rerun-local temp paths, timestamps, and generation-id suffixes via an explicit `artifact_normalization` contract while preserving stable scenario, pack-identity, and summary fields
-- Last verified: `2026-04-21` targeted harness/summary tests plus fresh normalized JSON + Markdown artifact rerender
+- Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication/runtime-serving workflow
+- Last documented checkpoint: `2026-05-15` due-aware runtime serving is verified through helper-published SRS due metadata and extension runtime gating while helper publication may remain broader than the due subset
+- Last verified: `2026-05-15` targeted harness/summary tests plus fresh normalized JSON + Markdown artifact rerender
 - Default behavior:
   - Use the synthetic harness for SRS scheduler, admission refresh, helper publication, set execution, and runtime-serving workflow changes.
   - Review scheduling is now FSRS-based.
   - Current harness covers bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle pause/resume scenario.
+  - The feedback-cycle scenario now checks helper SRS due metadata and runtime due-active counts, so broad publication can pass only when runtime serving remains due-aware.
   - The committed `latest` JSON artifact is publication-normalized for review stability; raw in-memory harness details remain available before publication.
   - Human-facing summary is available from the JSON artifact.
 - Evidence:
   - `AGENTS.md`
   - `docs/developer/ai_workflow.md`
   - `scripts/testing/srs_quality_harness.py`
+  - `scripts/testing/srs_quality_harness_support.py`
   - `scripts/testing/srs_quality_summary.py`
+  - `core/tests/dev/test_srs_quality_harness.py`
+  - `core/tests/dev/test_srs_quality_summary.py`
   - `docs/test_outputs/srs_quality_latest.json`
   - `docs/test_outputs/srs_quality_summary_latest.md`
 - Known gaps:
   - Coverage is synthetic and pair-limited; it does not yet grade pedagogical quality or real user data.
-  - Current harness intentionally surfaces the due-aware publication mismatch as a warning, not a hard failure.
+  - The harness verifies runtime due-aware serving through metadata; it does not require or prove a dedicated due-only publication artifact.
   - `es-en` / `en-es` SRS quality scenarios are not yet represented in the synthetic harness.
 
 ## Kaikki `en-es` Compatibility Dictionary Pipeline
@@ -487,7 +491,7 @@ Use this file when:
 - Known gaps:
   - `en-de` extension is still pending.
   - The deterministic and synthetic-resource real-publication lanes are still useful regression surfaces, but installed-resource review currently depends on local data-pack availability and is not yet part of the default required workflow loop.
-  - The due-aware publication contract remains unresolved; the harness currently records the mismatch instead of enforcing it.
+  - The journey harness artifacts are not the current due-aware runtime serving authority; use the SRS quality harness for the Lane 5 helper-metadata/runtime-gate contract.
 
 ## Development Workflow Safeties
 
@@ -1427,14 +1431,17 @@ Use this file when:
 
 ## Due-Aware SRS Serving
 
-- Status: `planned`; end-to-end implementation not verified
-- Last documented checkpoint: `2026-04-16` due-aware serving audit
-- Last verified: `2026-04-16` code-path audit + synthetic harness artifact review
+- Status: `implemented`, `default-on when capable`, `verified`
+- Last documented checkpoint: `2026-05-15` Lane 5 due-aware runtime serving closure
+- Last verified: `2026-05-15` helper annotation test, extension runtime gate contract, SRS quality harness, and regenerated SRS quality artifacts
 - Default behavior:
   - Scheduler code builds a due queue from `next_due`.
-  - Current helper publication paths publish the active/admitted inventory for the pair, not a separately materialized due subset.
-  - Current extension SRS gate accepts the published helper SRS ruleset as active; it does not derive a runtime due-only subset.
+  - Helper rulegen annotates matching SRS rules with `metadata.rulegen.srs` due-state metadata.
+  - Helper publication paths may still publish the active/admitted inventory for the pair, not a separately materialized due subset.
+  - The extension SRS gate filters future-due helper SRS rules when due metadata is present.
+  - Metadata-free cached helper rules remain active as a legacy compatibility fallback until regenerated.
 - Evidence:
+  - `docs/developer/productization_lane5_runtime_seam_inventory.md`
   - `docs/srs/srs_hybrid_model_technical.md`
   - `core/lexishift_core/srs/scheduler.py`
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
@@ -1442,10 +1449,15 @@ Use this file when:
   - `core/lexishift_core/helper/rulegen.py`
   - `apps/chrome-extension/shared/srs/srs_gate.js`
   - `scripts/testing/srs_quality_harness.py`
+  - `core/tests/helper/test_helper_rulegen.py`
+  - `core/tests/dev/test_extension_srs_runtime_gate_contract.py`
+  - `core/tests/dev/test_srs_quality_harness.py`
   - `docs/test_outputs/srs_quality_latest.json`
 - Known gaps:
-  - No explicit due-state artifact or due-aware helper ruleset publish path is currently tracked here.
-  - This item should remain `planned` until helper publication and runtime gating are verified against due-state behavior.
+  - No dedicated due-only helper ruleset publication artifact is currently tracked here.
+  - Legacy metadata-free cached helper rules are intentionally permissive until the helper ruleset is regenerated.
+  - Automatic refresh triggering after feedback remains planned.
+  - Synthetic harness coverage remains pair-limited.
 
 ## Extension-Side Confidence Gating For Helper Rules
 
@@ -1526,5 +1538,5 @@ Use this file when:
 These are not accidental wording issues. Keep them explicit until code and docs converge.
 
 1. Reverse-check is implemented but not yet default-on.
-2. SRS docs define due-aware serving, but current end-to-end publish/gate behavior still uses the broader admitted inventory rather than a due-only runtime surface.
+2. SRS serving is now due-aware at the runtime gate when helper due metadata is present, but helper publication still uses the broader active/admitted inventory rather than a dedicated due-only artifact.
 3. Docs mention runtime confidence filtering, but the live helper-rule runtime still has no confidence gate after emission.

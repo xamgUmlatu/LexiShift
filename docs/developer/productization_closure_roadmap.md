@@ -12,6 +12,7 @@ Related docs:
 - `productization_lane2_semantic_testing_script_registry.md`
 - `productization_lane3_feature_state_truth_inventory.md`
 - `productization_lane4_validation_gate_inventory.md`
+- `productization_lane5_runtime_seam_inventory.md`
 - `project_health_remediation_workstream.md`
 - `project_integrity_stabilization_runbook.md`
 - `project_integrity_stabilization_backlog.md`
@@ -321,6 +322,18 @@ Primary checks:
 
 Each runtime closure pass needs a before-edit truth table and a validation
 bundle. Do not mix unrelated runtime surfaces in the same pass.
+
+Current Lane 5 progress:
+
+- `docs/developer/productization_lane5_runtime_seam_inventory.md` now records
+  L5-A, the due-aware SRS runtime serving closure slice.
+- L5-A keeps helper publication broad over the active/admitted inventory, but
+  helper-published SRS rules now carry `metadata.rulegen.srs` due-state
+  metadata and the extension SRS gate filters future-due helper rules at
+  runtime.
+- The SRS quality harness now verifies the runtime due-active count is bounded
+  by the due count in the feedback scenario, while keeping the absence of a
+  dedicated due-only publication artifact explicit.
 
 ### Lane 6: Data Provenance And Pack Lifecycle
 

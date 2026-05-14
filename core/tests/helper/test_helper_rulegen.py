@@ -15,6 +15,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.helper.rulegen import (  # noqa: E402
     RulegenConfig,
     SetInitializationConfig,
+    annotate_rules_with_srs_serving_metadata,
     initialize_store_from_frequency_list_with_report,
     run_rulegen_for_pair,
 )
@@ -297,6 +298,48 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertTrue(request.scoring.pos_match.enabled)
         self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
         self.assertFalse(request.reverse_check.enabled)
+
+    def test_annotates_rules_with_srs_due_serving_metadata(self) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:alpha",
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    next_due="2000-01-01T00:00:00+00:00",
+                    scheduler_state="review",
+                ),
+                SrsItem(
+                    item_id="en-ja:beta",
+                    lemma="beta",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    next_due="2099-01-01T00:00:00+00:00",
+                    scheduler_state="review",
+                ),
+            ),
+            version=1,
+        )
+
+        rules = annotate_rules_with_srs_serving_metadata(
+            (
+                VocabRule(source_phrase="one", replacement="alpha"),
+                VocabRule(source_phrase="two", replacement="beta"),
+                VocabRule(source_phrase="three", replacement="gamma"),
+            ),
+            store=store,
+            pair="en-ja",
+            active_item_ids=("en-ja:alpha", "en-ja:beta"),
+        )
+
+        alpha_srs = rules[0].metadata.rulegen["srs"]
+        beta_srs = rules[1].metadata.rulegen["srs"]
+        self.assertEqual(alpha_srs["item_id"], "en-ja:alpha")
+        self.assertTrue(alpha_srs["in_due"])
+        self.assertEqual(beta_srs["item_id"], "en-ja:beta")
+        self.assertFalse(beta_srs["in_due"])
+        self.assertIsNone(rules[2].metadata)
 
     def test_run_rulegen_for_pair_can_upgrade_primary_rules_from_semantic_context_targets(
         self,

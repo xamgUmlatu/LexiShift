@@ -68,6 +68,11 @@ def render_summary(
             lines.append(
                 f"- Ruleset unique targets: {int(scenario.get('ruleset_unique_targets') or 0)}"
             )
+            lines.append(
+                "- SRS due metadata/runtime-active targets: "
+                f"{int(scenario.get('srs_due_metadata_count') or 0)}/"
+                f"{int(scenario.get('runtime_due_active_count') or 0)}"
+            )
             diagnostics = scenario.get("diagnostics")
             if isinstance(diagnostics, dict):
                 lines.append(
@@ -90,7 +95,8 @@ def render_summary(
                 f"applied={'yes' if bool(phase.get('applied')) else 'no'}, "
                 f"reason=`{str(phase.get('reason_code') or '')}`, "
                 f"total_items={int(phase.get('total_items_for_pair') or 0)}, "
-                f"ruleset={int(phase.get('ruleset_count') or 0)}"
+                f"ruleset={int(phase.get('ruleset_count') or 0)}, "
+                f"runtime_due_active={int(phase.get('runtime_due_active_count') or 0)}"
             )
         lines.append("")
 

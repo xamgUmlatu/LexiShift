@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, helper/native-host route, rulegen LP onboarding, browser replacement runtime, and packaging/platform parity truth passes; focused semantic, SRS, helper route, native-host, rulegen onboarding, browser runtime, workflow/build, and parity tests; SRS quality harness; Windows parity audit; doc-reference check; state check; and diff hygiene
+Last verified: 2026-05-15 read-only semantic runtime, semantic pack-lifecycle, SRS admission/publication, helper/native-host route, rulegen LP onboarding, browser replacement runtime, and packaging/platform parity truth passes; focused semantic, SRS, helper route, native-host, rulegen onboarding, browser runtime, workflow/build, and parity tests; SRS quality harness; Windows parity audit; doc-reference check; state check; diff hygiene; and Lane 5 due-aware runtime-serving supersession note
 Purpose: record feature-state reconciliation slices so implemented, default-on, verified, and still-planned claims stay separate before expansion resumes
 Source-of-truth: inventory only; current runtime truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -146,6 +146,7 @@ Primary code and tests:
 - `core/lexishift_core/srs/scheduler.py`
 - `core/lexishift_core/srs/rebalance.py`
 - `apps/chrome-extension/shared/srs/srs_gate.js`
+- `docs/developer/productization_lane5_runtime_seam_inventory.md`
 - `scripts/testing/srs_quality_harness.py`
 - `scripts/testing/srs_quality_summary.py`
 - `core/tests/helper/test_helper_engine.py`
@@ -165,10 +166,10 @@ Primary code and tests:
 | Profile growth is a broad growth-admission strategy for `S`. | No. `profile_growth` is executable through rebalance preview/apply, but not general refresh/admission execution. | Not default-on. | Verified for rebalance-specific behavior. | Keep as implemented-for-rebalance only. Do not use it as the general growth-admission status. |
 | Pair-local active inventory is the runtime publication input. | Yes. Initialize, refresh, rebalance, and rulegen job flows resolve/backfill pair-local `active_item_ids`; helper rulegen filters to those ids when provided. | Default-on, with store fallback when inventory is missing or stale. | Yes. Inventory tests, helper tests, diagnostics tests, and current SRS harness cover this. | Current product seam. Inventory remains forgiving, not strict authority. |
 | Reset removes pair/profile SRS publication artifacts. | Yes. `reset_srs_data` removes store items by scope, pair inventory, ruleset, snapshot, semantic inventory, and publication manifest. | Default maintenance route behind options workflow confirmation. | Yes. Helper reset tests and extension maintenance workflow tests cover reset behavior. | Current product seam. Keep double-confirmed UI workflow separate from helper reset implementation. |
-| Runtime SRS gate serves only due items. | No. The scheduler can compute due queues, but helper publication writes active/admitted inventory and extension `srs_gate.js` accepts all helper-published SRS rules. | Not default-on. | Verified as an intentional gap: SRS quality harness warns on broader-than-due publication, and extension gate contract tests assert all helper rules are accepted. | Planned. Do not mark due-aware serving shipped until helper publication and extension gating use an explicit due subset. |
+| Runtime SRS gate serves only due items. | Lane 3 finding superseded by L5-A. The scheduler computes due queues, helper publication still writes active/admitted inventory, and extension `srs_gate.js` now filters future-due helper rules when `metadata.rulegen.srs` is present. | Default-on when regenerated helper rules carry due metadata; metadata-free cached helper rules remain active for compatibility. | Yes. Lane 5 helper annotation tests, extension gate contract tests, SRS quality harness tests, and regenerated SRS quality artifacts verify the runtime gate. | Current runtime seam. Do not confuse it with a dedicated due-only publication artifact. |
 | Feedback changes scheduling and can influence future admissions. | Yes. Feedback updates scheduler fields and signal events; refresh admission uses feedback-window signals to pause/resume growth. | Default-on for explicit feedback/refresh flow, not automatic refresh triggering. | Yes. Feedback simulation and SRS quality harness cover growth/pause/growth behavior. | Current explicit lifecycle seam. Automatic adaptive refresh remains planned. |
 | Runtime confidence gating filters helper-published rules after publication. | No. Rulegen can filter by `confidence_threshold` before emission, but extension helper-rule runtime does not apply a live confidence threshold. | Not default-on. | Verified as absent by extension helper-rule confidence contract tests and feature-state audit. | Planned. Keep generation-time confidence filtering distinct from runtime gating. |
-| Synthetic SRS quality harness is a full LP/user-runtime coverage gate. | No. It covers synthetic bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle scenario. | Default required SRS workflow gate for SRS changes, with limited scenario coverage. | Yes. Harness emits stable latest JSON and explicit warning counts. | Current quality gate with known scope limits. It does not prove `en-es`/`es-en` SRS parity or due-aware serving. |
+| Synthetic SRS quality harness is a full LP/user-runtime coverage gate. | No. It covers synthetic bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle scenario. | Default required SRS workflow gate for SRS changes, with limited scenario coverage. | Yes. Harness emits stable latest JSON, verifies helper due metadata/runtime due-active counts, and keeps scope limits explicit. | Current quality gate with known scope limits. It does not prove `en-es`/`es-en` SRS parity or real-user pedagogical quality. |
 
 ## L3-B Corrections Applied
 
@@ -179,8 +180,9 @@ already keeps the main SRS boundaries separate:
    default helper execution.
 2. refresh publication is implemented; automatic adaptive refresh is still
    planned.
-3. active inventory publication is implemented; due-only serving is still
-   planned.
+3. active inventory publication is implemented; Lane 5 later implemented
+   due-aware runtime serving through helper due metadata, but a due-only
+   publication artifact is still absent.
 4. generation-time confidence filtering exists; runtime helper-rule confidence
    gating is still planned.
 
@@ -374,7 +376,7 @@ Primary code and tests:
 | Claim | Implemented | Default State | Verified | Current Disposition |
 | --- | --- | --- | --- | --- |
 | Browser runtime resolves active rules from local rules plus helper/cache SRS rules. | Yes. `active_rules_runtime.js` merges profile/custom rules with helper rules, tags origins, applies the SRS gate, and reports helper/cache source and errors. | Default-on when SRS is enabled and helper/cache rules are available. | Yes. Helper-rule confidence, SRS runtime gate, and diagnostics contract tests cover the behavior. | Current product seam. Source/origin diagnostics are important because local and SRS rules can coexist. |
-| Extension runtime filters helper-published SRS rules by due state. | No. The current SRS gate accepts all helper-published SRS rules and records helper-ruleset mode. | Not default-on. | Yes. The SRS runtime gate contract test asserts future-due and due helper rules both remain active. | Known product gap already tracked by L3-B. Keep due-serving separate from browser rule activation. |
+| Extension runtime filters helper-published SRS rules by due state. | Lane 3 finding superseded by L5-A. `srs_gate.js` now filters future-due helper rules when SRS due metadata is present. | Default-on when regenerated helper/cache rules carry due metadata; metadata-free cached helper rules stay active for compatibility. | Yes. Lane 5 SRS runtime gate contract tests cover future-due filtering and legacy due metadata compatibility. | Current runtime seam. A dedicated due-only publication artifact remains absent. |
 | Extension runtime filters helper-published rules by confidence after publication. | No. Confidence filtering happens before helper emission; already-emitted helper rules stay eligible if enabled. | Not default-on. | Yes. The helper-rule confidence contract test keeps low- and high-confidence emitted rules active. | Known product gap already tracked by L3-B. Keep generation-time confidence filtering separate from runtime filtering. |
 | Full DOM scans are raw DOM order unless page budgets are enabled. | No. `scan_order.js` always prioritizes visible and near-viewport nodes before far-offscreen nodes when viewport geometry is available; page budgets add deterministic within-band distribution. | Default-on for full scans. | Yes. DOM scan runtime contract tests cover visible-first stable ordering without budgets and page/profile distribution with budgets. | Corrected in this slice. Do not describe scan ordering as budget-only behavior. |
 | Page budgets seed from existing replacements and preserve ordered rendering. | Yes. `page_budget_tracker.js` seeds from `.lexishift-replacement` spans and `dom_scan_runtime.js` builds budget state before full-scan reordering and per-node processing. | Default-on when page/lemma caps are configured. | Yes. DOM scan runtime contract tests cover seeding, updating, and full-scan ordering. | Current product seam. Mutation scans still process mutation-provided nodes rather than full-scan distribution. |

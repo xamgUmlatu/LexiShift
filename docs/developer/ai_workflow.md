@@ -245,7 +245,7 @@ npm --prefix scripts run quality:srs:summary
 Current intent:
 - keep bootstrap/publication/runtime diagnostics measurable for `en-ja` and `en-de`,
 - keep feedback-driven pause/resume behavior measurable for `en-ja`,
-- surface due-aware publication gaps as explicit warnings until end-to-end due-aware serving is implemented and verified.
+- verify due-aware runtime serving through helper SRS metadata plus extension gating while keeping the absence of a dedicated due-only publication artifact explicit.
 
 ## State tracking
 
@@ -257,7 +257,7 @@ Update `feature_state_matrix.md` when:
 
 Examples that should stay explicit:
 - reverse-check implemented but not default-on,
-- due-aware SRS serving documented but not end-to-end verified,
+- due-aware SRS serving implemented at runtime when helper due metadata is present, but no due-only publication artifact exists,
 - extension-side helper-rule confidence gating documented, but the live helper-rule runtime still has no post-emission confidence gate.
 
 ## Future extension path

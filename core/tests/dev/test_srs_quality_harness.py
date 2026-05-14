@@ -14,14 +14,14 @@ from srs_quality_harness import build_report, prepare_report_for_publication  # 
 
 
 class TestSrsQualityHarness(unittest.TestCase):
-    def test_build_report_for_en_ja_surfaces_due_aware_warning_without_failures(self) -> None:
+    def test_build_report_for_en_ja_verifies_due_aware_runtime_gate(self) -> None:
         report = build_report(pairs=("en-ja",), include_feedback=True)
         summary = report["summary"]
         findings = report["findings"]
         self.assertEqual(summary["fail_count"], 0)
-        self.assertGreaterEqual(summary["warn_count"], 1)
+        self.assertEqual(summary["warn_count"], 0)
         self.assertTrue(
-            any(item.get("code") == "SRS_DUE_AWARE_PUBLISH_UNVERIFIED" for item in findings)
+            any(item.get("code") == "SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED" for item in findings)
         )
 
     def test_prepare_report_for_publication_normalizes_transient_fields(self) -> None:

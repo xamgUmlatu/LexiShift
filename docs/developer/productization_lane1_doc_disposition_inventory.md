@@ -493,7 +493,8 @@ Progress:
 - `L1-J.2` linked the SRS authority map from `docs/README.md`,
   `docs/developer/README.md`, and `docs/srs/srs_roadmap.md`.
 - Productization boundary preserved:
-  - due-aware serving is still planned end to end,
+  - Lane 5 later implemented due-aware runtime serving through helper due
+    metadata, while a dedicated due-only publication artifact remains absent,
   - profile bootstrap/growth remain non-default or limited as documented in
     feature-state entries,
   - roadmap/schema text should not be treated as implementation proof.

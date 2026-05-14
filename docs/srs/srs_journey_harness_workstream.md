@@ -172,7 +172,10 @@ Current implemented scenarios:
   - deterministic clock with installed local Spanish frequency + FreeDict resources staged into an isolated temp helper root
   - dynamic cohort assignment from actual admitted and newly selected lemmas
   - real helper/rulegen publication path
-- current `en-ja` and `en-es` artifacts keep due publication complete; the remaining warning is only the broader-than-due publication contract
+- current `en-ja` and `en-es` journey artifacts are not the Lane 5 due-aware
+  runtime-serving authority; use `scripts/testing/srs_quality_harness.py` and
+  `docs/test_outputs/srs_quality_latest.json` for the helper due metadata plus
+  extension-gate contract
 
 ### Lane D: edge-behavior lane
 
@@ -722,7 +725,7 @@ Deliverables:
 
 ## Open Questions
 
-1. When should due-aware publication mismatch move from `WARN` to `FAIL`?
+1. Should the journey harness adopt the Lane 5 runtime due-metadata check, or stay focused on item-level journey flow?
 2. How much explicit time injection is worth plumbing versus scoped patching?
 3. Do we want the real full-E2E lane to be mandatory in routine workflow, or advisory until it stabilizes?
 

@@ -13,7 +13,7 @@ from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
-from lexishift_core.replacement.core import VocabRule
+from lexishift_core.replacement.core import RuleMetadata, VocabRule
 from lexishift_core.helper.lp_capabilities import default_reverse_translation_dictionary_path
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.rulegen.adapters import (
@@ -41,6 +41,7 @@ from lexishift_core.srs.set_strategy import (
 )
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
+from lexishift_core.srs.time import now_utc, parse_ts
 from lexishift_core.scoring.weighting import GlossDecay
 
 __all__ = [
@@ -50,6 +51,7 @@ __all__ = [
     "SetInitializationReport",
     "build_seed_candidates",
     "build_snapshot",
+    "annotate_rules_with_srs_serving_metadata",
     "initialize_store_from_frequency_list",
     "initialize_store_from_frequency_list_with_report",
     "load_target_word_packages_from_store",
@@ -192,6 +194,33 @@ def load_target_word_packages_from_store(
             continue
         packages[item.lemma] = normalized
     return packages
+
+
+def annotate_rules_with_srs_serving_metadata(
+    rules: Sequence[VocabRule],
+    *,
+    store: SrsStore,
+    pair: str,
+    active_item_ids: Optional[Sequence[str]] = None,
+) -> tuple[VocabRule, ...]:
+    active_item_id_set = _normalize_item_id_filter(active_item_ids)
+    now = now_utc()
+    items_by_lemma: dict[str, SrsItem] = {}
+    for item in store.items:
+        if item.language_pair != pair or not item.lemma:
+            continue
+        if active_item_id_set is not None and item.item_id not in active_item_id_set:
+            continue
+        items_by_lemma.setdefault(item.lemma, item)
+
+    annotated: list[VocabRule] = []
+    for rule in rules:
+        item = items_by_lemma.get(str(rule.replacement or "").strip())
+        if item is None:
+            annotated.append(rule)
+            continue
+        annotated.append(_annotate_rule_with_srs_serving_metadata(rule, item=item, now=now))
+    return tuple(annotated)
 
 
 def initialize_store_from_frequency_list(
@@ -441,6 +470,34 @@ def _normalize_item_id_sequence(
     return tuple(normalized)
 
 
+def _build_srs_serving_metadata(item: SrsItem, *, now) -> dict[str, object]:
+    next_due = parse_ts(item.next_due)
+    in_due = next_due is None or next_due <= now
+    payload: dict[str, object] = {
+        "schema_version": 1,
+        "serving_policy": "due_at_or_before_now",
+        "item_id": item.item_id,
+        "next_due": item.next_due,
+        "in_due": bool(in_due),
+        "scheduler_state": item.scheduler_state,
+        "scheduler_step": item.scheduler_step,
+        "last_review": item.last_review,
+    }
+    return {key: value for key, value in payload.items() if value is not None}
+
+
+def _annotate_rule_with_srs_serving_metadata(
+    rule: VocabRule,
+    *,
+    item: SrsItem,
+    now,
+) -> VocabRule:
+    metadata = rule.metadata or RuleMetadata()
+    rulegen_metadata = dict(metadata.rulegen or {})
+    rulegen_metadata["srs"] = _build_srs_serving_metadata(item, now=now)
+    return replace(rule, metadata=replace(metadata, rulegen=rulegen_metadata))
+
+
 def _dedupe_seed_words(selected_words: Sequence[object]) -> list[object]:
     seen_ids: set[str] = set()
     unique_selected_words: list[object] = []
@@ -648,7 +705,14 @@ def run_rulegen_for_pair(
             word_packages_by_target=target_word_packages or None,
         )
     )
-    rules = [result.rule for result in results]
+    rules = list(
+        annotate_rules_with_srs_serving_metadata(
+            [result.rule for result in results],
+            store=updated_store,
+            pair=pair,
+            active_item_ids=active_item_ids,
+        )
+    )
     snapshot = build_snapshot(
         rules=rules,
         pair=pair,

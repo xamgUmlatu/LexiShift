@@ -2,8 +2,8 @@
 
 Status: active mixed design
 Role: Mixed
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; practice-layer content not fully re-audited
+Last updated: 2026-05-15
+Last verified: 2026-05-15 Lane 5 due-aware runtime serving closure and SRS quality harness refresh
 Purpose: explain how SRS practice gating fits into runtime replacement behavior while keeping current due-only publication gaps explicit
 Source-of-truth: mixed design reference; current runtime truth lives in helper publication code, extension SRS gate code, SRS quality/journey harnesses, and feature-state evidence.
 
@@ -23,19 +23,19 @@ Provide non-destructive SRS behavior above the ruleset engine:
 - Feedback updates (`again|hard|good|easy`) are wired end-to-end.
 - Options flow can initialize set `S` and run rulegen preview.
 - Set-planning/profile logic is scaffolded.
-- Current helper publication/runtime gating still operate on the active/admitted inventory for `S`; they do not yet enforce a separately published due-only subset end to end.
+- Helper publication still emits the active/admitted inventory for `S`, but helper-published SRS rules now carry due metadata and runtime gating filters future-due rules when that metadata is present.
 
 ## Explicit policy decisions
 - Set `S` means "items currently studied by the user."
 - Passive display/exposure is not a scheduler event.
 - Feedback is the authoritative event source for scheduling.
-- Due-based serving remains the intended scheduler contract; current helper publication/runtime gating still publish and consume the active inventory more broadly than the due subset.
+- Due-based serving is enforced at runtime when helper SRS due metadata is present; helper publication remains broader than the due subset.
 
 ## Architecture overview
 ```text
 Ruleset Engine (unchanged)
         ^
-Practice Gate (runtime filter by helper-published SRS rules; due-only gating not yet enforced)
+Practice Gate (runtime filter by helper-published SRS due metadata)
         ^
 Scheduler (feedback-driven)
         ^
@@ -65,8 +65,9 @@ Set Planner (bootstrap/growth/refresh strategy)
 - Push mastered items to longer intervals and lapsed items to shorter intervals.
 
 ## 3) Practice Gate
-- Current runtime gate accepts the helper-published SRS ruleset as active.
-- The helper-published ruleset is currently derived from the active/admitted inventory for the pair, not a dedicated due-only artifact.
+- Current runtime gate filters helper-published SRS rules by `metadata.rulegen.srs.next_due` when due metadata is present.
+- The helper-published ruleset is still derived from the active/admitted inventory for the pair, not a dedicated due-only artifact.
+- Metadata-free cached helper rules remain active as a compatibility fallback until the ruleset is regenerated.
 - If SRS is disabled, runtime behavior falls back to standard rules.
 
 ## 4) Planner + bootstrap/growth policies
@@ -86,3 +87,4 @@ Set Planner (bootstrap/growth/refresh strategy)
 - Formalize state labels (`new`, `learning`, `review`, `mature`, `relearn`, `suspended`).
 - Consolidate local extension logs with helper feedback ingestion contract.
 - Add a policy registry for pair-specific bootstrap/growth strategy selection.
+- Decide whether a dedicated due-only publication artifact is still useful now that the runtime gate can filter by helper SRS due metadata.

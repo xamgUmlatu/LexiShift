@@ -75,7 +75,8 @@ python3 scripts/testing/srs_quality_summary.py \
 Current harness coverage:
 - bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`
 - feedback-cycle pause/resume scenario for `en-ja`
-- due-aware publication mismatch surfaced as a warning, not a hard pass/fail gate
+- due-aware runtime serving through helper SRS metadata plus extension gating;
+  publication may remain broader than the due subset
 
 ## Baseline and policy safety
 

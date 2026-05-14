@@ -79,12 +79,12 @@ Ship a non-destructive SRS layer where:
 - Runtime replacements from helper-generated SRS rules are active in pages (not just debug preview).
 - Local rules continue to work concurrently with SRS rules.
 - Feedback UI path (`1..4`) is wired through extension sync queue to helper feedback endpoint.
-- Current published ruleset still reflects the active/admitted inventory more broadly than a dedicated due-only subset.
+- Current published ruleset still reflects the active/admitted inventory more broadly than a dedicated due-only subset, but runtime serving filters future-due helper SRS rules when helper due metadata is present.
 
 ### Remaining to reach full SRS E2E (feedback -> update -> serving)
 - Complete deterministic E2E assertion flow:
   - bootstrap/initialize -> observe replacements -> submit feedback -> verify helper scheduling fields changed -> refresh/admit -> verify serving distribution changed.
-- Publish or gate against an explicit due subset instead of treating the helper-published active inventory as the runtime serving surface.
+- Decide whether a dedicated due-only publication artifact is still needed now that runtime gating uses helper SRS due metadata.
 - Add automatic refresh policy trigger from aggregated feedback thresholds (today refresh is explicit/manual).
 - Add stronger observability for feedback effects:
   - before/after snapshots of `next_due`, `stability`, `difficulty`, and active item counts.
@@ -110,7 +110,7 @@ Status key:
 
 ### Workstream A — Review scheduler and practice gate
 - `[x]` Core SRS item model + FSRS scheduler update function.
-- `[~]` Runtime gate integration for helper-published SRS rules (current gate works for admitted inventory; due-aware subset remains unresolved).
+- `[x]` Runtime gate integration for helper-published SRS rules with due metadata (publication still remains broader than a dedicated due-only artifact).
 - `[x]` Feedback ingestion from extension popup.
 - `[~]` Formal lifecycle statuses (`new/learning/review/mature/relearn/suspended`).
 - `[ ]` Daily/session budget policy hardening (`max_active`, `max_new_per_day`).

@@ -28,7 +28,7 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionSrsRuntimeGateContract(unittest.TestCase):
-    def test_helper_ruleset_gate_accepts_all_srs_rules_without_due_filtering(self) -> None:
+    def test_helper_ruleset_gate_filters_srs_rules_with_future_due_metadata(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -48,8 +48,12 @@ const buildSrsGate = context.LexiShift.srsGate.buildSrsGate;
       replacement: "alpha",
       metadata: {{
         lexishift_origin: "srs",
-        next_due: "2099-01-01T00:00:00Z",
-        in_due: false
+        rulegen: {{
+          srs: {{
+            next_due: "2099-01-01T00:00:00Z",
+            in_due: false
+          }}
+        }}
       }}
     }},
     {{
@@ -74,9 +78,11 @@ const buildSrsGate = context.LexiShift.srsGate.buildSrsGate;
   assert.equal(gate.stats.mode, "helper_ruleset");
   assert.equal(gate.stats.datasetLoaded, false);
   assert.equal(gate.stats.srsCount, 2);
-  assert.equal(gate.stats.srsActiveCount, 2);
-  assert.equal(gate.activeRules.length, 3);
-  assert.deepEqual(Array.from(gate.activeLemmas).sort(), ["alpha", "beta"]);
+  assert.equal(gate.stats.srsActiveCount, 1);
+  assert.equal(gate.stats.srsDueFilteredCount, 1);
+  assert.equal(gate.stats.servingMode, "due_metadata");
+  assert.equal(gate.activeRules.length, 2);
+  assert.deepEqual(Array.from(gate.activeLemmas).sort(), ["beta"]);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

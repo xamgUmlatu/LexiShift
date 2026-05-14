@@ -137,8 +137,9 @@ python3 scripts/testing/srs_quality_summary.py \
 Then run targeted tests for the changed SRS/helper/runtime modules. Keep the
 current harness scope explicit: synthetic bootstrap/publication/runtime
 diagnostics cover `en-ja` and `en-de`, the feedback-cycle scenario covers
-`en-ja`, and due-aware publication mismatch is still a warning rather than a
-hard pass/fail gate.
+`en-ja`, and due-aware runtime serving is verified through helper SRS metadata
+plus extension gating while helper publication may remain broader than the due
+subset.
 
 ## Artifact Freshness Rules
 

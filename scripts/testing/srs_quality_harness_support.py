@@ -7,7 +7,9 @@ from types import SimpleNamespace
 from typing import Any, Mapping
 
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.helper.rulegen import annotate_rules_with_srs_serving_metadata
 from lexishift_core.replacement.core import VocabRule
+from lexishift_core.srs.time import now_utc, parse_ts
 from synthetic_translation_fixture_support import (
     write_jmdict_fixture,
     write_translation_dictionary_sqlite_fixture,
@@ -73,6 +75,37 @@ def ruleset_unique_target_count(path: Path) -> int:
     return len(replacements)
 
 
+def ruleset_srs_due_metadata_count(path: Path) -> int:
+    payload = _load_ruleset_payload(path)
+    rules = payload.get("rules", [])
+    if not isinstance(rules, list):
+        return 0
+    replacements = {
+        str(rule.get("replacement") or "").strip()
+        for rule in rules
+        if isinstance(rule, Mapping)
+        and str(rule.get("replacement") or "").strip()
+        and _srs_serving_metadata(rule) is not None
+    }
+    return len(replacements)
+
+
+def ruleset_due_active_target_count(path: Path) -> int:
+    payload = _load_ruleset_payload(path)
+    rules = payload.get("rules", [])
+    if not isinstance(rules, list):
+        return 0
+    now = now_utc()
+    replacements = {
+        str(rule.get("replacement") or "").strip()
+        for rule in rules
+        if isinstance(rule, Mapping)
+        and str(rule.get("replacement") or "").strip()
+        and _srs_rule_is_due(rule, now=now)
+    }
+    return len(replacements)
+
+
 def snapshot_target_count(path: Path) -> int:
     payload = _load_snapshot_payload(path)
     stats = payload.get("stats")
@@ -124,10 +157,29 @@ def create_frequency_db(path: Path) -> Path:
     return path
 
 
-def stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
-    pair_lemmas = sorted({item.lemma for item in store.items if item.language_pair == pair})
+def stub_run_rulegen_for_pair(*, store, pair, **kwargs):
+    active_item_ids = kwargs.get("active_item_ids")
+    active_item_id_set = (
+        {str(item_id).strip() for item_id in active_item_ids if str(item_id).strip()}
+        if isinstance(active_item_ids, (frozenset, list, set, tuple))
+        else None
+    )
+    pair_lemmas = sorted(
+        {
+            item.lemma
+            for item in store.items
+            if item.language_pair == pair
+            and (active_item_id_set is None or item.item_id in active_item_id_set)
+        }
+    )
     rules = tuple(
         VocabRule(source_phrase=f"src_{lemma}", replacement=lemma) for lemma in pair_lemmas
+    )
+    rules = annotate_rules_with_srs_serving_metadata(
+        rules,
+        store=store,
+        pair=pair,
+        active_item_ids=active_item_ids,
     )
     snapshot_targets = [{"lemma": lemma, "sources": [f"src_{lemma}"]} for lemma in pair_lemmas]
     snapshot = {
@@ -141,6 +193,33 @@ def stub_run_rulegen_for_pair(*, store, pair, **_kwargs):
         },
     }
     return store, SimpleNamespace(rules=rules, snapshot=snapshot, target_count=len(pair_lemmas))
+
+
+def _srs_serving_metadata(rule: Mapping[str, Any]) -> Mapping[str, Any] | None:
+    metadata = rule.get("metadata")
+    if not isinstance(metadata, Mapping):
+        return None
+    rulegen = metadata.get("rulegen")
+    if isinstance(rulegen, Mapping):
+        srs = rulegen.get("srs")
+        if isinstance(srs, Mapping):
+            return srs
+    if "next_due" in metadata or "in_due" in metadata:
+        return metadata
+    return None
+
+
+def _srs_rule_is_due(rule: Mapping[str, Any], *, now) -> bool:
+    srs = _srs_serving_metadata(rule)
+    if srs is None:
+        return True
+    next_due = parse_ts(srs.get("next_due"))
+    if next_due is not None:
+        return next_due <= now
+    in_due = srs.get("in_due")
+    if isinstance(in_due, bool):
+        return in_due
+    return True
 
 
 def build_pair_resources(paths: HelperPaths, *, pair: str) -> None:
