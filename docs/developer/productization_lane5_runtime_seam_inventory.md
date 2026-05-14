@@ -298,3 +298,46 @@ L5-E does not yet close:
 2. durable cross-session trend reporting,
 3. BetterDiscord/plugin runtime parity,
 4. user-facing explanations for individual abstained replacements.
+
+## Remaining Runtime Seam Triage
+
+Current expansion-gate read:
+
+- No known browser-extension runtime fail-open blocker remains in the Lane 5
+  SRS/semantic admission path after L5-A through L5-E.
+- The current safe posture is conservative:
+  - future-due helper SRS rules are filtered at runtime when due metadata is
+    present,
+  - semantic unavailable-scoring defaults to `abstain_on_unavailable`,
+  - helper decision-service exceptions fail closed,
+  - inventory-resolution exceptions fail closed,
+  - fallback reason counts are visible in runtime diagnostics.
+- This does not mean expansion is ready by itself. It means the next broad
+  blocker is no longer this browser runtime fail-closed seam; it shifts to
+  Lane 6 data provenance, pack lifecycle, source auditability, and generated
+  artifact traceability.
+
+Must fix before broad expansion:
+
+| Item | Owner Lane | Rationale |
+| --- | --- | --- |
+| Pack/source provenance and installed-resource auditability | Lane 6 | Expansion adds more local/generated data. The next release-quality risk is knowing exactly which source files, generated SQLite packs, manifests, installed paths, and licenses are active. |
+| Expansion readiness checklist | Lane 6 / closure roadmap | Expansion should resume only when runtime truth, diagnostics truth, pack provenance, validation commands, and artifact ownership are explicitly linked. |
+
+Useful but not expansion-blocking runtime hardening:
+
+| Item | Current posture | Why not blocking |
+| --- | --- | --- |
+| Helper semantic retry/backoff | Fail-closed now; no automatic retry. | Retry can improve availability, but incorrect retry policy can add page latency and complexity. It should be designed separately instead of rushed into the safety seam. |
+| Durable cross-session runtime trend reporting | Last runtime state plus helper/cache diagnostics exist. | Trend reporting helps operations, but the per-run diagnostics now expose the reason buckets needed for manual triage. |
+| Metadata migration for old cached helper SRS rules | Metadata-free cached helper rules remain active for compatibility. | Regenerated helper publications carry due metadata; migration is useful cleanup, not a blocker for new generated artifacts. |
+| Dedicated due-only helper publication artifact | Runtime gate now filters future-due rules from broad helper publications. | A due-only artifact would simplify the publication model, but runtime serving is already due-aware when metadata exists. |
+
+Defer out of Lane 5:
+
+| Item | Defer To | Rationale |
+| --- | --- | --- |
+| Rendered `soft_affordance` UX | Product/UX runtime lane | Current DOM behavior treats non-`replace` decisions as keep-original, which is safe. The visible affordance should be designed deliberately. |
+| User-facing explanations for individual abstains | Product/UX diagnostics lane | Operator diagnostics now have aggregate reasons. End-user explanations need separate copy and interaction design. |
+| BetterDiscord/plugin runtime parity | Platform parity lane | Lane 5 has closed the browser-extension runtime seam; plugin parity should be tracked as a platform-specific runtime surface. |
+| Automatic semantic pack rollout | Pack lifecycle / launch lane | Rollout policy depends on provenance, install/update behavior, and launch controls, not only runtime safety. |

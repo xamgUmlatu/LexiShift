@@ -349,6 +349,10 @@ Current Lane 5 progress:
 - L5-E contains thrown semantic inventory-resolution exceptions inside the
   semantic gate, converting them to the existing fail-closed
   `semantic_inventory_unavailable` path instead of rejecting the page scan.
+- The Lane 5 remaining-seam triage now marks no known browser-extension
+  runtime fail-open blocker remaining for the SRS/semantic admission path; the
+  next broad expansion blocker shifts to Lane 6 data provenance and pack
+  lifecycle work.
 
 ### Lane 6: Data Provenance And Pack Lifecycle
 
