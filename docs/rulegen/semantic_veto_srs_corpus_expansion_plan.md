@@ -4,6 +4,10 @@ Status: active planning reference
 Role: Planning / WIP
 Last updated: 2026-05-14
 Last verified: 2026-05-14 with `docs/test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_latest.md`
+Related docs:
+- `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
+- `semantic_veto_denominator_current_state.md`
+- `../developer/productization_lane6_data_provenance_inventory.md`
 
 ## Purpose
 
@@ -75,6 +79,10 @@ That is enough for the current general-frequency baseline, but not enough for a
 
 Run the no-spend source-readiness audit on the current pack and each candidate
 SQLite pack:
+
+Use `semantic_veto_srs_corpus_candidate_readiness_runbook.md` when a concrete
+candidate SQLite exists and another agent needs the full pack lifecycle,
+source-readiness, SRS bridge, denominator, and documentation-update sequence.
 
 ```bash
 python3 scripts/testing/semantic_veto_srs_corpus_expansion_audit_en_es.py \

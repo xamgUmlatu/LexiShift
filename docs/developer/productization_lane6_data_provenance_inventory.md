@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, focused pack-provenance validator tests, focused pack-lifecycle audit tests, and semantic-pack provenance install tests
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, and semantic-pack provenance install tests
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -12,6 +12,7 @@ Related docs:
 - `productization_lane5_runtime_seam_inventory.md`
 - `data_source_normalization_execution_order.md`
 - `../rulegen/semantic_routing_data_update_lifecycle.md`
+- `../rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
 - `../rulegen/semantic_veto_denominator_current_state.md`
 - `../rulegen/lp_onboarding_operating_model.md`
@@ -36,6 +37,7 @@ Completed slices:
 2. L6-B: pack provenance sidecar contract.
 3. L6-C: pack lifecycle audit command.
 4. L6-D: semantic pack provenance and lineage sidecar.
+5. L6-E: en-es SRS corpus candidate readiness runbook.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -119,6 +121,9 @@ What is already solid:
 8. Semantic pack install now writes a validated `provenance.json` sidecar for
    copied semantic packs and records a manifest `lineage` block without
    removing the older manifest fields.
+9. `../rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md` now
+   gives a copy-pasteable candidate audit sequence before expanded Spanish
+   corpus promotion or paid semantic-veto generation.
 
 Loose ends to close before broad expansion:
 
@@ -325,6 +330,39 @@ python3 -m ruff format --check \
   core/tests/helper/test_semantic_pack_install.py
 ```
 
+## L6-E En-es Candidate Readiness Runbook
+
+Product claim:
+
+- A future Spanish corpus candidate should have a repeatable readiness sequence
+  before it can affect defaults, denominator claims, or generation spend.
+
+Current implementation:
+
+- `../rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md` now
+  provides the operator runbook.
+- The runbook sequences:
+  1. pack lifecycle audit,
+  2. source-readiness audit,
+  3. SRS Zipf bridge with full rulegen,
+  4. denominator audit,
+  5. canonical doc updates before generation.
+- It records stop conditions for missing license/source status, missing
+  rank/frequency ordering, missing POS coverage, missing topic/domain metadata
+  for personalization claims, candidate size shortfalls, and accidental
+  `freq-es-cde` overwrite risk.
+- It includes a next-agent handoff template so candidate work can resume without
+  reconstructing the sequence from chat.
+
+Boundaries:
+
+1. The runbook does not choose a source.
+2. It does not make a runtime default change.
+3. It does not replace the source-readiness audit, SRS bridge, or denominator
+   audit.
+4. It does not permit paid generation before the expanded denominator is
+   understood.
+
 ## Planned Lane 6 Slices
 
 | Slice | Goal | First Output |
@@ -332,7 +370,7 @@ python3 -m ruff format --check \
 | L6-B Pack provenance contract | Initial sidecar validator completed; future work should wire installers/audits to it. | `pack_provenance.py` and focused validator tests. |
 | L6-C Pack lifecycle audit command | Initial read-only audit completed; future work should wire sidecar production and richer source-readiness checks. | `pack_lifecycle_audit.py` with JSON/Markdown output and focused tests. |
 | L6-D Semantic generation lineage | Initial semantic pack sidecar and manifest lineage completed; future work should add upstream source-batch/release ids when source inventories carry them. | `semantic_pack_provenance.py`, installer wiring, and focused install tests. |
-| L6-E En-es expansion candidate runbook | Convert the corpus-expansion plan into a candidate-pack checklist that another agent can run without re-deriving context. | Candidate pack readiness checklist and validation command bundle. |
+| L6-E En-es expansion candidate runbook | Completed as an operational runbook; future work should use it on the first real candidate. | `semantic_veto_srs_corpus_candidate_readiness_runbook.md`. |
 | L6-F Manual path disposition | Decide which manual paths remain supported import/debug surfaces and which should be demoted before release. | Updated installed-vs-manual contract and targeted cleanup tasks. |
 
 ## Validation Bundle For L6-A

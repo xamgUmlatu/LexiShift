@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, and semantic-pack provenance install tests
+Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, and en-es candidate readiness runbook routing
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -24,6 +24,7 @@ Related docs:
 - `../language_pairs/README.md`
 - `../rulegen/semantic_rulegen_authority_map.md`
 - `../rulegen/semantic_veto_denominator_current_state.md`
+- `../rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
 
 ## Purpose
@@ -378,7 +379,8 @@ Current Lane 6 progress:
 - `docs/developer/productization_lane6_data_provenance_inventory.md` now
   records L6-A, the current pack/source provenance inventory, and L6-B, the
   pack provenance sidecar contract, L6-C, the pack lifecycle audit command, and
-  L6-D, semantic pack provenance and lineage.
+  L6-D, semantic pack provenance and lineage, and L6-E, the en-es candidate
+  readiness runbook.
 - L6-A maps the pack catalog, pack source manifest, installed-pack manifests,
   pack refs/resolvers, semantic pack-copy manifest, profile publication
   manifest, generated evidence artifacts, and current en-es corpus-expansion
@@ -395,15 +397,19 @@ Current Lane 6 progress:
   and a manifest `lineage` block that records the source inventory path/hash,
   source inventory generation fields when present, normalized inventory hash,
   and semantic inventory counts.
+- L6-E adds
+  `docs/rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md`, a
+  copy-pasteable sequence for pack lifecycle audit, source-readiness audit, SRS
+  Zipf bridge, denominator audit, and canonical doc updates before any expanded
+  Spanish corpus promotion.
 - The main finding is explicit: managed pack roots and publication manifests
   exist, but installed manifests are not complete source/license/generation
   provenance records, manual/legacy paths can still bypass sidecar-backed
   provenance, and the current lifecycle audit reports gaps but does not write
   sidecars or promote packs.
-- The next Lane 6 slices are the en-es candidate readiness runbook, installer
-  provenance writing for non-semantic pack families, richer source-batch/release
-  lineage once upstream inventories carry those ids, and manual-path
-  disposition pass.
+- The next Lane 6 slices are installer provenance writing for non-semantic pack
+  families, richer source-batch/release lineage once upstream inventories carry
+  those ids, and manual-path disposition pass.
 
 ### Lane 7: Product Ops And Release Readiness
 
