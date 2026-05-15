@@ -3,7 +3,7 @@
 Status: active script map
 Role: Runbook / operational
 Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 4 validation-gate routing review against `scripts/package.json`, workflow docs, and staged-scope safety
+Last verified: 2026-05-15 Lane 4 validation-gate routing review against `scripts/package.json`, workflow docs, staged-scope safety, and project-structure inventory routing
 Purpose: route contributors to the current workflow entrypoints first, then to specialty build/data/testing tools
 Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`; by-change-type validation routing lives in `../docs/developer/productization_lane4_validation_gate_inventory.md`.
 
@@ -25,6 +25,7 @@ Use the package-script workflow surfaces first when they exist:
 - Branch-scope safety: `npm --prefix scripts run check:changed`
 - Canonical doc integrity: `npm --prefix scripts run check:docs`
 - Feature-state audit: `npm --prefix scripts run check:state`
+- Project structure inventory: `npm --prefix scripts run inventory:structure`
 - Build safety: `npm --prefix scripts run build`
 - Project health: `npm --prefix scripts run health:project`
 - SRS quality harness: `npm --prefix scripts run quality:srs:harness`
@@ -53,6 +54,11 @@ you need to choose the smallest honest bundle for a specific change type.
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:docs:report`
   - Verifies the canonical routing/policy docs carry top metadata (`Status`, `Role`, `Last updated`) and point at real files so documentation authority stays operable
   - Complements `feature_state_audit.py`, which remains the dedicated structural audit for `docs/developer/feature_state_matrix.md`
+- Project structure inventory:
+  `dev/project_structure_inventory.py`
+  - Exposed via `npm --prefix scripts run inventory:structure`
+  - Emits JSON and Markdown under `docs/test_outputs/dev_workflow/`
+  - Enumerates repo paths while ignoring local caches/build outputs and reports redundancy/staleness candidates without approving deletion
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`

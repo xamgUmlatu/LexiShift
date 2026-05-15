@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, semantic source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict pack lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, and executable provenance policy tests
+Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, semantic source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict pack lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, and project-structure inventory tests/artifacts
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -19,6 +19,8 @@ Related docs:
 - `project_integrity_stabilization_backlog.md`
 - `documentation_governance.md`
 - `feature_state_matrix.md`
+- `../test_outputs/dev_workflow/project_structure_latest.md`
+- `../../scripts/dev/project_structure_inventory.py`
 - `../srs/README.md`
 - `../gui/README.md`
 - `../language_pairs/README.md`
@@ -531,6 +533,39 @@ Primary checks:
 4. local diagnostics and logs,
 5. failure-mode runbooks,
 6. release/update rollback behavior.
+
+### Cross-Lane: Project Structure Review
+
+Goal:
+- keep the whole repository layout visible enough that redundant docs, stale
+  generated artifacts, tentative scripts, and ambiguous ownership boundaries can
+  be reviewed before new expansion work adds more surface area.
+
+Current progress:
+
+- `scripts/dev/project_structure_inventory.py` now provides a read-only path
+  enumeration and structure-review candidate report.
+- `npm --prefix scripts run inventory:structure` writes latest JSON and
+  Markdown artifacts under `docs/test_outputs/dev_workflow/`.
+- The first snapshot enumerates `4,193` non-ignored paths: `3,910` files and
+  `283` directories.
+- The dominant structure signal is generated-evidence accumulation:
+  `docs/test_outputs` accounts for `2,571` paths, including `740` files under
+  `docs/test_outputs/experiments`.
+- The first unreferenced-script heuristic reports only three candidates:
+  `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
+  `scripts/testing/semantic_shadow_review_queue_en_es.py`.
+- Duplicate filename/stem rows are candidate signals only. They mostly identify
+  generated evidence families and repeated runtime naming patterns, not
+  immediate cleanup approval.
+
+Next review step:
+
+1. review `../test_outputs/dev_workflow/project_structure_latest.md`,
+2. choose one narrow cleanup queue, likely generated-output retention/routing or
+   the three unreferenced-script candidates,
+3. prove exact references, generated-artifact ownership, and historical value
+   before archiving or deleting anything.
 
 ## Per-Slice Review Template
 
