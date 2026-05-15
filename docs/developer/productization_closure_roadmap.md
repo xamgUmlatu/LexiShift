@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, and generated-output unnecessary audit
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, and review-only generated-output resolution
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -551,11 +551,11 @@ Current progress:
   deletion-readiness mechanism. `npm --prefix scripts run inventory:unnecessary`
   writes latest JSON and Markdown artifacts under `docs/test_outputs/dev_workflow/`
   and separates `definite_prune`, `review_only`, and `retain` groups.
-- The latest snapshot enumerates `4,017` non-ignored paths: `3,824` files and
-  `193` directories, with `2,359` candidate-signal paths and `0`
+- The latest snapshot enumerates `4,013` non-ignored paths: `3,820` files and
+  `193` directories, with `2,355` candidate-signal paths and `0`
   unreferenced-script candidates.
 - The dominant structure signal is generated-evidence accumulation:
-  `docs/test_outputs` accounts for `2,394` paths, including `670` files under
+  `docs/test_outputs` accounts for `2,390` paths, including `670` files under
   `docs/test_outputs/experiments`.
 - Generated-output retention review now has first-class inventory buckets for
   baselines, dev-workflow operational reports, experiment payloads, SRS journey
@@ -586,6 +586,18 @@ Current progress:
   findings are unreferenced root-dated JSON/provenance outputs, so they are not
   safe for automatic deletion without a surviving summary or downstream artifact
   decision.
+- The review-only findings were resolved manually. The broad March 2026
+  `en-es` expansion-candidates probe was deleted because the selected rev-on
+  and rev-off probe artifacts plus the archived aggressive-expansion summary
+  preserve the surviving evidence. The one-off `hora` probe was deleted because
+  it had no current routing or canonical downstream summary. The stale
+  reverse-far-hit quality-gate JSON was deleted because current and archived
+  reverse-check evidence routes through benchmark, triage, probe, and current
+  gate artifacts instead. The root semantic-veto LLM repair `002` generated-row
+  copy was deleted because the current merge uses repairs `001` and `003`;
+  raw-response and experiment-batch artifacts remain retained for provenance.
+  The regenerated unnecessary-output audit now reports `0` `definite_prune`
+  groups, `0` `review_only` groups, and `16` retained groups.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no

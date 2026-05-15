@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T17:40:26.476925+00:00",
+  "generated_at_utc": "2026-05-15T17:52:45.052241+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "rules": [
     {
@@ -35,82 +35,20 @@
     }
   ],
   "summary": {
-    "group_count": 20,
+    "group_count": 16,
     "definite_prune_group_count": 0,
     "definite_prune_file_count": 0,
     "definite_prune_bytes": 0,
-    "review_only_group_count": 4,
+    "review_only_group_count": 0,
     "retain_group_count": 16,
     "status_counts": {
-      "retain": 16,
-      "review_only": 4
+      "retain": 16
     },
     "rule_counts": {
-      "referenced_generated_output": 16,
-      "unreferenced_root_dated_primary_or_provenance_output": 4
+      "referenced_generated_output": 16
     }
   },
   "groups": [
-    {
-      "status": "review_only",
-      "rule_id": "unreferenced_root_dated_primary_or_provenance_output",
-      "group_id": "docs/test_outputs/rulegen_probe_en_es_expansion_candidates_2026-03-13.json",
-      "reason": "No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first.",
-      "paths": [
-        "docs/test_outputs/rulegen_probe_en_es_expansion_candidates_2026-03-13.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 111911,
-      "external_reference_count": 0,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "review_only",
-      "rule_id": "unreferenced_root_dated_primary_or_provenance_output",
-      "group_id": "docs/test_outputs/rulegen_probe_en_es_hora_check_2026-03-21.json",
-      "reason": "No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first.",
-      "paths": [
-        "docs/test_outputs/rulegen_probe_en_es_hora_check_2026-03-21.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 18892,
-      "external_reference_count": 0,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "review_only",
-      "rule_id": "unreferenced_root_dated_primary_or_provenance_output",
-      "group_id": "docs/test_outputs/rulegen_quality_gate_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "reason": "No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first.",
-      "paths": [
-        "docs/test_outputs/rulegen_quality_gate_en_es_reverse_far_hit_experiment_2026-03-13.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 4954,
-      "external_reference_count": 0,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "review_only",
-      "rule_id": "unreferenced_root_dated_primary_or_provenance_output",
-      "group_id": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_002.json",
-      "reason": "No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first.",
-      "paths": [
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_002.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 2279,
-      "external_reference_count": 0,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [],
-      "generated_output_reference_samples": []
-    },
     {
       "status": "retain",
       "rule_id": "referenced_generated_output",

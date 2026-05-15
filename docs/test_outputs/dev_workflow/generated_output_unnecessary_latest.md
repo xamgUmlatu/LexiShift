@@ -11,11 +11,11 @@ This audit is intentionally conservative. `definite_prune` means the rule found 
 
 | Metric | Count |
 | --- | ---: |
-| `group_count` | 20 |
+| `group_count` | 16 |
 | `definite_prune_group_count` | 0 |
 | `definite_prune_file_count` | 0 |
 | `definite_prune_bytes` | 0 |
-| `review_only_group_count` | 4 |
+| `review_only_group_count` | 0 |
 | `retain_group_count` | 16 |
 
 ## Definite Prune Groups
@@ -28,10 +28,7 @@ This audit is intentionally conservative. `definite_prune` means the rule found 
 
 | Rule | Files | Bytes | Reason | Sample Paths | Reference Samples |
 | --- | ---: | ---: | --- | --- | --- |
-| `unreferenced_root_dated_primary_or_provenance_output` | 1 | 111911 | No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first. | `docs/test_outputs/rulegen_probe_en_es_expansion_candidates_2026-03-13.json` |  |
-| `unreferenced_root_dated_primary_or_provenance_output` | 1 | 18892 | No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first. | `docs/test_outputs/rulegen_probe_en_es_hora_check_2026-03-21.json` |  |
-| `unreferenced_root_dated_primary_or_provenance_output` | 1 | 4954 | No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first. | `docs/test_outputs/rulegen_quality_gate_en_es_reverse_far_hit_experiment_2026-03-13.json` |  |
-| `unreferenced_root_dated_primary_or_provenance_output` | 1 | 2279 | No references found, but this file is JSON or otherwise primary evidence; a human should confirm a surviving summary or downstream artifact first. | `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_002.json` |  |
+| _None detected._ | 0 | 0 |  |  |  |
 
 ## Retained Groups
 

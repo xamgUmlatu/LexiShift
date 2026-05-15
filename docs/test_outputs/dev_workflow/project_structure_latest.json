@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at_utc": "2026-05-15T17:41:37.043030+00:00",
+  "generated_at_utc": "2026-05-15T17:52:45.994239+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -32,13 +32,13 @@
     "packaging/output"
   ],
   "summary": {
-    "path_count": 4017,
-    "file_count": 3824,
+    "path_count": 4013,
+    "file_count": 3820,
     "directory_count": 193,
-    "tracked_file_count": 3799,
+    "tracked_file_count": 3795,
     "untracked_file_count": 0,
-    "total_file_bytes": 906595776,
-    "candidate_path_count": 2359,
+    "total_file_bytes": 906458392,
+    "candidate_path_count": 2355,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
     "unreferenced_script_candidate_count": 0
@@ -46,17 +46,17 @@
   "family_counts": [
     {
       "family": "docs_test_outputs",
-      "path_count": 2394,
-      "file_count": 2326,
+      "path_count": 2390,
+      "file_count": 2322,
       "directory_count": 68,
-      "total_file_bytes": 711874465
+      "total_file_bytes": 711736437
     },
     {
       "family": "core_tests",
       "path_count": 320,
       "file_count": 308,
       "directory_count": 12,
-      "total_file_bytes": 2718516
+      "total_file_bytes": 2718482
     },
     {
       "family": "scripts_testing",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1279303
+      "total_file_bytes": 1280068
     },
     {
       "family": "docs_rulegen",
@@ -112,7 +112,7 @@
       "path_count": 40,
       "file_count": 37,
       "directory_count": 3,
-      "total_file_bytes": 336568
+      "total_file_bytes": 336481
     },
     {
       "family": "app_tests",
@@ -272,7 +272,7 @@
   "candidate_counts": [
     {
       "flag": "generated_evidence_output",
-      "path_count": 2239
+      "path_count": 2235
     },
     {
       "flag": "duplicate_stem",
@@ -284,7 +284,7 @@
     },
     {
       "flag": "generated_dated_artifact",
-      "path_count": 386
+      "path_count": 382
     },
     {
       "flag": "duplicate_filename",
@@ -302,8 +302,8 @@
   "top_level_counts": [
     {
       "path": "docs",
-      "path_count": 2765,
-      "file_count": 2668,
+      "path_count": 2761,
+      "file_count": 2664,
       "directory_count": 97
     },
     {
@@ -394,8 +394,8 @@
   "second_level_counts": [
     {
       "path": "docs/test_outputs",
-      "path_count": 2394,
-      "file_count": 2326,
+      "path_count": 2390,
+      "file_count": 2322,
       "directory_count": 68
     },
     {
@@ -659,7 +659,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 16,
-      "total_file_bytes": 2554873
+      "total_file_bytes": 2554881
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -1277,11 +1277,6 @@
       "total_file_bytes": 1268
     },
     {
-      "path": "docs/test_outputs/rulegen_probe_en_es_expansion_candidates_2026-03-13.json",
-      "file_count": 1,
-      "total_file_bytes": 111911
-    },
-    {
       "path": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
       "file_count": 1,
       "total_file_bytes": 78511
@@ -1290,11 +1285,6 @@
       "path": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
       "file_count": 1,
       "total_file_bytes": 72140
-    },
-    {
-      "path": "docs/test_outputs/rulegen_probe_en_es_hora_check_2026-03-21.json",
-      "file_count": 1,
-      "total_file_bytes": 18892
     },
     {
       "path": "docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
@@ -1365,11 +1355,6 @@
       "path": "docs/test_outputs/rulegen_quality_gate_en_de_summary_latest.md",
       "file_count": 1,
       "total_file_bytes": 935
-    },
-    {
-      "path": "docs/test_outputs/rulegen_quality_gate_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "file_count": 1,
-      "total_file_bytes": 4954
     },
     {
       "path": "docs/test_outputs/rulegen_quality_gate_en_es_reverse_latest.json",
@@ -7702,11 +7687,6 @@
       "total_file_bytes": 3903
     },
     {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_002.json",
-      "file_count": 1,
-      "total_file_bytes": 2279
-    },
-    {
       "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json",
       "file_count": 1,
       "total_file_bytes": 2254
@@ -8701,7 +8681,7 @@
       "bucket": "dev_workflow_operational",
       "review_posture": "retain latest: workflow reports support local and CI handoff",
       "file_count": 19,
-      "total_file_bytes": 2710962,
+      "total_file_bytes": 2710970,
       "latest_alias_count": 17,
       "dated_artifact_count": 0,
       "sample_paths": [
@@ -8713,24 +8693,6 @@
         "docs/test_outputs/dev_workflow/feature_state_audit_latest.json",
         "docs/test_outputs/dev_workflow/generated_output_unnecessary_latest.json",
         "docs/test_outputs/dev_workflow/generated_output_unnecessary_latest.md"
-      ]
-    },
-    {
-      "bucket": "root_dated_snapshot",
-      "review_posture": "review after canonical summary exists",
-      "file_count": 19,
-      "total_file_bytes": 591968,
-      "latest_alias_count": 0,
-      "dated_artifact_count": 19,
-      "sample_paths": [
-        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
-        "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
-        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
-        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
-        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
-        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md"
       ]
     },
     {
@@ -8749,6 +8711,24 @@
         "docs/test_outputs/ja_en/samples_20260203_014029/samples.tsv",
         "docs/test_outputs/ja_en/samples_20260203_014116/samples.json",
         "docs/test_outputs/ja_en/samples_20260203_014116/samples.tsv"
+      ]
+    },
+    {
+      "bucket": "root_dated_snapshot",
+      "review_posture": "review after canonical summary exists",
+      "file_count": 15,
+      "total_file_bytes": 453932,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 15,
+      "sample_paths": [
+        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
+        "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
+        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md"
       ]
     },
     {
@@ -21765,7 +21745,7 @@
       "name": "test_generated_output_unnecessary_audit.py",
       "stem": "test_generated_output_unnecessary_audit",
       "suffix": ".py",
-      "size_bytes": 6995,
+      "size_bytes": 6961,
       "git_state": "tracked",
       "flags": []
     },
@@ -25657,7 +25637,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 35293,
+      "size_bytes": 36058,
       "git_state": "tracked",
       "flags": []
     },
@@ -29266,7 +29246,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2427401,
+      "size_bytes": 2427409,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -41197,20 +41177,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_probe_en_es_expansion_candidates_2026-03-13.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_probe_en_es_expansion_candidates_2026-03-13.json",
-      "stem": "rulegen_probe_en_es_expansion_candidates_2026-03-13",
-      "suffix": ".json",
-      "size_bytes": 111911,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
       "path": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -41232,20 +41198,6 @@
       "stem": "rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13",
       "suffix": ".json",
       "size_bytes": 72140,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_probe_en_es_hora_check_2026-03-21.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_probe_en_es_hora_check_2026-03-21.json",
-      "stem": "rulegen_probe_en_es_hora_check_2026-03-21",
-      "suffix": ".json",
-      "size_bytes": 18892,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -41448,20 +41400,6 @@
       "flags": [
         "generated_evidence_output",
         "generated_latest_alias"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_quality_gate_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_quality_gate_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "stem": "rulegen_quality_gate_en_es_reverse_far_hit_experiment_2026-03-13",
-      "suffix": ".json",
-      "size_bytes": 4954,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
       ]
     },
     {
@@ -60407,20 +60345,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_002.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_002.json",
-      "stem": "semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_002",
-      "suffix": ".json",
-      "size_bytes": 2279,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
       "path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -64102,7 +64026,7 @@
       "name": "generated_output_unnecessary_audit.py",
       "stem": "generated_output_unnecessary_audit",
       "suffix": ".py",
-      "size_bytes": 25921,
+      "size_bytes": 25834,
       "git_state": "tracked",
       "flags": []
     },

@@ -11,12 +11,12 @@ This report is read-only evidence. Candidate rows are triage signals, not deleti
 
 | Metric | Count |
 | --- | ---: |
-| `path_count` | 4017 |
-| `file_count` | 3824 |
+| `path_count` | 4013 |
+| `file_count` | 3820 |
 | `directory_count` | 193 |
-| `tracked_file_count` | 3799 |
+| `tracked_file_count` | 3795 |
 | `untracked_file_count` | 0 |
-| `candidate_path_count` | 2359 |
+| `candidate_path_count` | 2355 |
 | `duplicate_filename_group_count` | 24 |
 | `duplicate_stem_group_count` | 50 |
 | `unreferenced_script_candidate_count` | 0 |
@@ -59,16 +59,16 @@ Ignored file names:
 
 | Family | Paths | Files | Dirs | Bytes |
 | --- | ---: | ---: | ---: | ---: |
-| `docs_test_outputs` | 2394 | 2326 | 68 | 711874465 |
-| `core_tests` | 320 | 308 | 12 | 2718516 |
+| `docs_test_outputs` | 2390 | 2322 | 68 | 711736437 |
+| `core_tests` | 320 | 308 | 12 | 2718482 |
 | `scripts_testing` | 316 | 315 | 1 | 5338898 |
 | `app_chrome-extension` | 204 | 161 | 43 | 1369764 |
 | `core_runtime` | 152 | 138 | 14 | 1525534 |
 | `app_gui` | 115 | 105 | 10 | 175131342 |
 | `docs_test_inputs` | 111 | 105 | 6 | 4414512 |
-| `docs_developer` | 92 | 91 | 1 | 1279303 |
+| `docs_developer` | 92 | 91 | 1 | 1280068 |
 | `docs_rulegen` | 50 | 49 | 1 | 1299910 |
-| `scripts_dev` | 40 | 37 | 3 | 336568 |
+| `scripts_dev` | 40 | 37 | 3 | 336481 |
 | `app_tests` | 33 | 32 | 1 | 147000 |
 | `docs_asset` | 22 | 16 | 6 | 216854 |
 | `docs_architecture` | 21 | 19 | 2 | 125360 |
@@ -96,10 +96,10 @@ Ignored file names:
 
 | Signal | Paths |
 | --- | ---: |
-| `generated_evidence_output` | 2239 |
+| `generated_evidence_output` | 2235 |
 | `duplicate_stem` | 1723 |
 | `generated_latest_alias` | 1612 |
-| `generated_dated_artifact` | 386 |
+| `generated_dated_artifact` | 382 |
 | `duplicate_filename` | 77 |
 | `legacy_or_temporary_name` | 16 |
 | `archive_tree` | 7 |
@@ -108,7 +108,7 @@ Ignored file names:
 
 | Path | Paths | Files | Dirs |
 | --- | ---: | ---: | ---: |
-| `docs/test_outputs` | 2394 | 2326 | 68 |
+| `docs/test_outputs` | 2390 | 2322 | 68 |
 | `core/tests` | 320 | 308 | 12 |
 | `scripts/testing` | 316 | 315 | 1 |
 | `apps/chrome-extension` | 204 | 161 | 43 |
@@ -155,7 +155,7 @@ Ignored file names:
 | --- | ---: | ---: |
 | `docs/test_outputs/experiments` | 670 | 122313459 |
 | `docs/test_outputs/srs_journey` | 24 | 4014369 |
-| `docs/test_outputs/dev_workflow` | 16 | 2554873 |
+| `docs/test_outputs/dev_workflow` | 16 | 2554881 |
 | `docs/test_outputs/ja_en` | 8 | 23864 |
 | `docs/test_outputs/phase6_pos_inventory` | 8 | 326878 |
 | `docs/test_outputs/licensing_header_audit` | 4 | 589151 |
@@ -201,9 +201,9 @@ Ignored file names:
 | `root_latest_alias` | 1568 | 580950509 | 1568 | 0 | retain or reroute: active latest alias at docs/test_outputs root | `docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.json`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.md`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_summary_latest.md`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_latest.json` |
 | `experiment_payload` | 670 | 122313459 | 0 | 398 | review by experiment: high-volume evidence, not deletion by size alone | `docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328.json`<br>`docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328_timing.json`<br>`docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md`<br>`docs/test_outputs/experiments/rulegen_en_es_helper_run_rulegen_smoke_20260328.json` |
 | `journey_quality_evidence` | 26 | 4061262 | 26 | 0 | retain latest: SRS journey and quality evidence | `docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.md`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.html` |
-| `dev_workflow_operational` | 19 | 2710962 | 17 | 0 | retain latest: workflow reports support local and CI handoff | `docs/test_outputs/dev_workflow/build_ci_latest.json`<br>`docs/test_outputs/dev_workflow/build_latest.json`<br>`docs/test_outputs/dev_workflow/check_changed_latest.json`<br>`docs/test_outputs/dev_workflow/check_latest.json` |
-| `root_dated_snapshot` | 19 | 591968 | 0 | 19 | review after canonical summary exists | `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json`<br>`docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md` |
+| `dev_workflow_operational` | 19 | 2710970 | 17 | 0 | retain latest: workflow reports support local and CI handoff | `docs/test_outputs/dev_workflow/build_ci_latest.json`<br>`docs/test_outputs/dev_workflow/build_latest.json`<br>`docs/test_outputs/dev_workflow/check_changed_latest.json`<br>`docs/test_outputs/dev_workflow/check_latest.json` |
 | `phase_or_sample_evidence` | 18 | 647355 | 0 | 16 | review after migration: older phase/sample evidence | `docs/test_outputs/ja_en/README.md`<br>`docs/test_outputs/ja_en/golden_samples_20260203_014029.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.tsv` |
+| `root_dated_snapshot` | 15 | 453932 | 0 | 15 | review after canonical summary exists | `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json`<br>`docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md` |
 | `license_resource_audit` | 5 | 598049 | 1 | 0 | retain latest: resource/license audit evidence | `docs/test_outputs/licensing_header_audit/README.md`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_jmdict.json`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_latest.json`<br>`docs/test_outputs/licensing_header_audit/latest.json` |
 | `baseline` | 1 | 901 | 0 | 0 | retain: quality baselines need explicit rationale before changes | `docs/test_outputs/baselines/rulegen_quality_baseline.json` |
 
