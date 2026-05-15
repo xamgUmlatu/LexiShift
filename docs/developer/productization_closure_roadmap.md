@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, generated-only experiment-family routing review, rulegen experiment-family relocation, root-dated rulegen evidence relocation, root-dated semantic repair duplicate removal, stabilization backlog scope-boundary sync, source-bundle promotion pinning policy, source-policy decision queue, and source-identity policy category taxonomy
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, generated-only experiment-family routing review, rulegen experiment-family relocation, root-dated rulegen evidence relocation, root-dated semantic repair duplicate removal, stabilization backlog scope-boundary sync, source-bundle promotion pinning policy, source-policy decision queue, source-identity policy category taxonomy, and explicit dated Wiktextract source-dump seam
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -381,7 +381,7 @@ pack uncertainty before any larger Spanish corpus is promoted.
 Current Lane 6 progress:
 
 - `docs/developer/productization_lane6_data_provenance_inventory.md` now
-  records L6-A through L6-Ze: current pack/source provenance inventory, pack
+  records L6-A through L6-Zf: current pack/source provenance inventory, pack
   provenance sidecar contract, pack lifecycle audit command, semantic pack
   provenance and lineage, en-es candidate readiness runbook, app-managed
   non-semantic installer provenance, manual resource settings disposition
@@ -396,7 +396,8 @@ Current Lane 6 progress:
   SQLite artifact metrics, source-bundle checksum coverage reporting, and
   generated DE pipeline component checksum capture, executable provenance
   promotion policy, source-bundle promotion pinning policy, the source-policy
-  decision queue, and the source-identity policy category taxonomy.
+  decision queue, the source-identity policy category taxonomy, and the
+  explicit dated Wiktextract source-dump seam.
 - L6-A maps the pack catalog, pack source manifest, installed-pack manifests,
   pack refs/resolvers, semantic pack-copy manifest, profile publication
   manifest, generated evidence artifacts, and current en-es corpus-expansion
@@ -510,6 +511,10 @@ Current Lane 6 progress:
   release/snapshot policy rows, `2` branch-source pinning rows, `3`
   release/snapshot policy rows, `2` source-label policy rows, and `1`
   source-bundle lineage policy row.
+- L6-Zf adds the executable seam for future dated Wiktextract approval:
+  catalog-like Kaikki packs can carry `source_dump`, but the shared classifier
+  writes it into sidecar provenance only when it is dated. Current rolling
+  Kaikki rows remain unpinned.
 - The main finding is explicit: managed pack roots and publication manifests
   exist, but installed manifests are not complete source/license/generation
   provenance records, existing/manual/legacy paths can still lack sidecar-backed
@@ -525,7 +530,7 @@ Current Lane 6 progress:
   pinning/source-policy evidence, license/review decisions, and full
   schema/metric policy where current sidecars still carry only partial evidence.
   Current Kaikki rows still need an actual dated dump acquisition/pinning
-  decision before they can gain sidecar `source_dump`, and generated-pipeline
+  decision before they can set catalog `source_dump`, and generated-pipeline
   bundles still need complete component checksum coverage for reused/missing
   inputs, license-review, and pinning decisions before promotion-grade evidence.
   Source-version mutation is now limited to the `safe_to_write` classification

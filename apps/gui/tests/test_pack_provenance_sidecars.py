@@ -127,6 +127,41 @@ def test_language_pack_manifest_write_includes_raw_artifact_checksums() -> None:
         assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
 
 
+def test_kaikki_language_pack_manifest_write_includes_explicit_dated_source_dump() -> None:
+    with TemporaryDirectory() as temp_dir:
+        pack_root = Path(temp_dir) / "language_packs" / "wiktionary-en-es"
+        artifact = pack_root / "main.sqlite"
+        raw_source = pack_root / "raw-wiktextract-data.jsonl.gz"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_bytes(b"SQLite format 3\x00")
+        raw_source.write_bytes(b"wiktextract source")
+        pack = LanguagePackInfo(
+            pack_id="wiktionary-en-es",
+            name="Wiktionary EN-ES",
+            language="English to Spanish",
+            source="Kaikki",
+            size="1 MB",
+            url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+            wayback_url="https://web.archive.org/web/*/https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+            filename="raw-wiktextract-data.jsonl.gz",
+            local_kind="file",
+            sqlite_filename="main.sqlite",
+            source_dump="enwiktionary:2026-05-15",
+            build_mode="kaikki_translations_to_sqlite",
+            source_lang_code="en",
+            target_lang_code="es",
+        )
+
+        thread = LanguagePackDownloadThread(pack, str(raw_source))
+        thread._capture_raw_artifact_checksums(raw_source)
+        thread._write_manifest(str(artifact))
+        payload = json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
+
+        assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
+        assert payload["source"]["source_dump"] == "enwiktionary:2026-05-15"
+        assert payload["build"]["parser_config"]["source_dump"] == "enwiktionary:2026-05-15"
+
+
 def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
     with TemporaryDirectory() as temp_dir:
         pack_root = Path(temp_dir) / "frequency_packs" / "freq-es-cde"

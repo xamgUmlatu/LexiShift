@@ -85,7 +85,7 @@ def _language_parser_config(pack: LanguagePackInfo) -> dict[str, object]:
         return {
             "source_lang_code": str(pack.source_lang_code or "").strip().lower() or "es",
             "gloss_language": str(pack.gloss_language or "").strip().lower() or "en",
-            "source_dump": "enwiktionary",
+            "source_dump": _kaikki_source_dump_for_pack(pack),
         }
     if build_mode == "kaikki_translations_to_sqlite":
         target_lang = str(pack.target_lang_code or "").strip().lower()
@@ -93,9 +93,13 @@ def _language_parser_config(pack: LanguagePackInfo) -> dict[str, object]:
             "source_lang_code": str(pack.source_lang_code or "").strip().lower(),
             "target_lang_code": target_lang,
             "translation_language": str(pack.gloss_language or target_lang).strip().lower(),
-            "source_dump": "enwiktionary",
+            "source_dump": _kaikki_source_dump_for_pack(pack),
         }
     return {}
+
+
+def _kaikki_source_dump_for_pack(pack: LanguagePackInfo) -> str:
+    return str(pack.source_dump or "enwiktionary").strip() or "enwiktionary"
 
 
 def _frequency_parser_config(pack: FrequencyPackInfo) -> dict[str, object]:
@@ -455,7 +459,7 @@ class LanguagePackDownloadThread(QThread):
             source_lang_code=source_lang_code,
             gloss_language=gloss_language,
             source_provider=self._pack.pack_id,
-            source_dump="enwiktionary",
+            source_dump=_kaikki_source_dump_for_pack(self._pack),
             overwrite=True,
         )
         _log_download(
@@ -480,7 +484,7 @@ class LanguagePackDownloadThread(QThread):
             target_lang_code=target_lang_code,
             translation_language=str(self._pack.gloss_language or target_lang_code),
             source_provider=self._pack.pack_id,
-            source_dump="enwiktionary",
+            source_dump=_kaikki_source_dump_for_pack(self._pack),
             overwrite=True,
         )
         _log_download(

@@ -35,6 +35,7 @@ def classify_pack_source_identity(pack: object) -> PackSourceIdentityDecision:
     filename = _text(getattr(pack, "source_filename", "")) or _text(getattr(pack, "filename", ""))
     source_name = _text(getattr(pack, "source", ""))
     source_url = _text(getattr(pack, "url", ""))
+    explicit_source_dump = _text(getattr(pack, "source_dump", ""))
     build_mode = _text(getattr(pack, "build_mode", "download_only")) or "download_only"
     candidate = _artifact_identity(filename)
 
@@ -96,7 +97,26 @@ def classify_pack_source_identity(pack: object) -> PackSourceIdentityDecision:
         )
 
     if source_name.lower() == "kaikki":
-        dated_dump = _dated_dump_identity((source_url, filename))
+        dated_dump = _dated_dump_identity((explicit_source_dump, source_url, filename))
+        if explicit_source_dump:
+            return PackSourceIdentityDecision(
+                candidate_field="source_dump",
+                candidate_value=dated_dump or explicit_source_dump,
+                classification="safe_to_write" if dated_dump else "needs_policy",
+                rationale=(
+                    "Catalog carries an explicit dated Wiktextract dump identity."
+                    if dated_dump
+                    else (
+                        "Catalog carries source_dump, but it is not a dated "
+                        "Wiktextract dump identity."
+                    )
+                ),
+                recommended_action=(
+                    "eligible_for_future_source_dump_writer"
+                    if dated_dump
+                    else "record_dated_wiktextract_dump_before_writing_source_dump"
+                ),
+            )
         return PackSourceIdentityDecision(
             candidate_field="source_dump",
             candidate_value=dated_dump or _KAIKKI_DUMP_FAMILY,

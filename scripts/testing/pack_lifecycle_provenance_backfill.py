@@ -369,7 +369,7 @@ def _parser_config_for_catalog_pack(catalog_pack: object) -> dict[str, object]:
             "source_lang_code": _text(getattr(catalog_pack, "source_lang_code", "")).lower()
             or "es",
             "gloss_language": _text(getattr(catalog_pack, "gloss_language", "")).lower() or "en",
-            "source_dump": "enwiktionary",
+            "source_dump": _kaikki_source_dump_for_catalog_pack(catalog_pack),
         }
     if build_mode == "kaikki_translations_to_sqlite":
         target_lang = _text(getattr(catalog_pack, "target_lang_code", "")).lower()
@@ -379,7 +379,7 @@ def _parser_config_for_catalog_pack(catalog_pack: object) -> dict[str, object]:
             "translation_language": _text(
                 getattr(catalog_pack, "gloss_language", "") or target_lang
             ).lower(),
-            "source_dump": "enwiktionary",
+            "source_dump": _kaikki_source_dump_for_catalog_pack(catalog_pack),
         }
     if build_mode == "de_frequency_pipeline":
         return {"drop_proper_nouns": True}
@@ -395,6 +395,10 @@ def _parser_config_for_catalog_pack(catalog_pack: object) -> dict[str, object]:
         "index_column": _text(getattr(catalog_pack, "index_column", "")),
     }
     return parser_config
+
+
+def _kaikki_source_dump_for_catalog_pack(catalog_pack: object) -> str:
+    return _text(getattr(catalog_pack, "source_dump", "")) or "enwiktionary"
 
 
 def _provider(*, manifest: object, catalog_pack: object) -> str:

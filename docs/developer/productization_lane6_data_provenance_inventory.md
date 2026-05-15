@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, source-identity policy category tests, and the SRS quality harness
+Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, source-identity policy category tests, explicit dated Wiktextract source-dump seam tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -87,6 +87,7 @@ Completed slices:
 28. L6-Zc: source-bundle promotion pinning policy.
 29. L6-Zd: source-policy decision queue.
 30. L6-Ze: source-identity policy category taxonomy.
+31. L6-Zf: explicit dated Wiktextract source-dump seam.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -256,6 +257,12 @@ What is already solid:
     dated-Wiktextract dump-pinning rows, `8` fastText release/snapshot policy
     rows, `2` branch-source pinning rows, `3` release/snapshot policy rows, `2`
     source-label policy rows, and `1` source-bundle lineage policy row.
+33. Catalog-like language packs can now carry an explicit `source_dump` value.
+    The shared source-identity classifier writes it into provenance only when it
+    normalizes to a dated Wiktextract identity such as
+    `enwiktionary:YYYY-MM-DD`; undated `enwiktionary` remains policy-needed.
+    Kaikki parser config and conversion calls use the explicit dated dump when
+    present, otherwise preserving the current `enwiktionary` family label.
 
 Loose ends to close before broad expansion:
 
@@ -838,6 +845,9 @@ Current implementation:
 - For Kaikki, `source_dump=enwiktionary` is treated as a dump-family label only;
   durable sidecar `source.source_dump` requires a dated identity like
   `enwiktionary:YYYY-MM-DD`.
+- Catalog-like Kaikki packs can now provide that dated identity through
+  `source_dump`; the classifier keeps undated values as `needs_policy` and
+  exports only dated values through `safe_pack_source_identity_fields(...)`.
 - The German generated frequency pipeline is `source_bundle_needed` because the
   source-identity writer must not collapse it to one source-version string. The
   sidecar writer records this separately through L6-Va `source.source_bundle`
@@ -1435,6 +1445,65 @@ python3 -m ruff format --check \
   core/tests/dev/test_pack_lifecycle_audit.py \
   core/tests/dev/test_pack_lifecycle_policy.py \
   core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+```
+
+## L6-Zf Explicit Dated Wiktextract Source-Dump Seam
+
+Product claim:
+
+- A Kaikki/Wiktextract pack should have an explicit, safe path for recording a
+  dated dump identity once a source-policy decision approves one, without
+  pretending the current rolling URL is already pinned.
+
+Current implementation:
+
+- `LanguagePackInfo` now has optional `source_dump`.
+- `pack_source_identity.py` treats explicit Kaikki `source_dump` values as
+  safe only when they normalize to a dated Wiktextract identity such as
+  `enwiktionary:YYYY-MM-DD`.
+- App-managed language-pack sidecar writing already calls
+  `safe_pack_source_identity_fields(...)`, so a dated source dump is written to
+  `provenance.json` only when the shared classifier marks it safe.
+- Kaikki parser config, conversion calls, and existing-install sidecar backfill
+  now use the explicit `source_dump` when present; otherwise they preserve the
+  current `enwiktionary` dump-family label.
+
+Boundaries:
+
+1. This does not download, choose, or verify a Wiktextract dump.
+2. This does not set the current Kaikki catalog rows to a dated dump.
+3. This does not approve source licenses.
+4. Undated `source_dump = enwiktionary` remains policy-needed and is not written
+   as durable sidecar source identity.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
+python3 -m ruff check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  apps/gui/src/language_packs_catalog.py \
+  apps/gui/src/language_packs.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  scripts/testing/pack_lifecycle_source_identity_plan.py \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  apps/gui/src/language_packs_catalog.py \
+  apps/gui/src/language_packs.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  scripts/testing/pack_lifecycle_source_identity_plan.py \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -2039,6 +2108,7 @@ python3 -m ruff format --check \
 | L6-Zc Source-bundle promotion pinning policy | Completed first promotion-policy blocker for URL-recorded but unpinned source bundles. | Source-bundle pointer/pinning policy checks and focused policy/audit tests. |
 | L6-Zd Source-policy decision queue | Completed first read-only queue of concrete source-policy blockers and recommended review actions. | `pack_lifecycle_source_policy_decisions.py`, `source_policy_decisions` JSON, Markdown decision table, and focused audit tests. |
 | L6-Ze Source-identity policy category taxonomy | Completed first category breakdown for catalog source-identity decisions. | `policy_category` rows, category summary counts, Markdown category table, and focused source-identity plan tests. |
+| L6-Zf Explicit dated Wiktextract source-dump seam | Completed safe catalog/provenance seam for future approved dated Kaikki dump identities. | Optional `LanguagePackInfo.source_dump`, classifier safe-write guard, parser/backfill propagation, and focused provenance tests. |
 
 ## Validation Bundle For L6-A
 

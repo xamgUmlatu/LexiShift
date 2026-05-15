@@ -89,6 +89,41 @@ class TestPackSourceIdentity(unittest.TestCase):
         self.assertEqual(rolling_decision.candidate_value, "enwiktionary")
         self.assertEqual(safe_pack_source_identity_fields(rolling_pack), {})
 
+    def test_explicit_dated_kaikki_source_dump_is_safe_to_write(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="wiktionary-en-es",
+            source="Kaikki",
+            source_dump="enwiktionary:2026-05-15",
+            filename="raw-wiktextract-data-en-es.jsonl.gz",
+            url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+            build_mode="kaikki_translations_to_sqlite",
+        )
+
+        decision = classify_pack_source_identity(pack)
+
+        self.assertEqual(decision.classification, "safe_to_write")
+        self.assertEqual(decision.candidate_value, "enwiktionary:2026-05-15")
+        self.assertEqual(
+            safe_pack_source_identity_fields(pack),
+            {"source_dump": "enwiktionary:2026-05-15"},
+        )
+
+    def test_explicit_undated_kaikki_source_dump_is_still_policy_needed(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="wiktionary-en-es",
+            source="Kaikki",
+            source_dump="enwiktionary",
+            filename="raw-wiktextract-data-en-es.jsonl.gz",
+            url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+            build_mode="kaikki_translations_to_sqlite",
+        )
+
+        decision = classify_pack_source_identity(pack)
+
+        self.assertEqual(decision.classification, "needs_policy")
+        self.assertEqual(decision.candidate_value, "enwiktionary")
+        self.assertEqual(safe_pack_source_identity_fields(pack), {})
+
     def test_invalid_kaikki_date_shape_is_not_safe_to_write(self) -> None:
         pack = SimpleNamespace(
             pack_id="wiktionary-en-es",

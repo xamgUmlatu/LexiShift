@@ -47,6 +47,7 @@ class LanguagePackInfo:
     required_files: tuple[str, ...] = ()
     sqlite_filename: str | None = None
     source_filename: str | None = None
+    source_dump: str | None = None
     build_mode: str = "download_only"
     source_lang_code: str | None = None
     target_lang_code: str | None = None
