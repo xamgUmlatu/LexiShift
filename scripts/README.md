@@ -2,8 +2,8 @@
 
 Status: active script map
 Role: Runbook / operational
-Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 4 validation-gate routing review against `scripts/package.json`, workflow docs, staged-scope safety, and project-structure inventory routing
+Last updated: 2026-05-16
+Last verified: 2026-05-16 profile backup script generalization and project-structure odd-artifact cleanup
 Purpose: route contributors to the current workflow entrypoints first, then to specialty build/data/testing tools
 Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`; by-change-type validation routing lives in `../docs/developer/productization_lane4_validation_gate_inventory.md`.
 
@@ -152,6 +152,9 @@ you need to choose the smallest honest bundle for a specific change type.
 - Dev helper cycle: `dev/dev_cycle.sh`
 - Project health gate (architecture maintainability metrics): `dev/check_project_health.js`
   - Supports advisory/global, changed-only scope, baseline delta gating, JSON report output, and baseline snapshot output.
+- Manual profile backup/restore helpers:
+  `backup_profiles.sh PROFILE_ID [PROFILE_ID ...]` and
+  `restore_profiles_backup.sh /full/path/to/profiles_backup_<profile_ids>_<timestamp>`
 
 ## Specialty Tools
 

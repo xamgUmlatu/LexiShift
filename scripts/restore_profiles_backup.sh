@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [ $# -ne 1 ]; then
-  echo "Usage: $0 /full/path/to/profiles_backup_suisui_takeya_<timestamp>" >&2
+  echo "Usage: $0 /full/path/to/profiles_backup_<profile_ids>_<timestamp>" >&2
   exit 1
 fi
 

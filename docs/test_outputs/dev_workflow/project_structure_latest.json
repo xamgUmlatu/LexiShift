@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T15:37:51.606783+00:00",
+  "generated_at_utc": "2026-05-15T15:50:33.656313+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -32,12 +32,12 @@
     "packaging/output"
   ],
   "summary": {
-    "path_count": 4193,
-    "file_count": 3910,
+    "path_count": 4192,
+    "file_count": 3909,
     "directory_count": 283,
-    "tracked_file_count": 3885,
+    "tracked_file_count": 3884,
     "untracked_file_count": 0,
-    "total_file_bytes": 919608928,
+    "total_file_bytes": 919608592,
     "candidate_path_count": 2449,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
@@ -49,7 +49,7 @@
       "path_count": 2571,
       "file_count": 2413,
       "directory_count": 158,
-      "total_file_bytes": 724930909
+      "total_file_bytes": 724930449
     },
     {
       "family": "core_tests",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1276470
+      "total_file_bytes": 1275697
     },
     {
       "family": "docs_rulegen",
@@ -175,14 +175,7 @@
       "path_count": 9,
       "file_count": 9,
       "directory_count": 0,
-      "total_file_bytes": 15267
-    },
-    {
-      "family": "scripts",
-      "path_count": 9,
-      "file_count": 9,
-      "directory_count": 0,
-      "total_file_bytes": 35773
+      "total_file_bytes": 15277
     },
     {
       "family": "docs_archive",
@@ -190,6 +183,13 @@
       "file_count": 5,
       "directory_count": 3,
       "total_file_bytes": 19768
+    },
+    {
+      "family": "scripts",
+      "path_count": 8,
+      "file_count": 8,
+      "directory_count": 0,
+      "total_file_bytes": 36660
     },
     {
       "family": "scripts_build",
@@ -314,8 +314,8 @@
     },
     {
       "path": "scripts",
-      "path_count": 394,
-      "file_count": 385,
+      "path_count": 393,
+      "file_count": 384,
       "directory_count": 9
     },
     {
@@ -603,19 +603,13 @@
       "directory_count": 0
     },
     {
-      "path": "scripts/backup_profiles_suisui_takeya.sh",
+      "path": "scripts/backup_profiles.sh",
       "path_count": 1,
       "file_count": 1,
       "directory_count": 0
     },
     {
       "path": "scripts/build_gui_fast_incremental.sh",
-      "path_count": 1,
-      "file_count": 1,
-      "directory_count": 0
-    },
-    {
-      "path": "scripts/default.profraw",
       "path_count": 1,
       "file_count": 1,
       "directory_count": 0
@@ -665,7 +659,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 14,
-      "total_file_bytes": 2621476
+      "total_file_bytes": 2621016
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -15503,7 +15497,7 @@
       "name": ".gitignore",
       "stem": ".gitignore",
       "suffix": "",
-      "size_bytes": 1070,
+      "size_bytes": 1080,
       "git_state": "tracked",
       "flags": [
         "duplicate_filename",
@@ -25715,7 +25709,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 33313,
+      "size_bytes": 32540,
       "git_state": "tracked",
       "flags": []
     },
@@ -29266,7 +29260,7 @@
       "name": "feature_state_audit_latest.json",
       "stem": "feature_state_audit_latest",
       "suffix": ".json",
-      "size_bytes": 226,
+      "size_bytes": 225,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29294,7 +29288,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2521952,
+      "size_bytes": 2521496,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29309,7 +29303,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 61745,
+      "size_bytes": 61742,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -65588,18 +65582,18 @@
       "name": "README.md",
       "stem": "README",
       "suffix": ".md",
-      "size_bytes": 13164,
+      "size_bytes": 13281,
       "git_state": "tracked",
       "flags": []
     },
     {
-      "path": "scripts/backup_profiles_suisui_takeya.sh",
+      "path": "scripts/backup_profiles.sh",
       "kind": "file",
       "family": "scripts",
-      "name": "backup_profiles_suisui_takeya.sh",
-      "stem": "backup_profiles_suisui_takeya",
+      "name": "backup_profiles.sh",
+      "stem": "backup_profiles",
       "suffix": ".sh",
-      "size_bytes": 2688,
+      "size_bytes": 3458,
       "git_state": "tracked",
       "flags": [
         "legacy_or_temporary_name"
@@ -65844,17 +65838,6 @@
       "stem": "convert_kaikki_translations_to_sqlite",
       "suffix": ".py",
       "size_bytes": 2379,
-      "git_state": "tracked",
-      "flags": []
-    },
-    {
-      "path": "scripts/default.profraw",
-      "kind": "file",
-      "family": "scripts",
-      "name": "default.profraw",
-      "stem": "default",
-      "suffix": ".profraw",
-      "size_bytes": 0,
       "git_state": "tracked",
       "flags": []
     },

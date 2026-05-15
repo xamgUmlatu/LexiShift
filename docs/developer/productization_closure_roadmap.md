@@ -2,8 +2,8 @@
 
 Status: active roadmap
 Role: Planning / WIP
-Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, semantic source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict pack lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, and project-structure inventory tests/artifacts
+Last updated: 2026-05-16
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, and regenerated project-structure inventory after odd tracked artifact cleanup
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -567,6 +567,12 @@ Current progress:
   hand-written GUI test `apps/gui/tests/test_main_ruleset_ui.py` is now allowed
   through `.gitignore` and tracked. The local vocabulary export, generated CWS
   preflight report, and PyInstaller build output remain ignored local artifacts.
+- Odd tracked artifact review started with `scripts/default.profraw` and
+  `scripts/backup_profiles_suisui_takeya.sh`. The zero-byte LLVM profiling
+  artifact was removed and `*.profraw` is now ignored. The personal profile
+  backup helper was replaced with reusable `scripts/backup_profiles.sh`, while
+  `scripts/restore_profiles_backup.sh` now documents the generic backup naming
+  shape.
 
 Next review step:
 

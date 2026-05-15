@@ -1,21 +1,42 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ "$#" -lt 1 ]; then
+  echo "Usage: $0 PROFILE_ID [PROFILE_ID ...]" >&2
+  exit 1
+fi
+
+PROFILE_SLUG="$(
+  python3 - "$@" <<'PY'
+import re
+import sys
+
+profile_ids = [item.strip() for item in sys.argv[1:] if item.strip()]
+if not profile_ids:
+    raise SystemExit("At least one non-empty profile ID is required.")
+
+
+def slug_part(value: str) -> str:
+    slug = re.sub(r"[^A-Za-z0-9._-]+", "-", value).strip("-._")
+    return slug or "profile"
+
+
+print("_".join(slug_part(profile_id) for profile_id in profile_ids))
+PY
+)"
+
 APP_DATA="${LEXISHIFT_APP_DATA:-$HOME/Library/Application Support/LexiShift/LexiShift}"
 SETTINGS="$APP_DATA/settings.json"
 BACKUP_ROOT="$APP_DATA/backups"
 STAMP="$(date +%Y%m%d_%H%M%S)"
-DEST="$BACKUP_ROOT/profiles_backup_suisui_takeya_$STAMP"
+DEST="$BACKUP_ROOT/profiles_backup_${PROFILE_SLUG}_$STAMP"
 
 if [ ! -f "$SETTINGS" ]; then
   echo "settings.json not found: $SETTINGS" >&2
   exit 1
 fi
 
-mkdir -p "$DEST"
-cp "$SETTINGS" "$DEST/settings.full.json"
-
-python3 - "$SETTINGS" "$DEST" suisui takeya <<'PY'
+python3 - "$SETTINGS" "$DEST" "$@" <<'PY'
 import hashlib
 import json
 import shutil
@@ -24,16 +45,23 @@ from pathlib import Path
 
 settings_path = Path(sys.argv[1])
 backup_dir = Path(sys.argv[2])
-target_ids = sys.argv[3:]
+target_ids = [item.strip() for item in sys.argv[3:] if item.strip()]
+target_id_set = set(target_ids)
+
+if not target_ids:
+    raise SystemExit("At least one non-empty profile ID is required.")
 
 data = json.loads(settings_path.read_text(encoding="utf-8"))
 profiles = list(data.get("profiles") or [])
 
-selected = [p for p in profiles if p.get("profile_id") in set(target_ids)]
+selected = [p for p in profiles if p.get("profile_id") in target_id_set]
 found_ids = {p.get("profile_id") for p in selected}
 missing = [pid for pid in target_ids if pid not in found_ids]
 if missing:
     raise SystemExit(f"Missing profile(s): {', '.join(missing)}")
+
+backup_dir.mkdir(parents=True, exist_ok=False)
+shutil.copy2(settings_path, backup_dir / "settings.full.json")
 
 selected_ids = [p.get("profile_id") for p in selected if p.get("profile_id")]
 selected_active = str(data.get("active_profile_id") or "")
@@ -42,6 +70,7 @@ if selected_active not in selected_ids:
 
 ruleset_paths = []
 seen = set()
+
 
 def add_path(path):
     if not isinstance(path, str):
@@ -52,6 +81,7 @@ def add_path(path):
     seen.add(path)
     ruleset_paths.append(path)
 
+
 for profile in selected:
     add_path(profile.get("dataset_path"))
     add_path(profile.get("active_ruleset"))
@@ -60,6 +90,7 @@ for profile in selected:
 
 manifest = {
     "created_from_settings_path": str(settings_path),
+    "requested_profile_ids": target_ids,
     "selected_profile_ids": selected_ids,
     "selected_active_profile_id": selected_active,
     "ruleset_files": [],
