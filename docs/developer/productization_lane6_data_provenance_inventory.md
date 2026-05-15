@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -24,11 +24,13 @@ Related docs:
 - `../../core/lexishift_core/helper/semantic_pack_provenance.py`
 - `../../core/lexishift_core/helper/use_cases/semantic_pack_install.py`
 - `../../scripts/testing/pack_lifecycle_audit.py`
+- `../../scripts/testing/pack_lifecycle_external_import_plan.py`
 - `../../scripts/testing/pack_lifecycle_manual_backfill.py`
 - `../../scripts/testing/pack_lifecycle_manual_resources.py`
 - `../../scripts/testing/pack_lifecycle_provenance_backfill.py`
 - `../../core/tests/helper/test_pack_provenance.py`
 - `../../core/tests/dev/test_pack_lifecycle_audit.py`
+- `../../core/tests/dev/test_pack_lifecycle_external_import_plan.py`
 - `../../core/tests/dev/test_pack_lifecycle_manual_backfill.py`
 - `../../core/tests/dev/test_pack_lifecycle_provenance_backfill.py`
 - `../../apps/gui/tests/test_pack_provenance_sidecars.py`
@@ -53,6 +55,7 @@ Completed slices:
 10. L6-Ja: semantic source-lineage propagation into publication manifests and
     lifecycle audit reporting.
 11. L6-Ka: existing app-managed install provenance sidecar backfill.
+12. L6-La: external/manual import preflight plan.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -152,6 +155,9 @@ What is already solid:
 14. Missing provenance sidecars on catalog-backed app-managed installs now have
     a dry-run/apply backfill command that reuses the conservative installer
     sidecar contract.
+15. A manually acquired external artifact can now be preflighted into an
+    explicit manual-link/import plan before any settings rewrite, file copy, or
+    runtime promotion.
 
 Loose ends to close before broad expansion:
 
@@ -179,6 +185,9 @@ Loose ends to close before broad expansion:
 9. Existing-install sidecar backfill does not prove license approval, raw source
    checksums, converter versions, or source-version identity; it records the
    conservative catalog/manifest information currently available.
+10. External import preflight can say whether a manual link is format-safe and
+    what review data is missing, but the actual copy/convert UX and managed
+    pack writer are still future work.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -684,6 +693,77 @@ python3 -m ruff format --check \
   apps/gui/tests/test_language_pack_table_mixin.py
 ```
 
+## L6-La External Manual Import Plan
+
+Product claim:
+
+- When a source cannot be installed automatically, the operator should still get
+  a precise, auditable preflight result before LexiShift links, copies, converts,
+  or promotes the manually acquired artifact.
+
+Current implementation:
+
+- `scripts/testing/pack_lifecycle_external_import_plan.py` is read-only and
+  emits JSON/Markdown reports.
+- The command takes `--family`, `--pack-id`, `--path`, and optional source,
+  license, and checksum fields.
+- It reuses the same `manual_path_format_support(...)` classifier as the saved
+  manual-settings audit, so external preflight and persisted settings review
+  agree on the exact allowed artifact shapes.
+- It reports:
+  - path existence,
+  - expected format,
+  - whether a manual link is allowed,
+  - whether an explicit operator import could proceed later,
+  - missing source/license/checksum review fields,
+  - a provenance sidecar preview,
+  - and fixed boundaries showing that no mutation occurred.
+- Manual linking can be format-safe even when `license_status` is
+  `requires_review`, `unknown`, `internal_only`, or `not_redistributable`. That
+  keeps license-restricted manual acquisition possible without pretending the
+  artifact is expansion-ready.
+- Promotion/import preflight is only `ok` when the path is supported, provenance
+  preview validates, the license status is `confirmed`, and at least one raw
+  artifact checksum is supplied.
+
+Default command:
+
+```bash
+python3 scripts/testing/pack_lifecycle_external_import_plan.py \
+  --family frequency \
+  --pack-id freq-es-manual \
+  --path /path/to/manual-frequency.sqlite \
+  --source-name "Manual Spanish frequency source" \
+  --license-status requires_review \
+  --json-out docs/test_outputs/pack_lifecycle_external_import_plan_latest.json \
+  --markdown-out docs/test_outputs/pack_lifecycle_external_import_plan_latest.md
+```
+
+Boundaries:
+
+1. This does not copy or convert external artifacts.
+2. This does not rewrite settings, manifests, or provenance sidecars.
+3. This does not approve a source license.
+4. This does not change runtime defaults or pack selection.
+5. This is an executable contract for the future UX/import decision, not the
+   import wizard itself.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_pack_lifecycle_external_import_plan.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_external_import_plan.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
+  core/tests/dev/test_pack_lifecycle_external_import_plan.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_external_import_plan.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
+  core/tests/dev/test_pack_lifecycle_external_import_plan.py
+```
+
 ## L6-Ia Safe Manual Settings Backfill
 
 Product claim:
@@ -828,6 +908,7 @@ python3 -m ruff format --check \
 | L6-H Constrained manual import/backfill contract | Completed first policy and enforcement slice: external selection is a narrow license/import fallback for exact supported artifact shapes. | Audit format checks, embedding picker validation/filter tightening, contract docs, and focused tests. |
 | L6-I Import/backfill implementation | Safe managed-artifact settings backfill is now implemented; future work should add a first-class external import flow only after source/license decisions are explicit. | `pack_lifecycle_manual_backfill.py`, focused tests, and future provenance sidecar writing for imported resources. |
 | L6-J Source-batch and release lineage | Initial semantic source-lineage propagation is implemented; future work should add release-manifest, converter-version, and approval/review lineage once upstream inventories and pack candidates carry those ids. | Publication `source_lineage`, updated semantic/source manifests, lifecycle audit fields, and candidate audit evidence. |
+| L6-L External/manual import preflight | Completed first read-only executable import plan so manually acquired sources can be format-gated and review-gated before any UX/import mutation. | `pack_lifecycle_external_import_plan.py`, focused tests, and documented command contract. |
 
 ## Validation Bundle For L6-A
 

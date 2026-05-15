@@ -161,7 +161,7 @@ def _manual_path_row(
         issues.append("manual_path_missing")
     if managed_pack_root is not None:
         issues.append("app_managed_artifact_in_manual_settings")
-    format_supported, expected_format = _manual_path_format_support(
+    format_supported, expected_format = manual_path_format_support(
         field_name=field_name,
         family=family,
         key=key,
@@ -205,7 +205,7 @@ def _managed_pack_root_for_path(path: Path, *, data_root: Path, family: str) -> 
     return None
 
 
-def _manual_path_format_support(
+def manual_path_format_support(
     *,
     field_name: str,
     family: str,
