@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -29,6 +29,7 @@ Related docs:
 - `../../scripts/testing/pack_lifecycle_external_import_plan.py`
 - `../../scripts/testing/pack_lifecycle_manual_backfill.py`
 - `../../scripts/testing/pack_lifecycle_manual_resources.py`
+- `../../scripts/testing/pack_lifecycle_policy.py`
 - `../../scripts/testing/pack_lifecycle_provenance_lineage.py`
 - `../../scripts/testing/pack_lifecycle_provenance_backfill.py`
 - `../../scripts/testing/pack_lifecycle_promotion_evidence.py`
@@ -39,6 +40,7 @@ Related docs:
 - `../../core/tests/dev/test_pack_lifecycle_audit.py`
 - `../../core/tests/dev/test_pack_lifecycle_external_import_plan.py`
 - `../../core/tests/dev/test_pack_lifecycle_manual_backfill.py`
+- `../../core/tests/dev/test_pack_lifecycle_policy.py`
 - `../../core/tests/dev/test_pack_lifecycle_provenance_backfill.py`
 - `../../core/tests/dev/test_pack_lifecycle_promotion_evidence.py`
 - `../../core/tests/dev/test_pack_lifecycle_source_identity_plan.py`
@@ -80,6 +82,7 @@ Completed slices:
 24. L6-Xa: frequency SQLite artifact metrics.
 25. L6-Ya: source-bundle component checksum coverage reporting.
 26. L6-Za: generated DE pipeline source-bundle component checksum capture.
+27. L6-Zb: executable provenance promotion policy.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -231,6 +234,10 @@ What is already solid:
 28. New app-managed generated DE frequency installs now compute source-bundle
     component checksums for pipeline input files that are present before the
     temporary build workspace is cleaned up.
+29. Provenance promotion policy is now executable: `pack_lifecycle_policy.py`
+    returns a versioned policy verdict, `pack_lifecycle_audit.py` includes it in
+    pack rows, and promotion evidence checks require the policy verdict to be
+    ready.
 
 Loose ends to close before broad expansion:
 
@@ -265,8 +272,9 @@ Loose ends to close before broad expansion:
 10. External import preflight can say whether a manual link is format-safe and
     what review data is missing, but the actual copy/convert UX and managed
     pack writer are still future work.
-11. Provenance review posture is now visible, but review approval remains a
-    human/source-policy decision outside the audit command.
+11. Provenance review posture is now visible through an executable policy
+    verdict, but license/review approval remains a human/source-policy decision
+    outside the audit command.
 12. Strict lifecycle gating can fail on review findings, but it still does not
     replace the source-readiness, SRS Zipf bridge, or denominator audits needed
     before expanded corpus promotion.
@@ -292,9 +300,10 @@ Loose ends to close before broad expansion:
     files present during the build. It still does not prove complete component
     checksum coverage, license approval, or pinned snapshots for rolling upstream
     sources.
-18. Frequency SQLite metrics are sidecar evidence, not source-readiness proof.
-    They do not replace the source-readiness audit, schema audit, SRS Zipf
-    bridge, denominator audit, or promotion evidence bundle.
+18. Frequency SQLite metrics are now part of the executable provenance promotion
+    policy, but they are still sidecar evidence rather than source-readiness
+    proof. They do not replace the source-readiness audit, schema audit, SRS
+    Zipf bridge, denominator audit, or promotion evidence bundle.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -1226,6 +1235,62 @@ python3 -m ruff format --check \
   apps/gui/tests/test_pack_provenance_sidecars.py
 ```
 
+## L6-Zb Executable Provenance Promotion Policy
+
+Product claim:
+
+- The pack lifecycle rules should be a reusable policy verdict, not only prose in
+  docs or one-off checks embedded in a single audit command.
+
+Current implementation:
+
+- `pack_lifecycle_policy.py` defines `pack_provenance_promotion_policy` version
+  `1`.
+- The policy checks provenance existence/validity, confirmed license status,
+  source pointer, durable source identity, raw artifact checksum coverage,
+  generated artifact checksum coverage, source-bundle component checksum
+  coverage, and frequency metric completeness.
+- `pack_lifecycle_audit.py` writes `provenance_policy` into each installed-pack
+  and semantic-pack row, while preserving the older `provenance_review` shape as
+  a compatibility view.
+- `pack_lifecycle_promotion_evidence.py` now requires the pack row's
+  `provenance_policy` to be present, `status = "ok"`, and `promotion_ready =
+  true`.
+
+Boundaries:
+
+1. This policy is promotion-oriented. Local app-managed installs can still write
+   valid sidecars with `requires_review`; the policy reports that as review, not
+   schema failure.
+2. This does not create license approval records.
+3. This does not replace source-readiness, SRS Zipf, denominator, or schema
+   audits; it makes the provenance portion executable.
+4. Translation and embedding metric semantics remain future family-specific
+   policy work.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_policy.py \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_promotion_evidence.py \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_policy.py \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_promotion_evidence.py \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+```
+
 ## L6-D Semantic Pack Provenance And Lineage
 
 Product claim:
@@ -1823,7 +1888,8 @@ python3 -m ruff format --check \
 | L6-W Embedding/manual checksum lineage | Completed first checksum slice for app-managed embedding conversion sources and read-only manual external import preflight files. | Embedding finalization raw-vector checksums, external import preflight auto-checksums, and focused tests. |
 | L6-X Frequency SQLite artifact metrics | Completed first generated-artifact metric slice for frequency sidecars only. | Frequency SQLite metric helper, installer/backfill `artifact.metrics` wiring, and focused tests. |
 | L6-Y Source-bundle checksum coverage | Completed first schema/reporting surface for component checksum coverage without treating missing hashes as approval. | Component checksum validation, lifecycle lineage checksum counts, and focused tests. |
-| L6-Z Generated DE component checksum capture | Completed first installer-time capture for source-bundle component files available during generated DE frequency builds. | DE pipeline component-path callback, checked source-bundle writer path, and focused tests. |
+| L6-Za Generated DE component checksum capture | Completed first installer-time capture for source-bundle component files available during generated DE frequency builds. | DE pipeline component-path callback, checked source-bundle writer path, and focused tests. |
+| L6-Zb Provenance promotion policy | Completed first reusable executable policy verdict for promotion-oriented provenance checks. | `pack_lifecycle_policy.py`, audit `provenance_policy` rows, promotion evidence policy checks, and focused tests. |
 
 ## Validation Bundle For L6-A
 

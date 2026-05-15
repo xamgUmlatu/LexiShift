@@ -269,6 +269,7 @@ def _audit_pack_lifecycle_evidence(
     )
     if pack_row:
         provenance_review = _as_mapping(pack_row.get("provenance_review"))
+        provenance_policy = _as_mapping(pack_row.get("provenance_policy"))
         _append_status_check(
             row,
             checks,
@@ -322,6 +323,31 @@ def _audit_pack_lifecycle_evidence(
             ok=not bool(provenance_review.get("review_required")),
             review_issue="pack_lifecycle_pack_provenance_review_required",
         )
+        _append_status_check(
+            row,
+            checks,
+            check_id="provenance_policy_present",
+            observed=bool(provenance_policy),
+            ok=bool(provenance_policy),
+            review_issue="pack_lifecycle_pack_provenance_policy_missing",
+        )
+        if provenance_policy:
+            _append_status_check(
+                row,
+                checks,
+                check_id="provenance_policy_status",
+                observed=str(provenance_policy.get("status") or ""),
+                ok=str(provenance_policy.get("status") or "") == "ok",
+                review_issue="pack_lifecycle_pack_provenance_policy_not_ok",
+            )
+            _append_status_check(
+                row,
+                checks,
+                check_id="provenance_policy_promotion_ready",
+                observed=bool(provenance_policy.get("promotion_ready")),
+                ok=bool(provenance_policy.get("promotion_ready")),
+                review_issue="pack_lifecycle_pack_provenance_policy_not_ready",
+            )
     row["checks"] = checks
     row["status"] = _worst_status(
         [str(row.get("status") or "ok"), *(str(check.get("status") or "ok") for check in checks)]

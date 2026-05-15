@@ -158,6 +158,10 @@ def _lifecycle_payload(
                         "provenance_review": {
                             "review_required": provenance_review_required,
                         },
+                        "provenance_policy": {
+                            "status": "review" if provenance_review_required else "ok",
+                            "promotion_ready": not provenance_review_required,
+                        },
                     }
                 ]
             }

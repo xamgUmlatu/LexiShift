@@ -32,6 +32,7 @@ from pack_lifecycle_provenance_lineage import (  # noqa: E402
     lineage_summary_counts,
     render_source_build_lineage_markdown,
 )
+from pack_lifecycle_policy import audit_provenance_policy  # noqa: E402
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "pack_lifecycle_audit_latest.json"
@@ -329,18 +330,21 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
     if review_rows:
         lines.extend(
             [
-                "| Family | Pack | License | Source Pointer | Raw Checksums | Artifact Checksum | Review Reasons |",
-                "| --- | --- | --- | --- | ---: | --- | --- |",
+                "| Family | Pack | Policy | License | Source Pointer | Source Identity | Raw Checksums | Artifact Checksum | Review Reasons |",
+                "| --- | --- | --- | --- | --- | --- | ---: | --- | --- |",
             ]
         )
         for family_name, row, review in review_rows:
+            policy = _as_mapping(row.get("provenance_policy"))
             reasons = ", ".join(str(value) for value in _sequence(review.get("review_reasons")))
             lines.append(
                 "| "
                 f"{family_name} | "
                 f"{row.get('pack_id')} | "
+                f"{policy.get('status') or ''} | "
                 f"{review.get('license_status')} | "
                 f"{review.get('source_pointer_kind')} | "
+                f"{review.get('source_identity_kind')} | "
                 f"{review.get('raw_artifact_checksum_count')}/"
                 f"{review.get('raw_artifact_count')} | "
                 f"{review.get('artifact_checksum_present')} | "
@@ -444,7 +448,11 @@ def _audit_installed_pack_root(pack_root: Path, expected_pack_kind: str) -> dict
     provenance_errors = (
         list(validate_pack_provenance_file(provenance_path)) if provenance_path.exists() else []
     )
-    provenance_review = _audit_provenance_review(provenance_path, provenance_errors)
+    provenance_policy = audit_provenance_policy(
+        provenance_path=provenance_path,
+        pack_kind=expected_pack_kind,
+        provenance_errors=provenance_errors,
+    )
     provenance_lineage = audit_provenance_lineage(provenance_path)
     issues: list[str] = []
     if not manifest_path.exists():
@@ -474,7 +482,8 @@ def _audit_installed_pack_root(pack_root: Path, expected_pack_kind: str) -> dict
         "provenance_exists": provenance_path.exists(),
         "provenance_valid": provenance_path.exists() and not provenance_errors,
         "provenance_errors": provenance_errors,
-        "provenance_review": provenance_review,
+        "provenance_policy": provenance_policy,
+        "provenance_review": _policy_review_compat(provenance_policy),
         "provenance_lineage": provenance_lineage,
         "issues": issues,
     }
@@ -488,7 +497,11 @@ def _audit_semantic_pack_root(pack_root: Path) -> dict[str, object]:
     provenance_errors = (
         list(validate_pack_provenance_file(provenance_path)) if provenance_path.exists() else []
     )
-    provenance_review = _audit_provenance_review(provenance_path, provenance_errors)
+    provenance_policy = audit_provenance_policy(
+        provenance_path=provenance_path,
+        pack_kind="semantic",
+        provenance_errors=provenance_errors,
+    )
     provenance_lineage = audit_provenance_lineage(provenance_path)
     issues: list[str] = []
     if not manifest_path.exists():
@@ -514,7 +527,8 @@ def _audit_semantic_pack_root(pack_root: Path) -> dict[str, object]:
         "provenance_exists": provenance_path.exists(),
         "provenance_valid": provenance_path.exists() and not provenance_errors,
         "provenance_errors": provenance_errors,
-        "provenance_review": provenance_review,
+        "provenance_policy": provenance_policy,
+        "provenance_review": _policy_review_compat(provenance_policy),
         "provenance_lineage": provenance_lineage,
         "issues": issues,
     }
@@ -609,59 +623,20 @@ def _build_summary(
     }
 
 
-def _audit_provenance_review(
-    provenance_path: Path,
-    provenance_errors: Sequence[str],
-) -> dict[str, object]:
-    payload, load_errors = _load_json_object(provenance_path)
-    source = _as_mapping(payload.get("source"))
-    artifact = _as_mapping(payload.get("artifact"))
-    raw_artifacts = [_as_mapping(item) for item in _sequence(source.get("raw_artifacts"))]
-    license_status = str(source.get("license_status") or "").strip()
-    source_pointer_kind = _source_pointer_kind(source)
-    raw_artifact_checksum_count = sum(1 for item in raw_artifacts if _has_checksum(item))
-    artifact_checksum_present = _has_checksum(artifact)
-    metrics = _as_mapping(artifact.get("metrics"))
-    review_reasons: list[str] = []
-    if not provenance_path.exists():
-        review_reasons.append("missing_provenance")
-    elif load_errors or provenance_errors:
-        review_reasons.append("invalid_provenance")
-    else:
-        if license_status != "confirmed":
-            review_reasons.append(f"license_status_{license_status or 'missing'}")
-        if not source_pointer_kind:
-            review_reasons.append("missing_source_pointer")
-        if not raw_artifacts:
-            review_reasons.append("missing_raw_artifacts")
-        elif raw_artifact_checksum_count < len(raw_artifacts):
-            review_reasons.append("raw_artifact_checksum_missing")
-        if not artifact_checksum_present:
-            review_reasons.append("generated_artifact_checksum_missing")
+def _policy_review_compat(policy: Mapping[str, object]) -> dict[str, object]:
     return {
-        "review_required": bool(review_reasons),
-        "review_reasons": review_reasons,
-        "source_name": str(source.get("source_name") or "").strip(),
-        "license_status": license_status,
-        "source_pointer_kind": source_pointer_kind,
-        "raw_artifact_count": len(raw_artifacts),
-        "raw_artifact_checksum_count": raw_artifact_checksum_count,
-        "artifact_checksum_present": artifact_checksum_present,
-        "artifact_metrics_present": bool(metrics),
-        "artifact_metric_keys": sorted(str(key) for key in metrics),
+        "review_required": bool(policy.get("review_required")),
+        "review_reasons": list(_sequence(policy.get("review_reasons"))),
+        "source_name": str(policy.get("source_name") or "").strip(),
+        "license_status": str(policy.get("license_status") or "").strip(),
+        "source_pointer_kind": str(policy.get("source_pointer_kind") or "").strip(),
+        "source_identity_kind": str(policy.get("source_identity_kind") or "").strip(),
+        "raw_artifact_count": int(policy.get("raw_artifact_count") or 0),
+        "raw_artifact_checksum_count": int(policy.get("raw_artifact_checksum_count") or 0),
+        "artifact_checksum_present": bool(policy.get("artifact_checksum_present")),
+        "artifact_metrics_present": bool(policy.get("artifact_metrics_present")),
+        "artifact_metric_keys": list(_sequence(policy.get("artifact_metric_keys"))),
     }
-
-
-def _source_pointer_kind(source: Mapping[str, object]) -> str:
-    if str(source.get("source_url") or "").strip():
-        return "source_url"
-    if str(source.get("local_source_path") or "").strip():
-        return "local_source_path"
-    return ""
-
-
-def _has_checksum(payload: Mapping[str, object]) -> bool:
-    return bool(str(payload.get("sha1") or "").strip() or str(payload.get("sha256") or "").strip())
 
 
 def _license_status_counts(rows: Sequence[Mapping[str, object]]) -> dict[str, int]:
