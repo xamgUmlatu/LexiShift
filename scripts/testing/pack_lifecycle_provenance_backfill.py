@@ -240,6 +240,8 @@ def _scan_pack_root(
             source_url=_text(getattr(catalog_pack, "url", "")),
             wayback_url=_text(getattr(catalog_pack, "wayback_url", "")) or None,
             build_mode=_text(manifest.build_mode),
+            build_command=_build_command_for_mode(_text(manifest.build_mode)),
+            parser_config=_parser_config_for_catalog_pack(catalog_pack),
             artifact_path=artifact_path,
             source_filename=manifest.source_filename
             or _optional_catalog_text(catalog_pack, "source_filename")
@@ -283,6 +285,61 @@ def _backfill_preflight_issues(catalog_pack: object) -> list[str]:
     if not _text(getattr(catalog_pack, "url", "")):
         issues.append("missing_catalog_source_url")
     return issues
+
+
+def _build_command_for_mode(build_mode: str) -> str:
+    commands = {
+        "download_only": "download_only",
+        "freedict_tei_to_sqlite": "convert_freedict_tei_to_sqlite",
+        "kaikki_glosses_to_sqlite": "convert_kaikki_glosses_to_sqlite",
+        "kaikki_translations_to_sqlite": "convert_kaikki_translations_to_sqlite",
+        "convert_archive": "convert_frequency_to_sqlite",
+        "de_frequency_pipeline": "run_de_frequency_pipeline",
+        "convert_to_sqlite": "scripts/data/convert_embeddings.py",
+    }
+    normalized = str(build_mode or "").strip()
+    return commands.get(normalized, normalized)
+
+
+def _parser_config_for_catalog_pack(catalog_pack: object) -> dict[str, object]:
+    build_mode = _text(getattr(catalog_pack, "build_mode", ""))
+    if build_mode == "freedict_tei_to_sqlite":
+        required_files = tuple(getattr(catalog_pack, "required_files", ()) or ())
+        return {
+            "target_lang": _text(getattr(catalog_pack, "target_lang_code", "")),
+            "tei_filename": required_files[0] if required_files else "",
+        }
+    if build_mode == "kaikki_glosses_to_sqlite":
+        return {
+            "source_lang_code": _text(getattr(catalog_pack, "source_lang_code", "")).lower()
+            or "es",
+            "gloss_language": _text(getattr(catalog_pack, "gloss_language", "")).lower() or "en",
+            "source_dump": "enwiktionary",
+        }
+    if build_mode == "kaikki_translations_to_sqlite":
+        target_lang = _text(getattr(catalog_pack, "target_lang_code", "")).lower()
+        return {
+            "source_lang_code": _text(getattr(catalog_pack, "source_lang_code", "")).lower(),
+            "target_lang_code": target_lang,
+            "translation_language": _text(
+                getattr(catalog_pack, "gloss_language", "") or target_lang
+            ).lower(),
+            "source_dump": "enwiktionary",
+        }
+    if build_mode == "de_frequency_pipeline":
+        return {"drop_proper_nouns": True}
+    parse_config = getattr(catalog_pack, "parse_config", None)
+    if parse_config is None:
+        return {}
+    parser_config: dict[str, object] = {
+        "delimiter": getattr(parse_config, "delimiter", ""),
+        "header_starts_with": getattr(parse_config, "header_starts_with", None),
+        "skip_prefixes": list(getattr(parse_config, "skip_prefixes", ()) or ()),
+        "encoding": getattr(parse_config, "encoding", ""),
+        "errors": getattr(parse_config, "errors", ""),
+        "index_column": _text(getattr(catalog_pack, "index_column", "")),
+    }
+    return parser_config
 
 
 def _provider(*, manifest: object, catalog_pack: object) -> str:

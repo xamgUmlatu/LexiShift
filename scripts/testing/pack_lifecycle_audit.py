@@ -27,6 +27,11 @@ from lexishift_core.helper.pack_provenance import (  # noqa: E402
     validate_pack_provenance_file,
 )
 from pack_lifecycle_manual_resources import audit_manual_resource_settings  # noqa: E402
+from pack_lifecycle_provenance_lineage import (  # noqa: E402
+    audit_provenance_lineage,
+    lineage_summary_counts,
+    render_source_build_lineage_markdown,
+)
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "pack_lifecycle_audit_latest.json"
@@ -175,6 +180,7 @@ def audit_installed_pack_family(base_dir: Path, *, expected_pack_kind: str) -> d
         "provenance_review_required_count": sum(
             1 for row in rows if _as_mapping(row.get("provenance_review")).get("review_required")
         ),
+        **lineage_summary_counts(rows),
         "license_status_counts": _license_status_counts(rows),
         "packs": rows,
     }
@@ -201,6 +207,7 @@ def audit_semantic_pack_copies(base_dir: Path) -> dict[str, object]:
         "provenance_review_required_count": sum(
             1 for row in rows if _as_mapping(row.get("provenance_review")).get("review_required")
         ),
+        **lineage_summary_counts(rows),
         "license_status_counts": _license_status_counts(rows),
         "packs": rows,
     }
@@ -342,6 +349,7 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
         lines.append("")
     else:
         lines.extend(["- No provenance review items.", ""])
+    lines.extend(render_source_build_lineage_markdown(report))
     lines.extend(
         [
             "## Publication Manifests",
@@ -437,6 +445,7 @@ def _audit_installed_pack_root(pack_root: Path, expected_pack_kind: str) -> dict
         list(validate_pack_provenance_file(provenance_path)) if provenance_path.exists() else []
     )
     provenance_review = _audit_provenance_review(provenance_path, provenance_errors)
+    provenance_lineage = audit_provenance_lineage(provenance_path)
     issues: list[str] = []
     if not manifest_path.exists():
         issues.append("missing_manifest")
@@ -466,6 +475,7 @@ def _audit_installed_pack_root(pack_root: Path, expected_pack_kind: str) -> dict
         "provenance_valid": provenance_path.exists() and not provenance_errors,
         "provenance_errors": provenance_errors,
         "provenance_review": provenance_review,
+        "provenance_lineage": provenance_lineage,
         "issues": issues,
     }
 
@@ -479,6 +489,7 @@ def _audit_semantic_pack_root(pack_root: Path) -> dict[str, object]:
         list(validate_pack_provenance_file(provenance_path)) if provenance_path.exists() else []
     )
     provenance_review = _audit_provenance_review(provenance_path, provenance_errors)
+    provenance_lineage = audit_provenance_lineage(provenance_path)
     issues: list[str] = []
     if not manifest_path.exists():
         issues.append("missing_manifest")
@@ -504,6 +515,7 @@ def _audit_semantic_pack_root(pack_root: Path) -> dict[str, object]:
         "provenance_valid": provenance_path.exists() and not provenance_errors,
         "provenance_errors": provenance_errors,
         "provenance_review": provenance_review,
+        "provenance_lineage": provenance_lineage,
         "issues": issues,
     }
 

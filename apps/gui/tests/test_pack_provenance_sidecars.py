@@ -19,6 +19,7 @@ for candidate in (GUI_SRC, CORE_ROOT):
 
 from language_packs import FrequencyPackDownloadThread, LanguagePackDownloadThread  # noqa: E402
 from language_packs_catalog import FrequencyPackInfo, LanguagePackInfo  # noqa: E402
+from lexishift_core.frequency.sqlite import ParseConfig  # noqa: E402
 from lexishift_core.helper.pack_provenance import PACK_PROVENANCE_FILENAME  # noqa: E402
 from lexishift_core.helper.pack_provenance import validate_pack_provenance_file  # noqa: E402
 from settings_language_packs_transfer_mixin import LanguagePackPanelTransferMixin  # noqa: E402
@@ -40,8 +41,10 @@ def test_language_pack_manifest_write_creates_provenance_sidecar() -> None:
             wayback_url="https://web.archive.org/web/*/https://example.com/freedict-eng-spa.src.tar.xz",
             filename="freedict-eng-spa.src.tar.xz",
             local_kind="file",
+            required_files=("eng-spa.tei",),
             sqlite_filename="main.sqlite",
             build_mode="freedict_tei_to_sqlite",
+            target_lang_code="es",
         )
 
         thread = LanguagePackDownloadThread(pack, str(artifact))
@@ -53,6 +56,8 @@ def test_language_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["pack_id"] == "freedict-en-es"
         assert payload["pack_kind"] == "language"
         assert payload["source"]["license_status"] == "requires_review"
+        assert payload["build"]["command"] == "convert_freedict_tei_to_sqlite"
+        assert payload["build"]["parser_config"]["tei_filename"] == "eng-spa.tei"
         assert payload["artifact"]["artifact_relpath"] == "main.sqlite"
 
 
@@ -73,6 +78,12 @@ def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
             wayback_url="https://web.archive.org/web/*/https://example.com/spanish_lemmas20k.txt",
             filename="spanish_lemmas20k.txt",
             sqlite_filename="main.sqlite",
+            parse_config=ParseConfig(
+                delimiter="\t",
+                header_starts_with="ID",
+                skip_prefixes=("----",),
+                encoding="latin-1",
+            ),
         )
 
         thread = FrequencyPackDownloadThread(pack, str(archive), str(artifact))
@@ -84,6 +95,9 @@ def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["pack_id"] == "freq-es-cde"
         assert payload["pack_kind"] == "frequency"
         assert payload["source"]["license_status"] == "requires_review"
+        assert payload["build"]["command"] == "convert_frequency_to_sqlite"
+        assert payload["build"]["parser_config"]["header_starts_with"] == "ID"
+        assert payload["build"]["parser_config"]["encoding"] == "latin-1"
         assert payload["artifact"]["artifact_kind"] == "sqlite"
 
 
@@ -120,6 +134,7 @@ def test_embedding_finalize_creates_provenance_sidecar() -> None:
         assert payload["pack_id"] == pack_id
         assert payload["pack_kind"] == "embedding"
         assert payload["source"]["license_status"] == "requires_review"
+        assert payload["build"]["command"] == "scripts/data/convert_embeddings.py"
         assert payload["artifact"]["artifact_relpath"] == "main.sqlite"
 
 

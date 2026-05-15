@@ -347,6 +347,7 @@ class LanguagePackPanelTransferMixin:
                 source_url=str(pack.url or "").strip(),
                 wayback_url=pack.wayback_url,
                 build_mode="convert_to_sqlite",
+                build_command="scripts/data/convert_embeddings.py",
                 artifact_path=artifact_path,
                 source_filename=pack.filename,
                 sqlite_filename=os.path.basename(resolved_path),

@@ -60,7 +60,7 @@ def validate_pack_provenance_payload(payload: object) -> tuple[str, ...]:
 
     build = _required_mapping(payload, "build", "build", errors)
     if build is not None:
-        _required_text(build, "build_mode", "build.build_mode", errors)
+        _validate_build(build, errors)
 
     artifact = _required_mapping(payload, "artifact", "artifact", errors)
     if artifact is not None:
@@ -84,6 +84,14 @@ def write_app_managed_pack_provenance(
     required_files: Sequence[str] = (),
     wayback_url: str | None = None,
     license_status: str = "requires_review",
+    build_command: str | None = None,
+    converter_version: str | None = None,
+    parser_profile: str | None = None,
+    parser_config: Mapping[str, object] | None = None,
+    source_version: str | None = None,
+    source_dump: str | None = None,
+    raw_artifact_sha1: str | None = None,
+    raw_artifact_sha256: str | None = None,
 ) -> Path:
     target_root = Path(pack_root)
     artifact = Path(artifact_path)
@@ -101,6 +109,14 @@ def write_app_managed_pack_provenance(
         required_files=required_files,
         wayback_url=wayback_url,
         license_status=license_status,
+        build_command=build_command,
+        converter_version=converter_version,
+        parser_profile=parser_profile,
+        parser_config=parser_config,
+        source_version=source_version,
+        source_dump=source_dump,
+        raw_artifact_sha1=raw_artifact_sha1,
+        raw_artifact_sha256=raw_artifact_sha256,
     )
     provenance_path = target_root / PACK_PROVENANCE_FILENAME
     _write_json(provenance_path, payload)
@@ -122,10 +138,22 @@ def build_app_managed_pack_provenance_payload(
     required_files: Sequence[str] = (),
     wayback_url: str | None = None,
     license_status: str = "requires_review",
+    build_command: str | None = None,
+    converter_version: str | None = None,
+    parser_profile: str | None = None,
+    parser_config: Mapping[str, object] | None = None,
+    source_version: str | None = None,
+    source_dump: str | None = None,
+    raw_artifact_sha1: str | None = None,
+    raw_artifact_sha256: str | None = None,
 ) -> dict[str, object]:
     raw_filename = _optional_text(source_filename) or Path(source_url).name or str(pack_id)
     artifact_relpath = _artifact_relpath(Path(pack_root), Path(artifact_path))
     raw_artifact: dict[str, object] = {"filename": raw_filename}
+    if raw_sha1_text := _optional_text(raw_artifact_sha1):
+        raw_artifact["sha1"] = raw_sha1_text
+    if raw_sha256_text := _optional_text(raw_artifact_sha256):
+        raw_artifact["sha256"] = raw_sha256_text
     source: dict[str, object] = {
         "source_name": _optional_text(source_name) or _optional_text(provider) or str(pack_id),
         "source_url": str(source_url or "").strip(),
@@ -134,9 +162,21 @@ def build_app_managed_pack_provenance_payload(
     }
     if wayback_url_text := _optional_text(wayback_url):
         source["wayback_url"] = wayback_url_text
+    if source_version_text := _optional_text(source_version):
+        source["source_version"] = source_version_text
+    if source_dump_text := _optional_text(source_dump):
+        source["source_dump"] = source_dump_text
     build: dict[str, object] = {
         "build_mode": str(build_mode or "").strip() or "download_only",
     }
+    if build_command_text := _optional_text(build_command):
+        build["command"] = build_command_text
+    if converter_version_text := _optional_text(converter_version):
+        build["converter_version"] = converter_version_text
+    if parser_profile_text := _optional_text(parser_profile):
+        build["parser_profile"] = parser_profile_text
+    if parser_config:
+        build["parser_config"] = dict(parser_config)
     if sqlite_filename_text := _optional_text(sqlite_filename):
         build["sqlite_filename"] = sqlite_filename_text
     required_file_values = tuple(
@@ -173,6 +213,8 @@ def _validate_source(source: Mapping[str, object], errors: list[str]) -> None:
     if license_status and license_status not in LICENSE_STATUS_VALUES:
         allowed = ", ".join(sorted(LICENSE_STATUS_VALUES))
         errors.append(f"source.license_status must be one of: {allowed}")
+    _optional_text_field(source, "source_version", "source.source_version", errors)
+    _optional_text_field(source, "source_dump", "source.source_dump", errors)
     if not _optional_text(source.get("source_url")) and not _optional_text(
         source.get("local_source_path")
     ):
@@ -180,6 +222,16 @@ def _validate_source(source: Mapping[str, object], errors: list[str]) -> None:
     raw_artifacts = source.get("raw_artifacts")
     if raw_artifacts is not None:
         _validate_artifact_list(raw_artifacts, "source.raw_artifacts", errors)
+
+
+def _validate_build(build: Mapping[str, object], errors: list[str]) -> None:
+    _required_text(build, "build_mode", "build.build_mode", errors)
+    _optional_text_field(build, "command", "build.command", errors)
+    _optional_text_field(build, "converter_version", "build.converter_version", errors)
+    _optional_text_field(build, "parser_profile", "build.parser_profile", errors)
+    parser_config = build.get("parser_config")
+    if parser_config is not None and not isinstance(parser_config, Mapping):
+        errors.append("build.parser_config must be a JSON object")
 
 
 def _validate_artifact(
@@ -274,6 +326,16 @@ def _validate_checksum(
         return
     if len(text) != expected_length or _HEX_RE.fullmatch(text) is None:
         errors.append(f"{field_path} must be {expected_length} hex characters")
+
+
+def _optional_text_field(
+    payload: Mapping[str, object],
+    key: str,
+    field_path: str,
+    errors: list[str],
+) -> None:
+    if key in payload and not _optional_text(payload.get(key)):
+        errors.append(f"{field_path} must not be blank when present")
 
 
 def _required_mapping(

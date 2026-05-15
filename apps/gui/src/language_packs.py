@@ -52,6 +52,67 @@ __all__ = [
 ]
 
 
+def _build_command_for_mode(build_mode: str) -> str:
+    commands = {
+        "download_only": "download_only",
+        "freedict_tei_to_sqlite": "convert_freedict_tei_to_sqlite",
+        "kaikki_glosses_to_sqlite": "convert_kaikki_glosses_to_sqlite",
+        "kaikki_translations_to_sqlite": "convert_kaikki_translations_to_sqlite",
+        "convert_archive": "convert_frequency_to_sqlite",
+        "de_frequency_pipeline": "run_de_frequency_pipeline",
+        "convert_to_sqlite": "scripts/data/convert_embeddings.py",
+    }
+    normalized = str(build_mode or "").strip()
+    return commands.get(normalized, normalized)
+
+
+def _language_parser_config(pack: LanguagePackInfo) -> dict[str, object]:
+    build_mode = str(pack.build_mode or "").strip()
+    if build_mode == "freedict_tei_to_sqlite":
+        return {
+            "target_lang": str(pack.target_lang_code or "").strip(),
+            "tei_filename": pack.required_files[0] if pack.required_files else "",
+        }
+    if build_mode == "kaikki_glosses_to_sqlite":
+        return {
+            "source_lang_code": str(pack.source_lang_code or "").strip().lower() or "es",
+            "gloss_language": str(pack.gloss_language or "").strip().lower() or "en",
+            "source_dump": "enwiktionary",
+        }
+    if build_mode == "kaikki_translations_to_sqlite":
+        target_lang = str(pack.target_lang_code or "").strip().lower()
+        return {
+            "source_lang_code": str(pack.source_lang_code or "").strip().lower(),
+            "target_lang_code": target_lang,
+            "translation_language": str(pack.gloss_language or target_lang).strip().lower(),
+            "source_dump": "enwiktionary",
+        }
+    return {}
+
+
+def _frequency_parser_config(pack: FrequencyPackInfo) -> dict[str, object]:
+    if str(pack.build_mode or "").strip() == "de_frequency_pipeline":
+        return {"drop_proper_nouns": True}
+    config = pack.parse_config
+    parser_config: dict[str, object] = {
+        "delimiter": config.delimiter,
+        "header_starts_with": config.header_starts_with,
+        "skip_prefixes": list(config.skip_prefixes),
+        "encoding": config.encoding,
+        "errors": config.errors,
+        "index_column": pack.index_column,
+    }
+    pos_inventory = _frequency_pos_inventory_config(pack.pack_id)
+    if pos_inventory is not None:
+        parser_config["pos_inventory"] = {
+            "source_provider": pos_inventory.source_provider,
+            "source_kind": pos_inventory.source_kind,
+            "source_profile": pos_inventory.source_profile,
+            "pos_columns": list(pos_inventory.pos_columns),
+        }
+    return parser_config
+
+
 def _app_data_root() -> str:
     base_dir = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
     base_dir = base_dir or os.path.expanduser("~")
@@ -263,6 +324,8 @@ class LanguagePackDownloadThread(QThread):
             source_url=str(self._pack.url or "").strip(),
             wayback_url=self._pack.wayback_url,
             build_mode=self._pack.build_mode,
+            build_command=_build_command_for_mode(self._pack.build_mode),
+            parser_config=_language_parser_config(self._pack),
             artifact_path=artifact_path,
             source_filename=self._pack.source_filename or self._pack.filename,
             sqlite_filename=self._pack.sqlite_filename,
@@ -476,6 +539,8 @@ class FrequencyPackDownloadThread(QThread):
             source_url=str(self._pack.url or "").strip(),
             wayback_url=self._pack.wayback_url,
             build_mode=self._pack.build_mode,
+            build_command=_build_command_for_mode(self._pack.build_mode),
+            parser_config=_frequency_parser_config(self._pack),
             artifact_path=artifact_path,
             source_filename=self._pack.source_filename or self._pack.filename,
             sqlite_filename=self._pack.sqlite_filename,

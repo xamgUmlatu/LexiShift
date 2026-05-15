@@ -64,6 +64,18 @@ class TestPackProvenance(unittest.TestCase):
             errors,
         )
 
+    def test_rejects_blank_optional_lineage_fields(self) -> None:
+        payload = _valid_frequency_payload()
+        payload["source"]["source_version"] = " "
+        payload["build"]["command"] = ""
+        payload["build"]["parser_config"] = "freq-es-cde"
+
+        errors = validate_pack_provenance_payload(payload)
+
+        self.assertIn("source.source_version must not be blank when present", errors)
+        self.assertIn("build.command must not be blank when present", errors)
+        self.assertIn("build.parser_config must be a JSON object", errors)
+
     def test_validates_provenance_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / PACK_PROVENANCE_FILENAME
@@ -92,6 +104,9 @@ class TestPackProvenance(unittest.TestCase):
                 source_url="https://example.com/spanish_lemmas20k.txt",
                 wayback_url="https://web.archive.org/web/*/https://example.com/spanish_lemmas20k.txt",
                 build_mode="convert_archive",
+                build_command="convert_frequency_to_sqlite",
+                parser_profile="freq-es-cde",
+                parser_config={"delimiter": "\t", "header_starts_with": "ID"},
                 artifact_path=artifact,
                 source_filename="spanish_lemmas20k.txt",
                 sqlite_filename="main.sqlite",
@@ -101,6 +116,9 @@ class TestPackProvenance(unittest.TestCase):
 
         self.assertEqual(validate_pack_provenance_payload(payload), ())
         self.assertEqual(payload["source"]["license_status"], "requires_review")
+        self.assertEqual(payload["build"]["command"], "convert_frequency_to_sqlite")
+        self.assertEqual(payload["build"]["parser_profile"], "freq-es-cde")
+        self.assertEqual(payload["build"]["parser_config"]["header_starts_with"], "ID")
         self.assertEqual(payload["artifact"]["artifact_relpath"], "main.sqlite")
         self.assertEqual(payload["artifact"]["artifact_kind"], "sqlite")
 

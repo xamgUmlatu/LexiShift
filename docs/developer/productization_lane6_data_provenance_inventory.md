@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -27,6 +27,7 @@ Related docs:
 - `../../scripts/testing/pack_lifecycle_external_import_plan.py`
 - `../../scripts/testing/pack_lifecycle_manual_backfill.py`
 - `../../scripts/testing/pack_lifecycle_manual_resources.py`
+- `../../scripts/testing/pack_lifecycle_provenance_lineage.py`
 - `../../scripts/testing/pack_lifecycle_provenance_backfill.py`
 - `../../scripts/testing/pack_lifecycle_promotion_evidence.py`
 - `../../core/tests/helper/test_pack_provenance.py`
@@ -61,6 +62,7 @@ Completed slices:
 13. L6-Ma: lifecycle-audit provenance review posture.
 14. L6-Na: strict pack lifecycle review gate.
 15. L6-Oa: promotion evidence bundle contract.
+16. L6-Pa: app-managed build/parser lineage.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -82,7 +84,7 @@ Explicitly out of scope:
 | Pack catalog | `apps/gui/src/language_packs_catalog.py` | Available app-managed packs, provider labels, URLs, Wayback URLs, filenames, build modes, required files, parse configs. | Whether a specific user has installed a pack, source license status, raw/download checksum, converter version, or row/schema audit results. |
 | Pack source manifest | `docs/pack_source_manifest.json`, `apps/gui/src/pack_source_manifest.py` | Remote transport overrides, expected content type, TTL/cache policy. | Pack provenance, licensing, current installed state, generated artifact identity, or runtime default status. |
 | Installed-pack manifest | `core/lexishift_core/helper/installed_packs.py`, `<data_root>/{language_packs,frequency_packs,embeddings}/<pack_id>/manifest.json` | Pack id/kind/provider, local kind, build mode, artifact relpath/kind, installed timestamp, source/sqlite filenames, required files, raw-retention flag. | Source URL, license/reuse status, raw source checksum, source dump/version, converter command/version, generated SQLite schema, row counts, POS/domain coverage, or current runtime adoption. |
-| Provenance sidecar | `core/lexishift_core/helper/pack_provenance.py`, `<pack_root>/provenance.json` | Versioned contract for source identity, license status, source pointer, raw artifact checksums, build mode, generated artifact identity, and optional SQLite metrics; semantic installs and app-managed translation/frequency/embedding installs now write conservative sidecars. | Legacy installs, manual paths, raw checksums, converter versions, and approved license status still need follow-up lifecycle work. |
+| Provenance sidecar | `core/lexishift_core/helper/pack_provenance.py`, `<pack_root>/provenance.json` | Versioned contract for source identity, license status, source pointer, raw artifact checksums, build mode, generated artifact identity, optional build/parser lineage, and optional SQLite metrics; semantic installs and app-managed translation/frequency/embedding installs now write conservative sidecars. | Legacy installs, manual paths, raw checksums, converter versions, source-version identity, and approved license status still need follow-up lifecycle work. |
 | Lifecycle audit | `scripts/testing/pack_lifecycle_audit.py` | Read-only JSON/Markdown audit of installed pack manifests, optional provenance sidecars, semantic pack copies, profile publication manifests, manual resource settings, catalog pack ids, and optional candidate SQLite metadata. | It does not backfill provenance sidecars, rewrite settings, prove licenses, replace the source-readiness audit, or promote packs. |
 | Pack refs/resolvers | `frequency_packs.py`, `translation_packs.py`, `embedding_packs.py`, `pair_resources.py`, `lp_capabilities.py` | Runtime-facing pack id, provider, source/POS profile, resolved path, and managed-vs-fallback resolution. | Full provenance for manual paths or legacy fallback files. |
 | Semantic pack copy | `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/manifest.json` and `provenance.json` from `semantic_pack_install.py` | Semantic pack id/pair, generated timestamp, source path, raw/normalized inventory hashes, source inventory generation fields when present, source batches when carried by the source inventory, installed semantic inventory artifact hash/bytes, and validated sidecar provenance. | Release manifest identity, approved review state, or why the compiled generation was selected. |
@@ -93,9 +95,9 @@ Explicitly out of scope:
 
 | Family | Current Managed Shape | Current Provenance | Main Lane 6 Gap |
 | --- | --- | --- | --- |
-| Translation dictionaries | App-managed FreeDict and Kaikki installs build to SQLite under a pack-id root and write `manifest.json`; helper resolution is pack-id-first with legacy filename fallbacks. | Catalog has source/provider URL fields; installed manifest has provider, build mode, artifact relpath, source filename, sqlite filename, and installed timestamp. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative `requires_review` license status, build mode, source filename, SQLite filename, generated artifact relpath/kind, and generated artifact SHA-1. | Existing installs need reinstall/backfill, source license approval is not encoded, raw source checksums are not retained, converter version/schema/row-count records are still audit outputs, and manual/legacy fallback paths still depend on inference. |
-| Frequency packs | App-managed frequency installs build to SQLite under a pack-id root and write `manifest.json`; runtime diagnostics expose frequency pack id/provider/POS profile. | Catalog plus installed manifest identify provider/build mode/source filename and the generated artifact path. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, source filename, SQLite filename, artifact relpath/kind, and generated artifact SHA-1. | Audit metrics, approved source/license status, raw checksum, converter version, and topic/domain coverage are still outside installer-written provenance. Spanish expansion candidates need versioned pack ids and audit artifacts before promotion. |
-| Embedding packs | App-managed embeddings use pack-id roots, manifest-backed artifacts, and embedding pack refs; manual/raw paths remain compatibility inputs. | Installed manifest records provider, build mode, source filename, sqlite filename, and artifact path. App-managed SQLite finalization now also writes `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, source filename, SQLite filename, artifact relpath/kind, and generated artifact SHA-1. | License approval, source version/checksum, raw vector retention, conversion parameters, and manual/raw-path provenance remain outside first-class lifecycle coverage. |
+| Translation dictionaries | App-managed FreeDict and Kaikki installs build to SQLite under a pack-id root and write `manifest.json`; helper resolution is pack-id-first with legacy filename fallbacks. | Catalog has source/provider URL fields; installed manifest has provider, build mode, artifact relpath, source filename, sqlite filename, and installed timestamp. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative `requires_review` license status, build mode, build command, parser config when applicable, source filename, SQLite filename, generated artifact relpath/kind, and generated artifact SHA-1. | Existing installs need reinstall/backfill, source license approval is not encoded, raw source checksums are not retained, converter version/schema/row-count records are still audit outputs, and manual/legacy fallback paths still depend on inference. |
+| Frequency packs | App-managed frequency installs build to SQLite under a pack-id root and write `manifest.json`; runtime diagnostics expose frequency pack id/provider/POS profile. | Catalog plus installed manifest identify provider/build mode/source filename and the generated artifact path. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, build command, parser config/POS-inventory config when applicable, source filename, SQLite filename, artifact relpath/kind, and generated artifact SHA-1. | Audit metrics, approved source/license status, raw checksum, converter version, source version, and topic/domain coverage are still outside installer-written provenance. Spanish expansion candidates need versioned pack ids and audit artifacts before promotion. |
+| Embedding packs | App-managed embeddings use pack-id roots, manifest-backed artifacts, and embedding pack refs; manual/raw paths remain compatibility inputs. | Installed manifest records provider, build mode, source filename, sqlite filename, and artifact path. App-managed SQLite finalization now also writes `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, embedding converter command, source filename, SQLite filename, artifact relpath/kind, and generated artifact SHA-1. | License approval, source version/checksum, raw vector retention, converter version, conversion parameters, and manual/raw-path provenance remain outside first-class lifecycle coverage. |
 | Secondary lexical packs | WordNet, Moby, OpenThesaurus, OdeNet, JMDict, and CC-CEDICT remain mixed/raw or compatibility surfaces. | Catalog records source/provider URL fields; some managed downloads may write basic installed manifests. | Family-wide promotion decision is still pending; they should not be treated as core normalized runtime packs until evaluated. |
 | Semantic source/evidence batches | Semantic lifecycle docs define source registry, raw batches, normalized evidence, compiled generation, publication family, and helper-local materialization layers. | Planning contracts require append-only raw evidence and explicit provenance. | The cross-pack Lane 6 gate still needs an implemented source/generation audit tying raw evidence, compiled inventory, semantic pack copy, and profile publication together. |
 | Semantic compiled packs | Named en-es dev packs resolve from installed copy, catalog env, or current repo dev-pack paths; install writes a semantic pack copy and a profile publication family. | Pack copy manifest hashes raw/normalized inventory; publication manifest hashes runtime artifacts, assigns one generation id, and now carries semantic source lineage when available. | Dev-pack paths are hardcoded development fixtures; release-manifest identity and final review/approval lineage are still pending. |
@@ -173,6 +175,9 @@ What is already solid:
 18. `pack_lifecycle_promotion_evidence.py` now makes the promotion evidence
     bundle executable by checking lifecycle, source-readiness, SRS Zipf bridge,
     and denominator artifacts together before promotion.
+19. App-managed sidecar writing and existing-install sidecar backfill now record
+    build command and parser config when the catalog/installer already knows
+    those values, and the lifecycle audit reports source/build lineage presence.
 
 Loose ends to close before broad expansion:
 
@@ -210,7 +215,10 @@ Loose ends to close before broad expansion:
     before expanded corpus promotion.
 13. The promotion evidence bundle checks that required proof artifacts exist
     and pass; it does not create missing source-version, converter-version,
-    parser-config, build-command, or checksum lineage.
+    license-approval, or checksum lineage.
+14. Build command and parser config lineage are now captured for app-managed
+    install/backfill paths where known, but existing sidecars need reinstall or
+    explicit backfill to gain that data.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -507,6 +515,71 @@ python3 -m ruff check \
 python3 -m ruff format --check \
   scripts/testing/pack_lifecycle_promotion_evidence.py \
   core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+```
+
+## L6-Pa App-Managed Build/Parser Lineage
+
+Product claim:
+
+- A managed pack sidecar should say how the generated artifact was built when
+  the app already knows the converter command or parser configuration.
+
+Current implementation:
+
+- `pack_provenance.py` now validates optional source/build lineage fields:
+  `source.source_version`, `source.source_dump`, `build.command`,
+  `build.converter_version`, `build.parser_profile`, and
+  `build.parser_config`.
+- App-managed translation installs write `build.command` and parser config for
+  FreeDict and Kaikki converters.
+- App-managed frequency installs write `build.command` and parser config,
+  including parse config and POS-inventory config where available.
+- App-managed embedding finalization writes the embedding converter command.
+- Existing-install provenance backfill writes the same build command/parser
+  config fields when catalog metadata is available.
+- The lifecycle audit now reports `provenance_lineage` for sidecars and renders
+  a `Source/Build Lineage` section without turning missing build/parser fields
+  into strict review failures.
+
+Boundaries:
+
+1. This does not infer source versions, dump ids, converter package versions,
+   license approval, or raw source checksums.
+2. This does not rewrite existing sidecars unless the explicit provenance
+   backfill command is run with `--apply`.
+3. This does not make build/parser lineage a promotion blocker yet; it makes
+   the lineage visible and available for later candidate gates.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_pack_provenance.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
+python3 -m ruff check \
+  core/lexishift_core/helper/pack_provenance.py \
+  apps/gui/src/language_packs.py \
+  apps/gui/src/settings_language_packs_transfer_mixin.py \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_provenance_lineage.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  core/tests/helper/test_pack_provenance.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_provenance.py \
+  apps/gui/src/language_packs.py \
+  apps/gui/src/settings_language_packs_transfer_mixin.py \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_provenance_lineage.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  core/tests/helper/test_pack_provenance.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -1094,6 +1167,7 @@ python3 -m ruff format --check \
 | L6-M Provenance review posture | Completed first lifecycle-audit reporting slice that distinguishes schema-valid sidecars from release/promotion readiness. | `provenance_review` audit fields, summary counts, Markdown review table, and focused tests. |
 | L6-N Strict lifecycle review gate | Completed first strict audit gate for promotion/release checks without changing default local-audit behavior. | `--fail-on-review`, exit-code helper, candidate runbook update, and focused tests. |
 | L6-O Promotion evidence bundle | Completed first executable bundle gate for frequency-pack promotion evidence. | `pack_lifecycle_promotion_evidence.py`, focused tests, and candidate runbook update. |
+| L6-P App-managed build/parser lineage | Completed first sidecar-write/backfill/reporting slice for build command and parser config where already known. | Optional provenance schema fields, installer/backfill wiring, lifecycle lineage report, and focused tests. |
 
 ## Validation Bundle For L6-A
 

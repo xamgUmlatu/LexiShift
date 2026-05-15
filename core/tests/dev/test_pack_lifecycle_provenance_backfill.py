@@ -75,6 +75,12 @@ class PackLifecycleProvenanceBackfillTests(unittest.TestCase):
         )
         self.assertEqual(sidecar_payloads[0]["pack_id"], "freq-es-cde")
         self.assertEqual(sidecar_payloads[1]["pack_id"], "embed-xling-es")
+        self.assertEqual(sidecar_payloads[0]["build"]["command"], "convert_frequency_to_sqlite")
+        self.assertEqual(sidecar_payloads[0]["build"]["parser_config"]["encoding"], "latin-1")
+        self.assertEqual(
+            sidecar_payloads[1]["build"]["command"],
+            "scripts/data/convert_embeddings.py",
+        )
 
 
 def _write_backfill_fixture(data_root: Path) -> tuple[Path, Path]:

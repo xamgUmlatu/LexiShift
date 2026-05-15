@@ -56,6 +56,7 @@ class PackLifecycleAuditTests(unittest.TestCase):
                 data_root=data_root,
                 generated_at="2026-05-15T00:00:00+00:00",
             )
+            markdown = render_pack_lifecycle_markdown(report)
 
         self.assertEqual(report["summary"]["status"], "ok")
         self.assertEqual(report["summary"]["installed_pack_count"], 1)
@@ -65,7 +66,11 @@ class PackLifecycleAuditTests(unittest.TestCase):
         self.assertEqual(frequency["pack_count"], 1)
         self.assertTrue(frequency["packs"][0]["provenance_valid"])
         self.assertFalse(frequency["packs"][0]["provenance_review"]["review_required"])
+        self.assertTrue(frequency["packs"][0]["provenance_lineage"]["build_command_present"])
+        self.assertTrue(frequency["packs"][0]["provenance_lineage"]["parser_config_present"])
         self.assertEqual(frequency["license_status_counts"], {"confirmed": 1})
+        self.assertIn("Source/Build Lineage", markdown)
+        self.assertIn("convert_frequency_to_sqlite", markdown)
 
     def test_report_surfaces_valid_provenance_that_still_needs_review(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -335,7 +340,11 @@ def _valid_provenance(
             "license_status": license_status,
             "raw_artifacts": [raw_artifact],
         },
-        "build": {"build_mode": "convert_archive"},
+        "build": {
+            "build_mode": "convert_archive",
+            "command": "convert_frequency_to_sqlite",
+            "parser_config": {"header_starts_with": "ID", "encoding": "latin-1"},
+        },
         "artifact": artifact,
     }
 
