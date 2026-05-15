@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -56,6 +56,7 @@ Completed slices:
     lifecycle audit reporting.
 11. L6-Ka: existing app-managed install provenance sidecar backfill.
 12. L6-La: external/manual import preflight plan.
+13. L6-Ma: lifecycle-audit provenance review posture.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -158,6 +159,9 @@ What is already solid:
 15. A manually acquired external artifact can now be preflighted into an
     explicit manual-link/import plan before any settings rewrite, file copy, or
     runtime promotion.
+16. The lifecycle audit now separates valid sidecars from release/promotion
+    readiness by reporting license status, source pointer type, raw checksum
+    coverage, generated artifact checksum presence, and review reasons.
 
 Loose ends to close before broad expansion:
 
@@ -188,6 +192,8 @@ Loose ends to close before broad expansion:
 10. External import preflight can say whether a manual link is format-safe and
     what review data is missing, but the actual copy/convert UX and managed
     pack writer are still future work.
+11. Provenance review posture is now visible, but review approval remains a
+    human/source-policy decision outside the audit command.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -262,6 +268,10 @@ Current implementation:
 - It classifies app-managed artifacts still stored in manual path settings as
   `migrate_to_managed_pack_id` review items instead of treating them as source
   authority.
+- It reports provenance review posture for installed and semantic pack
+  sidecars: license status, source pointer kind, raw artifact checksum coverage,
+  generated artifact checksum presence, artifact metric-key presence, and
+  review reasons.
 - It separately inspects semantic pack copies under
   `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/`.
 - It inspects profile publication manifests under
@@ -271,7 +281,8 @@ Current implementation:
   table, row count, columns, and `meta` values.
 - Summary status is:
   - `ok` when inspected state has no manifest/artifact/provenance issues,
-  - `review` when only provenance sidecars are missing,
+  - `review` when only provenance sidecars are missing, manual paths need
+    review, or schema-valid sidecars still need source/license/checksum review,
   - `error` when manifests, artifacts, provenance contents, publication
     manifests, or candidate SQLite inputs are invalid.
 
@@ -306,6 +317,9 @@ Boundaries:
    belongs to `semantic_veto_srs_corpus_expansion_audit_en_es.py`.
 5. Catalog presence is inventory context, not proof that a pack is installed or
    runtime-active.
+6. Valid provenance sidecars can still require review. `requires_review`,
+   `unknown`, `internal_only`, missing raw checksums, and missing generated
+   artifact checksums are visible review reasons, not silent approval.
 
 Validation:
 
@@ -325,6 +339,50 @@ python3 -m ruff format --check \
   core/tests/dev/test_pack_lifecycle_audit.py \
   core/lexishift_core/helper/pack_provenance.py \
   core/tests/helper/test_pack_provenance.py
+```
+
+## L6-Ma Provenance Review Posture
+
+Product claim:
+
+- A valid `provenance.json` proves that the sidecar follows the contract; it
+  does not prove that a pack is release-ready, license-approved, or complete
+  enough for expansion.
+
+Current implementation:
+
+- `pack_lifecycle_audit.py` adds `provenance_review` to installed pack rows and
+  semantic pack-copy rows.
+- Family summaries now include `provenance_review_required_count` and
+  `license_status_counts`.
+- The top-level summary now includes `provenance_review_required_count`.
+- The Markdown report has a `Provenance Review` section listing review-required
+  packs with family, pack id, license status, source pointer kind, raw checksum
+  coverage, generated artifact checksum presence, and review reasons.
+- A sidecar with `license_status = "confirmed"`, a checksum for every raw
+  artifact, and a generated artifact checksum can remain `ok`.
+- A sidecar can be schema-valid but still produce `review` when the source
+  license is not confirmed or checksum evidence is incomplete.
+
+Boundaries:
+
+1. This does not rewrite sidecars or installed manifests.
+2. This does not approve source licenses.
+3. This does not require artifact metrics yet; it reports metric-key presence so
+   later candidate promotion gates can tighten family-specific requirements.
+4. This does not replace the candidate source-readiness audit for expanded
+   Spanish corpus work.
+
+Validation:
+
+```bash
+python3 -m pytest core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -909,6 +967,7 @@ python3 -m ruff format --check \
 | L6-I Import/backfill implementation | Safe managed-artifact settings backfill is now implemented; future work should add a first-class external import flow only after source/license decisions are explicit. | `pack_lifecycle_manual_backfill.py`, focused tests, and future provenance sidecar writing for imported resources. |
 | L6-J Source-batch and release lineage | Initial semantic source-lineage propagation is implemented; future work should add release-manifest, converter-version, and approval/review lineage once upstream inventories and pack candidates carry those ids. | Publication `source_lineage`, updated semantic/source manifests, lifecycle audit fields, and candidate audit evidence. |
 | L6-L External/manual import preflight | Completed first read-only executable import plan so manually acquired sources can be format-gated and review-gated before any UX/import mutation. | `pack_lifecycle_external_import_plan.py`, focused tests, and documented command contract. |
+| L6-M Provenance review posture | Completed first lifecycle-audit reporting slice that distinguishes schema-valid sidecars from release/promotion readiness. | `provenance_review` audit fields, summary counts, Markdown review table, and focused tests. |
 
 ## Validation Bundle For L6-A
 

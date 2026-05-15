@@ -162,6 +162,10 @@ def audit_installed_pack_family(base_dir: Path, *, expected_pack_kind: str) -> d
         "invalid_provenance_count": sum(
             1 for row in rows if row["provenance_exists"] and not row["provenance_valid"]
         ),
+        "provenance_review_required_count": sum(
+            1 for row in rows if _as_mapping(row.get("provenance_review")).get("review_required")
+        ),
+        "license_status_counts": _license_status_counts(rows),
         "packs": rows,
     }
 
@@ -184,6 +188,10 @@ def audit_semantic_pack_copies(base_dir: Path) -> dict[str, object]:
         "invalid_provenance_count": sum(
             1 for row in rows if row["provenance_exists"] and not row["provenance_valid"]
         ),
+        "provenance_review_required_count": sum(
+            1 for row in rows if _as_mapping(row.get("provenance_review")).get("review_required")
+        ),
+        "license_status_counts": _license_status_counts(rows),
         "packs": rows,
     }
 
@@ -265,12 +273,13 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
         f"- Installed pack count: `{summary.get('installed_pack_count')}`",
         f"- Missing provenance sidecars: `{summary.get('missing_provenance_count')}`",
         f"- Invalid provenance sidecars: `{summary.get('invalid_provenance_count')}`",
+        f"- Provenance review required: `{summary.get('provenance_review_required_count')}`",
         f"- Missing installed artifacts: `{summary.get('missing_artifact_count')}`",
         "",
         "## Installed Pack Families",
         "",
-        "| Family | Packs | Missing Manifest | Missing Artifact | Missing Provenance | Invalid Provenance |",
-        "| --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Family | Packs | Missing Manifest | Missing Artifact | Missing Provenance | Invalid Provenance | Provenance Review |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     families = _as_mapping(report.get("installed_pack_families"))
     for family_name, raw_family in families.items():
@@ -281,7 +290,8 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
             f"{family.get('missing_manifest_count')} | "
             f"{family.get('missing_artifact_count')} | "
             f"{family.get('missing_provenance_count')} | "
-            f"{family.get('invalid_provenance_count')} |"
+            f"{family.get('invalid_provenance_count')} | "
+            f"{family.get('provenance_review_required_count')} |"
         )
     semantic = _as_mapping(report.get("semantic_pack_copies"))
     lines.extend(
@@ -292,7 +302,38 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
             f"- Pack count: `{semantic.get('pack_count')}`",
             f"- Missing inventory count: `{semantic.get('missing_inventory_count')}`",
             f"- Missing provenance count: `{semantic.get('missing_provenance_count')}`",
+            f"- Provenance review required: `{semantic.get('provenance_review_required_count')}`",
             "",
+            "## Provenance Review",
+            "",
+        ]
+    )
+    review_rows = _provenance_review_rows(report)
+    if review_rows:
+        lines.extend(
+            [
+                "| Family | Pack | License | Source Pointer | Raw Checksums | Artifact Checksum | Review Reasons |",
+                "| --- | --- | --- | --- | ---: | --- | --- |",
+            ]
+        )
+        for family_name, row, review in review_rows:
+            reasons = ", ".join(str(value) for value in _sequence(review.get("review_reasons")))
+            lines.append(
+                "| "
+                f"{family_name} | "
+                f"{row.get('pack_id')} | "
+                f"{review.get('license_status')} | "
+                f"{review.get('source_pointer_kind')} | "
+                f"{review.get('raw_artifact_checksum_count')}/"
+                f"{review.get('raw_artifact_count')} | "
+                f"{review.get('artifact_checksum_present')} | "
+                f"{reasons or 'none'} |"
+            )
+        lines.append("")
+    else:
+        lines.extend(["- No provenance review items.", ""])
+    lines.extend(
+        [
             "## Publication Manifests",
             "",
         ]
@@ -371,6 +412,7 @@ def _audit_installed_pack_root(pack_root: Path, expected_pack_kind: str) -> dict
     provenance_errors = (
         list(validate_pack_provenance_file(provenance_path)) if provenance_path.exists() else []
     )
+    provenance_review = _audit_provenance_review(provenance_path, provenance_errors)
     issues: list[str] = []
     if not manifest_path.exists():
         issues.append("missing_manifest")
@@ -399,6 +441,7 @@ def _audit_installed_pack_root(pack_root: Path, expected_pack_kind: str) -> dict
         "provenance_exists": provenance_path.exists(),
         "provenance_valid": provenance_path.exists() and not provenance_errors,
         "provenance_errors": provenance_errors,
+        "provenance_review": provenance_review,
         "issues": issues,
     }
 
@@ -411,6 +454,7 @@ def _audit_semantic_pack_root(pack_root: Path) -> dict[str, object]:
     provenance_errors = (
         list(validate_pack_provenance_file(provenance_path)) if provenance_path.exists() else []
     )
+    provenance_review = _audit_provenance_review(provenance_path, provenance_errors)
     issues: list[str] = []
     if not manifest_path.exists():
         issues.append("missing_manifest")
@@ -435,6 +479,7 @@ def _audit_semantic_pack_root(pack_root: Path) -> dict[str, object]:
         "provenance_exists": provenance_path.exists(),
         "provenance_valid": provenance_path.exists() and not provenance_errors,
         "provenance_errors": provenance_errors,
+        "provenance_review": provenance_review,
         "issues": issues,
     }
 
@@ -486,6 +531,9 @@ def _build_summary(
     invalid_provenance_count = sum(
         int(family.get("invalid_provenance_count") or 0) for family in family_values
     ) + int(semantic_report.get("invalid_provenance_count") or 0)
+    provenance_review_required_count = sum(
+        int(family.get("provenance_review_required_count") or 0) for family in family_values
+    ) + int(semantic_report.get("provenance_review_required_count") or 0)
     publication_invalid_count = int(publication_report.get("invalid_count") or 0)
     manual_resource_review_count = int(manual_resource_report.get("manual_path_review_count") or 0)
     manual_resource_error_count = 1 if manual_resource_report.get("status") == "error" else 0
@@ -502,7 +550,9 @@ def _build_summary(
         or candidate_error_count
     ):
         status = "error"
-    elif missing_provenance_count or manual_resource_review_count:
+    elif (
+        missing_provenance_count or manual_resource_review_count or provenance_review_required_count
+    ):
         status = "review"
     return {
         "status": status,
@@ -514,12 +564,98 @@ def _build_summary(
         "missing_artifact_count": missing_artifact_count,
         "missing_provenance_count": missing_provenance_count,
         "invalid_provenance_count": invalid_provenance_count,
+        "provenance_review_required_count": provenance_review_required_count,
         "publication_invalid_count": publication_invalid_count,
         "manual_resource_path_count": int(manual_resource_report.get("manual_path_count") or 0),
         "manual_resource_review_count": manual_resource_review_count,
         "manual_resource_error_count": manual_resource_error_count,
         "candidate_error_count": candidate_error_count,
     }
+
+
+def _audit_provenance_review(
+    provenance_path: Path,
+    provenance_errors: Sequence[str],
+) -> dict[str, object]:
+    payload, load_errors = _load_json_object(provenance_path)
+    source = _as_mapping(payload.get("source"))
+    artifact = _as_mapping(payload.get("artifact"))
+    raw_artifacts = [_as_mapping(item) for item in _sequence(source.get("raw_artifacts"))]
+    license_status = str(source.get("license_status") or "").strip()
+    source_pointer_kind = _source_pointer_kind(source)
+    raw_artifact_checksum_count = sum(1 for item in raw_artifacts if _has_checksum(item))
+    artifact_checksum_present = _has_checksum(artifact)
+    metrics = _as_mapping(artifact.get("metrics"))
+    review_reasons: list[str] = []
+    if not provenance_path.exists():
+        review_reasons.append("missing_provenance")
+    elif load_errors or provenance_errors:
+        review_reasons.append("invalid_provenance")
+    else:
+        if license_status != "confirmed":
+            review_reasons.append(f"license_status_{license_status or 'missing'}")
+        if not source_pointer_kind:
+            review_reasons.append("missing_source_pointer")
+        if not raw_artifacts:
+            review_reasons.append("missing_raw_artifacts")
+        elif raw_artifact_checksum_count < len(raw_artifacts):
+            review_reasons.append("raw_artifact_checksum_missing")
+        if not artifact_checksum_present:
+            review_reasons.append("generated_artifact_checksum_missing")
+    return {
+        "review_required": bool(review_reasons),
+        "review_reasons": review_reasons,
+        "source_name": str(source.get("source_name") or "").strip(),
+        "license_status": license_status,
+        "source_pointer_kind": source_pointer_kind,
+        "raw_artifact_count": len(raw_artifacts),
+        "raw_artifact_checksum_count": raw_artifact_checksum_count,
+        "artifact_checksum_present": artifact_checksum_present,
+        "artifact_metrics_present": bool(metrics),
+        "artifact_metric_keys": sorted(str(key) for key in metrics),
+    }
+
+
+def _source_pointer_kind(source: Mapping[str, object]) -> str:
+    if str(source.get("source_url") or "").strip():
+        return "source_url"
+    if str(source.get("local_source_path") or "").strip():
+        return "local_source_path"
+    return ""
+
+
+def _has_checksum(payload: Mapping[str, object]) -> bool:
+    return bool(str(payload.get("sha1") or "").strip() or str(payload.get("sha256") or "").strip())
+
+
+def _license_status_counts(rows: Sequence[Mapping[str, object]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for row in rows:
+        review = _as_mapping(row.get("provenance_review"))
+        status = str(review.get("license_status") or "").strip() or "missing"
+        counts[status] = counts.get(status, 0) + 1
+    return dict(sorted(counts.items()))
+
+
+def _provenance_review_rows(
+    report: Mapping[str, object],
+) -> list[tuple[str, Mapping[str, object], Mapping[str, object]]]:
+    rows: list[tuple[str, Mapping[str, object], Mapping[str, object]]] = []
+    families = _as_mapping(report.get("installed_pack_families"))
+    for family_name, raw_family in families.items():
+        family = _as_mapping(raw_family)
+        for row in _sequence(family.get("packs")):
+            row_mapping = _as_mapping(row)
+            review = _as_mapping(row_mapping.get("provenance_review"))
+            if review.get("review_required"):
+                rows.append((str(family_name), row_mapping, review))
+    semantic = _as_mapping(report.get("semantic_pack_copies"))
+    for row in _sequence(semantic.get("packs")):
+        row_mapping = _as_mapping(row)
+        review = _as_mapping(row_mapping.get("provenance_review"))
+        if review.get("review_required"):
+            rows.append(("semantic", row_mapping, review))
+    return rows
 
 
 def _load_json_object(path: Path) -> tuple[dict[str, object], list[str]]:

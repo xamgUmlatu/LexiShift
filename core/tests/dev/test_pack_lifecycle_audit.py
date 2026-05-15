@@ -47,7 +47,7 @@ class PackLifecycleAuditTests(unittest.TestCase):
                 sqlite_filename="main.sqlite",
             )
             (pack_root / PACK_PROVENANCE_FILENAME).write_text(
-                json.dumps(_valid_provenance(), ensure_ascii=False),
+                json.dumps(_valid_provenance(license_status="confirmed"), ensure_ascii=False),
                 encoding="utf-8",
             )
 
@@ -59,9 +59,67 @@ class PackLifecycleAuditTests(unittest.TestCase):
         self.assertEqual(report["summary"]["status"], "ok")
         self.assertEqual(report["summary"]["installed_pack_count"], 1)
         self.assertEqual(report["summary"]["missing_provenance_count"], 0)
+        self.assertEqual(report["summary"]["provenance_review_required_count"], 0)
         frequency = report["installed_pack_families"]["frequency"]
         self.assertEqual(frequency["pack_count"], 1)
         self.assertTrue(frequency["packs"][0]["provenance_valid"])
+        self.assertFalse(frequency["packs"][0]["provenance_review"]["review_required"])
+        self.assertEqual(frequency["license_status_counts"], {"confirmed": 1})
+
+    def test_report_surfaces_valid_provenance_that_still_needs_review(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data_root = Path(tmp) / "data"
+            frequency_root = data_root / "frequency_packs"
+            pack_root = frequency_root / "freq-es-expanded-v1"
+            pack_root.mkdir(parents=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                frequency_root,
+                pack_id="freq-es-expanded-v1",
+                pack_kind="frequency",
+                provider="corpus-del-espanol",
+                local_kind="file",
+                build_mode="convert_archive",
+                artifact_path=artifact,
+                source_filename="spanish_lemmas20k.txt",
+                sqlite_filename="main.sqlite",
+            )
+            (pack_root / PACK_PROVENANCE_FILENAME).write_text(
+                json.dumps(
+                    _valid_provenance(
+                        include_raw_checksum=False,
+                        include_artifact_checksum=False,
+                    ),
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            report = build_pack_lifecycle_audit_report(
+                data_root=data_root,
+                generated_at="2026-05-15T00:00:00+00:00",
+            )
+            markdown = render_pack_lifecycle_markdown(report)
+
+        self.assertEqual(report["summary"]["status"], "review")
+        self.assertEqual(report["summary"]["provenance_review_required_count"], 1)
+        frequency = report["installed_pack_families"]["frequency"]
+        row = frequency["packs"][0]
+        review = row["provenance_review"]
+        self.assertTrue(row["provenance_valid"])
+        self.assertTrue(review["review_required"])
+        self.assertEqual(review["license_status"], "requires_review")
+        self.assertEqual(review["source_pointer_kind"], "source_url")
+        self.assertEqual(review["raw_artifact_count"], 1)
+        self.assertEqual(review["raw_artifact_checksum_count"], 0)
+        self.assertFalse(review["artifact_checksum_present"])
+        self.assertIn("license_status_requires_review", review["review_reasons"])
+        self.assertIn("raw_artifact_checksum_missing", review["review_reasons"])
+        self.assertIn("generated_artifact_checksum_missing", review["review_reasons"])
+        self.assertEqual(frequency["license_status_counts"], {"requires_review": 1})
+        self.assertIn("Provenance Review", markdown)
+        self.assertIn("license_status_requires_review", markdown)
 
     def test_report_flags_missing_artifact_and_provenance(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -234,7 +292,25 @@ def _valid_provenance(
     *,
     pack_id: str = "freq-es-expanded-v1",
     pack_kind: str = "frequency",
+    license_status: str = "requires_review",
+    include_raw_checksum: bool = True,
+    include_artifact_checksum: bool = True,
 ) -> dict[str, object]:
+    raw_artifact = {"filename": "spanish_lemmas20k.txt"}
+    if include_raw_checksum:
+        raw_artifact["sha1"] = "0" * 40
+    artifact = {
+        "artifact_relpath": "main.sqlite",
+        "artifact_kind": "sqlite",
+        "metrics": {
+            "row_count": 2,
+            "distinct_lemma_count": 2,
+            "pos_rows": 2,
+            "topic_domain_rows": 0,
+        },
+    }
+    if include_artifact_checksum:
+        artifact["sha1"] = "1" * 40
     return {
         "schema_version": 1,
         "pack_id": pack_id,
@@ -243,26 +319,11 @@ def _valid_provenance(
         "source": {
             "source_name": "Corpus del Espanol frequency sample",
             "source_url": "https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt",
-            "license_status": "requires_review",
-            "raw_artifacts": [
-                {
-                    "filename": "spanish_lemmas20k.txt",
-                    "sha1": "0" * 40,
-                }
-            ],
+            "license_status": license_status,
+            "raw_artifacts": [raw_artifact],
         },
         "build": {"build_mode": "convert_archive"},
-        "artifact": {
-            "artifact_relpath": "main.sqlite",
-            "artifact_kind": "sqlite",
-            "sha1": "1" * 40,
-            "metrics": {
-                "row_count": 2,
-                "distinct_lemma_count": 2,
-                "pos_rows": 2,
-                "topic_domain_rows": 0,
-            },
-        },
+        "artifact": artifact,
     }
 
 
