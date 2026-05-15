@@ -11,12 +11,12 @@ This report is read-only evidence. Candidate rows are triage signals, not deleti
 
 | Metric | Count |
 | --- | ---: |
-| `path_count` | 4192 |
-| `file_count` | 3909 |
+| `path_count` | 4189 |
+| `file_count` | 3906 |
 | `directory_count` | 283 |
-| `tracked_file_count` | 3884 |
+| `tracked_file_count` | 3881 |
 | `untracked_file_count` | 0 |
-| `candidate_path_count` | 2446 |
+| `candidate_path_count` | 2443 |
 | `duplicate_filename_group_count` | 24 |
 | `duplicate_stem_group_count` | 50 |
 | `unreferenced_script_candidate_count` | 0 |
@@ -59,16 +59,16 @@ Ignored file names:
 
 | Family | Paths | Files | Dirs | Bytes |
 | --- | ---: | ---: | ---: | ---: |
-| `docs_test_outputs` | 2571 | 2413 | 158 | 724956526 |
+| `docs_test_outputs` | 2568 | 2410 | 158 | 724865752 |
 | `core_tests` | 319 | 307 | 12 | 2711521 |
 | `scripts_testing` | 316 | 315 | 1 | 5338898 |
 | `app_chrome-extension` | 204 | 161 | 43 | 1369764 |
 | `core_runtime` | 152 | 138 | 14 | 1525534 |
 | `app_gui` | 115 | 105 | 10 | 175131342 |
 | `docs_test_inputs` | 111 | 105 | 6 | 4414512 |
-| `docs_developer` | 92 | 91 | 1 | 1277360 |
+| `docs_developer` | 92 | 91 | 1 | 1277607 |
 | `docs_rulegen` | 50 | 49 | 1 | 1299910 |
-| `scripts_dev` | 39 | 36 | 3 | 310661 |
+| `scripts_dev` | 39 | 36 | 3 | 310647 |
 | `app_tests` | 33 | 32 | 1 | 147000 |
 | `docs_asset` | 22 | 16 | 6 | 216854 |
 | `docs_architecture` | 21 | 19 | 2 | 125360 |
@@ -96,8 +96,8 @@ Ignored file names:
 
 | Signal | Paths |
 | --- | ---: |
-| `generated_evidence_output` | 2326 |
-| `duplicate_stem` | 1812 |
+| `generated_evidence_output` | 2323 |
+| `duplicate_stem` | 1809 |
 | `generated_latest_alias` | 1610 |
 | `generated_dated_artifact` | 402 |
 | `duplicate_filename` | 147 |
@@ -108,7 +108,7 @@ Ignored file names:
 
 | Path | Paths | Files | Dirs |
 | --- | ---: | ---: | ---: |
-| `docs/test_outputs` | 2571 | 2413 | 158 |
+| `docs/test_outputs` | 2568 | 2410 | 158 |
 | `core/tests` | 319 | 307 | 12 |
 | `scripts/testing` | 316 | 315 | 1 |
 | `apps/chrome-extension` | 204 | 161 | 43 |
@@ -205,7 +205,6 @@ Ignored file names:
 | `phase_or_sample_evidence` | 18 | 647355 | 0 | 16 | review after migration: older phase/sample evidence | `docs/test_outputs/ja_en/README.md`<br>`docs/test_outputs/ja_en/golden_samples_20260203_014029.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.tsv` |
 | `dev_workflow_operational` | 17 | 2803182 | 15 | 0 | retain latest: workflow reports support local and CI handoff | `docs/test_outputs/dev_workflow/build_ci_latest.json`<br>`docs/test_outputs/dev_workflow/build_latest.json`<br>`docs/test_outputs/dev_workflow/check_changed_latest.json`<br>`docs/test_outputs/dev_workflow/check_latest.json` |
 | `license_resource_audit` | 5 | 598049 | 1 | 0 | retain latest: resource/license audit evidence | `docs/test_outputs/licensing_header_audit/README.md`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_jmdict.json`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_latest.json`<br>`docs/test_outputs/licensing_header_audit/latest.json` |
-| `root_generated_other` | 3 | 90774 | 0 | 0 | review owner before pruning | `docs/test_outputs/rulegen_benchmark_expanded_smoke.html`<br>`docs/test_outputs/rulegen_benchmark_expanded_smoke.json`<br>`docs/test_outputs/rulegen_benchmark_expanded_smoke.md` |
 | `baseline` | 1 | 901 | 0 | 0 | retain: quality baselines need explicit rationale before changes | `docs/test_outputs/baselines/rulegen_quality_baseline.json` |
 
 ## Duplicate Filenames
@@ -273,7 +272,6 @@ Ignored file names:
 | `rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13` | 3 | `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.html`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md` |
 | `rulegen_benchmark_en_es_reverse_latest` | 3 | `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.html`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.json`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.md` |
 | `rulegen_benchmark_en_es_reverse_recheck_latest` | 3 | `docs/test_outputs/rulegen_benchmark_en_es_reverse_recheck_latest.html`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_recheck_latest.json`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_recheck_latest.md` |
-| `rulegen_benchmark_expanded_smoke` | 3 | `docs/test_outputs/rulegen_benchmark_expanded_smoke.html`<br>`docs/test_outputs/rulegen_benchmark_expanded_smoke.json`<br>`docs/test_outputs/rulegen_benchmark_expanded_smoke.md` |
 | `rulegen_benchmark_latest` | 3 | `docs/test_outputs/rulegen_benchmark_latest.html`<br>`docs/test_outputs/rulegen_benchmark_latest.json`<br>`docs/test_outputs/rulegen_benchmark_latest.md` |
 | `rulegen_benchmark_polysemic_demotion_latest` | 3 | `docs/test_outputs/rulegen_benchmark_polysemic_demotion_latest.html`<br>`docs/test_outputs/rulegen_benchmark_polysemic_demotion_latest.json`<br>`docs/test_outputs/rulegen_benchmark_polysemic_demotion_latest.md` |
 | `srs_journey_en_es_edge_latest` | 3 | `docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.md` |
@@ -281,6 +279,7 @@ Ignored file names:
 | `srs_journey_en_es_latest` | 3 | `docs/test_outputs/srs_journey/srs_journey_en_es_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_latest.md` |
 | `srs_journey_en_es_real_latest` | 3 | `docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.md` |
 | `srs_journey_en_ja_edge_latest` | 3 | `docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_ja_edge_latest.md` |
+| `srs_journey_en_ja_installed_latest` | 3 | `docs/test_outputs/srs_journey/srs_journey_en_ja_installed_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_ja_installed_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_ja_installed_latest.md` |
 
 ## Unreferenced Script Candidates
 

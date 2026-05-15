@@ -558,6 +558,10 @@ Current progress:
   evidence, audit evidence, older phase/sample evidence, root latest aliases,
   and root dated snapshots. These buckets do not hide any paths; they make the
   next prune/archive pass class-based instead of size-based.
+- First manual generated-output cleanup removed the unreferenced
+  `rulegen_benchmark_expanded_smoke` root-output triplet. It had no
+  non-output references and was superseded by later benchmark evidence, so it
+  was deleted rather than archived.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
