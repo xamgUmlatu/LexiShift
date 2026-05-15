@@ -2,8 +2,8 @@
 
 Status: active inventory
 Role: Planning / WIP
-Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, and the SRS quality harness
+Last updated: 2026-05-16
+Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -83,6 +83,7 @@ Completed slices:
 25. L6-Ya: source-bundle component checksum coverage reporting.
 26. L6-Za: generated DE pipeline source-bundle component checksum capture.
 27. L6-Zb: executable provenance promotion policy.
+28. L6-Zc: source-bundle promotion pinning policy.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -238,6 +239,10 @@ What is already solid:
     returns a versioned policy verdict, `pack_lifecycle_audit.py` includes it in
     pack rows, and promotion evidence checks require the policy verdict to be
     ready.
+30. Source-bundle promotion policy now treats URL-recorded but unpinned bundles
+    as review findings. `component_urls_recorded` lineage remains valid
+    provenance, but promotion needs an explicit pinned lineage status such as
+    `pinned_snapshot` or `pinned_component_artifacts`.
 
 Loose ends to close before broad expansion:
 
@@ -273,8 +278,8 @@ Loose ends to close before broad expansion:
     what review data is missing, but the actual copy/convert UX and managed
     pack writer are still future work.
 11. Provenance review posture is now visible through an executable policy
-    verdict, but license/review approval remains a human/source-policy decision
-    outside the audit command.
+    verdict, including source-bundle pinning review, but license/review approval
+    remains a human/source-policy decision outside the audit command.
 12. Strict lifecycle gating can fail on review findings, but it still does not
     replace the source-readiness, SRS Zipf bridge, or denominator audits needed
     before expanded corpus promotion.
@@ -1245,11 +1250,11 @@ Product claim:
 Current implementation:
 
 - `pack_lifecycle_policy.py` defines `pack_provenance_promotion_policy` version
-  `1`.
+  `2`.
 - The policy checks provenance existence/validity, confirmed license status,
   source pointer, durable source identity, raw artifact checksum coverage,
   generated artifact checksum coverage, source-bundle component checksum
-  coverage, and frequency metric completeness.
+  coverage, source-bundle pinning status, and frequency metric completeness.
 - `pack_lifecycle_audit.py` writes `provenance_policy` into each installed-pack
   and semantic-pack row, while preserving the older `provenance_review` shape as
   a compatibility view.
@@ -1286,6 +1291,57 @@ python3 -m ruff format --check \
   scripts/testing/pack_lifecycle_policy.py \
   scripts/testing/pack_lifecycle_audit.py \
   scripts/testing/pack_lifecycle_promotion_evidence.py \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+```
+
+## L6-Zc Source-Bundle Promotion Pinning Policy
+
+Product claim:
+
+- A multi-input generated pack should not become promotion-ready merely because
+  it records component URLs and checksums; it also needs an explicit pinning
+  decision for the source-bundle lineage.
+
+Current implementation:
+
+- `pack_lifecycle_policy.py` now reports source-bundle component pointer
+  coverage through `source_bundle_component_pointer_count`.
+- When a provenance sidecar has `source.source_bundle.components[]`, the policy
+  requires every component to have a source pointer and requires the bundle's
+  `lineage_status` to be promotion-grade.
+- Promotion-grade source-bundle lineage statuses are currently:
+  - `pinned_snapshot`
+  - `pinned_component_artifacts`
+- Existing DE generated-frequency sidecars that only say
+  `component_urls_recorded` remain valid provenance, but the promotion policy
+  now returns review reason `source_bundle_pinning_missing` until an explicit
+  pinning/source-policy decision is recorded.
+
+Boundaries:
+
+1. This does not download or pin any source data.
+2. This does not approve licenses.
+3. This does not change local install behavior; it only makes promotion gating
+   stricter.
+4. The actual per-source pinning decision still belongs to future source policy
+   work.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_policy.py \
   core/tests/dev/test_pack_lifecycle_policy.py \
   core/tests/dev/test_pack_lifecycle_audit.py \
   core/tests/dev/test_pack_lifecycle_promotion_evidence.py
@@ -1890,6 +1946,7 @@ python3 -m ruff format --check \
 | L6-Y Source-bundle checksum coverage | Completed first schema/reporting surface for component checksum coverage without treating missing hashes as approval. | Component checksum validation, lifecycle lineage checksum counts, and focused tests. |
 | L6-Za Generated DE component checksum capture | Completed first installer-time capture for source-bundle component files available during generated DE frequency builds. | DE pipeline component-path callback, checked source-bundle writer path, and focused tests. |
 | L6-Zb Provenance promotion policy | Completed first reusable executable policy verdict for promotion-oriented provenance checks. | `pack_lifecycle_policy.py`, audit `provenance_policy` rows, promotion evidence policy checks, and focused tests. |
+| L6-Zc Source-bundle promotion pinning policy | Completed first promotion-policy blocker for URL-recorded but unpinned source bundles. | Source-bundle pointer/pinning policy checks and focused policy/audit tests. |
 
 ## Validation Bundle For L6-A
 

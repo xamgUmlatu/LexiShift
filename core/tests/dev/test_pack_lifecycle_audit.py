@@ -359,6 +359,7 @@ def _valid_provenance(
             "source_bundle": {
                 "bundle_id": f"{pack_id}:fixture",
                 "bundle_kind": "test_fixture",
+                "lineage_status": "pinned_snapshot",
                 "components": [
                     {
                         "role": "corpus",

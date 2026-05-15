@@ -6,12 +6,16 @@ from typing import Mapping, Sequence
 
 
 PACK_PROVENANCE_POLICY_ID = "pack_provenance_promotion_policy"
-PACK_PROVENANCE_POLICY_VERSION = 1
+PACK_PROVENANCE_POLICY_VERSION = 2
 FREQUENCY_METRIC_KEYS = (
     "row_count",
     "distinct_lemma_count",
     "pos_rows",
     "topic_domain_rows",
+)
+SOURCE_BUNDLE_PROMOTION_LINEAGE_STATUSES = (
+    "pinned_snapshot",
+    "pinned_component_artifacts",
 )
 
 
@@ -29,6 +33,7 @@ def audit_provenance_policy(
     source_bundle_components = [
         _as_mapping(item) for item in _sequence(source_bundle.get("components"))
     ]
+    source_bundle_lineage_status = str(source_bundle.get("lineage_status") or "").strip()
     metrics = _as_mapping(artifact.get("metrics"))
 
     license_status = str(source.get("license_status") or "").strip()
@@ -38,6 +43,9 @@ def audit_provenance_policy(
     artifact_checksum_present = _has_checksum(artifact)
     source_bundle_component_checksum_count = sum(
         1 for item in source_bundle_components if _has_checksum(item)
+    )
+    source_bundle_component_pointer_count = sum(
+        1 for item in source_bundle_components if _component_pointer_kind(item)
     )
 
     checks: list[dict[str, object]] = []
@@ -104,10 +112,27 @@ def audit_provenance_policy(
         if source_bundle_components:
             _append_check(
                 checks,
+                check_id="source_bundle_component_pointers_complete",
+                ok=source_bundle_component_pointer_count == len(source_bundle_components),
+                observed=f"{source_bundle_component_pointer_count}/{len(source_bundle_components)}",
+                review_reason="source_bundle_component_pointer_missing",
+            )
+            _append_check(
+                checks,
                 check_id="source_bundle_component_checksums_complete",
                 ok=source_bundle_component_checksum_count == len(source_bundle_components),
                 observed=f"{source_bundle_component_checksum_count}/{len(source_bundle_components)}",
                 review_reason="source_bundle_component_checksum_missing",
+            )
+            _append_check(
+                checks,
+                check_id="source_bundle_pinning_declared",
+                ok=source_bundle_lineage_status in SOURCE_BUNDLE_PROMOTION_LINEAGE_STATUSES,
+                observed=source_bundle_lineage_status or "missing",
+                review_reason="source_bundle_pinning_missing",
+                detail={
+                    "accepted_lineage_statuses": list(SOURCE_BUNDLE_PROMOTION_LINEAGE_STATUSES),
+                },
             )
         if str(pack_kind or "").strip() == "frequency":
             missing_metric_keys = tuple(key for key in FREQUENCY_METRIC_KEYS if key not in metrics)
@@ -144,6 +169,8 @@ def audit_provenance_policy(
         "artifact_metric_keys": sorted(str(key) for key in metrics),
         "source_bundle_component_count": len(source_bundle_components),
         "source_bundle_component_checksum_count": source_bundle_component_checksum_count,
+        "source_bundle_component_pointer_count": source_bundle_component_pointer_count,
+        "source_bundle_lineage_status": source_bundle_lineage_status,
         "checks": checks,
     }
 
@@ -195,6 +222,16 @@ def _source_identity_kind(source: Mapping[str, object]) -> str:
         return "source_dump"
     if _as_mapping(source.get("source_bundle")):
         return "source_bundle"
+    return ""
+
+
+def _component_pointer_kind(component: Mapping[str, object]) -> str:
+    if str(component.get("source_url") or "").strip():
+        return "source_url"
+    if str(component.get("local_source_path") or "").strip():
+        return "local_source_path"
+    if str(component.get("build_ref") or "").strip():
+        return "build_ref"
     return ""
 
 

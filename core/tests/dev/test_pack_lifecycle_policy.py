@@ -28,6 +28,7 @@ class PackLifecyclePolicyTests(unittest.TestCase):
             policy = audit_provenance_policy(provenance_path=path, pack_kind="frequency")
 
         self.assertEqual(policy["status"], "ok")
+        self.assertEqual(policy["policy_version"], 2)
         self.assertTrue(policy["promotion_ready"])
         self.assertFalse(policy["review_required"])
         self.assertEqual(policy["source_identity_kind"], "source_version")
@@ -60,6 +61,7 @@ class PackLifecyclePolicyTests(unittest.TestCase):
         payload["source"]["source_bundle"] = {
             "bundle_id": "freq-de-default:de_frequency_pipeline",
             "bundle_kind": "generated_frequency_pipeline",
+            "lineage_status": "pinned_snapshot",
             "components": [
                 {
                     "role": "corpus",
@@ -86,6 +88,34 @@ class PackLifecyclePolicyTests(unittest.TestCase):
         self.assertEqual(policy["source_bundle_component_count"], 2)
         self.assertEqual(policy["source_bundle_component_checksum_count"], 1)
         self.assertIn("source_bundle_component_checksum_missing", policy["review_reasons"])
+
+    def test_source_bundle_pinning_status_is_policy_checked(self) -> None:
+        payload = _provenance_payload(source_version="")
+        payload["source"]["source_bundle"] = {
+            "bundle_id": "freq-de-default:de_frequency_pipeline",
+            "bundle_kind": "generated_frequency_pipeline",
+            "lineage_status": "component_urls_recorded",
+            "components": [
+                {
+                    "role": "corpus",
+                    "source_name": "Leipzig",
+                    "source_url": "https://example.com/deu_news_2023_1M.tar.gz",
+                    "filename": "deu_news_2023_1M.tar.gz",
+                    "sha256": "a" * 64,
+                },
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "provenance.json"
+            path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+            policy = audit_provenance_policy(provenance_path=path, pack_kind="frequency")
+
+        self.assertEqual(policy["source_identity_kind"], "source_bundle")
+        self.assertEqual(policy["source_bundle_lineage_status"], "component_urls_recorded")
+        self.assertEqual(policy["source_bundle_component_pointer_count"], 1)
+        self.assertIn("source_bundle_pinning_missing", policy["review_reasons"])
+        self.assertFalse(policy["promotion_ready"])
 
     def test_missing_or_invalid_provenance_is_error(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
