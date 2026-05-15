@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T05:54:47.499034+00:00",
+  "generated_at_utc": "2026-05-15T06:16:43.146280+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -37,8 +37,8 @@
     "directory_count": 283,
     "tracked_file_count": 3884,
     "untracked_file_count": 0,
-    "total_file_bytes": 919607442,
-    "candidate_path_count": 2447,
+    "total_file_bytes": 919608552,
+    "candidate_path_count": 2449,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
     "unreferenced_script_candidate_count": 3
@@ -49,7 +49,7 @@
       "path_count": 2571,
       "file_count": 2413,
       "directory_count": 158,
-      "total_file_bytes": 724930443
+      "total_file_bytes": 724930909
     },
     {
       "family": "core_tests",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1275833
+      "total_file_bytes": 1276123
     },
     {
       "family": "docs_rulegen",
@@ -185,6 +185,13 @@
       "total_file_bytes": 35773
     },
     {
+      "family": "docs_archive",
+      "path_count": 8,
+      "file_count": 5,
+      "directory_count": 3,
+      "total_file_bytes": 19768
+    },
+    {
       "family": "scripts_build",
       "path_count": 8,
       "file_count": 7,
@@ -213,25 +220,18 @@
       "total_file_bytes": 32424
     },
     {
-      "family": "root_directory",
-      "path_count": 7,
-      "file_count": 0,
-      "directory_count": 7,
-      "total_file_bytes": 0
-    },
-    {
-      "family": "docs_archive",
-      "path_count": 6,
-      "file_count": 4,
-      "directory_count": 2,
-      "total_file_bytes": 18224
-    },
-    {
       "family": "docs_gui",
       "path_count": 6,
       "file_count": 5,
       "directory_count": 1,
       "total_file_bytes": 30976
+    },
+    {
+      "family": "root_directory",
+      "path_count": 6,
+      "file_count": 0,
+      "directory_count": 6,
+      "total_file_bytes": 0
     },
     {
       "family": "docs_getting-started",
@@ -267,13 +267,6 @@
       "file_count": 1,
       "directory_count": 0,
       "total_file_bytes": 26648
-    },
-    {
-      "family": "diagram",
-      "path_count": 1,
-      "file_count": 1,
-      "directory_count": 0,
-      "total_file_bytes": 1190
     }
   ],
   "candidate_counts": [
@@ -295,11 +288,11 @@
     },
     {
       "flag": "legacy_or_temporary_name",
-      "path_count": 14
+      "path_count": 16
     },
     {
       "flag": "archive_tree",
-      "path_count": 5
+      "path_count": 7
     },
     {
       "flag": "unreferenced_script_candidate",
@@ -309,9 +302,9 @@
   "top_level_counts": [
     {
       "path": "docs",
-      "path_count": 2940,
-      "file_count": 2754,
-      "directory_count": 186
+      "path_count": 2942,
+      "file_count": 2755,
+      "directory_count": 187
     },
     {
       "path": "core",
@@ -339,12 +332,6 @@
     },
     {
       "path": "data",
-      "path_count": 2,
-      "file_count": 1,
-      "directory_count": 1
-    },
-    {
-      "path": "diagrams",
       "path_count": 2,
       "file_count": 1,
       "directory_count": 1
@@ -508,6 +495,12 @@
       "directory_count": 2
     },
     {
+      "path": "docs/archive",
+      "path_count": 8,
+      "file_count": 5,
+      "directory_count": 3
+    },
+    {
       "path": "docs/semantic_routing_html",
       "path_count": 8,
       "file_count": 6,
@@ -530,12 +523,6 @@
       "path_count": 7,
       "file_count": 6,
       "directory_count": 1
-    },
-    {
-      "path": "docs/archive",
-      "path_count": 6,
-      "file_count": 4,
-      "directory_count": 2
     },
     {
       "path": "docs/gui",
@@ -563,12 +550,6 @@
     },
     {
       "path": "data/TestVocabPool.json",
-      "path_count": 1,
-      "file_count": 1,
-      "directory_count": 0
-    },
-    {
-      "path": "diagrams/lexishift_flow.mmd",
       "path_count": 1,
       "file_count": 1,
       "directory_count": 0
@@ -684,7 +665,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 14,
-      "total_file_bytes": 2621010
+      "total_file_bytes": 2621476
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -24971,28 +24952,6 @@
       "flags": []
     },
     {
-      "path": "diagrams",
-      "kind": "directory",
-      "family": "root_directory",
-      "name": "diagrams",
-      "stem": "diagrams",
-      "suffix": "",
-      "size_bytes": 0,
-      "git_state": "tracked",
-      "flags": []
-    },
-    {
-      "path": "diagrams/lexishift_flow.mmd",
-      "kind": "file",
-      "family": "diagram",
-      "name": "lexishift_flow.mmd",
-      "stem": "lexishift_flow",
-      "suffix": ".mmd",
-      "size_bytes": 1190,
-      "git_state": "tracked",
-      "flags": []
-    },
-    {
       "path": "docs",
       "kind": "directory",
       "family": "root_directory",
@@ -25325,7 +25284,35 @@
       "name": "README.md",
       "stem": "README",
       "suffix": ".md",
-      "size_bytes": 792,
+      "size_bytes": 929,
+      "git_state": "tracked",
+      "flags": [
+        "legacy_or_temporary_name",
+        "archive_tree"
+      ]
+    },
+    {
+      "path": "docs/archive/diagrams",
+      "kind": "directory",
+      "family": "docs_archive",
+      "name": "diagrams",
+      "stem": "diagrams",
+      "suffix": "",
+      "size_bytes": 0,
+      "git_state": "tracked",
+      "flags": [
+        "legacy_or_temporary_name",
+        "archive_tree"
+      ]
+    },
+    {
+      "path": "docs/archive/diagrams/lexishift_flow_legacy.mmd",
+      "kind": "file",
+      "family": "docs_archive",
+      "name": "lexishift_flow_legacy.mmd",
+      "stem": "lexishift_flow_legacy",
+      "suffix": ".mmd",
+      "size_bytes": 1407,
       "git_state": "tracked",
       "flags": [
         "legacy_or_temporary_name",
@@ -25728,7 +25715,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 32676,
+      "size_bytes": 32966,
       "git_state": "tracked",
       "flags": []
     },
@@ -29307,7 +29294,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2521467,
+      "size_bytes": 2521952,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29322,7 +29309,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 61764,
+      "size_bytes": 61745,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",

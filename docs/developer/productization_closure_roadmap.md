@@ -558,6 +558,11 @@ Current progress:
 - Duplicate filename/stem rows are candidate signals only. They mostly identify
   generated evidence families and repeated runtime naming patterns, not
   immediate cleanup approval.
+- First cleanup action: the unreferenced legacy root diagram
+  `diagrams/lexishift_flow.mmd` moved to
+  `docs/archive/diagrams/lexishift_flow_legacy.mmd`. Current maintained diagram
+  sources remain under `docs/architecture/diagrams/`, with rendered assets under
+  `docs/assets/diagrams/`.
 
 Next review step:
 
