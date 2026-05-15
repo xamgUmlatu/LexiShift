@@ -2,8 +2,8 @@
 
 Status: active backlog
 Role: Planning / WIP
-Last updated: 2026-05-15
-Last verified: 2026-05-15 first Lane 2 sentence-veto/generalization splits and project-health report refresh
+Last updated: 2026-05-16
+Last verified: 2026-05-16 scope-boundary sync against `feature_state_matrix.md`, `productization_closure_roadmap.md`, `srs_admission_merge_seam_map.md`, due-aware SRS evidence, and confidence-gating evidence
 Purpose: break the stabilization program into small seam-scoped passes that improve trustworthiness without broad mixed cleanup
 Source-of-truth: planning doc only; current truth still lives in code, tests, `feature_state_matrix.md`, and seam-specific evidence artifacts
 Related docs:
@@ -61,19 +61,19 @@ Execution rule:
 - every backlog item must follow the per-slice checklist in `project_integrity_stabilization_runbook.md`
 - do not start a slice until the bounded re-onboarding packet, pre-edit truth table, and validation bundle are explicit
 
-## Current Working Snapshot (2026-05-15)
+## Current Working Snapshot (2026-05-16)
 
 Verified for the current backlog refresh:
 
 - branch: `codex/veto-data-sources-exp`
 - recent checkpoint commits on this branch:
-  - `1ca04b4` (`Harden workflow Ruff resolution`)
-  - `335f7e8` (`Refresh project health workstream snapshot`)
-  - `0b7bc52` (`Tighten SP2 evidence packet wording`)
-  - `02af414` (`Record SP6 SP7 synthesis checkpoint`)
-- worktree: intentionally dirty; multiple active rulegen/SRS/doc slices and generated evidence outputs remain in progress, so this branch is not a clean restart point
+  - `96329b34` (`Remove duplicate semantic repair root payloads`)
+  - `755ae9ca` (`Group dated rulegen evidence artifacts`)
+  - `83eafdfd` (`Group rulegen broad sweep experiment artifacts`)
+  - `6124a757` (`Route evidence gap augmented datasets`)
+- worktree: clean at the start of this scope-boundary sync; this is a usable restart point for the next bounded slice
 - canonical doc-reference gate: passing
-- `git diff --check`: clean on the current working tree
+- `git diff --check`: clean on the current working tree before this doc update
 
 Current structural pressure from the latest advisory project-health report:
 
@@ -87,15 +87,41 @@ Recent branch-state implications:
    scripts and extension semantic-context runtime code has been cleared for the
    current hotlist. There are no current advisory violations or near-limit
    warnings.
-3. Generated evidence files are now part of normal ongoing work on this branch, so each pass should explicitly say whether it is reading current artifacts, refreshing them, or leaving them untouched.
+3. Generated evidence files are normal ongoing work on this branch, but the
+   current structure cleanup loop is now pause-worthy: generated-output
+   unnecessary audit reports `0` definite-prune groups and `0` review-only
+   groups, experiment retention reports all experiment families routed, and the
+   project-structure inventory reports `0` unreferenced-script candidates.
+4. Do not reopen broad structural cleanup by default. Continue only for a
+   concrete product risk, stale state claim, runtime seam, or proven duplicate
+   with a surviving canonical artifact.
 
-Explicit contradictions already logged in current docs:
+Scope boundary after the latest evidence sync:
 
-1. SRS profile docs still need fixed-allowlist vs unknown-key clarity.
-2. Nested `constraints` / `sizing` docs are descriptive, while helper request sizing is still top-level-authoritative.
-3. Due-aware SRS serving remains documented but not verified end to end.
-4. Extension-side confidence gating for helper rules remains documented but not verified in code.
-5. Planner docs describe multiple strategies, but executable behavior is still dominated by frequency bootstrap.
+Resolved or narrowed:
+
+1. SRS profile fixed-allowlist and unknown-key behavior is no longer an open
+   contradiction; `project_integrity_sp2_profile_schema_packet.md` and
+   `srs_admission_merge_seam_map.md` verify the fixed `v1` allowlist.
+2. Nested `constraints` / `sizing` fields are descriptive mirrors, while helper
+   request sizing remains top-level-authoritative; this is now documented as
+   current behavior, not an unknown.
+3. Due-aware SRS serving is verified at the runtime gate when helper SRS due
+   metadata is present. The remaining limitation is narrower: there is still no
+   dedicated due-only helper publication artifact.
+4. Extension-side confidence gating is verified as not implemented for live
+   helper-published rule activation. Keep it planned/shelved until a real
+   settings surface, runtime code path, and tests are intentionally added.
+
+Still open:
+
+1. Planner docs describe multiple strategies, but executable default behavior
+   remains dominated by frequency bootstrap. `profile_bootstrap` and
+   `profile_growth` are implemented in limited non-default lanes.
+2. `core/lexishift_core/srs/profile_bootstrap.py` remains a structural hotspot,
+   but it should be split only when SRS admission work resumes.
+3. Data-source download lifecycle follow-through remains the clearest
+   cleanup-adjacent product-ops follow-on.
 
 ## Validation Bundles
 
@@ -251,7 +277,8 @@ Reference for `F1` through `F4`:
 
 ## Recommended Initial Sequence
 
-If the goal is to reduce confusion before reducing code size, start here:
+If the goal is to reduce confusion before reducing code size, the original
+sequence was:
 
 1. A2 `Developer routing audit`
 2. A3 `Project-health workstream refresh`
@@ -263,6 +290,17 @@ If the goal is to reduce confusion before reducing code size, start here:
 8. C4 `Due-aware serving audit`
 9. C5 `Confidence-gating audit`
 10. D1 `Phase-0 semantic baseline freeze refresh`
+
+Current 2026-05-16 resume rule:
+
+- Do not restart this full sequence by default.
+- Treat C1, C4, and C5 as answered enough for scope control: C1 is fixed
+  allowlist/top-level sizing authority, C4 is runtime due-aware serving when
+  helper metadata is present, and C5 is planned/not implemented for live
+  helper-rule activation.
+- If SRS admission work resumes, start from C3/D2 rather than redoing C1/C4/C5.
+- If no SRS admission work is active, prefer the data-source download lifecycle
+  follow-through or a specifically named product-risk seam.
 
 If the goal is to start structural cleanup as soon as the contracts are explicit, begin the refactor queue after `B3` and `C3`, starting with `F1` through `F5`.
 
@@ -284,7 +322,7 @@ Recommended posture:
 | Priority | Follow-on | Why it is still worth doing | Current recommendation |
 |---|---|---|---|
 | `1` | data-source download lifecycle follow-through | This is the main operability improvement left in the cleanup-adjacent queue: remote-overridable download URLs, explicit failure classification, and a lightweight source-audit workflow. | treat as the only clear low-hanging follow-on if one more bounded cleanup slice is wanted |
-| `2` | due-aware serving decision | This is the highest-value remaining semantic question because the current harness still records a due-aware warning instead of a resolved end-to-end contract. | keep important but shelved unless we intentionally want another deep SRS semantics pass |
+| `2` | SRS planner execution follow-through | The remaining SRS ambiguity is planner execution breadth, not due-aware runtime serving. Frequency bootstrap still dominates default execution while profile strategies stay limited/non-default. | shelve unless admission work resumes intentionally |
 | `3` | project-health baseline decision | This determines whether the repo should return toward zero-warning structural discipline after the recent hotspot reductions. | shelve until more day-to-day work lands or until we are ready to change enforcement expectations |
 
 ### Explicitly Shelved For Now
@@ -292,6 +330,7 @@ Recommended posture:
 These are valid future programs, but they should not be mistaken for remaining stabilization debt:
 
 - extension confidence gating for helper-published rules
+- dedicated due-only helper publication artifact
 - narrower Share Center export/import schemas beyond the current compatibility wording
 - broader preventive structural splits (`F12` through `F16`) unless new work in those files makes the split timely
 - any restart of broad semantic/rulegen cleanup without a new concrete seam or regression signal
@@ -301,7 +340,7 @@ These are valid future programs, but they should not be mistaken for remaining s
 If follow-on work resumes later, prefer this order:
 
 1. data-source download lifecycle
-2. due-aware serving decision
+2. SRS planner execution follow-through
 3. project-health baseline decision
 
 Everything below that should stay shelved until selected as a deliberate next program.

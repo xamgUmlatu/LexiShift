@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, generated-only experiment-family routing review, rulegen experiment-family relocation, root-dated rulegen evidence relocation, and root-dated semantic repair duplicate removal
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, generated-only experiment-family routing review, rulegen experiment-family relocation, root-dated rulegen evidence relocation, root-dated semantic repair duplicate removal, and stabilization backlog scope-boundary sync
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -679,14 +679,22 @@ Structural cleanup checkpoint:
   large counts; root-level latest aliases and duplicate-stem rows are expected
   to remain broad signals until a stronger retention policy is chosen.
 
-Next review step:
+Current resume rule:
 
-1. review `../test_outputs/dev_workflow/experiment_payload_retention_latest.md`,
-2. choose one narrow cleanup queue only if it has an explicit product-risk
-   reason; otherwise pause structural cleanup and return to higher-value
-   productization lanes,
-3. prove exact references, generated-artifact ownership, and historical value
-   before archiving or deleting anything.
+1. Do not restart broad structural cleanup by default; the current generated
+   evidence, experiment-retention, and unreferenced-script reports are already
+   good enough to pause.
+2. Prefer Lane 6 data-source download lifecycle follow-through as the next
+   high-value productization slice: source-bundle evidence, source-version/dump
+   policy, license/review policy, exact import preflight/backfill, and promotion
+   evidence where the current sidecars still carry partial evidence.
+3. If SRS work resumes instead, treat planner execution breadth as the open
+   follow-on. Due-aware runtime serving is already verified when helper SRS due
+   metadata is present; a dedicated due-only publication artifact remains
+   shelved.
+4. Reopen structural cleanup only for a named product-risk reason, then prove
+   exact references, generated-artifact ownership, and historical value before
+   archiving or deleting anything.
 
 ## Per-Slice Review Template
 
