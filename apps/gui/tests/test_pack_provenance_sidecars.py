@@ -7,6 +7,7 @@ from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
+from unittest.mock import patch
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
@@ -28,6 +29,7 @@ from language_packs_catalog import FrequencyPackInfo, LanguagePackInfo  # noqa: 
 from lexishift_core.frequency.sqlite import ParseConfig  # noqa: E402
 from lexishift_core.helper.pack_provenance import PACK_PROVENANCE_FILENAME  # noqa: E402
 from lexishift_core.helper.pack_provenance import validate_pack_provenance_file  # noqa: E402
+from lexishift_core.helper.pack_source_identity import source_bundle_fields_for_pack  # noqa: E402
 from settings_language_packs_transfer_mixin import LanguagePackPanelTransferMixin  # noqa: E402
 
 
@@ -224,6 +226,8 @@ def test_de_frequency_pack_manifest_write_includes_source_bundle() -> None:
         archive = pack_root / "deu_news_2023_1M.tar.gz"
         artifact.parent.mkdir(parents=True)
         artifact.write_bytes(b"SQLite format 3\x00")
+        archive_bytes = b"de frequency corpus archive"
+        archive.write_bytes(archive_bytes)
         pack = FrequencyPackInfo(
             pack_id="freq-de-default",
             name="German News Frequency",
@@ -238,17 +242,69 @@ def test_de_frequency_pack_manifest_write_includes_source_bundle() -> None:
         )
 
         thread = FrequencyPackDownloadThread(pack, str(archive), str(artifact))
+        thread._source_bundle_fields = source_bundle_fields_for_pack(
+            pack,
+            component_paths={archive.name: archive},
+        )
         thread._write_manifest(str(artifact))
         provenance_path = pack_root / PACK_PROVENANCE_FILENAME
         payload = json.loads(provenance_path.read_text(encoding="utf-8"))
         bundle = payload["source"]["source_bundle"]
+        corpus_component = next(
+            item for item in bundle["components"] if item["filename"] == archive.name
+        )
 
         assert validate_pack_provenance_file(provenance_path) == ()
         assert bundle["bundle_id"] == "freq-de-default:de_frequency_pipeline"
         assert bundle["bundle_kind"] == "generated_frequency_pipeline"
         assert len(bundle["components"]) >= 8
+        assert corpus_component["sha1"] == hashlib.sha1(archive_bytes).hexdigest()
+        assert corpus_component["sha256"] == hashlib.sha256(archive_bytes).hexdigest()
         assert "source_version" not in payload["source"]
         assert "source_dump" not in payload["source"]
+
+
+def test_de_frequency_build_captures_source_bundle_component_checksums() -> None:
+    with TemporaryDirectory() as temp_dir:
+        pack_root = Path(temp_dir) / "frequency_packs" / "freq-de-default"
+        artifact = pack_root / "main.sqlite"
+        archive = pack_root / "deu_news_2023_1M.tar.gz"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_bytes(b"SQLite format 3\x00")
+        archive_bytes = b"de frequency corpus archive"
+        archive.write_bytes(archive_bytes)
+        pack = FrequencyPackInfo(
+            pack_id="freq-de-default",
+            name="German News Frequency",
+            language="German",
+            source="Leipzig + LanguageTool",
+            size="80 MB",
+            url="https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+            wayback_url="https://web.archive.org/web/*/https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+            filename="deu_news_2023_1M.tar.gz",
+            sqlite_filename="main.sqlite",
+            build_mode="de_frequency_pipeline",
+        )
+        thread = FrequencyPackDownloadThread(pack, str(archive), str(artifact))
+        thread._language_packs_dir = lambda: Path(temp_dir) / "language_packs"
+
+        def _fake_pipeline(**kwargs):
+            kwargs["source_bundle_component_paths_cb"]({archive.name: archive})
+            return SimpleNamespace(output_path=artifact)
+
+        with patch(
+            "lexishift_core.frequency.de.pipeline.run_de_frequency_pipeline",
+            side_effect=_fake_pipeline,
+        ):
+            sqlite_path = thread._build_de_pipeline()
+        bundle = thread._source_bundle_fields["source_bundle"]
+        corpus_component = next(
+            item for item in bundle["components"] if item["filename"] == archive.name
+        )
+
+    assert sqlite_path == str(artifact)
+    assert corpus_component["sha1"] == hashlib.sha1(archive_bytes).hexdigest()
+    assert corpus_component["sha256"] == hashlib.sha256(archive_bytes).hexdigest()
 
 
 def test_embedding_finalize_creates_provenance_sidecar() -> None:

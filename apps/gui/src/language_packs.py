@@ -12,6 +12,7 @@ from pathlib import Path
 import ssl
 import sys
 from datetime import datetime
+from typing import Mapping
 
 from PySide6.QtCore import QThread, Signal, QStandardPaths
 
@@ -531,6 +532,7 @@ class FrequencyPackDownloadThread(QThread):
         self._sqlite_path = sqlite_path
         self._raw_artifact_sha1 = ""
         self._raw_artifact_sha256 = ""
+        self._source_bundle_fields: dict[str, Mapping[str, object]] = {}
 
     def run(self) -> None:
         try:
@@ -588,6 +590,12 @@ class FrequencyPackDownloadThread(QThread):
         def _progress(done: int, total: int) -> None:
             self.progress.emit(self._pack_id, int(done), int(total))
 
+        def _capture_source_bundle(component_paths: Mapping[str, Path]) -> None:
+            self._source_bundle_fields = source_bundle_fields_for_pack(
+                self._pack,
+                component_paths=component_paths,
+            )
+
         result = run_de_frequency_pipeline(
             output_sqlite=Path(self._sqlite_path),
             language_packs_dir=self._language_packs_dir(),
@@ -595,6 +603,7 @@ class FrequencyPackDownloadThread(QThread):
             drop_proper_nouns=True,
             progress_cb=_progress,
             cancel_cb=lambda: bool(self.isInterruptionRequested()),
+            source_bundle_component_paths_cb=_capture_source_bundle,
         )
         if self.isInterruptionRequested():
             self._cleanup_partial(self._sqlite_path)
@@ -610,6 +619,9 @@ class FrequencyPackDownloadThread(QThread):
     def _write_manifest(self, sqlite_path: str) -> None:
         pack_root = Path(self._sqlite_path).parent
         artifact_path = Path(sqlite_path)
+        source_bundle_fields = self._source_bundle_fields or source_bundle_fields_for_pack(
+            self._pack
+        )
         write_installed_pack_manifest(
             pack_root.parent,
             pack_id=self._pack_id,
@@ -644,7 +656,7 @@ class FrequencyPackDownloadThread(QThread):
                 artifact_path=artifact_path,
             ),
             **safe_pack_source_identity_fields(self._pack),
-            **source_bundle_fields_for_pack(self._pack),
+            **source_bundle_fields,
         )
 
     def _convert_to_sqlite(self, archive_path: str) -> str:

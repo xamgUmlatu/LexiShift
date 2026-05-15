@@ -9,7 +9,7 @@ import ssl
 import subprocess
 import tarfile
 import tempfile
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Mapping, Optional
 import urllib.request
 
 from lexishift_core.frequency.de.build import BuildResult, build_de_frequency_sqlite
@@ -77,6 +77,7 @@ DE_POS_SOURCE_EIG_SONSTIGE = "eig_sonstige"
 
 ProgressCallback = Callable[[int, int], None]
 CancelCallback = Callable[[], bool]
+SourceBundleComponentPathsCallback = Callable[[Mapping[str, Path]], None]
 
 
 def default_data_root() -> Path:
@@ -523,6 +524,26 @@ def _stage_download_progress(
     return _inner
 
 
+def _source_bundle_component_paths(
+    *,
+    workspace: Path,
+    language_packs_dir: Path,
+) -> dict[str, Path]:
+    paths = {
+        Path(LEIPZIG_CORPUS_URL).name: workspace / Path(LEIPZIG_CORPUS_URL).name,
+        Path(FREEDICT_DE_EN_URL).name: workspace / Path(FREEDICT_DE_EN_URL).name,
+        "odenet_oneline.xml": language_packs_dir / "odenet_oneline.xml",
+        "openthesaurus.txt": language_packs_dir / "openthesaurus.txt",
+        "german.dict": workspace / "german.dict",
+        "german.info": workspace / "german.info",
+        "EIG.txt": workspace / "EIG.txt",
+        "sonstige.txt": workspace / "sonstige.txt",
+    }
+    morfologik_cache = language_packs_dir / ".de_pos_tools" / "morfologik-2.1.9"
+    paths.update({filename: morfologik_cache / filename for filename in MORFOLOGIK_TOOLS})
+    return paths
+
+
 def run_de_frequency_pipeline(
     *,
     output_sqlite: Path,
@@ -537,6 +558,7 @@ def run_de_frequency_pipeline(
     keep_temp: bool = False,
     progress_cb: Optional[ProgressCallback] = None,
     cancel_cb: Optional[CancelCallback] = None,
+    source_bundle_component_paths_cb: Optional[SourceBundleComponentPathsCallback] = None,
 ) -> BuildResult:
     output_sqlite = output_sqlite.expanduser().resolve()
     language_packs_dir = language_packs_dir.expanduser().resolve()
@@ -614,6 +636,13 @@ def run_de_frequency_pipeline(
             if last_error is not None and pos_compact_path is None:
                 raise last_error
             _check_cancel(cancel_cb)
+        if source_bundle_component_paths_cb is not None:
+            source_bundle_component_paths_cb(
+                _source_bundle_component_paths(
+                    workspace=workspace,
+                    language_packs_dir=language_packs_dir,
+                )
+            )
         _emit_progress(progress_cb, 88, 100)
 
         result = build_de_frequency_sqlite(

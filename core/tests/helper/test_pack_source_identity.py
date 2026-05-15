@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import sys
+import tempfile
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
@@ -121,6 +123,39 @@ class TestPackSourceIdentity(unittest.TestCase):
         self.assertIn("lexicon_whitelist", component_roles)
         self.assertIn("pos_lexicon_primary", component_roles)
         self.assertIn("pos_tooling", component_roles)
+
+    def test_de_frequency_source_bundle_fields_include_component_checksums(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="freq-de-default",
+            source="Leipzig + LanguageTool",
+            filename="deu_news_2023_1M.tar.gz",
+            url="https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+            build_mode="de_frequency_pipeline",
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus_path = Path(tmp) / "deu_news_2023_1M.tar.gz"
+            corpus_bytes = b"corpus archive bytes"
+            corpus_path.write_bytes(corpus_bytes)
+
+            fields = source_bundle_fields_for_pack(
+                pack,
+                component_paths={
+                    "deu_news_2023_1M.tar.gz": corpus_path,
+                    "german.dict": Path(tmp) / "missing-german.dict",
+                },
+            )
+            bundle = fields["source_bundle"]
+
+        corpus_component = next(
+            item for item in bundle["components"] if item["filename"] == "deu_news_2023_1M.tar.gz"
+        )
+        missing_component = next(
+            item for item in bundle["components"] if item["filename"] == "german.dict"
+        )
+        self.assertEqual(corpus_component["sha1"], hashlib.sha1(corpus_bytes).hexdigest())
+        self.assertEqual(corpus_component["sha256"], hashlib.sha256(corpus_bytes).hexdigest())
+        self.assertNotIn("sha1", missing_component)
+        self.assertNotIn("sha256", missing_component)
 
 
 if __name__ == "__main__":

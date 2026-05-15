@@ -14,9 +14,11 @@ from lexishift_core.frequency.de.pipeline import (  # noqa: E402
     DE_POS_SOURCE_AUTO,
     DE_POS_SOURCE_EIG_SONSTIGE,
     DE_POS_SOURCE_GERMAN_DICT,
+    MORFOLOGIK_TOOLS,
     _convert_morfologik_decompiled_to_tsv,
     _normalize_de_pos_source,
     _resolve_de_pos_source_order,
+    _source_bundle_component_paths,
 )
 
 
@@ -83,6 +85,25 @@ class TestDePipelinePosSources(unittest.TestCase):
                     input_path=input_path,
                     output_path=output_path,
                 )
+
+    def test_source_bundle_component_paths_match_pipeline_workspace_layout(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            workspace = Path(tmp) / "workspace"
+            language_packs_dir = Path(tmp) / "language_packs"
+
+            paths = _source_bundle_component_paths(
+                workspace=workspace,
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(paths["deu_news_2023_1M.tar.gz"], workspace / "deu_news_2023_1M.tar.gz")
+        self.assertEqual(paths["odenet_oneline.xml"], language_packs_dir / "odenet_oneline.xml")
+        self.assertEqual(paths["openthesaurus.txt"], language_packs_dir / "openthesaurus.txt")
+        for filename in MORFOLOGIK_TOOLS:
+            self.assertEqual(
+                paths[filename],
+                language_packs_dir / ".de_pos_tools" / "morfologik-2.1.9" / filename,
+            )
 
 
 if __name__ == "__main__":

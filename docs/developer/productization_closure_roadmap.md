@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, semantic source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, and source-bundle checksum coverage tests
+Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, semantic source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict pack lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, and generated DE component checksum capture tests
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -377,7 +377,7 @@ pack uncertainty before any larger Spanish corpus is promoted.
 Current Lane 6 progress:
 
 - `docs/developer/productization_lane6_data_provenance_inventory.md` now
-  records L6-A through L6-Ya: current pack/source provenance inventory, pack
+  records L6-A through L6-Za: current pack/source provenance inventory, pack
   provenance sidecar contract, pack lifecycle audit command, semantic pack
   provenance and lineage, en-es candidate readiness runbook, app-managed
   non-semantic installer provenance, manual resource settings disposition
@@ -389,7 +389,8 @@ Current Lane 6 progress:
   source digests, catalog source-identity classification, safe source-version
   writer/backfill, dated Kaikki source-dump gating, source-bundle lineage for
   generated DE frequency output, embedding/manual checksum lineage, frequency
-  SQLite artifact metrics, and source-bundle checksum coverage reporting.
+  SQLite artifact metrics, source-bundle checksum coverage reporting, and
+  generated DE pipeline component checksum capture.
 - L6-A maps the pack catalog, pack source manifest, installed-pack manifests,
   pack refs/resolvers, semantic pack-copy manifest, profile publication
   manifest, generated evidence artifacts, and current en-es corpus-expansion
@@ -484,6 +485,10 @@ Current Lane 6 progress:
 - L6-Ya validates optional component checksums on source-bundle components and
   makes lifecycle lineage report source-bundle component checksum coverage
   separately from bundle presence/component count.
+- L6-Za makes new app-managed generated DE frequency builds expose local
+  component paths before cleanup, compute SHA-1/SHA-256 for matching available
+  source-bundle components, and write the checked bundle into the provenance
+  sidecar.
 - The main finding is explicit: managed pack roots and publication manifests
   exist, but installed manifests are not complete source/license/generation
   provenance records, existing/manual/legacy paths can still lack sidecar-backed
@@ -496,8 +501,9 @@ Current Lane 6 progress:
   full schema/metric policy where the current sidecars still carry only partial
   evidence. Current Kaikki rows also still need an actual dated dump
   acquisition/pinning decision before they can gain sidecar `source_dump`, and
-  generated-pipeline bundles still need component checksum capture,
-  license-review, and pinning decisions before promotion-grade evidence.
+  generated-pipeline bundles still need complete component checksum coverage for
+  reused/missing inputs, license-review, and pinning decisions before
+  promotion-grade evidence.
   Source-version mutation is now limited to the `safe_to_write` classification
   rows and must not expand to `label_only`/`needs_policy` rows without source
   policy.

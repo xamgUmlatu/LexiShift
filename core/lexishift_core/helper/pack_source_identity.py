@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
+import hashlib
 from pathlib import Path
 import re
 from typing import Mapping
@@ -169,11 +170,15 @@ def safe_pack_source_identity_fields(pack: object) -> dict[str, str]:
     return {decision.candidate_field: decision.candidate_value}
 
 
-def source_bundle_fields_for_pack(pack: object) -> dict[str, Mapping[str, object]]:
+def source_bundle_fields_for_pack(
+    pack: object,
+    *,
+    component_paths: Mapping[str, Path] | None = None,
+) -> dict[str, Mapping[str, object]]:
     build_mode = _text(getattr(pack, "build_mode", "download_only")) or "download_only"
     if build_mode != "de_frequency_pipeline":
         return {}
-    return {"source_bundle": _de_frequency_source_bundle(pack)}
+    return {"source_bundle": _de_frequency_source_bundle(pack, component_paths=component_paths)}
 
 
 def _artifact_identity(filename: str) -> str:
@@ -211,7 +216,11 @@ def _dated_dump_identity(values: tuple[str, ...]) -> str:
     return ""
 
 
-def _de_frequency_source_bundle(pack: object) -> dict[str, object]:
+def _de_frequency_source_bundle(
+    pack: object,
+    *,
+    component_paths: Mapping[str, Path] | None = None,
+) -> dict[str, object]:
     from lexishift_core.frequency.de import pipeline as de_pipeline
 
     pack_id = _text(getattr(pack, "pack_id", "")) or "freq-de-default"
@@ -277,11 +286,14 @@ def _de_frequency_source_bundle(pack: object) -> dict[str, object]:
                 "filename": filename,
             }
         )
+    checked_components = [
+        _with_component_checksum(component, component_paths or {}) for component in components
+    ]
     return {
         "bundle_id": f"{pack_id}:de_frequency_pipeline",
         "bundle_kind": "generated_frequency_pipeline",
         "lineage_status": "component_urls_recorded",
-        "components": components,
+        "components": checked_components,
         "notes": [
             "source_bundle_is_not_license_approval",
             "de_pos_source_auto_prefers_german_dict_then_eig_sonstige",
@@ -301,3 +313,31 @@ def _text(value: object) -> str:
     if value is None:
         return ""
     return str(value).strip()
+
+
+def _with_component_checksum(
+    component: Mapping[str, object],
+    component_paths: Mapping[str, Path],
+) -> dict[str, object]:
+    item = dict(component)
+    filename = _text(item.get("filename"))
+    source_path = component_paths.get(filename) if filename else None
+    checksums = _file_checksums(source_path) if source_path is not None else {}
+    item.update(checksums)
+    return item
+
+
+def _file_checksums(path: Path) -> dict[str, str]:
+    file_path = Path(path)
+    if not file_path.is_file():
+        return {}
+    sha1 = hashlib.sha1()
+    sha256 = hashlib.sha256()
+    with file_path.open("rb") as handle:
+        while chunk := handle.read(1024 * 1024):
+            sha1.update(chunk)
+            sha256.update(chunk)
+    return {
+        "sha1": sha1.hexdigest(),
+        "sha256": sha256.hexdigest(),
+    }

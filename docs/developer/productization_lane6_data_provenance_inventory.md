@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -79,6 +79,7 @@ Completed slices:
 23. L6-Wa: embedding/manual checksum lineage.
 24. L6-Xa: frequency SQLite artifact metrics.
 25. L6-Ya: source-bundle component checksum coverage reporting.
+26. L6-Za: generated DE pipeline source-bundle component checksum capture.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -112,7 +113,7 @@ Explicitly out of scope:
 | Family | Current Managed Shape | Current Provenance | Main Lane 6 Gap |
 | --- | --- | --- | --- |
 | Translation dictionaries | App-managed FreeDict and Kaikki installs build to SQLite under a pack-id root and write `manifest.json`; helper resolution is pack-id-first with legacy filename fallbacks. | Catalog has source/provider URL fields; installed manifest has provider, build mode, artifact relpath, source filename, sqlite filename, and installed timestamp. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative `requires_review` license status, build mode, build command, parser config when applicable, converter source SHA-256 digest, source filename, SQLite filename, generated artifact relpath/kind, generated artifact SHA-1, and downloaded raw artifact SHA-1/SHA-256 for new installs. | Existing installs need reinstall/backfill, source license approval is not encoded, schema/row-count records are still audit outputs, and manual/legacy fallback paths still depend on inference. |
-| Frequency packs | App-managed frequency installs build to SQLite under a pack-id root and write `manifest.json`; runtime diagnostics expose frequency pack id/provider/POS profile. | Catalog plus installed manifest identify provider/build mode/source filename and the generated artifact path. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, build command, parser config/POS-inventory config when applicable, converter source SHA-256 digest, source filename, SQLite filename, artifact relpath/kind, generated artifact SHA-1, parsed raw-source SHA-1/SHA-256 for new downloaded-source conversions, and frequency SQLite metrics (`row_count`, `distinct_lemma_count`, `pos_rows`, `topic_domain_rows`) when the artifact is readable during install or sidecar backfill. | Approved source/license status, source version, raw checksum for generated pipeline/backfilled installs, source-bundle component checksum capture, full schema detail, and promotion-ready audit artifacts are still outside installer-written provenance. Spanish expansion candidates need versioned pack ids and audit artifacts before promotion. |
+| Frequency packs | App-managed frequency installs build to SQLite under a pack-id root and write `manifest.json`; runtime diagnostics expose frequency pack id/provider/POS profile. | Catalog plus installed manifest identify provider/build mode/source filename and the generated artifact path. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, build command, parser config/POS-inventory config when applicable, converter source SHA-256 digest, source filename, SQLite filename, artifact relpath/kind, generated artifact SHA-1, parsed raw-source SHA-1/SHA-256 for new downloaded-source conversions, available source-bundle component SHA-1/SHA-256 for generated DE pipeline inputs present during install, and frequency SQLite metrics (`row_count`, `distinct_lemma_count`, `pos_rows`, `topic_domain_rows`) when the artifact is readable during install or sidecar backfill. | Approved source/license status, source version, complete generated-pipeline component coverage for reused/missing inputs, full schema detail, and promotion-ready audit artifacts are still outside installer-written provenance. Spanish expansion candidates need versioned pack ids and audit artifacts before promotion. |
 | Embedding packs | App-managed embeddings use pack-id roots, manifest-backed artifacts, and embedding pack refs; manual/raw paths remain compatibility inputs. | Installed manifest records provider, build mode, source filename, sqlite filename, and artifact path. App-managed SQLite finalization now also writes `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, embedding converter command, converter source SHA-256 digest when the script is available, source filename, SQLite filename, artifact relpath/kind, generated artifact SHA-1, and raw vector SHA-1/SHA-256 when the app-managed conversion source is still available during finalization. External import preflight also computes file checksums for supported manual paths before any mutation. | License approval, source version/release identity, raw vector retention, conversion parameters, directory checksums, existing-install backfill checksums, and manual/raw-path sidecar writing remain outside first-class lifecycle coverage. |
 | Secondary lexical packs | WordNet, Moby, OpenThesaurus, OdeNet, JMDict, and CC-CEDICT remain mixed/raw or compatibility surfaces. | Catalog records source/provider URL fields; some managed downloads may write basic installed manifests. | Family-wide promotion decision is still pending; they should not be treated as core normalized runtime packs until evaluated. |
 | Semantic source/evidence batches | Semantic lifecycle docs define source registry, raw batches, normalized evidence, compiled generation, publication family, and helper-local materialization layers. | Planning contracts require append-only raw evidence and explicit provenance. | The cross-pack Lane 6 gate still needs an implemented source/generation audit tying raw evidence, compiled inventory, semantic pack copy, and profile publication together. |
@@ -227,6 +228,9 @@ What is already solid:
 27. Source-bundle component checksums are now schema-validated when present, and
     lifecycle lineage reports component checksum coverage separately from source
     URL/component-count lineage.
+28. New app-managed generated DE frequency installs now compute source-bundle
+    component checksums for pipeline input files that are present before the
+    temporary build workspace is cleaned up.
 
 Loose ends to close before broad expansion:
 
@@ -268,25 +272,26 @@ Loose ends to close before broad expansion:
     before expanded corpus promotion.
 13. The promotion evidence bundle checks that required proof artifacts exist
     and pass; it does not create missing policy-gated source-dump,
-    license-approval, non-installer checksum, source-bundle component checksum
-    capture, or source-bundle pinning evidence.
+    license-approval, non-installer checksum, complete source-bundle component
+    checksum coverage, or source-bundle pinning evidence.
 14. Build command, parser config, and converter source-digest lineage are now
     captured for app-managed install/backfill paths where known, but existing
     sidecars need reinstall or explicit backfill to gain that data.
 15. Raw checksum capture is still incomplete for app-managed embedding
     finalization when the raw vector is no longer available, existing-install
-    backfill, external directories, managed-import sidecar writing, and
-    generated DE frequency pipeline component inputs.
+    backfill, external directories, managed-import sidecar writing, and generated
+    DE frequency pipeline component inputs that were reused or not present during
+    the installer-time capture callback.
 16. Safe source-version mutation is implemented only for `safe_to_write` rows,
     but existing sidecars need reinstall or explicit backfill to gain it, and
     current Kaikki catalog rows still lack dated dump identity. Label-only
     samples, policy-gated sources, and embedding release identity remain
     unresolved.
 17. Source-bundle lineage is now recorded for the generated DE frequency
-    pipeline, and checksum coverage is visible when component hashes are present.
-    The current installer-written DE bundle still does not prove complete
-    component checksum capture, license approval, or pinned snapshots for rolling
-    upstream sources.
+    pipeline, and installer-time checksum capture can write component hashes for
+    files present during the build. It still does not prove complete component
+    checksum coverage, license approval, or pinned snapshots for rolling upstream
+    sources.
 18. Frequency SQLite metrics are sidecar evidence, not source-readiness proof.
     They do not replace the source-readiness audit, schema audit, SRS Zipf
     bridge, denominator audit, or promotion evidence bundle.
@@ -1139,8 +1144,8 @@ Current implementation:
 
 Boundaries:
 
-1. This does not yet compute or write component checksums for the generated DE
-   frequency pipeline.
+1. This is the schema/reporting layer. L6-Za is the installer-time capture layer
+   for generated DE frequency pipeline inputs.
 2. This does not pin rolling/head upstream URLs.
 3. This does not approve source licenses.
 4. This does not make missing source-bundle component checksums a strict review
@@ -1162,6 +1167,63 @@ python3 -m ruff format --check \
   scripts/testing/pack_lifecycle_provenance_lineage.py \
   core/tests/helper/test_pack_provenance.py \
   core/tests/dev/test_pack_lifecycle_audit.py
+```
+
+## L6-Za Generated DE Component Checksum Capture
+
+Product claim:
+
+- A generated multi-input frequency artifact should record checksums for the
+  source-bundle component files that were actually available during its managed
+  build.
+
+Current implementation:
+
+- `run_de_frequency_pipeline(...)` accepts an optional
+  `source_bundle_component_paths_cb` callback and calls it before the temporary
+  build workspace is removed.
+- `_source_bundle_component_paths(...)` exposes the pipeline's expected local
+  component paths for the Leipzig corpus archive, FreeDict source archive when
+  downloaded during this run, OdeNet, OpenThesaurus, german-pos-dict inputs, and
+  Morfologik tool jars.
+- `source_bundle_fields_for_pack(...)` can now accept component paths and add
+  SHA-1/SHA-256 fields to matching source-bundle components when the files are
+  present.
+- `FrequencyPackDownloadThread._build_de_pipeline(...)` captures the checked
+  source bundle from the callback, and `_write_manifest(...)` writes the captured
+  bundle into `provenance.json`.
+
+Boundaries:
+
+1. This captures available installer-time files only. It does not invent
+   checksums for reused FreeDict installs, branch paths not exercised by the run,
+   or files already gone before backfill.
+2. This does not pin rolling/head upstream URLs.
+3. This does not approve source licenses.
+4. This does not make incomplete component checksum coverage a strict review
+   failure yet.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/frequency/test_de_pipeline_pos_sources.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py
+python3 -m ruff check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  core/lexishift_core/frequency/de/pipeline.py \
+  apps/gui/src/language_packs.py \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/frequency/test_de_pipeline_pos_sources.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  core/lexishift_core/frequency/de/pipeline.py \
+  apps/gui/src/language_packs.py \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/frequency/test_de_pipeline_pos_sources.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -1761,6 +1823,7 @@ python3 -m ruff format --check \
 | L6-W Embedding/manual checksum lineage | Completed first checksum slice for app-managed embedding conversion sources and read-only manual external import preflight files. | Embedding finalization raw-vector checksums, external import preflight auto-checksums, and focused tests. |
 | L6-X Frequency SQLite artifact metrics | Completed first generated-artifact metric slice for frequency sidecars only. | Frequency SQLite metric helper, installer/backfill `artifact.metrics` wiring, and focused tests. |
 | L6-Y Source-bundle checksum coverage | Completed first schema/reporting surface for component checksum coverage without treating missing hashes as approval. | Component checksum validation, lifecycle lineage checksum counts, and focused tests. |
+| L6-Z Generated DE component checksum capture | Completed first installer-time capture for source-bundle component files available during generated DE frequency builds. | DE pipeline component-path callback, checked source-bundle writer path, and focused tests. |
 
 ## Validation Bundle For L6-A
 
