@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, and the SRS quality harness
+Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -34,6 +34,7 @@ Related docs:
 - `../../scripts/testing/pack_lifecycle_provenance_backfill.py`
 - `../../scripts/testing/pack_lifecycle_promotion_evidence.py`
 - `../../scripts/testing/pack_lifecycle_source_identity_plan.py`
+- `../../scripts/testing/pack_lifecycle_source_policy_decisions.py`
 - `../../core/tests/helper/test_pack_artifact_metrics.py`
 - `../../core/tests/helper/test_pack_source_identity.py`
 - `../../core/tests/helper/test_pack_provenance.py`
@@ -84,6 +85,7 @@ Completed slices:
 26. L6-Za: generated DE pipeline source-bundle component checksum capture.
 27. L6-Zb: executable provenance promotion policy.
 28. L6-Zc: source-bundle promotion pinning policy.
+29. L6-Zd: source-policy decision queue.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -243,6 +245,11 @@ What is already solid:
     as review findings. `component_urls_recorded` lineage remains valid
     provenance, but promotion needs an explicit pinned lineage status such as
     `pinned_snapshot` or `pinned_component_artifacts`.
+31. The lifecycle audit now emits a read-only source-policy decision queue that
+    groups non-ready provenance checks into concrete follow-up categories and
+    recommended actions, such as license review, source identity, raw/generated
+    checksums, source-bundle checksum coverage, source-bundle pinning, and
+    frequency metrics.
 
 Loose ends to close before broad expansion:
 
@@ -278,8 +285,9 @@ Loose ends to close before broad expansion:
     what review data is missing, but the actual copy/convert UX and managed
     pack writer are still future work.
 11. Provenance review posture is now visible through an executable policy
-    verdict, including source-bundle pinning review, but license/review approval
-    remains a human/source-policy decision outside the audit command.
+    verdict and source-policy decision queue, including source-bundle pinning
+    review, but license/review approval remains a human/source-policy decision
+    outside the audit command.
 12. Strict lifecycle gating can fail on review findings, but it still does not
     replace the source-readiness, SRS Zipf bridge, or denominator audits needed
     before expanded corpus promotion.
@@ -1347,6 +1355,71 @@ python3 -m ruff format --check \
   core/tests/dev/test_pack_lifecycle_promotion_evidence.py
 ```
 
+## L6-Zd Source-Policy Decision Queue
+
+Product claim:
+
+- A lifecycle audit should show the exact source-policy work still blocking
+  promotion, not only a generic `review` status or a flat list of policy
+  reasons.
+
+Current implementation:
+
+- `pack_lifecycle_source_policy_decisions.py` builds the source-policy decision
+  report.
+- `pack_lifecycle_audit.py` now adds top-level `source_policy_decisions` to the
+  JSON report.
+- The report is read-only and derives its rows from non-`ok`
+  `provenance_policy.checks` on installed and semantic packs.
+- Each row records family, pack id, pack kind, provenance path, policy status,
+  check id/status, review reason, category, observed value, and a recommended
+  action.
+- Current categories include:
+  - `license_review`
+  - `provenance_sidecar`
+  - `source_pointer`
+  - `source_identity`
+  - `raw_artifact_checksum`
+  - `generated_artifact_checksum`
+  - `source_bundle_pointer`
+  - `source_bundle_checksum`
+  - `source_bundle_pinning`
+  - `frequency_metrics`
+- The Markdown audit now includes a `Source Policy Decision Queue` table so the
+  next source-policy pass can pick one concrete review category instead of
+  reopening the whole pack lifecycle surface.
+
+Boundaries:
+
+1. This does not approve a source license.
+2. This does not pin source data, download artifacts, or mutate sidecars.
+3. Recommended actions are review routing labels, not automatic fixes.
+4. The queue is only as complete as the installed/semantic packs visible to the
+   lifecycle audit.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_policy.py \
+  scripts/testing/pack_lifecycle_source_policy_decisions.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_policy.py \
+  scripts/testing/pack_lifecycle_source_policy_decisions.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_policy.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+```
+
 ## L6-D Semantic Pack Provenance And Lineage
 
 Product claim:
@@ -1947,6 +2020,7 @@ python3 -m ruff format --check \
 | L6-Za Generated DE component checksum capture | Completed first installer-time capture for source-bundle component files available during generated DE frequency builds. | DE pipeline component-path callback, checked source-bundle writer path, and focused tests. |
 | L6-Zb Provenance promotion policy | Completed first reusable executable policy verdict for promotion-oriented provenance checks. | `pack_lifecycle_policy.py`, audit `provenance_policy` rows, promotion evidence policy checks, and focused tests. |
 | L6-Zc Source-bundle promotion pinning policy | Completed first promotion-policy blocker for URL-recorded but unpinned source bundles. | Source-bundle pointer/pinning policy checks and focused policy/audit tests. |
+| L6-Zd Source-policy decision queue | Completed first read-only queue of concrete source-policy blockers and recommended review actions. | `pack_lifecycle_source_policy_decisions.py`, `source_policy_decisions` JSON, Markdown decision table, and focused audit tests. |
 
 ## Validation Bundle For L6-A
 

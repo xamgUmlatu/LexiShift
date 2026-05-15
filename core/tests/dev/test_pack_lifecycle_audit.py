@@ -128,6 +128,15 @@ class PackLifecycleAuditTests(unittest.TestCase):
 
         self.assertEqual(report["summary"]["status"], "review")
         self.assertEqual(report["summary"]["provenance_review_required_count"], 1)
+        self.assertEqual(report["summary"]["source_policy_decision_count"], 3)
+        self.assertEqual(
+            report["summary"]["source_policy_category_counts"],
+            {
+                "generated_artifact_checksum": 1,
+                "license_review": 1,
+                "raw_artifact_checksum": 1,
+            },
+        )
         frequency = report["installed_pack_families"]["frequency"]
         row = frequency["packs"][0]
         review = row["provenance_review"]
@@ -142,8 +151,67 @@ class PackLifecycleAuditTests(unittest.TestCase):
         self.assertIn("raw_artifact_checksum_missing", review["review_reasons"])
         self.assertIn("generated_artifact_checksum_missing", review["review_reasons"])
         self.assertEqual(frequency["license_status_counts"], {"requires_review": 1})
+        source_policy = report["source_policy_decisions"]
+        self.assertEqual(source_policy["decision_count"], 3)
+        self.assertEqual(
+            source_policy["recommended_action_counts"]["record_source_license_decision"],
+            1,
+        )
         self.assertIn("Provenance Review", markdown)
+        self.assertIn("Source Policy Decision Queue", markdown)
+        self.assertIn("record_source_license_decision", markdown)
         self.assertIn("license_status_requires_review", markdown)
+
+    def test_report_surfaces_source_bundle_pinning_decision_queue(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data_root = Path(tmp) / "data"
+            frequency_root = data_root / "frequency_packs"
+            pack_root = frequency_root / "freq-de-default"
+            pack_root.mkdir(parents=True)
+            artifact = pack_root / "main.sqlite"
+            artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                frequency_root,
+                pack_id="freq-de-default",
+                pack_kind="frequency",
+                provider="leipzig",
+                local_kind="file",
+                build_mode="de_frequency_pipeline",
+                artifact_path=artifact,
+                source_filename="deu_news_2023_1M.tar.gz",
+                sqlite_filename="main.sqlite",
+            )
+            (pack_root / PACK_PROVENANCE_FILENAME).write_text(
+                json.dumps(
+                    _valid_provenance(
+                        pack_id="freq-de-default",
+                        license_status="confirmed",
+                        source_bundle_lineage_status="component_urls_recorded",
+                    ),
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            report = build_pack_lifecycle_audit_report(
+                data_root=data_root,
+                generated_at="2026-05-15T00:00:00+00:00",
+            )
+            markdown = render_pack_lifecycle_markdown(report)
+
+        self.assertEqual(report["summary"]["status"], "review")
+        self.assertEqual(report["summary"]["source_policy_decision_count"], 1)
+        self.assertEqual(
+            report["summary"]["source_policy_category_counts"],
+            {"source_bundle_pinning": 1},
+        )
+        source_policy = report["source_policy_decisions"]
+        self.assertEqual(source_policy["decision_count"], 1)
+        row = source_policy["rows"][0]
+        self.assertEqual(row["category"], "source_bundle_pinning")
+        self.assertEqual(row["recommended_action"], "record_source_bundle_pinning_decision")
+        self.assertEqual(row["review_reason"], "source_bundle_pinning_missing")
+        self.assertIn("record_source_bundle_pinning_decision", markdown)
 
     def test_report_flags_missing_artifact_and_provenance(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -331,6 +399,7 @@ def _valid_provenance(
     license_status: str = "requires_review",
     include_raw_checksum: bool = True,
     include_artifact_checksum: bool = True,
+    source_bundle_lineage_status: str = "pinned_snapshot",
 ) -> dict[str, object]:
     raw_artifact = {"filename": "spanish_lemmas20k.txt"}
     if include_raw_checksum:
@@ -359,7 +428,7 @@ def _valid_provenance(
             "source_bundle": {
                 "bundle_id": f"{pack_id}:fixture",
                 "bundle_kind": "test_fixture",
-                "lineage_status": "pinned_snapshot",
+                "lineage_status": source_bundle_lineage_status,
                 "components": [
                     {
                         "role": "corpus",

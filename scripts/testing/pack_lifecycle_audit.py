@@ -33,6 +33,11 @@ from pack_lifecycle_provenance_lineage import (  # noqa: E402
     render_source_build_lineage_markdown,
 )
 from pack_lifecycle_policy import audit_provenance_policy  # noqa: E402
+from pack_lifecycle_source_policy_decisions import (  # noqa: E402
+    build_source_policy_decision_report,
+    render_source_policy_decision_markdown,
+    source_policy_summary_fields,
+)
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "pack_lifecycle_audit_latest.json"
@@ -136,12 +141,17 @@ def build_pack_lifecycle_audit_report(
     )
     manual_resource_report = audit_manual_resource_settings(resolved_root / "settings.json")
     candidate_reports = [audit_candidate_sqlite(path) for path in candidate_dbs]
+    source_policy_report = build_source_policy_decision_report(
+        family_reports=family_reports,
+        semantic_report=semantic_report,
+    )
     summary = _build_summary(
         family_reports=family_reports,
         semantic_report=semantic_report,
         publication_report=publication_report,
         manual_resource_report=manual_resource_report,
         candidate_reports=candidate_reports,
+        source_policy_report=source_policy_report,
     )
     return {
         "schema_version": 1,
@@ -157,6 +167,7 @@ def build_pack_lifecycle_audit_report(
         "semantic_pack_copies": semantic_report,
         "publication_manifests": publication_report,
         "manual_resource_settings": manual_resource_report,
+        "source_policy_decisions": source_policy_report,
         "candidate_sqlite": candidate_reports,
     }
 
@@ -292,6 +303,7 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
         f"- Missing provenance sidecars: `{summary.get('missing_provenance_count')}`",
         f"- Invalid provenance sidecars: `{summary.get('invalid_provenance_count')}`",
         f"- Provenance review required: `{summary.get('provenance_review_required_count')}`",
+        f"- Source policy decision items: `{summary.get('source_policy_decision_count')}`",
         f"- Missing installed artifacts: `{summary.get('missing_artifact_count')}`",
         "",
         "## Installed Pack Families",
@@ -353,6 +365,7 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
         lines.append("")
     else:
         lines.extend(["- No provenance review items.", ""])
+    lines.extend(render_source_policy_decision_markdown(report))
     lines.extend(render_source_build_lineage_markdown(report))
     lines.extend(
         [
@@ -566,6 +579,7 @@ def _build_summary(
     publication_report: Mapping[str, object],
     manual_resource_report: Mapping[str, object],
     candidate_reports: Sequence[Mapping[str, object]],
+    source_policy_report: Mapping[str, object],
 ) -> dict[str, object]:
     family_values = [_as_mapping(value) for value in family_reports.values()]
     installed_pack_count = sum(int(family.get("pack_count") or 0) for family in family_values)
@@ -620,6 +634,7 @@ def _build_summary(
         "manual_resource_review_count": manual_resource_review_count,
         "manual_resource_error_count": manual_resource_error_count,
         "candidate_error_count": candidate_error_count,
+        **source_policy_summary_fields(source_policy_report),
     }
 
 
