@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import gzip
 import os
 import shutil
@@ -113,6 +114,22 @@ def _frequency_parser_config(pack: FrequencyPackInfo) -> dict[str, object]:
     return parser_config
 
 
+def _file_checksums(path: str | Path) -> dict[str, str]:
+    file_path = Path(path)
+    if not file_path.is_file():
+        return {}
+    sha1 = hashlib.sha1()
+    sha256 = hashlib.sha256()
+    with file_path.open("rb") as handle:
+        while chunk := handle.read(1024 * 1024):
+            sha1.update(chunk)
+            sha256.update(chunk)
+    return {
+        "sha1": sha1.hexdigest(),
+        "sha256": sha256.hexdigest(),
+    }
+
+
 def _app_data_root() -> str:
     base_dir = QStandardPaths.writableLocation(QStandardPaths.AppDataLocation)
     base_dir = base_dir or os.path.expanduser("~")
@@ -175,6 +192,8 @@ class LanguagePackDownloadThread(QThread):
         self._dest_path = dest_path
         self._pack_kind = str(pack_kind or "language")
         self._write_manifest_on_complete = bool(write_manifest_on_complete)
+        self._raw_artifact_sha1 = ""
+        self._raw_artifact_sha256 = ""
 
     def run(self) -> None:
         try:
@@ -213,6 +232,7 @@ class LanguagePackDownloadThread(QThread):
                 self._cleanup_partial(self._dest_path)
                 self.failed.emit(self._pack_id, encode_pack_download_failure("cancelled"))
                 return
+            self._capture_raw_artifact_checksums(self._dest_path)
             final_path = self._build_local_artifact(self._dest_path)
             if self._write_manifest_on_complete:
                 self._write_manifest(final_path)
@@ -330,7 +350,14 @@ class LanguagePackDownloadThread(QThread):
             source_filename=self._pack.source_filename or self._pack.filename,
             sqlite_filename=self._pack.sqlite_filename,
             required_files=self._pack.required_files,
+            raw_artifact_sha1=self._raw_artifact_sha1 or None,
+            raw_artifact_sha256=self._raw_artifact_sha256 or None,
         )
+
+    def _capture_raw_artifact_checksums(self, path: str | Path) -> None:
+        checksums = _file_checksums(path)
+        self._raw_artifact_sha1 = checksums.get("sha1", "")
+        self._raw_artifact_sha256 = checksums.get("sha256", "")
 
     def _manifest_artifact_path(self, final_path: Path) -> Path:
         if self._pack.local_kind == "dir" and len(self._pack.required_files) == 1:
@@ -439,6 +466,8 @@ class FrequencyPackDownloadThread(QThread):
         self._url = pack.url
         self._archive_path = archive_path
         self._sqlite_path = sqlite_path
+        self._raw_artifact_sha1 = ""
+        self._raw_artifact_sha256 = ""
 
     def run(self) -> None:
         try:
@@ -544,10 +573,13 @@ class FrequencyPackDownloadThread(QThread):
             artifact_path=artifact_path,
             source_filename=self._pack.source_filename or self._pack.filename,
             sqlite_filename=self._pack.sqlite_filename,
+            raw_artifact_sha1=self._raw_artifact_sha1 or None,
+            raw_artifact_sha256=self._raw_artifact_sha256 or None,
         )
 
     def _convert_to_sqlite(self, archive_path: str) -> str:
         source_path, cleanup_paths = self._prepare_source(archive_path)
+        self._capture_raw_artifact_checksums(source_path)
         os.makedirs(os.path.dirname(self._sqlite_path), exist_ok=True)
         try:
             pos_inventory = _frequency_pos_inventory_config(self._pack_id)
@@ -570,6 +602,11 @@ class FrequencyPackDownloadThread(QThread):
             for path in cleanup_paths:
                 self._cleanup_path(path)
         return self._sqlite_path
+
+    def _capture_raw_artifact_checksums(self, path: str | Path) -> None:
+        checksums = _file_checksums(path)
+        self._raw_artifact_sha1 = checksums.get("sha1", "")
+        self._raw_artifact_sha256 = checksums.get("sha256", "")
 
     def _prepare_source(self, archive_path: str) -> tuple[str, list[str]]:
         cleanup_paths: list[str] = []

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,7 +18,11 @@ for candidate in (GUI_SRC, CORE_ROOT):
     if candidate_text not in sys.path:
         sys.path.insert(0, candidate_text)
 
-from language_packs import FrequencyPackDownloadThread, LanguagePackDownloadThread  # noqa: E402
+from language_packs import (  # noqa: E402
+    FrequencyPackDownloadThread,
+    LanguagePackDownloadThread,
+    _file_checksums,
+)
 from language_packs_catalog import FrequencyPackInfo, LanguagePackInfo  # noqa: E402
 from lexishift_core.frequency.sqlite import ParseConfig  # noqa: E402
 from lexishift_core.helper.pack_provenance import PACK_PROVENANCE_FILENAME  # noqa: E402
@@ -61,6 +66,57 @@ def test_language_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["artifact"]["artifact_relpath"] == "main.sqlite"
 
 
+def test_file_checksums_records_sha1_and_sha256() -> None:
+    with TemporaryDirectory() as temp_dir:
+        source = Path(temp_dir) / "source.txt"
+        source_bytes = b"source artifact bytes"
+        source.write_bytes(source_bytes)
+
+        checksums = _file_checksums(source)
+
+        assert checksums == {
+            "sha1": hashlib.sha1(source_bytes).hexdigest(),
+            "sha256": hashlib.sha256(source_bytes).hexdigest(),
+        }
+
+
+def test_language_pack_manifest_write_includes_raw_artifact_checksums() -> None:
+    with TemporaryDirectory() as temp_dir:
+        pack_root = Path(temp_dir) / "language_packs" / "freedict-en-es"
+        artifact = pack_root / "main.sqlite"
+        raw_source = pack_root / "freedict-eng-spa.src.tar.xz"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_bytes(b"SQLite format 3\x00")
+        raw_bytes = b"freedict source archive"
+        raw_source.write_bytes(raw_bytes)
+        pack = LanguagePackInfo(
+            pack_id="freedict-en-es",
+            name="FreeDict EN-ES",
+            language="English to Spanish",
+            source="FreeDict",
+            size="1 MB",
+            url="https://example.com/freedict-eng-spa.src.tar.xz",
+            wayback_url="https://web.archive.org/web/*/https://example.com/freedict-eng-spa.src.tar.xz",
+            filename="freedict-eng-spa.src.tar.xz",
+            local_kind="file",
+            required_files=("eng-spa.tei",),
+            sqlite_filename="main.sqlite",
+            build_mode="freedict_tei_to_sqlite",
+            target_lang_code="es",
+        )
+
+        thread = LanguagePackDownloadThread(pack, str(raw_source))
+        thread._capture_raw_artifact_checksums(raw_source)
+        thread._write_manifest(str(artifact))
+        payload = json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
+        raw_artifact = payload["source"]["raw_artifacts"][0]
+
+        assert raw_artifact["filename"] == "freedict-eng-spa.src.tar.xz"
+        assert raw_artifact["sha1"] == hashlib.sha1(raw_bytes).hexdigest()
+        assert raw_artifact["sha256"] == hashlib.sha256(raw_bytes).hexdigest()
+        assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
+
+
 def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
     with TemporaryDirectory() as temp_dir:
         pack_root = Path(temp_dir) / "frequency_packs" / "freq-es-cde"
@@ -99,6 +155,45 @@ def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["build"]["parser_config"]["header_starts_with"] == "ID"
         assert payload["build"]["parser_config"]["encoding"] == "latin-1"
         assert payload["artifact"]["artifact_kind"] == "sqlite"
+
+
+def test_frequency_convert_to_sqlite_captures_parsed_source_checksums() -> None:
+    with TemporaryDirectory() as temp_dir:
+        pack_root = Path(temp_dir) / "frequency_packs" / "freq-es-cde"
+        artifact = pack_root / "main.sqlite"
+        source = pack_root / "spanish_lemmas20k.txt"
+        source.parent.mkdir(parents=True)
+        source_text = "ID\tlemma\tfreq\tpos\n1\tgato\t100\tn\n"
+        source_bytes = source_text.encode("latin-1")
+        source.write_bytes(source_bytes)
+        pack = FrequencyPackInfo(
+            pack_id="freq-es-cde",
+            name="Corpus del Espanol Frequency",
+            language="Spanish",
+            source="Corpus del Espanol",
+            size="42 KB",
+            url="https://example.com/spanish_lemmas20k.txt",
+            wayback_url="https://web.archive.org/web/*/https://example.com/spanish_lemmas20k.txt",
+            filename="spanish_lemmas20k.txt",
+            sqlite_filename="main.sqlite",
+            parse_config=ParseConfig(
+                delimiter="\t",
+                header_starts_with="ID",
+                skip_prefixes=("----",),
+                encoding="latin-1",
+            ),
+        )
+
+        thread = FrequencyPackDownloadThread(pack, str(source), str(artifact))
+        sqlite_path = thread._convert_to_sqlite(str(source))
+        thread._write_manifest(sqlite_path)
+        payload = json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
+        raw_artifact = payload["source"]["raw_artifacts"][0]
+
+        assert raw_artifact["filename"] == "spanish_lemmas20k.txt"
+        assert raw_artifact["sha1"] == hashlib.sha1(source_bytes).hexdigest()
+        assert raw_artifact["sha256"] == hashlib.sha256(source_bytes).hexdigest()
+        assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
 
 
 def test_embedding_finalize_creates_provenance_sidecar() -> None:
