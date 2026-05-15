@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at_utc": "2026-05-15T21:51:59.159165+00:00",
+  "generated_at_utc": "2026-05-15T22:19:53.716327+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -37,7 +37,7 @@
     "directory_count": 193,
     "tracked_file_count": 3799,
     "untracked_file_count": 0,
-    "total_file_bytes": 906566077,
+    "total_file_bytes": 906565882,
     "candidate_path_count": 2357,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
@@ -49,7 +49,7 @@
       "path_count": 2392,
       "file_count": 2324,
       "directory_count": 68,
-      "total_file_bytes": 711815316
+      "total_file_bytes": 711815029
     },
     {
       "family": "core_tests",
@@ -63,7 +63,7 @@
       "path_count": 316,
       "file_count": 315,
       "directory_count": 1,
-      "total_file_bytes": 5338898
+      "total_file_bytes": 5338904
     },
     {
       "family": "app_chrome-extension",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1281358
+      "total_file_bytes": 1281444
     },
     {
       "family": "docs_rulegen",
@@ -659,7 +659,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 18,
-      "total_file_bytes": 2633760
+      "total_file_bytes": 2633473
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -8681,7 +8681,7 @@
       "bucket": "dev_workflow_operational",
       "review_posture": "retain latest: workflow reports support local and CI handoff",
       "file_count": 21,
-      "total_file_bytes": 2789849,
+      "total_file_bytes": 2789562,
       "latest_alias_count": 19,
       "dated_artifact_count": 0,
       "sample_paths": [
@@ -25658,7 +25658,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 37348,
+      "size_bytes": 37434,
       "git_state": "tracked",
       "flags": []
     },
@@ -29209,7 +29209,7 @@
       "name": "experiment_payload_retention_latest.json",
       "stem": "experiment_payload_retention_latest",
       "suffix": ".json",
-      "size_bytes": 64028,
+      "size_bytes": 63923,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29224,7 +29224,7 @@
       "name": "experiment_payload_retention_latest.md",
       "stem": "experiment_payload_retention_latest",
       "suffix": ".md",
-      "size_bytes": 19685,
+      "size_bytes": 19503,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -66676,7 +66676,7 @@
       "name": "semantic_veto_evidence_gap_generation_score_contribution_core.py",
       "stem": "semantic_veto_evidence_gap_generation_score_contribution_core",
       "suffix": ".py",
-      "size_bytes": 32845,
+      "size_bytes": 32940,
       "git_state": "tracked",
       "flags": []
     },
@@ -66687,7 +66687,7 @@
       "name": "semantic_veto_evidence_gap_generation_score_contribution_en_es.py",
       "stem": "semantic_veto_evidence_gap_generation_score_contribution_en_es",
       "suffix": ".py",
-      "size_bytes": 4269,
+      "size_bytes": 4180,
       "git_state": "tracked",
       "flags": []
     },

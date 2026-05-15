@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T21:50:00.722791+00:00",
+  "generated_at_utc": "2026-05-15T22:20:13.665427+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "experiment_root": "docs/test_outputs/experiments",
   "posture_definitions": [
@@ -29,18 +29,16 @@
     "family_count": 11,
     "file_count": 670,
     "total_file_bytes": 122313459,
-    "routed_family_count": 10,
-    "generated_linked_family_count": 1,
+    "routed_family_count": 11,
+    "generated_linked_family_count": 0,
     "experiment_linked_family_count": 0,
     "self_linked_review_family_count": 0,
     "unrouted_review_family_count": 0,
     "posture_counts": {
-      "generated_linked": 1,
-      "routed": 10
+      "routed": 11
     },
     "review_flag_counts": {
       "batch_payload_family": 5,
-      "generated_only_route": 1,
       "generated_rows_bundle": 1,
       "install_or_runtime_fixture_root": 1,
       "large_family_low_external_refs": 1,
@@ -49,101 +47,6 @@
     }
   },
   "families": [
-    {
-      "family": "semantic_veto_evidence_gap_augmented_datasets",
-      "family_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
-      "retention_posture": "generated_linked",
-      "retention_reason": "Only generated-output files outside the experiment tree reference this family.",
-      "file_count": 18,
-      "directory_count": 0,
-      "total_file_bytes": 1802537,
-      "extension_counts": {
-        ".json": 18
-      },
-      "review_flags": [
-        "generated_only_route"
-      ],
-      "largest_files": [
-        {
-          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_synthetic_shadows.json",
-          "bytes": 191612
-        },
-        {
-          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_existing_shadows.json",
-          "bytes": 189868
-        },
-        {
-          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_active_only.json",
-          "bytes": 186915
-        },
-        {
-          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_shadow_synthetic_only.json",
-          "bytes": 185635
-        },
-        {
-          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_shadow_existing_only.json",
-          "bytes": 183891
-        }
-      ],
-      "external_reference_count": 0,
-      "generated_output_reference_count": 7,
-      "other_experiment_reference_count": 0,
-      "self_family_reference_count": 0,
-      "external_reference_samples": [],
-      "generated_output_reference_samples": [
-        "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_balanced_smoke_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_tfidf_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_score_contribution_tfidf_en_es_latest.json"
-      ],
-      "other_experiment_reference_samples": [],
-      "self_family_reference_samples": [],
-      "reference_samples": [
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_shadow_synthetic_only.json",
-          "scope": "generated_output"
-        },
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_shadow_existing_only.json",
-          "scope": "generated_output"
-        },
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_synthetic_shadows.json",
-          "scope": "generated_output"
-        },
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_existing_shadows.json",
-          "scope": "generated_output"
-        },
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_active_only.json",
-          "scope": "generated_output"
-        },
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_base_selected.json",
-          "scope": "generated_output"
-        },
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
-          "scope": "generated_output"
-        },
-        {
-          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_balanced_smoke_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_shadow_synthetic_only.json",
-          "scope": "generated_output"
-        }
-      ]
-    },
     {
       "family": "semantic_example_frame_batches",
       "family_path": "docs/test_outputs/experiments/semantic_example_frame_batches",
@@ -680,6 +583,102 @@
           "reference_path": "docs/rulegen/semantic_veto_wave7_source_class_breadth_runbook.md",
           "referenced_path": "docs/test_outputs/experiments/semantic_non_v10_wave_drafts",
           "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "semantic_veto_evidence_gap_augmented_datasets",
+      "family_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 18,
+      "directory_count": 0,
+      "total_file_bytes": 1802537,
+      "extension_counts": {
+        ".json": 18
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_synthetic_shadows.json",
+          "bytes": 191612
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_existing_shadows.json",
+          "bytes": 189868
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_active_only.json",
+          "bytes": 186915
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_shadow_synthetic_only.json",
+          "bytes": 185635
+        },
+        {
+          "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_product_scope_llm_allocation_pilot_en_es_v1_generated_shadow_existing_only.json",
+          "bytes": 183891
+        }
+      ],
+      "external_reference_count": 2,
+      "generated_output_reference_count": 7,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 0,
+      "external_reference_samples": [
+        "docs/developer/productization_closure_roadmap.md",
+        "scripts/testing/semantic_veto_evidence_gap_generation_score_contribution_core.py"
+      ],
+      "generated_output_reference_samples": [
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_balanced_smoke_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_generation_score_contribution_tfidf_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_gpt55_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_band_grading_v1_shadow_mini_high_generation_score_contribution_sentence_transformer_a0000_m0015_en_es_latest.json",
+        "docs/test_outputs/semantic_veto_product_scope_llm_allocation_generation_score_contribution_tfidf_en_es_latest.json"
+      ],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [],
+      "reference_samples": [
+        {
+          "reference_path": "docs/developer/productization_closure_roadmap.md",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_shadow_synthetic_only.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_shadow_existing_only.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_synthetic_shadows.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_existing_shadows.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_generated_active_only.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets/semantic_veto_evidence_gap_control_pilot_en_es_v1_base_selected.json",
+          "scope": "generated_output"
+        },
+        {
+          "reference_path": "docs/test_outputs/semantic_veto_evidence_gap_generation_score_contribution_active_only_poc_en_es_latest.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets",
+          "scope": "generated_output"
         }
       ]
     },

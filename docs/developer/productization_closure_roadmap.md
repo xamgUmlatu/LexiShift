@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, and experiment-payload retention audit
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, and generated-only experiment-family routing review
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -606,13 +606,15 @@ Current progress:
   groups, `0` `review_only` groups, and `16` retained groups.
 - The first experiment-payload retention audit classified `11` experiment
   families covering `670` files and `122,313,459` bytes. It found no
-  unreferenced experiment family: `10` families have at least one external
-  doc/test/script/source route and `1` family,
-  `semantic_veto_evidence_gap_augmented_datasets`, is linked only by generated
-  output. The strongest next review queues are the generated-only augmented
-  dataset family and the root-level rulegen experiment files, which are large
-  enough to matter but have only one external route plus self-family summary
-  references.
+  unreferenced experiment family.
+- Generated-only family review resolved
+  `docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets`
+  as retained intermediate provenance for the semantic-veto evidence-gap
+  score-contribution reports. The producer now exposes the exact
+  repo-relative output family as a code constant, and the regenerated retention
+  audit reports all `11` experiment families as routed: `0` generated-linked,
+  `0` experiment-linked, `0` self-linked-review, and `0` unrouted-review
+  families.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
@@ -642,10 +644,9 @@ Current progress:
 Next review step:
 
 1. review `../test_outputs/dev_workflow/experiment_payload_retention_latest.md`,
-2. choose one narrow cleanup queue, likely
-   `semantic_veto_evidence_gap_augmented_datasets`, root-level rulegen
-   experiment files, root-level latest alias routing, duplicate evidence
-   families, or another clearly bounded structure signal,
+2. choose one narrow cleanup queue, likely root-level rulegen experiment files,
+   root-level latest alias routing, duplicate evidence families, or another
+   clearly bounded structure signal,
 3. prove exact references, generated-artifact ownership, and historical value
    before archiving or deleting anything.
 

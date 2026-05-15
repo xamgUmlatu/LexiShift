@@ -28,6 +28,7 @@ from semantic_veto_evidence_gap_generation_score_contribution_summary import _ne
 from semantic_veto_evidence_gap_generation_score_contribution_utils import (  # noqa: E402
     _application_summary,
     _as_mapping,
+    _as_sequence as _as_sequence,
     _count_by,
     _delta,
     _fmt as _fmt,
@@ -44,9 +45,10 @@ from semantic_veto_evidence_gap_generation_score_contribution_utils import (  # 
 DEFAULT_SCORER_ID = "tfidf_cosine"
 DEFAULT_CONTEXT_VIEW = "masked_sentence"
 DEFAULT_EVIDENCE_VIEW = "all_evidence_text"
-DEFAULT_AUGMENTED_DIR = (
-    TEST_OUTPUTS_ROOT / "experiments" / "semantic_veto_evidence_gap_augmented_datasets"
+AUGMENTED_DATASET_FAMILY = (
+    "docs/test_outputs/experiments/semantic_veto_evidence_gap_augmented_datasets"
 )
+DEFAULT_AUGMENTED_DIR = PROJECT_ROOT / AUGMENTED_DATASET_FAMILY
 POLICY_SWEEP_MIN_ACTIVE_SCORES = (0.05, 0.075, 0.1, 0.125)
 POLICY_SWEEP_MIN_MARGINS = (0.0, 0.02, 0.05)
 POLICY_SWEEP_PHRASE_CONTROL_MODES = ("off", "noun_family_frame_guard")

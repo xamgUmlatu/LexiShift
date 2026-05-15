@@ -16,6 +16,7 @@ if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
 from semantic_veto_evidence_gap_generation_score_contribution_core import (  # noqa: E402
+    DEFAULT_AUGMENTED_DIR,
     DEFAULT_CONTEXT_VIEW,
     DEFAULT_EVIDENCE_VIEW,
     DEFAULT_SCORER_ID,
@@ -39,9 +40,6 @@ DEFAULT_JSON_OUT = (
 DEFAULT_MARKDOWN_OUT = (
     TEST_OUTPUTS_ROOT
     / "semantic_veto_evidence_gap_generation_score_contribution_balanced_smoke_en_es_latest.md"
-)
-DEFAULT_AUGMENTED_DIR = (
-    TEST_OUTPUTS_ROOT / "experiments" / "semantic_veto_evidence_gap_augmented_datasets"
 )
 
 

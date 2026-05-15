@@ -59,14 +59,14 @@ Ignored file names:
 
 | Family | Paths | Files | Dirs | Bytes |
 | --- | ---: | ---: | ---: | ---: |
-| `docs_test_outputs` | 2392 | 2324 | 68 | 711815316 |
+| `docs_test_outputs` | 2392 | 2324 | 68 | 711815029 |
 | `core_tests` | 321 | 309 | 12 | 2723233 |
-| `scripts_testing` | 316 | 315 | 1 | 5338898 |
+| `scripts_testing` | 316 | 315 | 1 | 5338904 |
 | `app_chrome-extension` | 204 | 161 | 43 | 1369764 |
 | `core_runtime` | 152 | 138 | 14 | 1525534 |
 | `app_gui` | 115 | 105 | 10 | 175131342 |
 | `docs_test_inputs` | 111 | 105 | 6 | 4414512 |
-| `docs_developer` | 92 | 91 | 1 | 1281358 |
+| `docs_developer` | 92 | 91 | 1 | 1281444 |
 | `docs_rulegen` | 50 | 49 | 1 | 1299910 |
 | `scripts_dev` | 41 | 38 | 3 | 359149 |
 | `app_tests` | 33 | 32 | 1 | 147000 |
@@ -155,7 +155,7 @@ Ignored file names:
 | --- | ---: | ---: |
 | `docs/test_outputs/experiments` | 670 | 122313459 |
 | `docs/test_outputs/srs_journey` | 24 | 4014369 |
-| `docs/test_outputs/dev_workflow` | 18 | 2633760 |
+| `docs/test_outputs/dev_workflow` | 18 | 2633473 |
 | `docs/test_outputs/ja_en` | 8 | 23864 |
 | `docs/test_outputs/phase6_pos_inventory` | 8 | 326878 |
 | `docs/test_outputs/licensing_header_audit` | 4 | 589151 |
@@ -201,7 +201,7 @@ Ignored file names:
 | `root_latest_alias` | 1568 | 580950509 | 1568 | 0 | retain or reroute: active latest alias at docs/test_outputs root | `docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.json`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.md`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_summary_latest.md`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_latest.json` |
 | `experiment_payload` | 670 | 122313459 | 0 | 398 | review by experiment: high-volume evidence, not deletion by size alone | `docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328.json`<br>`docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328_timing.json`<br>`docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md`<br>`docs/test_outputs/experiments/rulegen_en_es_helper_run_rulegen_smoke_20260328.json` |
 | `journey_quality_evidence` | 26 | 4061262 | 26 | 0 | retain latest: SRS journey and quality evidence | `docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.md`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.html` |
-| `dev_workflow_operational` | 21 | 2789849 | 19 | 0 | retain latest: workflow reports support local and CI handoff | `docs/test_outputs/dev_workflow/build_ci_latest.json`<br>`docs/test_outputs/dev_workflow/build_latest.json`<br>`docs/test_outputs/dev_workflow/check_changed_latest.json`<br>`docs/test_outputs/dev_workflow/check_latest.json` |
+| `dev_workflow_operational` | 21 | 2789562 | 19 | 0 | retain latest: workflow reports support local and CI handoff | `docs/test_outputs/dev_workflow/build_ci_latest.json`<br>`docs/test_outputs/dev_workflow/build_latest.json`<br>`docs/test_outputs/dev_workflow/check_changed_latest.json`<br>`docs/test_outputs/dev_workflow/check_latest.json` |
 | `phase_or_sample_evidence` | 18 | 647355 | 0 | 16 | review after migration: older phase/sample evidence | `docs/test_outputs/ja_en/README.md`<br>`docs/test_outputs/ja_en/golden_samples_20260203_014029.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.tsv` |
 | `root_dated_snapshot` | 15 | 453932 | 0 | 15 | review after canonical summary exists | `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json`<br>`docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md` |
 | `license_resource_audit` | 5 | 598049 | 1 | 0 | retain latest: resource/license audit evidence | `docs/test_outputs/licensing_header_audit/README.md`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_jmdict.json`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_latest.json`<br>`docs/test_outputs/licensing_header_audit/latest.json` |
