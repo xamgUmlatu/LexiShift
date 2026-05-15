@@ -5,8 +5,8 @@
   "pair": "en-es",
   "base_generated_rows_json": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
   "overlay_generated_rows_json": [
-    "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
-    "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
+    "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json",
+    "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_generated_rows.json"
   ],
   "generation_requests_json": "docs/test_outputs/semantic_veto_llm_pilot_generation_requests_en_es_latest.json",
   "summary": {
@@ -24,17 +24,17 @@
     {
       "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
       "old_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
-      "new_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json"
+      "new_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json"
     },
     {
       "row_id": "pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
       "old_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json",
-      "new_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json"
+      "new_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json"
     },
     {
       "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
-      "old_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
-      "new_source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
+      "old_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json",
+      "new_source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_generated_rows.json"
     }
   ],
   "row_sources": [
@@ -60,7 +60,7 @@
     },
     {
       "row_id": "pilotrow:pilot_bank_banco:phrase_no_winner:001",
-      "source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_generated_rows.json"
     },
     {
       "row_id": "pilotrow:pilot_plant_planta:positive_active:001",
@@ -156,7 +156,7 @@
     },
     {
       "row_id": "pilotrow:pilot_branch_sucursal:phrase_no_winner:001",
-      "source": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json"
+      "source": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json"
     },
     {
       "row_id": "pilotrow:pilot_file_archivo:positive_active:001",

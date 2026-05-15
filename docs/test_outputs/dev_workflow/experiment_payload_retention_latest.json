@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T22:38:18.925010+00:00",
+  "generated_at_utc": "2026-05-15T22:50:03.574333+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "experiment_root": "docs/test_outputs/experiments",
   "posture_definitions": [
@@ -720,7 +720,7 @@
         }
       ],
       "external_reference_count": 2,
-      "generated_output_reference_count": 8,
+      "generated_output_reference_count": 6,
       "other_experiment_reference_count": 0,
       "self_family_reference_count": 5,
       "external_reference_samples": [
@@ -729,8 +729,6 @@
       ],
       "generated_output_reference_samples": [
         "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json",
         "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json",
         "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md",
         "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.json",
@@ -783,7 +781,7 @@
         },
         {
           "reference_path": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
-          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_raw_responses.json",
+          "referenced_path": "docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json",
           "scope": "generated_output"
         }
       ]
@@ -1024,7 +1022,7 @@
           "bytes": 2976
         }
       ],
-      "external_reference_count": 5,
+      "external_reference_count": 6,
       "generated_output_reference_count": 0,
       "other_experiment_reference_count": 0,
       "self_family_reference_count": 2,
@@ -1033,6 +1031,7 @@
         "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
         "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
         "docs/developer/feature_state_matrix.md",
+        "docs/developer/productization_closure_roadmap.md",
         "docs/rulegen/reverse_check_rollout_matrix.md"
       ],
       "generated_output_reference_samples": [],
@@ -1119,11 +1118,12 @@
           "bytes": 1896
         }
       ],
-      "external_reference_count": 2,
+      "external_reference_count": 3,
       "generated_output_reference_count": 0,
       "other_experiment_reference_count": 0,
       "self_family_reference_count": 4,
       "external_reference_samples": [
+        "docs/developer/productization_closure_roadmap.md",
         "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
         "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
       ],
@@ -1136,6 +1136,11 @@
         "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md"
       ],
       "reference_samples": [
+        {
+          "reference_path": "docs/developer/productization_closure_roadmap.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321",
+          "scope": "external"
+        },
         {
           "reference_path": "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
           "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
@@ -1169,11 +1174,6 @@
         {
           "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
           "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md",
-          "scope": "external"
-        },
-        {
-          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
           "scope": "external"
         }
       ]

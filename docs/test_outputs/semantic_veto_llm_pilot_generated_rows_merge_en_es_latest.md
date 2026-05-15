@@ -17,14 +17,14 @@
 
 ## Overlays
 
-- `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json`
-- `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json`
+- `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json`
+- `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_generated_rows.json`
 
 ## Replacements
 
-- `pilotrow:pilot_bank_banco:phrase_no_winner:001` from `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json` to `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json`
-- `pilotrow:pilot_branch_sucursal:phrase_no_winner:001` from `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json` to `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json`
-- `pilotrow:pilot_bank_banco:phrase_no_winner:001` from `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json` to `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json`
+- `pilotrow:pilot_bank_banco:phrase_no_winner:001` from `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json` to `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json`
+- `pilotrow:pilot_branch_sucursal:phrase_no_winner:001` from `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-full-20260505-001_generated_rows.json` to `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json`
+- `pilotrow:pilot_bank_banco:phrase_no_winner:001` from `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-001_generated_rows.json` to `docs/test_outputs/experiments/semantic_veto_llm_pilot_batches/en-es-semantic-veto-llm-pilot-semantic-veto-pilot-repair-20260505-003_generated_rows.json`
 
 ## Gaps
 

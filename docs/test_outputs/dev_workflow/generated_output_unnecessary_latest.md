@@ -11,12 +11,12 @@ This audit is intentionally conservative. `definite_prune` means the rule found 
 
 | Metric | Count |
 | --- | ---: |
-| `group_count` | 3 |
+| `group_count` | 1 |
 | `definite_prune_group_count` | 0 |
 | `definite_prune_file_count` | 0 |
 | `definite_prune_bytes` | 0 |
 | `review_only_group_count` | 0 |
-| `retain_group_count` | 3 |
+| `retain_group_count` | 1 |
 
 ## Definite Prune Groups
 
@@ -35,8 +35,6 @@ This audit is intentionally conservative. `definite_prune` means the rule found 
 | Rule | Files | Bytes | Reason | Sample Paths | Reference Samples |
 | --- | ---: | ---: | --- | --- | --- |
 | `referenced_generated_output` | 7 | 2021577 | The install root or one of its files is still referenced. | `docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/language_packs/en-es/semantic_packs/en-es-active-only-combined-full-v1-tranche-011/manifest.json`<br>`docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/language_packs/en-es/semantic_packs/en-es-active-only-combined-full-v1-tranche-011/semantic_inventory.json`<br>`docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_publication_manifest_en-es.json`<br>`docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011-product-install-data-root/srs/profiles/default/srs_rulegen_snapshot_en-es.json` | `docs/rulegen/semantic_veto_active_only_tranche_runbook.md`<br>`docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_live_page_scan_en_es_latest.json`<br>`docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_live_page_scan_en_es_latest.md`<br>`docs/test_outputs/semantic_veto_active_only_combined_full_v1_tranche_011_pack_install_en_es_latest.json` |
-| `referenced_generated_output` | 1 | 3903 | Dated root generated output is still referenced. | `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json` | `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json`<br>`docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json`<br>`docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md` |
-| `referenced_generated_output` | 1 | 2254 | Dated root generated output is still referenced. | `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json` | `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json`<br>`docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json`<br>`docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md` |
 
 ## Rules
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T22:37:57.508917+00:00",
+  "generated_at_utc": "2026-05-15T22:49:41.535206+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "rules": [
     {
@@ -35,17 +35,17 @@
     }
   ],
   "summary": {
-    "group_count": 3,
+    "group_count": 1,
     "definite_prune_group_count": 0,
     "definite_prune_file_count": 0,
     "definite_prune_bytes": 0,
     "review_only_group_count": 0,
-    "retain_group_count": 3,
+    "retain_group_count": 1,
     "status_counts": {
-      "retain": 3
+      "retain": 1
     },
     "rule_counts": {
-      "referenced_generated_output": 3
+      "referenced_generated_output": 1
     }
   },
   "groups": [
@@ -80,44 +80,6 @@
         "docs/test_outputs/experiments/semantic_veto_source_packaging/en-es-active-only-combined-full-v1-tranche-011_semantic_inventory.json"
       ],
       "missing_source_evidence_paths": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 3903,
-      "external_reference_count": 0,
-      "generated_output_reference_count": 3,
-      "external_reference_samples": [],
-      "generated_output_reference_samples": [
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md"
-      ]
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 2254,
-      "external_reference_count": 0,
-      "generated_output_reference_count": 3,
-      "external_reference_samples": [],
-      "generated_output_reference_samples": [
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json",
-        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md"
-      ]
     }
   ]
 }
