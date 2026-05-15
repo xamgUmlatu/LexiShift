@@ -547,11 +547,11 @@ Current progress:
   enumeration and structure-review candidate report.
 - `npm --prefix scripts run inventory:structure` writes latest JSON and
   Markdown artifacts under `docs/test_outputs/dev_workflow/`.
-- The latest snapshot enumerates `4,192` non-ignored paths: `3,909` files and
-  `283` directories, with `2,446` candidate-signal paths and `0`
+- The latest snapshot enumerates `4,029` non-ignored paths: `3,836` files and
+  `193` directories, with `2,373` candidate-signal paths and `0`
   unreferenced-script candidates.
 - The dominant structure signal is generated-evidence accumulation:
-  `docs/test_outputs` accounts for `2,571` paths, including `740` files under
+  `docs/test_outputs` accounts for `2,408` paths, including `670` files under
   `docs/test_outputs/experiments`.
 - Generated-output retention review now has first-class inventory buckets for
   baselines, dev-workflow operational reports, experiment payloads, SRS journey
@@ -562,6 +562,13 @@ Current progress:
   `rulegen_benchmark_expanded_smoke` root-output triplet. It had no
   non-output references and was superseded by later benchmark evidence, so it
   was deleted rather than archived.
+- Semantic source-packaging review stayed local and removed only copied install
+  roots for `en-es-active-only-combined-full-v1-tranche-001` through
+  `en-es-active-only-combined-full-v1-tranche-010`. The top-level normalized
+  evidence and semantic inventory files remain source evidence, tranche `011`
+  remains the active install-root fixture referenced by the runbook, and
+  product-scope/helper/native-host smoke roots remain retained while current
+  docs or tests route through them.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
