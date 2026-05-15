@@ -536,7 +536,8 @@
       "wordnet": "WordNet 目录必须包含 data.noun/data.verb/data.adj/data.adv，或 entries-a.json 与 noun.act.json 等 JSON 文件。",
       "missing_files": "{name} 缺少必要文件：{files}。",
       "expected_file": "{name} 需要文件。",
-      "sqlite": "{name} 需要 SQLite 数据库文件。"
+      "sqlite": "{name} 需要 SQLite 数据库文件。",
+      "embedding_format": "{name} 需要 SQLite 嵌入数据库，或 .vec/.txt/.bin 向量文件。"
     },
     "downloaded_linked": "已下载并将 {name} 链接到 {path}",
     "downloaded_invalid": "已下载 {name}，但验证失败：{message}",
@@ -624,7 +625,7 @@
   },
   "filters": {
     "json": "JSON 文件 (*.json)",
-    "embeddings": "嵌入文件 (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;所有文件 (*)",
+    "embeddings": "嵌入文件 (*.vec *.txt *.bin *.db *.sqlite *.sqlite3)",
     "all": "所有文件 (*)"
   },
   "integrations": {

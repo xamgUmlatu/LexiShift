@@ -118,6 +118,30 @@ def test_language_pack_table_marks_secondary_source_as_manual_from_binding() -> 
         assert row.status_item.toolTip() == str(wordnet_dir)
 
 
+def test_embedding_manual_selection_rejects_unsupported_file_format() -> None:
+    _app()
+    set_locale("en")
+    panel = LanguagePackPanel()
+    pack = panel._embedding_pack_info["embed-en-cc"]
+
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        vector = root / "manual.vec"
+        vector.write_text("hello 0.1 0.2\n", encoding="utf-8")
+        unsupported = root / "not-embeddings.pdf"
+        unsupported.write_bytes(b"%PDF-1.7\n")
+
+        valid_vector, _vector_message = panel._validate_embedding_pack_path(pack, str(vector))
+        valid_unsupported, unsupported_message = panel._validate_embedding_pack_path(
+            pack,
+            str(unsupported),
+        )
+
+    assert valid_vector is True
+    assert valid_unsupported is False
+    assert "expects a SQLite embedding database" in unsupported_message
+
+
 def test_frequency_pack_table_marks_managed_artifact_as_installed() -> None:
     _app()
     set_locale("en")

@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, and manual resource settings audit tests
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, and constrained manual embedding selection tests
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -24,9 +24,11 @@ Related docs:
 - `../../core/lexishift_core/helper/semantic_pack_provenance.py`
 - `../../core/lexishift_core/helper/use_cases/semantic_pack_install.py`
 - `../../scripts/testing/pack_lifecycle_audit.py`
+- `../../scripts/testing/pack_lifecycle_manual_resources.py`
 - `../../core/tests/helper/test_pack_provenance.py`
 - `../../core/tests/dev/test_pack_lifecycle_audit.py`
 - `../../apps/gui/tests/test_pack_provenance_sidecars.py`
+- `../../apps/gui/tests/test_language_pack_table_mixin.py`
 
 ## Scope
 
@@ -41,6 +43,7 @@ Completed slices:
 5. L6-E: en-es SRS corpus candidate readiness runbook.
 6. L6-F: app-managed non-semantic installer provenance sidecars.
 7. L6-G: manual resource settings disposition audit.
+8. L6-H: constrained manual import/backfill contract.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -131,6 +134,9 @@ What is already solid:
     conservative `provenance.json` sidecars at manifest/finalization time.
 11. The lifecycle audit now reports manual/external resource settings and marks
     app-managed artifacts stored in manual-path fields as migration candidates.
+12. Manual/external resource selection is now treated as a constrained
+    license/import fallback for exact supported artifact shapes, not a broad
+    file picker.
 
 Loose ends to close before broad expansion:
 
@@ -279,76 +285,16 @@ python3 -m pytest \
   core/tests/helper/test_pack_provenance.py
 python3 -m ruff check \
   scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
   core/tests/dev/test_pack_lifecycle_audit.py \
   core/lexishift_core/helper/pack_provenance.py \
   core/tests/helper/test_pack_provenance.py
 python3 -m ruff format --check \
   scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
   core/tests/dev/test_pack_lifecycle_audit.py \
   core/lexishift_core/helper/pack_provenance.py \
   core/tests/helper/test_pack_provenance.py
-```
-
-## L6-G Manual Resource Settings Disposition Audit
-
-Product claim:
-
-- Manual/external resource settings should remain explicit compatibility inputs
-  during migration, not hidden source-of-truth paths that look equivalent to
-  app-managed pack ids.
-
-Current implementation:
-
-- `pack_lifecycle_audit.py` now includes `manual_resource_settings` in its JSON
-  report and a `Manual Resource Settings` section in Markdown.
-- The audit reads `<data_root>/settings.json` and reports:
-  - `language_pack_paths`,
-  - `frequency_pack_paths`,
-  - `embedding_pack_paths`,
-  - `embedding_pair_paths`,
-  - legacy secondary aliases `wordnet_dir` and `moby_path`.
-- It also reports managed id fields for context:
-  - `managed_language_pack_ids`,
-  - `managed_frequency_pack_ids`,
-  - `embedding_pair_pack_ids`.
-- Each manual row records the owning field, family, key, resolved path,
-  existence, disposition, managed pack root when detected, and issues.
-- Missing manual paths and app-managed artifacts stored in manual settings are
-  `review` findings.
-- An app-managed artifact under a pack root with `manifest.json` receives
-  disposition `migrate_to_managed_pack_id`.
-
-Disposition policy:
-
-1. Keep manual/external language, frequency, and embedding paths as
-   compatibility/import surfaces for now.
-2. Keep `wordnet_dir` and `moby_path` as legacy secondary-resource aliases
-   while the shared `language_pack_paths` binding remains the effective source.
-3. Treat app-managed artifact paths found in manual maps as migration
-   candidates, not as the steady-state contract.
-4. Treat missing manual paths as review findings. They indicate stale local
-   state, but they are not pack-install errors.
-5. Do not infer source/license provenance from a manual path. Manual source
-   approval still requires an explicit future import/backfill contract.
-
-Boundaries:
-
-1. This slice does not rewrite settings or delete manual support.
-2. It does not decide final phase-out for any manual path family.
-3. It does not add provenance sidecars to manual/external resources.
-4. It does not inspect every possible runtime fallback filename; it audits the
-   saved settings surface that can carry user/manual paths across sessions.
-
-Validation:
-
-```bash
-python3 -m pytest core/tests/dev/test_pack_lifecycle_audit.py
-python3 -m ruff check \
-  scripts/testing/pack_lifecycle_audit.py \
-  core/tests/dev/test_pack_lifecycle_audit.py
-python3 -m ruff format --check \
-  scripts/testing/pack_lifecycle_audit.py \
-  core/tests/dev/test_pack_lifecycle_audit.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -473,8 +419,8 @@ Boundaries:
 1. Existing installed packs need reinstall or a future backfill/migration to
    gain sidecars.
 2. Manual paths, legacy fallback files, raw vector inputs, and compatibility
-   lookup paths remain outside first-class provenance until manual-path
-   disposition lands.
+   lookup paths remain outside first-class provenance until an import/backfill
+   implementation writes managed pack records for them.
 3. Raw source checksums are not available after the current cleanup paths remove
    archives; the sidecar records filenames but does not invent raw checksums.
 4. License review remains separate from installer writing. The sidecar makes
@@ -502,6 +448,148 @@ python3 -m ruff format --check \
   apps/gui/tests/test_pack_provenance_sidecars.py
 ```
 
+## L6-G Manual Resource Settings Disposition Audit
+
+Product claim:
+
+- Manual/external resource settings should remain explicit compatibility inputs
+  during migration, not hidden source-of-truth paths that look equivalent to
+  app-managed pack ids.
+
+Current implementation:
+
+- `pack_lifecycle_audit.py` now includes `manual_resource_settings` in its JSON
+  report and a `Manual Resource Settings` section in Markdown.
+- The audit reads `<data_root>/settings.json` and reports:
+  - `language_pack_paths`,
+  - `frequency_pack_paths`,
+  - `embedding_pack_paths`,
+  - `embedding_pair_paths`,
+  - legacy secondary aliases `wordnet_dir` and `moby_path`.
+- It also reports managed id fields for context:
+  - `managed_language_pack_ids`,
+  - `managed_frequency_pack_ids`,
+  - `embedding_pair_pack_ids`.
+- Each manual row records the owning field, family, key, resolved path,
+  existence, expected artifact format, format support, disposition, managed pack
+  root when detected, and issues.
+- Missing manual paths and app-managed artifacts stored in manual settings are
+  `review` findings.
+- Unsupported existing manual artifact shapes are also `review` findings.
+- An app-managed artifact under a pack root with `manifest.json` receives
+  disposition `migrate_to_managed_pack_id`.
+
+Disposition policy:
+
+1. Keep manual/external language, frequency, and embedding paths as
+   compatibility/import surfaces for now.
+2. Keep `wordnet_dir` and `moby_path` as legacy secondary-resource aliases
+   while the shared `language_pack_paths` binding remains the effective source.
+3. Treat app-managed artifact paths found in manual maps as migration
+   candidates, not as the steady-state contract.
+4. Treat missing manual paths as review findings. They indicate stale local
+   state, but they are not pack-install errors.
+5. Do not infer source/license provenance from a manual path. Manual source
+   approval still requires an explicit future import/backfill contract.
+
+Boundaries:
+
+1. This slice does not rewrite settings or delete manual support.
+2. It does not decide final phase-out for any manual path family.
+3. It does not add provenance sidecars to manual/external resources.
+4. It does not inspect every possible runtime fallback filename; it audits the
+   saved settings surface that can carry user/manual paths across sessions.
+
+Validation:
+
+```bash
+python3 -m pytest core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+```
+
+## L6-H Constrained Manual Import/Backfill Contract
+
+Product claim:
+
+- External pack selection exists because some licenses or distribution models
+  require the user/operator to acquire a resource manually, not because
+  LexiShift can safely consume arbitrary files.
+
+Current implementation:
+
+- The lifecycle audit now records an `expected_format` and `format_supported`
+  value for saved manual resource paths.
+- Existing manual paths with unsupported artifact shapes receive
+  `unsupported_manual_artifact_format` review findings.
+- Frequency manual paths are expected to be SQLite databases with a
+  `frequency` table.
+- Embedding manual paths are expected to be SQLite embedding databases or
+  `.vec` / `.txt` / `.bin` vector files.
+- Language manual paths remain limited to SQLite, TEI/XML, pack-specific text
+  resources, or directories for pack-specific required-file workflows.
+- The embedding picker no longer offers an all-files filter and now rejects
+  unsupported manual file types even when the OS lets a path through.
+
+UX policy:
+
+1. Normal users should see installed/app-managed packs as the preferred path.
+2. External selection should be labeled as manual compatibility/import, not as
+   a general pack-install path.
+3. External selection should be narrow and format-gated because runtime loaders
+   expect exact schemas or vector formats.
+4. License-restricted sources should use manual acquisition followed by a
+   constrained link/import step.
+5. A future first-class import flow should copy or convert an approved external
+   artifact into an app-managed pack root, then write `manifest.json` and
+   `provenance.json`.
+
+Backfill policy:
+
+1. If a saved manual path points inside an app-managed pack root with
+   `manifest.json`, migrate it to managed pack-id state.
+2. If a saved manual path points to an external file with a supported exact
+   format, keep it manual until the user/operator chooses import.
+3. If a saved manual path is missing, report review and leave cleanup to the
+   user/operator; do not treat it as an installed-pack error.
+4. If a saved manual path exists but has an unsupported format, reject it in UX
+   paths where possible and report it in lifecycle audit.
+5. Do not mark a manual path expansion-ready without an explicit source/license
+   review and provenance/import record.
+
+Boundaries:
+
+1. This slice does not remove existing manual compatibility support.
+2. It does not yet implement a full import wizard or settings migration.
+3. It does not prove license eligibility for manually acquired sources.
+4. It does not convert valid external files into app-owned packs automatically.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  apps/gui/tests/test_language_pack_table_mixin.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  apps/gui/src/settings_language_packs.py \
+  apps/gui/tests/test_language_pack_table_mixin.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_audit.py \
+  scripts/testing/pack_lifecycle_manual_resources.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  apps/gui/src/settings_language_packs.py \
+  apps/gui/tests/test_language_pack_table_mixin.py
+```
+
 ## Planned Lane 6 Slices
 
 | Slice | Goal | First Output |
@@ -512,8 +600,9 @@ python3 -m ruff format --check \
 | L6-E En-es expansion candidate runbook | Completed as an operational runbook; future work should use it on the first real candidate. | `semantic_veto_srs_corpus_candidate_readiness_runbook.md`. |
 | L6-F App-managed non-semantic installer provenance | Completed first installer-write slice for translation, frequency, and embedding managed installs. | `write_app_managed_pack_provenance(...)`, GUI installer/finalization wiring, and focused sidecar tests. |
 | L6-G Manual path disposition audit | Completed first audit/report slice for saved manual resource settings; future work should choose final phase-out/backfill policy per family. | `manual_resource_settings` in `pack_lifecycle_audit.py`, Markdown report section, and focused tests. |
-| L6-H Manual import/backfill contract | Decide which manual paths remain supported import/debug surfaces, which need a first-class import manifest, and which should be demoted before release. | Updated installed-vs-manual contract, import/backfill plan, and targeted cleanup tasks. |
-| L6-I Source-batch and release lineage | Add richer source-batch, release-manifest, converter-version, and audit-metric lineage once upstream inventories and pack candidates carry those ids. | Updated semantic/source manifests, lifecycle audit fields, and candidate audit evidence. |
+| L6-H Constrained manual import/backfill contract | Completed first policy and enforcement slice: external selection is a narrow license/import fallback for exact supported artifact shapes. | Audit format checks, embedding picker validation/filter tightening, contract docs, and focused tests. |
+| L6-I Import/backfill implementation | Implement the chosen migration/import behavior for managed-artifact manual paths and any approved external import flow. | Settings migration/import plan, provenance sidecar writing for imported resources, and targeted tests. |
+| L6-J Source-batch and release lineage | Add richer source-batch, release-manifest, converter-version, and audit-metric lineage once upstream inventories and pack candidates carry those ids. | Updated semantic/source manifests, lifecycle audit fields, and candidate audit evidence. |
 
 ## Validation Bundle For L6-A
 

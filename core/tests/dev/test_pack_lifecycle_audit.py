@@ -137,9 +137,12 @@ class PackLifecycleAuditTests(unittest.TestCase):
             )
             manual_freq = data_root / "imports" / "manual-frequency.sqlite"
             manual_freq.parent.mkdir(parents=True)
-            manual_freq.write_bytes(b"SQLite format 3\x00")
+            with sqlite3.connect(manual_freq) as conn:
+                conn.execute("CREATE TABLE frequency (lemma TEXT, rank INTEGER)")
             manual_embedding = data_root / "imports" / "manual.vec"
             manual_embedding.write_text("hola 0.1 0.2\n", encoding="utf-8")
+            unsupported_embedding = data_root / "imports" / "not-embeddings.pdf"
+            unsupported_embedding.write_bytes(b"%PDF-1.7\n")
             settings_path = data_root / "settings.json"
             settings_path.write_text(
                 json.dumps(
@@ -151,6 +154,7 @@ class PackLifecycleAuditTests(unittest.TestCase):
                                 "wordnet-en": str(data_root / "missing-wordnet"),
                             },
                             "frequency_pack_paths": {"freq-manual": str(manual_freq)},
+                            "embedding_pack_paths": {"embed-bad": str(unsupported_embedding)},
                             "embedding_pair_paths": {"en-es": [str(manual_embedding)]},
                         }
                     },
@@ -167,14 +171,21 @@ class PackLifecycleAuditTests(unittest.TestCase):
             markdown = render_pack_lifecycle_markdown(report)
 
         self.assertEqual(manual_report["status"], "review")
-        self.assertEqual(manual_report["manual_path_count"], 4)
+        self.assertEqual(manual_report["manual_path_count"], 5)
         self.assertEqual(manual_report["manual_path_missing_count"], 1)
         self.assertEqual(manual_report["managed_artifact_manual_path_count"], 1)
         self.assertEqual(report["summary"]["status"], "review")
-        self.assertEqual(report["summary"]["manual_resource_path_count"], 4)
-        self.assertEqual(report["summary"]["manual_resource_review_count"], 2)
+        self.assertEqual(report["summary"]["manual_resource_path_count"], 5)
+        self.assertEqual(report["summary"]["manual_resource_review_count"], 3)
+        self.assertTrue(
+            any(
+                "unsupported_manual_artifact_format" in row["issues"]
+                for row in manual_report["manual_paths"]
+            )
+        )
         self.assertIn("Manual Resource Settings", markdown)
         self.assertIn("migrate_to_managed_pack_id", markdown)
+        self.assertIn("SQLite embedding database or .vec/.txt/.bin vector file", markdown)
 
 
 def _valid_provenance(

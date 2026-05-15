@@ -536,7 +536,8 @@
       "wordnet": "Das WordNet-Verzeichnis muss data.noun/data.verb/data.adj/data.adv oder JSON-Dateien wie entries-a.json und noun.act.json enthalten.",
       "missing_files": "{name} fehlen erforderliche Dateien: {files}.",
       "expected_file": "{name} erwartet eine Datei.",
-      "sqlite": "{name} erwartet eine SQLite-Datenbankdatei."
+      "sqlite": "{name} erwartet eine SQLite-Datenbankdatei.",
+      "embedding_format": "{name} erwartet eine SQLite-Embedding-Datenbank oder eine .vec/.txt/.bin-Vektordatei."
     },
     "downloaded_linked": "{name} heruntergeladen und mit {path} verknüpft",
     "downloaded_invalid": "{name} heruntergeladen, aber Validierung fehlgeschlagen: {message}",
@@ -624,7 +625,7 @@
   },
   "filters": {
     "json": "JSON-Dateien (*.json)",
-    "embeddings": "Einbettungsdateien (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;Alle Dateien (*)",
+    "embeddings": "Einbettungsdateien (*.vec *.txt *.bin *.db *.sqlite *.sqlite3)",
     "all": "Alle Dateien (*)"
   },
   "integrations": {

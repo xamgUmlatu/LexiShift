@@ -248,6 +248,12 @@ Top-level fields
 Notes:
 - App-managed packs should normally be selected by pack id, not by raw path.
 - `*_pack_paths` are transitional manual/external compatibility fields, not the preferred steady-state contract.
+- Manual/external paths are constrained license/import fallbacks, not arbitrary
+  file selectors. Frequency paths must point to SQLite databases with a
+  `frequency` table. Embedding paths must point to SQLite embedding databases
+  or `.vec` / `.txt` / `.bin` vector files. Translation/language paths remain
+  limited to SQLite, TEI/XML, pack-specific text resources, or directories for
+  pack-specific required-file workflows.
 - `wordnet_dir` and `moby_path` remain explicit compatibility aliases for the secondary lexical `wordnet-en` / `moby-en` entries; when both those aliases and `language_pack_paths` entries exist, the shared `language_pack_paths` values are the effective source of truth.
 
 Example (minimal)

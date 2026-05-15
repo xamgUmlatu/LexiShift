@@ -406,6 +406,11 @@ class LanguagePackPanel(
                 t("language_packs.validation.expected_file", name=pack.display_name()),
             )
             return
+        valid, message = self._validate_embedding_pack_path(pack, path)
+        if not valid:
+            QMessageBox.warning(self, t("dialogs.invalid_resource.title"), message)
+            self._set_status_message(message, tone="error")
+            return
         if self._embedding_pack_pair_key(pack_id) and self._is_installed_embedding_pack_entry(
             pack_id, path
         ):
@@ -717,3 +722,12 @@ class LanguagePackPanel(
         if not _has_frequency_table(path):
             return False, f"{t('language_packs.validation.sqlite')} (missing frequency table)"
         return True, ""
+
+    def _validate_embedding_pack_path(self, pack: LanguagePackInfo, path: str) -> tuple[bool, str]:
+        if not os.path.isfile(path):
+            return False, t("language_packs.validation.expected_file", name=pack.display_name())
+        if self._is_sqlite_db(path):
+            return True, ""
+        if path.lower().endswith((".vec", ".txt", ".bin")):
+            return True, ""
+        return False, t("language_packs.validation.embedding_format", name=pack.display_name())

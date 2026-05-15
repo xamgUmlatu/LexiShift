@@ -537,7 +537,8 @@
       "wordnet": "WordNet directory must contain data.noun/data.verb/data.adj/data.adv or JSON files like entries-a.json and noun.act.json.",
       "missing_files": "{name} is missing required files: {files}.",
       "expected_file": "{name} expects a file.",
-      "sqlite": "{name} expects a SQLite database file."
+      "sqlite": "{name} expects a SQLite database file.",
+      "embedding_format": "{name} expects a SQLite embedding database or .vec/.txt/.bin vector file."
     },
     "downloaded_linked": "Downloaded and linked {name} to {path}",
     "downloaded_invalid": "Downloaded {name}, but validation failed: {message}",
@@ -625,7 +626,7 @@
   },
   "filters": {
     "json": "JSON Files (*.json)",
-    "embeddings": "Embedding Files (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;All Files (*)",
+    "embeddings": "Embedding Files (*.vec *.txt *.bin *.db *.sqlite *.sqlite3)",
     "all": "All Files (*)"
   },
   "integrations": {

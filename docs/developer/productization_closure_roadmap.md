@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, and manual resource settings audit tests
+Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, and constrained manual embedding selection tests
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -381,7 +381,8 @@ Current Lane 6 progress:
   pack provenance sidecar contract, L6-C, the pack lifecycle audit command, and
   L6-D, semantic pack provenance and lineage, L6-E, the en-es candidate
   readiness runbook, L6-F, app-managed non-semantic installer provenance, and
-  L6-G, manual resource settings disposition audit.
+  L6-G, manual resource settings disposition audit, and L6-H, constrained
+  manual import/backfill contract.
 - L6-A maps the pack catalog, pack source manifest, installed-pack manifests,
   pack refs/resolvers, semantic pack-copy manifest, profile publication
   manifest, generated evidence artifacts, and current en-es corpus-expansion
@@ -412,15 +413,21 @@ Current Lane 6 progress:
   secondary-resource paths. Missing manual paths and app-managed artifacts still
   stored in manual maps are `review` findings; managed artifacts in manual maps
   receive disposition `migrate_to_managed_pack_id`.
+- L6-H records the UX/lifecycle decision: external resource selection is a
+  constrained license/import fallback for exact supported artifact shapes, not a
+  broad file-picker product path. The lifecycle audit now reports expected
+  manual artifact formats and flags unsupported existing manual files, while
+  the embedding picker rejects unsupported file types and no longer exposes an
+  all-files filter.
 - The main finding is explicit: managed pack roots and publication manifests
   exist, but installed manifests are not complete source/license/generation
   provenance records, existing/manual/legacy paths can still lack sidecar-backed
   provenance, and the current lifecycle audit reports gaps but does not backfill
   sidecars, rewrite settings, or promote packs.
-- The next Lane 6 slices are the manual import/backfill contract, richer
-  source-batch/release lineage once upstream inventories carry those ids,
-  source/license review handling, and optional provenance backfill/migration
-  for existing installs.
+- The next Lane 6 slices are import/backfill implementation for approved manual
+  resources and managed-artifact settings migration, richer
+  source-batch/release lineage once upstream inventories carry those ids, and
+  source/license review handling.
 
 ### Lane 7: Product Ops And Release Readiness
 

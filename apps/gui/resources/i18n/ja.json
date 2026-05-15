@@ -536,7 +536,8 @@
       "wordnet": "WordNetディレクトリには data.noun/data.verb/data.adj/data.adv または entries-a.json や noun.act.json などのJSONファイルが必要です。",
       "missing_files": "{name} に必要なファイルがありません: {files}。",
       "expected_file": "{name} はファイルが必要です。",
-      "sqlite": "{name} は SQLite データベースファイルが必要です。"
+      "sqlite": "{name} は SQLite データベースファイルが必要です。",
+      "embedding_format": "{name} は SQLite 埋め込みデータベース、または .vec/.txt/.bin のベクトルファイルが必要です。"
     },
     "downloaded_linked": "「{name}」をダウンロードして {path} にリンクしました",
     "downloaded_invalid": "「{name}」をダウンロードしましたが、検証に失敗しました: {message}",
@@ -624,7 +625,7 @@
   },
   "filters": {
     "json": "JSON ファイル (*.json)",
-    "embeddings": "埋め込みファイル (*.vec *.txt *.bin *.db *.sqlite *.sqlite3);;すべてのファイル (*)",
+    "embeddings": "埋め込みファイル (*.vec *.txt *.bin *.db *.sqlite *.sqlite3)",
     "all": "すべてのファイル (*)"
   },
   "integrations": {
