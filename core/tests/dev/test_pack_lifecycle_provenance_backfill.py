@@ -42,7 +42,7 @@ class PackLifecycleProvenanceBackfillTests(unittest.TestCase):
             ]
 
         self.assertEqual(report["status"], "would_update")
-        self.assertEqual(report["summary"]["backfillable_count"], 2)
+        self.assertEqual(report["summary"]["backfillable_count"], 3)
         self.assertEqual(report["summary"]["written_count"], 0)
         self.assertFalse(any(sidecars_exist))
         self.assertIn("would_write", markdown)
@@ -57,43 +57,85 @@ class PackLifecycleProvenanceBackfillTests(unittest.TestCase):
                 apply_changes=True,
                 generated_at="2026-05-15T00:00:00+00:00",
             )
-            sidecar_payloads = [
-                json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
-                for pack_root in pack_roots
-            ]
+            sidecar_payloads = {
+                payload["pack_id"]: payload
+                for payload in (
+                    json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
+                    for pack_root in pack_roots
+                )
+            }
             validation_errors = [
                 validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME)
                 for pack_root in pack_roots
             ]
 
         self.assertEqual(report["status"], "applied")
-        self.assertEqual(report["summary"]["written_count"], 2)
-        self.assertEqual(validation_errors, [(), ()])
+        self.assertEqual(report["summary"]["written_count"], 3)
+        self.assertEqual(validation_errors, [(), (), ()])
+        self.assertEqual(set(sidecar_payloads), {"freedict-en-es", "freq-es-cde", "embed-xling-es"})
         self.assertEqual(
-            [payload["source"]["license_status"] for payload in sidecar_payloads],
-            ["requires_review", "requires_review"],
+            sidecar_payloads["freedict-en-es"]["source"]["license_status"], "requires_review"
         )
-        self.assertEqual(sidecar_payloads[0]["pack_id"], "freq-es-cde")
-        self.assertEqual(sidecar_payloads[1]["pack_id"], "embed-xling-es")
-        self.assertEqual(sidecar_payloads[0]["build"]["command"], "convert_frequency_to_sqlite")
+        self.assertEqual(
+            sidecar_payloads["freedict-en-es"]["source"]["source_version"],
+            "freedict-eng-spa-2025.11.23",
+        )
+        self.assertEqual(
+            sidecar_payloads["freedict-en-es"]["build"]["command"],
+            "convert_freedict_tei_to_sqlite",
+        )
+        self.assertEqual(
+            sidecar_payloads["freq-es-cde"]["source"]["license_status"], "requires_review"
+        )
+        self.assertNotIn("source_version", sidecar_payloads["freq-es-cde"]["source"])
+        self.assertNotIn("source_dump", sidecar_payloads["freq-es-cde"]["source"])
+        self.assertEqual(
+            sidecar_payloads["freq-es-cde"]["build"]["command"],
+            "convert_frequency_to_sqlite",
+        )
         self.assertTrue(
-            sidecar_payloads[0]["build"]["converter_version"].startswith(
+            sidecar_payloads["freq-es-cde"]["build"]["converter_version"].startswith(
                 "source_sha256:lexishift_core.frequency.sqlite:"
             )
         )
-        self.assertEqual(sidecar_payloads[0]["build"]["parser_config"]["encoding"], "latin-1")
         self.assertEqual(
-            sidecar_payloads[1]["build"]["command"],
+            sidecar_payloads["freq-es-cde"]["build"]["parser_config"]["encoding"], "latin-1"
+        )
+        self.assertEqual(
+            sidecar_payloads["embed-xling-es"]["source"]["license_status"],
+            "requires_review",
+        )
+        self.assertNotIn("source_version", sidecar_payloads["embed-xling-es"]["source"])
+        self.assertNotIn("source_dump", sidecar_payloads["embed-xling-es"]["source"])
+        self.assertEqual(
+            sidecar_payloads["embed-xling-es"]["build"]["command"],
             "scripts/data/convert_embeddings.py",
         )
         self.assertTrue(
-            sidecar_payloads[1]["build"]["converter_version"].startswith(
+            sidecar_payloads["embed-xling-es"]["build"]["converter_version"].startswith(
                 "source_sha256:scripts.data.convert_embeddings:"
             )
         )
 
 
-def _write_backfill_fixture(data_root: Path) -> tuple[Path, Path]:
+def _write_backfill_fixture(data_root: Path) -> tuple[Path, Path, Path]:
+    language_root = data_root / "language_packs"
+    language_artifact = language_root / "freedict-en-es" / "main.sqlite"
+    language_artifact.parent.mkdir(parents=True)
+    language_artifact.write_bytes(b"SQLite format 3\x00")
+    write_installed_pack_manifest(
+        language_root,
+        pack_id="freedict-en-es",
+        pack_kind="language",
+        provider="freedict",
+        local_kind="dir",
+        build_mode="freedict_tei_to_sqlite",
+        artifact_path=language_artifact,
+        source_filename="freedict-eng-spa-2025.11.23.src.tar.xz",
+        sqlite_filename="main.sqlite",
+        required_files=("eng-spa.tei",),
+    )
+
     frequency_root = data_root / "frequency_packs"
     frequency_artifact = frequency_root / "freq-es-cde" / "main.sqlite"
     frequency_artifact.parent.mkdir(parents=True)
@@ -125,7 +167,7 @@ def _write_backfill_fixture(data_root: Path) -> tuple[Path, Path]:
         source_filename="wiki.es.align.vec",
         sqlite_filename="main.sqlite",
     )
-    return frequency_artifact.parent, embedding_artifact.parent
+    return language_artifact.parent, frequency_artifact.parent, embedding_artifact.parent
 
 
 if __name__ == "__main__":

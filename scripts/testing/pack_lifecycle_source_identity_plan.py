@@ -5,7 +5,6 @@ import argparse
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-import re
 import sys
 from typing import Mapping, Sequence
 
@@ -20,20 +19,14 @@ for candidate in (CORE_ROOT, GUI_SRC):
         sys.path.insert(0, candidate_text)
 
 from language_packs_catalog import build_pack_catalogs  # noqa: E402
+from lexishift_core.helper.pack_source_identity import (  # noqa: E402
+    SOURCE_IDENTITY_CLASSIFICATIONS,
+    classify_pack_source_identity,
+)
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "pack_lifecycle_source_identity_plan_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "pack_lifecycle_source_identity_plan_latest.md"
-
-CLASSIFICATIONS = (
-    "safe_to_write",
-    "label_only",
-    "needs_policy",
-    "source_bundle_needed",
-    "unknown",
-)
-
-_RELEASE_TAG_RE = re.compile(r"/releases/download/([^/]+)/")
 
 
 def parse_args() -> argparse.Namespace:
@@ -118,7 +111,7 @@ def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
         "| --- | --- |",
     ]
     classification_counts = _as_mapping(summary.get("classification_counts"))
-    for classification in CLASSIFICATIONS:
+    for classification in SOURCE_IDENTITY_CLASSIFICATIONS:
         lines.append(f"| `{classification}` | `{classification_counts.get(classification, 0)}` |")
     lines.extend(
         [
@@ -151,146 +144,15 @@ def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
 
 
 def _classify_pack(*, family: str, pack: object) -> dict[str, object]:
-    pack_id = _text(getattr(pack, "pack_id", ""))
-    filename = _text(getattr(pack, "source_filename", "")) or _text(getattr(pack, "filename", ""))
-    source_name = _text(getattr(pack, "source", ""))
-    source_url = _text(getattr(pack, "url", ""))
-    build_mode = _text(getattr(pack, "build_mode", "download_only")) or "download_only"
-    candidate = _artifact_identity(filename)
-
-    if build_mode == "de_frequency_pipeline":
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_bundle",
-            candidate_value="deu_news_2023_1M + LanguageTool POS pipeline",
-            classification="source_bundle_needed",
-            rationale=(
-                "Generated pipeline output depends on a downloaded Leipzig corpus plus "
-                "pipeline/POS dependencies, not a single source_version field."
-            ),
-            recommended_action="design_source_bundle_lineage_before_writing_identity",
-        )
-
-    if pack_id in {"jp-wordnet", "jp-wordnet-sqlite"}:
-        release = _release_tag(source_url)
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_version",
-            candidate_value=f"wnja-{release}" if release else candidate,
-            classification="safe_to_write" if release else "needs_policy",
-            rationale=(
-                "Catalog URL points at a GitHub release tag."
-                if release
-                else "Japanese WordNet catalog entry lacks an explicit release tag."
-            ),
-            recommended_action=(
-                "eligible_for_future_source_version_writer"
-                if release
-                else "confirm_release_identity_before_writing_source_version"
-            ),
-        )
-
-    if source_name.lower() == "freedict" or filename.startswith("freedict-"):
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_version",
-            candidate_value=candidate,
-            classification="safe_to_write",
-            rationale="FreeDict source archive filename and URL carry the dictionary release id.",
-            recommended_action="eligible_for_future_source_version_writer",
-        )
-
-    if pack_id == "wordnet-en":
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_version",
-            candidate_value=candidate,
-            classification="safe_to_write",
-            rationale="WordNet catalog filename includes the source package year/id.",
-            recommended_action="eligible_for_future_source_version_writer",
-        )
-
-    if pack_id == "freq-ja-bccwj":
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_version",
-            candidate_value="BCCWJ_frequencylist_suw_ver1_0",
-            classification="safe_to_write",
-            rationale="BCCWJ archive/source filename carries an explicit ver1_0 identifier.",
-            recommended_action="eligible_for_future_source_version_writer",
-        )
-
-    if source_name.lower() == "kaikki":
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_dump",
-            candidate_value="enwiktionary",
-            classification="needs_policy",
-            rationale=(
-                "Catalog identifies the Wiktextract dump family, but the shared raw dump URL "
-                "does not pin a dated dump."
-            ),
-            recommended_action="pin_or_record_dump_date_before_writing_source_dump",
-        )
-
-    if source_name.lower() == "fasttext":
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_label",
-            candidate_value=candidate,
-            classification="needs_policy",
-            rationale="fastText artifact filename identifies model family/language but not a release.",
-            recommended_action="confirm_fasttext_release_or_snapshot_before_writing_source_version",
-        )
-
-    if pack_id in {"freq-en-coca", "freq-es-cde"}:
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_label",
-            candidate_value=candidate,
-            classification="label_only",
-            rationale="Filename is a useful sample/artifact label, not clearly a source release.",
-            recommended_action="keep_as_label_until_source_policy_defines_version_semantics",
-        )
-
-    if pack_id in {"moby-en", "jmdict-ja-en", "cc-cedict-zh-en"}:
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_label",
-            candidate_value=candidate,
-            classification="needs_policy",
-            rationale="Catalog filename is useful, but release/snapshot semantics need source policy.",
-            recommended_action="confirm_release_or_snapshot_semantics_before_writing_source_version",
-        )
-
-    if "refs/heads/" in source_url or "/raw/master/" in source_url:
-        return _row(
-            family=family,
-            pack=pack,
-            candidate_field="source_label",
-            candidate_value=candidate,
-            classification="needs_policy",
-            rationale="Catalog URL follows a branch/head rather than a pinned source release.",
-            recommended_action="pin_source_commit_or_snapshot_before_writing_source_version",
-        )
-
+    decision = classify_pack_source_identity(pack)
     return _row(
         family=family,
         pack=pack,
-        candidate_field="source_label" if candidate else "",
-        candidate_value=candidate,
-        classification="unknown",
-        rationale="No safe source-version or source-dump rule matched this catalog entry.",
-        recommended_action="manual_source_identity_review_required",
+        candidate_field=decision.candidate_field,
+        candidate_value=decision.candidate_value,
+        classification=decision.classification,
+        rationale=decision.rationale,
+        recommended_action=decision.recommended_action,
     )
 
 
@@ -321,7 +183,7 @@ def _row(
 
 
 def _summary(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
-    counts = {classification: 0 for classification in CLASSIFICATIONS}
+    counts = {classification: 0 for classification in SOURCE_IDENTITY_CLASSIFICATIONS}
     for row in rows:
         classification = str(row.get("classification") or "unknown")
         counts[classification] = counts.get(classification, 0) + 1
@@ -335,31 +197,6 @@ def _summary(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
         "safe_to_write_count": counts.get("safe_to_write", 0),
         "needs_decision_count": needs_decision,
     }
-
-
-def _artifact_identity(filename: str) -> str:
-    value = _text(filename)
-    for suffix in (
-        ".src.tar.xz",
-        ".tar.xz",
-        ".tar.gz",
-        ".jsonl.gz",
-        ".tab.gz",
-        ".db.gz",
-        ".vec.gz",
-        ".txt",
-        ".zip",
-        ".gz",
-        ".u8",
-    ):
-        if value.lower().endswith(suffix):
-            return value[: -len(suffix)]
-    return Path(value).stem if value else ""
-
-
-def _release_tag(url: str) -> str:
-    match = _RELEASE_TAG_RE.search(str(url or ""))
-    return match.group(1) if match else ""
 
 
 def _utc_now() -> str:

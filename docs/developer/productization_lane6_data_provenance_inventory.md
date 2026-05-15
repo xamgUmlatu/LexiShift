@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -20,6 +20,7 @@ Related docs:
 - `../../apps/gui/src/language_packs_catalog.py`
 - `../../core/lexishift_core/helper/installed_packs.py`
 - `../../core/lexishift_core/helper/pack_provenance.py`
+- `../../core/lexishift_core/helper/pack_source_identity.py`
 - `../../core/lexishift_core/helper/rulegen_outputs.py`
 - `../../core/lexishift_core/helper/semantic_pack_provenance.py`
 - `../../core/lexishift_core/helper/use_cases/semantic_pack_install.py`
@@ -31,6 +32,7 @@ Related docs:
 - `../../scripts/testing/pack_lifecycle_provenance_backfill.py`
 - `../../scripts/testing/pack_lifecycle_promotion_evidence.py`
 - `../../scripts/testing/pack_lifecycle_source_identity_plan.py`
+- `../../core/tests/helper/test_pack_source_identity.py`
 - `../../core/tests/helper/test_pack_provenance.py`
 - `../../core/tests/dev/test_pack_lifecycle_audit.py`
 - `../../core/tests/dev/test_pack_lifecycle_external_import_plan.py`
@@ -69,6 +71,7 @@ Completed slices:
     install/conversion.
 18. L6-Ra: app-managed converter source digests.
 19. L6-Sa: catalog source-identity classification surface.
+20. L6-Ta: safe source-version writer/backfill for classified catalog rows.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -194,6 +197,11 @@ What is already solid:
     classification surface for catalog source-version/source-dump candidates:
     currently `8` safe-to-write candidates, `2` label-only cases, `16`
     policy-needed cases, and `1` source-bundle case.
+23. App-managed sidecar writing and existing-install sidecar backfill now use
+    the shared source-identity classifier to write durable
+    `source.source_version` only for `safe_to_write` catalog rows. `label_only`,
+    `needs_policy`, and `source_bundle_needed` rows are withheld from sidecar
+    source identity until policy or source-bundle lineage exists.
 
 Loose ends to close before broad expansion:
 
@@ -232,17 +240,18 @@ Loose ends to close before broad expansion:
     replace the source-readiness, SRS Zipf bridge, or denominator audits needed
     before expanded corpus promotion.
 13. The promotion evidence bundle checks that required proof artifacts exist
-    and pass; it does not create missing source-version, license-approval, or
-    non-installer checksum lineage.
+    and pass; it does not create missing policy-gated source-dump,
+    license-approval, non-installer checksum, or source-bundle lineage.
 14. Build command, parser config, and converter source-digest lineage are now
     captured for app-managed install/backfill paths where known, but existing
     sidecars need reinstall or explicit backfill to gain that data.
 15. Raw checksum capture is still incomplete for app-managed embedding
     finalization, existing-install backfill, manual/external imports, and
     generated DE frequency pipeline output.
-16. Source-identity classification is now explicit, but it still does not write
-    `source_version`/`source_dump`; mutation should wait for a narrow writer
-    policy using the `safe_to_write` rows only.
+16. Safe source-version mutation is implemented only for `safe_to_write` rows,
+    but existing sidecars need reinstall or explicit backfill to gain it, and
+    `source_dump`, label-only samples, policy-gated sources, embedding release
+    identity, and source-bundle lineage remain unresolved.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -717,6 +726,8 @@ Product claim:
 
 Current implementation:
 
+- `core/lexishift_core/helper/pack_source_identity.py` owns the shared
+  classification policy used by both reporting and safe sidecar writing.
 - `scripts/testing/pack_lifecycle_source_identity_plan.py` is a read-only
   command that emits JSON and Markdown reports.
 - The report classifies catalog rows into:
@@ -766,11 +777,73 @@ Validation:
 ```bash
 python3 -m pytest core/tests/dev/test_pack_lifecycle_source_identity_plan.py
 python3 -m ruff check \
+  core/lexishift_core/helper/pack_source_identity.py \
   scripts/testing/pack_lifecycle_source_identity_plan.py \
+  core/tests/helper/test_pack_source_identity.py \
   core/tests/dev/test_pack_lifecycle_source_identity_plan.py
 python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_source_identity.py \
   scripts/testing/pack_lifecycle_source_identity_plan.py \
+  core/tests/helper/test_pack_source_identity.py \
   core/tests/dev/test_pack_lifecycle_source_identity_plan.py
+```
+
+## L6-Ta Safe Source-Version Writer/Backfill
+
+Product claim:
+
+- Durable sidecar source identity should be written only when the catalog
+  evidence was already classified as safe to write.
+
+Current implementation:
+
+- `safe_pack_source_identity_fields(...)` exports only `safe_to_write`
+  decisions whose candidate field is `source_version` or `source_dump`.
+- App-managed language, frequency, and embedding sidecar writers call that
+  helper before writing `provenance.json`.
+- Existing-install provenance backfill calls the same helper before writing
+  missing sidecars.
+- Current safe writes are source-version-only: FreeDict release archives,
+  Japanese WordNet `wnja-v1.1`, English WordNet 2025, and BCCWJ `ver1_0`.
+- `freq-es-cde`, `freq-en-coca`, Kaikki, fastText, rolling/head URLs, and the
+  German generated frequency pipeline remain withheld from durable source
+  identity fields.
+
+Boundaries:
+
+1. This does not mark license status as confirmed.
+2. This does not write `source_dump` for Kaikki until a dated dump policy exists.
+3. This does not convert label-only filenames into source versions.
+4. This does not mutate existing sidecars unless the explicit backfill command
+   is run with `--apply`.
+5. This does not solve source-bundle lineage for generated pipeline outputs.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py
+python3 -m ruff check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  scripts/testing/pack_lifecycle_source_identity_plan.py \
+  apps/gui/src/language_packs.py \
+  apps/gui/src/settings_language_packs_transfer_mixin.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  scripts/testing/pack_lifecycle_source_identity_plan.py \
+  apps/gui/src/language_packs.py \
+  apps/gui/src/settings_language_packs_transfer_mixin.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -1363,6 +1436,7 @@ python3 -m ruff format --check \
 | L6-Q App-managed raw artifact checksums | Completed first installer/converter checksum slice for source files available during managed translation/frequency installs. | Installer checksum capture, provenance sidecar wiring, and focused GUI sidecar tests. |
 | L6-R App-managed converter source digests | Completed first converter lineage slice using source SHA-256 digests where no package-level converter version exists. | Installer/backfill `build.converter_version` wiring and focused sidecar/backfill tests. |
 | L6-S Catalog source-identity classification | Completed first read-only decision surface for source-version/source-dump candidates. | `pack_lifecycle_source_identity_plan.py`, Markdown/JSON report, and focused tests. |
+| L6-T Safe source-version writer/backfill | Completed first mutation slice for classified safe source-version candidates only. | `pack_source_identity.py`, installer/backfill wiring, and focused safe/withheld identity tests. |
 
 ## Validation Bundle For L6-A
 

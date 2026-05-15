@@ -12,6 +12,7 @@ from language_packs import (
 )
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
 from lexishift_core.helper.pack_provenance import write_app_managed_pack_provenance
+from lexishift_core.helper.pack_source_identity import safe_pack_source_identity_fields
 from pack_download_failures import (
     PACK_DOWNLOAD_FAILURE_BLOCKED,
     PACK_DOWNLOAD_FAILURE_CANCELLED,
@@ -353,6 +354,7 @@ class LanguagePackPanelTransferMixin:
                 artifact_path=artifact_path,
                 source_filename=pack.filename,
                 sqlite_filename=os.path.basename(resolved_path),
+                **safe_pack_source_identity_fields(pack),
             )
             if (
                 prior_path

@@ -43,9 +43,10 @@ def test_language_pack_manifest_write_creates_provenance_sidecar() -> None:
             language="English to Spanish",
             source="FreeDict",
             size="1 MB",
-            url="https://example.com/freedict-eng-spa.src.tar.xz",
-            wayback_url="https://web.archive.org/web/*/https://example.com/freedict-eng-spa.src.tar.xz",
-            filename="freedict-eng-spa.src.tar.xz",
+            url="https://example.com/freedict-eng-spa-2025.11.23.src.tar.xz",
+            wayback_url="https://web.archive.org/web/*/https://example.com/"
+            "freedict-eng-spa-2025.11.23.src.tar.xz",
+            filename="freedict-eng-spa-2025.11.23.src.tar.xz",
             local_kind="file",
             required_files=("eng-spa.tei",),
             sqlite_filename="main.sqlite",
@@ -62,6 +63,7 @@ def test_language_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["pack_id"] == "freedict-en-es"
         assert payload["pack_kind"] == "language"
         assert payload["source"]["license_status"] == "requires_review"
+        assert payload["source"]["source_version"] == "freedict-eng-spa-2025.11.23"
         assert payload["build"]["command"] == "convert_freedict_tei_to_sqlite"
         assert payload["build"]["converter_version"] == _converter_version_for_mode(
             "freedict_tei_to_sqlite"
@@ -99,9 +101,10 @@ def test_language_pack_manifest_write_includes_raw_artifact_checksums() -> None:
             language="English to Spanish",
             source="FreeDict",
             size="1 MB",
-            url="https://example.com/freedict-eng-spa.src.tar.xz",
-            wayback_url="https://web.archive.org/web/*/https://example.com/freedict-eng-spa.src.tar.xz",
-            filename="freedict-eng-spa.src.tar.xz",
+            url="https://example.com/freedict-eng-spa-2025.11.23.src.tar.xz",
+            wayback_url="https://web.archive.org/web/*/https://example.com/"
+            "freedict-eng-spa-2025.11.23.src.tar.xz",
+            filename="freedict-eng-spa-2025.11.23.src.tar.xz",
             local_kind="file",
             required_files=("eng-spa.tei",),
             sqlite_filename="main.sqlite",
@@ -115,7 +118,8 @@ def test_language_pack_manifest_write_includes_raw_artifact_checksums() -> None:
         payload = json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
         raw_artifact = payload["source"]["raw_artifacts"][0]
 
-        assert raw_artifact["filename"] == "freedict-eng-spa.src.tar.xz"
+        assert payload["source"]["source_version"] == "freedict-eng-spa-2025.11.23"
+        assert raw_artifact["filename"] == "freedict-eng-spa-2025.11.23.src.tar.xz"
         assert raw_artifact["sha1"] == hashlib.sha1(raw_bytes).hexdigest()
         assert raw_artifact["sha256"] == hashlib.sha256(raw_bytes).hexdigest()
         assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
@@ -155,6 +159,8 @@ def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["pack_id"] == "freq-es-cde"
         assert payload["pack_kind"] == "frequency"
         assert payload["source"]["license_status"] == "requires_review"
+        assert "source_version" not in payload["source"]
+        assert "source_dump" not in payload["source"]
         assert payload["build"]["command"] == "convert_frequency_to_sqlite"
         assert payload["build"]["converter_version"] == _converter_version_for_mode(
             "convert_archive"
@@ -198,6 +204,8 @@ def test_frequency_convert_to_sqlite_captures_parsed_source_checksums() -> None:
         raw_artifact = payload["source"]["raw_artifacts"][0]
 
         assert raw_artifact["filename"] == "spanish_lemmas20k.txt"
+        assert "source_version" not in payload["source"]
+        assert "source_dump" not in payload["source"]
         assert raw_artifact["sha1"] == hashlib.sha1(source_bytes).hexdigest()
         assert raw_artifact["sha256"] == hashlib.sha256(source_bytes).hexdigest()
         assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
@@ -236,6 +244,8 @@ def test_embedding_finalize_creates_provenance_sidecar() -> None:
         assert payload["pack_id"] == pack_id
         assert payload["pack_kind"] == "embedding"
         assert payload["source"]["license_status"] == "requires_review"
+        assert "source_version" not in payload["source"]
+        assert "source_dump" not in payload["source"]
         assert payload["build"]["command"] == "scripts/data/convert_embeddings.py"
         assert payload["build"]["converter_version"] == _converter_version_for_mode(
             "convert_to_sqlite"
