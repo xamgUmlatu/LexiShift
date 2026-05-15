@@ -85,6 +85,7 @@ def build_source_identity_plan(*, generated_at: str | None = None) -> dict[str, 
         "packs": rows,
         "boundaries": [
             "does_not_write_source_version_or_source_dump",
+            "does_not_write_undated_kaikki_dump_family_labels",
             "does_not_approve_source_licenses",
             "does_not_pin_rolling_remote_sources",
             "does_not_change_pack_catalogs_or_runtime_defaults",

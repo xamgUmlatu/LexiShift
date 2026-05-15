@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 import re
 
@@ -14,6 +15,8 @@ SOURCE_IDENTITY_CLASSIFICATIONS = (
 )
 
 _RELEASE_TAG_RE = re.compile(r"/releases/download/([^/]+)/")
+_DATED_DUMP_RE = re.compile(r"(?<!\d)((?:19|20)\d{2})[-_]?([01]\d)[-_]?([0-3]\d)(?!\d)")
+_KAIKKI_DUMP_FAMILY = "enwiktionary"
 
 
 @dataclass(frozen=True)
@@ -91,15 +94,24 @@ def classify_pack_source_identity(pack: object) -> PackSourceIdentityDecision:
         )
 
     if source_name.lower() == "kaikki":
+        dated_dump = _dated_dump_identity((source_url, filename))
         return PackSourceIdentityDecision(
             candidate_field="source_dump",
-            candidate_value="enwiktionary",
-            classification="needs_policy",
+            candidate_value=dated_dump or _KAIKKI_DUMP_FAMILY,
+            classification="safe_to_write" if dated_dump else "needs_policy",
             rationale=(
-                "Catalog identifies the Wiktextract dump family, but the shared raw dump URL "
-                "does not pin a dated dump."
+                "Catalog identifies a dated Wiktextract dump identity."
+                if dated_dump
+                else (
+                    "Catalog identifies the Wiktextract dump family, but the shared raw dump "
+                    "URL does not pin a dated dump."
+                )
             ),
-            recommended_action="pin_or_record_dump_date_before_writing_source_dump",
+            recommended_action=(
+                "eligible_for_future_source_dump_writer"
+                if dated_dump
+                else "record_dated_wiktextract_dump_before_writing_source_dump"
+            ),
         )
 
     if source_name.lower() == "fasttext":
@@ -179,6 +191,24 @@ def _artifact_identity(filename: str) -> str:
 def _release_tag(url: str) -> str:
     match = _RELEASE_TAG_RE.search(str(url or ""))
     return match.group(1) if match else ""
+
+
+def _dated_dump_identity(values: tuple[str, ...]) -> str:
+    for value in values:
+        match = _DATED_DUMP_RE.search(str(value or ""))
+        if match:
+            normalized_date = _normalized_date_match(match)
+            if normalized_date:
+                return f"{_KAIKKI_DUMP_FAMILY}:{normalized_date}"
+    return ""
+
+
+def _normalized_date_match(match: re.Match[str]) -> str:
+    year, month, day = (int(value) for value in match.groups())
+    try:
+        return date(year, month, day).isoformat()
+    except ValueError:
+        return ""
 
 
 def _text(value: object) -> str:

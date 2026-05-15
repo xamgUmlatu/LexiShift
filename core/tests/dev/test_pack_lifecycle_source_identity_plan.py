@@ -47,6 +47,7 @@ class PackLifecycleSourceIdentityPlanTests(unittest.TestCase):
         self.assertIn("`source_bundle_needed`", markdown)
         self.assertIn("freedict-en-es", markdown)
         self.assertIn("does_not_write_source_version_or_source_dump", markdown)
+        self.assertIn("does_not_write_undated_kaikki_dump_family_labels", markdown)
 
 
 if __name__ == "__main__":

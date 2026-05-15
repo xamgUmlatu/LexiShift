@@ -58,6 +58,49 @@ class TestPackSourceIdentity(unittest.TestCase):
         self.assertEqual(safe_pack_source_identity_fields(label_only_pack), {})
         self.assertEqual(safe_pack_source_identity_fields(policy_pack), {})
 
+    def test_dated_kaikki_dump_identity_is_safe_but_family_label_is_not(self) -> None:
+        dated_pack = SimpleNamespace(
+            pack_id="wiktionary-en-es",
+            source="Kaikki",
+            filename="raw-wiktextract-data-en-es-2026-05-15.jsonl.gz",
+            url="https://example.com/kaikki/raw-wiktextract-data-en-es-2026-05-15.jsonl.gz",
+            build_mode="kaikki_translations_to_sqlite",
+        )
+        rolling_pack = SimpleNamespace(
+            pack_id="wiktionary-en-es",
+            source="Kaikki",
+            filename="raw-wiktextract-data-en-es.jsonl.gz",
+            url="https://kaikki.org/dictionary/raw-wiktextract-data.jsonl.gz",
+            build_mode="kaikki_translations_to_sqlite",
+        )
+
+        dated_decision = classify_pack_source_identity(dated_pack)
+        rolling_decision = classify_pack_source_identity(rolling_pack)
+
+        self.assertEqual(dated_decision.classification, "safe_to_write")
+        self.assertEqual(
+            safe_pack_source_identity_fields(dated_pack),
+            {"source_dump": "enwiktionary:2026-05-15"},
+        )
+        self.assertEqual(rolling_decision.classification, "needs_policy")
+        self.assertEqual(rolling_decision.candidate_value, "enwiktionary")
+        self.assertEqual(safe_pack_source_identity_fields(rolling_pack), {})
+
+    def test_invalid_kaikki_date_shape_is_not_safe_to_write(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="wiktionary-en-es",
+            source="Kaikki",
+            filename="raw-wiktextract-data-en-es-2026-13-39.jsonl.gz",
+            url="https://example.com/kaikki/raw-wiktextract-data-en-es-2026-13-39.jsonl.gz",
+            build_mode="kaikki_translations_to_sqlite",
+        )
+
+        decision = classify_pack_source_identity(pack)
+
+        self.assertEqual(decision.classification, "needs_policy")
+        self.assertEqual(decision.candidate_value, "enwiktionary")
+        self.assertEqual(safe_pack_source_identity_fields(pack), {})
+
 
 if __name__ == "__main__":
     unittest.main()

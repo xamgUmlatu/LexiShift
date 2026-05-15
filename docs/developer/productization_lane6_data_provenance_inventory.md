@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -72,6 +72,7 @@ Completed slices:
 18. L6-Ra: app-managed converter source digests.
 19. L6-Sa: catalog source-identity classification surface.
 20. L6-Ta: safe source-version writer/backfill for classified catalog rows.
+21. L6-Ua: dated Kaikki source-dump write gate.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -202,6 +203,10 @@ What is already solid:
     `source.source_version` only for `safe_to_write` catalog rows. `label_only`,
     `needs_policy`, and `source_bundle_needed` rows are withheld from sidecar
     source identity until policy or source-bundle lineage exists.
+24. The shared source-identity classifier now distinguishes a Kaikki dump family
+    label from a durable dated dump identity: `enwiktionary` alone stays
+    `needs_policy`, while a dated identity such as `enwiktionary:YYYY-MM-DD` is
+    eligible for the same safe sidecar writer.
 
 Loose ends to close before broad expansion:
 
@@ -250,8 +255,9 @@ Loose ends to close before broad expansion:
     generated DE frequency pipeline output.
 16. Safe source-version mutation is implemented only for `safe_to_write` rows,
     but existing sidecars need reinstall or explicit backfill to gain it, and
-    `source_dump`, label-only samples, policy-gated sources, embedding release
-    identity, and source-bundle lineage remain unresolved.
+    current Kaikki catalog rows still lack dated dump identity. Label-only
+    samples, policy-gated sources, embedding release identity, and source-bundle
+    lineage remain unresolved.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -753,6 +759,9 @@ Current implementation:
   those labels mean.
 - Kaikki, fastText, rolling/head URLs, and ambiguous secondary lexical exports
   remain `needs_policy`.
+- For Kaikki, `source_dump=enwiktionary` is treated as a dump-family label only;
+  durable sidecar `source.source_dump` requires a dated identity like
+  `enwiktionary:YYYY-MM-DD`.
 - The German generated frequency pipeline is `source_bundle_needed` because it
   needs dependency/source-bundle lineage rather than one source-version string.
 
@@ -770,7 +779,8 @@ Boundaries:
 2. This does not approve licenses.
 3. This does not pin rolling sources or change catalog URLs.
 4. This does not make label-only candidates safe to promote.
-5. This does not replace source-readiness audits for expanded corpus candidates.
+5. This does not make undated Kaikki dump-family labels safe to write.
+6. This does not replace source-readiness audits for expanded corpus candidates.
 
 Validation:
 
@@ -803,8 +813,11 @@ Current implementation:
   helper before writing `provenance.json`.
 - Existing-install provenance backfill calls the same helper before writing
   missing sidecars.
-- Current safe writes are source-version-only: FreeDict release archives,
-  Japanese WordNet `wnja-v1.1`, English WordNet 2025, and BCCWJ `ver1_0`.
+- Current catalog safe writes are source-version-only: FreeDict release
+  archives, Japanese WordNet `wnja-v1.1`, English WordNet 2025, and BCCWJ
+  `ver1_0`.
+- Dated Kaikki dump identities can be exported as `source.source_dump`, but the
+  current catalog rows do not yet carry one.
 - `freq-es-cde`, `freq-en-coca`, Kaikki, fastText, rolling/head URLs, and the
   German generated frequency pipeline remain withheld from durable source
   identity fields.
@@ -844,6 +857,44 @@ python3 -m ruff format --check \
   core/tests/helper/test_pack_source_identity.py \
   apps/gui/tests/test_pack_provenance_sidecars.py \
   core/tests/dev/test_pack_lifecycle_provenance_backfill.py
+```
+
+## L6-Ua Dated Kaikki Source-Dump Write Gate
+
+Product claim:
+
+- `source.source_dump` must identify a dated dump, not only the broad
+  Wiktionary/Wiktextract family.
+
+Current implementation:
+
+- `pack_source_identity.py` now treats `enwiktionary` as a Kaikki dump-family
+  label, not a durable sidecar dump identity.
+- The classifier recognizes dated dump markers in Kaikki source URLs or
+  filenames and normalizes them to `enwiktionary:YYYY-MM-DD`.
+- The safe writer can export that dated `source_dump` value, but current
+  catalog Kaikki rows remain `needs_policy` because their source URL is rolling
+  and their filenames do not contain a dated dump marker.
+- Current classification remains unchanged: `8` safe-to-write rows, `16`
+  policy-needed rows, and all three Kaikki rows still report
+  `record_dated_wiktextract_dump_before_writing_source_dump`.
+
+Boundaries:
+
+1. This does not change current Kaikki catalog URLs.
+2. This does not write `source_dump=enwiktionary` to sidecars.
+3. This does not approve Kaikki license or promotion readiness.
+4. This does not choose the future dump acquisition/pinning mechanism.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_pack_source_identity.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py
+python3 scripts/testing/pack_lifecycle_source_identity_plan.py \
+  --json-out /tmp/lexishift_source_identity_plan_kaikki_policy.json \
+  --markdown-out /tmp/lexishift_source_identity_plan_kaikki_policy.md
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -1437,6 +1488,7 @@ python3 -m ruff format --check \
 | L6-R App-managed converter source digests | Completed first converter lineage slice using source SHA-256 digests where no package-level converter version exists. | Installer/backfill `build.converter_version` wiring and focused sidecar/backfill tests. |
 | L6-S Catalog source-identity classification | Completed first read-only decision surface for source-version/source-dump candidates. | `pack_lifecycle_source_identity_plan.py`, Markdown/JSON report, and focused tests. |
 | L6-T Safe source-version writer/backfill | Completed first mutation slice for classified safe source-version candidates only. | `pack_source_identity.py`, installer/backfill wiring, and focused safe/withheld identity tests. |
+| L6-U Dated Kaikki source-dump gate | Completed first policy gate that keeps undated Kaikki family labels out of sidecar `source_dump`. | Dated dump normalization in `pack_source_identity.py` plus focused safe/withheld tests. |
 
 ## Validation Bundle For L6-A
 
