@@ -76,10 +76,20 @@ class PackLifecycleProvenanceBackfillTests(unittest.TestCase):
         self.assertEqual(sidecar_payloads[0]["pack_id"], "freq-es-cde")
         self.assertEqual(sidecar_payloads[1]["pack_id"], "embed-xling-es")
         self.assertEqual(sidecar_payloads[0]["build"]["command"], "convert_frequency_to_sqlite")
+        self.assertTrue(
+            sidecar_payloads[0]["build"]["converter_version"].startswith(
+                "source_sha256:lexishift_core.frequency.sqlite:"
+            )
+        )
         self.assertEqual(sidecar_payloads[0]["build"]["parser_config"]["encoding"], "latin-1")
         self.assertEqual(
             sidecar_payloads[1]["build"]["command"],
             "scripts/data/convert_embeddings.py",
+        )
+        self.assertTrue(
+            sidecar_payloads[1]["build"]["converter_version"].startswith(
+                "source_sha256:scripts.data.convert_embeddings:"
+            )
         )
 
 

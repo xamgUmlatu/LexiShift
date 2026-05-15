@@ -21,6 +21,7 @@ for candidate in (GUI_SRC, CORE_ROOT):
 from language_packs import (  # noqa: E402
     FrequencyPackDownloadThread,
     LanguagePackDownloadThread,
+    _converter_version_for_mode,
     _file_checksums,
 )
 from language_packs_catalog import FrequencyPackInfo, LanguagePackInfo  # noqa: E402
@@ -62,6 +63,9 @@ def test_language_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["pack_kind"] == "language"
         assert payload["source"]["license_status"] == "requires_review"
         assert payload["build"]["command"] == "convert_freedict_tei_to_sqlite"
+        assert payload["build"]["converter_version"] == _converter_version_for_mode(
+            "freedict_tei_to_sqlite"
+        )
         assert payload["build"]["parser_config"]["tei_filename"] == "eng-spa.tei"
         assert payload["artifact"]["artifact_relpath"] == "main.sqlite"
 
@@ -152,6 +156,9 @@ def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
         assert payload["pack_kind"] == "frequency"
         assert payload["source"]["license_status"] == "requires_review"
         assert payload["build"]["command"] == "convert_frequency_to_sqlite"
+        assert payload["build"]["converter_version"] == _converter_version_for_mode(
+            "convert_archive"
+        )
         assert payload["build"]["parser_config"]["header_starts_with"] == "ID"
         assert payload["build"]["parser_config"]["encoding"] == "latin-1"
         assert payload["artifact"]["artifact_kind"] == "sqlite"
@@ -230,6 +237,9 @@ def test_embedding_finalize_creates_provenance_sidecar() -> None:
         assert payload["pack_kind"] == "embedding"
         assert payload["source"]["license_status"] == "requires_review"
         assert payload["build"]["command"] == "scripts/data/convert_embeddings.py"
+        assert payload["build"]["converter_version"] == _converter_version_for_mode(
+            "convert_to_sqlite"
+        )
         assert payload["artifact"]["artifact_relpath"] == "main.sqlite"
 
 

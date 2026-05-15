@@ -7,6 +7,7 @@ from i18n import t
 from language_packs import (
     FrequencyPackDownloadThread,
     LanguagePackDownloadThread,
+    _converter_version_for_mode,
     download_log_path,
 )
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
@@ -348,6 +349,7 @@ class LanguagePackPanelTransferMixin:
                 wayback_url=pack.wayback_url,
                 build_mode="convert_to_sqlite",
                 build_command="scripts/data/convert_embeddings.py",
+                converter_version=_converter_version_for_mode("convert_to_sqlite"),
                 artifact_path=artifact_path,
                 source_filename=pack.filename,
                 sqlite_filename=os.path.basename(resolved_path),

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import gzip
+import inspect
 import os
 import shutil
 import tarfile
@@ -128,6 +129,61 @@ def _file_checksums(path: str | Path) -> dict[str, str]:
         "sha1": sha1.hexdigest(),
         "sha256": sha256.hexdigest(),
     }
+
+
+def _converter_version_for_mode(build_mode: str) -> str:
+    normalized = str(build_mode or "").strip()
+    converter_sources = {
+        "freedict_tei_to_sqlite": (
+            "lexishift_core.resources.freedict_sqlite",
+            convert_freedict_tei_to_sqlite,
+        ),
+        "kaikki_glosses_to_sqlite": (
+            "lexishift_core.resources.kaikki_sqlite",
+            convert_kaikki_glosses_to_sqlite,
+        ),
+        "kaikki_translations_to_sqlite": (
+            "lexishift_core.resources.kaikki_sqlite",
+            convert_kaikki_translations_to_sqlite,
+        ),
+        "convert_archive": (
+            "lexishift_core.frequency.sqlite",
+            convert_frequency_to_sqlite,
+        ),
+    }
+    if normalized in converter_sources:
+        label, converter = converter_sources[normalized]
+        source_file = inspect.getsourcefile(converter)
+        return _source_file_version(label, source_file)
+    if normalized == "de_frequency_pipeline":
+        from lexishift_core.frequency.de.pipeline import run_de_frequency_pipeline
+
+        source_file = inspect.getsourcefile(run_de_frequency_pipeline)
+        return _source_file_version("lexishift_core.frequency.de.pipeline", source_file)
+    if normalized == "convert_to_sqlite":
+        return _source_file_version(
+            "scripts.data.convert_embeddings",
+            _repo_relative_file("scripts/data/convert_embeddings.py"),
+        )
+    return ""
+
+
+def _source_file_version(label: str, path: str | Path | None) -> str:
+    if not path:
+        return ""
+    digest = _file_checksums(path).get("sha256", "")
+    if not digest:
+        return ""
+    return f"source_sha256:{label}:{digest}"
+
+
+def _repo_relative_file(relative_path: str) -> Path:
+    this_file = Path(__file__).resolve()
+    for root in (this_file.parents[3], this_file.parents[2]):
+        candidate = root / relative_path
+        if candidate.exists():
+            return candidate
+    return this_file.parents[3] / relative_path
 
 
 def _app_data_root() -> str:
@@ -345,6 +401,7 @@ class LanguagePackDownloadThread(QThread):
             wayback_url=self._pack.wayback_url,
             build_mode=self._pack.build_mode,
             build_command=_build_command_for_mode(self._pack.build_mode),
+            converter_version=_converter_version_for_mode(self._pack.build_mode),
             parser_config=_language_parser_config(self._pack),
             artifact_path=artifact_path,
             source_filename=self._pack.source_filename or self._pack.filename,
@@ -569,6 +626,7 @@ class FrequencyPackDownloadThread(QThread):
             wayback_url=self._pack.wayback_url,
             build_mode=self._pack.build_mode,
             build_command=_build_command_for_mode(self._pack.build_mode),
+            converter_version=_converter_version_for_mode(self._pack.build_mode),
             parser_config=_frequency_parser_config(self._pack),
             artifact_path=artifact_path,
             source_filename=self._pack.source_filename or self._pack.filename,

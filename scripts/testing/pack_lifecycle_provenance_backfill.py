@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+from hashlib import sha256
 import json
 from pathlib import Path
 import sys
@@ -241,6 +242,7 @@ def _scan_pack_root(
             wayback_url=_text(getattr(catalog_pack, "wayback_url", "")) or None,
             build_mode=_text(manifest.build_mode),
             build_command=_build_command_for_mode(_text(manifest.build_mode)),
+            converter_version=_converter_version_for_mode(_text(manifest.build_mode)),
             parser_config=_parser_config_for_catalog_pack(catalog_pack),
             artifact_path=artifact_path,
             source_filename=manifest.source_filename
@@ -299,6 +301,46 @@ def _build_command_for_mode(build_mode: str) -> str:
     }
     normalized = str(build_mode or "").strip()
     return commands.get(normalized, normalized)
+
+
+def _converter_version_for_mode(build_mode: str) -> str:
+    converter_sources = {
+        "freedict_tei_to_sqlite": (
+            "lexishift_core.resources.freedict_sqlite",
+            CORE_ROOT / "lexishift_core" / "resources" / "freedict_sqlite.py",
+        ),
+        "kaikki_glosses_to_sqlite": (
+            "lexishift_core.resources.kaikki_sqlite",
+            CORE_ROOT / "lexishift_core" / "resources" / "kaikki_sqlite.py",
+        ),
+        "kaikki_translations_to_sqlite": (
+            "lexishift_core.resources.kaikki_sqlite",
+            CORE_ROOT / "lexishift_core" / "resources" / "kaikki_sqlite.py",
+        ),
+        "convert_archive": (
+            "lexishift_core.frequency.sqlite",
+            CORE_ROOT / "lexishift_core" / "frequency" / "sqlite.py",
+        ),
+        "de_frequency_pipeline": (
+            "lexishift_core.frequency.de.pipeline",
+            CORE_ROOT / "lexishift_core" / "frequency" / "de" / "pipeline.py",
+        ),
+        "convert_to_sqlite": (
+            "scripts.data.convert_embeddings",
+            PROJECT_ROOT / "scripts" / "data" / "convert_embeddings.py",
+        ),
+    }
+    label, path = converter_sources.get(str(build_mode or "").strip(), ("", Path()))
+    if not label:
+        return ""
+    return _source_file_version(label, path)
+
+
+def _source_file_version(label: str, path: Path) -> str:
+    if not path.is_file():
+        return ""
+    digest = sha256(path.read_bytes()).hexdigest()
+    return f"source_sha256:{label}:{digest}"
 
 
 def _parser_config_for_catalog_pack(catalog_pack: object) -> dict[str, object]:
