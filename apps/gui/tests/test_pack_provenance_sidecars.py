@@ -211,6 +211,40 @@ def test_frequency_convert_to_sqlite_captures_parsed_source_checksums() -> None:
         assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
 
 
+def test_de_frequency_pack_manifest_write_includes_source_bundle() -> None:
+    with TemporaryDirectory() as temp_dir:
+        pack_root = Path(temp_dir) / "frequency_packs" / "freq-de-default"
+        artifact = pack_root / "main.sqlite"
+        archive = pack_root / "deu_news_2023_1M.tar.gz"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_bytes(b"SQLite format 3\x00")
+        pack = FrequencyPackInfo(
+            pack_id="freq-de-default",
+            name="German News Frequency",
+            language="German",
+            source="Leipzig + LanguageTool",
+            size="80 MB",
+            url="https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+            wayback_url="https://web.archive.org/web/*/https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+            filename="deu_news_2023_1M.tar.gz",
+            sqlite_filename="main.sqlite",
+            build_mode="de_frequency_pipeline",
+        )
+
+        thread = FrequencyPackDownloadThread(pack, str(archive), str(artifact))
+        thread._write_manifest(str(artifact))
+        provenance_path = pack_root / PACK_PROVENANCE_FILENAME
+        payload = json.loads(provenance_path.read_text(encoding="utf-8"))
+        bundle = payload["source"]["source_bundle"]
+
+        assert validate_pack_provenance_file(provenance_path) == ()
+        assert bundle["bundle_id"] == "freq-de-default:de_frequency_pipeline"
+        assert bundle["bundle_kind"] == "generated_frequency_pipeline"
+        assert len(bundle["components"]) >= 8
+        assert "source_version" not in payload["source"]
+        assert "source_dump" not in payload["source"]
+
+
 def test_embedding_finalize_creates_provenance_sidecar() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)

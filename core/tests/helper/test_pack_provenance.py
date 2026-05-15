@@ -76,6 +76,51 @@ class TestPackProvenance(unittest.TestCase):
         self.assertIn("build.command must not be blank when present", errors)
         self.assertIn("build.parser_config must be a JSON object", errors)
 
+    def test_validates_source_bundle_lineage(self) -> None:
+        payload = _valid_frequency_payload()
+        payload["source"]["source_bundle"] = {
+            "bundle_id": "freq-de-default:de_frequency_pipeline",
+            "bundle_kind": "generated_frequency_pipeline",
+            "components": [
+                {
+                    "role": "corpus",
+                    "source_name": "Leipzig Wortschatz",
+                    "source_url": "https://example.com/deu_news_2023_1M.tar.gz",
+                    "filename": "deu_news_2023_1M.tar.gz",
+                },
+                {
+                    "role": "pos_tooling",
+                    "source_name": "Morfologik tools",
+                    "build_ref": "morfologik-tools-2.1.9.jar",
+                },
+            ],
+        }
+
+        errors = validate_pack_provenance_payload(payload)
+
+        self.assertEqual(errors, ())
+
+    def test_rejects_invalid_source_bundle_lineage(self) -> None:
+        payload = _valid_frequency_payload()
+        payload["source"]["source_bundle"] = {
+            "bundle_id": "freq-de-default:de_frequency_pipeline",
+            "bundle_kind": "generated_frequency_pipeline",
+            "components": [
+                {
+                    "role": "corpus",
+                    "source_name": "Leipzig Wortschatz",
+                }
+            ],
+        }
+
+        errors = validate_pack_provenance_payload(payload)
+
+        self.assertIn(
+            "source.source_bundle.components[0] must include source_url, "
+            "local_source_path, or build_ref",
+            errors,
+        )
+
     def test_validates_provenance_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / PACK_PROVENANCE_FILENAME
@@ -107,6 +152,17 @@ class TestPackProvenance(unittest.TestCase):
                 build_command="convert_frequency_to_sqlite",
                 parser_profile="freq-es-cde",
                 parser_config={"delimiter": "\t", "header_starts_with": "ID"},
+                source_bundle={
+                    "bundle_id": "freq-es-expanded-v1:fixture",
+                    "bundle_kind": "test_fixture",
+                    "components": [
+                        {
+                            "role": "corpus",
+                            "source_name": "Corpus del Espanol sample",
+                            "source_url": "https://example.com/spanish_lemmas20k.txt",
+                        }
+                    ],
+                },
                 artifact_path=artifact,
                 source_filename="spanish_lemmas20k.txt",
                 sqlite_filename="main.sqlite",
@@ -119,6 +175,7 @@ class TestPackProvenance(unittest.TestCase):
         self.assertEqual(payload["build"]["command"], "convert_frequency_to_sqlite")
         self.assertEqual(payload["build"]["parser_profile"], "freq-es-cde")
         self.assertEqual(payload["build"]["parser_config"]["header_starts_with"], "ID")
+        self.assertEqual(payload["source"]["source_bundle"]["bundle_kind"], "test_fixture")
         self.assertEqual(payload["artifact"]["artifact_relpath"], "main.sqlite")
         self.assertEqual(payload["artifact"]["artifact_kind"], "sqlite")
 

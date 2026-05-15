@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -73,6 +73,7 @@ Completed slices:
 19. L6-Sa: catalog source-identity classification surface.
 20. L6-Ta: safe source-version writer/backfill for classified catalog rows.
 21. L6-Ua: dated Kaikki source-dump write gate.
+22. L6-Va: source-bundle lineage for generated DE frequency output.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -202,11 +203,18 @@ What is already solid:
     the shared source-identity classifier to write durable
     `source.source_version` only for `safe_to_write` catalog rows. `label_only`,
     `needs_policy`, and `source_bundle_needed` rows are withheld from sidecar
-    source identity until policy or source-bundle lineage exists.
+    source identity; generated pipeline rows are handled through
+    `source.source_bundle` instead of pretending a single source-version field
+    exists.
 24. The shared source-identity classifier now distinguishes a Kaikki dump family
     label from a durable dated dump identity: `enwiktionary` alone stays
     `needs_policy`, while a dated identity such as `enwiktionary:YYYY-MM-DD` is
     eligible for the same safe sidecar writer.
+25. App-managed sidecar writing and existing-install sidecar backfill now record
+    `source.source_bundle` for the German generated frequency pipeline,
+    capturing component URL lineage for the Leipzig corpus,
+    FreeDict/OdeNet/OpenThesaurus whitelist inputs, german-pos-dict POS inputs,
+    and Morfologik tooling inputs.
 
 Loose ends to close before broad expansion:
 
@@ -246,7 +254,8 @@ Loose ends to close before broad expansion:
     before expanded corpus promotion.
 13. The promotion evidence bundle checks that required proof artifacts exist
     and pass; it does not create missing policy-gated source-dump,
-    license-approval, non-installer checksum, or source-bundle lineage.
+    license-approval, non-installer checksum, source-bundle component checksum,
+    or source-bundle pinning evidence.
 14. Build command, parser config, and converter source-digest lineage are now
     captured for app-managed install/backfill paths where known, but existing
     sidecars need reinstall or explicit backfill to gain that data.
@@ -256,8 +265,12 @@ Loose ends to close before broad expansion:
 16. Safe source-version mutation is implemented only for `safe_to_write` rows,
     but existing sidecars need reinstall or explicit backfill to gain it, and
     current Kaikki catalog rows still lack dated dump identity. Label-only
-    samples, policy-gated sources, embedding release identity, and source-bundle
-    lineage remain unresolved.
+    samples, policy-gated sources, and embedding release identity remain
+    unresolved.
+17. Source-bundle lineage is now recorded for the generated DE frequency
+    pipeline, but only as component URL lineage. It still does not prove
+    component checksums, license approval, or pinned snapshots for rolling
+    upstream sources.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -652,8 +665,8 @@ Boundaries:
    embedding finalization hook only sees the converted SQLite artifact.
 4. This does not add generated SQLite schema or row-count metrics to installer
    sidecars.
-5. The DE frequency pipeline still needs a separate source-bundle lineage
-   design because it builds from dependency packs rather than one downloaded
+5. The DE frequency pipeline uses the L6-Va source-bundle lineage path because
+   it builds from dependency/source components rather than one downloaded
    source file in this thread.
 
 Validation:
@@ -762,8 +775,10 @@ Current implementation:
 - For Kaikki, `source_dump=enwiktionary` is treated as a dump-family label only;
   durable sidecar `source.source_dump` requires a dated identity like
   `enwiktionary:YYYY-MM-DD`.
-- The German generated frequency pipeline is `source_bundle_needed` because it
-  needs dependency/source-bundle lineage rather than one source-version string.
+- The German generated frequency pipeline is `source_bundle_needed` because the
+  source-identity writer must not collapse it to one source-version string. The
+  sidecar writer records this separately through L6-Va `source.source_bundle`
+  lineage.
 
 Default command:
 
@@ -829,7 +844,9 @@ Boundaries:
 3. This does not convert label-only filenames into source versions.
 4. This does not mutate existing sidecars unless the explicit backfill command
    is run with `--apply`.
-5. This does not solve source-bundle lineage for generated pipeline outputs.
+5. This does not write source-version or source-dump fields for generated
+   pipeline outputs. L6-Va handles the German generated frequency pipeline
+   through `source.source_bundle` instead.
 
 Validation:
 
@@ -895,6 +912,75 @@ python3 -m pytest \
 python3 scripts/testing/pack_lifecycle_source_identity_plan.py \
   --json-out /tmp/lexishift_source_identity_plan_kaikki_policy.json \
   --markdown-out /tmp/lexishift_source_identity_plan_kaikki_policy.md
+```
+
+## L6-Va Source-Bundle Lineage For Generated Frequency Pipeline
+
+Product claim:
+
+- A generated multi-input pack should expose its source component set instead
+  of pretending one `source_version` or `source_dump` field explains the
+  artifact.
+
+Current implementation:
+
+- `pack_provenance.py` now validates optional `source.source_bundle` objects.
+- A source bundle requires `bundle_id`, `bundle_kind`, and at least one
+  component with `role`, `source_name`, and a source pointer:
+  `source_url`, `local_source_path`, or `build_ref`.
+- `pack_source_identity.py` keeps the German generated frequency pipeline out
+  of safe single-field source identity, and now exports a DE frequency source
+  bundle for `build_mode = "de_frequency_pipeline"`.
+- The DE bundle records component URL lineage for the Leipzig corpus,
+  FreeDict DE-EN, OdeNet, OpenThesaurus, german-pos-dict resources, and
+  Morfologik tooling inputs.
+- App-managed frequency sidecar writing and existing-install provenance
+  backfill pass the source bundle into `provenance.json`.
+- `pack_lifecycle_provenance_lineage.py` reports source-bundle presence,
+  bundle id, and component count in JSON and Markdown lineage output.
+
+Boundaries:
+
+1. `source.source_bundle` is not license approval.
+2. This records component URLs and filenames, not per-component checksums.
+3. This does not write `source_version` or `source_dump` for generated
+   pipeline output.
+4. Rolling/head upstream URLs still need a future pinning or snapshot policy
+   before they become promotion-grade evidence.
+5. Existing installed sidecars need reinstall or explicit provenance backfill
+   before they gain this lineage.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_pack_provenance.py \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff check \
+  core/lexishift_core/helper/pack_provenance.py \
+  core/lexishift_core/helper/pack_source_identity.py \
+  apps/gui/src/language_packs.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  scripts/testing/pack_lifecycle_provenance_lineage.py \
+  core/tests/helper/test_pack_provenance.py \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_provenance.py \
+  core/lexishift_core/helper/pack_source_identity.py \
+  apps/gui/src/language_packs.py \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  scripts/testing/pack_lifecycle_provenance_lineage.py \
+  core/tests/helper/test_pack_provenance.py \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage

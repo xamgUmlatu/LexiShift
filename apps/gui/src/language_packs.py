@@ -22,7 +22,10 @@ from lexishift_core.helper.installed_packs import (
     write_installed_pack_manifest,
 )
 from lexishift_core.helper.pack_provenance import write_app_managed_pack_provenance
-from lexishift_core.helper.pack_source_identity import safe_pack_source_identity_fields
+from lexishift_core.helper.pack_source_identity import (
+    safe_pack_source_identity_fields,
+    source_bundle_fields_for_pack,
+)
 from lexishift_core.resources.freedict_sqlite import convert_freedict_tei_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_glosses_to_sqlite
 from lexishift_core.resources.kaikki_sqlite import convert_kaikki_translations_to_sqlite
@@ -636,6 +639,7 @@ class FrequencyPackDownloadThread(QThread):
             raw_artifact_sha1=self._raw_artifact_sha1 or None,
             raw_artifact_sha256=self._raw_artifact_sha256 or None,
             **safe_pack_source_identity_fields(self._pack),
+            **source_bundle_fields_for_pack(self._pack),
         )
 
     def _convert_to_sqlite(self, archive_path: str) -> str:

@@ -90,6 +90,7 @@ def write_app_managed_pack_provenance(
     parser_config: Mapping[str, object] | None = None,
     source_version: str | None = None,
     source_dump: str | None = None,
+    source_bundle: Mapping[str, object] | None = None,
     raw_artifact_sha1: str | None = None,
     raw_artifact_sha256: str | None = None,
 ) -> Path:
@@ -115,6 +116,7 @@ def write_app_managed_pack_provenance(
         parser_config=parser_config,
         source_version=source_version,
         source_dump=source_dump,
+        source_bundle=source_bundle,
         raw_artifact_sha1=raw_artifact_sha1,
         raw_artifact_sha256=raw_artifact_sha256,
     )
@@ -144,6 +146,7 @@ def build_app_managed_pack_provenance_payload(
     parser_config: Mapping[str, object] | None = None,
     source_version: str | None = None,
     source_dump: str | None = None,
+    source_bundle: Mapping[str, object] | None = None,
     raw_artifact_sha1: str | None = None,
     raw_artifact_sha256: str | None = None,
 ) -> dict[str, object]:
@@ -166,6 +169,8 @@ def build_app_managed_pack_provenance_payload(
         source["source_version"] = source_version_text
     if source_dump_text := _optional_text(source_dump):
         source["source_dump"] = source_dump_text
+    if source_bundle:
+        source["source_bundle"] = dict(source_bundle)
     build: dict[str, object] = {
         "build_mode": str(build_mode or "").strip() or "download_only",
     }
@@ -222,6 +227,12 @@ def _validate_source(source: Mapping[str, object], errors: list[str]) -> None:
     raw_artifacts = source.get("raw_artifacts")
     if raw_artifacts is not None:
         _validate_artifact_list(raw_artifacts, "source.raw_artifacts", errors)
+    source_bundle = source.get("source_bundle")
+    if source_bundle is not None:
+        if not isinstance(source_bundle, Mapping):
+            errors.append("source.source_bundle must be a JSON object")
+        else:
+            _validate_source_bundle(source_bundle, errors)
 
 
 def _validate_build(build: Mapping[str, object], errors: list[str]) -> None:
@@ -264,6 +275,31 @@ def _validate_artifact_list(value: object, field_path: str, errors: list[str]) -
             continue
         _required_text(item, "filename", f"{item_path}.filename", errors)
         _validate_checksums(item, item_path, errors)
+
+
+def _validate_source_bundle(bundle: Mapping[str, object], errors: list[str]) -> None:
+    _required_text(bundle, "bundle_id", "source.source_bundle.bundle_id", errors)
+    _required_text(bundle, "bundle_kind", "source.source_bundle.bundle_kind", errors)
+    components = bundle.get("components")
+    if not isinstance(components, Sequence) or isinstance(components, (str, bytes)):
+        errors.append("source.source_bundle.components must be a list")
+        return
+    if not components:
+        errors.append("source.source_bundle.components must not be empty")
+        return
+    for index, item in enumerate(components):
+        item_path = f"source.source_bundle.components[{index}]"
+        if not isinstance(item, Mapping):
+            errors.append(f"{item_path} must be a JSON object")
+            continue
+        _required_text(item, "role", f"{item_path}.role", errors)
+        _required_text(item, "source_name", f"{item_path}.source_name", errors)
+        if not (
+            _optional_text(item.get("source_url"))
+            or _optional_text(item.get("local_source_path"))
+            or _optional_text(item.get("build_ref"))
+        ):
+            errors.append(f"{item_path} must include source_url, local_source_path, or build_ref")
 
 
 def _validate_metrics(

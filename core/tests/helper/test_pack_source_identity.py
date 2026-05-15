@@ -13,6 +13,7 @@ if str(CORE_ROOT) not in sys.path:
 from lexishift_core.helper.pack_source_identity import (  # noqa: E402
     classify_pack_source_identity,
     safe_pack_source_identity_fields,
+    source_bundle_fields_for_pack,
 )
 
 
@@ -100,6 +101,26 @@ class TestPackSourceIdentity(unittest.TestCase):
         self.assertEqual(decision.classification, "needs_policy")
         self.assertEqual(decision.candidate_value, "enwiktionary")
         self.assertEqual(safe_pack_source_identity_fields(pack), {})
+
+    def test_de_frequency_pipeline_exports_source_bundle_fields(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="freq-de-default",
+            source="Leipzig + LanguageTool",
+            filename="deu_news_2023_1M.tar.gz",
+            url="https://downloads.wortschatz-leipzig.de/corpora/deu_news_2023_1M.tar.gz",
+            build_mode="de_frequency_pipeline",
+        )
+
+        fields = source_bundle_fields_for_pack(pack)
+        bundle = fields["source_bundle"]
+
+        self.assertEqual(bundle["bundle_id"], "freq-de-default:de_frequency_pipeline")
+        self.assertEqual(bundle["bundle_kind"], "generated_frequency_pipeline")
+        component_roles = {str(item["role"]) for item in bundle["components"]}
+        self.assertIn("corpus", component_roles)
+        self.assertIn("lexicon_whitelist", component_roles)
+        self.assertIn("pos_lexicon_primary", component_roles)
+        self.assertIn("pos_tooling", component_roles)
 
 
 if __name__ == "__main__":

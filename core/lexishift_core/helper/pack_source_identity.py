@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 import re
+from typing import Mapping
 
 
 SOURCE_IDENTITY_CLASSIFICATIONS = (
@@ -168,6 +169,13 @@ def safe_pack_source_identity_fields(pack: object) -> dict[str, str]:
     return {decision.candidate_field: decision.candidate_value}
 
 
+def source_bundle_fields_for_pack(pack: object) -> dict[str, Mapping[str, object]]:
+    build_mode = _text(getattr(pack, "build_mode", "download_only")) or "download_only"
+    if build_mode != "de_frequency_pipeline":
+        return {}
+    return {"source_bundle": _de_frequency_source_bundle(pack)}
+
+
 def _artifact_identity(filename: str) -> str:
     value = _text(filename)
     for suffix in (
@@ -201,6 +209,84 @@ def _dated_dump_identity(values: tuple[str, ...]) -> str:
             if normalized_date:
                 return f"{_KAIKKI_DUMP_FAMILY}:{normalized_date}"
     return ""
+
+
+def _de_frequency_source_bundle(pack: object) -> dict[str, object]:
+    from lexishift_core.frequency.de import pipeline as de_pipeline
+
+    pack_id = _text(getattr(pack, "pack_id", "")) or "freq-de-default"
+    corpus_filename = _text(getattr(pack, "source_filename", "")) or _text(
+        getattr(pack, "filename", "")
+    )
+    components: list[dict[str, object]] = [
+        {
+            "role": "corpus",
+            "source_name": _text(getattr(pack, "source", "")) or "Leipzig Wortschatz",
+            "source_url": _text(getattr(pack, "url", "")) or de_pipeline.LEIPZIG_CORPUS_URL,
+            "filename": corpus_filename or Path(de_pipeline.LEIPZIG_CORPUS_URL).name,
+        },
+        {
+            "role": "lexicon_whitelist",
+            "source_name": "FreeDict DE-EN",
+            "source_url": de_pipeline.FREEDICT_DE_EN_URL,
+            "filename": Path(de_pipeline.FREEDICT_DE_EN_URL).name,
+        },
+        {
+            "role": "lexicon_whitelist",
+            "source_name": "OdeNet",
+            "source_url": de_pipeline.ODENET_URL,
+            "filename": "odenet_oneline.xml",
+        },
+        {
+            "role": "lexicon_whitelist",
+            "source_name": "OpenThesaurus",
+            "source_url": de_pipeline.OPENTHESAURUS_URL,
+            "filename": "openthesaurus.txt",
+        },
+        {
+            "role": "pos_lexicon_primary",
+            "source_name": "german-pos-dict german.dict",
+            "source_url": de_pipeline.GERMAN_POS_DICT_URL,
+            "filename": "german.dict",
+        },
+        {
+            "role": "pos_lexicon_primary_metadata",
+            "source_name": "german-pos-dict german.info",
+            "source_url": de_pipeline.GERMAN_POS_INFO_URL,
+            "filename": "german.info",
+        },
+        {
+            "role": "pos_lexicon_fallback",
+            "source_name": "german-pos-dict EIG",
+            "source_url": de_pipeline.GERMAN_POS_EIG_URL,
+            "filename": "EIG.txt",
+        },
+        {
+            "role": "pos_lexicon_fallback",
+            "source_name": "german-pos-dict sonstige",
+            "source_url": de_pipeline.GERMAN_POS_SONSTIGE_URL,
+            "filename": "sonstige.txt",
+        },
+    ]
+    for filename, url in sorted(de_pipeline.MORFOLOGIK_TOOLS.items()):
+        components.append(
+            {
+                "role": "pos_tooling",
+                "source_name": "Morfologik tools",
+                "source_url": url,
+                "filename": filename,
+            }
+        )
+    return {
+        "bundle_id": f"{pack_id}:de_frequency_pipeline",
+        "bundle_kind": "generated_frequency_pipeline",
+        "lineage_status": "component_urls_recorded",
+        "components": components,
+        "notes": [
+            "source_bundle_is_not_license_approval",
+            "de_pos_source_auto_prefers_german_dict_then_eig_sonstige",
+        ],
+    }
 
 
 def _normalized_date_match(match: re.Match[str]) -> str:

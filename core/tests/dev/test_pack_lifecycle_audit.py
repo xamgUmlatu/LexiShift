@@ -68,8 +68,14 @@ class PackLifecycleAuditTests(unittest.TestCase):
         self.assertFalse(frequency["packs"][0]["provenance_review"]["review_required"])
         self.assertTrue(frequency["packs"][0]["provenance_lineage"]["build_command_present"])
         self.assertTrue(frequency["packs"][0]["provenance_lineage"]["parser_config_present"])
+        self.assertTrue(frequency["packs"][0]["provenance_lineage"]["source_bundle_present"])
+        self.assertEqual(
+            frequency["packs"][0]["provenance_lineage"]["source_bundle_id"],
+            "freq-es-expanded-v1:fixture",
+        )
         self.assertEqual(frequency["license_status_counts"], {"confirmed": 1})
         self.assertIn("Source/Build Lineage", markdown)
+        self.assertIn("freq-es-expanded-v1:fixture", markdown)
         self.assertIn("convert_frequency_to_sqlite", markdown)
 
     def test_report_surfaces_valid_provenance_that_still_needs_review(self) -> None:
@@ -338,6 +344,18 @@ def _valid_provenance(
             "source_name": "Corpus del Espanol frequency sample",
             "source_url": "https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt",
             "license_status": license_status,
+            "source_bundle": {
+                "bundle_id": f"{pack_id}:fixture",
+                "bundle_kind": "test_fixture",
+                "components": [
+                    {
+                        "role": "corpus",
+                        "source_name": "Corpus del Espanol frequency sample",
+                        "source_url": "https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt",
+                        "filename": "spanish_lemmas20k.txt",
+                    }
+                ],
+            },
             "raw_artifacts": [raw_artifact],
         },
         "build": {

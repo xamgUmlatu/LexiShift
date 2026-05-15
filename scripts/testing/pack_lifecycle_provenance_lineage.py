@@ -10,6 +10,8 @@ def audit_provenance_lineage(provenance_path: Path) -> dict[str, object]:
     source = _as_mapping(payload.get("source"))
     build = _as_mapping(payload.get("build"))
     parser_config = _as_mapping(build.get("parser_config"))
+    source_bundle = _as_mapping(source.get("source_bundle"))
+    source_bundle_components = _sequence(source_bundle.get("components"))
     source_version = str(source.get("source_version") or source.get("source_dump") or "").strip()
     build_command = str(build.get("command") or "").strip()
     converter_version = str(build.get("converter_version") or "").strip()
@@ -18,6 +20,9 @@ def audit_provenance_lineage(provenance_path: Path) -> dict[str, object]:
         "lineage_readable": provenance_path.exists() and not load_errors,
         "source_version_present": bool(source_version),
         "source_version": source_version,
+        "source_bundle_present": bool(source_bundle),
+        "source_bundle_id": str(source_bundle.get("bundle_id") or "").strip(),
+        "source_bundle_component_count": len(source_bundle_components),
         "build_command_present": bool(build_command),
         "build_command": build_command,
         "parser_config_present": bool(parser_config or parser_profile),
@@ -31,6 +36,7 @@ def audit_provenance_lineage(provenance_path: Path) -> dict[str, object]:
 def lineage_summary_counts(rows: Sequence[Mapping[str, object]]) -> dict[str, int]:
     return {
         "source_version_count": _lineage_present_count(rows, "source_version_present"),
+        "source_bundle_count": _lineage_present_count(rows, "source_bundle_present"),
         "build_command_count": _lineage_present_count(rows, "build_command_present"),
         "parser_config_count": _lineage_present_count(rows, "parser_config_present"),
         "converter_version_count": _lineage_present_count(rows, "converter_version_present"),
@@ -45,8 +51,8 @@ def render_source_build_lineage_markdown(report: Mapping[str, object]) -> list[s
         return lines
     lines.extend(
         [
-            "| Family | Pack | Source Version | Build Command | Parser Config/Profile | Converter Version |",
-            "| --- | --- | --- | --- | --- | --- |",
+            "| Family | Pack | Source Version | Source Bundle | Build Command | Parser Config/Profile | Converter Version |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for family_name, row, lineage in lineage_rows:
@@ -59,6 +65,7 @@ def render_source_build_lineage_markdown(report: Mapping[str, object]) -> list[s
             f"{family_name} | "
             f"{row.get('pack_id')} | "
             f"{lineage.get('source_version') or ''} | "
+            f"{lineage.get('source_bundle_id') or ''} | "
             f"{lineage.get('build_command') or ''} | "
             f"{parser_config} | "
             f"{lineage.get('converter_version') or ''} |"

@@ -30,7 +30,10 @@ from lexishift_core.helper.pack_provenance import (  # noqa: E402
     validate_pack_provenance_file,
     write_app_managed_pack_provenance,
 )
-from lexishift_core.helper.pack_source_identity import safe_pack_source_identity_fields  # noqa: E402
+from lexishift_core.helper.pack_source_identity import (  # noqa: E402
+    safe_pack_source_identity_fields,
+    source_bundle_fields_for_pack,
+)
 
 
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "pack_lifecycle_provenance_backfill_latest.json"
@@ -254,6 +257,7 @@ def _scan_pack_root(
             required_files=manifest.required_files
             or tuple(getattr(catalog_pack, "required_files", ()) or ()),
             **safe_pack_source_identity_fields(catalog_pack),
+            **source_bundle_fields_for_pack(catalog_pack),
         )
     except OSError as exc:
         row["action"] = "error"
