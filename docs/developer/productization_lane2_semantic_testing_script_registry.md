@@ -2,8 +2,8 @@
 
 Status: active registry
 Role: Planning / WIP
-Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only script-family scan, semantic-veto, semantic-LLM, semantic-shadow, and source-admission sub-registries, semantic family evidence expansion, first sentence-veto/generalization splits, focused tests, project-health report, doc-reference check, state check, and diff hygiene
+Last updated: 2026-05-16
+Last verified: 2026-05-16 read-only unreferenced-script review confirmed the semantic-shadow review queue is an active generated-evidence producer and refreshed script routing
 Purpose: classify semantic testing and research scripts before any Lane 2 split, quarantine, archive, or deletion work
 Source-of-truth: script registry only; executable truth lives in the scripts, tests, generated artifacts, package scripts, `feature_state_matrix.md`, and semantic/rulegen authority docs.
 Related docs:
@@ -263,7 +263,7 @@ Subfamily ledger:
 
 | Subfamily | Count | Evidence Found | Current Disposition | Lane 2 Action |
 | --- | ---: | --- | --- | --- |
-| `inventory_policy_review` | 8 | Inventory, triage, policy compare/gap queue, review queue/packet, promotion gap, and coverage gap scripts. Referenced by `feature_state_matrix.md`, runtime-readiness docs, weakness-triage docs, and `semantic_shadow_testing_architecture.md`; imported by the gold-proxy script. | Active research workflow / generated-evidence producer. | Keep. Add focused tests before code moves; docs alone are not enough to refactor this lane. |
+| `inventory_policy_review` | 8 | Inventory, triage, policy compare/gap queue, `semantic_shadow_review_queue_en_es.py` / `semantic_shadow_review_packet_en_es.py`, promotion gap, and coverage gap scripts. Referenced by `feature_state_matrix.md`, runtime-readiness docs, weakness-triage docs, and `semantic_shadow_testing_architecture.md`; imported by the gold-proxy script. | Active research workflow / generated-evidence producer. | Keep. Add focused tests before code moves; docs alone are not enough to refactor this lane. |
 | `gold_veto_seed_proxy` | 4 | Gold proxy, seed compare, forward-seed sweep, and veto-proxy compare scripts. Referenced by feature-state, generalization, weakness-triage, shadow architecture, routing HTML; imported by generalization-bound and shadow sweep scripts. | Active comparator/proxy evidence lane. | Keep. Not product authority; retain until generalization evidence is superseded. |
 | `sweep_candidate_sources` | 5 | Embedding bridge, frequency, representative pruning, support-score, and trigger-support sweeps. Referenced by feature-state, weakness-triage, routing HTML. | Research candidate-source sweeps. | Keep as research. Future quarantine needs artifact ownership and a replacement summary. |
 | `experiment_matrix_compare` | 6 | Experiment matrix/runner/support and compare/runner/support scripts. Referenced by feature-state, publish checklist, generalization plan, weakness-triage, and shadow architecture; `test_semantic_shadow_experiment_compare_support.py` covers support helpers. | Research experiment orchestration. | Keep. Existing focused test covers support helpers only; add tests before behavioral refactors. |

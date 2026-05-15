@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T15:50:33.656313+00:00",
+  "generated_at_utc": "2026-05-15T15:56:32.041358+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -37,11 +37,11 @@
     "directory_count": 283,
     "tracked_file_count": 3884,
     "untracked_file_count": 0,
-    "total_file_bytes": 919608592,
-    "candidate_path_count": 2449,
+    "total_file_bytes": 919609245,
+    "candidate_path_count": 2446,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
-    "unreferenced_script_candidate_count": 3
+    "unreferenced_script_candidate_count": 0
   },
   "family_counts": [
     {
@@ -49,7 +49,7 @@
       "path_count": 2571,
       "file_count": 2413,
       "directory_count": 158,
-      "total_file_bytes": 724930449
+      "total_file_bytes": 724930004
     },
     {
       "family": "core_tests",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1275697
+      "total_file_bytes": 1276320
     },
     {
       "family": "docs_rulegen",
@@ -189,7 +189,7 @@
       "path_count": 8,
       "file_count": 8,
       "directory_count": 0,
-      "total_file_bytes": 36660
+      "total_file_bytes": 37135
     },
     {
       "family": "scripts_build",
@@ -293,10 +293,6 @@
     {
       "flag": "archive_tree",
       "path_count": 7
-    },
-    {
-      "flag": "unreferenced_script_candidate",
-      "path_count": 3
     }
   ],
   "top_level_counts": [
@@ -659,7 +655,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 14,
-      "total_file_bytes": 2621016
+      "total_file_bytes": 2620571
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -9522,36 +9518,6 @@
   ],
   "script_reference_rows": [
     {
-      "path": "scripts/dev/srs_selector_demo.py",
-      "family": "scripts_dev",
-      "exact_reference_file_count": 0,
-      "stem_reference_file_count": 0,
-      "doc_reference_file_count": 0,
-      "test_reference_file_count": 0,
-      "package_script_reference": false,
-      "unreferenced_candidate": true
-    },
-    {
-      "path": "scripts/dev/test_embeddings.py",
-      "family": "scripts_dev",
-      "exact_reference_file_count": 0,
-      "stem_reference_file_count": 0,
-      "doc_reference_file_count": 0,
-      "test_reference_file_count": 0,
-      "package_script_reference": false,
-      "unreferenced_candidate": true
-    },
-    {
-      "path": "scripts/testing/semantic_shadow_review_queue_en_es.py",
-      "family": "scripts_testing",
-      "exact_reference_file_count": 0,
-      "stem_reference_file_count": 0,
-      "doc_reference_file_count": 0,
-      "test_reference_file_count": 0,
-      "package_script_reference": false,
-      "unreferenced_candidate": true
-    },
-    {
       "path": "scripts/build/de_frequency_pipeline.py",
       "family": "scripts_build",
       "exact_reference_file_count": 2,
@@ -9939,6 +9905,26 @@
       "doc_reference_file_count": 1,
       "test_reference_file_count": 0,
       "package_script_reference": true,
+      "unreferenced_candidate": false
+    },
+    {
+      "path": "scripts/dev/srs_selector_demo.py",
+      "family": "scripts_dev",
+      "exact_reference_file_count": 1,
+      "stem_reference_file_count": 1,
+      "doc_reference_file_count": 0,
+      "test_reference_file_count": 0,
+      "package_script_reference": false,
+      "unreferenced_candidate": false
+    },
+    {
+      "path": "scripts/dev/test_embeddings.py",
+      "family": "scripts_dev",
+      "exact_reference_file_count": 1,
+      "stem_reference_file_count": 1,
+      "doc_reference_file_count": 0,
+      "test_reference_file_count": 0,
+      "package_script_reference": false,
       "unreferenced_candidate": false
     },
     {
@@ -11394,8 +11380,18 @@
     {
       "path": "scripts/testing/semantic_shadow_review_packet_en_es.py",
       "family": "scripts_testing",
-      "exact_reference_file_count": 1,
-      "stem_reference_file_count": 1,
+      "exact_reference_file_count": 2,
+      "stem_reference_file_count": 2,
+      "doc_reference_file_count": 1,
+      "test_reference_file_count": 0,
+      "package_script_reference": false,
+      "unreferenced_candidate": false
+    },
+    {
+      "path": "scripts/testing/semantic_shadow_review_queue_en_es.py",
+      "family": "scripts_testing",
+      "exact_reference_file_count": 2,
+      "stem_reference_file_count": 2,
       "doc_reference_file_count": 1,
       "test_reference_file_count": 0,
       "package_script_reference": false,
@@ -25641,7 +25637,7 @@
       "name": "feature_state_matrix.md",
       "stem": "feature_state_matrix",
       "suffix": ".md",
-      "size_bytes": 140431,
+      "size_bytes": 140718,
       "git_state": "tracked",
       "flags": []
     },
@@ -25709,7 +25705,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 32540,
+      "size_bytes": 32944,
       "git_state": "tracked",
       "flags": []
     },
@@ -25742,7 +25738,7 @@
       "name": "productization_lane2_semantic_testing_script_registry.md",
       "stem": "productization_lane2_semantic_testing_script_registry",
       "suffix": ".md",
-      "size_bytes": 32785,
+      "size_bytes": 32717,
       "git_state": "tracked",
       "flags": []
     },
@@ -29288,7 +29284,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2521496,
+      "size_bytes": 2521276,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29303,7 +29299,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 61742,
+      "size_bytes": 61517,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -65582,7 +65578,7 @@
       "name": "README.md",
       "stem": "README",
       "suffix": ".md",
-      "size_bytes": 13281,
+      "size_bytes": 13756,
       "git_state": "tracked",
       "flags": []
     },
@@ -66158,9 +66154,7 @@
       "suffix": ".py",
       "size_bytes": 1984,
       "git_state": "tracked",
-      "flags": [
-        "unreferenced_script_candidate"
-      ]
+      "flags": []
     },
     {
       "path": "scripts/dev/templates",
@@ -66248,9 +66242,7 @@
       "suffix": ".py",
       "size_bytes": 2053,
       "git_state": "tracked",
-      "flags": [
-        "unreferenced_script_candidate"
-      ]
+      "flags": []
     },
     {
       "path": "scripts/dev/windows_parity_audit.py",
@@ -67985,9 +67977,7 @@
       "suffix": ".py",
       "size_bytes": 7343,
       "git_state": "tracked",
-      "flags": [
-        "unreferenced_script_candidate"
-      ]
+      "flags": []
     },
     {
       "path": "scripts/testing/semantic_shadow_seed_compare_en_es.py",

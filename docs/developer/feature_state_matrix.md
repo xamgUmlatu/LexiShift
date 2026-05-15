@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-05-15
+Last updated: 2026-05-16
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -825,7 +825,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on-when-capable`, `verified`
 - Last documented checkpoint: `2026-05-15` Lane 5 contains thrown semantic inventory/helper exceptions inside the fail-closed semantic admission fallback path
-- Last verified: `2026-05-15` Lane 5 L5-E semantic inventory exception containment validation with focused semantic gate/runtime tests
+- Last verified: `2026-05-15` Lane 5 L5-E semantic inventory exception containment validation with focused semantic gate/runtime tests; `2026-05-16` routing-only evidence sync for semantic-shadow review queue path
 - Default behavior:
   - Semantic admission is no longer a normal user preference. The browser runtime auto-uses helper-side semantic admission only when the current pair/profile publication is actually capable of real semantic decisioning.
   - If a pair/profile has semantic metadata but no ready subset yet, LexiShift stays on standard SRS replacement behavior instead of asking the user to choose a fallback posture.
@@ -872,6 +872,7 @@ Use this file when:
     - `scripts/testing/semantic_shadow_inventory_triage_en_es.py` scores the resulting preview into `benchmark_aligned`, `same_pos_only`, and `no_promotion` buckets
     - `scripts/testing/semantic_shadow_policy_compare_en_es.py` compares named promotion policies (`same_pos_lenient_v1`, `benchmark_backed_v1`, `cross_checked_v1`, `cross_checked_backoff_missing_active_v1`)
     - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py` isolates the small set of rows that the stricter policy still drops
+    - `scripts/testing/semantic_shadow_review_queue_en_es.py` builds the focused provisional keep-row queue consumed by the review-packet generator
     - `scripts/testing/semantic_shadow_review_packet_en_es.py` combines the policy snapshot, provisional keep rows, and provisional drop rows into one adjudication packet
     - `scripts/testing/semantic_shadow_gold_proxy_en_es.py` grades the current policies against a reviewed-trigger-overlap gold proxy derived directly from `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
     - `scripts/testing/semantic_shadow_coverage_gap_en_es.py` explains the strict-policy underblocked rows by comparing them against current inventory and rulegen benchmark source lists
@@ -1282,6 +1283,7 @@ Use this file when:
   - `scripts/testing/semantic_shadow_inventory_triage_en_es.py`
   - `scripts/testing/semantic_shadow_policy_compare_en_es.py`
   - `scripts/testing/semantic_shadow_policy_gap_queue_en_es.py`
+  - `scripts/testing/semantic_shadow_review_queue_en_es.py`
   - `scripts/testing/semantic_shadow_review_packet_en_es.py`
   - `scripts/testing/semantic_shadow_gold_proxy_en_es.py`
   - `scripts/testing/semantic_shadow_coverage_gap_en_es.py`

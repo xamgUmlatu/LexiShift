@@ -16,10 +16,10 @@ This report is read-only evidence. Candidate rows are triage signals, not deleti
 | `directory_count` | 283 |
 | `tracked_file_count` | 3884 |
 | `untracked_file_count` | 0 |
-| `candidate_path_count` | 2449 |
+| `candidate_path_count` | 2446 |
 | `duplicate_filename_group_count` | 24 |
 | `duplicate_stem_group_count` | 50 |
-| `unreferenced_script_candidate_count` | 3 |
+| `unreferenced_script_candidate_count` | 0 |
 
 ## Ignored During Enumeration
 
@@ -59,14 +59,14 @@ Ignored file names:
 
 | Family | Paths | Files | Dirs | Bytes |
 | --- | ---: | ---: | ---: | ---: |
-| `docs_test_outputs` | 2571 | 2413 | 158 | 724930449 |
+| `docs_test_outputs` | 2571 | 2413 | 158 | 724930004 |
 | `core_tests` | 319 | 307 | 12 | 2710541 |
 | `scripts_testing` | 316 | 315 | 1 | 5338898 |
 | `app_chrome-extension` | 204 | 161 | 43 | 1369764 |
 | `core_runtime` | 152 | 138 | 14 | 1525534 |
 | `app_gui` | 115 | 105 | 10 | 175131342 |
 | `docs_test_inputs` | 111 | 105 | 6 | 4414512 |
-| `docs_developer` | 92 | 91 | 1 | 1275697 |
+| `docs_developer` | 92 | 91 | 1 | 1276320 |
 | `docs_rulegen` | 50 | 49 | 1 | 1299910 |
 | `scripts_dev` | 39 | 36 | 3 | 306122 |
 | `app_tests` | 33 | 32 | 1 | 147000 |
@@ -79,7 +79,7 @@ Ignored file names:
 | `docs_runbooks` | 9 | 7 | 2 | 16222 |
 | `root_config` | 9 | 9 | 0 | 15277 |
 | `docs_archive` | 8 | 5 | 3 | 19768 |
-| `scripts` | 8 | 8 | 0 | 36660 |
+| `scripts` | 8 | 8 | 0 | 37135 |
 | `scripts_build` | 8 | 7 | 1 | 38742 |
 | `scripts_helper` | 8 | 6 | 2 | 65814 |
 | `docs_handbook` | 7 | 6 | 1 | 12748 |
@@ -102,7 +102,6 @@ Ignored file names:
 | `duplicate_filename` | 147 |
 | `legacy_or_temporary_name` | 16 |
 | `archive_tree` | 7 |
-| `unreferenced_script_candidate` | 3 |
 
 ## Top Directories
 
@@ -155,7 +154,7 @@ Ignored file names:
 | --- | ---: | ---: |
 | `docs/test_outputs/experiments` | 740 | 134988020 |
 | `docs/test_outputs/srs_journey` | 24 | 4014369 |
-| `docs/test_outputs/dev_workflow` | 14 | 2621016 |
+| `docs/test_outputs/dev_workflow` | 14 | 2620571 |
 | `docs/test_outputs/ja_en` | 8 | 23864 |
 | `docs/test_outputs/phase6_pos_inventory` | 8 | 326878 |
 | `docs/test_outputs/licensing_header_audit` | 4 | 589151 |
@@ -272,9 +271,7 @@ Ignored file names:
 
 | Path | Family | Exact refs | Stem refs | Package script |
 | --- | --- | ---: | ---: | --- |
-| `scripts/dev/srs_selector_demo.py` | `scripts_dev` | 0 | 0 | False |
-| `scripts/dev/test_embeddings.py` | `scripts_dev` | 0 | 0 | False |
-| `scripts/testing/semantic_shadow_review_queue_en_es.py` | `scripts_testing` | 0 | 0 | False |
+| _None detected by this heuristic._ |  |  |  |  |
 
 ## Candidate Path Sample
 

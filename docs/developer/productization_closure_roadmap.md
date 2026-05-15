@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, and regenerated project-structure inventory after odd tracked artifact cleanup
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, and regenerated project-structure inventory after odd tracked artifact cleanup
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -547,14 +547,19 @@ Current progress:
   enumeration and structure-review candidate report.
 - `npm --prefix scripts run inventory:structure` writes latest JSON and
   Markdown artifacts under `docs/test_outputs/dev_workflow/`.
-- The first snapshot enumerates `4,193` non-ignored paths: `3,910` files and
-  `283` directories.
+- The latest snapshot enumerates `4,192` non-ignored paths: `3,909` files and
+  `283` directories, with `2,446` candidate-signal paths and `0`
+  unreferenced-script candidates.
 - The dominant structure signal is generated-evidence accumulation:
   `docs/test_outputs` accounts for `2,571` paths, including `740` files under
   `docs/test_outputs/experiments`.
-- The first unreferenced-script heuristic reports only three candidates:
+- The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
-  `scripts/testing/semantic_shadow_review_queue_en_es.py`.
+  `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
+  deletion candidates: the two dev scripts are manual probe/demo utilities now
+  routed in `scripts/README.md`, and the semantic-shadow review queue is an
+  active generated-evidence producer now routed through `feature_state_matrix.md`
+  and the script registry.
 - Duplicate filename/stem rows are candidate signals only. They mostly identify
   generated evidence families and repeated runtime naming patterns, not
   immediate cleanup approval.
@@ -577,9 +582,8 @@ Current progress:
 Next review step:
 
 1. review `../test_outputs/dev_workflow/project_structure_latest.md`,
-2. choose one narrow cleanup queue, likely odd tracked artifacts,
-   generated-output retention/routing, or the three unreferenced-script
-   candidates,
+2. choose one narrow cleanup queue, likely generated-output retention/routing,
+   duplicate evidence families, or another clearly bounded structure signal,
 3. prove exact references, generated-artifact ownership, and historical value
    before archiving or deleting anything.
 
