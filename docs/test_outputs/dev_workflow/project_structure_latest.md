@@ -11,9 +11,9 @@ This report is read-only evidence. Candidate rows are triage signals, not deleti
 
 | Metric | Count |
 | --- | ---: |
-| `path_count` | 4018 |
+| `path_count` | 4020 |
 | `file_count` | 3824 |
-| `directory_count` | 194 |
+| `directory_count` | 196 |
 | `tracked_file_count` | 3799 |
 | `untracked_file_count` | 0 |
 | `candidate_path_count` | 2357 |
@@ -59,26 +59,26 @@ Ignored file names:
 
 | Family | Paths | Files | Dirs | Bytes |
 | --- | ---: | ---: | ---: | ---: |
-| `docs_test_outputs` | 2393 | 2324 | 69 | 711823919 |
+| `docs_test_outputs` | 2395 | 2324 | 71 | 711828354 |
 | `core_tests` | 321 | 309 | 12 | 2723233 |
-| `scripts_testing` | 316 | 315 | 1 | 5338904 |
+| `scripts_testing` | 316 | 315 | 1 | 5339066 |
 | `app_chrome-extension` | 204 | 161 | 43 | 1369764 |
 | `core_runtime` | 152 | 138 | 14 | 1525534 |
 | `app_gui` | 115 | 105 | 10 | 175131342 |
 | `docs_test_inputs` | 111 | 105 | 6 | 4414512 |
-| `docs_developer` | 92 | 91 | 1 | 1282148 |
-| `docs_rulegen` | 50 | 49 | 1 | 1299910 |
+| `docs_developer` | 92 | 91 | 1 | 1282344 |
+| `docs_rulegen` | 50 | 49 | 1 | 1300277 |
 | `scripts_dev` | 41 | 38 | 3 | 359149 |
 | `app_tests` | 33 | 32 | 1 | 147000 |
 | `docs_asset` | 22 | 16 | 6 | 216854 |
 | `docs_architecture` | 21 | 19 | 2 | 125360 |
 | `app_betterdiscord-plugin` | 16 | 14 | 2 | 58698 |
-| `docs_language_pairs` | 16 | 15 | 1 | 205945 |
+| `docs_language_pairs` | 16 | 15 | 1 | 206157 |
 | `scripts_data` | 13 | 12 | 1 | 27095 |
 | `docs_srs` | 12 | 11 | 1 | 89275 |
 | `docs_runbooks` | 9 | 7 | 2 | 16222 |
 | `root_config` | 9 | 9 | 0 | 15277 |
-| `docs_archive` | 8 | 5 | 3 | 19768 |
+| `docs_archive` | 8 | 5 | 3 | 20258 |
 | `scripts` | 8 | 8 | 0 | 37898 |
 | `scripts_build` | 8 | 7 | 1 | 38742 |
 | `scripts_helper` | 8 | 6 | 2 | 65814 |
@@ -108,7 +108,7 @@ Ignored file names:
 
 | Path | Paths | Files | Dirs |
 | --- | ---: | ---: | ---: |
-| `docs/test_outputs` | 2393 | 2324 | 69 |
+| `docs/test_outputs` | 2395 | 2324 | 71 |
 | `core/tests` | 321 | 309 | 12 |
 | `scripts/testing` | 316 | 315 | 1 |
 | `apps/chrome-extension` | 204 | 161 | 43 |
@@ -153,9 +153,9 @@ Ignored file names:
 
 | Path | Files | Bytes |
 | --- | ---: | ---: |
-| `docs/test_outputs/experiments` | 670 | 122314299 |
+| `docs/test_outputs/experiments` | 683 | 122762384 |
 | `docs/test_outputs/srs_journey` | 24 | 4014369 |
-| `docs/test_outputs/dev_workflow` | 18 | 2641523 |
+| `docs/test_outputs/dev_workflow` | 18 | 2645648 |
 | `docs/test_outputs/ja_en` | 8 | 23864 |
 | `docs/test_outputs/phase6_pos_inventory` | 8 | 326878 |
 | `docs/test_outputs/licensing_header_audit` | 4 | 589151 |
@@ -163,8 +163,6 @@ Ignored file names:
 | `docs/test_outputs/phase0_pos_baseline` | 2 | 296613 |
 | `docs/test_outputs/baselines` | 1 | 901 |
 | `docs/test_outputs/resource_integrity_audit` | 1 | 8898 |
-| `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json` | 1 | 190979 |
-| `docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md` | 1 | 1024 |
 | `docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.json` | 1 | 63891 |
 | `docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.md` | 1 | 1147 |
 | `docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_summary_latest.md` | 1 | 680 |
@@ -193,18 +191,20 @@ Ignored file names:
 | `docs/test_outputs/rulegen_benchmark_en_es_freedict_latest.md` | 1 | 715 |
 | `docs/test_outputs/rulegen_benchmark_en_es_kaikki_bidir_latest.html` | 1 | 63448 |
 | `docs/test_outputs/rulegen_benchmark_en_es_kaikki_bidir_latest.json` | 1 | 204351 |
+| `docs/test_outputs/rulegen_benchmark_en_es_kaikki_bidir_latest.md` | 1 | 711 |
+| `docs/test_outputs/rulegen_benchmark_en_es_kaikki_bidir_reverse_latest.html` | 1 | 58692 |
 
 ## Generated Output Retention Buckets
 
 | Bucket | Files | Bytes | Latest | Dated | Review Posture | Sample Paths |
 | --- | ---: | ---: | ---: | ---: | --- | --- |
 | `root_latest_alias` | 1568 | 580950509 | 1568 | 0 | retain or reroute: active latest alias at docs/test_outputs root | `docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.json`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.md`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_summary_latest.md`<br>`docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_latest.json` |
-| `experiment_payload` | 670 | 122314299 | 0 | 398 | review by experiment: high-volume evidence, not deletion by size alone | `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328.json`<br>`docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328_timing.json`<br>`docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md`<br>`docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_helper_run_rulegen_smoke_20260328.json` |
+| `experiment_payload` | 683 | 122762384 | 0 | 411 | review by experiment: high-volume evidence, not deletion by size alone | `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328.json`<br>`docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328_timing.json`<br>`docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md`<br>`docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_helper_run_rulegen_smoke_20260328.json` |
 | `journey_quality_evidence` | 26 | 4061262 | 26 | 0 | retain latest: SRS journey and quality evidence | `docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.html`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.json`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.md`<br>`docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.html` |
-| `dev_workflow_operational` | 21 | 2797612 | 19 | 0 | retain latest: workflow reports support local and CI handoff | `docs/test_outputs/dev_workflow/build_ci_latest.json`<br>`docs/test_outputs/dev_workflow/build_latest.json`<br>`docs/test_outputs/dev_workflow/check_changed_latest.json`<br>`docs/test_outputs/dev_workflow/check_latest.json` |
+| `dev_workflow_operational` | 21 | 2801737 | 19 | 0 | retain latest: workflow reports support local and CI handoff | `docs/test_outputs/dev_workflow/build_ci_latest.json`<br>`docs/test_outputs/dev_workflow/build_latest.json`<br>`docs/test_outputs/dev_workflow/check_changed_latest.json`<br>`docs/test_outputs/dev_workflow/check_latest.json` |
 | `phase_or_sample_evidence` | 18 | 647355 | 0 | 16 | review after migration: older phase/sample evidence | `docs/test_outputs/ja_en/README.md`<br>`docs/test_outputs/ja_en/golden_samples_20260203_014029.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.json`<br>`docs/test_outputs/ja_en/samples_20260203_013949/samples.tsv` |
-| `root_dated_snapshot` | 15 | 453932 | 0 | 15 | review after canonical summary exists | `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json`<br>`docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`<br>`docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md` |
 | `license_resource_audit` | 5 | 598049 | 1 | 0 | retain latest: resource/license audit evidence | `docs/test_outputs/licensing_header_audit/README.md`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_jmdict.json`<br>`docs/test_outputs/licensing_header_audit/downloaded_headers_latest.json`<br>`docs/test_outputs/licensing_header_audit/latest.json` |
+| `root_dated_snapshot` | 2 | 6157 | 0 | 2 | review after canonical summary exists | `docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json`<br>`docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json` |
 | `baseline` | 1 | 901 | 0 | 0 | retain: quality baselines need explicit rationale before changes | `docs/test_outputs/baselines/rulegen_quality_baseline.json` |
 
 ## Duplicate Filenames

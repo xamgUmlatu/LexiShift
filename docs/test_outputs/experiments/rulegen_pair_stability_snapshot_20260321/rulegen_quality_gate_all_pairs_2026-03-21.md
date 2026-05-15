@@ -4,7 +4,7 @@
 - Findings: pass=14 warn=8 fail=4
 - Fail on warn: no
 - Strict saturation: no
-- Benchmark JSON: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json`
+- Benchmark JSON: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json`
 - Policy JSON: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/rulegen_quality_policy.json`
 
 ## Actionable Findings

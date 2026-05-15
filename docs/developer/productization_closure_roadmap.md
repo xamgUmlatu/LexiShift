@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, generated-only experiment-family routing review, and rulegen experiment-family relocation
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, generated-only experiment-family routing review, rulegen experiment-family relocation, and root-dated rulegen evidence relocation
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -557,11 +557,11 @@ Current progress:
   family-level retention review for `docs/test_outputs/experiments`.
   `npm --prefix scripts run inventory:experiments` writes latest JSON and
   Markdown artifacts under `docs/test_outputs/dev_workflow/`.
-- The latest snapshot enumerates `4,018` non-ignored paths: `3,824` files and
-  `194` directories, with `2,357` candidate-signal paths and `0`
+- The latest snapshot enumerates `4,020` non-ignored paths: `3,824` files and
+  `196` directories, with `2,357` candidate-signal paths and `0`
   unreferenced-script candidates.
 - The dominant structure signal is generated-evidence accumulation:
-  `docs/test_outputs` accounts for `2,393` paths, including `670` files under
+  `docs/test_outputs` accounts for `2,395` paths, including `683` files under
   `docs/test_outputs/experiments`.
 - Generated-output retention review now has first-class inventory buckets for
   baselines, dev-workflow operational reports, experiment payloads, SRS journey
@@ -603,7 +603,7 @@ Current progress:
   copy was deleted because the current merge uses repairs `001` and `003`;
   raw-response and experiment-batch artifacts remain retained for provenance.
   The regenerated unnecessary-output audit now reports `0` `definite_prune`
-  groups, `0` `review_only` groups, and `16` retained groups.
+  groups, `0` `review_only` groups, and `3` retained groups.
 - The first experiment-payload retention audit classified `11` experiment
   families covering `670` files and `122,313,459` bytes. It found no
   unreferenced experiment family.
@@ -621,6 +621,17 @@ Current progress:
   runbook and internal summary/triage references were mechanically updated, so
   the artifacts are retained but no longer appear as root-level experiment
   clutter.
+- Root-dated rulegen evidence review moved the 13 referenced March 2026 rulegen
+  artifacts out of the `docs/test_outputs` root and into two named evidence
+  families:
+  `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/` and
+  `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/`.
+  The reverse-check matrix script, archived analysis docs, feature-state
+  references, and generated evidence references were updated. The regenerated
+  structure report now leaves only the two semantic-veto repair generated-row
+  payloads in the root-dated snapshot bucket, and the experiment retention audit
+  reports `13` routed families covering `683` files with `0` unrouted-review
+  families.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
@@ -650,8 +661,9 @@ Current progress:
 Next review step:
 
 1. review `../test_outputs/dev_workflow/experiment_payload_retention_latest.md`,
-2. choose one narrow cleanup queue, likely root-level latest alias routing,
-   duplicate evidence families, or another clearly bounded structure signal,
+2. choose one narrow cleanup queue, likely the remaining semantic-veto
+   root-dated repair payloads, root-level latest alias routing, duplicate
+   evidence families, or another clearly bounded structure signal,
 3. prove exact references, generated-artifact ownership, and historical value
    before archiving or deleting anything.
 

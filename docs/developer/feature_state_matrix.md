@@ -698,7 +698,7 @@ Use this file when:
 
 - Status: `implemented`, `verified`, `default-on` = `no`
 - Last documented checkpoint: `2026-04-04` `en-de` now also wires reverse resource resolution, metadata emission, ranking consumption, and probe surface, with the first focused Kaikki reverse experiment recorded separately
-- Last verified: `2026-05-14` Lane 1 reverse-check archive prep updated dated `en-es` evidence paths to `docs/archive/rulegen/` and refreshed active reverse-check routing without rerunning benchmark artifacts
+- Last verified: `2026-05-16` root-dated rulegen evidence relocation moved the dated `en-es` reverse-check artifacts under `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/` and refreshed reverse-check routing without rerunning benchmark artifacts
 - Default behavior:
   - Configurable and pair-aware for `en-es`, `es-en`, and `en-de`.
   - Not yet promoted to default production tuning.
@@ -725,9 +725,9 @@ Use this file when:
   - `scripts/testing/rulegen_probe_words.py`
   - `docs/test_outputs/rulegen_benchmark_en_es_latest.md`
   - `docs/test_outputs/rulegen_benchmark_triage_latest.md`
-  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
-  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md`
-  - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
   - `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.json`
   - `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.md`
   - `docs/test_outputs/rulegen_quality_gate_en_es_reverse_latest.json`
@@ -737,7 +737,7 @@ Use this file when:
   - `docs/test_outputs/rulegen_benchmark_en_es_reverse_ambiguity_experiment_latest.md`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json`
   - `docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json`
-  - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
   - `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
   - `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`
   - `core/tests/rulegen/test_rulegen_adapters.py`

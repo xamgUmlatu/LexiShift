@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T17:52:45.052241+00:00",
+  "generated_at_utc": "2026-05-15T22:37:57.508917+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "rules": [
     {
@@ -35,17 +35,17 @@
     }
   ],
   "summary": {
-    "group_count": 16,
+    "group_count": 3,
     "definite_prune_group_count": 0,
     "definite_prune_file_count": 0,
     "definite_prune_bytes": 0,
     "review_only_group_count": 0,
-    "retain_group_count": 16,
+    "retain_group_count": 3,
     "status_counts": {
-      "retain": 16
+      "retain": 3
     },
     "rule_counts": {
-      "referenced_generated_output": 16
+      "referenced_generated_output": 3
     }
   },
   "groups": [
@@ -84,182 +84,6 @@
     {
       "status": "retain",
       "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 190979,
-      "external_reference_count": 2,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
-        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 1024,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 28899,
-      "external_reference_count": 3,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
-        "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
-        "docs/developer/feature_state_matrix.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 14296,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 1843,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 2927,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 78511,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 72140,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 45960,
-      "external_reference_count": 4,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
-        "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
-        "docs/developer/feature_state_matrix.md",
-        "docs/rulegen/reverse_check_rollout_matrix.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.json",
-      "reason": "Dated root generated output is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.json"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 6468,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
-      ],
-      "generated_output_reference_samples": []
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
       "group_id": "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
       "reason": "Dated root generated output is still referenced.",
       "paths": [
@@ -293,67 +117,6 @@
         "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_latest.json",
         "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.json",
         "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_merge_en_es_latest.md"
-      ]
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13:referenced_views",
-      "reason": "Dated root report view has a same-stem JSON file but is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 719,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/developer/feature_state_matrix.md"
-      ],
-      "generated_output_reference_samples": [],
-      "retained_counterpart_paths": [
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json"
-      ]
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13:referenced_views",
-      "reason": "Dated root report view has a same-stem JSON file but is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 1836,
-      "external_reference_count": 2,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
-        "docs/developer/feature_state_matrix.md"
-      ],
-      "generated_output_reference_samples": [],
-      "retained_counterpart_paths": [
-        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json"
-      ]
-    },
-    {
-      "status": "retain",
-      "rule_id": "referenced_generated_output",
-      "group_id": "rulegen_quality_gate_all_pairs_2026-03-21:referenced_views",
-      "reason": "Dated root report view has a same-stem JSON file but is still referenced.",
-      "paths": [
-        "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.md"
-      ],
-      "file_count": 1,
-      "total_file_bytes": 2173,
-      "external_reference_count": 1,
-      "generated_output_reference_count": 0,
-      "external_reference_samples": [
-        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
-      ],
-      "generated_output_reference_samples": [],
-      "retained_counterpart_paths": [
-        "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.json"
       ]
     }
   ]

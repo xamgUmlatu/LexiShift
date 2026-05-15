@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at_utc": "2026-05-15T22:26:55.940203+00:00",
+  "generated_at_utc": "2026-05-15T22:37:58.881295+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -32,12 +32,12 @@
     "packaging/output"
   ],
   "summary": {
-    "path_count": 4018,
+    "path_count": 4020,
     "file_count": 3824,
-    "directory_count": 194,
+    "directory_count": 196,
     "tracked_file_count": 3799,
     "untracked_file_count": 0,
-    "total_file_bytes": 906575476,
+    "total_file_bytes": 906581338,
     "candidate_path_count": 2357,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
@@ -46,10 +46,10 @@
   "family_counts": [
     {
       "family": "docs_test_outputs",
-      "path_count": 2393,
+      "path_count": 2395,
       "file_count": 2324,
-      "directory_count": 69,
-      "total_file_bytes": 711823919
+      "directory_count": 71,
+      "total_file_bytes": 711828354
     },
     {
       "family": "core_tests",
@@ -63,7 +63,7 @@
       "path_count": 316,
       "file_count": 315,
       "directory_count": 1,
-      "total_file_bytes": 5338904
+      "total_file_bytes": 5339066
     },
     {
       "family": "app_chrome-extension",
@@ -98,14 +98,14 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1282148
+      "total_file_bytes": 1282344
     },
     {
       "family": "docs_rulegen",
       "path_count": 50,
       "file_count": 49,
       "directory_count": 1,
-      "total_file_bytes": 1299910
+      "total_file_bytes": 1300277
     },
     {
       "family": "scripts_dev",
@@ -147,7 +147,7 @@
       "path_count": 16,
       "file_count": 15,
       "directory_count": 1,
-      "total_file_bytes": 205945
+      "total_file_bytes": 206157
     },
     {
       "family": "scripts_data",
@@ -182,7 +182,7 @@
       "path_count": 8,
       "file_count": 5,
       "directory_count": 3,
-      "total_file_bytes": 19768
+      "total_file_bytes": 20258
     },
     {
       "family": "scripts",
@@ -302,9 +302,9 @@
   "top_level_counts": [
     {
       "path": "docs",
-      "path_count": 2764,
+      "path_count": 2766,
       "file_count": 2666,
-      "directory_count": 98
+      "directory_count": 100
     },
     {
       "path": "core",
@@ -394,9 +394,9 @@
   "second_level_counts": [
     {
       "path": "docs/test_outputs",
-      "path_count": 2393,
+      "path_count": 2395,
       "file_count": 2324,
-      "directory_count": 69
+      "directory_count": 71
     },
     {
       "path": "core/tests",
@@ -648,8 +648,8 @@
   "generated_output_counts": [
     {
       "path": "docs/test_outputs/experiments",
-      "file_count": 670,
-      "total_file_bytes": 122314299
+      "file_count": 683,
+      "total_file_bytes": 122762384
     },
     {
       "path": "docs/test_outputs/srs_journey",
@@ -659,7 +659,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 18,
-      "total_file_bytes": 2641523
+      "total_file_bytes": 2645648
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -695,16 +695,6 @@
       "path": "docs/test_outputs/resource_integrity_audit",
       "file_count": 1,
       "total_file_bytes": 8898
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
-      "file_count": 1,
-      "total_file_bytes": 190979
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
-      "file_count": 1,
-      "total_file_bytes": 1024
     },
     {
       "path": "docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.json",
@@ -972,16 +962,6 @@
       "total_file_bytes": 1868
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "file_count": 1,
-      "total_file_bytes": 28899
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
-      "file_count": 1,
-      "total_file_bytes": 719
-    },
-    {
       "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.html",
       "file_count": 1,
       "total_file_bytes": 48116
@@ -1050,16 +1030,6 @@
       "path": "docs/test_outputs/rulegen_benchmark_summary_latest.md",
       "file_count": 1,
       "total_file_bytes": 651
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
-      "file_count": 1,
-      "total_file_bytes": 14296
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
-      "file_count": 1,
-      "total_file_bytes": 1843
     },
     {
       "path": "docs/test_outputs/rulegen_benchmark_triage_en_de_kaikki_family_expansion_latest.json",
@@ -1227,16 +1197,6 @@
       "total_file_bytes": 2789
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "file_count": 1,
-      "total_file_bytes": 2927
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
-      "file_count": 1,
-      "total_file_bytes": 1836
-    },
-    {
       "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.json",
       "file_count": 1,
       "total_file_bytes": 1060
@@ -1277,21 +1237,6 @@
       "total_file_bytes": 1268
     },
     {
-      "path": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
-      "file_count": 1,
-      "total_file_bytes": 78511
-    },
-    {
-      "path": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
-      "file_count": 1,
-      "total_file_bytes": 72140
-    },
-    {
-      "path": "docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "file_count": 1,
-      "total_file_bytes": 45960
-    },
-    {
       "path": "docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json",
       "file_count": 1,
       "total_file_bytes": 45643
@@ -1300,16 +1245,6 @@
       "path": "docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json",
       "file_count": 1,
       "total_file_bytes": 45624
-    },
-    {
-      "path": "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.json",
-      "file_count": 1,
-      "total_file_bytes": 6468
-    },
-    {
-      "path": "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.md",
-      "file_count": 1,
-      "total_file_bytes": 2173
     },
     {
       "path": "docs/test_outputs/rulegen_quality_gate_en_de_kaikki_family_expansion_latest.json",
@@ -8644,10 +8579,10 @@
     {
       "bucket": "experiment_payload",
       "review_posture": "review by experiment: high-volume evidence, not deletion by size alone",
-      "file_count": 670,
-      "total_file_bytes": 122314299,
+      "file_count": 683,
+      "total_file_bytes": 122762384,
       "latest_alias_count": 0,
-      "dated_artifact_count": 398,
+      "dated_artifact_count": 411,
       "sample_paths": [
         "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328.json",
         "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328_timing.json",
@@ -8681,7 +8616,7 @@
       "bucket": "dev_workflow_operational",
       "review_posture": "retain latest: workflow reports support local and CI handoff",
       "file_count": 21,
-      "total_file_bytes": 2797612,
+      "total_file_bytes": 2801737,
       "latest_alias_count": 19,
       "dated_artifact_count": 0,
       "sample_paths": [
@@ -8714,24 +8649,6 @@
       ]
     },
     {
-      "bucket": "root_dated_snapshot",
-      "review_posture": "review after canonical summary exists",
-      "file_count": 15,
-      "total_file_bytes": 453932,
-      "latest_alias_count": 0,
-      "dated_artifact_count": 15,
-      "sample_paths": [
-        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
-        "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
-        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
-        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
-        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
-        "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md"
-      ]
-    },
-    {
       "bucket": "license_resource_audit",
       "review_posture": "retain latest: resource/license audit evidence",
       "file_count": 5,
@@ -8744,6 +8661,18 @@
         "docs/test_outputs/licensing_header_audit/downloaded_headers_latest.json",
         "docs/test_outputs/licensing_header_audit/latest.json",
         "docs/test_outputs/resource_integrity_audit/latest.json"
+      ]
+    },
+    {
+      "bucket": "root_dated_snapshot",
+      "review_posture": "review after canonical summary exists",
+      "file_count": 2,
+      "total_file_bytes": 6157,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 2,
+      "sample_paths": [
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_001.json",
+        "docs/test_outputs/semantic_veto_llm_pilot_generated_rows_en_es_repair_20260505_003.json"
       ]
     },
     {
@@ -14896,7 +14825,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14906,7 +14835,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14916,7 +14845,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14926,7 +14855,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14936,7 +14865,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.json",
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14946,7 +14875,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.md",
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -25283,7 +25212,7 @@
       "name": "reverse_check_en_es_aggressive_expansion_2026-03-13.md",
       "stem": "reverse_check_en_es_aggressive_expansion_2026-03-13",
       "suffix": ".md",
-      "size_bytes": 5041,
+      "size_bytes": 5139,
       "git_state": "tracked",
       "flags": [
         "legacy_or_temporary_name",
@@ -25297,7 +25226,7 @@
       "name": "reverse_check_en_es_case_review_2026-03-13.md",
       "stem": "reverse_check_en_es_case_review_2026-03-13",
       "suffix": ".md",
-      "size_bytes": 5285,
+      "size_bytes": 5432,
       "git_state": "tracked",
       "flags": [
         "legacy_or_temporary_name",
@@ -25311,7 +25240,7 @@
       "name": "reverse_check_en_es_failure_traits_2026-03-13.md",
       "stem": "reverse_check_en_es_failure_traits_2026-03-13",
       "suffix": ".md",
-      "size_bytes": 7106,
+      "size_bytes": 7351,
       "git_state": "tracked",
       "flags": [
         "legacy_or_temporary_name",
@@ -25590,7 +25519,7 @@
       "name": "feature_state_matrix.md",
       "stem": "feature_state_matrix",
       "suffix": ".md",
-      "size_bytes": 140718,
+      "size_bytes": 140914,
       "git_state": "tracked",
       "flags": []
     },
@@ -26865,7 +26794,7 @@
       "name": "lp_state_and_onboarding_research_2026-05-06.md",
       "stem": "lp_state_and_onboarding_research_2026-05-06",
       "suffix": ".md",
-      "size_bytes": 26927,
+      "size_bytes": 27139,
       "git_state": "tracked",
       "flags": []
     },
@@ -27010,7 +26939,7 @@
       "name": "reverse_check_rollout_matrix.md",
       "stem": "reverse_check_rollout_matrix",
       "suffix": ".md",
-      "size_bytes": 5967,
+      "size_bytes": 6016,
       "git_state": "tracked",
       "flags": []
     },
@@ -27065,7 +26994,7 @@
       "name": "rulegen_pair_stability_snapshot_2026-03-21.md",
       "stem": "rulegen_pair_stability_snapshot_2026-03-21",
       "suffix": ".md",
-      "size_bytes": 4491,
+      "size_bytes": 4809,
       "git_state": "tracked",
       "flags": []
     },
@@ -29209,7 +29138,7 @@
       "name": "experiment_payload_retention_latest.json",
       "stem": "experiment_payload_retention_latest",
       "suffix": ".json",
-      "size_bytes": 64658,
+      "size_bytes": 64390,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29224,7 +29153,7 @@
       "name": "experiment_payload_retention_latest.md",
       "stem": "experiment_payload_retention_latest",
       "suffix": ".md",
-      "size_bytes": 19888,
+      "size_bytes": 19602,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29253,7 +29182,7 @@
       "name": "generated_output_unnecessary_latest.json",
       "stem": "generated_output_unnecessary_latest",
       "suffix": ".json",
-      "size_bytes": 16231,
+      "size_bytes": 17553,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29268,7 +29197,7 @@
       "name": "generated_output_unnecessary_latest.md",
       "stem": "generated_output_unnecessary_latest",
       "suffix": ".md",
-      "size_bytes": 8096,
+      "size_bytes": 8757,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29297,7 +29226,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2433530,
+      "size_bytes": 2435916,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29312,7 +29241,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 61341,
+      "size_bytes": 61651,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30807,6 +30736,216 @@
       "stem": "rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage",
       "suffix": ".md",
       "size_bytes": 2705,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313",
+      "kind": "directory",
+      "family": "docs_test_outputs",
+      "name": "rulegen_en_es_reverse_check_20260313",
+      "stem": "rulegen_en_es_reverse_check_20260313",
+      "suffix": "",
+      "size_bytes": 0,
+      "git_state": "tracked",
+      "flags": []
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "stem": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13",
+      "suffix": ".json",
+      "size_bytes": 28899,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
+      "stem": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13",
+      "suffix": ".md",
+      "size_bytes": 719,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "stem": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13",
+      "suffix": ".json",
+      "size_bytes": 2976,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
+      "stem": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13",
+      "suffix": ".md",
+      "size_bytes": 1885,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
+      "stem": "rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13",
+      "suffix": ".json",
+      "size_bytes": 78511,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
+      "stem": "rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13",
+      "suffix": ".json",
+      "size_bytes": 72140,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
+      "stem": "rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13",
+      "suffix": ".json",
+      "size_bytes": 45960,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321",
+      "kind": "directory",
+      "family": "docs_test_outputs",
+      "name": "rulegen_pair_stability_snapshot_20260321",
+      "stem": "rulegen_pair_stability_snapshot_20260321",
+      "suffix": "",
+      "size_bytes": 0,
+      "git_state": "tracked",
+      "flags": []
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_all_pairs_2026-03-21.json",
+      "stem": "rulegen_benchmark_all_pairs_2026-03-21",
+      "suffix": ".json",
+      "size_bytes": 190979,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_all_pairs_summary_2026-03-21.md",
+      "stem": "rulegen_benchmark_all_pairs_summary_2026-03-21",
+      "suffix": ".md",
+      "size_bytes": 1024,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+      "stem": "rulegen_benchmark_triage_all_pairs_2026-03-21",
+      "suffix": ".json",
+      "size_bytes": 14349,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+      "stem": "rulegen_benchmark_triage_all_pairs_summary_2026-03-21",
+      "suffix": ".md",
+      "size_bytes": 1896,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_quality_gate_all_pairs_2026-03-21.json",
+      "stem": "rulegen_quality_gate_all_pairs_2026-03-21",
+      "suffix": ".json",
+      "size_bytes": 6521,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "rulegen_quality_gate_all_pairs_2026-03-21.md",
+      "stem": "rulegen_quality_gate_all_pairs_2026-03-21",
+      "suffix": ".md",
+      "size_bytes": 2226,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -39514,34 +39653,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_all_pairs_2026-03-21.json",
-      "stem": "rulegen_benchmark_all_pairs_2026-03-21",
-      "suffix": ".json",
-      "size_bytes": 190979,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_all_pairs_summary_2026-03-21.md",
-      "stem": "rulegen_benchmark_all_pairs_summary_2026-03-21",
-      "suffix": ".md",
-      "size_bytes": 1024,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
       "path": "docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -40333,36 +40444,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "stem": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13",
-      "suffix": ".json",
-      "size_bytes": 28899,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
-      "stem": "rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13",
-      "suffix": ".md",
-      "size_bytes": 719,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
       "path": "docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.html",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -40568,34 +40649,6 @@
       "flags": [
         "generated_evidence_output",
         "generated_latest_alias"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_triage_all_pairs_2026-03-21.json",
-      "stem": "rulegen_benchmark_triage_all_pairs_2026-03-21",
-      "suffix": ".json",
-      "size_bytes": 14296,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
-      "stem": "rulegen_benchmark_triage_all_pairs_summary_2026-03-21",
-      "suffix": ".md",
-      "size_bytes": 1843,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
       ]
     },
     {
@@ -41091,36 +41144,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "stem": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13",
-      "suffix": ".json",
-      "size_bytes": 2927,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
-      "stem": "rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13",
-      "suffix": ".md",
-      "size_bytes": 1836,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
       "path": "docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_latest.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -41239,48 +41262,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
-      "stem": "rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13",
-      "suffix": ".json",
-      "size_bytes": 78511,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
-      "stem": "rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13",
-      "suffix": ".json",
-      "size_bytes": 72140,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
-      "stem": "rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13",
-      "suffix": ".json",
-      "size_bytes": 45960,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact"
-      ]
-    },
-    {
       "path": "docs/test_outputs/rulegen_probe_en_es_reverse_off_latest.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -41306,36 +41287,6 @@
       "flags": [
         "generated_evidence_output",
         "generated_latest_alias"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_quality_gate_all_pairs_2026-03-21.json",
-      "stem": "rulegen_quality_gate_all_pairs_2026-03-21",
-      "suffix": ".json",
-      "size_bytes": 6468,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/rulegen_quality_gate_all_pairs_2026-03-21.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "rulegen_quality_gate_all_pairs_2026-03-21.md",
-      "stem": "rulegen_quality_gate_all_pairs_2026-03-21",
-      "suffix": ".md",
-      "size_bytes": 2173,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
       ]
     },
     {
@@ -64972,7 +64923,7 @@
       "name": "rulegen_reverse_run_matrix.py",
       "stem": "rulegen_reverse_run_matrix",
       "suffix": ".py",
-      "size_bytes": 10692,
+      "size_bytes": 10854,
       "git_state": "tracked",
       "flags": []
     },

@@ -1,5 +1,5 @@
 {
-  "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
+  "benchmark_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
   "pairs_processed": 4,
   "failing_or_review_count": 17,
   "items": [

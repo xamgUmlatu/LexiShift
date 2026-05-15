@@ -23,9 +23,9 @@ Artifacts:
   - `docs/test_outputs/rulegen_quality_gate_en_es_reverse_summary_latest.md`
   - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_summary_latest.md`
 - Run matrix: `docs/test_outputs/rulegen_reverse_en_es_run_matrix_latest.md`
-- Reverse-specific experiment benchmark: `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
-- Reverse-specific experiment triage: `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json`
-- Reverse-specific experiment probe: `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
+- Reverse-specific experiment benchmark: `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
+- Reverse-specific experiment triage: `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json`
+- Reverse-specific experiment probe: `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
 
 ## Proposed Slice
 

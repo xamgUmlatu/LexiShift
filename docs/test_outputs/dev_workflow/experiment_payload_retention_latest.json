@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T22:27:15.603326+00:00",
+  "generated_at_utc": "2026-05-15T22:38:18.925010+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "experiment_root": "docs/test_outputs/experiments",
   "posture_definitions": [
@@ -26,16 +26,16 @@
     }
   ],
   "summary": {
-    "family_count": 11,
-    "file_count": 670,
-    "total_file_bytes": 122314299,
-    "routed_family_count": 11,
+    "family_count": 13,
+    "file_count": 683,
+    "total_file_bytes": 122762384,
+    "routed_family_count": 13,
     "generated_linked_family_count": 0,
     "experiment_linked_family_count": 0,
     "self_linked_review_family_count": 0,
     "unrouted_review_family_count": 0,
     "posture_counts": {
-      "routed": 11
+      "routed": 13
     },
     "review_flag_counts": {
       "batch_payload_family": 5,
@@ -986,6 +986,195 @@
           "reference_path": "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
           "referenced_path": "docs/test_outputs/experiments/semantic_llm_example_frame_batches/en-es-reviewed-example-frames-v10-full-20260425a_normalized_evidence.json",
           "scope": "generated_output"
+        }
+      ]
+    },
+    {
+      "family": "rulegen_en_es_reverse_check_20260313",
+      "family_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 7,
+      "directory_count": 0,
+      "total_file_bytes": 231090,
+      "extension_counts": {
+        ".json": 5,
+        ".md": 2
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
+          "bytes": 78511
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
+          "bytes": 72140
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "bytes": 45960
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "bytes": 28899
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "bytes": 2976
+        }
+      ],
+      "external_reference_count": 5,
+      "generated_output_reference_count": 0,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 2,
+      "external_reference_samples": [
+        "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+        "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+        "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
+        "docs/developer/feature_state_matrix.md",
+        "docs/rulegen/reverse_check_rollout_matrix.md"
+      ],
+      "generated_output_reference_samples": [],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+        "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_case_review_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/archive/rulegen/reverse_check_en_es_failure_traits_2026-03-13.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md",
+          "scope": "external"
+        }
+      ]
+    },
+    {
+      "family": "rulegen_pair_stability_snapshot_20260321",
+      "family_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321",
+      "retention_posture": "routed",
+      "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
+      "file_count": 6,
+      "directory_count": 0,
+      "total_file_bytes": 216995,
+      "extension_counts": {
+        ".json": 3,
+        ".md": 3
+      },
+      "review_flags": [],
+      "largest_files": [
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
+          "bytes": 190979
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+          "bytes": 14349
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
+          "bytes": 6521
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md",
+          "bytes": 2226
+        },
+        {
+          "path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+          "bytes": 1896
+        }
+      ],
+      "external_reference_count": 2,
+      "generated_output_reference_count": 0,
+      "other_experiment_reference_count": 0,
+      "self_family_reference_count": 4,
+      "external_reference_samples": [
+        "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
+        "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md"
+      ],
+      "generated_output_reference_samples": [],
+      "other_experiment_reference_samples": [],
+      "self_family_reference_samples": [
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
+        "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md"
+      ],
+      "reference_samples": [
+        {
+          "reference_path": "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/language_pairs/lp_state_and_onboarding_research_2026-05-06.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_summary_2026-03-21.md",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_triage_all_pairs_2026-03-21.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_quality_gate_all_pairs_2026-03-21.md",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/rulegen/rulegen_pair_stability_snapshot_2026-03-21.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json",
+          "scope": "external"
         }
       ]
     },

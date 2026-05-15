@@ -1,6 +1,6 @@
 # Rulegen Benchmark Triage
 
-- Benchmark JSON: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json`
+- Benchmark JSON: `/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json`
 - Pairs processed: 4
 - Actionable items: 17
 - FAIL items: 12

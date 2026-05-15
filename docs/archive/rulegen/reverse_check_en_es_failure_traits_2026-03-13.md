@@ -15,14 +15,14 @@ Purpose:
 Method:
 - canonical benchmark/triage state from `docs/test_outputs/rulegen_benchmark_en_es_latest.json`
 - reverse-specific experiment state from:
-  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
-  - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
 - reverse metadata from `docs/test_outputs/rulegen_probe_en_es_reverse_on_latest.json`
 - rough Spanish commonness from `wordfreq` Zipf scores (`es`)
 - tuned experiment check from:
-  - `docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
-  - `docs/test_outputs/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
-  - `docs/test_outputs/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_benchmark_triage_en_es_reverse_far_hit_experiment_2026-03-13.md`
+  - `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_reverse_far_hit_experiment_2026-03-13.json`
 
 Aggressive expansion note:
 - a second pass added 14 more `en-es` cases; see `docs/archive/rulegen/reverse_check_en_es_aggressive_expansion_2026-03-13.md`

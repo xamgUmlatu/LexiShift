@@ -95,10 +95,10 @@ Current or relevant saved benchmark reads:
 | `docs/test_outputs/rulegen_benchmark_en_es_reverse_latest.json` | 2026-03-13 | `en-es` | 38 | 32 | reverse-focused, `rev=on`, `mr=1` | `97.37%` | `97.37%` | `2.63%` | `2.63%` | saved gate FAIL from delta budget |
 | `docs/test_outputs/rulegen_benchmark_en_de_latest.json` | 2026-04-03 | `en-de` | 58 | 32 | canonical FreeDict lane, `rev=off`, `var=off` | `65.52%` | `93.10%` | `1.72%` | `24.14%` | current temp gate FAIL |
 | `docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_latest.json` | 2026-04-03 | `en-de` | 58 | 2 | Kaikki/register experiment, source-frequency on | `93.10%` | `96.55%` | `1.72%` | `1.72%` | temp gate FAIL from saturation only |
-| `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `en-ja` | 17 | 16 | all-pairs advisory | `94.12%` | `100%` | `0%` | `0%` | quality floor OK |
-| `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `en-de` | 16 | 16 | all-pairs advisory | `75%` | `100%` | `0%` | `0%` | quality floor failed |
-| `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `en-es` | 38 | 16 | all-pairs advisory | `78.95%` | `78.95%` | `21.05%` | `13.16%` | quality floor failed |
-| `docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `es-en` | 16 | 16 | all-pairs advisory | `75%` | `75%` | `0%` | `0%` | quality floor failed |
+| `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `en-ja` | 17 | 16 | all-pairs advisory | `94.12%` | `100%` | `0%` | `0%` | quality floor OK |
+| `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `en-de` | 16 | 16 | all-pairs advisory | `75%` | `100%` | `0%` | `0%` | quality floor failed |
+| `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `en-es` | 38 | 16 | all-pairs advisory | `78.95%` | `78.95%` | `21.05%` | `13.16%` | quality floor failed |
+| `docs/test_outputs/experiments/rulegen_pair_stability_snapshot_20260321/rulegen_benchmark_all_pairs_2026-03-21.json` | 2026-03-20 | `es-en` | 16 | 16 | all-pairs advisory | `75%` | `75%` | `0%` | `0%` | quality floor failed |
 
 Important artifact drift:
 

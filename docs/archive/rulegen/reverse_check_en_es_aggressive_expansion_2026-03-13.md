@@ -13,8 +13,8 @@ Purpose:
 
 Artifacts used:
 - `docs/test_inputs/rulegen_benchmark_cases/en_es.json`
-- `docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json`
-- `docs/test_outputs/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json`
+- `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_off_2026-03-13.json`
+- `docs/test_outputs/experiments/rulegen_en_es_reverse_check_20260313/rulegen_probe_en_es_expansion_selected_rev_on_2026-03-13.json`
 
 - Added `en-es` cases in this pass: `14`
 - Total `en-es` cases after this pass: `38`
