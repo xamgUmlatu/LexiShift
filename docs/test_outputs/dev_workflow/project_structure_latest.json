@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at_utc": "2026-05-15T17:24:45.826153+00:00",
+  "generated_at_utc": "2026-05-15T17:31:40.610881+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -32,13 +32,13 @@
     "packaging/output"
   ],
   "summary": {
-    "path_count": 4029,
-    "file_count": 3836,
+    "path_count": 4017,
+    "file_count": 3824,
     "directory_count": 193,
-    "tracked_file_count": 3811,
+    "tracked_file_count": 3799,
     "untracked_file_count": 0,
-    "total_file_bytes": 906875439,
-    "candidate_path_count": 2373,
+    "total_file_bytes": 906693567,
+    "candidate_path_count": 2361,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
     "unreferenced_script_candidate_count": 0
@@ -46,10 +46,10 @@
   "family_counts": [
     {
       "family": "docs_test_outputs",
-      "path_count": 2408,
-      "file_count": 2340,
+      "path_count": 2396,
+      "file_count": 2328,
       "directory_count": 68,
-      "total_file_bytes": 712188916
+      "total_file_bytes": 712006734
     },
     {
       "family": "core_tests",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1278097
+      "total_file_bytes": 1278407
     },
     {
       "family": "docs_rulegen",
@@ -272,11 +272,11 @@
   "candidate_counts": [
     {
       "flag": "generated_evidence_output",
-      "path_count": 2253
+      "path_count": 2241
     },
     {
       "flag": "duplicate_stem",
-      "path_count": 1739
+      "path_count": 1727
     },
     {
       "flag": "generated_latest_alias",
@@ -284,7 +284,7 @@
     },
     {
       "flag": "generated_dated_artifact",
-      "path_count": 402
+      "path_count": 390
     },
     {
       "flag": "duplicate_filename",
@@ -302,8 +302,8 @@
   "top_level_counts": [
     {
       "path": "docs",
-      "path_count": 2779,
-      "file_count": 2682,
+      "path_count": 2767,
+      "file_count": 2670,
       "directory_count": 97
     },
     {
@@ -394,8 +394,8 @@
   "second_level_counts": [
     {
       "path": "docs/test_outputs",
-      "path_count": 2408,
-      "file_count": 2340,
+      "path_count": 2396,
+      "file_count": 2328,
       "directory_count": 68
     },
     {
@@ -659,7 +659,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 14,
-      "total_file_bytes": 2644818
+      "total_file_bytes": 2536156
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -7692,36 +7692,6 @@
       "total_file_bytes": 4611
     },
     {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.json",
-      "file_count": 1,
-      "total_file_bytes": 16592
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.md",
-      "file_count": 1,
-      "total_file_bytes": 4592
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.json",
-      "file_count": 1,
-      "total_file_bytes": 15277
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.md",
-      "file_count": 1,
-      "total_file_bytes": 4577
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.json",
-      "file_count": 1,
-      "total_file_bytes": 15243
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.md",
-      "file_count": 1,
-      "total_file_bytes": 4462
-    },
-    {
       "path": "docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.json",
       "file_count": 1,
       "total_file_bytes": 118348
@@ -7790,36 +7760,6 @@
       "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_latest.md",
       "file_count": 1,
       "total_file_bytes": 20479
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.json",
-      "file_count": 1,
-      "total_file_bytes": 3472
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.md",
-      "file_count": 1,
-      "total_file_bytes": 1699
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.json",
-      "file_count": 1,
-      "total_file_bytes": 2359
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.md",
-      "file_count": 1,
-      "total_file_bytes": 1414
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.json",
-      "file_count": 1,
-      "total_file_bytes": 2389
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.md",
-      "file_count": 1,
-      "total_file_bytes": 1444
     },
     {
       "path": "docs/test_outputs/semantic_veto_llm_pilot_scoring_en_es_latest.json",
@@ -8760,24 +8700,6 @@
       ]
     },
     {
-      "bucket": "root_dated_snapshot",
-      "review_posture": "review after canonical summary exists",
-      "file_count": 35,
-      "total_file_bytes": 816474,
-      "latest_alias_count": 0,
-      "dated_artifact_count": 35,
-      "sample_paths": [
-        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.html",
-        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
-        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.md",
-        "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.html",
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
-        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
-        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json"
-      ]
-    },
-    {
       "bucket": "journey_quality_evidence",
       "review_posture": "retain latest: SRS journey and quality evidence",
       "file_count": 26,
@@ -8793,6 +8715,24 @@
         "docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md",
         "docs/test_outputs/srs_journey/srs_journey_en_es_latest.html",
         "docs/test_outputs/srs_journey/srs_journey_en_es_latest.json"
+      ]
+    },
+    {
+      "bucket": "root_dated_snapshot",
+      "review_posture": "review after canonical summary exists",
+      "file_count": 23,
+      "total_file_bytes": 742954,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 23,
+      "sample_paths": [
+        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.html",
+        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
+        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.md",
+        "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.html",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
+        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json"
       ]
     },
     {
@@ -8817,7 +8757,7 @@
       "bucket": "dev_workflow_operational",
       "review_posture": "retain latest: workflow reports support local and CI handoff",
       "file_count": 17,
-      "total_file_bytes": 2800907,
+      "total_file_bytes": 2692245,
       "latest_alias_count": 15,
       "dated_artifact_count": 0,
       "sample_paths": [
@@ -15098,126 +15038,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
       "path": "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -15453,6 +15273,114 @@
     },
     {
       "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_timing.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328_timing.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_summary_20260328.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_timing.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_timing.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_timing.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -25736,7 +25664,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 34087,
+      "size_bytes": 34397,
       "git_state": "tracked",
       "flags": []
     },
@@ -29315,7 +29243,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2542386,
+      "size_bytes": 2437124,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29330,7 +29258,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 64653,
+      "size_bytes": 61253,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -60430,96 +60358,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.json",
-      "stem": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_001",
-      "suffix": ".json",
-      "size_bytes": 16592,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_001.md",
-      "stem": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_001",
-      "suffix": ".md",
-      "size_bytes": 4592,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.json",
-      "stem": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_002",
-      "suffix": ".json",
-      "size_bytes": 15277,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_002.md",
-      "stem": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_002",
-      "suffix": ".md",
-      "size_bytes": 4577,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.json",
-      "stem": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_003",
-      "suffix": ".json",
-      "size_bytes": 15243,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_003.md",
-      "stem": "semantic_veto_llm_pilot_admission_en_es_repair_20260505_003",
-      "suffix": ".md",
-      "size_bytes": 4462,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
       "path": "docs/test_outputs/semantic_veto_llm_pilot_data_comparison_en_es_latest.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -60722,96 +60560,6 @@
       "flags": [
         "generated_evidence_output",
         "generated_latest_alias",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.json",
-      "stem": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001",
-      "suffix": ".json",
-      "size_bytes": 3472,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001.md",
-      "stem": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_001",
-      "suffix": ".md",
-      "size_bytes": 1699,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.json",
-      "stem": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002",
-      "suffix": ".json",
-      "size_bytes": 2359,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002.md",
-      "stem": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_002",
-      "suffix": ".md",
-      "size_bytes": 1414,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.json",
-      "stem": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003",
-      "suffix": ".json",
-      "size_bytes": 2389,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "name": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003.md",
-      "stem": "semantic_veto_llm_pilot_generation_run_en_es_repair_20260505_003",
-      "suffix": ".md",
-      "size_bytes": 1444,
-      "git_state": "tracked",
-      "flags": [
-        "generated_evidence_output",
-        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },

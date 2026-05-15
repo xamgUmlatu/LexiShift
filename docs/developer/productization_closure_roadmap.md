@@ -547,11 +547,11 @@ Current progress:
   enumeration and structure-review candidate report.
 - `npm --prefix scripts run inventory:structure` writes latest JSON and
   Markdown artifacts under `docs/test_outputs/dev_workflow/`.
-- The latest snapshot enumerates `4,029` non-ignored paths: `3,836` files and
-  `193` directories, with `2,373` candidate-signal paths and `0`
+- The latest snapshot enumerates `4,017` non-ignored paths: `3,824` files and
+  `193` directories, with `2,361` candidate-signal paths and `0`
   unreferenced-script candidates.
 - The dominant structure signal is generated-evidence accumulation:
-  `docs/test_outputs` accounts for `2,408` paths, including `670` files under
+  `docs/test_outputs` accounts for `2,396` paths, including `670` files under
   `docs/test_outputs/experiments`.
 - Generated-output retention review now has first-class inventory buckets for
   baselines, dev-workflow operational reports, experiment payloads, SRS journey
@@ -569,6 +569,10 @@ Current progress:
   remains the active install-root fixture referenced by the runbook, and
   product-scope/helper/native-host smoke roots remain retained while current
   docs or tests route through them.
+- Root dated generated-output review removed unreferenced semantic-veto LLM
+  pilot repair admission and generation-run reports from 2026-05-05. The repair
+  generated-row payloads and raw response bundles remain retained because the
+  current `latest` merge artifacts still carry those provenance references.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
