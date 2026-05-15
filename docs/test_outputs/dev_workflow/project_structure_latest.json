@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T06:16:43.146280+00:00",
+  "generated_at_utc": "2026-05-15T15:37:51.606783+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -35,9 +35,9 @@
     "path_count": 4193,
     "file_count": 3910,
     "directory_count": 283,
-    "tracked_file_count": 3884,
+    "tracked_file_count": 3885,
     "untracked_file_count": 0,
-    "total_file_bytes": 919608552,
+    "total_file_bytes": 919608928,
     "candidate_path_count": 2449,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1276123
+      "total_file_bytes": 1276470
     },
     {
       "family": "docs_rulegen",
@@ -175,7 +175,7 @@
       "path_count": 9,
       "file_count": 9,
       "directory_count": 0,
-      "total_file_bytes": 15238
+      "total_file_bytes": 15267
     },
     {
       "family": "scripts",
@@ -15503,7 +15503,7 @@
       "name": ".gitignore",
       "stem": ".gitignore",
       "suffix": "",
-      "size_bytes": 1041,
+      "size_bytes": 1070,
       "git_state": "tracked",
       "flags": [
         "duplicate_filename",
@@ -19543,7 +19543,7 @@
       "stem": "test_main_ruleset_ui",
       "suffix": ".py",
       "size_bytes": 2785,
-      "git_state": "ignored_or_untracked",
+      "git_state": "tracked",
       "flags": []
     },
     {
@@ -25715,7 +25715,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 32966,
+      "size_bytes": 33313,
       "git_state": "tracked",
       "flags": []
     },

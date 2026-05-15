@@ -31,6 +31,7 @@ desktop.ini
 *_rc.py
 *_ui.py
 !apps/gui/src/helper_ui.py
+!apps/gui/tests/test_*_ui.py
 
 # --- Browser Extension & BetterDiscord ---
 # Ignore local node modules if you add them later

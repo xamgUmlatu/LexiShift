@@ -14,7 +14,7 @@ This report is read-only evidence. Candidate rows are triage signals, not deleti
 | `path_count` | 4193 |
 | `file_count` | 3910 |
 | `directory_count` | 283 |
-| `tracked_file_count` | 3884 |
+| `tracked_file_count` | 3885 |
 | `untracked_file_count` | 0 |
 | `candidate_path_count` | 2449 |
 | `duplicate_filename_group_count` | 24 |
@@ -66,7 +66,7 @@ Ignored file names:
 | `core_runtime` | 152 | 138 | 14 | 1525534 |
 | `app_gui` | 115 | 105 | 10 | 175131342 |
 | `docs_test_inputs` | 111 | 105 | 6 | 4414512 |
-| `docs_developer` | 92 | 91 | 1 | 1276123 |
+| `docs_developer` | 92 | 91 | 1 | 1276470 |
 | `docs_rulegen` | 50 | 49 | 1 | 1299910 |
 | `scripts_dev` | 39 | 36 | 3 | 306122 |
 | `app_tests` | 33 | 32 | 1 | 147000 |
@@ -77,7 +77,7 @@ Ignored file names:
 | `scripts_data` | 13 | 12 | 1 | 27095 |
 | `docs_srs` | 12 | 11 | 1 | 89275 |
 | `docs_runbooks` | 9 | 7 | 2 | 16222 |
-| `root_config` | 9 | 9 | 0 | 15238 |
+| `root_config` | 9 | 9 | 0 | 15267 |
 | `scripts` | 9 | 9 | 0 | 35773 |
 | `docs_archive` | 8 | 5 | 3 | 19768 |
 | `scripts_build` | 8 | 7 | 1 | 38742 |

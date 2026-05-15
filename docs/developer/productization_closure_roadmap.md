@@ -563,12 +563,17 @@ Current progress:
   `docs/archive/diagrams/lexishift_flow_legacy.mmd`. Current maintained diagram
   sources remain under `docs/architecture/diagrams/`, with rendered assets under
   `docs/assets/diagrams/`.
+- Ignored-but-real review started with the inventory's ignored file sample. The
+  hand-written GUI test `apps/gui/tests/test_main_ruleset_ui.py` is now allowed
+  through `.gitignore` and tracked. The local vocabulary export, generated CWS
+  preflight report, and PyInstaller build output remain ignored local artifacts.
 
 Next review step:
 
 1. review `../test_outputs/dev_workflow/project_structure_latest.md`,
-2. choose one narrow cleanup queue, likely generated-output retention/routing or
-   the three unreferenced-script candidates,
+2. choose one narrow cleanup queue, likely odd tracked artifacts,
+   generated-output retention/routing, or the three unreferenced-script
+   candidates,
 3. prove exact references, generated-artifact ownership, and historical value
    before archiving or deleting anything.
 
