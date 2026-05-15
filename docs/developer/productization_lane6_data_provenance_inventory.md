@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -57,6 +57,7 @@ Completed slices:
 11. L6-Ka: existing app-managed install provenance sidecar backfill.
 12. L6-La: external/manual import preflight plan.
 13. L6-Ma: lifecycle-audit provenance review posture.
+14. L6-Na: strict pack lifecycle review gate.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -162,6 +163,8 @@ What is already solid:
 16. The lifecycle audit now separates valid sidecars from release/promotion
     readiness by reporting license status, source pointer type, raw checksum
     coverage, generated artifact checksum presence, and review reasons.
+17. The lifecycle audit now supports a strict `--fail-on-review` mode for
+    promotion/release gates while preserving non-strict local audit behavior.
 
 Loose ends to close before broad expansion:
 
@@ -194,6 +197,9 @@ Loose ends to close before broad expansion:
     pack writer are still future work.
 11. Provenance review posture is now visible, but review approval remains a
     human/source-policy decision outside the audit command.
+12. Strict lifecycle gating can fail on review findings, but it still does not
+    replace the source-readiness, SRS Zipf bridge, or denominator audits needed
+    before expanded corpus promotion.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -285,6 +291,9 @@ Current implementation:
     review, or schema-valid sidecars still need source/license/checksum review,
   - `error` when manifests, artifacts, provenance contents, publication
     manifests, or candidate SQLite inputs are invalid.
+- `--fail-on-error` exits non-zero only for `status = error`.
+- `--fail-on-review` exits non-zero unless `status = ok`; this is the strict
+  gate for release/promotion checks.
 
 Default command:
 
@@ -320,6 +329,8 @@ Boundaries:
 6. Valid provenance sidecars can still require review. `requires_review`,
    `unknown`, `internal_only`, missing raw checksums, and missing generated
    artifact checksums are visible review reasons, not silent approval.
+7. `--fail-on-review` does not make review decisions for the operator. It only
+   turns unresolved review findings into a non-zero process exit.
 
 Validation:
 
@@ -372,6 +383,45 @@ Boundaries:
    later candidate promotion gates can tighten family-specific requirements.
 4. This does not replace the candidate source-readiness audit for expanded
    Spanish corpus work.
+
+Validation:
+
+```bash
+python3 -m pytest core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_audit.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+```
+
+## L6-Na Strict Lifecycle Review Gate
+
+Product claim:
+
+- The same lifecycle audit should support both ordinary local inspection and a
+  strict release/promotion gate.
+
+Current implementation:
+
+- `pack_lifecycle_audit.py --fail-on-review` exits non-zero unless the summary
+  status is `ok`.
+- Existing `--fail-on-error` behavior remains narrower: it exits non-zero only
+  when the summary status is `error`.
+- `pack_lifecycle_audit_exit_code(...)` keeps the exit semantics testable
+  without shelling out from unit tests.
+- The en-es candidate readiness runbook now instructs operators to rerun the
+  lifecycle audit with `--fail-on-review` before promotion or release
+  packaging.
+
+Boundaries:
+
+1. Strict mode does not mutate data.
+2. Strict mode does not approve licenses or sources.
+3. Strict mode is not meant for all local development audits; non-strict audit
+   output remains useful when a developer is intentionally collecting review
+   findings.
 
 Validation:
 
@@ -968,6 +1018,7 @@ python3 -m ruff format --check \
 | L6-J Source-batch and release lineage | Initial semantic source-lineage propagation is implemented; future work should add release-manifest, converter-version, and approval/review lineage once upstream inventories and pack candidates carry those ids. | Publication `source_lineage`, updated semantic/source manifests, lifecycle audit fields, and candidate audit evidence. |
 | L6-L External/manual import preflight | Completed first read-only executable import plan so manually acquired sources can be format-gated and review-gated before any UX/import mutation. | `pack_lifecycle_external_import_plan.py`, focused tests, and documented command contract. |
 | L6-M Provenance review posture | Completed first lifecycle-audit reporting slice that distinguishes schema-valid sidecars from release/promotion readiness. | `provenance_review` audit fields, summary counts, Markdown review table, and focused tests. |
+| L6-N Strict lifecycle review gate | Completed first strict audit gate for promotion/release checks without changing default local-audit behavior. | `--fail-on-review`, exit-code helper, candidate runbook update, and focused tests. |
 
 ## Validation Bundle For L6-A
 

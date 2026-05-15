@@ -22,6 +22,7 @@ from pack_lifecycle_audit import (  # noqa: E402
     audit_candidate_sqlite,
     audit_manual_resource_settings,
     build_pack_lifecycle_audit_report,
+    pack_lifecycle_audit_exit_code,
     render_pack_lifecycle_markdown,
 )
 
@@ -286,6 +287,18 @@ class PackLifecycleAuditTests(unittest.TestCase):
         self.assertEqual(row["source_lineage_pack_id"], "en-es-active-only-v1")
         self.assertEqual(row["source_lineage_source_batch_count"], 2)
         self.assertIn("Source lineage count", markdown)
+
+    def test_exit_code_modes_keep_local_audit_and_promotion_gate_separate(self) -> None:
+        ok_report = {"summary": {"status": "ok"}}
+        review_report = {"summary": {"status": "review"}}
+        error_report = {"summary": {"status": "error"}}
+
+        self.assertEqual(pack_lifecycle_audit_exit_code(ok_report, fail_on_review=True), 0)
+        self.assertEqual(pack_lifecycle_audit_exit_code(review_report), 0)
+        self.assertEqual(pack_lifecycle_audit_exit_code(review_report, fail_on_error=True), 0)
+        self.assertEqual(pack_lifecycle_audit_exit_code(error_report, fail_on_error=True), 1)
+        self.assertEqual(pack_lifecycle_audit_exit_code(review_report, fail_on_review=True), 1)
+        self.assertEqual(pack_lifecycle_audit_exit_code(error_report, fail_on_review=True), 1)
 
 
 def _valid_provenance(

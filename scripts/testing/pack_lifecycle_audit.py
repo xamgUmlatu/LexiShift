@@ -61,6 +61,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     parser.add_argument("--fail-on-error", action="store_true")
+    parser.add_argument(
+        "--fail-on-review",
+        action="store_true",
+        help=(
+            "Exit non-zero unless the summary status is ok. Use for release/promotion "
+            "gates; omit for ordinary local audits that may intentionally surface review items."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -81,9 +89,11 @@ def main() -> int:
     args.markdown_out.write_text(render_pack_lifecycle_markdown(report), encoding="utf-8")
     print(f"Wrote JSON artifact to {args.json_out}")
     print(f"Wrote Markdown artifact to {args.markdown_out}")
-    if args.fail_on_error and report["summary"]["status"] == "error":
-        return 1
-    return 0
+    return pack_lifecycle_audit_exit_code(
+        report,
+        fail_on_error=bool(args.fail_on_error),
+        fail_on_review=bool(args.fail_on_review),
+    )
 
 
 def build_pack_lifecycle_audit_report(
@@ -401,6 +411,20 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
         )
     lines.append("")
     return "\n".join(lines)
+
+
+def pack_lifecycle_audit_exit_code(
+    report: Mapping[str, object],
+    *,
+    fail_on_error: bool = False,
+    fail_on_review: bool = False,
+) -> int:
+    status = str(_as_mapping(report.get("summary")).get("status") or "").strip()
+    if fail_on_review and status != "ok":
+        return 1
+    if fail_on_error and status == "error":
+        return 1
+    return 0
 
 
 def _audit_installed_pack_root(pack_root: Path, expected_pack_kind: str) -> dict[str, object]:

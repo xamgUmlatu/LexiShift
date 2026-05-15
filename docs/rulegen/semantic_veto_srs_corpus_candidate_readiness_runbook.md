@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 6 pack lifecycle audit command, source-readiness audit command, SRS Zipf bridge command, and denominator audit command review
+Last verified: 2026-05-15 Lane 6 pack lifecycle audit command with strict review gate, source-readiness audit command, SRS Zipf bridge command, and denominator audit command review
 Purpose: give future agents a copy-pasteable sequence for evaluating an en-es Spanish SRS corpus or frequency-pack candidate before promotion or paid semantic-veto generation
 Source-of-truth: runbook only; current runtime truth lives in source code, generated artifacts, pack manifests, and the owning Lane 6 inventory.
 Related docs:
@@ -65,18 +65,31 @@ python3 scripts/testing/pack_lifecycle_audit.py \
   --markdown-out docs/test_outputs/pack_lifecycle_audit_en_es_candidate.md
 ```
 
+For a promotion/release gate, rerun the same audit with strict review handling:
+
+```bash
+python3 scripts/testing/pack_lifecycle_audit.py \
+  --data-root /absolute/path/to/LexiShift-data-root \
+  --candidate-db /absolute/path/to/candidate.sqlite \
+  --json-out docs/test_outputs/pack_lifecycle_audit_en_es_candidate.json \
+  --markdown-out docs/test_outputs/pack_lifecycle_audit_en_es_candidate.md \
+  --fail-on-review
+```
+
 Interpretation:
 
 - `status = ok`: no manifest/artifact/provenance errors in inspected state.
-- `status = review`: only missing provenance sidecars were found. This is
-  acceptable for research, but not for promotion.
+- `status = review`: provenance, manual-path, source/license, or checksum
+  review remains. This is acceptable for research, but not for promotion.
 - `status = error`: stop and fix missing manifests, missing artifacts, invalid
   provenance, invalid publication manifests, or missing candidate SQLite input.
 
 Promotion requirement:
 
 - a promoted app-managed candidate should have a valid `provenance.json`
-  sidecar; missing sidecars should not be waved through as release evidence.
+  sidecar; missing sidecars should not be waved through as release evidence,
+- the strict `--fail-on-review` lifecycle audit should exit successfully before
+  promotion or release packaging.
 
 ## Step 2: Source-Readiness Audit
 
@@ -177,7 +190,8 @@ A candidate is ready for product testing only when all of these are true:
 - raw source checksum is recorded when available,
 - build command/config is recorded,
 - generated SQLite checksum is recorded,
-- pack lifecycle audit is not `error`,
+- normal pack lifecycle audit is not `error`,
+- strict pack lifecycle audit with `--fail-on-review` passes before promotion,
 - valid `provenance.json` sidecar exists for app-managed promotion,
 - source-readiness audit reaches the intended target size,
 - rank/frequency ordering is present,
