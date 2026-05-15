@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -26,9 +26,11 @@ Related docs:
 - `../../scripts/testing/pack_lifecycle_audit.py`
 - `../../scripts/testing/pack_lifecycle_manual_backfill.py`
 - `../../scripts/testing/pack_lifecycle_manual_resources.py`
+- `../../scripts/testing/pack_lifecycle_provenance_backfill.py`
 - `../../core/tests/helper/test_pack_provenance.py`
 - `../../core/tests/dev/test_pack_lifecycle_audit.py`
 - `../../core/tests/dev/test_pack_lifecycle_manual_backfill.py`
+- `../../core/tests/dev/test_pack_lifecycle_provenance_backfill.py`
 - `../../apps/gui/tests/test_pack_provenance_sidecars.py`
 - `../../apps/gui/tests/test_language_pack_table_mixin.py`
 
@@ -50,6 +52,7 @@ Completed slices:
    app-managed SQLite pack roots.
 10. L6-Ja: semantic source-lineage propagation into publication manifests and
     lifecycle audit reporting.
+11. L6-Ka: existing app-managed install provenance sidecar backfill.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -146,6 +149,9 @@ What is already solid:
 13. Semantic pack installation now passes semantic source lineage into the
     profile publication manifest, and the lifecycle audit reports whether
     publication manifests carry source lineage.
+14. Missing provenance sidecars on catalog-backed app-managed installs now have
+    a dry-run/apply backfill command that reuses the conservative installer
+    sidecar contract.
 
 Loose ends to close before broad expansion:
 
@@ -165,12 +171,14 @@ Loose ends to close before broad expansion:
 6. Named semantic dev packs currently resolve through repo-local generated
    experiment paths, which is acceptable for operator work but not a release
    pack lifecycle.
-7. The lifecycle audit is still read-only and gap-reporting. It does not
-   populate sidecars for existing installs or replace source-readiness and
-   denominator audits.
+7. The lifecycle audit is still read-only and gap-reporting. Sidecar mutation
+   lives in explicit backfill commands instead of the audit command.
 8. The manual-settings backfill command now covers only the safe case where a
    saved manual path already points at a manifest-backed app-managed SQLite
    pack root. It does not import external licensed artifacts.
+9. Existing-install sidecar backfill does not prove license approval, raw source
+   checksums, converter versions, or source-version identity; it records the
+   conservative catalog/manifest information currently available.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -429,7 +437,7 @@ Current implementation:
 
 Boundaries:
 
-1. Existing installed packs need reinstall or a future backfill/migration to
+1. Existing installed packs need reinstall or the L6-Ka backfill command to
    gain sidecars.
 2. Manual paths, legacy fallback files, raw vector inputs, and compatibility
    lookup paths remain outside first-class provenance until an import/backfill
@@ -459,6 +467,79 @@ python3 -m ruff format --check \
   apps/gui/src/settings_language_packs_transfer_mixin.py \
   core/tests/helper/test_pack_provenance.py \
   apps/gui/tests/test_pack_provenance_sidecars.py
+```
+
+## L6-Ka Existing Install Provenance Backfill
+
+Product claim:
+
+- Existing app-managed installs that predate sidecar-writing installers should
+  be able to gain conservative `provenance.json` sidecars without reinstalling
+  packs or inferring license approval.
+
+Current implementation:
+
+- `scripts/testing/pack_lifecycle_provenance_backfill.py` is dry-run by default
+  and emits JSON/Markdown reports.
+- `--apply` writes missing `provenance.json` sidecars only for installed pack
+  roots that have:
+  - a valid installed `manifest.json`,
+  - a catalog entry for the pack id,
+  - an existing generated/downloaded artifact.
+- The command scans:
+  - `<data_root>/language_packs/<pack_id>/`,
+  - `<data_root>/frequency_packs/<pack_id>/`,
+  - `<data_root>/embedding_packs/<pack_id>/`.
+- It reuses `write_app_managed_pack_provenance(...)`, so the sidecars match the
+  installer-written contract and keep `license_status = "requires_review"`.
+- Existing valid sidecars are left alone.
+- Existing invalid sidecars are reported and not overwritten by this first
+  backfill slice.
+
+Default dry-run command:
+
+```bash
+python3 scripts/testing/pack_lifecycle_provenance_backfill.py \
+  --data-root /path/to/LexiShift-data-root \
+  --json-out docs/test_outputs/pack_lifecycle_provenance_backfill_latest.json \
+  --markdown-out docs/test_outputs/pack_lifecycle_provenance_backfill_latest.md
+```
+
+Apply command:
+
+```bash
+python3 scripts/testing/pack_lifecycle_provenance_backfill.py \
+  --data-root /path/to/LexiShift-data-root \
+  --apply \
+  --json-out docs/test_outputs/pack_lifecycle_provenance_backfill_latest.json \
+  --markdown-out docs/test_outputs/pack_lifecycle_provenance_backfill_latest.md
+```
+
+Boundaries:
+
+1. This does not rewrite installed manifests.
+2. This does not approve source licenses or invent raw source checksums.
+3. This does not backfill manual/external resources.
+4. This does not overwrite invalid existing provenance sidecars; those remain
+   review items.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py \
+  core/tests/dev/test_pack_lifecycle_audit.py \
+  core/tests/helper/test_pack_provenance.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  scripts/testing/pack_lifecycle_audit.py \
+  core/lexishift_core/helper/pack_provenance.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_provenance_backfill.py \
+  scripts/testing/pack_lifecycle_audit.py \
+  core/lexishift_core/helper/pack_provenance.py \
+  core/tests/dev/test_pack_lifecycle_provenance_backfill.py
 ```
 
 ## L6-G Manual Resource Settings Disposition Audit
@@ -742,6 +823,7 @@ python3 -m ruff format --check \
 | L6-D Semantic generation lineage | Initial semantic pack sidecar and manifest lineage completed; upstream source batches are now preserved when source inventories carry them. | `semantic_pack_provenance.py`, installer wiring, and focused install tests. |
 | L6-E En-es expansion candidate runbook | Completed as an operational runbook; future work should use it on the first real candidate. | `semantic_veto_srs_corpus_candidate_readiness_runbook.md`. |
 | L6-F App-managed non-semantic installer provenance | Completed first installer-write slice for translation, frequency, and embedding managed installs. | `write_app_managed_pack_provenance(...)`, GUI installer/finalization wiring, and focused sidecar tests. |
+| L6-K Existing install provenance backfill | Completed first safe sidecar backfill for catalog-backed app-managed installs that have manifests and artifacts but lack `provenance.json`. | `pack_lifecycle_provenance_backfill.py`, focused dry-run/apply tests. |
 | L6-G Manual path disposition audit | Completed first audit/report slice for saved manual resource settings; future work should choose final phase-out/backfill policy per family. | `manual_resource_settings` in `pack_lifecycle_audit.py`, Markdown report section, and focused tests. |
 | L6-H Constrained manual import/backfill contract | Completed first policy and enforcement slice: external selection is a narrow license/import fallback for exact supported artifact shapes. | Audit format checks, embedding picker validation/filter tightening, contract docs, and focused tests. |
 | L6-I Import/backfill implementation | Safe managed-artifact settings backfill is now implemented; future work should add a first-class external import flow only after source/license decisions are explicit. | `pack_lifecycle_manual_backfill.py`, focused tests, and future provenance sidecar writing for imported resources. |
