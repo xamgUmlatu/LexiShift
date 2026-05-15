@@ -18,6 +18,7 @@ SOURCE_IDENTITY_CLASSIFICATIONS = (
 
 _RELEASE_TAG_RE = re.compile(r"/releases/download/([^/]+)/")
 _DATED_DUMP_RE = re.compile(r"(?<!\d)((?:19|20)\d{2})[-_]?([01]\d)[-_]?([0-3]\d)(?!\d)")
+_GIT_COMMIT_RE = re.compile(r"(?<![0-9a-fA-F])([0-9a-fA-F]{40})(?![0-9a-fA-F])")
 _KAIKKI_DUMP_FAMILY = "enwiktionary"
 
 
@@ -35,6 +36,7 @@ def classify_pack_source_identity(pack: object) -> PackSourceIdentityDecision:
     filename = _text(getattr(pack, "source_filename", "")) or _text(getattr(pack, "filename", ""))
     source_name = _text(getattr(pack, "source", ""))
     source_url = _text(getattr(pack, "url", ""))
+    explicit_source_version = _text(getattr(pack, "source_version", ""))
     explicit_source_dump = _text(getattr(pack, "source_dump", ""))
     build_mode = _text(getattr(pack, "build_mode", "download_only")) or "download_only"
     candidate = _artifact_identity(filename)
@@ -163,7 +165,27 @@ def classify_pack_source_identity(pack: object) -> PackSourceIdentityDecision:
             recommended_action="confirm_release_or_snapshot_semantics_before_writing_source_version",
         )
 
-    if "refs/heads/" in source_url or "/raw/master/" in source_url:
+    if _is_branch_source_url(source_url):
+        if explicit_source_version:
+            pinned_source_version = _pinned_git_source_version(explicit_source_version)
+            return PackSourceIdentityDecision(
+                candidate_field="source_version",
+                candidate_value=pinned_source_version or explicit_source_version,
+                classification="safe_to_write" if pinned_source_version else "needs_policy",
+                rationale=(
+                    "Catalog carries an explicit source_version with a pinned commit hash."
+                    if pinned_source_version
+                    else (
+                        "Catalog carries source_version for a branch/head source, but it "
+                        "does not include a pinned commit hash."
+                    )
+                ),
+                recommended_action=(
+                    "eligible_for_future_source_version_writer"
+                    if pinned_source_version
+                    else "pin_source_commit_or_snapshot_before_writing_source_version"
+                ),
+            )
         return PackSourceIdentityDecision(
             candidate_field="source_label",
             candidate_value=candidate,
@@ -224,6 +246,18 @@ def _artifact_identity(filename: str) -> str:
 def _release_tag(url: str) -> str:
     match = _RELEASE_TAG_RE.search(str(url or ""))
     return match.group(1) if match else ""
+
+
+def _is_branch_source_url(url: str) -> bool:
+    source_url = str(url or "")
+    return "refs/heads/" in source_url or "/raw/master/" in source_url
+
+
+def _pinned_git_source_version(value: str) -> str:
+    text = _text(value)
+    if _GIT_COMMIT_RE.search(text):
+        return text
+    return ""
 
 
 def _dated_dump_identity(values: tuple[str, ...]) -> str:

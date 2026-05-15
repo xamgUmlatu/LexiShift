@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, source-identity policy category tests, explicit dated Wiktextract source-dump seam tests, source-policy detail target tests, and the SRS quality harness
+Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, source-identity policy category tests, explicit dated Wiktextract source-dump seam tests, source-policy detail target tests, explicit branch-source pin seam tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -89,6 +89,7 @@ Completed slices:
 30. L6-Ze: source-identity policy category taxonomy.
 31. L6-Zf: explicit dated Wiktextract source-dump seam.
 32. L6-Zg: source-policy detail targets.
+33. L6-Zh: explicit branch-source pin seam.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -269,6 +270,10 @@ What is already solid:
     split into `4` Common Crawl vector targets and `4` aligned vector targets,
     so source-policy review can choose one exact evidence family instead of
     re-triaging a generic fastText bucket.
+35. Catalog-like packs can now carry an explicit `source_version` value for
+    branch/head sources. The shared source-identity classifier writes it only
+    when it contains a pinned 40-hex commit hash; branch labels such as
+    `master` remain policy-needed.
 
 Loose ends to close before broad expansion:
 
@@ -866,6 +871,9 @@ Current implementation:
 - Catalog-like Kaikki packs can now provide that dated identity through
   `source_dump`; the classifier keeps undated values as `needs_policy` and
   exports only dated values through `safe_pack_source_identity_fields(...)`.
+- Catalog-like branch/head packs can now provide a pinned `source_version`;
+  the classifier keeps unpinned labels as `needs_policy` and exports only
+  values that include a 40-hex commit hash.
 - The German generated frequency pipeline is `source_bundle_needed` because the
   source-identity writer must not collapse it to one source-version string. The
   sidecar writer records this separately through L6-Va `source.source_bundle`
@@ -1570,6 +1578,59 @@ python3 -m ruff format --check \
   core/tests/dev/test_pack_lifecycle_source_identity_plan.py
 ```
 
+## L6-Zh Explicit Branch-Source Pin Seam
+
+Product claim:
+
+- A pack whose catalog URL follows a branch/head should have a safe future path
+  for recording a pinned source identity, without pretending the current branch
+  URL is reproducible.
+
+Current implementation:
+
+- `LanguagePackInfo` and `FrequencyPackInfo` now have optional
+  `source_version`.
+- `pack_source_identity.py` treats explicit `source_version` values on
+  branch/head URLs as safe only when they include a pinned 40-hex commit hash.
+- App-managed sidecar writing already calls
+  `safe_pack_source_identity_fields(...)`, so a pinned branch source version is
+  written to `provenance.json` only when the shared classifier marks it safe.
+- Current catalog rows such as `openthesaurus-de` and `odenet-de` remain
+  `needs_policy` because they still point at branch/head URLs and do not carry a
+  pinned source version.
+
+Boundaries:
+
+1. This does not choose or verify a real upstream commit.
+2. This does not change current branch/head catalog URLs.
+3. This does not download any source artifact.
+4. This does not approve source licenses.
+5. Unpinned labels such as `master` remain policy-needed and are not written as
+   durable sidecar source identity.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py
+python3 -m ruff check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  apps/gui/src/language_packs_catalog.py \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py \
+  scripts/testing/pack_lifecycle_source_identity_plan.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/pack_source_identity.py \
+  apps/gui/src/language_packs_catalog.py \
+  core/tests/helper/test_pack_source_identity.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py \
+  scripts/testing/pack_lifecycle_source_identity_plan.py
+```
+
 ## L6-D Semantic Pack Provenance And Lineage
 
 Product claim:
@@ -2174,6 +2235,7 @@ python3 -m ruff format --check \
 | L6-Ze Source-identity policy category taxonomy | Completed first category breakdown for catalog source-identity decisions. | `policy_category` rows, category summary counts, Markdown category table, and focused source-identity plan tests. |
 | L6-Zf Explicit dated Wiktextract source-dump seam | Completed safe catalog/provenance seam for future approved dated Kaikki dump identities. | Optional `LanguagePackInfo.source_dump`, classifier safe-write guard, parser/backfill propagation, and focused provenance tests. |
 | L6-Zg Source-policy detail targets | Completed first policy-detail breakdown for source-identity blockers. | `policy_detail`, `policy_target`, `required_evidence`, fastText crawl/aligned split, and focused source-identity plan tests. |
+| L6-Zh Explicit branch-source pin seam | Completed safe catalog/provenance seam for future approved branch/head source pins. | Optional catalog `source_version`, branch/head commit-hash guard, safe writer pass-through, and focused sidecar tests. |
 
 ## Validation Bundle For L6-A
 

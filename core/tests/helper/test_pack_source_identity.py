@@ -124,6 +124,48 @@ class TestPackSourceIdentity(unittest.TestCase):
         self.assertEqual(decision.candidate_value, "enwiktionary")
         self.assertEqual(safe_pack_source_identity_fields(pack), {})
 
+    def test_explicit_pinned_branch_source_version_is_safe_to_write(self) -> None:
+        source_version = "git:hdaSprachtechnologie/odenet@0123456789abcdef0123456789abcdef01234567"
+        pack = SimpleNamespace(
+            pack_id="odenet-de",
+            source="OdeNet",
+            source_version=source_version,
+            filename="odenet_oneline.xml",
+            url=(
+                "https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/"
+                "refs/heads/master/odenet_oneline.xml"
+            ),
+        )
+
+        decision = classify_pack_source_identity(pack)
+
+        self.assertEqual(decision.classification, "safe_to_write")
+        self.assertEqual(decision.candidate_field, "source_version")
+        self.assertEqual(decision.candidate_value, source_version)
+        self.assertEqual(
+            safe_pack_source_identity_fields(pack),
+            {"source_version": source_version},
+        )
+
+    def test_explicit_unpinned_branch_source_version_is_still_policy_needed(self) -> None:
+        pack = SimpleNamespace(
+            pack_id="odenet-de",
+            source="OdeNet",
+            source_version="master",
+            filename="odenet_oneline.xml",
+            url=(
+                "https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/"
+                "refs/heads/master/odenet_oneline.xml"
+            ),
+        )
+
+        decision = classify_pack_source_identity(pack)
+
+        self.assertEqual(decision.classification, "needs_policy")
+        self.assertEqual(decision.candidate_field, "source_version")
+        self.assertEqual(decision.candidate_value, "master")
+        self.assertEqual(safe_pack_source_identity_fields(pack), {})
+
     def test_invalid_kaikki_date_shape_is_not_safe_to_write(self) -> None:
         pack = SimpleNamespace(
             pack_id="wiktionary-en-es",

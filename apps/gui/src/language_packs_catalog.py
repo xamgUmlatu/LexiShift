@@ -47,6 +47,7 @@ class LanguagePackInfo:
     required_files: tuple[str, ...] = ()
     sqlite_filename: str | None = None
     source_filename: str | None = None
+    source_version: str | None = None
     source_dump: str | None = None
     build_mode: str = "download_only"
     source_lang_code: str | None = None
@@ -79,6 +80,7 @@ class FrequencyPackInfo:
     filename: str
     sqlite_filename: str
     source_filename: str | None = None
+    source_version: str | None = None
     parse_config: ParseConfig = field(default_factory=ParseConfig)
     index_column: str = "lemma"
     build_mode: str = "convert_archive"

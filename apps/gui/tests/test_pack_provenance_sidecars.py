@@ -162,6 +162,41 @@ def test_kaikki_language_pack_manifest_write_includes_explicit_dated_source_dump
         assert payload["build"]["parser_config"]["source_dump"] == "enwiktionary:2026-05-15"
 
 
+def test_branch_language_pack_manifest_write_includes_explicit_pinned_source_version() -> None:
+    with TemporaryDirectory() as temp_dir:
+        pack_root = Path(temp_dir) / "language_packs" / "odenet-de"
+        artifact = pack_root / "odenet_oneline.xml"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_bytes(b"<odenet />")
+        source_version = "git:hdaSprachtechnologie/odenet@0123456789abcdef0123456789abcdef01234567"
+        pack = LanguagePackInfo(
+            pack_id="odenet-de",
+            name="OdeNet",
+            language="German",
+            source="OdeNet",
+            size="1 MB",
+            url=(
+                "https://raw.githubusercontent.com/hdaSprachtechnologie/odenet/"
+                "refs/heads/master/odenet_oneline.xml"
+            ),
+            wayback_url=(
+                "https://web.archive.org/web/*/https://raw.githubusercontent.com/"
+                "hdaSprachtechnologie/odenet/refs/heads/master/odenet_oneline.xml"
+            ),
+            filename="odenet_oneline.xml",
+            local_kind="file",
+            source_version=source_version,
+        )
+
+        thread = LanguagePackDownloadThread(pack, str(artifact))
+        thread._capture_raw_artifact_checksums(artifact)
+        thread._write_manifest(str(artifact))
+        payload = json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
+
+        assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
+        assert payload["source"]["source_version"] == source_version
+
+
 def test_frequency_pack_manifest_write_creates_provenance_sidecar() -> None:
     with TemporaryDirectory() as temp_dir:
         pack_root = Path(temp_dir) / "frequency_packs" / "freq-es-cde"
