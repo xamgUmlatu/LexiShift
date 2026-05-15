@@ -283,8 +283,9 @@ def _build_publication_manifest(
     published_at: str,
     generation_id: str,
     semantic_inventory_included: bool,
+    source_lineage: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
-    return {
+    manifest: dict[str, object] = {
         "schema_version": 1,
         "pair": str(pair or "").strip(),
         "profile_id": str(profile_id or "").strip() or "default",
@@ -308,6 +309,10 @@ def _build_publication_manifest(
             "errors": [],
         },
     }
+    normalized_source_lineage = _normalize_source_lineage(source_lineage)
+    if normalized_source_lineage:
+        manifest["source_lineage"] = normalized_source_lineage
+    return manifest
 
 
 def build_snapshot(
@@ -353,6 +358,7 @@ def write_rulegen_outputs(
     rules: Sequence[VocabRule],
     snapshot: Mapping[str, object],
     semantic_inventory: Mapping[str, object] | None = None,
+    source_lineage: Mapping[str, object] | None = None,
 ) -> None:
     normalized_profile_id = paths.normalize_profile_id(profile_id)
     family_generated_at = _resolve_family_generated_at(snapshot, semantic_inventory)
@@ -427,8 +433,21 @@ def write_rulegen_outputs(
         published_at=published_at,
         generation_id=generation_id,
         semantic_inventory_included=semantic_inventory_payload is not None,
+        source_lineage=source_lineage,
     )
     _write_text_atomic(
         manifest_path,
         json.dumps(manifest_payload, indent=2, sort_keys=True),
     )
+
+
+def _normalize_source_lineage(
+    source_lineage: Mapping[str, object] | None,
+) -> dict[str, object]:
+    if not isinstance(source_lineage, Mapping):
+        return {}
+    return {
+        str(key): value
+        for key, value in source_lineage.items()
+        if str(key or "").strip() and value not in ("", None, [], {})
+    }

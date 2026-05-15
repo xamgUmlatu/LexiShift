@@ -36,6 +36,14 @@ class SemanticVetoActiveOnlyFullPackBuilderTests(unittest.TestCase):
         self.assertEqual(summary["competition_set_count"], 2)
 
         inventory = report["semantic_inventory"]
+        self.assertEqual(
+            inventory["lineage"]["source_batches"],
+            ["base", "add"],
+        )
+        self.assertEqual(
+            report["combined_normalized_batch"]["source_batches"],
+            ["base", "add"],
+        )
         competition_sets = inventory["competition_sets"]
         self.assertEqual(
             competition_sets["family:bank:competition"]["shadow_sense_ids"],

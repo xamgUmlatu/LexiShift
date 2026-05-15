@@ -43,6 +43,11 @@ class TestRulegenOutputs(unittest.TestCase):
                     "competition_sets": {},
                     "phrase_sets": {},
                 },
+                source_lineage={
+                    "schema_version": 1,
+                    "pack_id": "en-es-active-only-v1",
+                    "source_batches": ["batch-a"],
+                },
             )
 
             inventory_path = paths.semantic_inventory_path("en-es")
@@ -58,6 +63,11 @@ class TestRulegenOutputs(unittest.TestCase):
             self.assertEqual(payload["generation_id"], manifest_payload["generation_id"])
             self.assertEqual(snapshot_payload["generation_id"], manifest_payload["generation_id"])
             self.assertTrue(manifest_payload["validation"]["family_valid"])
+            self.assertEqual(
+                manifest_payload["source_lineage"]["pack_id"],
+                "en-es-active-only-v1",
+            )
+            self.assertEqual(manifest_payload["source_lineage"]["source_batches"], ["batch-a"])
             self.assertEqual(
                 payload["capability"]["default_unavailable_reason_code"],
                 "missing_source_sense_locator",

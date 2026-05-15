@@ -78,6 +78,15 @@ class TestSemanticPackInstall(unittest.TestCase):
             self.assertEqual(inventory["profile_id"], "semantic-alpha")
             self.assertEqual(inventory["capability"]["competition_mode"], "active_only_anchor_cue")
             self.assertEqual(inventory["generation_id"], manifest["generation_id"])
+            self.assertEqual(manifest["source_lineage"]["pack_id"], "en-es-active-only-v1")
+            self.assertEqual(
+                manifest["source_lineage"]["source_inventory_sha1"],
+                report["source"]["semantic_inventory_sha1"],
+            )
+            self.assertEqual(
+                manifest["source_lineage"]["source_pack_provenance_path"],
+                report["source"]["source_pack_provenance_path"],
+            )
 
             pack_inventory = (
                 paths.language_packs_dir
@@ -104,6 +113,10 @@ class TestSemanticPackInstall(unittest.TestCase):
             self.assertEqual(
                 report["source"]["source_pack_provenance_path"],
                 str(pack_provenance),
+            )
+            self.assertEqual(
+                report["source"]["source_lineage"]["source_inventory_sha1"],
+                report["source"]["semantic_inventory_sha1"],
             )
 
     def test_installs_named_pack_from_existing_pack_copy_without_source_path(self) -> None:

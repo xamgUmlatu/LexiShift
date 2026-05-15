@@ -161,6 +161,21 @@ def install_semantic_pack(
         profile_id=profile_id,
         generated_at=generated_at,
     )
+    source_lineage = _resolve_source_lineage(
+        pair=pair,
+        pack_id=config.pack_id,
+        raw_inventory=raw_inventory,
+        normalized_inventory=inventory,
+        source_path=resolved_inventory_path,
+        generated_at=generated_at,
+        copy_pack=config.copy_pack,
+    )
+    if source_pack_ref:
+        source_lineage = {
+            **source_lineage,
+            "source_pack_inventory_path": str(source_pack_ref),
+            "source_pack_provenance_path": source_pack_provenance_ref,
+        }
     rules = build_rules_from_semantic_inventory(
         inventory,
         pair=pair,
@@ -193,6 +208,7 @@ def install_semantic_pack(
             rules=rules,
             snapshot=snapshot,
             semantic_inventory=inventory,
+            source_lineage=source_lineage,
         )
     written = (
         {key: path.exists() for key, path in target_paths.items()}
@@ -217,6 +233,7 @@ def install_semantic_pack(
             "semantic_inventory_sha1": _sha1_json(raw_inventory),
             "source_pack_inventory_path": str(source_pack_ref),
             "source_pack_provenance_path": source_pack_provenance_ref,
+            "source_lineage": source_lineage,
         },
         "summary": {
             "rule_count": len(rules),
@@ -502,6 +519,42 @@ def _write_pack_copy(
             },
         },
     )
+
+
+def _resolve_source_lineage(
+    *,
+    pair: str,
+    pack_id: str,
+    raw_inventory: Mapping[str, object],
+    normalized_inventory: Mapping[str, object],
+    source_path: Path | None,
+    generated_at: str,
+    copy_pack: bool,
+) -> dict[str, object]:
+    if not copy_pack and source_path is not None:
+        existing_lineage = _load_semantic_pack_manifest_lineage(source_path)
+        if existing_lineage:
+            return existing_lineage
+    return build_semantic_pack_lineage(
+        pair=pair,
+        pack_id=str(pack_id or DEFAULT_PACK_ID).strip() or DEFAULT_PACK_ID,
+        raw_inventory=raw_inventory,
+        normalized_inventory=normalized_inventory,
+        source_path=source_path,
+        generated_at=generated_at,
+    )
+
+
+def _load_semantic_pack_manifest_lineage(inventory_path: Path) -> dict[str, object]:
+    manifest_path = Path(inventory_path).with_name("manifest.json")
+    if not manifest_path.is_file():
+        return {}
+    try:
+        payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    lineage = payload.get("lineage") if isinstance(payload, Mapping) else None
+    return dict(lineage) if isinstance(lineage, Mapping) else {}
 
 
 def _semantic_pack_root(*, paths: HelperPaths, pair: str, pack_id: str) -> Path:

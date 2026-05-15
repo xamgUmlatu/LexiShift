@@ -123,12 +123,21 @@ def build_active_only_full_pack_report(
         semantic_inventory=semantic_inventory,
         add_rows=add_rows,
     )
+    component_batches = _component_batches(base_normalized_payload, add_normalized_payloads)
+    semantic_inventory["lineage"] = _build_full_pack_lineage(
+        pack_id=pack_id,
+        generated_at=generated_at,
+        base_inventory_path=base_inventory_path,
+        base_normalized_path=base_normalized_path,
+        add_normalized_paths=add_normalized_paths,
+        component_batches=component_batches,
+    )
     combined_batch = _combined_batch(
         base_payload=base_normalized_payload,
         rows=combined_rows,
         pack_id=pack_id,
         generated_at=generated_at,
-        component_payloads=add_normalized_payloads,
+        component_batches=component_batches,
     )
     summary = {
         "base_normalized_row_count": len(base_rows),
@@ -170,7 +179,7 @@ def build_active_only_full_pack_report(
             "runtime_publishable_rows": "kept false in source evidence; semantic inventory is the runtime materialization layer",
         },
         "summary": summary,
-        "component_batches": _component_batches(base_normalized_payload, add_normalized_payloads),
+        "component_batches": component_batches,
         "new_family_samples": merge_summary["new_family_samples"],
         "existing_family_append_samples": merge_summary["existing_family_append_samples"],
         "duplicate_samples": duplicate_rows[:10],
@@ -404,13 +413,39 @@ def _sense_label(row: Mapping[str, object], *, trigger: str, target: str) -> str
     return f"{trigger} -> {target}"
 
 
+def _build_full_pack_lineage(
+    *,
+    pack_id: str,
+    generated_at: str,
+    base_inventory_path: Path | None,
+    base_normalized_path: Path | None,
+    add_normalized_paths: Sequence[Path],
+    component_batches: Sequence[Mapping[str, object]],
+) -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "lineage_kind": "active_only_full_pack_builder",
+        "pack_id": str(pack_id or "").strip() or DEFAULT_PACK_ID,
+        "generated_at": generated_at,
+        "base_inventory_path": _repo_path(base_inventory_path),
+        "base_normalized_evidence_path": _repo_path(base_normalized_path),
+        "add_normalized_evidence_paths": [_repo_path(path) for path in add_normalized_paths],
+        "source_batches": [
+            str(row.get("batch_id") or "").strip()
+            for row in component_batches
+            if str(row.get("batch_id") or "").strip()
+        ],
+        "component_batches": [dict(row) for row in component_batches],
+    }
+
+
 def _combined_batch(
     *,
     base_payload: Mapping[str, object],
     rows: Sequence[Mapping[str, object]],
     pack_id: str,
     generated_at: str,
-    component_payloads: Sequence[Mapping[str, object]],
+    component_batches: Sequence[Mapping[str, object]],
 ) -> dict[str, object]:
     return {
         "schema_version": 1,
@@ -427,10 +462,15 @@ def _combined_batch(
         "model_id": "mixed",
         "prompt_version": "semantic-veto-active-only-composite-v1",
         "row_count": len(rows),
+        "source_batches": [
+            str(row.get("batch_id") or "").strip()
+            for row in component_batches
+            if str(row.get("batch_id") or "").strip()
+        ],
         "rows": [dict(row) for row in rows],
         "provenance": {
             "base_batch_id": _text(base_payload.get("batch_id")),
-            "component_batches": _component_batches(base_payload, component_payloads),
+            "component_batches": [dict(row) for row in component_batches],
         },
     }
 

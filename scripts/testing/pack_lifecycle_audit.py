@@ -200,6 +200,7 @@ def audit_publication_manifests(profile_dir: Path, *, pair: str) -> dict[str, ob
         "profile_dir_exists": root.exists(),
         "manifest_count": len(rows),
         "invalid_count": sum(1 for row in rows if row["issues"]),
+        "source_lineage_count": sum(1 for row in rows if row["source_lineage_exists"]),
         "manifests": rows,
     }
 
@@ -301,6 +302,7 @@ def render_pack_lifecycle_markdown(report: Mapping[str, object]) -> str:
         [
             f"- Manifest count: `{publication.get('manifest_count')}`",
             f"- Invalid count: `{publication.get('invalid_count')}`",
+            f"- Source lineage count: `{publication.get('source_lineage_count')}`",
             "",
             "## Manual Resource Settings",
             "",
@@ -441,6 +443,7 @@ def _audit_publication_manifest(path: Path) -> dict[str, object]:
     payload, errors = _load_json_object(path)
     validation = _as_mapping(payload.get("validation"))
     artifacts = _as_mapping(payload.get("artifacts"))
+    source_lineage = _as_mapping(payload.get("source_lineage"))
     issues = list(errors)
     generation_id = str(payload.get("generation_id") or "").strip()
     if not generation_id:
@@ -454,6 +457,9 @@ def _audit_publication_manifest(path: Path) -> dict[str, object]:
         "generation_id": generation_id,
         "family_valid": validation.get("family_valid"),
         "artifact_count": len(artifacts),
+        "source_lineage_exists": bool(source_lineage),
+        "source_lineage_pack_id": str(source_lineage.get("pack_id") or ""),
+        "source_lineage_source_batch_count": len(_sequence(source_lineage.get("source_batches"))),
         "issues": issues,
     }
 

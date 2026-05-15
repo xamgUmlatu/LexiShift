@@ -19,7 +19,7 @@ def build_semantic_pack_lineage(
     source_path: Path | None,
     generated_at: str,
 ) -> dict[str, object]:
-    return {
+    lineage: dict[str, object] = {
         "schema_version": 1,
         "pair": str(pair or "").strip(),
         "pack_id": str(pack_id or "").strip(),
@@ -36,6 +36,13 @@ def build_semantic_pack_lineage(
         "competition_set_count": len(_as_mapping(normalized_inventory.get("competition_sets"))),
         "phrase_set_count": len(_as_mapping(normalized_inventory.get("phrase_sets"))),
     }
+    source_inventory_lineage = _as_mapping(raw_inventory.get("lineage"))
+    if source_inventory_lineage:
+        lineage["source_inventory_lineage"] = dict(source_inventory_lineage)
+    source_batches = _source_batches(raw_inventory)
+    if source_batches:
+        lineage["source_batches"] = source_batches
+    return lineage
 
 
 def write_semantic_pack_provenance(
@@ -156,3 +163,15 @@ def _sha1_file(path: Path) -> str:
 
 def _as_mapping(value: object) -> Mapping[str, object]:
     return value if isinstance(value, Mapping) else {}
+
+
+def _source_batches(raw_inventory: Mapping[str, object]) -> list[object]:
+    direct = raw_inventory.get("source_batches")
+    if isinstance(direct, list):
+        return list(direct)
+    lineage = _as_mapping(raw_inventory.get("lineage"))
+    for key in ("source_batches", "component_batches"):
+        value = lineage.get(key)
+        if isinstance(value, list):
+            return list(value)
+    return []

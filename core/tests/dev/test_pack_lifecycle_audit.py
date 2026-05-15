@@ -187,6 +187,48 @@ class PackLifecycleAuditTests(unittest.TestCase):
         self.assertIn("migrate_to_managed_pack_id", markdown)
         self.assertIn("SQLite embedding database or .vec/.txt/.bin vector file", markdown)
 
+    def test_report_surfaces_publication_manifest_source_lineage(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            data_root = Path(tmp) / "data"
+            manifest_path = (
+                data_root / "srs" / "profiles" / "default" / ("srs_publication_manifest_en-es.json")
+            )
+            manifest_path.parent.mkdir(parents=True)
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "pair": "en-es",
+                        "profile_id": "default",
+                        "generated_at": "2026-05-15T00:00:00Z",
+                        "published_at": "2026-05-15T00:00:00Z",
+                        "generation_id": "en-es:default:abc123",
+                        "artifacts": {},
+                        "validation": {"family_valid": True, "errors": []},
+                        "source_lineage": {
+                            "pack_id": "en-es-active-only-v1",
+                            "source_batches": ["batch-a", "batch-b"],
+                        },
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            report = build_pack_lifecycle_audit_report(
+                data_root=data_root,
+                generated_at="2026-05-15T00:00:00+00:00",
+            )
+            markdown = render_pack_lifecycle_markdown(report)
+
+        publication = report["publication_manifests"]
+        row = publication["manifests"][0]
+        self.assertEqual(publication["source_lineage_count"], 1)
+        self.assertTrue(row["source_lineage_exists"])
+        self.assertEqual(row["source_lineage_pack_id"], "en-es-active-only-v1")
+        self.assertEqual(row["source_lineage_source_batch_count"], 2)
+        self.assertIn("Source lineage count", markdown)
+
 
 def _valid_provenance(
     *,

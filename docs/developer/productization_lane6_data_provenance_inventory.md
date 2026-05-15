@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, and safe manual-settings backfill tests
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -48,6 +48,8 @@ Completed slices:
 8. L6-H: constrained manual import/backfill contract.
 9. L6-Ia: safe backfill for manual settings that already point at
    app-managed SQLite pack roots.
+10. L6-Ja: semantic source-lineage propagation into publication manifests and
+    lifecycle audit reporting.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -72,8 +74,8 @@ Explicitly out of scope:
 | Provenance sidecar | `core/lexishift_core/helper/pack_provenance.py`, `<pack_root>/provenance.json` | Versioned contract for source identity, license status, source pointer, raw artifact checksums, build mode, generated artifact identity, and optional SQLite metrics; semantic installs and app-managed translation/frequency/embedding installs now write conservative sidecars. | Legacy installs, manual paths, raw checksums, converter versions, and approved license status still need follow-up lifecycle work. |
 | Lifecycle audit | `scripts/testing/pack_lifecycle_audit.py` | Read-only JSON/Markdown audit of installed pack manifests, optional provenance sidecars, semantic pack copies, profile publication manifests, manual resource settings, catalog pack ids, and optional candidate SQLite metadata. | It does not backfill provenance sidecars, rewrite settings, prove licenses, replace the source-readiness audit, or promote packs. |
 | Pack refs/resolvers | `frequency_packs.py`, `translation_packs.py`, `embedding_packs.py`, `pair_resources.py`, `lp_capabilities.py` | Runtime-facing pack id, provider, source/POS profile, resolved path, and managed-vs-fallback resolution. | Full provenance for manual paths or legacy fallback files. |
-| Semantic pack copy | `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/manifest.json` and `provenance.json` from `semantic_pack_install.py` | Semantic pack id/pair, generated timestamp, source path, raw/normalized inventory hashes, source inventory generation fields when present, installed semantic inventory artifact hash/bytes, and validated sidecar provenance. | Upstream source-batch lineage when the source inventory lacks it, release manifest identity, or why the compiled generation was selected. |
-| Profile publication manifest | `<data_root>/srs/profiles/<profile_id>/srs_publication_manifest_<pair>.json` from `rulegen_outputs.py` | Ruleset/snapshot/semantic inventory family identity, `generation_id`, artifact hashes/bytes, and family-valid flag. | Source provenance for the data that produced the generation. It is a runtime publication manifest, not a source manifest. |
+| Semantic pack copy | `<data_root>/language_packs/<pair>/semantic_packs/<pack_id>/manifest.json` and `provenance.json` from `semantic_pack_install.py` | Semantic pack id/pair, generated timestamp, source path, raw/normalized inventory hashes, source inventory generation fields when present, source batches when carried by the source inventory, installed semantic inventory artifact hash/bytes, and validated sidecar provenance. | Release manifest identity, approved review state, or why the compiled generation was selected. |
+| Profile publication manifest | `<data_root>/srs/profiles/<profile_id>/srs_publication_manifest_<pair>.json` from `rulegen_outputs.py` | Ruleset/snapshot/semantic inventory family identity, `generation_id`, artifact hashes/bytes, family-valid flag, and optional semantic source lineage when the publisher provides it. | It is still a runtime publication manifest, not the source manifest or license approval record. |
 | Generated evidence | `docs/test_outputs/` audit, benchmark, and experiment artifacts | Evidence from the command that produced the artifact. | Architecture authority or current runtime truth without a source/code/test pointer. |
 
 ## Resource Family State
@@ -85,7 +87,7 @@ Explicitly out of scope:
 | Embedding packs | App-managed embeddings use pack-id roots, manifest-backed artifacts, and embedding pack refs; manual/raw paths remain compatibility inputs. | Installed manifest records provider, build mode, source filename, sqlite filename, and artifact path. App-managed SQLite finalization now also writes `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, source filename, SQLite filename, artifact relpath/kind, and generated artifact SHA-1. | License approval, source version/checksum, raw vector retention, conversion parameters, and manual/raw-path provenance remain outside first-class lifecycle coverage. |
 | Secondary lexical packs | WordNet, Moby, OpenThesaurus, OdeNet, JMDict, and CC-CEDICT remain mixed/raw or compatibility surfaces. | Catalog records source/provider URL fields; some managed downloads may write basic installed manifests. | Family-wide promotion decision is still pending; they should not be treated as core normalized runtime packs until evaluated. |
 | Semantic source/evidence batches | Semantic lifecycle docs define source registry, raw batches, normalized evidence, compiled generation, publication family, and helper-local materialization layers. | Planning contracts require append-only raw evidence and explicit provenance. | The cross-pack Lane 6 gate still needs an implemented source/generation audit tying raw evidence, compiled inventory, semantic pack copy, and profile publication together. |
-| Semantic compiled packs | Named en-es dev packs resolve from installed copy, catalog env, or current repo dev-pack paths; install writes a semantic pack copy and a profile publication family. | Pack copy manifest hashes raw/normalized inventory; publication manifest hashes runtime artifacts and assigns one generation id. | Dev-pack paths are hardcoded development fixtures; publication manifests do not yet carry upstream source-batch lineage or release-manifest identity. |
+| Semantic compiled packs | Named en-es dev packs resolve from installed copy, catalog env, or current repo dev-pack paths; install writes a semantic pack copy and a profile publication family. | Pack copy manifest hashes raw/normalized inventory; publication manifest hashes runtime artifacts, assigns one generation id, and now carries semantic source lineage when available. | Dev-pack paths are hardcoded development fixtures; release-manifest identity and final review/approval lineage are still pending. |
 | SRS profile runtime state | Profile-local store/status/signal/inventory files live under `<data_root>/srs/profiles/<profile_id>/`. | Runtime state can reference published rules and diagnostics. | These files are runtime/user state, not source packs; Lane 6 should keep this boundary explicit during expansion. |
 
 ## Expansion Readiness Rules
@@ -141,6 +143,9 @@ What is already solid:
 12. Manual/external resource selection is now treated as a constrained
     license/import fallback for exact supported artifact shapes, not a broad
     file picker.
+13. Semantic pack installation now passes semantic source lineage into the
+    profile publication manifest, and the lifecycle audit reports whether
+    publication manifests carry source lineage.
 
 Loose ends to close before broad expansion:
 
@@ -154,8 +159,9 @@ Loose ends to close before broad expansion:
    audit.
 4. Generated SQLite schema, row counts, POS coverage, and topic/domain coverage
    are audit outputs, not pack-manifest fields.
-5. Semantic publication manifests validate runtime artifact family integrity,
-   but do not yet carry upstream source-batch or review lineage.
+5. Semantic publication manifests validate runtime artifact family integrity and
+   can now carry source lineage when the publisher provides it, but release
+   manifest identity and review/approval lineage remain pending.
 6. Named semantic dev packs currently resolve through repo-local generated
    experiment paths, which is acceptable for operator work but not a release
    pack lifecycle.
@@ -339,8 +345,8 @@ Boundaries:
 1. Existing source inventories, including the current tranche dev inventory, do
    not always carry upstream source-batch ids or release-manifest ids. L6-D
    records absent fields as empty rather than inventing them.
-2. Profile publication manifests still identify the runtime artifact family;
-   they do not yet embed semantic source lineage.
+2. L6-Ja now lets profile publication manifests carry semantic source lineage
+   when the publisher provides it.
 3. `copy_pack=False` does not rewrite an existing installed semantic pack copy.
 4. This does not promote any semantic pack to a release channel.
 
@@ -671,19 +677,75 @@ python3 -m ruff format --check \
   core/tests/dev/test_pack_lifecycle_audit.py
 ```
 
+## L6-Ja Semantic Source-Lineage Publication
+
+Product claim:
+
+- Runtime publication manifests should be able to point back to the semantic
+  pack/source lineage that produced the published ruleset family, without
+  changing runtime scoring policy or treating the publication manifest as a
+  license approval record.
+
+Current implementation:
+
+- `write_rulegen_outputs(...)` accepts optional `source_lineage` metadata and
+  copies it into `srs_publication_manifest_<pair>.json`.
+- `install_semantic_pack(...)` builds semantic source lineage from the source
+  inventory and passes it into the publication manifest.
+- Installed semantic pack manifest lineage now preserves nested source inventory
+  lineage and source batches when the source inventory carries them.
+- `semantic_veto_active_only_full_pack_builder_en_es.py` writes a first
+  builder-level lineage block into generated semantic inventories and records
+  component/source batches in the combined normalized batch.
+- `pack_lifecycle_audit.py` reports publication-manifest source-lineage
+  presence, pack id, and source-batch count.
+
+Boundaries:
+
+1. This does not change rule generation, semantic admission, or runtime scoring.
+2. This does not approve source licenses or replace source-readiness review.
+3. Existing generated publication manifests need reinstall/regeneration before
+   they carry the new optional lineage field.
+4. Release manifest identity, converter versions, and final review/approval
+   lineage remain queued for later L6-J work.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  core/tests/helper/test_rulegen_outputs.py \
+  core/tests/helper/test_semantic_pack_install.py \
+  core/tests/dev/test_semantic_veto_active_only_full_pack_builder_en_es.py \
+  core/tests/dev/test_pack_lifecycle_audit.py
+python3 scripts/testing/srs_quality_harness.py \
+  --json-out docs/test_outputs/srs_quality_latest.json
+python3 -m ruff check \
+  core/lexishift_core/helper/rulegen_outputs.py \
+  core/lexishift_core/helper/semantic_pack_provenance.py \
+  core/lexishift_core/helper/use_cases/semantic_pack_install.py \
+  scripts/testing/semantic_veto_active_only_full_pack_builder_en_es.py \
+  scripts/testing/pack_lifecycle_audit.py
+python3 -m ruff format --check \
+  core/lexishift_core/helper/rulegen_outputs.py \
+  core/lexishift_core/helper/semantic_pack_provenance.py \
+  core/lexishift_core/helper/use_cases/semantic_pack_install.py \
+  scripts/testing/semantic_veto_active_only_full_pack_builder_en_es.py \
+  scripts/testing/pack_lifecycle_audit.py
+```
+
 ## Planned Lane 6 Slices
 
 | Slice | Goal | First Output |
 | --- | --- | --- |
 | L6-B Pack provenance contract | Initial sidecar validator completed; future work should wire installers/audits to it. | `pack_provenance.py` and focused validator tests. |
 | L6-C Pack lifecycle audit command | Initial read-only audit completed; future work should wire sidecar production and richer source-readiness checks. | `pack_lifecycle_audit.py` with JSON/Markdown output and focused tests. |
-| L6-D Semantic generation lineage | Initial semantic pack sidecar and manifest lineage completed; future work should add upstream source-batch/release ids when source inventories carry them. | `semantic_pack_provenance.py`, installer wiring, and focused install tests. |
+| L6-D Semantic generation lineage | Initial semantic pack sidecar and manifest lineage completed; upstream source batches are now preserved when source inventories carry them. | `semantic_pack_provenance.py`, installer wiring, and focused install tests. |
 | L6-E En-es expansion candidate runbook | Completed as an operational runbook; future work should use it on the first real candidate. | `semantic_veto_srs_corpus_candidate_readiness_runbook.md`. |
 | L6-F App-managed non-semantic installer provenance | Completed first installer-write slice for translation, frequency, and embedding managed installs. | `write_app_managed_pack_provenance(...)`, GUI installer/finalization wiring, and focused sidecar tests. |
 | L6-G Manual path disposition audit | Completed first audit/report slice for saved manual resource settings; future work should choose final phase-out/backfill policy per family. | `manual_resource_settings` in `pack_lifecycle_audit.py`, Markdown report section, and focused tests. |
 | L6-H Constrained manual import/backfill contract | Completed first policy and enforcement slice: external selection is a narrow license/import fallback for exact supported artifact shapes. | Audit format checks, embedding picker validation/filter tightening, contract docs, and focused tests. |
 | L6-I Import/backfill implementation | Safe managed-artifact settings backfill is now implemented; future work should add a first-class external import flow only after source/license decisions are explicit. | `pack_lifecycle_manual_backfill.py`, focused tests, and future provenance sidecar writing for imported resources. |
-| L6-J Source-batch and release lineage | Add richer source-batch, release-manifest, converter-version, and audit-metric lineage once upstream inventories and pack candidates carry those ids. | Updated semantic/source manifests, lifecycle audit fields, and candidate audit evidence. |
+| L6-J Source-batch and release lineage | Initial semantic source-lineage propagation is implemented; future work should add release-manifest, converter-version, and approval/review lineage once upstream inventories and pack candidates carry those ids. | Publication `source_lineage`, updated semantic/source manifests, lifecycle audit fields, and candidate audit evidence. |
 
 ## Validation Bundle For L6-A
 
