@@ -25,6 +25,7 @@
     "check:windows:parity": "node dev/run_python.js dev/windows_parity_audit.py --json-out ../docs/test_outputs/dev_workflow/windows_parity_latest.json",
     "check:windows:parity:strict": "node dev/run_python.js dev/windows_parity_audit.py --strict --json-out ../docs/test_outputs/dev_workflow/windows_parity_latest.json",
     "check:windows:parity:summary": "node dev/run_python.js dev/windows_parity_summary.py --audit-json ../docs/test_outputs/dev_workflow/windows_parity_latest.json --markdown-out ../docs/test_outputs/dev_workflow/windows_parity_summary_latest.md",
+    "inventory:experiments": "node dev/run_python.js dev/experiment_payload_retention_audit.py",
     "inventory:structure": "node dev/run_python.js dev/project_structure_inventory.py",
     "inventory:unnecessary": "node dev/run_python.js dev/generated_output_unnecessary_audit.py",
     "preflight:cws": "node dev/cws_preflight.js",
