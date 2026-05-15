@@ -3,7 +3,7 @@
 Status: active script map
 Role: Runbook / operational
 Last updated: 2026-05-16
-Last verified: 2026-05-16 profile backup script generalization, unreferenced-script routing, and project-structure odd-artifact cleanup
+Last verified: 2026-05-16 profile backup script generalization, unreferenced-script routing, project-structure odd-artifact cleanup, and generated-output unnecessary audit routing
 Purpose: route contributors to the current workflow entrypoints first, then to specialty build/data/testing tools
 Source-of-truth: script routing guide; operational behavior is defined by the scripts themselves and `package.json`; by-change-type validation routing lives in `../docs/developer/productization_lane4_validation_gate_inventory.md`.
 
@@ -26,6 +26,7 @@ Use the package-script workflow surfaces first when they exist:
 - Canonical doc integrity: `npm --prefix scripts run check:docs`
 - Feature-state audit: `npm --prefix scripts run check:state`
 - Project structure inventory: `npm --prefix scripts run inventory:structure`
+- Generated-output unnecessary audit: `npm --prefix scripts run inventory:unnecessary`
 - Build safety: `npm --prefix scripts run build`
 - Project health: `npm --prefix scripts run health:project`
 - SRS quality harness: `npm --prefix scripts run quality:srs:harness`
@@ -59,6 +60,13 @@ you need to choose the smallest honest bundle for a specific change type.
   - Exposed via `npm --prefix scripts run inventory:structure`
   - Emits JSON and Markdown under `docs/test_outputs/dev_workflow/`
   - Enumerates repo paths while ignoring local caches/build outputs and reports redundancy/staleness candidates without approving deletion
+- Generated-output unnecessary audit:
+  `dev/generated_output_unnecessary_audit.py`
+  - Exposed via `npm --prefix scripts run inventory:unnecessary`
+  - Emits JSON and Markdown under `docs/test_outputs/dev_workflow/`
+  - Separates mechanically safe `definite_prune` groups from `review_only` and
+    `retain` groups using exact non-output references, retained generated-output
+    provenance references, and narrow generated-output rules
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at_utc": "2026-05-15T17:33:13.646385+00:00",
+  "generated_at_utc": "2026-05-15T17:41:37.043030+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -32,13 +32,13 @@
     "packaging/output"
   ],
   "summary": {
-    "path_count": 4013,
-    "file_count": 3820,
+    "path_count": 4017,
+    "file_count": 3824,
     "directory_count": 193,
-    "tracked_file_count": 3795,
+    "tracked_file_count": 3799,
     "untracked_file_count": 0,
-    "total_file_bytes": 906534113,
-    "candidate_path_count": 2357,
+    "total_file_bytes": 906595776,
+    "candidate_path_count": 2359,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
     "unreferenced_script_candidate_count": 0
@@ -46,17 +46,17 @@
   "family_counts": [
     {
       "family": "docs_test_outputs",
-      "path_count": 2392,
-      "file_count": 2324,
+      "path_count": 2394,
+      "file_count": 2326,
       "directory_count": 68,
-      "total_file_bytes": 711847025
+      "total_file_bytes": 711874465
     },
     {
       "family": "core_tests",
-      "path_count": 319,
-      "file_count": 307,
+      "path_count": 320,
+      "file_count": 308,
       "directory_count": 12,
-      "total_file_bytes": 2711521
+      "total_file_bytes": 2718516
     },
     {
       "family": "scripts_testing",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1278662
+      "total_file_bytes": 1279303
     },
     {
       "family": "docs_rulegen",
@@ -109,10 +109,10 @@
     },
     {
       "family": "scripts_dev",
-      "path_count": 39,
-      "file_count": 36,
+      "path_count": 40,
+      "file_count": 37,
       "directory_count": 3,
-      "total_file_bytes": 310647
+      "total_file_bytes": 336568
     },
     {
       "family": "app_tests",
@@ -189,7 +189,7 @@
       "path_count": 8,
       "file_count": 8,
       "directory_count": 0,
-      "total_file_bytes": 37135
+      "total_file_bytes": 37801
     },
     {
       "family": "scripts_build",
@@ -272,15 +272,15 @@
   "candidate_counts": [
     {
       "flag": "generated_evidence_output",
-      "path_count": 2237
+      "path_count": 2239
     },
     {
       "flag": "duplicate_stem",
-      "path_count": 1721
+      "path_count": 1723
     },
     {
       "flag": "generated_latest_alias",
-      "path_count": 1610
+      "path_count": 1612
     },
     {
       "flag": "generated_dated_artifact",
@@ -302,20 +302,20 @@
   "top_level_counts": [
     {
       "path": "docs",
-      "path_count": 2763,
-      "file_count": 2666,
+      "path_count": 2765,
+      "file_count": 2668,
       "directory_count": 97
     },
     {
       "path": "core",
-      "path_count": 472,
-      "file_count": 445,
+      "path_count": 473,
+      "file_count": 446,
       "directory_count": 27
     },
     {
       "path": "scripts",
-      "path_count": 393,
-      "file_count": 384,
+      "path_count": 394,
+      "file_count": 385,
       "directory_count": 9
     },
     {
@@ -394,14 +394,14 @@
   "second_level_counts": [
     {
       "path": "docs/test_outputs",
-      "path_count": 2392,
-      "file_count": 2324,
+      "path_count": 2394,
+      "file_count": 2326,
       "directory_count": 68
     },
     {
       "path": "core/tests",
-      "path_count": 319,
-      "file_count": 307,
+      "path_count": 320,
+      "file_count": 308,
       "directory_count": 12
     },
     {
@@ -448,8 +448,8 @@
     },
     {
       "path": "scripts/dev",
-      "path_count": 39,
-      "file_count": 36,
+      "path_count": 40,
+      "file_count": 37,
       "directory_count": 3
     },
     {
@@ -658,8 +658,8 @@
     },
     {
       "path": "docs/test_outputs/dev_workflow",
-      "file_count": 14,
-      "total_file_bytes": 2527433
+      "file_count": 16,
+      "total_file_bytes": 2554873
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -8698,6 +8698,24 @@
       ]
     },
     {
+      "bucket": "dev_workflow_operational",
+      "review_posture": "retain latest: workflow reports support local and CI handoff",
+      "file_count": 19,
+      "total_file_bytes": 2710962,
+      "latest_alias_count": 17,
+      "dated_artifact_count": 0,
+      "sample_paths": [
+        "docs/test_outputs/dev_workflow/build_ci_latest.json",
+        "docs/test_outputs/dev_workflow/build_latest.json",
+        "docs/test_outputs/dev_workflow/check_changed_latest.json",
+        "docs/test_outputs/dev_workflow/check_latest.json",
+        "docs/test_outputs/dev_workflow/doc_references_latest.json",
+        "docs/test_outputs/dev_workflow/feature_state_audit_latest.json",
+        "docs/test_outputs/dev_workflow/generated_output_unnecessary_latest.json",
+        "docs/test_outputs/dev_workflow/generated_output_unnecessary_latest.md"
+      ]
+    },
+    {
       "bucket": "root_dated_snapshot",
       "review_posture": "review after canonical summary exists",
       "file_count": 19,
@@ -8731,24 +8749,6 @@
         "docs/test_outputs/ja_en/samples_20260203_014029/samples.tsv",
         "docs/test_outputs/ja_en/samples_20260203_014116/samples.json",
         "docs/test_outputs/ja_en/samples_20260203_014116/samples.tsv"
-      ]
-    },
-    {
-      "bucket": "dev_workflow_operational",
-      "review_posture": "retain latest: workflow reports support local and CI handoff",
-      "file_count": 17,
-      "total_file_bytes": 2683522,
-      "latest_alias_count": 15,
-      "dated_artifact_count": 0,
-      "sample_paths": [
-        "docs/test_outputs/dev_workflow/build_ci_latest.json",
-        "docs/test_outputs/dev_workflow/build_latest.json",
-        "docs/test_outputs/dev_workflow/check_changed_latest.json",
-        "docs/test_outputs/dev_workflow/check_latest.json",
-        "docs/test_outputs/dev_workflow/doc_references_latest.json",
-        "docs/test_outputs/dev_workflow/feature_state_audit_latest.json",
-        "docs/test_outputs/dev_workflow/github_pages_workflow_verification_latest.md",
-        "docs/test_outputs/dev_workflow/project_structure_latest.json"
       ]
     },
     {
@@ -9771,6 +9771,16 @@
       "exact_reference_file_count": 6,
       "stem_reference_file_count": 7,
       "doc_reference_file_count": 2,
+      "test_reference_file_count": 0,
+      "package_script_reference": true,
+      "unreferenced_candidate": false
+    },
+    {
+      "path": "scripts/dev/generated_output_unnecessary_audit.py",
+      "family": "scripts_dev",
+      "exact_reference_file_count": 2,
+      "stem_reference_file_count": 3,
+      "doc_reference_file_count": 0,
       "test_reference_file_count": 0,
       "package_script_reference": true,
       "unreferenced_candidate": false
@@ -21749,6 +21759,17 @@
       "flags": []
     },
     {
+      "path": "core/tests/dev/test_generated_output_unnecessary_audit.py",
+      "kind": "file",
+      "family": "core_tests",
+      "name": "test_generated_output_unnecessary_audit.py",
+      "stem": "test_generated_output_unnecessary_audit",
+      "suffix": ".py",
+      "size_bytes": 6995,
+      "git_state": "tracked",
+      "flags": []
+    },
+    {
       "path": "core/tests/dev/test_gui_app_build.py",
       "kind": "file",
       "family": "core_tests",
@@ -25636,7 +25657,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 34652,
+      "size_bytes": 35293,
       "git_state": "tracked",
       "flags": []
     },
@@ -29195,6 +29216,36 @@
       ]
     },
     {
+      "path": "docs/test_outputs/dev_workflow/generated_output_unnecessary_latest.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "generated_output_unnecessary_latest.json",
+      "stem": "generated_output_unnecessary_latest",
+      "suffix": ".json",
+      "size_bytes": 19211,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_latest_alias",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/dev_workflow/generated_output_unnecessary_latest.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "name": "generated_output_unnecessary_latest.md",
+      "stem": "generated_output_unnecessary_latest",
+      "suffix": ".md",
+      "size_bytes": 9281,
+      "git_state": "tracked",
+      "flags": [
+        "generated_evidence_output",
+        "generated_latest_alias",
+        "duplicate_stem"
+      ]
+    },
+    {
       "path": "docs/test_outputs/dev_workflow/github_pages_workflow_verification_latest.md",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -29215,7 +29266,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2428401,
+      "size_bytes": 2427401,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29230,7 +29281,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 61253,
+      "size_bytes": 61201,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -63587,7 +63638,7 @@
       "name": "README.md",
       "stem": "README",
       "suffix": ".md",
-      "size_bytes": 13756,
+      "size_bytes": 14325,
       "git_state": "tracked",
       "flags": []
     },
@@ -64045,6 +64096,17 @@
       "flags": []
     },
     {
+      "path": "scripts/dev/generated_output_unnecessary_audit.py",
+      "kind": "file",
+      "family": "scripts_dev",
+      "name": "generated_output_unnecessary_audit.py",
+      "stem": "generated_output_unnecessary_audit",
+      "suffix": ".py",
+      "size_bytes": 25921,
+      "git_state": "tracked",
+      "flags": []
+    },
+    {
       "path": "scripts/dev/licensing_header_audit.py",
       "kind": "file",
       "family": "scripts_dev",
@@ -64370,7 +64432,7 @@
       "name": "package.json",
       "stem": "package",
       "suffix": ".json",
-      "size_bytes": 15508,
+      "size_bytes": 15605,
       "git_state": "tracked",
       "flags": []
     },
