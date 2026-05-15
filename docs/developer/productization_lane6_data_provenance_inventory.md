@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, source-identity policy category tests, explicit dated Wiktextract source-dump seam tests, and the SRS quality harness
+Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, source-identity policy category tests, explicit dated Wiktextract source-dump seam tests, source-policy detail target tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -88,6 +88,7 @@ Completed slices:
 29. L6-Zd: source-policy decision queue.
 30. L6-Ze: source-identity policy category taxonomy.
 31. L6-Zf: explicit dated Wiktextract source-dump seam.
+32. L6-Zg: source-policy detail targets.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -263,6 +264,11 @@ What is already solid:
     `enwiktionary:YYYY-MM-DD`; undated `enwiktionary` remains policy-needed.
     Kaikki parser config and conversion calls use the explicit dated dump when
     present, otherwise preserving the current `enwiktionary` family label.
+34. The source-identity plan now adds `policy_detail`, `policy_target`, and
+    `required_evidence` for each catalog row. The `8` fastText policy rows are
+    split into `4` Common Crawl vector targets and `4` aligned vector targets,
+    so source-policy review can choose one exact evidence family instead of
+    re-triaging a generic fastText bucket.
 
 Loose ends to close before broad expansion:
 
@@ -819,6 +825,9 @@ Current implementation:
 - It also records `policy_category` for each row and
   `summary.policy_category_counts`, so source-policy follow-up can target a
   category instead of a flat `needs_policy` bucket.
+- It also records `policy_detail`, `policy_target`, `required_evidence`, and
+  `summary.policy_detail_counts`, so a category can be split into reviewable
+  evidence targets.
 - Current catalog summary from the focused test/CLI run:
   - `27` catalog rows,
   - `8` `safe_to_write`,
@@ -834,6 +843,15 @@ Current implementation:
   - `3` `release_snapshot_policy`,
   - `2` `source_label_policy`,
   - `1` `source_bundle_lineage_policy`.
+- Current policy-detail summary from the same focused run:
+  - `8` `ready_source_identity`,
+  - `4` `fasttext_vectors_crawl_release_snapshot`,
+  - `4` `fasttext_vectors_aligned_release_snapshot`,
+  - `3` `wiktextract_dated_dump_pinning`,
+  - `2` `branch_head_source_pinning`,
+  - `3` `release_or_snapshot_semantics`,
+  - `2` `source_label_semantics`,
+  - `1` `source_bundle_lineage`.
 - Safe candidates include explicit release/version-like catalog evidence such as
   FreeDict release archives, Japanese WordNet `v1.1`, English WordNet 2025, and
   BCCWJ `ver1_0`.
@@ -1506,6 +1524,52 @@ python3 -m ruff format --check \
   core/tests/dev/test_pack_lifecycle_provenance_backfill.py
 ```
 
+## L6-Zg Source-Policy Detail Targets
+
+Product claim:
+
+- The source-identity plan should make each policy blocker concrete enough to
+  review without re-reading pack URLs by hand.
+
+Current implementation:
+
+- `pack_lifecycle_source_identity_plan.py` now emits `policy_detail`,
+  `policy_target`, and `required_evidence` for each catalog row.
+- The summary includes `policy_detail_counts`.
+- The Markdown report includes a `Source Policy Details` table and expands the
+  pack-candidate table with policy target/evidence columns.
+- The fastText queue is split into:
+  - `4` `fasttext_vectors_crawl_release_snapshot` rows with targets such as
+    `fasttext:vectors-crawl:cc.es.300`,
+  - `4` `fasttext_vectors_aligned_release_snapshot` rows with targets such as
+    `fasttext:vectors-aligned:wiki.es.align`.
+- Other categories also get explicit targets, such as
+  `enwiktionary:YYYY-MM-DD` for dated Wiktextract pinning and
+  `pinned_commit_or_snapshot_url` evidence for branch-head sources.
+
+Boundaries:
+
+1. This does not write provenance sidecars.
+2. This does not approve fastText, Kaikki/Wiktextract, branch-head, or release
+   snapshot source identities.
+3. This does not download any source artifact.
+4. This does not change pack catalogs or runtime defaults.
+
+Validation:
+
+```bash
+python3 -m pytest core/tests/dev/test_pack_lifecycle_source_identity_plan.py
+python3 scripts/testing/pack_lifecycle_source_identity_plan.py \
+  --json-out /tmp/lexishift_source_identity_plan_next.json \
+  --markdown-out /tmp/lexishift_source_identity_plan_next.md
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_source_identity_plan.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_source_identity_plan.py \
+  core/tests/dev/test_pack_lifecycle_source_identity_plan.py
+```
+
 ## L6-D Semantic Pack Provenance And Lineage
 
 Product claim:
@@ -2109,6 +2173,7 @@ python3 -m ruff format --check \
 | L6-Zd Source-policy decision queue | Completed first read-only queue of concrete source-policy blockers and recommended review actions. | `pack_lifecycle_source_policy_decisions.py`, `source_policy_decisions` JSON, Markdown decision table, and focused audit tests. |
 | L6-Ze Source-identity policy category taxonomy | Completed first category breakdown for catalog source-identity decisions. | `policy_category` rows, category summary counts, Markdown category table, and focused source-identity plan tests. |
 | L6-Zf Explicit dated Wiktextract source-dump seam | Completed safe catalog/provenance seam for future approved dated Kaikki dump identities. | Optional `LanguagePackInfo.source_dump`, classifier safe-write guard, parser/backfill propagation, and focused provenance tests. |
+| L6-Zg Source-policy detail targets | Completed first policy-detail breakdown for source-identity blockers. | `policy_detail`, `policy_target`, `required_evidence`, fastText crawl/aligned split, and focused source-identity plan tests. |
 
 ## Validation Bundle For L6-A
 

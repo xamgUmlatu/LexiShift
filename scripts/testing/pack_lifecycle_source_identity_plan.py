@@ -96,6 +96,7 @@ def build_source_identity_plan(*, generated_at: str | None = None) -> dict[str, 
 def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
     summary = _as_mapping(report.get("summary"))
     policy_category_counts = _as_mapping(summary.get("policy_category_counts"))
+    policy_detail_counts = _as_mapping(summary.get("policy_detail_counts"))
     lines = [
         "# Pack Lifecycle Source Identity Plan",
         "",
@@ -129,10 +130,21 @@ def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
     lines.extend(
         [
             "",
+            "## Source Policy Details",
+            "",
+            "| Detail | Count |",
+            "| --- | ---: |",
+        ]
+    )
+    for detail, count in sorted(policy_detail_counts.items()):
+        lines.append(f"| `{_escape_md(str(detail))}` | `{count}` |")
+    lines.extend(
+        [
+            "",
             "## Pack Candidates",
             "",
-            "| Family | Pack | Classification | Policy Category | Field | Candidate | Rationale | Recommended Action |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| Family | Pack | Classification | Policy Category | Policy Detail | Policy Target | Required Evidence | Field | Candidate | Rationale | Recommended Action |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in _mapping_rows(report.get("packs")):
@@ -144,6 +156,9 @@ def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
                     f"`{_escape_md(str(row.get('pack_id') or ''))}`",
                     f"`{_escape_md(str(row.get('classification') or ''))}`",
                     f"`{_escape_md(str(row.get('policy_category') or ''))}`",
+                    f"`{_escape_md(str(row.get('policy_detail') or ''))}`",
+                    f"`{_escape_md(str(row.get('policy_target') or ''))}`",
+                    f"`{_escape_md(str(row.get('required_evidence') or ''))}`",
                     f"`{_escape_md(str(row.get('candidate_field') or ''))}`",
                     f"`{_escape_md(str(row.get('candidate_value') or ''))}`",
                     _escape_md(str(row.get("rationale") or "")),
@@ -159,6 +174,8 @@ def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
 
 def _classify_pack(*, family: str, pack: object) -> dict[str, object]:
     decision = classify_pack_source_identity(pack)
+    policy_category = _policy_category(decision)
+    policy_detail = _policy_detail(policy_category=policy_category, pack=pack)
     return _row(
         family=family,
         pack=pack,
@@ -167,7 +184,15 @@ def _classify_pack(*, family: str, pack: object) -> dict[str, object]:
         classification=decision.classification,
         rationale=decision.rationale,
         recommended_action=decision.recommended_action,
-        policy_category=_policy_category(decision),
+        policy_category=policy_category,
+        policy_detail=policy_detail,
+        policy_target=_policy_target(
+            policy_category=policy_category,
+            policy_detail=policy_detail,
+            pack=pack,
+            candidate_value=decision.candidate_value,
+        ),
+        required_evidence=_required_evidence(policy_detail),
     )
 
 
@@ -181,6 +206,9 @@ def _row(
     rationale: str,
     recommended_action: str,
     policy_category: str,
+    policy_detail: str,
+    policy_target: str,
+    required_evidence: str,
 ) -> dict[str, object]:
     return {
         "family": family,
@@ -194,6 +222,9 @@ def _row(
         "candidate_value": candidate_value,
         "classification": classification,
         "policy_category": policy_category,
+        "policy_detail": policy_detail,
+        "policy_target": policy_target,
+        "required_evidence": required_evidence,
         "rationale": rationale,
         "recommended_action": recommended_action,
     }
@@ -205,6 +236,7 @@ def _summary(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
         classification = str(row.get("classification") or "unknown")
         counts[classification] = counts.get(classification, 0) + 1
     policy_category_counts = _count_by_key(rows, "policy_category")
+    policy_detail_counts = _count_by_key(rows, "policy_detail")
     needs_decision = sum(
         counts.get(classification, 0)
         for classification in ("label_only", "needs_policy", "source_bundle_needed", "unknown")
@@ -213,6 +245,7 @@ def _summary(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
         "pack_count": len(rows),
         "classification_counts": counts,
         "policy_category_counts": policy_category_counts,
+        "policy_detail_counts": policy_detail_counts,
         "safe_to_write_count": counts.get("safe_to_write", 0),
         "needs_decision_count": needs_decision,
     }
@@ -241,6 +274,76 @@ def _policy_category(decision: object) -> str:
     if candidate_field == "source_version":
         return "source_version_policy"
     return "manual_source_identity_review"
+
+
+def _policy_detail(*, policy_category: str, pack: object) -> str:
+    source_url = _text(getattr(pack, "url", ""))
+    if policy_category == "fasttext_release_snapshot_policy":
+        if "/vectors-crawl/" in source_url:
+            return "fasttext_vectors_crawl_release_snapshot"
+        if "/vectors-aligned/" in source_url:
+            return "fasttext_vectors_aligned_release_snapshot"
+        return "fasttext_unknown_vector_family_release_snapshot"
+    if policy_category == "dated_wiktextract_dump_pinning":
+        return "wiktextract_dated_dump_pinning"
+    if policy_category == "branch_source_pinning":
+        return "branch_head_source_pinning"
+    if policy_category == "release_snapshot_policy":
+        return "release_or_snapshot_semantics"
+    if policy_category == "source_label_policy":
+        return "source_label_semantics"
+    if policy_category == "source_bundle_lineage_policy":
+        return "source_bundle_lineage"
+    return policy_category
+
+
+def _policy_target(
+    *,
+    policy_category: str,
+    policy_detail: str,
+    pack: object,
+    candidate_value: str,
+) -> str:
+    if policy_category == "fasttext_release_snapshot_policy":
+        if "vectors_crawl" in policy_detail:
+            family = "vectors-crawl"
+        elif "vectors_aligned" in policy_detail:
+            family = "vectors-aligned"
+        else:
+            family = "unknown-vector-family"
+        return f"fasttext:{family}:{candidate_value}"
+    if policy_category == "ready_source_identity":
+        return candidate_value
+    if policy_category == "dated_wiktextract_dump_pinning":
+        return "enwiktionary:YYYY-MM-DD"
+    if policy_category == "branch_source_pinning":
+        return _text(getattr(pack, "url", ""))
+    if policy_category in {"release_snapshot_policy", "source_label_policy"}:
+        return candidate_value
+    if policy_category == "source_bundle_lineage_policy":
+        return candidate_value
+    return ""
+
+
+def _required_evidence(policy_detail: str) -> str:
+    evidence = {
+        "fasttext_vectors_crawl_release_snapshot": (
+            "official_fasttext_vectors_crawl_release_or_snapshot_identity"
+        ),
+        "fasttext_vectors_aligned_release_snapshot": (
+            "official_fasttext_vectors_aligned_release_or_snapshot_identity"
+        ),
+        "fasttext_unknown_vector_family_release_snapshot": (
+            "official_fasttext_release_or_snapshot_identity"
+        ),
+        "wiktextract_dated_dump_pinning": "dated_wiktextract_dump_identity",
+        "branch_head_source_pinning": "pinned_commit_or_snapshot_url",
+        "release_or_snapshot_semantics": "source_release_or_snapshot_semantics",
+        "source_label_semantics": "source_label_semantics_or_keep_label_only",
+        "source_bundle_lineage": "component_pointers_checksums_and_pinning_decision",
+        "ready_source_identity": "catalog_release_or_version_identity",
+    }
+    return evidence.get(policy_detail, "none")
 
 
 def _count_by_key(rows: Sequence[Mapping[str, object]], key: str) -> dict[str, int]:

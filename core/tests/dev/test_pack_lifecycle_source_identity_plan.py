@@ -52,6 +52,35 @@ class PackLifecycleSourceIdentityPlanTests(unittest.TestCase):
             report["summary"]["policy_category_counts"]["fasttext_release_snapshot_policy"],
             8,
         )
+        self.assertEqual(
+            report["summary"]["policy_detail_counts"]["fasttext_vectors_crawl_release_snapshot"],
+            4,
+        )
+        self.assertEqual(
+            report["summary"]["policy_detail_counts"]["fasttext_vectors_aligned_release_snapshot"],
+            4,
+        )
+        self.assertEqual(
+            rows["embed-es-cc"]["policy_detail"],
+            "fasttext_vectors_crawl_release_snapshot",
+        )
+        self.assertEqual(rows["embed-es-cc"]["policy_target"], "fasttext:vectors-crawl:cc.es.300")
+        self.assertEqual(
+            rows["embed-es-cc"]["required_evidence"],
+            "official_fasttext_vectors_crawl_release_or_snapshot_identity",
+        )
+        self.assertEqual(
+            rows["embed-xling-es"]["policy_detail"],
+            "fasttext_vectors_aligned_release_snapshot",
+        )
+        self.assertEqual(
+            rows["embed-xling-es"]["policy_target"],
+            "fasttext:vectors-aligned:wiki.es.align",
+        )
+        self.assertEqual(
+            rows["wiktionary-en-es"]["policy_target"],
+            "enwiktionary:YYYY-MM-DD",
+        )
         self.assertGreater(report["summary"]["needs_decision_count"], 0)
 
     def test_markdown_renders_decision_surface_rows(self) -> None:
@@ -61,8 +90,11 @@ class PackLifecycleSourceIdentityPlanTests(unittest.TestCase):
 
         self.assertIn("# Pack Lifecycle Source Identity Plan", markdown)
         self.assertIn("Source Policy Categories", markdown)
+        self.assertIn("Source Policy Details", markdown)
         self.assertIn("`dated_wiktextract_dump_pinning`", markdown)
         self.assertIn("`fasttext_release_snapshot_policy`", markdown)
+        self.assertIn("`fasttext_vectors_crawl_release_snapshot`", markdown)
+        self.assertIn("`fasttext:vectors-aligned:wiki.es.align`", markdown)
         self.assertIn("`safe_to_write`", markdown)
         self.assertIn("`source_bundle_needed`", markdown)
         self.assertIn("freedict-en-es", markdown)
