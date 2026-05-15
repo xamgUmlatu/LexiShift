@@ -93,6 +93,7 @@ def write_app_managed_pack_provenance(
     source_bundle: Mapping[str, object] | None = None,
     raw_artifact_sha1: str | None = None,
     raw_artifact_sha256: str | None = None,
+    artifact_metrics: Mapping[str, object] | None = None,
 ) -> Path:
     target_root = Path(pack_root)
     artifact = Path(artifact_path)
@@ -119,6 +120,7 @@ def write_app_managed_pack_provenance(
         source_bundle=source_bundle,
         raw_artifact_sha1=raw_artifact_sha1,
         raw_artifact_sha256=raw_artifact_sha256,
+        artifact_metrics=artifact_metrics,
     )
     provenance_path = target_root / PACK_PROVENANCE_FILENAME
     _write_json(provenance_path, payload)
@@ -149,6 +151,7 @@ def build_app_managed_pack_provenance_payload(
     source_bundle: Mapping[str, object] | None = None,
     raw_artifact_sha1: str | None = None,
     raw_artifact_sha256: str | None = None,
+    artifact_metrics: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     raw_filename = _optional_text(source_filename) or Path(source_url).name or str(pack_id)
     artifact_relpath = _artifact_relpath(Path(pack_root), Path(artifact_path))
@@ -189,6 +192,13 @@ def build_app_managed_pack_provenance_payload(
     )
     if required_file_values:
         build["required_files"] = list(required_file_values)
+    artifact_payload: dict[str, object] = {
+        "artifact_relpath": artifact_relpath,
+        "artifact_kind": _infer_artifact_kind(Path(artifact_path)),
+        "sha1": _sha1_file(Path(artifact_path)) if Path(artifact_path).is_file() else None,
+    }
+    if artifact_metrics:
+        artifact_payload["metrics"] = dict(artifact_metrics)
     return {
         "schema_version": PACK_PROVENANCE_SCHEMA_VERSION,
         "pack_id": str(pack_id or "").strip(),
@@ -196,11 +206,7 @@ def build_app_managed_pack_provenance_payload(
         "provider": str(provider or "").strip(),
         "source": source,
         "build": build,
-        "artifact": {
-            "artifact_relpath": artifact_relpath,
-            "artifact_kind": _infer_artifact_kind(Path(artifact_path)),
-            "sha1": _sha1_file(Path(artifact_path)) if Path(artifact_path).is_file() else None,
-        },
+        "artifact": artifact_payload,
     }
 
 

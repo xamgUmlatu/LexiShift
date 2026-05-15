@@ -25,6 +25,9 @@ from lexishift_core.helper.installed_packs import (  # noqa: E402
     load_installed_pack_manifest,
     resolve_installed_pack_artifact,
 )
+from lexishift_core.helper.pack_artifact_metrics import (  # noqa: E402
+    sqlite_artifact_metrics_for_pack,
+)
 from lexishift_core.helper.pack_provenance import (  # noqa: E402
     PACK_PROVENANCE_FILENAME,
     validate_pack_provenance_file,
@@ -256,6 +259,10 @@ def _scan_pack_root(
             or _optional_catalog_text(catalog_pack, "sqlite_filename"),
             required_files=manifest.required_files
             or tuple(getattr(catalog_pack, "required_files", ()) or ()),
+            artifact_metrics=sqlite_artifact_metrics_for_pack(
+                pack_kind=family,
+                artifact_path=artifact_path,
+            ),
             **safe_pack_source_identity_fields(catalog_pack),
             **source_bundle_fields_for_pack(catalog_pack),
         )

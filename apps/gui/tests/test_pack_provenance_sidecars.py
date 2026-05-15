@@ -208,6 +208,12 @@ def test_frequency_convert_to_sqlite_captures_parsed_source_checksums() -> None:
         assert "source_dump" not in payload["source"]
         assert raw_artifact["sha1"] == hashlib.sha1(source_bytes).hexdigest()
         assert raw_artifact["sha256"] == hashlib.sha256(source_bytes).hexdigest()
+        assert payload["artifact"]["metrics"] == {
+            "row_count": 1,
+            "distinct_lemma_count": 1,
+            "pos_rows": 1,
+            "topic_domain_rows": 0,
+        }
         assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
 
 

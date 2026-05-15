@@ -166,6 +166,12 @@ class TestPackProvenance(unittest.TestCase):
                 artifact_path=artifact,
                 source_filename="spanish_lemmas20k.txt",
                 sqlite_filename="main.sqlite",
+                artifact_metrics={
+                    "row_count": 2,
+                    "distinct_lemma_count": 2,
+                    "pos_rows": 1,
+                    "topic_domain_rows": 0,
+                },
             )
 
             payload = json.loads(provenance_path.read_text(encoding="utf-8"))
@@ -178,6 +184,8 @@ class TestPackProvenance(unittest.TestCase):
         self.assertEqual(payload["source"]["source_bundle"]["bundle_kind"], "test_fixture")
         self.assertEqual(payload["artifact"]["artifact_relpath"], "main.sqlite")
         self.assertEqual(payload["artifact"]["artifact_kind"], "sqlite")
+        self.assertEqual(payload["artifact"]["metrics"]["row_count"], 2)
+        self.assertEqual(payload["artifact"]["metrics"]["pos_rows"], 1)
 
 
 def _valid_frequency_payload() -> dict[str, object]:

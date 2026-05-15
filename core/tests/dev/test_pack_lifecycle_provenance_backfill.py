@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sqlite3
 import sys
 import tempfile
 import unittest
@@ -104,6 +105,15 @@ class PackLifecycleProvenanceBackfillTests(unittest.TestCase):
         self.assertEqual(
             sidecar_payloads["freq-es-cde"]["build"]["parser_config"]["encoding"], "latin-1"
         )
+        self.assertEqual(
+            sidecar_payloads["freq-es-cde"]["artifact"]["metrics"],
+            {
+                "row_count": 3,
+                "distinct_lemma_count": 2,
+                "pos_rows": 2,
+                "topic_domain_rows": 1,
+            },
+        )
         self.assertIn("source_bundle", sidecar_payloads["freq-de-default"]["source"])
         self.assertEqual(
             sidecar_payloads["freq-de-default"]["source"]["source_bundle"]["bundle_id"],
@@ -149,7 +159,26 @@ def _write_backfill_fixture(data_root: Path) -> tuple[Path, Path, Path, Path]:
     frequency_root = data_root / "frequency_packs"
     frequency_artifact = frequency_root / "freq-es-cde" / "main.sqlite"
     frequency_artifact.parent.mkdir(parents=True)
-    frequency_artifact.write_bytes(b"SQLite format 3\x00")
+    with sqlite3.connect(frequency_artifact) as conn:
+        conn.execute(
+            """
+            CREATE TABLE frequency (
+                lemma TEXT,
+                freq REAL,
+                pos TEXT,
+                topics_json TEXT
+            );
+            """
+        )
+        conn.executemany(
+            "INSERT INTO frequency (lemma, freq, pos, topics_json) VALUES (?, ?, ?, ?);",
+            [
+                ("gato", 100.0, "n", '["animals"]'),
+                ("gato", 50.0, "", ""),
+                ("perro", 25.0, "n", None),
+            ],
+        )
+        conn.commit()
     write_installed_pack_manifest(
         frequency_root,
         pack_id="freq-es-cde",

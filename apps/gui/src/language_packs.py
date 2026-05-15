@@ -21,6 +21,7 @@ from lexishift_core.frequency.sqlite import (
 from lexishift_core.helper.installed_packs import (
     write_installed_pack_manifest,
 )
+from lexishift_core.helper.pack_artifact_metrics import sqlite_artifact_metrics_for_pack
 from lexishift_core.helper.pack_provenance import write_app_managed_pack_provenance
 from lexishift_core.helper.pack_source_identity import (
     safe_pack_source_identity_fields,
@@ -638,6 +639,10 @@ class FrequencyPackDownloadThread(QThread):
             sqlite_filename=self._pack.sqlite_filename,
             raw_artifact_sha1=self._raw_artifact_sha1 or None,
             raw_artifact_sha256=self._raw_artifact_sha256 or None,
+            artifact_metrics=sqlite_artifact_metrics_for_pack(
+                pack_kind="frequency",
+                artifact_path=artifact_path,
+            ),
             **safe_pack_source_identity_fields(self._pack),
             **source_bundle_fields_for_pack(self._pack),
         )
