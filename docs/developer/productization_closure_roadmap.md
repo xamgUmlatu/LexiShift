@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, and constrained manual embedding selection tests
+Last verified: 2026-05-15 doc-reference check, state check, and diff hygiene after Lane 2 code-disposition inventory, semantic family evidence expansion, semantic-veto, semantic-LLM, semantic-shadow, source-admission sub-registries, Lane 6 current pack/source provenance inventory, pack-provenance sidecar validator tests, pack-lifecycle audit tests, semantic-pack provenance install tests, en-es candidate readiness runbook routing, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, semantic source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, and strict lifecycle gate tests
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -377,12 +377,14 @@ pack uncertainty before any larger Spanish corpus is promoted.
 Current Lane 6 progress:
 
 - `docs/developer/productization_lane6_data_provenance_inventory.md` now
-  records L6-A, the current pack/source provenance inventory, and L6-B, the
-  pack provenance sidecar contract, L6-C, the pack lifecycle audit command, and
-  L6-D, semantic pack provenance and lineage, L6-E, the en-es candidate
-  readiness runbook, L6-F, app-managed non-semantic installer provenance, and
-  L6-G, manual resource settings disposition audit, and L6-H, constrained
-  manual import/backfill contract.
+  records L6-A through L6-Na: current pack/source provenance inventory, pack
+  provenance sidecar contract, pack lifecycle audit command, semantic pack
+  provenance and lineage, en-es candidate readiness runbook, app-managed
+  non-semantic installer provenance, manual resource settings disposition
+  audit, constrained manual import/backfill contract, safe manual-settings
+  backfill, semantic source-lineage publication, existing-install provenance
+  sidecar backfill, external/manual import preflight, provenance review
+  posture, and a strict pack lifecycle review gate.
 - L6-A maps the pack catalog, pack source manifest, installed-pack manifests,
   pack refs/resolvers, semantic pack-copy manifest, profile publication
   manifest, generated evidence artifacts, and current en-es corpus-expansion
@@ -419,15 +421,34 @@ Current Lane 6 progress:
   manual artifact formats and flags unsupported existing manual files, while
   the embedding picker rejects unsupported file types and no longer exposes an
   all-files filter.
+- L6-Ia adds a dry-run/apply settings backfill for the safe case where saved
+  manual paths already point at manifest-backed app-managed SQLite pack roots.
+- L6-Ja propagates semantic source lineage into profile publication manifests
+  and teaches the lifecycle audit to report publication source-lineage
+  presence.
+- L6-Ka adds a dry-run/apply provenance sidecar backfill for catalog-backed
+  app-managed installs that predate sidecar-writing installers.
+- L6-La adds a read-only external/manual import preflight command that validates
+  exact supported artifact shape, previews provenance, and keeps manual linking
+  separate from managed import/promotion readiness.
+- L6-Ma makes the lifecycle audit distinguish schema-valid sidecars from
+  release/promotion readiness by reporting license status, source pointer type,
+  raw checksum coverage, generated artifact checksum presence, and review
+  reasons.
+- L6-Na adds `--fail-on-review` as the strict pack lifecycle gate for
+  promotion/release checks while preserving non-strict local audit behavior.
 - The main finding is explicit: managed pack roots and publication manifests
   exist, but installed manifests are not complete source/license/generation
   provenance records, existing/manual/legacy paths can still lack sidecar-backed
-  provenance, and the current lifecycle audit reports gaps but does not backfill
-  sidecars, rewrite settings, or promote packs.
-- The next Lane 6 slices are import/backfill implementation for approved manual
-  resources and managed-artifact settings migration, richer
-  source-batch/release lineage once upstream inventories carry those ids, and
-  source/license review handling.
+  provenance, and strict lifecycle gating can block unresolved review items
+  without approving sources or replacing source-readiness audits.
+- The next Lane 6 slices should move from visibility to promotion evidence:
+  define the release/promotion evidence bundle, then add consistent
+  source-version, converter-version, parser-config, build-command, and checksum
+  lineage where the current sidecars still carry only partial evidence.
+- A full manual import UX remains deliberately deferred until a concrete
+  license-restricted source scenario proves which narrow import/link path is
+  actually needed.
 
 ### Lane 7: Product Ops And Release Readiness
 
