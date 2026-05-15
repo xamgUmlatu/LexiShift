@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "generated_at_utc": "2026-05-15T15:56:32.041358+00:00",
+  "version": 2,
+  "generated_at_utc": "2026-05-15T16:04:40.356329+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -37,7 +37,7 @@
     "directory_count": 283,
     "tracked_file_count": 3884,
     "untracked_file_count": 0,
-    "total_file_bytes": 919609245,
+    "total_file_bytes": 919642326,
     "candidate_path_count": 2446,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
@@ -49,14 +49,14 @@
       "path_count": 2571,
       "file_count": 2413,
       "directory_count": 158,
-      "total_file_bytes": 724930004
+      "total_file_bytes": 724956526
     },
     {
       "family": "core_tests",
       "path_count": 319,
       "file_count": 307,
       "directory_count": 12,
-      "total_file_bytes": 2710541
+      "total_file_bytes": 2711521
     },
     {
       "family": "scripts_testing",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1276320
+      "total_file_bytes": 1277360
     },
     {
       "family": "docs_rulegen",
@@ -112,7 +112,7 @@
       "path_count": 39,
       "file_count": 36,
       "directory_count": 3,
-      "total_file_bytes": 306122
+      "total_file_bytes": 310661
     },
     {
       "family": "app_tests",
@@ -281,6 +281,10 @@
     {
       "flag": "generated_latest_alias",
       "path_count": 1610
+    },
+    {
+      "flag": "generated_dated_artifact",
+      "path_count": 402
     },
     {
       "flag": "duplicate_filename",
@@ -655,7 +659,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 14,
-      "total_file_bytes": 2620571
+      "total_file_bytes": 2647093
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -8733,6 +8737,155 @@
       "total_file_bytes": 868
     }
   ],
+  "generated_output_retention_buckets": [
+    {
+      "bucket": "root_latest_alias",
+      "review_posture": "retain or reroute: active latest alias at docs/test_outputs root",
+      "file_count": 1568,
+      "total_file_bytes": 580950509,
+      "latest_alias_count": 1568,
+      "dated_artifact_count": 0,
+      "sample_paths": [
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.json",
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_latest.md",
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_family_expansion_summary_latest.md",
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_latest.json",
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_latest.md",
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_register_summary_latest.md",
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_tuning_latest.html",
+        "docs/test_outputs/rulegen_benchmark_en_de_kaikki_tuning_latest.json"
+      ]
+    },
+    {
+      "bucket": "experiment_payload",
+      "review_posture": "review by experiment: high-volume evidence, not deletion by size alone",
+      "file_count": 740,
+      "total_file_bytes": 134988020,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 398,
+      "sample_paths": [
+        "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328_timing.json",
+        "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+        "docs/test_outputs/experiments/rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_srs_diagnostics_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
+        "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json"
+      ]
+    },
+    {
+      "bucket": "root_dated_snapshot",
+      "review_posture": "review after canonical summary exists",
+      "file_count": 35,
+      "total_file_bytes": 816474,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 35,
+      "sample_paths": [
+        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.html",
+        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.json",
+        "docs/test_outputs/rulegen_benchmark_all_pairs_2026-03-21.md",
+        "docs/test_outputs/rulegen_benchmark_all_pairs_summary_2026-03-21.md",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.html",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.json",
+        "docs/test_outputs/rulegen_benchmark_en_es_reverse_far_hit_experiment_2026-03-13.md",
+        "docs/test_outputs/rulegen_benchmark_triage_all_pairs_2026-03-21.json"
+      ]
+    },
+    {
+      "bucket": "journey_quality_evidence",
+      "review_posture": "retain latest: SRS journey and quality evidence",
+      "file_count": 26,
+      "total_file_bytes": 4061262,
+      "latest_alias_count": 26,
+      "dated_artifact_count": 0,
+      "sample_paths": [
+        "docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.html",
+        "docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.json",
+        "docs/test_outputs/srs_journey/srs_journey_en_es_edge_latest.md",
+        "docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.html",
+        "docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json",
+        "docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md",
+        "docs/test_outputs/srs_journey/srs_journey_en_es_latest.html",
+        "docs/test_outputs/srs_journey/srs_journey_en_es_latest.json"
+      ]
+    },
+    {
+      "bucket": "phase_or_sample_evidence",
+      "review_posture": "review after migration: older phase/sample evidence",
+      "file_count": 18,
+      "total_file_bytes": 647355,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 16,
+      "sample_paths": [
+        "docs/test_outputs/ja_en/README.md",
+        "docs/test_outputs/ja_en/golden_samples_20260203_014029.json",
+        "docs/test_outputs/ja_en/samples_20260203_013949/samples.json",
+        "docs/test_outputs/ja_en/samples_20260203_013949/samples.tsv",
+        "docs/test_outputs/ja_en/samples_20260203_014029/samples.json",
+        "docs/test_outputs/ja_en/samples_20260203_014029/samples.tsv",
+        "docs/test_outputs/ja_en/samples_20260203_014116/samples.json",
+        "docs/test_outputs/ja_en/samples_20260203_014116/samples.tsv"
+      ]
+    },
+    {
+      "bucket": "dev_workflow_operational",
+      "review_posture": "retain latest: workflow reports support local and CI handoff",
+      "file_count": 17,
+      "total_file_bytes": 2803182,
+      "latest_alias_count": 15,
+      "dated_artifact_count": 0,
+      "sample_paths": [
+        "docs/test_outputs/dev_workflow/build_ci_latest.json",
+        "docs/test_outputs/dev_workflow/build_latest.json",
+        "docs/test_outputs/dev_workflow/check_changed_latest.json",
+        "docs/test_outputs/dev_workflow/check_latest.json",
+        "docs/test_outputs/dev_workflow/doc_references_latest.json",
+        "docs/test_outputs/dev_workflow/feature_state_audit_latest.json",
+        "docs/test_outputs/dev_workflow/github_pages_workflow_verification_latest.md",
+        "docs/test_outputs/dev_workflow/project_structure_latest.json"
+      ]
+    },
+    {
+      "bucket": "license_resource_audit",
+      "review_posture": "retain latest: resource/license audit evidence",
+      "file_count": 5,
+      "total_file_bytes": 598049,
+      "latest_alias_count": 1,
+      "dated_artifact_count": 0,
+      "sample_paths": [
+        "docs/test_outputs/licensing_header_audit/README.md",
+        "docs/test_outputs/licensing_header_audit/downloaded_headers_jmdict.json",
+        "docs/test_outputs/licensing_header_audit/downloaded_headers_latest.json",
+        "docs/test_outputs/licensing_header_audit/latest.json",
+        "docs/test_outputs/resource_integrity_audit/latest.json"
+      ]
+    },
+    {
+      "bucket": "root_generated_other",
+      "review_posture": "review owner before pruning",
+      "file_count": 3,
+      "total_file_bytes": 90774,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 0,
+      "sample_paths": [
+        "docs/test_outputs/rulegen_benchmark_expanded_smoke.html",
+        "docs/test_outputs/rulegen_benchmark_expanded_smoke.json",
+        "docs/test_outputs/rulegen_benchmark_expanded_smoke.md"
+      ]
+    },
+    {
+      "bucket": "baseline",
+      "review_posture": "retain: quality baselines need explicit rationale before changes",
+      "file_count": 1,
+      "total_file_bytes": 901,
+      "latest_alias_count": 0,
+      "dated_artifact_count": 0,
+      "sample_paths": [
+        "docs/test_outputs/baselines/rulegen_quality_baseline.json"
+      ]
+    }
+  ],
   "duplicate_filename_groups": [
     {
       "name": "srs_publication_manifest_en-es.json",
@@ -9831,7 +9984,7 @@
       "path": "scripts/dev/licensing_header_audit.py",
       "family": "scripts_dev",
       "exact_reference_file_count": 3,
-      "stem_reference_file_count": 6,
+      "stem_reference_file_count": 7,
       "doc_reference_file_count": 1,
       "test_reference_file_count": 0,
       "package_script_reference": false,
@@ -10161,7 +10314,7 @@
       "path": "scripts/testing/resource_integrity_audit.py",
       "family": "scripts_testing",
       "exact_reference_file_count": 6,
-      "stem_reference_file_count": 6,
+      "stem_reference_file_count": 7,
       "doc_reference_file_count": 6,
       "test_reference_file_count": 0,
       "package_script_reference": false,
@@ -15065,36 +15218,6 @@
       ]
     },
     {
-      "path": "docs/test_outputs/ja_en/samples_20260203_013949/samples.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_filename",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/ja_en/samples_20260203_014029/samples.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_filename",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/ja_en/samples_20260203_014116/samples.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_filename",
-        "duplicate_stem"
-      ]
-    },
-    {
       "path": "docs/test_outputs/licensing_header_audit/latest.json",
       "kind": "file",
       "family": "docs_test_outputs",
@@ -15115,11 +15238,162 @@
       ]
     },
     {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-002-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-003-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-004-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-005-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-006-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-007-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-008-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-009-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-010-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/experiments/semantic_veto_evidence_gap_batches/en-es-semantic-veto-evidence-gap-generation-en-es-active-only-full-v1-tranche-011-approved_raw_responses.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/rulegen_benchmark_expanded_smoke.html",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/rulegen_benchmark_expanded_smoke.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/rulegen_benchmark_expanded_smoke.md",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/ja_en/samples_20260203_013949/samples.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_filename",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/ja_en/samples_20260203_014029/samples.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_filename",
+        "duplicate_stem"
+      ]
+    },
+    {
+      "path": "docs/test_outputs/ja_en/samples_20260203_014116/samples.json",
+      "kind": "file",
+      "family": "docs_test_outputs",
+      "flags": [
+        "generated_evidence_output",
+        "generated_dated_artifact",
+        "duplicate_filename",
+        "duplicate_stem"
+      ]
+    },
+    {
       "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15129,6 +15403,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15138,6 +15413,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15147,6 +15423,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15156,6 +15433,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15165,6 +15443,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15174,6 +15453,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15183,6 +15463,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15192,6 +15473,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15201,6 +15483,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15210,6 +15493,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15219,6 +15503,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15228,6 +15513,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15237,6 +15523,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15246,6 +15533,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15255,6 +15543,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15264,6 +15553,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15273,6 +15563,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15282,6 +15573,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15291,6 +15583,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15300,6 +15593,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -15309,123 +15603,7 @@
       "family": "docs_test_outputs",
       "flags": [
         "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.md",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
-        "duplicate_stem"
-      ]
-    },
-    {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.json",
-      "kind": "file",
-      "family": "docs_test_outputs",
-      "flags": [
-        "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     }
@@ -22066,7 +22244,7 @@
       "name": "test_project_structure_inventory.py",
       "stem": "test_project_structure_inventory",
       "suffix": ".py",
-      "size_bytes": 4868,
+      "size_bytes": 5848,
       "git_state": "tracked",
       "flags": []
     },
@@ -25615,7 +25793,7 @@
       "name": "documentation_governance.md",
       "stem": "documentation_governance",
       "suffix": ".md",
-      "size_bytes": 4613,
+      "size_bytes": 5247,
       "git_state": "tracked",
       "flags": []
     },
@@ -25705,7 +25883,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 32944,
+      "size_bytes": 33350,
       "git_state": "tracked",
       "flags": []
     },
@@ -29256,7 +29434,7 @@
       "name": "feature_state_audit_latest.json",
       "stem": "feature_state_audit_latest",
       "suffix": ".json",
-      "size_bytes": 225,
+      "size_bytes": 226,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29284,7 +29462,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2521276,
+      "size_bytes": 2544448,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29299,7 +29477,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 61517,
+      "size_bytes": 64866,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29398,7 +29576,8 @@
       "size_bytes": 416285,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29411,7 +29590,8 @@
       "size_bytes": 4051,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29424,7 +29604,8 @@
       "size_bytes": 4956,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29437,7 +29618,8 @@
       "size_bytes": 5579,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29450,7 +29632,8 @@
       "size_bytes": 2370,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29463,7 +29646,8 @@
       "size_bytes": 523897,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29476,7 +29660,8 @@
       "size_bytes": 2283,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29489,7 +29674,8 @@
       "size_bytes": 4031,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29503,6 +29689,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29517,6 +29704,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29531,6 +29719,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29545,6 +29734,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29559,6 +29749,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29573,6 +29764,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29586,7 +29778,8 @@
       "size_bytes": 324941,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29599,7 +29792,8 @@
       "size_bytes": 4763,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29612,7 +29806,8 @@
       "size_bytes": 4043,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29626,6 +29821,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29640,6 +29836,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29653,7 +29850,8 @@
       "size_bytes": 591517,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29666,7 +29864,8 @@
       "size_bytes": 2283,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29679,7 +29878,8 @@
       "size_bytes": 4048,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29693,6 +29893,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29707,6 +29908,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29721,6 +29923,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29735,6 +29938,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29749,6 +29953,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29763,6 +29968,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29776,7 +29982,8 @@
       "size_bytes": 527872,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29789,7 +29996,8 @@
       "size_bytes": 4056,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29803,6 +30011,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29817,6 +30026,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29830,7 +30040,8 @@
       "size_bytes": 125933,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29843,7 +30054,8 @@
       "size_bytes": 4041,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29856,7 +30068,8 @@
       "size_bytes": 98249,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29869,7 +30082,8 @@
       "size_bytes": 4040,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29883,6 +30097,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29897,6 +30112,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29910,7 +30126,8 @@
       "size_bytes": 4372,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29923,7 +30140,8 @@
       "size_bytes": 416241,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29936,7 +30154,8 @@
       "size_bytes": 2341,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29949,7 +30168,8 @@
       "size_bytes": 4052,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -29963,6 +30183,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29977,6 +30198,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -29991,6 +30213,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30005,6 +30228,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30018,7 +30242,8 @@
       "size_bytes": 1266615,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30031,7 +30256,8 @@
       "size_bytes": 4710,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30044,7 +30270,8 @@
       "size_bytes": 4042,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30058,6 +30285,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30072,6 +30300,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30085,7 +30314,8 @@
       "size_bytes": 661709,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30098,7 +30328,8 @@
       "size_bytes": 4031,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30111,7 +30342,8 @@
       "size_bytes": 2297,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30124,7 +30356,8 @@
       "size_bytes": 4349201,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30137,7 +30370,8 @@
       "size_bytes": 4037,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30150,7 +30384,8 @@
       "size_bytes": 54770,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30163,7 +30398,8 @@
       "size_bytes": 4009,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30177,6 +30413,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30191,6 +30428,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30204,7 +30442,8 @@
       "size_bytes": 54719,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30217,7 +30456,8 @@
       "size_bytes": 4001,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30231,6 +30471,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30245,6 +30486,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30258,7 +30500,8 @@
       "size_bytes": 54758,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30271,7 +30514,8 @@
       "size_bytes": 4005,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30285,6 +30529,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30299,6 +30544,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30312,7 +30558,8 @@
       "size_bytes": 56543,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30325,7 +30572,8 @@
       "size_bytes": 3977,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30339,6 +30587,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30353,6 +30602,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30366,7 +30616,8 @@
       "size_bytes": 56483,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30379,7 +30630,8 @@
       "size_bytes": 3991,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30393,6 +30645,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30407,6 +30660,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30420,7 +30674,8 @@
       "size_bytes": 56502,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30433,7 +30688,8 @@
       "size_bytes": 3996,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30447,6 +30703,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30461,6 +30718,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30474,7 +30732,8 @@
       "size_bytes": 3101,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30487,7 +30746,8 @@
       "size_bytes": 54375,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30500,7 +30760,8 @@
       "size_bytes": 3726,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30514,6 +30775,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30528,6 +30790,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30541,7 +30804,8 @@
       "size_bytes": 54420,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30554,7 +30818,8 @@
       "size_bytes": 3722,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30568,6 +30833,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30582,6 +30848,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30595,7 +30862,8 @@
       "size_bytes": 56210,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30608,7 +30876,8 @@
       "size_bytes": 3724,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30622,6 +30891,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30636,6 +30906,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30649,7 +30920,8 @@
       "size_bytes": 56189,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30662,7 +30934,8 @@
       "size_bytes": 3717,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30676,6 +30949,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30690,6 +30964,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -30779,7 +31054,8 @@
       "size_bytes": 187693,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30792,7 +31068,8 @@
       "size_bytes": 190929,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30805,7 +31082,8 @@
       "size_bytes": 127949,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30818,7 +31096,8 @@
       "size_bytes": 185970,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30831,7 +31110,8 @@
       "size_bytes": 180683,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30844,7 +31124,8 @@
       "size_bytes": 175704,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30857,7 +31138,8 @@
       "size_bytes": 184775,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30870,7 +31152,8 @@
       "size_bytes": 125878,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30883,7 +31166,8 @@
       "size_bytes": 129352,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30896,7 +31180,8 @@
       "size_bytes": 390931,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30909,7 +31194,8 @@
       "size_bytes": 390931,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30922,7 +31208,8 @@
       "size_bytes": 12491,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30935,7 +31222,8 @@
       "size_bytes": 12488,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30948,7 +31236,8 @@
       "size_bytes": 401418,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30961,7 +31250,8 @@
       "size_bytes": 401418,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30974,7 +31264,8 @@
       "size_bytes": 21456,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -30987,7 +31278,8 @@
       "size_bytes": 16381,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31000,7 +31292,8 @@
       "size_bytes": 25138,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31013,7 +31306,8 @@
       "size_bytes": 21067,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31037,7 +31331,8 @@
       "size_bytes": 33925,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31050,7 +31345,8 @@
       "size_bytes": 25040,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31074,7 +31370,8 @@
       "size_bytes": 39355,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31087,7 +31384,8 @@
       "size_bytes": 58144,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31100,7 +31398,8 @@
       "size_bytes": 3569,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31124,7 +31423,8 @@
       "size_bytes": 5614,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31137,7 +31437,8 @@
       "size_bytes": 6109,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31150,7 +31451,8 @@
       "size_bytes": 3579,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31174,7 +31476,8 @@
       "size_bytes": 5624,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31187,7 +31490,8 @@
       "size_bytes": 6180,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31200,7 +31504,8 @@
       "size_bytes": 20784,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31224,7 +31529,8 @@
       "size_bytes": 31631,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31237,7 +31543,8 @@
       "size_bytes": 45007,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31250,7 +31557,8 @@
       "size_bytes": 3147,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31274,7 +31582,8 @@
       "size_bytes": 5198,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31287,7 +31596,8 @@
       "size_bytes": 6029,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31300,7 +31610,8 @@
       "size_bytes": 40320,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31324,7 +31635,8 @@
       "size_bytes": 68165,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31337,7 +31649,8 @@
       "size_bytes": 112453,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31350,7 +31663,8 @@
       "size_bytes": 211580,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31374,7 +31688,8 @@
       "size_bytes": 335729,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31387,7 +31702,8 @@
       "size_bytes": 526077,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31400,7 +31716,8 @@
       "size_bytes": 12115,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31424,7 +31741,8 @@
       "size_bytes": 19205,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31437,7 +31755,8 @@
       "size_bytes": 29271,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31450,7 +31769,8 @@
       "size_bytes": 1985,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31463,7 +31783,8 @@
       "size_bytes": 1985,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31476,7 +31797,8 @@
       "size_bytes": 28057,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31489,7 +31811,8 @@
       "size_bytes": 125861,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31502,7 +31825,8 @@
       "size_bytes": 129352,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31515,7 +31839,8 @@
       "size_bytes": 125569,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31528,7 +31853,8 @@
       "size_bytes": 125569,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31541,7 +31867,8 @@
       "size_bytes": 4355,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31554,7 +31881,8 @@
       "size_bytes": 2262,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31567,7 +31895,8 @@
       "size_bytes": 4061,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31580,7 +31909,8 @@
       "size_bytes": 13141,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31593,7 +31923,8 @@
       "size_bytes": 7213,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31606,7 +31937,8 @@
       "size_bytes": 12847,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31619,7 +31951,8 @@
       "size_bytes": 1981,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31632,7 +31965,8 @@
       "size_bytes": 99919,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31645,7 +31979,8 @@
       "size_bytes": 86180,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31658,7 +31993,8 @@
       "size_bytes": 86180,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31671,7 +32007,8 @@
       "size_bytes": 54450,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31684,7 +32021,8 @@
       "size_bytes": 99625,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31697,7 +32035,8 @@
       "size_bytes": 20956,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31710,7 +32049,8 @@
       "size_bytes": 37984,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31762,7 +32102,8 @@
       "size_bytes": 139837,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31775,7 +32116,8 @@
       "size_bytes": 190564,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31788,7 +32130,8 @@
       "size_bytes": 190564,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31801,7 +32144,8 @@
       "size_bytes": 139123,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31814,7 +32158,8 @@
       "size_bytes": 183519,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31827,7 +32172,8 @@
       "size_bytes": 183519,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31840,7 +32186,8 @@
       "size_bytes": 139123,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31853,7 +32200,8 @@
       "size_bytes": 186714,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31866,7 +32214,8 @@
       "size_bytes": 186714,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31879,7 +32228,8 @@
       "size_bytes": 229586,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31892,7 +32242,8 @@
       "size_bytes": 267064,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31905,7 +32256,8 @@
       "size_bytes": 267064,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31918,7 +32270,8 @@
       "size_bytes": 137497,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31931,7 +32284,8 @@
       "size_bytes": 191354,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31944,7 +32298,8 @@
       "size_bytes": 191354,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31957,7 +32312,8 @@
       "size_bytes": 11864,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31970,7 +32326,8 @@
       "size_bytes": 199622,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -31983,7 +32340,8 @@
       "size_bytes": 199622,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32048,7 +32406,8 @@
       "size_bytes": 59361,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32334,7 +32693,8 @@
       "size_bytes": 7051,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32347,7 +32707,8 @@
       "size_bytes": 11570,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32360,7 +32721,8 @@
       "size_bytes": 7043,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32373,7 +32735,8 @@
       "size_bytes": 11506,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32386,7 +32749,8 @@
       "size_bytes": 202917,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32399,7 +32763,8 @@
       "size_bytes": 441927,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32412,7 +32777,8 @@
       "size_bytes": 441927,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32425,7 +32791,8 @@
       "size_bytes": 212837,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32438,7 +32805,8 @@
       "size_bytes": 441883,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32451,7 +32819,8 @@
       "size_bytes": 441883,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32464,7 +32833,8 @@
       "size_bytes": 46186,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32477,7 +32847,8 @@
       "size_bytes": 242624,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32490,7 +32861,8 @@
       "size_bytes": 242624,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32503,7 +32875,8 @@
       "size_bytes": 46177,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32516,7 +32889,8 @@
       "size_bytes": 242615,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32529,7 +32903,8 @@
       "size_bytes": 242615,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32542,7 +32917,8 @@
       "size_bytes": 46172,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32555,7 +32931,8 @@
       "size_bytes": 242594,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32568,7 +32945,8 @@
       "size_bytes": 242594,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32659,7 +33037,8 @@
       "size_bytes": 202623,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32672,7 +33051,8 @@
       "size_bytes": 211277,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32685,7 +33065,8 @@
       "size_bytes": 320226,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32698,7 +33079,8 @@
       "size_bytes": 105805,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32711,7 +33093,8 @@
       "size_bytes": 129638,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32724,7 +33107,8 @@
       "size_bytes": 93793,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32737,7 +33121,8 @@
       "size_bytes": 93793,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32750,7 +33135,8 @@
       "size_bytes": 85687,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32763,7 +33149,8 @@
       "size_bytes": 129344,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32776,7 +33163,8 @@
       "size_bytes": 117300,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32789,7 +33177,8 @@
       "size_bytes": 145189,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32802,7 +33191,8 @@
       "size_bytes": 104203,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32815,7 +33205,8 @@
       "size_bytes": 104203,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32828,7 +33219,8 @@
       "size_bytes": 95713,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32841,7 +33233,8 @@
       "size_bytes": 144895,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32854,7 +33247,8 @@
       "size_bytes": 201454,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32867,7 +33261,8 @@
       "size_bytes": 283051,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32880,7 +33275,8 @@
       "size_bytes": 175104,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32893,7 +33289,8 @@
       "size_bytes": 175104,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32906,7 +33303,8 @@
       "size_bytes": 186204,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32919,7 +33317,8 @@
       "size_bytes": 282757,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32932,7 +33331,8 @@
       "size_bytes": 203121,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32945,7 +33345,8 @@
       "size_bytes": 275779,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32958,7 +33359,8 @@
       "size_bytes": 178114,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32971,7 +33373,8 @@
       "size_bytes": 178114,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32984,7 +33387,8 @@
       "size_bytes": 180869,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -32997,7 +33401,8 @@
       "size_bytes": 275485,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33114,7 +33519,8 @@
       "size_bytes": 64863,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33127,7 +33533,8 @@
       "size_bytes": 71694,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33140,7 +33547,8 @@
       "size_bytes": 52853,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33153,7 +33561,8 @@
       "size_bytes": 52853,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33166,7 +33575,8 @@
       "size_bytes": 49031,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33179,7 +33589,8 @@
       "size_bytes": 71400,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33192,7 +33603,8 @@
       "size_bytes": 78678,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33205,7 +33617,8 @@
       "size_bytes": 78687,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33218,7 +33631,8 @@
       "size_bytes": 65005,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33231,7 +33645,8 @@
       "size_bytes": 65005,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33244,7 +33659,8 @@
       "size_bytes": 54650,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33257,7 +33673,8 @@
       "size_bytes": 78393,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33270,7 +33687,8 @@
       "size_bytes": 152787,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33283,7 +33701,8 @@
       "size_bytes": 232604,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33296,7 +33715,8 @@
       "size_bytes": 96269,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33309,7 +33729,8 @@
       "size_bytes": 140499,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33322,7 +33743,8 @@
       "size_bytes": 139123,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33335,7 +33757,8 @@
       "size_bytes": 98903,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33348,7 +33771,8 @@
       "size_bytes": 98903,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33361,7 +33785,8 @@
       "size_bytes": 95560,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33374,7 +33799,8 @@
       "size_bytes": 139543,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33439,7 +33865,8 @@
       "size_bytes": 34755,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33452,7 +33879,8 @@
       "size_bytes": 52728,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33465,7 +33893,8 @@
       "size_bytes": 58202,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33478,7 +33907,8 @@
       "size_bytes": 88583,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33491,7 +33921,8 @@
       "size_bytes": 82055,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33504,7 +33935,8 @@
       "size_bytes": 267717,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33517,7 +33949,8 @@
       "size_bytes": 267717,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33530,7 +33963,8 @@
       "size_bytes": 64303,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33543,7 +33977,8 @@
       "size_bytes": 78017,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33556,7 +33991,8 @@
       "size_bytes": 50633,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33569,7 +34005,8 @@
       "size_bytes": 50633,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33582,7 +34019,8 @@
       "size_bytes": 54176,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33595,7 +34033,8 @@
       "size_bytes": 77723,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33710,7 +34149,8 @@
       "size_bytes": 52349,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33723,7 +34163,8 @@
       "size_bytes": 104059,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33736,7 +34177,8 @@
       "size_bytes": 123442,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33749,7 +34191,8 @@
       "size_bytes": 246420,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33773,7 +34216,8 @@
       "size_bytes": 2817,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33786,7 +34230,8 @@
       "size_bytes": 4727,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33799,7 +34244,8 @@
       "size_bytes": 13105,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33812,7 +34258,8 @@
       "size_bytes": 2817,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33825,7 +34272,8 @@
       "size_bytes": 4727,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33838,7 +34286,8 @@
       "size_bytes": 17183,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33851,7 +34300,8 @@
       "size_bytes": 2817,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33864,7 +34314,8 @@
       "size_bytes": 4727,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33877,7 +34328,8 @@
       "size_bytes": 9484,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33901,7 +34353,8 @@
       "size_bytes": 11105,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33925,7 +34378,8 @@
       "size_bytes": 18861,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33938,7 +34392,8 @@
       "size_bytes": 45278,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33951,7 +34406,8 @@
       "size_bytes": 11151,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33975,7 +34431,8 @@
       "size_bytes": 18945,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -33988,7 +34445,8 @@
       "size_bytes": 35640,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34001,7 +34459,8 @@
       "size_bytes": 11226,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34025,7 +34484,8 @@
       "size_bytes": 19111,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34038,7 +34498,8 @@
       "size_bytes": 35685,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34051,7 +34512,8 @@
       "size_bytes": 21210,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34075,7 +34537,8 @@
       "size_bytes": 36098,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34088,7 +34551,8 @@
       "size_bytes": 72391,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34101,7 +34565,8 @@
       "size_bytes": 2720,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34125,7 +34590,8 @@
       "size_bytes": 4605,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34138,7 +34604,8 @@
       "size_bytes": 7749,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34151,7 +34618,8 @@
       "size_bytes": 11094,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34175,7 +34643,8 @@
       "size_bytes": 19010,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34188,7 +34657,8 @@
       "size_bytes": 37044,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34201,7 +34671,8 @@
       "size_bytes": 11236,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34225,7 +34696,8 @@
       "size_bytes": 19040,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34238,7 +34710,8 @@
       "size_bytes": 35692,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34804,7 +35277,8 @@
       "size_bytes": 4874,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34817,7 +35291,8 @@
       "size_bytes": 12552,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34830,7 +35305,8 @@
       "size_bytes": 4883,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34843,7 +35319,8 @@
       "size_bytes": 12552,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34856,7 +35333,8 @@
       "size_bytes": 5165,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34869,7 +35347,8 @@
       "size_bytes": 12851,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34882,7 +35361,8 @@
       "size_bytes": 107416,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34895,7 +35375,8 @@
       "size_bytes": 385895,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34908,7 +35389,8 @@
       "size_bytes": 26680,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34932,7 +35414,8 @@
       "size_bytes": 112379,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34945,7 +35428,8 @@
       "size_bytes": 931,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -34969,7 +35453,8 @@
       "size_bytes": 7536,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35842,7 +36327,8 @@
       "size_bytes": 109060,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35866,7 +36352,8 @@
       "size_bytes": 488887,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35879,7 +36366,8 @@
       "size_bytes": 111725,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35903,7 +36391,8 @@
       "size_bytes": 507130,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35916,7 +36405,8 @@
       "size_bytes": 110322,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35940,7 +36430,8 @@
       "size_bytes": 513715,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35953,7 +36444,8 @@
       "size_bytes": 100240,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35977,7 +36469,8 @@
       "size_bytes": 464094,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -35990,7 +36483,8 @@
       "size_bytes": 1720,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36014,7 +36508,8 @@
       "size_bytes": 28988,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36027,7 +36522,8 @@
       "size_bytes": 14952,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36051,7 +36547,8 @@
       "size_bytes": 66105,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36064,7 +36561,8 @@
       "size_bytes": 39991,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36088,7 +36586,8 @@
       "size_bytes": 169570,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36101,7 +36600,8 @@
       "size_bytes": 17065,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36125,7 +36625,8 @@
       "size_bytes": 73068,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36138,7 +36639,8 @@
       "size_bytes": 16613,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36162,7 +36664,8 @@
       "size_bytes": 72979,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36175,7 +36678,8 @@
       "size_bytes": 3032,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36199,7 +36703,8 @@
       "size_bytes": 10211,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36212,7 +36717,8 @@
       "size_bytes": 5240,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36236,7 +36742,8 @@
       "size_bytes": 19473,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36249,7 +36756,8 @@
       "size_bytes": 5406,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36273,7 +36781,8 @@
       "size_bytes": 19708,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36286,7 +36795,8 @@
       "size_bytes": 7124,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36310,7 +36820,8 @@
       "size_bytes": 24186,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36323,7 +36834,8 @@
       "size_bytes": 4662,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36347,7 +36859,8 @@
       "size_bytes": 23218,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36360,7 +36873,8 @@
       "size_bytes": 6346,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36384,7 +36898,8 @@
       "size_bytes": 24903,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36397,7 +36912,8 @@
       "size_bytes": 40999,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36421,7 +36937,8 @@
       "size_bytes": 170198,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36434,7 +36951,8 @@
       "size_bytes": 51525,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36458,7 +36976,8 @@
       "size_bytes": 209668,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36471,7 +36990,8 @@
       "size_bytes": 51577,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36495,7 +37015,8 @@
       "size_bytes": 214610,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36508,7 +37029,8 @@
       "size_bytes": 50393,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36532,7 +37054,8 @@
       "size_bytes": 205653,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36710,7 +37233,8 @@
       "size_bytes": 106483,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36734,7 +37258,8 @@
       "size_bytes": 504750,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36747,7 +37272,8 @@
       "size_bytes": 3903,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36771,7 +37297,8 @@
       "size_bytes": 15267,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36784,7 +37311,8 @@
       "size_bytes": 2279,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36808,7 +37336,8 @@
       "size_bytes": 7808,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36821,7 +37350,8 @@
       "size_bytes": 2254,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36845,7 +37375,8 @@
       "size_bytes": 7581,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36858,7 +37389,8 @@
       "size_bytes": 2101,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -36882,7 +37414,8 @@
       "size_bytes": 7317,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -40746,7 +41279,8 @@
       "size_bytes": 1920,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -40771,6 +41305,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_filename",
         "duplicate_stem"
       ]
@@ -40811,6 +41346,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_filename",
         "duplicate_stem"
       ]
@@ -40851,6 +41387,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_filename",
         "duplicate_stem"
       ]
@@ -40956,7 +41493,8 @@
       "size_bytes": 144611,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -40969,7 +41507,8 @@
       "size_bytes": 152002,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -41006,7 +41545,8 @@
       "size_bytes": 4466,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -41019,7 +41559,8 @@
       "size_bytes": 5510,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -41032,7 +41573,8 @@
       "size_bytes": 272759,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -41045,7 +41587,8 @@
       "size_bytes": 30278,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -41058,7 +41601,8 @@
       "size_bytes": 9533,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -41082,7 +41626,8 @@
       "size_bytes": 2174,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -41173,6 +41718,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -41187,6 +41733,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -41201,6 +41748,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -41214,7 +41762,8 @@
       "size_bytes": 1024,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -42019,6 +42568,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -42033,6 +42583,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -42047,6 +42598,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -42311,6 +42863,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -42325,6 +42878,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -42338,7 +42892,8 @@
       "size_bytes": 1843,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -42844,6 +43399,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -42858,6 +43414,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -42989,7 +43546,8 @@
       "size_bytes": 111911,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -43002,7 +43560,8 @@
       "size_bytes": 78511,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -43015,7 +43574,8 @@
       "size_bytes": 72140,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -43028,7 +43588,8 @@
       "size_bytes": 18892,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -43041,7 +43602,8 @@
       "size_bytes": 45960,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -43083,6 +43645,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -43097,6 +43660,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -43236,7 +43800,8 @@
       "size_bytes": 4954,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -62104,6 +62669,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62118,6 +62684,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62132,6 +62699,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62146,6 +62714,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62160,6 +62729,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62174,6 +62744,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62261,7 +62832,8 @@
       "size_bytes": 3903,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -62274,7 +62846,8 @@
       "size_bytes": 2279,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -62287,7 +62860,8 @@
       "size_bytes": 2254,
       "git_state": "tracked",
       "flags": [
-        "generated_evidence_output"
+        "generated_evidence_output",
+        "generated_dated_artifact"
       ]
     },
     {
@@ -62391,6 +62965,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62405,6 +62980,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62419,6 +62995,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62433,6 +63010,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62447,6 +63025,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -62461,6 +63040,7 @@
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
+        "generated_dated_artifact",
         "duplicate_stem"
       ]
     },
@@ -66097,7 +66677,7 @@
       "name": "project_structure_inventory.py",
       "stem": "project_structure_inventory",
       "suffix": ".py",
-      "size_bytes": 23566,
+      "size_bytes": 26979,
       "git_state": "tracked",
       "flags": []
     },
@@ -66108,7 +66688,7 @@
       "name": "project_structure_inventory_rendering.py",
       "stem": "project_structure_inventory_rendering",
       "suffix": ".py",
-      "size_bytes": 7233,
+      "size_bytes": 8359,
       "git_state": "tracked",
       "flags": []
     },

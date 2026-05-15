@@ -39,6 +39,7 @@ def render_project_structure_markdown(report: Mapping[str, object]) -> str:
     _append_candidate_counts(lines, report)
     _append_top_directories(lines, report)
     _append_generated_output_counts(lines, report)
+    _append_generated_output_retention_buckets(lines, report)
     _append_duplicate_table(lines, "Duplicate Filenames", report.get("duplicate_filename_groups"))
     _append_duplicate_table(lines, "Duplicate Stems", report.get("duplicate_stem_groups"))
     _append_unreferenced_scripts(lines, report)
@@ -130,6 +131,36 @@ def _append_generated_output_counts(lines: list[str], report: Mapping[str, objec
         item = _as_mapping(row)
         lines.append(
             f"| `{item.get('path')}` | {item.get('file_count')} | {item.get('total_file_bytes')} |"
+        )
+
+
+def _append_generated_output_retention_buckets(
+    lines: list[str], report: Mapping[str, object]
+) -> None:
+    lines.extend(
+        [
+            "",
+            "## Generated Output Retention Buckets",
+            "",
+            "| Bucket | Files | Bytes | Latest | Dated | Review Posture | Sample Paths |",
+            "| --- | ---: | ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    rows = [_as_mapping(row) for row in _sequence(report.get("generated_output_retention_buckets"))]
+    if not rows:
+        lines.append("| _None detected._ | 0 | 0 | 0 | 0 |  |  |")
+        return
+    for row in rows:
+        samples = "<br>".join(f"`{path}`" for path in _sequence(row.get("sample_paths"))[:4])
+        lines.append(
+            "| "
+            f"`{row.get('bucket')}` | "
+            f"{row.get('file_count')} | "
+            f"{row.get('total_file_bytes')} | "
+            f"{row.get('latest_alias_count')} | "
+            f"{row.get('dated_artifact_count')} | "
+            f"{row.get('review_posture')} | "
+            f"{samples} |"
         )
 
 

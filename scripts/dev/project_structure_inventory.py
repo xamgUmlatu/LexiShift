@@ -92,11 +92,25 @@ REFERENCE_SCAN_EXCLUDED_PREFIXES = (
 )
 CODE_SUFFIXES = {".cjs", ".js", ".jsx", ".mjs", ".py", ".sh", ".ts", ".tsx"}
 GENERATED_REPORT_SUFFIXES = {".csv", ".html", ".json", ".md"}
+GENERATED_OUTPUT_BUCKETS: Mapping[str, str] = {
+    "baseline": "retain: quality baselines need explicit rationale before changes",
+    "dev_workflow_operational": "retain latest: workflow reports support local and CI handoff",
+    "experiment_payload": "review by experiment: high-volume evidence, not deletion by size alone",
+    "journey_quality_evidence": "retain latest: SRS journey and quality evidence",
+    "license_resource_audit": "retain latest: resource/license audit evidence",
+    "phase_or_sample_evidence": "review after migration: older phase/sample evidence",
+    "root_latest_alias": "retain or reroute: active latest alias at docs/test_outputs root",
+    "root_dated_snapshot": "review after canonical summary exists",
+    "root_generated_other": "review owner before pruning",
+}
 LEGACY_NAME_RE = re.compile(
     r"(^|[_\-.])(archive|archived|backup|bak|copy|deprecated|legacy|old|temp|tmp)([_\-.]|$)",
     re.IGNORECASE,
 )
-DATE_RE = re.compile(r"\b(?:20\d{2})[-_](?:0[1-9]|1[0-2])[-_](?:0[1-9]|[12]\d|3[01])\b")
+DATE_RE = re.compile(
+    r"(?<!\d)(?:20\d{2}[-_](?:0[1-9]|1[0-2])[-_](?:0[1-9]|[12]\d|3[01])"
+    r"|20\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01]))(?!\d)"
+)
 COMMON_DUPLICATE_FILENAMES = {
     "__init__.py",
     "README.md",
@@ -177,9 +191,10 @@ def build_project_structure_inventory(
     top_level_counts = _directory_counts(rows, depth=1)
     second_level_counts = _directory_counts(rows, depth=2)
     generated_output_counts = _generated_output_counts(file_rows)
+    generated_output_retention_buckets = _generated_output_retention_buckets(file_rows)
 
     return {
-        "version": 1,
+        "version": 2,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "root": str(root),
         "ignored_dir_names": sorted(ignored_dir_names_set),
@@ -204,6 +219,7 @@ def build_project_structure_inventory(
         "top_level_counts": top_level_counts,
         "second_level_counts": second_level_counts,
         "generated_output_counts": generated_output_counts,
+        "generated_output_retention_buckets": generated_output_retention_buckets,
         "duplicate_filename_groups": duplicate_filename_groups,
         "duplicate_stem_groups": duplicate_stem_groups,
         "script_reference_rows": script_reference_rows,
@@ -531,6 +547,62 @@ def _generated_output_counts(file_rows: Sequence[Mapping[str, object]]) -> list[
     ]
     output.sort(key=lambda row: (-int(row["file_count"]), str(row["path"])))
     return output
+
+
+def _generated_output_retention_buckets(
+    file_rows: Sequence[Mapping[str, object]],
+) -> list[dict[str, object]]:
+    grouped: dict[str, list[Mapping[str, object]]] = defaultdict(list)
+    for row in file_rows:
+        path = str(row["path"])
+        if path.startswith("docs/test_outputs/"):
+            grouped[_generated_output_bucket(path)].append(row)
+    output: list[dict[str, object]] = []
+    for bucket, rows in grouped.items():
+        sorted_rows = sorted(rows, key=lambda row: str(row["path"]))
+        output.append(
+            {
+                "bucket": bucket,
+                "review_posture": GENERATED_OUTPUT_BUCKETS.get(bucket, "review owner first"),
+                "file_count": len(rows),
+                "total_file_bytes": sum(int(row.get("size_bytes") or 0) for row in rows),
+                "latest_alias_count": sum(
+                    1 for row in rows if "_latest" in str(row.get("name") or "")
+                ),
+                "dated_artifact_count": sum(
+                    1 for row in rows if DATE_RE.search(str(row.get("path") or ""))
+                ),
+                "sample_paths": [str(row["path"]) for row in sorted_rows[:8]],
+            }
+        )
+    output.sort(key=lambda row: (-int(row["file_count"]), str(row["bucket"])))
+    return output
+
+
+def _generated_output_bucket(path: str) -> str:
+    if path.startswith("docs/test_outputs/baselines/"):
+        return "baseline"
+    if path.startswith("docs/test_outputs/dev_workflow/") or path.startswith(
+        "docs/test_outputs/project_health/"
+    ):
+        return "dev_workflow_operational"
+    if path.startswith("docs/test_outputs/experiments/"):
+        return "experiment_payload"
+    if path.startswith("docs/test_outputs/srs_journey/") or Path(path).name.startswith(
+        "srs_quality"
+    ):
+        return "journey_quality_evidence"
+    if path.startswith("docs/test_outputs/licensing_header_audit/") or path.startswith(
+        "docs/test_outputs/resource_integrity_audit/"
+    ):
+        return "license_resource_audit"
+    if path.startswith("docs/test_outputs/ja_en/") or path.startswith("docs/test_outputs/phase"):
+        return "phase_or_sample_evidence"
+    if "_latest" in Path(path).name:
+        return "root_latest_alias"
+    if DATE_RE.search(path):
+        return "root_dated_snapshot"
+    return "root_generated_other"
 
 
 def _duplicate_groups(

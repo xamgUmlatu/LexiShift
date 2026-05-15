@@ -553,6 +553,11 @@ Current progress:
 - The dominant structure signal is generated-evidence accumulation:
   `docs/test_outputs` accounts for `2,571` paths, including `740` files under
   `docs/test_outputs/experiments`.
+- Generated-output retention review now has first-class inventory buckets for
+  baselines, dev-workflow operational reports, experiment payloads, SRS journey
+  evidence, audit evidence, older phase/sample evidence, root latest aliases,
+  and root dated snapshots. These buckets do not hide any paths; they make the
+  next prune/archive pass class-based instead of size-based.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
@@ -582,8 +587,9 @@ Current progress:
 Next review step:
 
 1. review `../test_outputs/dev_workflow/project_structure_latest.md`,
-2. choose one narrow cleanup queue, likely generated-output retention/routing,
-   duplicate evidence families, or another clearly bounded structure signal,
+2. choose one narrow cleanup queue, likely experiment payload retention,
+   root-level latest alias routing, duplicate evidence families, or another
+   clearly bounded structure signal,
 3. prove exact references, generated-artifact ownership, and historical value
    before archiving or deleting anything.
 

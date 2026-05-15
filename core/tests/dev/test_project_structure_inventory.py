@@ -87,7 +87,21 @@ class ProjectStructureInventoryTests(unittest.TestCase):
 
         self.assertIn("# Project Structure Inventory", markdown)
         self.assertIn("## Candidate Signal Counts", markdown)
+        self.assertIn("## Generated Output Retention Buckets", markdown)
         self.assertIn("scripts/testing/orphan_probe.py", markdown)
+
+    def test_generated_output_retention_buckets_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            _write_fixture_tree(root)
+
+            report = build_project_structure_inventory(root)
+
+        bucket_rows = {row["bucket"]: row for row in report["generated_output_retention_buckets"]}
+        self.assertEqual(bucket_rows["baseline"]["file_count"], 1)
+        self.assertEqual(bucket_rows["dev_workflow_operational"]["latest_alias_count"], 1)
+        self.assertEqual(bucket_rows["experiment_payload"]["dated_artifact_count"], 1)
+        self.assertEqual(bucket_rows["root_latest_alias"]["latest_alias_count"], 1)
 
 
 def _write_fixture_tree(root: Path) -> None:
@@ -113,6 +127,9 @@ def _write_fixture_tree(root: Path) -> None:
         "docs/b/duplicate.md": "two\n",
         "docs/archive/old_packet.md": "old\n",
         "docs/test_outputs/example_latest.json": "{}\n",
+        "docs/test_outputs/baselines/rulegen_quality_baseline.json": "{}\n",
+        "docs/test_outputs/dev_workflow/check_latest.json": "{}\n",
+        "docs/test_outputs/experiments/research-run-20260102.json": "{}\n",
         "core/lexishift_core/runtime.py": "VALUE = 1\n",
         "core/tests/test_runtime.py": "def test_runtime(): pass\n",
         ".git/ignored.txt": "ignored\n",

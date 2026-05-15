@@ -3,7 +3,7 @@
 Status: Active policy
 Role: Canonical current
 Owner: engineering
-Last updated: 2026-03-17
+Last updated: 2026-05-16
 Source-of-truth: documentation policy; enforced through `scripts/dev/check_doc_references.py` and the linked routing docs.
 
 ## Purpose
@@ -138,6 +138,18 @@ Treat these as non-authoritative outputs unless explicitly referenced as evidenc
 3. `docs/.jekyll-cache/`
 
 They may be operationally useful, but they should not become the default planning path.
+
+Generated evidence cleanup must start from ownership and retention class, not
+from size or duplicate filenames alone. Use
+`npm --prefix scripts run inventory:structure` to review the generated-output
+retention buckets before pruning:
+
+1. baselines require explicit metric/rationale notes,
+2. dev-workflow and SRS journey latest artifacts support handoff and CI review,
+3. experiment payloads require a surviving summary or canonical downstream
+   artifact before archival,
+4. older phase/sample evidence should be migrated or summarized before removal,
+5. root-level latest aliases should be rerouted before any delete/archive move.
 
 ## Handoff To Grooming
 
