@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -28,11 +28,13 @@ Related docs:
 - `../../scripts/testing/pack_lifecycle_manual_backfill.py`
 - `../../scripts/testing/pack_lifecycle_manual_resources.py`
 - `../../scripts/testing/pack_lifecycle_provenance_backfill.py`
+- `../../scripts/testing/pack_lifecycle_promotion_evidence.py`
 - `../../core/tests/helper/test_pack_provenance.py`
 - `../../core/tests/dev/test_pack_lifecycle_audit.py`
 - `../../core/tests/dev/test_pack_lifecycle_external_import_plan.py`
 - `../../core/tests/dev/test_pack_lifecycle_manual_backfill.py`
 - `../../core/tests/dev/test_pack_lifecycle_provenance_backfill.py`
+- `../../core/tests/dev/test_pack_lifecycle_promotion_evidence.py`
 - `../../apps/gui/tests/test_pack_provenance_sidecars.py`
 - `../../apps/gui/tests/test_language_pack_table_mixin.py`
 
@@ -58,6 +60,7 @@ Completed slices:
 12. L6-La: external/manual import preflight plan.
 13. L6-Ma: lifecycle-audit provenance review posture.
 14. L6-Na: strict pack lifecycle review gate.
+15. L6-Oa: promotion evidence bundle contract.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -113,9 +116,11 @@ Before any larger Spanish corpus is promoted as a default or semi-default pack:
 5. run the SRS Zipf bridge and denominator audit only after the candidate
    passes source-readiness review,
 6. keep the current 2k `freq-es-cde` audit as the comparison baseline,
-7. do not launch paid semantic-veto generation until the expanded rulegen
+7. run the promotion evidence bundle before product testing, release packaging,
+   default promotion, or paid generation,
+8. do not launch paid semantic-veto generation until the expanded rulegen
    denominator separates covered, uncovered, weak, and no-visible families,
-8. update this inventory, the corpus-expansion plan, and the denominator doc
+9. update this inventory, the corpus-expansion plan, and the denominator doc
    together when a candidate is promoted or rejected.
 
 ## Current Findings
@@ -165,6 +170,9 @@ What is already solid:
     coverage, generated artifact checksum presence, and review reasons.
 17. The lifecycle audit now supports a strict `--fail-on-review` mode for
     promotion/release gates while preserving non-strict local audit behavior.
+18. `pack_lifecycle_promotion_evidence.py` now makes the promotion evidence
+    bundle executable by checking lifecycle, source-readiness, SRS Zipf bridge,
+    and denominator artifacts together before promotion.
 
 Loose ends to close before broad expansion:
 
@@ -200,6 +208,9 @@ Loose ends to close before broad expansion:
 12. Strict lifecycle gating can fail on review findings, but it still does not
     replace the source-readiness, SRS Zipf bridge, or denominator audits needed
     before expanded corpus promotion.
+13. The promotion evidence bundle checks that required proof artifacts exist
+    and pass; it does not create missing source-version, converter-version,
+    parser-config, build-command, or checksum lineage.
 
 ## L6-B Pack Provenance Sidecar Contract
 
@@ -433,6 +444,69 @@ python3 -m ruff check \
 python3 -m ruff format --check \
   scripts/testing/pack_lifecycle_audit.py \
   core/tests/dev/test_pack_lifecycle_audit.py
+```
+
+## L6-Oa Promotion Evidence Bundle
+
+Product claim:
+
+- A candidate pack should not be promoted from scattered green-looking
+  artifacts; the exact evidence bundle should be executable and fail when a
+  required proof file is missing, stale, review-level, or pointed at the wrong
+  pack/pair.
+
+Current implementation:
+
+- `scripts/testing/pack_lifecycle_promotion_evidence.py` reads existing JSON
+  artifacts and emits a JSON/Markdown bundle report.
+- For `pack-kind = frequency`, the required bundle is:
+  - strict-ready pack lifecycle audit,
+  - source-readiness/corpus-expansion audit,
+  - SRS Zipf bridge,
+  - denominator audit.
+- The lifecycle evidence must have `summary.status = ok`, zero
+  `provenance_review_required_count`, and a matching pack row with manifest,
+  artifact, valid provenance, and no per-pack provenance review requirement.
+- The downstream evidence must have `status = ok`, the expected decision id,
+  and the requested pair.
+- `--fail-on-review` exits non-zero unless the whole bundle status is `ok`.
+
+Default command:
+
+```bash
+python3 scripts/testing/pack_lifecycle_promotion_evidence.py \
+  --pack-id freq-es-expanded-v1 \
+  --pack-kind frequency \
+  --pair en-es \
+  --pack-lifecycle-json docs/test_outputs/pack_lifecycle_audit_en_es_candidate.json \
+  --source-readiness-json docs/test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_candidate.json \
+  --srs-zipf-bridge-json docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.json \
+  --denominator-json docs/test_outputs/semantic_veto_denominator_audit_en_es_expanded_candidate.json \
+  --json-out docs/test_outputs/pack_lifecycle_promotion_evidence_en_es_candidate.json \
+  --markdown-out docs/test_outputs/pack_lifecycle_promotion_evidence_en_es_candidate.md \
+  --fail-on-review
+```
+
+Boundaries:
+
+1. This does not approve licenses, choose sources, install packs, rewrite
+   settings, promote defaults, or launch generation.
+2. This does not replace the underlying audits; it only verifies that their
+   outputs form a complete promotion gate.
+3. Non-frequency packs currently require lifecycle evidence first; family-specific
+   downstream bundles should be added only when their promotion path
+   has an equivalent downstream proof sequence.
+
+Validation:
+
+```bash
+python3 -m pytest core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff check \
+  scripts/testing/pack_lifecycle_promotion_evidence.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
+python3 -m ruff format --check \
+  scripts/testing/pack_lifecycle_promotion_evidence.py \
+  core/tests/dev/test_pack_lifecycle_promotion_evidence.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -1019,6 +1093,7 @@ python3 -m ruff format --check \
 | L6-L External/manual import preflight | Completed first read-only executable import plan so manually acquired sources can be format-gated and review-gated before any UX/import mutation. | `pack_lifecycle_external_import_plan.py`, focused tests, and documented command contract. |
 | L6-M Provenance review posture | Completed first lifecycle-audit reporting slice that distinguishes schema-valid sidecars from release/promotion readiness. | `provenance_review` audit fields, summary counts, Markdown review table, and focused tests. |
 | L6-N Strict lifecycle review gate | Completed first strict audit gate for promotion/release checks without changing default local-audit behavior. | `--fail-on-review`, exit-code helper, candidate runbook update, and focused tests. |
+| L6-O Promotion evidence bundle | Completed first executable bundle gate for frequency-pack promotion evidence. | `pack_lifecycle_promotion_evidence.py`, focused tests, and candidate runbook update. |
 
 ## Validation Bundle For L6-A
 

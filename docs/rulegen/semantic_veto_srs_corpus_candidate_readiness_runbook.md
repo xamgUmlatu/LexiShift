@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 6 pack lifecycle audit command with strict review gate, source-readiness audit command, SRS Zipf bridge command, and denominator audit command review
+Last verified: 2026-05-15 Lane 6 pack lifecycle audit command with strict review gate, source-readiness audit command, SRS Zipf bridge command, denominator audit command review, and promotion evidence bundle command
 Purpose: give future agents a copy-pasteable sequence for evaluating an en-es Spanish SRS corpus or frequency-pack candidate before promotion or paid semantic-veto generation
 Source-of-truth: runbook only; current runtime truth lives in source code, generated artifacts, pack manifests, and the owning Lane 6 inventory.
 Related docs:
@@ -165,7 +165,37 @@ Interpret the candidate by bucket:
 | Domain/preference target with low general frequency | Keep as user-preference overlay, not general baseline. |
 | Poor learner target or bad source mapping | Exclude or keep out of default admission. |
 
-## Step 5: Update Canonical Docs Before Generation
+## Step 5: Promotion Evidence Bundle
+
+After the lifecycle, source-readiness, SRS Zipf bridge, and denominator
+artifacts have candidate-specific filenames, run the bundle gate:
+
+```bash
+python3 scripts/testing/pack_lifecycle_promotion_evidence.py \
+  --pack-id freq-es-expanded-v1 \
+  --pack-kind frequency \
+  --pair en-es \
+  --pack-lifecycle-json docs/test_outputs/pack_lifecycle_audit_en_es_candidate.json \
+  --source-readiness-json docs/test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_candidate.json \
+  --srs-zipf-bridge-json docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.json \
+  --denominator-json docs/test_outputs/semantic_veto_denominator_audit_en_es_expanded_candidate.json \
+  --json-out docs/test_outputs/pack_lifecycle_promotion_evidence_en_es_candidate.json \
+  --markdown-out docs/test_outputs/pack_lifecycle_promotion_evidence_en_es_candidate.md \
+  --fail-on-review
+```
+
+Interpretation:
+
+- `status = ok`: the required promotion evidence exists and is promotion-grade.
+- `status = review`: at least one supplied proof artifact is review-level.
+- `status = error`: at least one required proof artifact is missing, unreadable,
+  pointed at the wrong pack, or otherwise not usable as promotion evidence.
+
+This command does not approve the source, install the pack, promote defaults, or
+launch generation. It only checks that the required proof artifacts form a
+complete candidate bundle.
+
+## Step 6: Update Canonical Docs Before Generation
 
 Before any paid generation or default promotion:
 
@@ -199,6 +229,7 @@ A candidate is ready for product testing only when all of these are true:
 - topic/domain coverage is present or explicitly deferred,
 - SRS Zipf bridge with full rulegen was rerun,
 - denominator audit separates covered, uncovered, weak, and no-visible families,
+- promotion evidence bundle with `--fail-on-review` passes,
 - no paid generation is launched before the new denominator is understood.
 
 ## Handoff Summary Template
@@ -215,6 +246,7 @@ Pack lifecycle audit JSON/MD:
 Source-readiness audit JSON/MD:
 SRS Zipf bridge JSON/MD:
 Denominator audit JSON/MD:
+Promotion evidence JSON/MD:
 Current decision:
 Next required action:
 Do not overwrite freq-es-cde:
