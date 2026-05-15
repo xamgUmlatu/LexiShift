@@ -95,6 +95,7 @@ def build_source_identity_plan(*, generated_at: str | None = None) -> dict[str, 
 
 def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
     summary = _as_mapping(report.get("summary"))
+    policy_category_counts = _as_mapping(summary.get("policy_category_counts"))
     lines = [
         "# Pack Lifecycle Source Identity Plan",
         "",
@@ -117,10 +118,21 @@ def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
     lines.extend(
         [
             "",
+            "## Source Policy Categories",
+            "",
+            "| Category | Count |",
+            "| --- | ---: |",
+        ]
+    )
+    for category, count in sorted(policy_category_counts.items()):
+        lines.append(f"| `{_escape_md(str(category))}` | `{count}` |")
+    lines.extend(
+        [
+            "",
             "## Pack Candidates",
             "",
-            "| Family | Pack | Classification | Field | Candidate | Rationale | Recommended Action |",
-            "| --- | --- | --- | --- | --- | --- | --- |",
+            "| Family | Pack | Classification | Policy Category | Field | Candidate | Rationale | Recommended Action |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for row in _mapping_rows(report.get("packs")):
@@ -131,6 +143,7 @@ def render_source_identity_plan_markdown(report: Mapping[str, object]) -> str:
                     f"`{_escape_md(str(row.get('family') or ''))}`",
                     f"`{_escape_md(str(row.get('pack_id') or ''))}`",
                     f"`{_escape_md(str(row.get('classification') or ''))}`",
+                    f"`{_escape_md(str(row.get('policy_category') or ''))}`",
                     f"`{_escape_md(str(row.get('candidate_field') or ''))}`",
                     f"`{_escape_md(str(row.get('candidate_value') or ''))}`",
                     _escape_md(str(row.get("rationale") or "")),
@@ -154,6 +167,7 @@ def _classify_pack(*, family: str, pack: object) -> dict[str, object]:
         classification=decision.classification,
         rationale=decision.rationale,
         recommended_action=decision.recommended_action,
+        policy_category=_policy_category(decision),
     )
 
 
@@ -166,6 +180,7 @@ def _row(
     classification: str,
     rationale: str,
     recommended_action: str,
+    policy_category: str,
 ) -> dict[str, object]:
     return {
         "family": family,
@@ -178,6 +193,7 @@ def _row(
         "candidate_field": candidate_field,
         "candidate_value": candidate_value,
         "classification": classification,
+        "policy_category": policy_category,
         "rationale": rationale,
         "recommended_action": recommended_action,
     }
@@ -188,6 +204,7 @@ def _summary(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
     for row in rows:
         classification = str(row.get("classification") or "unknown")
         counts[classification] = counts.get(classification, 0) + 1
+    policy_category_counts = _count_by_key(rows, "policy_category")
     needs_decision = sum(
         counts.get(classification, 0)
         for classification in ("label_only", "needs_policy", "source_bundle_needed", "unknown")
@@ -195,9 +212,43 @@ def _summary(rows: Sequence[Mapping[str, object]]) -> dict[str, object]:
     return {
         "pack_count": len(rows),
         "classification_counts": counts,
+        "policy_category_counts": policy_category_counts,
         "safe_to_write_count": counts.get("safe_to_write", 0),
         "needs_decision_count": needs_decision,
     }
+
+
+def _policy_category(decision: object) -> str:
+    classification = _text(getattr(decision, "classification", ""))
+    candidate_field = _text(getattr(decision, "candidate_field", ""))
+    recommended_action = _text(getattr(decision, "recommended_action", ""))
+    if classification == "safe_to_write":
+        return "ready_source_identity"
+    if classification == "source_bundle_needed":
+        return "source_bundle_lineage_policy"
+    if classification == "label_only":
+        return "source_label_policy"
+    if recommended_action == "record_dated_wiktextract_dump_before_writing_source_dump":
+        return "dated_wiktextract_dump_pinning"
+    if recommended_action == "confirm_fasttext_release_or_snapshot_before_writing_source_version":
+        return "fasttext_release_snapshot_policy"
+    if recommended_action == "pin_source_commit_or_snapshot_before_writing_source_version":
+        return "branch_source_pinning"
+    if recommended_action == "confirm_release_or_snapshot_semantics_before_writing_source_version":
+        return "release_snapshot_policy"
+    if candidate_field == "source_dump":
+        return "source_dump_policy"
+    if candidate_field == "source_version":
+        return "source_version_policy"
+    return "manual_source_identity_review"
+
+
+def _count_by_key(rows: Sequence[Mapping[str, object]], key: str) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for row in rows:
+        value = str(row.get(key) or "").strip() or "missing"
+        counts[value] = counts.get(value, 0) + 1
+    return dict(sorted(counts.items()))
 
 
 def _utc_now() -> str:

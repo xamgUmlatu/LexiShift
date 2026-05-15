@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, and the SRS quality harness
+Last verified: 2026-05-16 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, frequency SQLite metric sidecar tests, source-bundle checksum coverage tests, generated DE component checksum capture tests, executable provenance policy tests, source-bundle pinning policy tests, source-policy decision queue tests, source-identity policy category tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -86,6 +86,7 @@ Completed slices:
 27. L6-Zb: executable provenance promotion policy.
 28. L6-Zc: source-bundle promotion pinning policy.
 29. L6-Zd: source-policy decision queue.
+30. L6-Ze: source-identity policy category taxonomy.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -250,6 +251,11 @@ What is already solid:
     recommended actions, such as license review, source identity, raw/generated
     checksums, source-bundle checksum coverage, source-bundle pinning, and
     frequency metrics.
+32. The source-identity plan now groups catalog rows by source-policy category,
+    so the remaining `19` non-safe rows are no longer a flat queue: `3`
+    dated-Wiktextract dump-pinning rows, `8` fastText release/snapshot policy
+    rows, `2` branch-source pinning rows, `3` release/snapshot policy rows, `2`
+    source-label policy rows, and `1` source-bundle lineage policy row.
 
 Loose ends to close before broad expansion:
 
@@ -803,6 +809,9 @@ Current implementation:
   - `unknown`.
 - It records the candidate field, candidate value, rationale, and recommended
   action for each catalog row.
+- It also records `policy_category` for each row and
+  `summary.policy_category_counts`, so source-policy follow-up can target a
+  category instead of a flat `needs_policy` bucket.
 - Current catalog summary from the focused test/CLI run:
   - `27` catalog rows,
   - `8` `safe_to_write`,
@@ -810,6 +819,14 @@ Current implementation:
   - `16` `needs_policy`,
   - `1` `source_bundle_needed`,
   - `0` `unknown`.
+- Current policy-category summary from the same focused run:
+  - `8` `ready_source_identity`,
+  - `3` `dated_wiktextract_dump_pinning`,
+  - `8` `fasttext_release_snapshot_policy`,
+  - `2` `branch_source_pinning`,
+  - `3` `release_snapshot_policy`,
+  - `2` `source_label_policy`,
+  - `1` `source_bundle_lineage_policy`.
 - Safe candidates include explicit release/version-like catalog evidence such as
   FreeDict release archives, Japanese WordNet `v1.1`, English WordNet 2025, and
   BCCWJ `ver1_0`.
@@ -2021,6 +2038,7 @@ python3 -m ruff format --check \
 | L6-Zb Provenance promotion policy | Completed first reusable executable policy verdict for promotion-oriented provenance checks. | `pack_lifecycle_policy.py`, audit `provenance_policy` rows, promotion evidence policy checks, and focused tests. |
 | L6-Zc Source-bundle promotion pinning policy | Completed first promotion-policy blocker for URL-recorded but unpinned source bundles. | Source-bundle pointer/pinning policy checks and focused policy/audit tests. |
 | L6-Zd Source-policy decision queue | Completed first read-only queue of concrete source-policy blockers and recommended review actions. | `pack_lifecycle_source_policy_decisions.py`, `source_policy_decisions` JSON, Markdown decision table, and focused audit tests. |
+| L6-Ze Source-identity policy category taxonomy | Completed first category breakdown for catalog source-identity decisions. | `policy_category` rows, category summary counts, Markdown category table, and focused source-identity plan tests. |
 
 ## Validation Bundle For L6-A
 

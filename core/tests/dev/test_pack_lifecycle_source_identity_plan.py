@@ -31,10 +31,27 @@ class PackLifecycleSourceIdentityPlanTests(unittest.TestCase):
         self.assertEqual(rows["freedict-en-es"]["candidate_field"], "source_version")
         self.assertEqual(rows["freedict-en-es"]["candidate_value"], "freedict-eng-spa-2025.11.23")
         self.assertEqual(rows["freq-es-cde"]["classification"], "label_only")
+        self.assertEqual(rows["freq-es-cde"]["policy_category"], "source_label_policy")
         self.assertEqual(rows["freq-es-cde"]["candidate_value"], "spanish_lemmas20k")
         self.assertEqual(rows["wiktionary-en-es"]["classification"], "needs_policy")
         self.assertEqual(rows["wiktionary-en-es"]["candidate_field"], "source_dump")
+        self.assertEqual(
+            rows["wiktionary-en-es"]["policy_category"],
+            "dated_wiktextract_dump_pinning",
+        )
         self.assertEqual(rows["freq-de-default"]["classification"], "source_bundle_needed")
+        self.assertEqual(
+            rows["freq-de-default"]["policy_category"],
+            "source_bundle_lineage_policy",
+        )
+        self.assertEqual(
+            report["summary"]["policy_category_counts"]["dated_wiktextract_dump_pinning"],
+            3,
+        )
+        self.assertEqual(
+            report["summary"]["policy_category_counts"]["fasttext_release_snapshot_policy"],
+            8,
+        )
         self.assertGreater(report["summary"]["needs_decision_count"], 0)
 
     def test_markdown_renders_decision_surface_rows(self) -> None:
@@ -43,6 +60,9 @@ class PackLifecycleSourceIdentityPlanTests(unittest.TestCase):
         markdown = render_source_identity_plan_markdown(report)
 
         self.assertIn("# Pack Lifecycle Source Identity Plan", markdown)
+        self.assertIn("Source Policy Categories", markdown)
+        self.assertIn("`dated_wiktextract_dump_pinning`", markdown)
+        self.assertIn("`fasttext_release_snapshot_policy`", markdown)
         self.assertIn("`safe_to_write`", markdown)
         self.assertIn("`source_bundle_needed`", markdown)
         self.assertIn("freedict-en-es", markdown)
