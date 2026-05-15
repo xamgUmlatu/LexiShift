@@ -306,6 +306,7 @@ def _validate_source_bundle(bundle: Mapping[str, object], errors: list[str]) -> 
             or _optional_text(item.get("build_ref"))
         ):
             errors.append(f"{item_path} must include source_url, local_source_path, or build_ref")
+        _validate_checksums(item, item_path, errors)
 
 
 def _validate_metrics(

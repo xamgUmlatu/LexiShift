@@ -73,9 +73,21 @@ class PackLifecycleAuditTests(unittest.TestCase):
             frequency["packs"][0]["provenance_lineage"]["source_bundle_id"],
             "freq-es-expanded-v1:fixture",
         )
+        self.assertEqual(
+            frequency["packs"][0]["provenance_lineage"]["source_bundle_component_checksum_count"],
+            1,
+        )
+        self.assertEqual(
+            frequency["packs"][0]["provenance_lineage"][
+                "source_bundle_component_missing_checksum_count"
+            ],
+            0,
+        )
+        self.assertEqual(frequency["source_bundle_component_checksum_count"], 1)
+        self.assertEqual(frequency["source_bundle_component_missing_checksum_count"], 0)
         self.assertEqual(frequency["license_status_counts"], {"confirmed": 1})
         self.assertIn("Source/Build Lineage", markdown)
-        self.assertIn("freq-es-expanded-v1:fixture", markdown)
+        self.assertIn("freq-es-expanded-v1:fixture (1/1 component checksums)", markdown)
         self.assertIn("convert_frequency_to_sqlite", markdown)
 
     def test_report_surfaces_valid_provenance_that_still_needs_review(self) -> None:
@@ -353,6 +365,7 @@ def _valid_provenance(
                         "source_name": "Corpus del Espanol frequency sample",
                         "source_url": "https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt",
                         "filename": "spanish_lemmas20k.txt",
+                        "sha256": "2" * 64,
                     }
                 ],
             },

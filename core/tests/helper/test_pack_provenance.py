@@ -87,6 +87,7 @@ class TestPackProvenance(unittest.TestCase):
                     "source_name": "Leipzig Wortschatz",
                     "source_url": "https://example.com/deu_news_2023_1M.tar.gz",
                     "filename": "deu_news_2023_1M.tar.gz",
+                    "sha256": "a" * 64,
                 },
                 {
                     "role": "pos_tooling",
@@ -118,6 +119,28 @@ class TestPackProvenance(unittest.TestCase):
         self.assertIn(
             "source.source_bundle.components[0] must include source_url, "
             "local_source_path, or build_ref",
+            errors,
+        )
+
+    def test_rejects_invalid_source_bundle_component_checksums(self) -> None:
+        payload = _valid_frequency_payload()
+        payload["source"]["source_bundle"] = {
+            "bundle_id": "freq-de-default:de_frequency_pipeline",
+            "bundle_kind": "generated_frequency_pipeline",
+            "components": [
+                {
+                    "role": "corpus",
+                    "source_name": "Leipzig Wortschatz",
+                    "source_url": "https://example.com/deu_news_2023_1M.tar.gz",
+                    "sha256": "not-a-sha256",
+                }
+            ],
+        }
+
+        errors = validate_pack_provenance_payload(payload)
+
+        self.assertIn(
+            "source.source_bundle.components[0].sha256 must be 64 hex characters",
             errors,
         )
 
