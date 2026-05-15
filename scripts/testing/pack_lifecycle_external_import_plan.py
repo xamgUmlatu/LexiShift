@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -115,6 +116,11 @@ def build_external_import_plan(
     field_name_text = str(field_name or "").strip() or FAMILY_FIELD_NAMES.get(family_text, "")
     resolved_path = Path(path).expanduser().resolve(strict=False)
     path_exists = resolved_path.exists()
+    raw_checksum = _raw_checksum_evidence(
+        path=resolved_path,
+        raw_sha1=raw_sha1,
+        raw_sha256=raw_sha256,
+    )
     format_supported, expected_format = manual_path_format_support(
         field_name=field_name_text,
         family=family_text,
@@ -137,15 +143,15 @@ def build_external_import_plan(
         source_url=source_url,
         local_source_path=local_source_path,
         license_status=license_status,
-        raw_sha1=raw_sha1,
-        raw_sha256=raw_sha256,
+        raw_sha1=str(raw_checksum.get("sha1") or ""),
+        raw_sha256=str(raw_checksum.get("sha256") or ""),
     )
     preview_errors = list(validate_pack_provenance_payload(provenance_preview))
     promotion_blockers = _promotion_blockers(
         manual_link_allowed=manual_link_allowed,
         license_status=license_status,
-        raw_sha1=raw_sha1,
-        raw_sha256=raw_sha256,
+        raw_sha1=str(raw_checksum.get("sha1") or ""),
+        raw_sha256=str(raw_checksum.get("sha256") or ""),
         provenance_preview_errors=preview_errors,
         issues=issues,
     )
@@ -199,6 +205,7 @@ def build_external_import_plan(
             "ready": promotion_ready,
             "blocked_reasons": promotion_blockers,
         },
+        "raw_checksum": raw_checksum,
         "provenance_preview_valid": not preview_errors,
         "provenance_preview_errors": preview_errors,
         "provenance_preview": provenance_preview,
@@ -245,6 +252,8 @@ def render_external_import_plan_markdown(report: Mapping[str, object]) -> str:
         "",
         f"- Ready: `{promotion.get('ready')}`",
         "- Blocked reasons: " + _inline_list(_sequence(promotion.get("blocked_reasons"))),
+        "- Raw checksum source: "
+        f"`{_as_mapping(report.get('raw_checksum')).get('source') or 'none'}`",
         "",
         "## Issues",
         "",
@@ -325,6 +334,43 @@ def _provenance_preview(
             "artifact_relpath": path.name or ".",
             "artifact_kind": _artifact_kind(path),
         },
+    }
+
+
+def _raw_checksum_evidence(*, path: Path, raw_sha1: str, raw_sha256: str) -> dict[str, object]:
+    provided_sha1 = str(raw_sha1 or "").strip()
+    provided_sha256 = str(raw_sha256 or "").strip()
+    if provided_sha1 or provided_sha256:
+        return {
+            "sha1": provided_sha1,
+            "sha256": provided_sha256,
+            "source": "provided",
+        }
+    computed = _file_checksums(path)
+    if not computed:
+        return {
+            "sha1": "",
+            "sha256": "",
+            "source": "unavailable",
+        }
+    return {
+        **computed,
+        "source": "computed_from_external_path",
+    }
+
+
+def _file_checksums(path: Path) -> dict[str, str]:
+    if not path.is_file():
+        return {}
+    sha1 = hashlib.sha1()
+    sha256 = hashlib.sha256()
+    with path.open("rb") as handle:
+        while chunk := handle.read(1024 * 1024):
+            sha1.update(chunk)
+            sha256.update(chunk)
+    return {
+        "sha1": sha1.hexdigest(),
+        "sha256": sha256.hexdigest(),
     }
 
 

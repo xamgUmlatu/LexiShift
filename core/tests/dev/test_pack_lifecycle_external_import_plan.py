@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 import sqlite3
 import sys
@@ -46,8 +47,10 @@ class PackLifecycleExternalImportPlanTests(unittest.TestCase):
         self.assertEqual(report["managed_import"]["status"], "needs_source_or_license_review")
         self.assertFalse(report["promotion"]["ready"])
         self.assertIn("license_status_requires_review", report["promotion"]["blocked_reasons"])
-        self.assertIn("missing_raw_artifact_checksum", report["promotion"]["blocked_reasons"])
+        self.assertNotIn("missing_raw_artifact_checksum", report["promotion"]["blocked_reasons"])
+        self.assertEqual(report["raw_checksum"]["source"], "computed_from_external_path")
         self.assertTrue(report["provenance_preview_valid"])
+        self.assertIn("sha256", report["provenance_preview"]["source"]["raw_artifacts"][0])
         self.assertIn("requires_review", markdown)
 
     def test_unsupported_embedding_artifact_is_blocked_before_link_or_import(self) -> None:
@@ -94,6 +97,34 @@ class PackLifecycleExternalImportPlanTests(unittest.TestCase):
         self.assertEqual(report["managed_import"]["status"], "ready_for_explicit_operator_import")
         self.assertTrue(report["promotion"]["ready"])
         self.assertEqual(report["promotion"]["blocked_reasons"], [])
+
+    def test_supported_artifact_computes_checksum_when_operator_does_not_provide_one(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            vec_path = Path(tmp) / "manual.vec"
+            vec_bytes = b"hola 0.1 0.2\n"
+            vec_path.write_bytes(vec_bytes)
+
+            report = build_external_import_plan(
+                family="embedding",
+                pack_id="embed-manual-es",
+                path=vec_path,
+                source_name="Manual embedding source",
+                source_url="https://example.com/manual.vec",
+                license_status="confirmed",
+                generated_at="2026-05-15T00:00:00+00:00",
+            )
+
+        raw_checksum = report["raw_checksum"]
+        raw_artifact = report["provenance_preview"]["source"]["raw_artifacts"][0]
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual(report["decision"], "external_import_preflight_ready")
+        self.assertEqual(raw_checksum["source"], "computed_from_external_path")
+        self.assertEqual(raw_checksum["sha1"], hashlib.sha1(vec_bytes).hexdigest())
+        self.assertEqual(raw_checksum["sha256"], hashlib.sha256(vec_bytes).hexdigest())
+        self.assertEqual(raw_artifact["sha1"], hashlib.sha1(vec_bytes).hexdigest())
+        self.assertEqual(raw_artifact["sha256"], hashlib.sha256(vec_bytes).hexdigest())
 
 
 if __name__ == "__main__":

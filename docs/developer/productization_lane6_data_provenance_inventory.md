@@ -3,7 +3,7 @@
 Status: active inventory
 Role: Planning / WIP
 Last updated: 2026-05-15
-Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, and the SRS quality harness
+Last verified: 2026-05-15 read-only inspection of pack catalogs, source-manifest cache policy, installed-pack manifests, helper pack resolvers, semantic-pack installation/publication code, semantic data-lifecycle docs, en-es corpus-expansion audit plan, en-es candidate readiness runbook, focused pack-provenance validator tests, focused pack-lifecycle audit tests, semantic-pack provenance install tests, app-managed non-semantic pack sidecar tests, manual resource settings audit tests, constrained manual embedding selection tests, safe manual-settings backfill tests, source-lineage publication tests, existing-install provenance backfill tests, external import plan tests, provenance review posture tests, strict lifecycle gate tests, promotion evidence bundle tests, app-managed build/parser lineage tests, app-managed raw artifact checksum tests, app-managed converter source digest tests, source-identity classification tests, safe source-identity writer/backfill tests, dated Kaikki source-dump policy tests, source-bundle lineage tests, embedding/manual checksum lineage tests, and the SRS quality harness
 Purpose: record the current data-source, pack, manifest, installed-artifact, and generated-artifact lifecycle before corpus or semantic-veto expansion resumes
 Source-of-truth: inventory only; current runtime truth lives in source code, installed manifests, generated SQLite artifacts, helper publication manifests, tests, and seam-specific canonical docs.
 Related docs:
@@ -74,6 +74,7 @@ Completed slices:
 20. L6-Ta: safe source-version writer/backfill for classified catalog rows.
 21. L6-Ua: dated Kaikki source-dump write gate.
 22. L6-Va: source-bundle lineage for generated DE frequency output.
+23. L6-Wa: embedding/manual checksum lineage.
 
 This inventory does not promote a new corpus, change default pack selection,
 launch paid semantic-veto generation, or mark expansion ready. It maps the
@@ -108,7 +109,7 @@ Explicitly out of scope:
 | --- | --- | --- | --- |
 | Translation dictionaries | App-managed FreeDict and Kaikki installs build to SQLite under a pack-id root and write `manifest.json`; helper resolution is pack-id-first with legacy filename fallbacks. | Catalog has source/provider URL fields; installed manifest has provider, build mode, artifact relpath, source filename, sqlite filename, and installed timestamp. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative `requires_review` license status, build mode, build command, parser config when applicable, converter source SHA-256 digest, source filename, SQLite filename, generated artifact relpath/kind, generated artifact SHA-1, and downloaded raw artifact SHA-1/SHA-256 for new installs. | Existing installs need reinstall/backfill, source license approval is not encoded, schema/row-count records are still audit outputs, and manual/legacy fallback paths still depend on inference. |
 | Frequency packs | App-managed frequency installs build to SQLite under a pack-id root and write `manifest.json`; runtime diagnostics expose frequency pack id/provider/POS profile. | Catalog plus installed manifest identify provider/build mode/source filename and the generated artifact path. App-managed installs now also write `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, build command, parser config/POS-inventory config when applicable, converter source SHA-256 digest, source filename, SQLite filename, artifact relpath/kind, generated artifact SHA-1, and parsed raw-source SHA-1/SHA-256 for new downloaded-source conversions. | Audit metrics, approved source/license status, source version, raw checksum for pipeline/backfilled installs, and topic/domain coverage are still outside installer-written provenance. Spanish expansion candidates need versioned pack ids and audit artifacts before promotion. |
-| Embedding packs | App-managed embeddings use pack-id roots, manifest-backed artifacts, and embedding pack refs; manual/raw paths remain compatibility inputs. | Installed manifest records provider, build mode, source filename, sqlite filename, and artifact path. App-managed SQLite finalization now also writes `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, embedding converter command, converter source SHA-256 digest when the script is available, source filename, SQLite filename, artifact relpath/kind, and generated artifact SHA-1. | License approval, source version/checksum, raw vector retention, conversion parameters, and manual/raw-path provenance remain outside first-class lifecycle coverage. |
+| Embedding packs | App-managed embeddings use pack-id roots, manifest-backed artifacts, and embedding pack refs; manual/raw paths remain compatibility inputs. | Installed manifest records provider, build mode, source filename, sqlite filename, and artifact path. App-managed SQLite finalization now also writes `provenance.json` with source URL, Wayback URL when present, conservative license status, build mode, embedding converter command, converter source SHA-256 digest when the script is available, source filename, SQLite filename, artifact relpath/kind, generated artifact SHA-1, and raw vector SHA-1/SHA-256 when the app-managed conversion source is still available during finalization. External import preflight also computes file checksums for supported manual paths before any mutation. | License approval, source version/release identity, raw vector retention, conversion parameters, directory checksums, existing-install backfill checksums, and manual/raw-path sidecar writing remain outside first-class lifecycle coverage. |
 | Secondary lexical packs | WordNet, Moby, OpenThesaurus, OdeNet, JMDict, and CC-CEDICT remain mixed/raw or compatibility surfaces. | Catalog records source/provider URL fields; some managed downloads may write basic installed manifests. | Family-wide promotion decision is still pending; they should not be treated as core normalized runtime packs until evaluated. |
 | Semantic source/evidence batches | Semantic lifecycle docs define source registry, raw batches, normalized evidence, compiled generation, publication family, and helper-local materialization layers. | Planning contracts require append-only raw evidence and explicit provenance. | The cross-pack Lane 6 gate still needs an implemented source/generation audit tying raw evidence, compiled inventory, semantic pack copy, and profile publication together. |
 | Semantic compiled packs | Named en-es dev packs resolve from installed copy, catalog env, or current repo dev-pack paths; install writes a semantic pack copy and a profile publication family. | Pack copy manifest hashes raw/normalized inventory; publication manifest hashes runtime artifacts, assigns one generation id, and now carries semantic source lineage when available. | Dev-pack paths are hardcoded development fixtures; release-manifest identity and final review/approval lineage are still pending. |
@@ -260,8 +261,9 @@ Loose ends to close before broad expansion:
     captured for app-managed install/backfill paths where known, but existing
     sidecars need reinstall or explicit backfill to gain that data.
 15. Raw checksum capture is still incomplete for app-managed embedding
-    finalization, existing-install backfill, manual/external imports, and
-    generated DE frequency pipeline output.
+    finalization when the raw vector is no longer available, existing-install
+    backfill, external directories, managed-import sidecar writing, and
+    generated DE frequency pipeline component inputs.
 16. Safe source-version mutation is implemented only for `safe_to_write` rows,
     but existing sidecars need reinstall or explicit backfill to gain it, and
     current Kaikki catalog rows still lack dated dump identity. Label-only
@@ -661,8 +663,8 @@ Boundaries:
 1. This does not approve source licenses or source versions.
 2. This does not rewrite existing sidecars or backfilled sidecars; those source
    files are usually gone by the time a backfill runs.
-3. This does not capture embedding raw-vector checksums yet because the current
-   embedding finalization hook only sees the converted SQLite artifact.
+3. L6-Wa now captures app-managed embedding raw-vector checksums when the
+   conversion source is still available during finalization.
 4. This does not add generated SQLite schema or row-count metrics to installer
    sidecars.
 5. The DE frequency pipeline uses the L6-Va source-bundle lineage path because
@@ -981,6 +983,58 @@ python3 -m ruff format --check \
   apps/gui/tests/test_pack_provenance_sidecars.py \
   core/tests/dev/test_pack_lifecycle_provenance_backfill.py \
   core/tests/dev/test_pack_lifecycle_audit.py
+```
+
+## L6-Wa Embedding/Manual Checksum Lineage
+
+Product claim:
+
+- When a raw embedding or manual external artifact is already present locally,
+  the provenance path should capture checksum evidence without asking the
+  operator to reconstruct it by hand.
+
+Current implementation:
+
+- `LanguagePackPanelTransferMixin._finalize_embedding_pack(...)` now computes
+  SHA-1/SHA-256 for the prior app-managed raw vector file when finalizing a
+  converted embedding SQLite artifact.
+- The resulting app-managed embedding `provenance.json` writes those hashes
+  under `source.raw_artifacts[0]` before the temporary raw vector file is
+  cleaned up.
+- `pack_lifecycle_external_import_plan.py` now computes SHA-1/SHA-256 for
+  supported file paths when `--raw-sha1`/`--raw-sha256` are not supplied.
+- The external import plan reports the checksum source as either `provided`,
+  `computed_from_external_path`, or `unavailable`, and feeds the computed
+  checksum into the provenance preview and promotion blockers.
+- The external import plan remains read-only: it still does not copy, convert,
+  write settings, write sidecars, or change runtime defaults.
+
+Boundaries:
+
+1. This does not approve source licenses.
+2. This does not create a managed import UX.
+3. This does not checksum directories or deleted/missing raw sources.
+4. Existing-install sidecar backfill still cannot invent raw checksums after
+   source files are gone.
+5. Generated DE frequency pipeline component checksums remain a separate
+   source-bundle follow-up.
+
+Validation:
+
+```bash
+python3 -m pytest \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  core/tests/dev/test_pack_lifecycle_external_import_plan.py
+python3 -m ruff check \
+  apps/gui/src/settings_language_packs_transfer_mixin.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  scripts/testing/pack_lifecycle_external_import_plan.py \
+  core/tests/dev/test_pack_lifecycle_external_import_plan.py
+python3 -m ruff format --check \
+  apps/gui/src/settings_language_packs_transfer_mixin.py \
+  apps/gui/tests/test_pack_provenance_sidecars.py \
+  scripts/testing/pack_lifecycle_external_import_plan.py \
+  core/tests/dev/test_pack_lifecycle_external_import_plan.py
 ```
 
 ## L6-D Semantic Pack Provenance And Lineage
@@ -1575,6 +1629,8 @@ python3 -m ruff format --check \
 | L6-S Catalog source-identity classification | Completed first read-only decision surface for source-version/source-dump candidates. | `pack_lifecycle_source_identity_plan.py`, Markdown/JSON report, and focused tests. |
 | L6-T Safe source-version writer/backfill | Completed first mutation slice for classified safe source-version candidates only. | `pack_source_identity.py`, installer/backfill wiring, and focused safe/withheld identity tests. |
 | L6-U Dated Kaikki source-dump gate | Completed first policy gate that keeps undated Kaikki family labels out of sidecar `source_dump`. | Dated dump normalization in `pack_source_identity.py` plus focused safe/withheld tests. |
+| L6-V Source-bundle lineage | Completed first multi-input lineage slice for generated DE frequency output. | Optional `source.source_bundle` schema, DE bundle writer/backfill, lifecycle lineage reporting, and focused tests. |
+| L6-W Embedding/manual checksum lineage | Completed first checksum slice for app-managed embedding conversion sources and read-only manual external import preflight files. | Embedding finalization raw-vector checksums, external import preflight auto-checksums, and focused tests. |
 
 ## Validation Bundle For L6-A
 

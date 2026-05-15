@@ -8,6 +8,7 @@ from language_packs import (
     FrequencyPackDownloadThread,
     LanguagePackDownloadThread,
     _converter_version_for_mode,
+    _file_checksums,
     download_log_path,
 )
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest
@@ -328,6 +329,7 @@ class LanguagePackPanelTransferMixin:
         ):
             artifact_path = Path(resolved_path)
             pack_root = Path(self._embedding_pack_dir) / pack_id
+            raw_checksums = _embedding_source_checksums(prior_path, resolved_path)
             write_installed_pack_manifest(
                 Path(self._embedding_pack_dir),
                 pack_id=pack_id,
@@ -354,6 +356,8 @@ class LanguagePackPanelTransferMixin:
                 artifact_path=artifact_path,
                 source_filename=pack.filename,
                 sqlite_filename=os.path.basename(resolved_path),
+                raw_artifact_sha1=raw_checksums.get("sha1") or None,
+                raw_artifact_sha256=raw_checksums.get("sha256") or None,
                 **safe_pack_source_identity_fields(pack),
             )
             if (
@@ -381,3 +385,12 @@ class LanguagePackPanelTransferMixin:
         row.use_button.setEnabled(True)
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
+
+
+def _embedding_source_checksums(prior_path: str | None, resolved_path: str) -> dict[str, str]:
+    if not prior_path or os.path.abspath(prior_path) == os.path.abspath(resolved_path):
+        return {}
+    prior = Path(prior_path)
+    if not prior.is_file():
+        return {}
+    return _file_checksums(prior)

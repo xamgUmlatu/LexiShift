@@ -287,6 +287,47 @@ def test_embedding_finalize_creates_provenance_sidecar() -> None:
         assert payload["artifact"]["artifact_relpath"] == "main.sqlite"
 
 
+def test_embedding_finalize_captures_prior_raw_vector_checksums() -> None:
+    with TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        pack_id = "embed-xling-es"
+        pack_root = root / "embedding_packs" / pack_id
+        artifact = pack_root / "main.sqlite"
+        raw_vector = pack_root / "wiki.es.align.vec"
+        artifact.parent.mkdir(parents=True)
+        artifact.write_bytes(b"SQLite format 3\x00")
+        raw_bytes = b"hola 0.1 0.2\n"
+        raw_vector.write_bytes(raw_bytes)
+        pack = LanguagePackInfo(
+            pack_id=pack_id,
+            name="fastText Spanish Aligned",
+            language="Spanish aligned",
+            source="fastText",
+            size="2 GB",
+            url="https://example.com/wiki.es.align.vec",
+            wayback_url="https://web.archive.org/web/*/https://example.com/wiki.es.align.vec",
+            filename="wiki.es.align.vec",
+            local_kind="file",
+            pair_key="en-es",
+        )
+        dummy = _DummyTransferPanel(root=root, pack_id=pack_id, pack=pack)
+        dummy._embedding_pack_paths[pack_id] = str(raw_vector)
+
+        LanguagePackPanelTransferMixin._finalize_embedding_pack(
+            dummy,
+            pack_id=pack_id,
+            resolved_path=str(artifact),
+        )
+        payload = json.loads((pack_root / PACK_PROVENANCE_FILENAME).read_text(encoding="utf-8"))
+        raw_artifact = payload["source"]["raw_artifacts"][0]
+
+        assert validate_pack_provenance_file(pack_root / PACK_PROVENANCE_FILENAME) == ()
+        assert raw_artifact["filename"] == "wiki.es.align.vec"
+        assert raw_artifact["sha1"] == hashlib.sha1(raw_bytes).hexdigest()
+        assert raw_artifact["sha256"] == hashlib.sha256(raw_bytes).hexdigest()
+        assert not raw_vector.exists()
+
+
 class _TextCell:
     def setText(self, value: str) -> None:
         self.text = value
@@ -340,3 +381,6 @@ class _DummyTransferPanel(LanguagePackPanelTransferMixin):
 
     def _refresh_cross_embedding_pack_table(self) -> None:
         pass
+
+    def _remove_path(self, path: str) -> None:
+        Path(path).unlink(missing_ok=True)
