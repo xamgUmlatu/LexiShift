@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, and generated-only experiment-family routing review
+Last verified: 2026-05-16 doc-reference check, state check, diff hygiene, profile backup smoke, unreferenced-script routing review, regenerated project-structure inventory, generated-output unnecessary audit, review-only generated-output resolution, experiment-payload retention audit, generated-only experiment-family routing review, and rulegen experiment-family relocation
 Purpose: sequence the work needed to turn the current large proof-of-concept system into a safer, more testable product before further corpus or semantic-veto expansion
 Source-of-truth: roadmap only; current truth still lives in source code, tests, generated evidence, `feature_state_matrix.md`, and seam-specific canonical docs.
 Related docs:
@@ -557,11 +557,11 @@ Current progress:
   family-level retention review for `docs/test_outputs/experiments`.
   `npm --prefix scripts run inventory:experiments` writes latest JSON and
   Markdown artifacts under `docs/test_outputs/dev_workflow/`.
-- The latest snapshot enumerates `4,017` non-ignored paths: `3,824` files and
-  `193` directories, with `2,357` candidate-signal paths and `0`
+- The latest snapshot enumerates `4,018` non-ignored paths: `3,824` files and
+  `194` directories, with `2,357` candidate-signal paths and `0`
   unreferenced-script candidates.
 - The dominant structure signal is generated-evidence accumulation:
-  `docs/test_outputs` accounts for `2,392` paths, including `670` files under
+  `docs/test_outputs` accounts for `2,393` paths, including `670` files under
   `docs/test_outputs/experiments`.
 - Generated-output retention review now has first-class inventory buckets for
   baselines, dev-workflow operational reports, experiment payloads, SRS journey
@@ -615,6 +615,12 @@ Current progress:
   audit reports all `11` experiment families as routed: `0` generated-linked,
   `0` experiment-linked, `0` self-linked-review, and `0` unrouted-review
   families.
+- Root-level rulegen experiment review moved the 97 March 28 broad-sweep files
+  from loose `docs/test_outputs/experiments/rulegen_en_es_*` paths into
+  `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/`. The
+  runbook and internal summary/triage references were mechanically updated, so
+  the artifacts are retained but no longer appear as root-level experiment
+  clutter.
 - The first unreferenced-script heuristic initially reported three candidates:
   `scripts/dev/srs_selector_demo.py`, `scripts/dev/test_embeddings.py`, and
   `scripts/testing/semantic_shadow_review_queue_en_es.py`. Review found no
@@ -644,9 +650,8 @@ Current progress:
 Next review step:
 
 1. review `../test_outputs/dev_workflow/experiment_payload_retention_latest.md`,
-2. choose one narrow cleanup queue, likely root-level rulegen experiment files,
-   root-level latest alias routing, duplicate evidence families, or another
-   clearly bounded structure signal,
+2. choose one narrow cleanup queue, likely root-level latest alias routing,
+   duplicate evidence families, or another clearly bounded structure signal,
 3. prove exact references, generated-artifact ownership, and historical value
    before archiving or deleting anything.
 

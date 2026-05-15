@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated_at_utc": "2026-05-15T22:19:53.716327+00:00",
+  "generated_at_utc": "2026-05-15T22:26:55.940203+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "ignored_dir_names": [
     ".bundle",
@@ -32,12 +32,12 @@
     "packaging/output"
   ],
   "summary": {
-    "path_count": 4017,
+    "path_count": 4018,
     "file_count": 3824,
-    "directory_count": 193,
+    "directory_count": 194,
     "tracked_file_count": 3799,
     "untracked_file_count": 0,
-    "total_file_bytes": 906565882,
+    "total_file_bytes": 906575476,
     "candidate_path_count": 2357,
     "duplicate_filename_group_count": 24,
     "duplicate_stem_group_count": 50,
@@ -46,10 +46,10 @@
   "family_counts": [
     {
       "family": "docs_test_outputs",
-      "path_count": 2392,
+      "path_count": 2393,
       "file_count": 2324,
-      "directory_count": 68,
-      "total_file_bytes": 711815029
+      "directory_count": 69,
+      "total_file_bytes": 711823919
     },
     {
       "family": "core_tests",
@@ -98,7 +98,7 @@
       "path_count": 92,
       "file_count": 91,
       "directory_count": 1,
-      "total_file_bytes": 1281444
+      "total_file_bytes": 1282148
     },
     {
       "family": "docs_rulegen",
@@ -302,9 +302,9 @@
   "top_level_counts": [
     {
       "path": "docs",
-      "path_count": 2763,
+      "path_count": 2764,
       "file_count": 2666,
-      "directory_count": 97
+      "directory_count": 98
     },
     {
       "path": "core",
@@ -394,9 +394,9 @@
   "second_level_counts": [
     {
       "path": "docs/test_outputs",
-      "path_count": 2392,
+      "path_count": 2393,
       "file_count": 2324,
-      "directory_count": 68
+      "directory_count": 69
     },
     {
       "path": "core/tests",
@@ -649,7 +649,7 @@
     {
       "path": "docs/test_outputs/experiments",
       "file_count": 670,
-      "total_file_bytes": 122313459
+      "total_file_bytes": 122314299
     },
     {
       "path": "docs/test_outputs/srs_journey",
@@ -659,7 +659,7 @@
     {
       "path": "docs/test_outputs/dev_workflow",
       "file_count": 18,
-      "total_file_bytes": 2633473
+      "total_file_bytes": 2641523
     },
     {
       "path": "docs/test_outputs/ja_en",
@@ -8645,18 +8645,18 @@
       "bucket": "experiment_payload",
       "review_posture": "review by experiment: high-volume evidence, not deletion by size alone",
       "file_count": 670,
-      "total_file_bytes": 122313459,
+      "total_file_bytes": 122314299,
       "latest_alias_count": 0,
       "dated_artifact_count": 398,
       "sample_paths": [
-        "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328.json",
-        "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328_timing.json",
-        "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
-        "docs/test_outputs/experiments/rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
-        "docs/test_outputs/experiments/rulegen_en_es_srs_diagnostics_20260328.json",
-        "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
-        "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
-        "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json"
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328_timing.json",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_srs_diagnostics_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json"
       ]
     },
     {
@@ -8681,7 +8681,7 @@
       "bucket": "dev_workflow_operational",
       "review_posture": "retain latest: workflow reports support local and CI handoff",
       "file_count": 21,
-      "total_file_bytes": 2789562,
+      "total_file_bytes": 2797612,
       "latest_alias_count": 19,
       "dated_artifact_count": 0,
       "sample_paths": [
@@ -14456,7 +14456,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14466,7 +14466,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14476,7 +14476,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14486,7 +14486,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14496,7 +14496,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14506,7 +14506,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14516,7 +14516,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14526,7 +14526,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14536,7 +14536,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14546,7 +14546,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14556,7 +14556,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14566,7 +14566,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14576,7 +14576,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14586,7 +14586,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14596,7 +14596,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14606,7 +14606,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14616,7 +14616,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14626,7 +14626,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14636,7 +14636,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14646,7 +14646,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14656,7 +14656,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14666,7 +14666,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14676,7 +14676,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14686,7 +14686,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14696,7 +14696,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14706,7 +14706,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14716,7 +14716,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14726,7 +14726,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14736,7 +14736,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14746,7 +14746,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14756,7 +14756,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14766,7 +14766,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14776,7 +14776,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14786,7 +14786,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14796,7 +14796,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14806,7 +14806,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14816,7 +14816,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14826,7 +14826,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14836,7 +14836,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14846,7 +14846,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14856,7 +14856,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14866,7 +14866,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14876,7 +14876,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14886,7 +14886,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14956,7 +14956,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14965,7 +14965,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14974,7 +14974,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14983,7 +14983,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -14992,7 +14992,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_srs_diagnostics_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_srs_diagnostics_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15001,7 +15001,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15010,7 +15010,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15019,7 +15019,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15028,7 +15028,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15037,7 +15037,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15046,7 +15046,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15055,7 +15055,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15064,7 +15064,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15073,7 +15073,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15082,7 +15082,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15091,7 +15091,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15100,7 +15100,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15109,7 +15109,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15118,7 +15118,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15127,7 +15127,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15136,7 +15136,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15145,7 +15145,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15154,7 +15154,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15163,7 +15163,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15172,7 +15172,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15181,7 +15181,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15190,7 +15190,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15199,7 +15199,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15208,7 +15208,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15217,7 +15217,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_summary_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_summary_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15226,7 +15226,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15235,7 +15235,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15244,7 +15244,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15253,7 +15253,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15262,7 +15262,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15271,7 +15271,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15280,7 +15280,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15289,7 +15289,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15298,7 +15298,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15307,7 +15307,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15316,7 +15316,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15325,7 +15325,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15334,7 +15334,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15343,7 +15343,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -15352,7 +15352,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "flags": [
@@ -25658,7 +25658,7 @@
       "name": "productization_closure_roadmap.md",
       "stem": "productization_closure_roadmap",
       "suffix": ".md",
-      "size_bytes": 37434,
+      "size_bytes": 37823,
       "git_state": "tracked",
       "flags": []
     },
@@ -26408,7 +26408,7 @@
       "name": "rulegen_en_es_broad_sweep_runbook.md",
       "stem": "rulegen_en_es_broad_sweep_runbook",
       "suffix": ".md",
-      "size_bytes": 10190,
+      "size_bytes": 10505,
       "git_state": "tracked",
       "flags": []
     },
@@ -29209,7 +29209,7 @@
       "name": "experiment_payload_retention_latest.json",
       "stem": "experiment_payload_retention_latest",
       "suffix": ".json",
-      "size_bytes": 63923,
+      "size_bytes": 64658,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29224,7 +29224,7 @@
       "name": "experiment_payload_retention_latest.md",
       "stem": "experiment_payload_retention_latest",
       "suffix": ".md",
-      "size_bytes": 19503,
+      "size_bytes": 19888,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29297,7 +29297,7 @@
       "name": "project_structure_latest.json",
       "stem": "project_structure_latest",
       "suffix": ".json",
-      "size_bytes": 2426740,
+      "size_bytes": 2433530,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29312,7 +29312,7 @@
       "name": "project_structure_latest.md",
       "stem": "project_structure_latest",
       "suffix": ".md",
-      "size_bytes": 61201,
+      "size_bytes": 61341,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29402,7 +29402,18 @@
       "flags": []
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328",
+      "kind": "directory",
+      "family": "docs_test_outputs",
+      "name": "rulegen_en_es_broad_sweep_20260328",
+      "stem": "rulegen_en_es_broad_sweep_20260328",
+      "suffix": "",
+      "size_bytes": 0,
+      "git_state": "tracked",
+      "flags": []
+    },
+    {
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_canonical_replay_20260328.json",
@@ -29416,7 +29427,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_canonical_replay_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_canonical_replay_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_canonical_replay_20260328_timing.json",
@@ -29430,13 +29441,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
       "stem": "rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328",
       "suffix": ".md",
-      "size_bytes": 4956,
+      "size_bytes": 5096,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29444,7 +29455,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_helper_run_rulegen_smoke_20260328.json",
@@ -29458,7 +29469,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_srs_diagnostics_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_srs_diagnostics_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_srs_diagnostics_20260328.json",
@@ -29472,7 +29483,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
@@ -29486,7 +29497,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_20260328_gate.json",
@@ -29500,7 +29511,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_20260328_timing.json",
@@ -29514,7 +29525,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.json",
@@ -29529,13 +29540,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_admission_frontier_v2_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 2674,
+      "size_bytes": 2709,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29544,7 +29555,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
@@ -29559,7 +29570,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.md",
@@ -29574,7 +29585,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.json",
@@ -29589,13 +29600,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 3173,
+      "size_bytes": 3208,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29604,7 +29615,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_matrix_v1_20260328.json",
@@ -29618,7 +29629,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_matrix_v1_20260328_gate.json",
@@ -29632,7 +29643,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_matrix_v1_20260328_timing.json",
@@ -29646,7 +29657,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.json",
@@ -29661,13 +29672,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_admission_matrix_v1_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 3328,
+      "size_bytes": 3363,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29676,7 +29687,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
@@ -29690,7 +29701,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_20260328_gate.json",
@@ -29704,7 +29715,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_20260328_timing.json",
@@ -29718,7 +29729,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.json",
@@ -29733,13 +29744,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_combined_frontier_v1_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 2817,
+      "size_bytes": 2852,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29748,7 +29759,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
@@ -29763,7 +29774,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.md",
@@ -29778,7 +29789,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.json",
@@ -29793,13 +29804,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 3346,
+      "size_bytes": 3381,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29808,7 +29819,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v2_20260328.json",
@@ -29822,7 +29833,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v2_20260328_timing.json",
@@ -29836,7 +29847,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.json",
@@ -29851,13 +29862,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_combined_frontier_v2_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 2673,
+      "size_bytes": 2708,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29866,7 +29877,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328.json",
@@ -29880,7 +29891,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_exact_hit_matrix_v1_20260328_timing.json",
@@ -29894,7 +29905,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_family_followup_v1_20260328.json",
@@ -29908,7 +29919,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_family_followup_v1_20260328_timing.json",
@@ -29922,7 +29933,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
@@ -29937,7 +29948,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.md",
@@ -29952,13 +29963,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md",
       "stem": "rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328",
       "suffix": ".md",
-      "size_bytes": 4372,
+      "size_bytes": 4442,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -29966,7 +29977,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_frontier_v2_20260328.json",
@@ -29980,7 +29991,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_frontier_v2_20260328_gate.json",
@@ -29994,7 +30005,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_frontier_v2_20260328_timing.json",
@@ -30008,7 +30019,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.json",
@@ -30023,13 +30034,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_reverse_frontier_v2_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 3333,
+      "size_bytes": 3368,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30038,7 +30049,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
@@ -30053,7 +30064,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.md",
@@ -30068,7 +30079,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
@@ -30082,7 +30093,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_gate.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_gate.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_gate.json",
@@ -30096,7 +30107,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_timing.json",
@@ -30110,7 +30121,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.json",
@@ -30125,13 +30136,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage.md",
       "stem": "rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 2867,
+      "size_bytes": 2902,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30140,7 +30151,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
@@ -30154,7 +30165,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328_timing.json",
@@ -30168,7 +30179,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_summary_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_summary_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_summary_20260328.md",
@@ -30182,7 +30193,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
@@ -30196,7 +30207,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
@@ -30210,7 +30221,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328.json",
@@ -30224,7 +30235,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_timing.json",
@@ -30238,7 +30249,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.json",
@@ -30253,13 +30264,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 10830,
+      "size_bytes": 10865,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30268,7 +30279,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328.json",
@@ -30282,7 +30293,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_timing.json",
@@ -30296,7 +30307,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.json",
@@ -30311,13 +30322,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_full_lane_freedict_kaikki_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 11256,
+      "size_bytes": 11291,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30326,7 +30337,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_norev_20260328.json",
@@ -30340,7 +30351,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_timing.json",
@@ -30354,7 +30365,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.json",
@@ -30369,13 +30380,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_full_lane_freedict_norev_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 11464,
+      "size_bytes": 11499,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30384,7 +30395,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328.json",
@@ -30398,7 +30409,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_timing.json",
@@ -30412,7 +30423,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.json",
@@ -30427,13 +30438,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_full_lane_kaikki_freedict_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 3135,
+      "size_bytes": 3170,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30442,7 +30453,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328.json",
@@ -30456,7 +30467,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_timing.json",
@@ -30470,7 +30481,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.json",
@@ -30485,13 +30496,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 2676,
+      "size_bytes": 2711,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30500,7 +30511,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328.json",
@@ -30514,7 +30525,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_timing.json",
@@ -30528,7 +30539,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.json",
@@ -30543,13 +30554,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_full_lane_kaikki_norev_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 3670,
+      "size_bytes": 3705,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30558,7 +30569,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md",
@@ -30572,7 +30583,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revoff_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revoff_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revoff_20260328.json",
@@ -30586,7 +30597,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revoff_20260328_timing.json",
@@ -30600,7 +30611,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.json",
@@ -30615,13 +30626,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_lane_freedict_revoff_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 11460,
+      "size_bytes": 11495,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30630,7 +30641,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revon_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revon_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revon_20260328.json",
@@ -30644,7 +30655,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revon_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revon_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revon_20260328_timing.json",
@@ -30658,7 +30669,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.json",
@@ -30673,13 +30684,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_lane_freedict_revon_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 11250,
+      "size_bytes": 11285,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30688,7 +30699,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revoff_20260328.json",
@@ -30702,7 +30713,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_timing.json",
@@ -30716,7 +30727,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.json",
@@ -30731,13 +30742,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_lane_kaikki_revoff_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 3666,
+      "size_bytes": 3701,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",
@@ -30746,7 +30757,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revon_20260328.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revon_20260328.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revon_20260328.json",
@@ -30760,7 +30771,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_timing.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_timing.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revon_20260328_timing.json",
@@ -30774,7 +30785,7 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.json",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.json",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.json",
@@ -30789,13 +30800,13 @@
       ]
     },
     {
-      "path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.md",
+      "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.md",
       "kind": "file",
       "family": "docs_test_outputs",
       "name": "rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage.md",
       "stem": "rulegen_en_es_stage_b_lane_kaikki_revon_20260328_triage",
       "suffix": ".md",
-      "size_bytes": 2670,
+      "size_bytes": 2705,
       "git_state": "tracked",
       "flags": [
         "generated_evidence_output",

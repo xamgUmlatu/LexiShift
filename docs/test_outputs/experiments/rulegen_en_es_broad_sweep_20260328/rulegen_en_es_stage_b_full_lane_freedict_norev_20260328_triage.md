@@ -1,6 +1,6 @@
 # Rulegen Benchmark Triage
 
-- benchmark_json: `docs\test_outputs\experiments\rulegen_en_es_stage_b_lane_freedict_revoff_20260328.json`
+- benchmark_json: `docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_b_full_lane_freedict_norev_20260328.json`
 - pairs_processed: 1
 - failing_or_review_count: 27
 

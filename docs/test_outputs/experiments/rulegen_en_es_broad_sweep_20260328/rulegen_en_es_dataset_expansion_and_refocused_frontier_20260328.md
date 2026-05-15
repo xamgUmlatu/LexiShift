@@ -100,7 +100,7 @@ This matters for follow-up planning:
 
 Artifact:
 
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json`
 
 Best result:
 
@@ -124,7 +124,7 @@ Interpretation:
 
 Artifact:
 
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json`
 
 Best result:
 
@@ -148,7 +148,7 @@ Interpretation:
 
 Artifact:
 
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json`
 
 Best result:
 
@@ -162,7 +162,7 @@ Interpretation:
 
 Artifact:
 
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json`
 
 Best result:
 

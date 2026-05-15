@@ -1,6 +1,6 @@
 # Rulegen Benchmark Triage
 
-- benchmark_json: `docs\test_outputs\experiments\rulegen_en_es_stage_b_full_lane_kaikki_kaikki_20260328.json`
+- benchmark_json: `docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_a_combined_frontier_v2_20260328.json`
 - pairs_processed: 1
 - failing_or_review_count: 5
 

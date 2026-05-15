@@ -156,10 +156,10 @@ Do not overwrite canonical `*_latest` artifacts during broad experiments.
 
 Use experiment-specific outputs, for example:
 
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json`
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.md`
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.html`
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.md`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.html`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json`
 
 ## Minimum Reporting For Each Stage
 
@@ -193,10 +193,10 @@ Canonical shape:
 ```powershell
 .\.venv\Scripts\python.exe scripts\testing\rulegen_benchmark.py `
   --preset en_es_stage_a_toggle_frontier_v1 `
-  --json-output docs\test_outputs\experiments\rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json `
-  --markdown-output docs\test_outputs\experiments\rulegen_en_es_stage_a_toggle_frontier_v1_20260328.md `
-  --html-output docs\test_outputs\experiments\rulegen_en_es_stage_a_toggle_frontier_v1_20260328.html `
-  --timing-json-output docs\test_outputs\experiments\rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json
+  --json-output docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json `
+  --markdown-output docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_a_toggle_frontier_v1_20260328.md `
+  --html-output docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_a_toggle_frontier_v1_20260328.html `
+  --timing-json-output docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json
 ```
 
 Resource-matrix example shape:
@@ -206,7 +206,7 @@ Resource-matrix example shape:
   --preset en_es_stage_a_scoring_weight_matrix_v1 `
   --translation-dict-en-es C:\path\to\forward.sqlite `
   --translation-dict-es-en C:\path\to\reverse.sqlite `
-  --json-output docs\test_outputs\experiments\rulegen_en_es_resource_matrix_lane_20260328.json
+  --json-output docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_resource_matrix_lane_20260328.json
 ```
 
 ## Current Non-Goals

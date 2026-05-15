@@ -8,7 +8,7 @@ Resource baseline: Kaikki forward + Kaikki reverse
 Note:
 
 - the Stage B section in this note is the initial lane pass only
-- the explicit full resource-family rerun now lives in `docs/test_outputs/experiments/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md`
+- the explicit full resource-family rerun now lives in `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md`
 
 ## Stage A Follow-up Frontier
 
@@ -28,7 +28,7 @@ Current best-known `en-es` config on this PC:
 
 Best artifact:
 
-- `docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json`
+- `docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json`
 
 The admission-led deepening pass is the clearest improvement so far. It kept `Top1` and `Top3` flat, eliminated `ForbidAny`, reduced `AvgRules` sharply, and lowered triage count from `7` to `5`.
 

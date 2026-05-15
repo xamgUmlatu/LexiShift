@@ -1,6 +1,6 @@
 # Rulegen Benchmark Triage
 
-- benchmark_json: `D:\projects\LexiShift\docs\test_outputs\experiments\rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json`
+- benchmark_json: `D:\projects\LexiShift\docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json`
 - pairs_processed: 1
 - failing_or_review_count: 5
 

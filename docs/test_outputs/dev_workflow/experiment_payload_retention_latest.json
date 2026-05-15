@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at_utc": "2026-05-15T22:20:13.665427+00:00",
+  "generated_at_utc": "2026-05-15T22:27:15.603326+00:00",
   "root": "/Users/takeyayuki/Documents/projects/LexiShift",
   "experiment_root": "docs/test_outputs/experiments",
   "posture_definitions": [
@@ -28,7 +28,7 @@
   "summary": {
     "family_count": 11,
     "file_count": 670,
-    "total_file_bytes": 122313459,
+    "total_file_bytes": 122314299,
     "routed_family_count": 11,
     "generated_linked_family_count": 0,
     "experiment_linked_family_count": 0,
@@ -41,7 +41,6 @@
       "batch_payload_family": 5,
       "generated_rows_bundle": 1,
       "install_or_runtime_fixture_root": 1,
-      "large_family_low_external_refs": 1,
       "large_file_count": 2,
       "raw_response_bundle": 4
     }
@@ -391,94 +390,93 @@
       ]
     },
     {
-      "family": "_root_files",
-      "family_path": "docs/test_outputs/experiments/[root_files]",
+      "family": "rulegen_en_es_broad_sweep_20260328",
+      "family_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328",
       "retention_posture": "routed",
       "retention_reason": "At least one non-generated source, doc, test, or script references this family.",
       "file_count": 97,
       "directory_count": 0,
-      "total_file_bytes": 11872059,
+      "total_file_bytes": 11872899,
       "extension_counts": {
         ".json": 71,
         ".md": 26
       },
-      "review_flags": [
-        "large_family_low_external_refs"
-      ],
+      "review_flags": [],
       "largest_files": [
         {
-          "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
           "bytes": 4349201
         },
         {
-          "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_weight_matrix_v1_20260328.json",
           "bytes": 1266615
         },
         {
-          "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_scoring_weight_matrix_v1_20260328.json",
           "bytes": 661709
         },
         {
-          "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_20260328.json",
           "bytes": 591517
         },
         {
-          "path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
+          "path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
           "bytes": 587530
         }
       ],
-      "external_reference_count": 1,
+      "external_reference_count": 2,
       "generated_output_reference_count": 0,
       "other_experiment_reference_count": 0,
       "self_family_reference_count": 2,
       "external_reference_samples": [
+        "docs/developer/productization_closure_roadmap.md",
         "docs/developer/rulegen_en_es_broad_sweep_runbook.md"
       ],
       "generated_output_reference_samples": [],
       "other_experiment_reference_samples": [],
       "self_family_reference_samples": [
-        "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
-        "docs/test_outputs/experiments/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md"
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+        "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md"
       ],
       "reference_samples": [
         {
-          "reference_path": "docs/developer/rulegen_en_es_broad_sweep_runbook.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
+          "reference_path": "docs/developer/productization_closure_roadmap.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328",
           "scope": "external"
         },
         {
           "reference_path": "docs/developer/rulegen_en_es_broad_sweep_runbook.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328_timing.json",
           "scope": "external"
         },
         {
-          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
+          "reference_path": "docs/developer/rulegen_en_es_broad_sweep_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_toggle_frontier_v1_20260328.json",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/developer/rulegen_en_es_broad_sweep_runbook.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328",
+          "scope": "external"
+        },
+        {
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_admission_frontier_v2_64cases_20260328.json",
           "scope": "self_family"
         },
         {
-          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_combined_frontier_v1_64cases_20260328.json",
           "scope": "self_family"
         },
         {
-          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_reverse_frontier_v2_64cases_20260328.json",
           "scope": "self_family"
         },
         {
-          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
-          "scope": "self_family"
-        },
-        {
-          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_b_full_resource_matrix_summary_20260328.md",
-          "scope": "self_family"
-        },
-        {
-          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_followup_and_stage_b_summary_20260328.md",
-          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_stage_a_admission_frontier_v2_20260328.json",
+          "reference_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_dataset_expansion_and_refocused_frontier_20260328.md",
+          "referenced_path": "docs/test_outputs/experiments/rulegen_en_es_broad_sweep_20260328/rulegen_en_es_stage_a_family_followup_v1_64cases_20260328.json",
           "scope": "self_family"
         }
       ]

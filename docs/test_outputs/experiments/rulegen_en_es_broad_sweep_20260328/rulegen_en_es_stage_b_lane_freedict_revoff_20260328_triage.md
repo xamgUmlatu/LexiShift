@@ -1,19 +1,20 @@
 # Rulegen Benchmark Triage
 
-- benchmark_json: `docs\test_outputs\experiments\rulegen_en_es_stage_b_full_lane_freedict_freedict_20260328.json`
+- benchmark_json: `docs\test_outputs\experiments\rulegen_en_es_broad_sweep_20260328\rulegen_en_es_stage_b_lane_freedict_revoff_20260328.json`
 - pairs_processed: 1
-- failing_or_review_count: 26
+- failing_or_review_count: 27
 
 | Pair | Case | Target | Status | Reasons | Top1 | Top3 |
 |---|---|---|---|---|---|---|
-| en-es | `en-es:madre` | madre | FAIL | top1_is_forbidden, forbidden_candidate_present | bed | bed, mother |
+| en-es | `en-es:madre` | madre | FAIL | top1_is_forbidden, forbidden_candidate_present, expected_candidate_missing_from_top3 | bed | bed, watercourse |
 | en-es | `en-es:planta` | planta | FAIL | top1_is_forbidden | sole | sole, plant |
 | en-es | `en-es:derecho` | derecho | FAIL | top1_is_forbidden, forbidden_candidate_present, expected_candidate_missing_from_top3 | claim | claim, presumption |
 | en-es | `en-es:cuadro` | cuadro | FAIL | top1_is_forbidden, forbidden_candidate_present | bed | bed, picture |
-| en-es | `en-es:cargo` | cargo | FAIL | top1_is_forbidden, forbidden_candidate_present | accusal | accusal, function |
-| en-es | `en-es:masa` | masa | FAIL | top1_is_forbidden, forbidden_candidate_present | lump | lump, dough |
+| en-es | `en-es:cargo` | cargo | FAIL | top1_is_forbidden, forbidden_candidate_present, expected_candidate_missing_from_top3 | accusal | accusal, accusation |
+| en-es | `en-es:masa` | masa | FAIL | top1_is_forbidden, forbidden_candidate_present | lump | lump, mass |
 | en-es | `en-es:caso` | caso | FAIL | top1_is_forbidden | affair | affair, case |
-| en-es | `en-es:vista` | vista | FAIL | top1_is_forbidden | appearance | appearance, sight |
+| en-es | `en-es:parte` | parte | FAIL | forbidden_candidate_present | part | part, parthian |
+| en-es | `en-es:vista` | vista | FAIL | top1_is_forbidden, expected_candidate_missing_from_top3 | appearance | appearance, aspect |
 | en-es | `en-es:movimiento` | movimiento | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:área` | área | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:estilo` | estilo | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
@@ -25,7 +26,7 @@
 | en-es | `en-es:hasta` | hasta | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:según` | según | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:marco` | marco | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
-| en-es | `en-es:tabla` | tabla | REVIEW | top1_not_in_expected_set | shelf | shelf, board |
+| en-es | `en-es:tabla` | tabla | FAIL | expected_candidate_missing_from_top3 | shelf | shelf, lath |
 | en-es | `en-es:malla` | malla | FAIL | expected_candidate_missing_from_top3, no_rules_emitted | - | - |
 | en-es | `en-es:quitar` | quitar | FAIL | expected_candidate_missing_from_top3 | abstract | abstract, takeaway |
 | en-es | `en-es:meter` | meter | FAIL | expected_candidate_missing_from_top3 | place | place, put |
@@ -43,14 +44,14 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: bed",
-    "Observed top3 sources: bed, mother"
+    "Observed top3 sources: bed, watercourse"
   ],
   "candidate_forbidden_top1": [
     "bed"
   ],
   "candidate_expected_any": [
     "bed",
-    "mother"
+    "watercourse"
   ]
 }
 ```
@@ -123,14 +124,14 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: accusal",
-    "Observed top3 sources: accusal, function"
+    "Observed top3 sources: accusal, accusation"
   ],
   "candidate_forbidden_top1": [
     "accusal"
   ],
   "candidate_expected_any": [
     "accusal",
-    "function"
+    "accusation"
   ]
 }
 ```
@@ -143,14 +144,14 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: lump",
-    "Observed top3 sources: lump, dough"
+    "Observed top3 sources: lump, mass"
   ],
   "candidate_forbidden_top1": [
     "lump"
   ],
   "candidate_expected_any": [
     "lump",
-    "dough"
+    "mass"
   ]
 }
 ```
@@ -175,6 +176,26 @@
 }
 ```
 
+### en-es / en-es:parte
+```json
+{
+  "action": "review_labels",
+  "priority": "high",
+  "notes": [
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
+    "Observed top1 source: part",
+    "Observed top3 sources: part, parthian"
+  ],
+  "candidate_forbidden_top1": [
+    "part"
+  ],
+  "candidate_expected_any": [
+    "part",
+    "parthian"
+  ]
+}
+```
+
 ### en-es / en-es:vista
 ```json
 {
@@ -183,14 +204,14 @@
   "notes": [
     "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: appearance",
-    "Observed top3 sources: appearance, sight"
+    "Observed top3 sources: appearance, aspect"
   ],
   "candidate_forbidden_top1": [
     "appearance"
   ],
   "candidate_expected_any": [
     "appearance",
-    "sight"
+    "aspect"
   ]
 }
 ```
@@ -320,18 +341,18 @@
 ```json
 {
   "action": "review_labels",
-  "priority": "medium",
+  "priority": "high",
   "notes": [
-    "Review expected_top1_any labels or scoring weights for this case.",
+    "Review case labels and pair tuning; this case violates hard quality expectations.",
     "Observed top1 source: shelf",
-    "Observed top3 sources: shelf, board"
+    "Observed top3 sources: shelf, lath"
   ],
   "candidate_forbidden_top1": [
     "shelf"
   ],
   "candidate_expected_any": [
     "shelf",
-    "board"
+    "lath"
   ]
 }
 ```
