@@ -1,0 +1,1088 @@
+{
+  "combined_stack": {
+    "cde_in_spalex_count": 1706,
+    "cde_missing_from_spalex_count": 278,
+    "cde_missing_from_spalex_sample": [
+      "absurdamente",
+      "acompañamiento",
+      "afortunadamente",
+      "agachado",
+      "agrandado",
+      "ajenar",
+      "alisios",
+      "alvaro",
+      "amour",
+      "andadas",
+      "andalusí",
+      "anexionado",
+      "anudado",
+      "arreglado",
+      "artificialmente",
+      "asi",
+      "at",
+      "atenerse",
+      "atribuible",
+      "autocontrol",
+      "autodestrucción",
+      "autoinmunes",
+      "automovilístico",
+      "autoritarismo",
+      "auténticamente",
+      "bach",
+      "barquito",
+      "bibliotecario",
+      "blanquísimo",
+      "bolivia",
+      "bombones",
+      "boom",
+      "botellita",
+      "brindado",
+      "cajita",
+      "característico",
+      "cc",
+      "center",
+      "centralización",
+      "ch",
+      "chipa",
+      "ciclones",
+      "climatológico",
+      "cobijado",
+      "coleccionismo",
+      "colectivamente",
+      "colisionador",
+      "collage",
+      "colombia",
+      "comprensivo"
+    ],
+    "combined_distinct_candidate_count": 45131,
+    "current_cde_distinct_count": 1984,
+    "spalex_distinct_clean_count": 44853,
+    "spalex_not_in_cde_count": 43147,
+    "target_readiness": [
+      {
+        "any_kaikki_metadata_count": 1906,
+        "any_kaikki_metadata_share": 0.953,
+        "baseline_rows": 1984,
+        "explicit_topic_count": 236,
+        "explicit_topic_share": 0.118,
+        "kaikki_gloss_count": 1906,
+        "kaikki_gloss_share": 0.953,
+        "kaikki_headword_count": 1906,
+        "kaikki_headword_share": 0.953,
+        "lexical_bucket_count": 1982,
+        "lexical_bucket_share": 0.991,
+        "medicine_signal_count": 60,
+        "medicine_signal_share": 0.03,
+        "pos_mapped_from_cde_or_kaikki_count": 1999,
+        "pos_mapped_from_cde_or_kaikki_share": 0.9995,
+        "reaches_target": true,
+        "reverse_spanish_target_count": 1804,
+        "reverse_spanish_target_share": 0.902,
+        "sample_missing_kaikki_headwords": [
+          "sólo",
+          "ii",
+          "ésa",
+          "pece",
+          "xiii",
+          "mandatari",
+          "sabés",
+          "registrado",
+          "finanzas",
+          "per",
+          "setiembre",
+          "asi",
+          "rue",
+          "mismísimo",
+          "naipes",
+          "cardiaco",
+          "promulgado",
+          "riquísimo",
+          "leona",
+          "remolcado",
+          "sha",
+          "jefa",
+          "ojito",
+          "ajenar",
+          "decorativas"
+        ],
+        "spalex_added_rows": 16,
+        "target_size": 2000,
+        "top_canonical_pos": [
+          [
+            "noun",
+            2332
+          ],
+          [
+            "adjective",
+            1063
+          ],
+          [
+            "verb",
+            627
+          ],
+          [
+            "adverb",
+            154
+          ],
+          [
+            "other",
+            95
+          ],
+          [
+            "interjection",
+            15
+          ],
+          [
+            "adposition",
+            15
+          ],
+          [
+            "determiner",
+            12
+          ],
+          [
+            "conjunction",
+            12
+          ],
+          [
+            "pronoun",
+            8
+          ],
+          [
+            "numeral",
+            6
+          ],
+          [
+            "punctuation",
+            1
+          ]
+        ],
+        "top_raw_pos": [
+          [
+            "noun",
+            1238
+          ],
+          [
+            "n",
+            1094
+          ],
+          [
+            "adj",
+            578
+          ],
+          [
+            "j",
+            485
+          ],
+          [
+            "verb",
+            315
+          ],
+          [
+            "v",
+            312
+          ],
+          [
+            "name",
+            89
+          ],
+          [
+            "adv",
+            82
+          ],
+          [
+            "r",
+            72
+          ],
+          [
+            "intj",
+            12
+          ],
+          [
+            "prep",
+            11
+          ],
+          [
+            "conj",
+            7
+          ],
+          [
+            "det",
+            6
+          ],
+          [
+            "pron",
+            6
+          ],
+          [
+            "c",
+            5
+          ]
+        ]
+      },
+      {
+        "any_kaikki_metadata_count": 4796,
+        "any_kaikki_metadata_share": 0.9592,
+        "baseline_rows": 1984,
+        "explicit_topic_count": 733,
+        "explicit_topic_share": 0.1466,
+        "kaikki_gloss_count": 4796,
+        "kaikki_gloss_share": 0.9592,
+        "kaikki_headword_count": 4796,
+        "kaikki_headword_share": 0.9592,
+        "lexical_bucket_count": 4797,
+        "lexical_bucket_share": 0.9594,
+        "medicine_signal_count": 130,
+        "medicine_signal_share": 0.026,
+        "pos_mapped_from_cde_or_kaikki_count": 4842,
+        "pos_mapped_from_cde_or_kaikki_share": 0.9684,
+        "reaches_target": true,
+        "reverse_spanish_target_count": 4689,
+        "reverse_spanish_target_share": 0.9378,
+        "sample_missing_kaikki_headwords": [
+          "sólo",
+          "ii",
+          "ésa",
+          "pece",
+          "xiii",
+          "mandatari",
+          "sabés",
+          "registrado",
+          "finanzas",
+          "per",
+          "setiembre",
+          "asi",
+          "rue",
+          "mismísimo",
+          "naipes",
+          "cardiaco",
+          "promulgado",
+          "riquísimo",
+          "leona",
+          "remolcado",
+          "sha",
+          "jefa",
+          "ojito",
+          "ajenar",
+          "decorativas"
+        ],
+        "spalex_added_rows": 3016,
+        "target_size": 5000,
+        "top_canonical_pos": [
+          [
+            "noun",
+            4667
+          ],
+          [
+            "adjective",
+            1706
+          ],
+          [
+            "verb",
+            944
+          ],
+          [
+            "other",
+            434
+          ],
+          [
+            "adverb",
+            277
+          ],
+          [
+            "interjection",
+            53
+          ],
+          [
+            "determiner",
+            27
+          ],
+          [
+            "adposition",
+            27
+          ],
+          [
+            "pronoun",
+            26
+          ],
+          [
+            "numeral",
+            24
+          ],
+          [
+            "conjunction",
+            23
+          ],
+          [
+            "punctuation",
+            1
+          ]
+        ],
+        "top_raw_pos": [
+          [
+            "noun",
+            3573
+          ],
+          [
+            "adj",
+            1221
+          ],
+          [
+            "n",
+            1094
+          ],
+          [
+            "verb",
+            632
+          ],
+          [
+            "j",
+            485
+          ],
+          [
+            "name",
+            428
+          ],
+          [
+            "v",
+            312
+          ],
+          [
+            "adv",
+            205
+          ],
+          [
+            "r",
+            72
+          ],
+          [
+            "intj",
+            50
+          ],
+          [
+            "pron",
+            24
+          ],
+          [
+            "prep",
+            23
+          ],
+          [
+            "det",
+            21
+          ],
+          [
+            "num",
+            21
+          ],
+          [
+            "conj",
+            18
+          ]
+        ]
+      },
+      {
+        "any_kaikki_metadata_count": 9469,
+        "any_kaikki_metadata_share": 0.9469,
+        "baseline_rows": 1984,
+        "explicit_topic_count": 1353,
+        "explicit_topic_share": 0.1353,
+        "kaikki_gloss_count": 9469,
+        "kaikki_gloss_share": 0.9469,
+        "kaikki_headword_count": 9469,
+        "kaikki_headword_share": 0.9469,
+        "lexical_bucket_count": 9375,
+        "lexical_bucket_share": 0.9375,
+        "medicine_signal_count": 248,
+        "medicine_signal_share": 0.0248,
+        "pos_mapped_from_cde_or_kaikki_count": 9435,
+        "pos_mapped_from_cde_or_kaikki_share": 0.9435,
+        "reaches_target": true,
+        "reverse_spanish_target_count": 9201,
+        "reverse_spanish_target_share": 0.9201,
+        "sample_missing_kaikki_headwords": [
+          "sólo",
+          "ii",
+          "ésa",
+          "pece",
+          "xiii",
+          "mandatari",
+          "sabés",
+          "registrado",
+          "finanzas",
+          "per",
+          "setiembre",
+          "asi",
+          "rue",
+          "mismísimo",
+          "naipes",
+          "cardiaco",
+          "promulgado",
+          "riquísimo",
+          "leona",
+          "remolcado",
+          "sha",
+          "jefa",
+          "ojito",
+          "ajenar",
+          "decorativas"
+        ],
+        "spalex_added_rows": 8016,
+        "target_size": 10000,
+        "top_canonical_pos": [
+          [
+            "noun",
+            8178
+          ],
+          [
+            "adjective",
+            2941
+          ],
+          [
+            "verb",
+            1479
+          ],
+          [
+            "other",
+            802
+          ],
+          [
+            "adverb",
+            382
+          ],
+          [
+            "interjection",
+            74
+          ],
+          [
+            "numeral",
+            34
+          ],
+          [
+            "adposition",
+            29
+          ],
+          [
+            "determiner",
+            27
+          ],
+          [
+            "conjunction",
+            26
+          ],
+          [
+            "pronoun",
+            26
+          ],
+          [
+            "punctuation",
+            1
+          ]
+        ],
+        "top_raw_pos": [
+          [
+            "noun",
+            7084
+          ],
+          [
+            "adj",
+            2456
+          ],
+          [
+            "verb",
+            1167
+          ],
+          [
+            "n",
+            1094
+          ],
+          [
+            "name",
+            794
+          ],
+          [
+            "j",
+            485
+          ],
+          [
+            "v",
+            312
+          ],
+          [
+            "adv",
+            310
+          ],
+          [
+            "r",
+            72
+          ],
+          [
+            "intj",
+            71
+          ],
+          [
+            "num",
+            31
+          ],
+          [
+            "prep",
+            25
+          ],
+          [
+            "pron",
+            24
+          ],
+          [
+            "det",
+            21
+          ],
+          [
+            "conj",
+            21
+          ]
+        ]
+      }
+    ]
+  },
+  "current_frequency": {
+    "distinct_lemma_count": 1984,
+    "exists": true,
+    "issues": [],
+    "mapped_pos_count": 1984,
+    "mapped_pos_share": 1.0,
+    "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "row_count": 2000,
+    "status": "ok",
+    "top_20_by_current_order": [
+      "el",
+      "no",
+      "más",
+      "ese",
+      "entre",
+      "hasta",
+      "deber",
+      "pues",
+      "sólo",
+      "poner",
+      "siglo",
+      "llamar",
+      "mayor",
+      "nacional",
+      "político",
+      "millón",
+      "preguntar",
+      "hora",
+      "trabajar",
+      "pequeño"
+    ]
+  },
+  "decision": "spalex_kaikki_source_stack_audited",
+  "findings": [
+    {
+      "code": "SPALEX_REACHES_10K",
+      "level": "PASS",
+      "message": "SPALEX has 44853 clean distinct spellings, enough for a 10k expansion frontier."
+    },
+    {
+      "code": "SPALEX_NOT_STANDALONE_REPLACEMENT",
+      "level": "REVIEW",
+      "message": "278 current CDE lemmas are absent from SPALEX, so the first stack should retain CDE as a seed/baseline."
+    },
+    {
+      "code": "KAIKKI_COVERS_COMBINED_10K",
+      "level": "PASS",
+      "message": "Installed Kaikki covers 9469 / 10000 combined candidates as headwords."
+    },
+    {
+      "code": "POS_BACKFILL_COVERS_COMBINED_10K",
+      "level": "PASS",
+      "message": "CDE plus Kaikki POS maps 9435 / 10000 combined candidates."
+    },
+    {
+      "code": "TOPIC_METADATA_REQUIRES_OVERLAY",
+      "level": "REVIEW",
+      "message": "Explicit Kaikki topic coverage is useful but partial (1353 / 10000), so domain overlays and/or embedding-assisted tagging are still needed."
+    },
+    {
+      "code": "MEDICINE_SEED_SIGNAL_EXISTS",
+      "level": "PASS",
+      "message": "Kaikki provides an initial medicine/health signal for 248 / 10000 combined candidates."
+    },
+    {
+      "code": "KAIKKI_LICENSE_AND_DUMP_PINNING_REQUIRED",
+      "level": "REVIEW",
+      "message": "Kaikki enrichment remains promotion-review data until attribution, share-alike/GFDL posture, and dated dump identity are encoded in manifests."
+    }
+  ],
+  "generated_at": "2026-05-16T18:29:52+00:00",
+  "inputs": {
+    "current_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "kaikki_reverse_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+    "spalex_csv": "/private/tmp/lexishift-spalex-audit/word_info.csv",
+    "target_sizes": [
+      2000,
+      5000,
+      10000
+    ]
+  },
+  "kaikki_forward": {
+    "category_headword_count": 103417,
+    "distinct_gloss_headword_count": 103417,
+    "distinct_headword_count": 103417,
+    "entry_row_count": 141378,
+    "exists": true,
+    "issues": [],
+    "lexical_bucket_headword_count": 94604,
+    "mapped_pos_headword_count": 95499,
+    "metadata": {
+      "built_at_utc": "2026-03-22T18:51:09Z",
+      "converter": "kaikki_glosses_to_sqlite",
+      "gloss_language": "en",
+      "input_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/raw-wiktextract-data.jsonl.gz",
+      "inserted_entry_meta": 114496,
+      "inserted_sense_rows": 144174,
+      "line_count": 10530584,
+      "selected_records": 114496,
+      "skip_gloss_prefixes": [
+        "inflection of",
+        "plural of",
+        "alternative form of",
+        "alternative spelling of",
+        "alternative typography of",
+        "misspelling of",
+        "clipping of",
+        "abbreviation of",
+        "acronym of"
+      ],
+      "skip_sense_tags": [
+        "alt-of",
+        "form-of",
+        "inflection-of"
+      ],
+      "skipped_empty_headword": 0,
+      "skipped_no_usable_glosses": 684355,
+      "skipped_non_matching_lang": 9731733,
+      "source_dump": "enwiktionary",
+      "source_lang_code": "es",
+      "source_provider": "wiktionary-es-en",
+      "total_records": 10530584
+    },
+    "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "pos_headword_count": 103417,
+    "status": "ok",
+    "tag_headword_count": 84070,
+    "top_canonical_pos": [
+      [
+        "noun",
+        64120
+      ],
+      [
+        "adjective",
+        23572
+      ],
+      [
+        "verb",
+        11604
+      ],
+      [
+        "other",
+        9300
+      ],
+      [
+        "adverb",
+        4697
+      ],
+      [
+        "interjection",
+        515
+      ],
+      [
+        "adposition",
+        240
+      ],
+      [
+        "numeral",
+        130
+      ],
+      [
+        "pronoun",
+        129
+      ],
+      [
+        "conjunction",
+        121
+      ],
+      [
+        "determiner",
+        62
+      ],
+      [
+        "punctuation",
+        6
+      ]
+    ],
+    "top_raw_pos": [
+      [
+        "noun",
+        64120
+      ],
+      [
+        "adj",
+        23572
+      ],
+      [
+        "verb",
+        11393
+      ],
+      [
+        "name",
+        7858
+      ],
+      [
+        "adv",
+        4697
+      ],
+      [
+        "phrase",
+        682
+      ],
+      [
+        "intj",
+        515
+      ],
+      [
+        "suffix",
+        340
+      ],
+      [
+        "prefix",
+        308
+      ],
+      [
+        "prep",
+        220
+      ],
+      [
+        "proverb",
+        211
+      ],
+      [
+        "num",
+        130
+      ],
+      [
+        "pron",
+        129
+      ],
+      [
+        "conj",
+        121
+      ],
+      [
+        "character",
+        75
+      ],
+      [
+        "det",
+        43
+      ],
+      [
+        "contraction",
+        27
+      ],
+      [
+        "prep_phrase",
+        20
+      ],
+      [
+        "article",
+        10
+      ],
+      [
+        "particle",
+        9
+      ]
+    ],
+    "top_topics": [
+      [
+        "sciences",
+        3796
+      ],
+      [
+        "natural-sciences",
+        3749
+      ],
+      [
+        "physical-sciences",
+        2417
+      ],
+      [
+        "medicine",
+        2200
+      ],
+      [
+        "lifestyle",
+        2189
+      ],
+      [
+        "chemistry",
+        1711
+      ],
+      [
+        "biology",
+        1436
+      ],
+      [
+        "hobbies",
+        1140
+      ],
+      [
+        "human-sciences",
+        939
+      ],
+      [
+        "sports",
+        921
+      ],
+      [
+        "anatomy",
+        732
+      ],
+      [
+        "mathematics",
+        692
+      ],
+      [
+        "organic-chemistry",
+        669
+      ],
+      [
+        "government",
+        638
+      ],
+      [
+        "politics",
+        621
+      ],
+      [
+        "entertainment",
+        612
+      ],
+      [
+        "microbiology",
+        524
+      ],
+      [
+        "engineering",
+        517
+      ],
+      [
+        "games",
+        497
+      ],
+      [
+        "biochemistry",
+        493
+      ]
+    ],
+    "topic_headword_count": 10756
+  },
+  "kaikki_reverse": {
+    "distinct_english_headword_count": 60499,
+    "distinct_spanish_translation_target_count": 89037,
+    "entry_row_count": 131955,
+    "exists": true,
+    "issues": [],
+    "metadata": {
+      "built_at_utc": "2026-03-22T19:11:17Z",
+      "converter": "kaikki_translations_to_sqlite",
+      "input_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/raw-wiktextract-data.jsonl.gz",
+      "inserted_entry_meta": 66360,
+      "inserted_sense_rows": 146579,
+      "inserted_translation_meta": 146579,
+      "line_count": 10530584,
+      "selected_records": 66360,
+      "skipped_empty_headword": 1,
+      "skipped_no_usable_translations": 1388627,
+      "skipped_non_matching_lang": 9075596,
+      "source_dump": "enwiktionary",
+      "source_lang_code": "en",
+      "source_provider": "wiktionary-en-es",
+      "target_lang_code": "es",
+      "total_records": 10530584,
+      "translation_language": "es"
+    },
+    "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+    "status": "ok"
+  },
+  "large_downloads": "none",
+  "methodology": {
+    "combined_frontier": "current freq-es-cde distinct lemmas first, then SPALEX ranked clean spellings not already present",
+    "kaikki_enrichment": "SPALEX/CDE candidates are looked up against installed wiktionary-es-en headwords, POS, gloss rows, sense topics, tags, categories, and reverse wiktionary-en-es Spanish translation targets.",
+    "not_a_default_behavior_claim": "The audit checks source suitability only. It does not change SRS admission, rulegen ranking, semantic-veto behavior, or publication policy.",
+    "spalex_ordering": "distinct clean spellings sorted by Zipf descending, then prevalence descending"
+  },
+  "pair": "en-es",
+  "recommended_next_steps": [
+    "Treat SPALEX as the leading open candidate-frontier source, but not as a standalone replacement for `freq-es-cde`.",
+    "Prototype `freq-es-spalex-expanded-v1.sqlite` as a union: current CDE seed rows first, then SPALEX-ranked additions with field-level provenance.",
+    "Backfill POS/gloss/topic metadata from the installed Kaikki forward pack and keep missing Kaikki rows explicit.",
+    "Add a narrow topic overlay for medicine/health before claiming interest-tailored admission quality.",
+    "Encode SPALEX CC BY attribution and Kaikki review-required attribution/share-alike/dump-pin requirements in source manifests before promotion.",
+    "Run a neutral vs medicine-weighted SRS admission probe after the provisional source pack exists."
+  ],
+  "runtime_policy_change": "none",
+  "schema_version": 1,
+  "source_metadata": {
+    "freq_es_cde": {
+      "role": "current_seed_baseline_and_function_word_coverage"
+    },
+    "kaikki": {
+      "license_posture": "review_required_cc_by_sa_gfdl_obligations",
+      "role": "pos_gloss_dictionary_topic_enrichment",
+      "source_family": "Wiktionary/Wiktextract/Kaikki",
+      "source_url": "https://kaikki.org/dictionary/rawdata.html"
+    },
+    "spalex": {
+      "doi": "10.6084/m9.figshare.5924794.v4",
+      "license_name": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "role": "candidate_frontier_frequency_prevalence",
+      "source_url": "https://figshare.com/articles/dataset/Word_information/5924794"
+    }
+  },
+  "spalex": {
+    "bottom_20_by_zipf": [
+      "unicaule",
+      "madapolán",
+      "anagoge",
+      "jusbarba",
+      "esfoyaza",
+      "fonje",
+      "ataharre",
+      "elzeviriano",
+      "noluntad",
+      "nioto",
+      "taled",
+      "palamallo",
+      "rascle",
+      "juardoso",
+      "poncidre",
+      "turcople",
+      "numulites",
+      "uscoque",
+      "mavorcio",
+      "erraj"
+    ],
+    "clean_distinct_spelling_count": 44853,
+    "column_coverage": {
+      "freq": {
+        "nonempty_count": 44853,
+        "share": 1.0
+      },
+      "percent_total": {
+        "nonempty_count": 44853,
+        "share": 1.0
+      },
+      "prevalence_total": {
+        "nonempty_count": 44853,
+        "share": 1.0
+      },
+      "zipf": {
+        "nonempty_count": 44853,
+        "share": 1.0
+      }
+    },
+    "columns": [
+      "spelling",
+      "count_total",
+      "percent_total",
+      "prevalence_total",
+      "count_nts",
+      "percent_nts",
+      "prevalence_nts",
+      "count_ntl",
+      "percent_ntl",
+      "prevalence_ntl",
+      "freq",
+      "zipf"
+    ],
+    "csv_md5": "4e5452f8c068ae77d9aa3a691fa89d02",
+    "csv_size_bytes": 5407807,
+    "distinct_spelling_count": 44853,
+    "exists": true,
+    "issues": [],
+    "path": "/private/tmp/lexishift-spalex-audit/word_info.csv",
+    "required_columns_missing": [],
+    "row_count": 44853,
+    "status": "ok",
+    "target_readiness": [
+      {
+        "clean_distinct_spelling_count": 44853,
+        "reaches_target": true,
+        "target_size": 2000
+      },
+      {
+        "clean_distinct_spelling_count": 44853,
+        "reaches_target": true,
+        "target_size": 5000
+      },
+      {
+        "clean_distinct_spelling_count": 44853,
+        "reaches_target": true,
+        "target_size": 10000
+      }
+    ],
+    "top_20_by_zipf": [
+      "que",
+      "los",
+      "del",
+      "las",
+      "por",
+      "con",
+      "una",
+      "para",
+      "como",
+      "más",
+      "sus",
+      "este",
+      "también",
+      "entre",
+      "sin",
+      "ser",
+      "son",
+      "cuando",
+      "dos",
+      "todo"
+    ],
+    "value_ranges": {
+      "freq": {
+        "max": 28628.87898,
+        "min": 0.003249
+      },
+      "percent_total": {
+        "max": 100.0,
+        "min": 1.045296167
+      },
+      "prevalence_total": {
+        "max": 2.575829304,
+        "min": -2.160980262
+      },
+      "zipf": {
+        "max": 7.456803999999999,
+        "min": 0.51175
+      }
+    }
+  },
+  "summary": {
+    "combined_distinct_candidate_count": 45131,
+    "current_cde_distinct_count": 1984,
+    "error_source_count": 0,
+    "kaikki_forward_distinct_headword_count": 103417,
+    "kaikki_reverse_spanish_target_count": 89037,
+    "recommended_stack": "freq-es-cde_seed_plus_spalex_expansion_plus_kaikki_enrichment",
+    "spalex_clean_distinct_count": 44853,
+    "status": "review"
+  }
+}

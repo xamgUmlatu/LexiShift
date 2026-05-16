@@ -2,8 +2,8 @@
 
 Status: active data planning reference
 Role: Planning / WIP
-Last updated: 2026-05-16
-Last verified: 2026-05-16 by current en-es source-readiness findings, SRS profile/admission docs, and interest-tailored admission algorithm review
+Last updated: 2026-05-17
+Last verified: 2026-05-17 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, SRS profile/admission docs, and interest-tailored admission algorithm review
 Purpose: enumerate the data needed to make interest-tailored SRS admission real, identify what is missing now, and define a practical acquisition strategy
 Source-of-truth: data acquisition plan; current executable truth lives in SRS seed/admission code, installed pack manifests, generated source-readiness audits, and promoted source packs.
 
@@ -13,6 +13,7 @@ Related docs:
 - `srs_set_planning_technical.md`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
 - `../rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md`
+- `../test_outputs/semantic_veto_srs_source_stack_audit_en_es_latest.md`
 
 ## Data-First Goal
 
@@ -36,15 +37,15 @@ Current `en-es` state is useful but not enough for the target model.
 
 | Data Class | Current State | Missing For Target Model |
 | --- | --- | --- |
-| General Spanish candidate size | Installed baseline has `2,000` rows and `1,984` distinct non-empty lemmas. | A promoted, license-cleared 5k-10k+ candidate frontier. |
-| Frequency/rank | Current pack has usable rank/frequency. Temporary 10k probe also has rank/frequency. | Merge policy between current baseline and expansion source; field-level provenance. |
-| POS | Current baseline has 100% POS. Temporary 10k probe has 0% native POS; installed Wiktionary backfill maps `5,036 / 10,000`, with `4,122 / 10,000` confident weighted buckets. | Promotion-grade POS policy for ambiguous/function-heavy candidates and Spanish stopwords. |
-| Topic/domain metadata | Current baseline has `0%`. Temporary 10k probe has `0%`. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
-| Medical/health domain support | Semantic-veto tests include some health examples, but source rows are not topic-tagged for admission. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
+| General Spanish candidate size | Installed baseline has `2,000` rows and `1,984` distinct non-empty lemmas. SPALEX has `44,853` clean distinct spellings; CDE seed plus SPALEX expansion yields `45,131` distinct candidates. | A promoted, license-cleared 5k-10k+ candidate frontier. |
+| Frequency/rank | Current pack has usable rank/frequency. SPALEX has full `freq`, `zipf`, `percent_total`, and `prevalence_total` coverage. | Merge policy between current baseline and expansion source; field-level provenance. |
+| POS | Current baseline has 100% POS. In the CDE-seed plus SPALEX-expansion audit, CDE plus installed Kaikki maps POS for `9,435 / 10,000` combined candidates. | Promotion-grade POS policy for ambiguous/function-heavy candidates and Spanish stopwords. |
+| Topic/domain metadata | Current baseline has `0%`. Installed Kaikki gives explicit topic rows for `1,353 / 10,000` combined candidates. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
+| Medical/health domain support | Installed Kaikki gives an initial medicine/health-like signal for `248 / 10,000` combined candidates. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
 | Difficulty/readiness | Frequency rank can proxy difficulty. Profile schema supports proficiency/challenge fields. | CEFR/learner-level overlay or calibrated difficulty model for non-beginner users. |
 | Rulegen coverage | Current denominator evidence exists for current baseline; expanded candidate full-rulegen coverage was not promoted. | Per-candidate rulegen coverage cache for expanded corpus. |
 | Semantic-veto coverage | Current semantic-veto coverage is measured for current admitted families. | Expanded denominator and uncovered-family audit after candidate source selection. |
-| Source/license provenance | Current source has pack metadata; temporary wordfreq probe is research-only because license/attribution needs review. | Promotion manifests with source hash, license, attribution, and redistribution notes. |
+| Source/license provenance | Current source has pack metadata. SPALEX Figshare metadata reports `CC BY 4.0`; Kaikki/Wiktionary enrichment still needs attribution/share-alike/GFDL posture and dated dump pinning. | Promotion manifests with source hash, license, attribution, and redistribution notes. |
 | User interest profile | Existing profile context supports interests/topic weights in principle. | Scalar UX-to-profile mapping, confidence, decay, and explicit/inferred source separation. |
 | Feedback adaptation | SRS feedback and signal queues exist as product seams. | Aggregation policy that updates interests, difficulty, and source preferences gradually. |
 
@@ -105,6 +106,8 @@ and change gradually.
 
 Preferred sources:
 
+- use SPALEX as the leading open candidate-frontier source when paired with the
+  current `freq-es-cde` seed/baseline;
 - recover or rebuild the referenced Spanish 20k source if license/provenance is
   acceptable;
 - evaluate a license-cleared general frequency source;
@@ -115,10 +118,23 @@ Preferred sources:
 
 Output:
 
-- `freq-es-expanded-v1.sqlite` or equivalent research pack,
+- `freq-es-spalex-expanded-v1.sqlite` or equivalent research pack,
 - source manifest,
 - overlap report against `freq-es-cde`,
 - duplicate and normalization report.
+
+Current practical source-stack finding:
+
+- SPALEX is strong enough to lead the 10k expansion frontier, but it is not a
+  standalone replacement for `freq-es-cde`: `278` current CDE lemmas are absent
+  from SPALEX.
+- The first practical stack should keep `freq-es-cde` as the seed/baseline, then
+  add SPALEX-ranked rows with field-level provenance.
+- Installed Kaikki covers `9,469 / 10,000` combined candidates as Spanish
+  headwords and gives CDE plus Kaikki mapped POS for `9,435 / 10,000`.
+- Explicit Kaikki topic coverage remains partial at `1,353 / 10,000`, so topic
+  overlays and/or embedding-assisted tagging are still required before
+  interest-tailored admission quality claims.
 
 ### 2. POS And Function-Word Controls
 

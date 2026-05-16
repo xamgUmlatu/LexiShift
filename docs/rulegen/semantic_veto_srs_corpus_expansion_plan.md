@@ -2,14 +2,15 @@
 
 Status: active planning reference
 Role: Planning / WIP
-Last updated: 2026-05-16
-Last verified: 2026-05-16 with source-readiness audit review, local no-download wordfreq candidate probe, candidate POS backfill audit, and SRS Zipf bridge candidate frequency override tests
+Last updated: 2026-05-17
+Last verified: 2026-05-17 with source-readiness audit review, local no-download wordfreq candidate probe, SPALEX + Kaikki source-stack audit, candidate POS backfill audit, and SRS Zipf bridge candidate frequency override tests
 Related docs:
 - `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `semantic_veto_srs_spanish_expansion_source_probe_2026-05-16.md`
 - `semantic_veto_denominator_current_state.md`
 - `../srs/srs_interest_tailored_admission_algorithm.md`
 - `../srs/srs_interest_tailored_data_acquisition_plan.md`
+- `../test_outputs/semantic_veto_srs_source_stack_audit_en_es_latest.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
 
 ## Purpose
@@ -78,6 +79,26 @@ includes source-specific attribution requirements. Any `wordfreq`-derived pack
 promotion therefore needs explicit attribution/sharealike handling before it can
 be product evidence.
 
+The 2026-05-17 SPALEX + Kaikki source-stack audit is a stronger practical path
+for the next expansion slice. SPALEX `word_info.csv` has `44,853` clean distinct
+spellings with complete frequency, Zipf, prevalence, and percentage-known
+coverage. The Figshare metadata reports `CC BY 4.0`, which makes it more
+promotion-friendly than the proprietary CDE/WordFrequency Spanish 40k option,
+subject to attribution and source-manifest handling. However, SPALEX is not a
+standalone replacement for the current baseline: `278` current CDE lemmas are
+absent from SPALEX, including short/function-heavy or otherwise baseline-useful
+rows. The first practical stack should therefore be `freq-es-cde` as seed plus
+SPALEX-ranked additions.
+
+Against that combined 10k target, installed Kaikki/Wiktionary coverage is strong
+enough for a research pack: `9,469 / 10,000` candidates have Spanish-headword
+coverage, and CDE plus Kaikki POS maps `9,435 / 10,000`. Explicit Kaikki topic
+coverage is only `1,353 / 10,000`, with an initial medicine/health signal for
+`248 / 10,000`, so domain overlays and embedding-assisted topic tagging remain
+necessary before interest-tailored SRS admission can be claimed as complete.
+Kaikki enrichment also remains promotion-review data until attribution,
+share-alike/GFDL posture, and dated dump identity are encoded.
+
 ## Decision Principles
 
 1. Freeze the current 2k pack as the comparison baseline.
@@ -99,6 +120,8 @@ be product evidence.
 
 | Source Family | Why It Might Help | Main Risk | First Validation |
 | --- | --- | --- | --- |
+| SPALEX plus current CDE seed | Leading practical path: SPALEX supplies 44,853 frequency/prevalence rows while current CDE preserves baseline/function-word coverage. | SPALEX spellings are not guaranteed to behave exactly like lemmas, and it omits 278 current CDE rows. | Build CDE-seed plus SPALEX-ranked research pack and audit overlap, POS, topic, and rulegen yield. |
+| Kaikki/Wiktionary enrichment | Supplies POS, glosses, dictionary compatibility, reverse-check support, and partial topic/category metadata. | Share-alike/GFDL posture and dated dump identity are promotion gates; explicit topic coverage is partial. | Join against SPALEX/CDE combined candidates and record field-level provenance. |
 | Recovered or rebuilt Spanish 20k frequency list | Fastest continuity path if it preserves current rank/POS semantics. | Provenance or license may be unclear; likely no topic metadata. | Confirm source, row count, schema, POS coverage, duplicate rate. |
 | General frequency corpus | Best broad 5k-10k browsing/SRS coverage. | Frequency alone may include low-learning-value rows. | Compare overlap with current 2k and rulegen family yield. |
 | Learner-level or CEFR-style list | Better staged learner progression. | May be smaller or missing usable frequency values. | Verify level coverage and merge with frequency ranking. |
@@ -148,6 +171,21 @@ python3 scripts/testing/semantic_veto_srs_candidate_pos_backfill_audit_en_es.py 
 This audit is intentionally conservative: it joins candidate lemmas only to
 Spanish resource `headword_lc` values, excludes English-side translation POS,
 and does not mutate the candidate or installed language packs.
+
+When the candidate source is SPALEX plus installed Kaikki, run the stack audit
+without downloading large Kaikki raw dumps:
+
+```bash
+python3 scripts/testing/semantic_veto_srs_source_stack_audit_en_es.py \
+  --spalex-csv /path/to/word_info.csv \
+  --json-out docs/test_outputs/semantic_veto_srs_source_stack_audit_en_es_latest.json \
+  --markdown-out docs/test_outputs/semantic_veto_srs_source_stack_audit_en_es_latest.md
+```
+
+This audit checks whether SPALEX can provide the expanded ranked frontier, whether
+the current CDE seed must be retained, and how much installed Kaikki coverage is
+available for POS, glosses, explicit topics, medicine/health signals, and reverse
+Spanish translation targets.
 
 ### Phase 2: Pack Naming And Installation
 
