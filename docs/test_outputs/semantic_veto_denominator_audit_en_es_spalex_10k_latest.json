@@ -1,0 +1,2264 @@
+{
+  "checks": {
+    "bridge_and_plan_denominator_match": false,
+    "coverage_plus_review_exclusions_matches_denominator": true,
+    "covered_plus_uncovered_matches_denominator": true,
+    "current_generation_queue_exhausted": true,
+    "no_evidence_outside_denominator": true,
+    "product_scope_plus_approved_plus_excluded_matches_denominator": true,
+    "uncovered_rows_are_review_exclusions": true
+  },
+  "cleanup_recommendations": [
+    "Keep tranche-011 as the current product checkpoint and tranche-003 as the latest hands-on browser smoke.",
+    "Do not run more active-only paid generation while selected_request_count is 0.",
+    "Treat the next denominator-expansion task as rulegen/SRS resource work, not LLM prompt work.",
+    "Keep the 1,984 learner-target universe and 570 replacement-family universe labeled separately in product docs.",
+    "For expanded-candidate coverage, run the active-only full generation planner against the same SRS Zipf bridge artifact."
+  ],
+  "coverage_by_source_band": [
+    {
+      "covered_family_count": 95,
+      "covered_share": 0.8716,
+      "family_count": 109,
+      "sample_uncovered": [
+        {
+          "source": "action",
+          "target": "batalla"
+        },
+        {
+          "source": "ask",
+          "target": "demandar"
+        },
+        {
+          "source": "become",
+          "target": "acontecer"
+        },
+        {
+          "source": "capital",
+          "target": "capital"
+        },
+        {
+          "source": "chief",
+          "target": "amo"
+        },
+        {
+          "source": "director",
+          "target": "director"
+        },
+        {
+          "source": "front",
+          "target": "frontón"
+        },
+        {
+          "source": "hit",
+          "target": "llamar"
+        },
+        {
+          "source": "kind",
+          "target": "gracioso"
+        },
+        {
+          "source": "offer",
+          "target": "pretensión"
+        }
+      ],
+      "source_band": "zipf_5_plus_very_common",
+      "uncovered_family_count": 14
+    },
+    {
+      "covered_family_count": 196,
+      "covered_share": 0.834,
+      "family_count": 235,
+      "sample_uncovered": [
+        {
+          "source": "beg",
+          "target": "demandar"
+        },
+        {
+          "source": "bid",
+          "target": "demandar"
+        },
+        {
+          "source": "blank",
+          "target": "formulario"
+        },
+        {
+          "source": "burst",
+          "target": "grieta"
+        },
+        {
+          "source": "calm",
+          "target": "silencio"
+        },
+        {
+          "source": "chase",
+          "target": "cazar"
+        },
+        {
+          "source": "copy",
+          "target": "trasladar"
+        },
+        {
+          "source": "count",
+          "target": "calcular"
+        },
+        {
+          "source": "crisis",
+          "target": "crisis"
+        },
+        {
+          "source": "damage",
+          "target": "defecto"
+        }
+      ],
+      "source_band": "zipf_4_to_5_common",
+      "uncovered_family_count": 39
+    },
+    {
+      "covered_family_count": 125,
+      "covered_share": 0.8224,
+      "family_count": 152,
+      "sample_uncovered": [
+        {
+          "source": "abandonment",
+          "target": "cesión"
+        },
+        {
+          "source": "abstraction",
+          "target": "robo"
+        },
+        {
+          "source": "acquaintance",
+          "target": "notoriedad"
+        },
+        {
+          "source": "bark",
+          "target": "barco"
+        },
+        {
+          "source": "barn",
+          "target": "puesto"
+        },
+        {
+          "source": "builder",
+          "target": "labrador"
+        },
+        {
+          "source": "centennial",
+          "target": "siglo"
+        },
+        {
+          "source": "chunk",
+          "target": "bola"
+        },
+        {
+          "source": "compartment",
+          "target": "departamento"
+        },
+        {
+          "source": "delegate",
+          "target": "diputado"
+        }
+      ],
+      "source_band": "zipf_3_to_4_mid",
+      "uncovered_family_count": 27
+    },
+    {
+      "covered_family_count": 38,
+      "covered_share": 0.7308,
+      "family_count": 52,
+      "sample_uncovered": [
+        {
+          "source": "affable",
+          "target": "gracioso"
+        },
+        {
+          "source": "alternation",
+          "target": "alternativa"
+        },
+        {
+          "source": "battlefront",
+          "target": "frontón"
+        },
+        {
+          "source": "begrudge",
+          "target": "deplorar"
+        },
+        {
+          "source": "beret",
+          "target": "birrete"
+        },
+        {
+          "source": "burndown",
+          "target": "quemar"
+        },
+        {
+          "source": "clod",
+          "target": "bola"
+        },
+        {
+          "source": "frontage",
+          "target": "frontón"
+        },
+        {
+          "source": "haddock",
+          "target": "merluza"
+        },
+        {
+          "source": "otherthan",
+          "target": "excepto"
+        }
+      ],
+      "source_band": "zipf_below_3_rare",
+      "uncovered_family_count": 14
+    },
+    {
+      "covered_family_count": 1,
+      "covered_share": 0.0455,
+      "family_count": 22,
+      "sample_uncovered": [
+        {
+          "source": "beburntdown",
+          "target": "quemar"
+        },
+        {
+          "source": "campingsite",
+          "target": "campamento"
+        },
+        {
+          "source": "conversance",
+          "target": "notoriedad"
+        },
+        {
+          "source": "femalejournalist",
+          "target": "periodista"
+        },
+        {
+          "source": "germanlanguage",
+          "target": "alemán"
+        },
+        {
+          "source": "gobackwards",
+          "target": "retroceder"
+        },
+        {
+          "source": "gobeyond",
+          "target": "atravesar"
+        },
+        {
+          "source": "japaneselanguage",
+          "target": "japonés"
+        },
+        {
+          "source": "manifacture",
+          "target": "producción"
+        },
+        {
+          "source": "middaymeal",
+          "target": "cena"
+        }
+      ],
+      "source_band": "missing",
+      "uncovered_family_count": 21
+    }
+  ],
+  "coverage_by_target_band": [
+    {
+      "covered_family_count": 66,
+      "covered_share": 0.7857,
+      "family_count": 84,
+      "sample_uncovered": [
+        {
+          "source": "barn",
+          "target": "puesto"
+        },
+        {
+          "source": "capital",
+          "target": "capital"
+        },
+        {
+          "source": "centennial",
+          "target": "siglo"
+        },
+        {
+          "source": "compartment",
+          "target": "departamento"
+        },
+        {
+          "source": "crisis",
+          "target": "crisis"
+        },
+        {
+          "source": "depression",
+          "target": "crisis"
+        },
+        {
+          "source": "director",
+          "target": "director"
+        },
+        {
+          "source": "dismal",
+          "target": "común"
+        },
+        {
+          "source": "emergency",
+          "target": "crisis"
+        },
+        {
+          "source": "favor",
+          "target": "favor"
+        }
+      ],
+      "target_band": "zipf_5_plus_very_common",
+      "uncovered_family_count": 18
+    },
+    {
+      "covered_family_count": 181,
+      "covered_share": 0.8265,
+      "family_count": 219,
+      "sample_uncovered": [
+        {
+          "source": "abstraction",
+          "target": "robo"
+        },
+        {
+          "source": "action",
+          "target": "batalla"
+        },
+        {
+          "source": "affable",
+          "target": "gracioso"
+        },
+        {
+          "source": "alternation",
+          "target": "alternativa"
+        },
+        {
+          "source": "bark",
+          "target": "barco"
+        },
+        {
+          "source": "beburntdown",
+          "target": "quemar"
+        },
+        {
+          "source": "burndown",
+          "target": "quemar"
+        },
+        {
+          "source": "calm",
+          "target": "silencio"
+        },
+        {
+          "source": "campingsite",
+          "target": "campamento"
+        },
+        {
+          "source": "chief",
+          "target": "amo"
+        }
+      ],
+      "target_band": "zipf_4_to_5_common",
+      "uncovered_family_count": 38
+    },
+    {
+      "covered_family_count": 167,
+      "covered_share": 0.8107,
+      "family_count": 206,
+      "sample_uncovered": [
+        {
+          "source": "abandonment",
+          "target": "cesión"
+        },
+        {
+          "source": "acquaintance",
+          "target": "notoriedad"
+        },
+        {
+          "source": "ask",
+          "target": "demandar"
+        },
+        {
+          "source": "beg",
+          "target": "demandar"
+        },
+        {
+          "source": "bid",
+          "target": "demandar"
+        },
+        {
+          "source": "blank",
+          "target": "formulario"
+        },
+        {
+          "source": "builder",
+          "target": "labrador"
+        },
+        {
+          "source": "burst",
+          "target": "grieta"
+        },
+        {
+          "source": "chase",
+          "target": "cazar"
+        },
+        {
+          "source": "conversance",
+          "target": "notoriedad"
+        }
+      ],
+      "target_band": "zipf_3_to_4_mid",
+      "uncovered_family_count": 39
+    },
+    {
+      "covered_family_count": 41,
+      "covered_share": 0.6721,
+      "family_count": 61,
+      "sample_uncovered": [
+        {
+          "source": "battlefront",
+          "target": "frontón"
+        },
+        {
+          "source": "become",
+          "target": "acontecer"
+        },
+        {
+          "source": "begrudge",
+          "target": "deplorar"
+        },
+        {
+          "source": "beret",
+          "target": "birrete"
+        },
+        {
+          "source": "divide",
+          "target": "segregar"
+        },
+        {
+          "source": "dove",
+          "target": "pichón"
+        },
+        {
+          "source": "front",
+          "target": "frontón"
+        },
+        {
+          "source": "frontage",
+          "target": "frontón"
+        },
+        {
+          "source": "fur",
+          "target": "incrustación"
+        },
+        {
+          "source": "govern",
+          "target": "capitanear"
+        }
+      ],
+      "target_band": "zipf_below_3_rare",
+      "uncovered_family_count": 20
+    }
+  ],
+  "decision": "semantic_veto_denominator_audit_needs_review",
+  "excluded_family_breakdown": [
+    {
+      "family_count": 8,
+      "sample_families": [
+        {
+          "source": "gobackwards",
+          "target": "retroceder"
+        },
+        {
+          "source": "gobeyond",
+          "target": "atravesar"
+        },
+        {
+          "source": "mosaicwork",
+          "target": "mosaico"
+        },
+        {
+          "source": "offerofparriage",
+          "target": "pretensión"
+        },
+        {
+          "source": "polishwoman",
+          "target": "polaca"
+        },
+        {
+          "source": "reverseside",
+          "target": "reverso"
+        },
+        {
+          "source": "turnaway",
+          "target": "apartar"
+        },
+        {
+          "source": "withoutaname",
+          "target": "anónimo"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 7,
+      "sample_families": [
+        {
+          "source": "beburntdown",
+          "target": "quemar"
+        },
+        {
+          "source": "campingsite",
+          "target": "campamento"
+        },
+        {
+          "source": "femalejournalist",
+          "target": "periodista"
+        },
+        {
+          "source": "germanlanguage",
+          "target": "alemán"
+        },
+        {
+          "source": "japaneselanguage",
+          "target": "japonés"
+        },
+        {
+          "source": "tellalie",
+          "target": "mentir"
+        },
+        {
+          "source": "tentedcamp",
+          "target": "campamento"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 3,
+      "sample_families": [
+        {
+          "source": "manifacture",
+          "target": "producción"
+        },
+        {
+          "source": "onethousand",
+          "target": "mil"
+        },
+        {
+          "source": "thatmuch",
+          "target": "tanto"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "taketheplaceof",
+          "target": "relevar"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "ideal",
+          "target": "ideal"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "crisis",
+          "target": "crisis"
+        },
+        {
+          "source": "favor",
+          "target": "favor"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "capital",
+          "target": "capital"
+        },
+        {
+          "source": "director",
+          "target": "director"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "burndown",
+          "target": "quemar"
+        },
+        {
+          "source": "otherthan",
+          "target": "excepto"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "turnon",
+          "target": "poner"
+        }
+      ],
+      "source_target_review_decision": "exclude_no_visible_replacement",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "conversance",
+          "target": "notoriedad"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "middaymeal",
+          "target": "cena"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 8,
+      "sample_families": [
+        {
+          "source": "abandonment",
+          "target": "cesión"
+        },
+        {
+          "source": "acquaintance",
+          "target": "notoriedad"
+        },
+        {
+          "source": "builder",
+          "target": "labrador"
+        },
+        {
+          "source": "familiarity",
+          "target": "notoriedad"
+        },
+        {
+          "source": "infusion",
+          "target": "extracto"
+        },
+        {
+          "source": "roller",
+          "target": "cilindro"
+        },
+        {
+          "source": "stoke",
+          "target": "calentar"
+        },
+        {
+          "source": "successor",
+          "target": "descendiente"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 8,
+      "sample_families": [
+        {
+          "source": "abstraction",
+          "target": "robo"
+        },
+        {
+          "source": "bark",
+          "target": "barco"
+        },
+        {
+          "source": "chunk",
+          "target": "bola"
+        },
+        {
+          "source": "delegate",
+          "target": "diputado"
+        },
+        {
+          "source": "junction",
+          "target": "reunión"
+        },
+        {
+          "source": "restrain",
+          "target": "gobernar"
+        },
+        {
+          "source": "utilize",
+          "target": "explotar"
+        },
+        {
+          "source": "vocabulary",
+          "target": "diccionario"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 4,
+      "sample_families": [
+        {
+          "source": "barn",
+          "target": "puesto"
+        },
+        {
+          "source": "centennial",
+          "target": "siglo"
+        },
+        {
+          "source": "compartment",
+          "target": "departamento"
+        },
+        {
+          "source": "dismal",
+          "target": "común"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 7,
+      "sample_families": [
+        {
+          "source": "dove",
+          "target": "pichón"
+        },
+        {
+          "source": "govern",
+          "target": "capitanear"
+        },
+        {
+          "source": "lovable",
+          "target": "afable"
+        },
+        {
+          "source": "obstruct",
+          "target": "cercar"
+        },
+        {
+          "source": "pigeon",
+          "target": "pichón"
+        },
+        {
+          "source": "restrain",
+          "target": "capitanear"
+        },
+        {
+          "source": "trumpet",
+          "target": "trombón"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 17,
+      "sample_families": [
+        {
+          "source": "beg",
+          "target": "demandar"
+        },
+        {
+          "source": "bid",
+          "target": "demandar"
+        },
+        {
+          "source": "blank",
+          "target": "formulario"
+        },
+        {
+          "source": "burst",
+          "target": "grieta"
+        },
+        {
+          "source": "chase",
+          "target": "cazar"
+        },
+        {
+          "source": "copy",
+          "target": "trasladar"
+        },
+        {
+          "source": "count",
+          "target": "calcular"
+        },
+        {
+          "source": "demand",
+          "target": "deducción"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 11,
+      "sample_families": [
+        {
+          "source": "calm",
+          "target": "silencio"
+        },
+        {
+          "source": "damage",
+          "target": "defecto"
+        },
+        {
+          "source": "friendly",
+          "target": "gracioso"
+        },
+        {
+          "source": "fur",
+          "target": "piel"
+        },
+        {
+          "source": "gentle",
+          "target": "dulce"
+        },
+        {
+          "source": "glorious",
+          "target": "famoso"
+        },
+        {
+          "source": "leader",
+          "target": "amo"
+        },
+        {
+          "source": "quote",
+          "target": "mencionar"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 3,
+      "sample_families": [
+        {
+          "source": "depression",
+          "target": "crisis"
+        },
+        {
+          "source": "emergency",
+          "target": "crisis"
+        },
+        {
+          "source": "shed",
+          "target": "puesto"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 5,
+      "sample_families": [
+        {
+          "source": "divide",
+          "target": "segregar"
+        },
+        {
+          "source": "fur",
+          "target": "incrustación"
+        },
+        {
+          "source": "grow",
+          "target": "acontecer"
+        },
+        {
+          "source": "nearby",
+          "target": "contiguo"
+        },
+        {
+          "source": "strict",
+          "target": "inclemente"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 3,
+      "sample_families": [
+        {
+          "source": "ask",
+          "target": "demandar"
+        },
+        {
+          "source": "offer",
+          "target": "pretensión"
+        },
+        {
+          "source": "show",
+          "target": "designar"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 5,
+      "sample_families": [
+        {
+          "source": "action",
+          "target": "batalla"
+        },
+        {
+          "source": "chief",
+          "target": "amo"
+        },
+        {
+          "source": "hit",
+          "target": "llamar"
+        },
+        {
+          "source": "kind",
+          "target": "gracioso"
+        },
+        {
+          "source": "speed",
+          "target": "prisa"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "start",
+          "target": "poner"
+        },
+        {
+          "source": "want",
+          "target": "necesidad"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "become",
+          "target": "acontecer"
+        },
+        {
+          "source": "front",
+          "target": "frontón"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "replenishment",
+          "target": "suplemento"
+        },
+        {
+          "source": "sty",
+          "target": "cuadra"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 3,
+      "sample_families": [
+        {
+          "source": "affable",
+          "target": "gracioso"
+        },
+        {
+          "source": "alternation",
+          "target": "alternativa"
+        },
+        {
+          "source": "clod",
+          "target": "bola"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "trite",
+          "target": "común"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 5,
+      "sample_families": [
+        {
+          "source": "battlefront",
+          "target": "frontón"
+        },
+        {
+          "source": "begrudge",
+          "target": "deplorar"
+        },
+        {
+          "source": "beret",
+          "target": "birrete"
+        },
+        {
+          "source": "frontage",
+          "target": "frontón"
+        },
+        {
+          "source": "haddock",
+          "target": "merluza"
+        }
+      ],
+      "source_target_review_decision": "exclude_weak_source_target_mapping",
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    }
+  ],
+  "expansion_levers": [
+    {
+      "effect": "Can increase the SRS target universe beyond the current 1,984 unique target lemmas.",
+      "lever": "expand_or_replace_spanish_frequency_pack",
+      "risk": "Only helps semantic veto if rulegen can produce visible source-target rules for the added targets."
+    },
+    {
+      "effect": "Can increase the 570 replacement-family denominator from the existing 1,984 targets.",
+      "lever": "improve_rulegen_dictionary_or_filter_coverage",
+      "risk": "Can also add weak or awkward source-target mappings that need review before LLM spend."
+    },
+    {
+      "effect": "Can admit some of the 115 currently excluded families.",
+      "lever": "change_source_target_review_policy",
+      "risk": "Would intentionally accept identical/no-visible or weak mappings that were excluded for product reasons."
+    },
+    {
+      "effect": "Can improve veto quality for already covered families with harmful-replacement classes.",
+      "lever": "generate_shadow_or_phrase_data",
+      "risk": "Does not expand the denominator by itself."
+    }
+  ],
+  "full_source_target_family_zipf_matrix": [
+    {
+      "family_count": 369,
+      "sample_families": [
+        {
+          "source": "above",
+          "target": "arriba"
+        },
+        {
+          "source": "account",
+          "target": "creer"
+        },
+        {
+          "source": "account",
+          "target": "cuenta"
+        },
+        {
+          "source": "account",
+          "target": "información"
+        },
+        {
+          "source": "act",
+          "target": "hacer"
+        },
+        {
+          "source": "action",
+          "target": "acción"
+        },
+        {
+          "source": "action",
+          "target": "proceso"
+        },
+        {
+          "source": "after",
+          "target": "después"
+        },
+        {
+          "source": "after",
+          "target": "tras"
+        },
+        {
+          "source": "against",
+          "target": "contra"
+        },
+        {
+          "source": "age",
+          "target": "edad"
+        },
+        {
+          "source": "ahead",
+          "target": "adelante"
+        }
+      ],
+      "share": 0.0866,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 414,
+      "sample_families": [
+        {
+          "source": "able",
+          "target": "capaz"
+        },
+        {
+          "source": "access",
+          "target": "agresión"
+        },
+        {
+          "source": "access",
+          "target": "ataque"
+        },
+        {
+          "source": "access",
+          "target": "entrada"
+        },
+        {
+          "source": "account",
+          "target": "considerar"
+        },
+        {
+          "source": "account",
+          "target": "descripción"
+        },
+        {
+          "source": "account",
+          "target": "explicación"
+        },
+        {
+          "source": "account",
+          "target": "noticia"
+        },
+        {
+          "source": "act",
+          "target": "cometer"
+        },
+        {
+          "source": "action",
+          "target": "batalla"
+        },
+        {
+          "source": "ahead",
+          "target": "delante"
+        },
+        {
+          "source": "album",
+          "target": "álbum"
+        }
+      ],
+      "share": 0.0972,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 106,
+      "sample_families": [
+        {
+          "source": "access",
+          "target": "instinto"
+        },
+        {
+          "source": "account",
+          "target": "contemplar"
+        },
+        {
+          "source": "addition",
+          "target": "apéndice"
+        },
+        {
+          "source": "answer",
+          "target": "contestación"
+        },
+        {
+          "source": "ask",
+          "target": "demandar"
+        },
+        {
+          "source": "attack",
+          "target": "acometer"
+        },
+        {
+          "source": "back",
+          "target": "reverso"
+        },
+        {
+          "source": "bank",
+          "target": "escaño"
+        },
+        {
+          "source": "base",
+          "target": "basar"
+        },
+        {
+          "source": "base",
+          "target": "fundar"
+        },
+        {
+          "source": "beat",
+          "target": "golpear"
+        },
+        {
+          "source": "bed",
+          "target": "cauce"
+        }
+      ],
+      "share": 0.0249,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 8,
+      "sample_families": [
+        {
+          "source": "become",
+          "target": "acontecer"
+        },
+        {
+          "source": "cover",
+          "target": "forrar"
+        },
+        {
+          "source": "face",
+          "target": "fisonomía"
+        },
+        {
+          "source": "front",
+          "target": "frontón"
+        },
+        {
+          "source": "happen",
+          "target": "acontecer"
+        },
+        {
+          "source": "okay",
+          "target": "convenido"
+        },
+        {
+          "source": "together",
+          "target": "juntamente"
+        },
+        {
+          "source": "wait",
+          "target": "aguardar"
+        }
+      ],
+      "share": 0.0019,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 191,
+      "sample_families": [
+        {
+          "source": "ability",
+          "target": "capacidad"
+        },
+        {
+          "source": "ability",
+          "target": "poder"
+        },
+        {
+          "source": "abroad",
+          "target": "fuera"
+        },
+        {
+          "source": "absence",
+          "target": "falta"
+        },
+        {
+          "source": "accept",
+          "target": "tomar"
+        },
+        {
+          "source": "accommodation",
+          "target": "construcción"
+        },
+        {
+          "source": "accordance",
+          "target": "acuerdo"
+        },
+        {
+          "source": "achieve",
+          "target": "hacer"
+        },
+        {
+          "source": "achievement",
+          "target": "acción"
+        },
+        {
+          "source": "activity",
+          "target": "acción"
+        },
+        {
+          "source": "address",
+          "target": "dirección"
+        },
+        {
+          "source": "administration",
+          "target": "gobierno"
+        }
+      ],
+      "share": 0.0448,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 1074,
+      "sample_families": [
+        {
+          "source": "ability",
+          "target": "disposición"
+        },
+        {
+          "source": "ability",
+          "target": "habilidad"
+        },
+        {
+          "source": "absence",
+          "target": "ausencia"
+        },
+        {
+          "source": "absolute",
+          "target": "completo"
+        },
+        {
+          "source": "abstract",
+          "target": "quitar"
+        },
+        {
+          "source": "academic",
+          "target": "estudiante"
+        },
+        {
+          "source": "academy",
+          "target": "academia"
+        },
+        {
+          "source": "accent",
+          "target": "acento"
+        },
+        {
+          "source": "accent",
+          "target": "dejo"
+        },
+        {
+          "source": "accept",
+          "target": "aceptar"
+        },
+        {
+          "source": "accept",
+          "target": "admitir"
+        },
+        {
+          "source": "acceptable",
+          "target": "razonable"
+        }
+      ],
+      "share": 0.2521,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 497,
+      "sample_families": [
+        {
+          "source": "absolute",
+          "target": "cabal"
+        },
+        {
+          "source": "abuse",
+          "target": "insulto"
+        },
+        {
+          "source": "abuse",
+          "target": "ofender"
+        },
+        {
+          "source": "abuse",
+          "target": "ofensa"
+        },
+        {
+          "source": "acceptable",
+          "target": "aceptable"
+        },
+        {
+          "source": "acceptable",
+          "target": "admisible"
+        },
+        {
+          "source": "accommodation",
+          "target": "alojamiento"
+        },
+        {
+          "source": "achieve",
+          "target": "fabricar"
+        },
+        {
+          "source": "acknowledge",
+          "target": "confesar"
+        },
+        {
+          "source": "acquisition",
+          "target": "ganancia"
+        },
+        {
+          "source": "acute",
+          "target": "agudo"
+        },
+        {
+          "source": "adjacent",
+          "target": "adyacente"
+        }
+      ],
+      "share": 0.1167,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 22,
+      "sample_families": [
+        {
+          "source": "adjacent",
+          "target": "contiguo"
+        },
+        {
+          "source": "agreed",
+          "target": "convenido"
+        },
+        {
+          "source": "bar",
+          "target": "cercar"
+        },
+        {
+          "source": "bell",
+          "target": "campanilla"
+        },
+        {
+          "source": "cap",
+          "target": "birrete"
+        },
+        {
+          "source": "command",
+          "target": "capitanear"
+        },
+        {
+          "source": "decrease",
+          "target": "decrecer"
+        },
+        {
+          "source": "divide",
+          "target": "segregar"
+        },
+        {
+          "source": "dutch",
+          "target": "neerlandés"
+        },
+        {
+          "source": "error",
+          "target": "yerro"
+        },
+        {
+          "source": "fur",
+          "target": "incrustación"
+        },
+        {
+          "source": "grow",
+          "target": "acontecer"
+        }
+      ],
+      "share": 0.0052,
+      "source_zipf_band_en": "zipf_4_to_5_common",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 72,
+      "sample_families": [
+        {
+          "source": "abide",
+          "target": "esperar"
+        },
+        {
+          "source": "accord",
+          "target": "acuerdo"
+        },
+        {
+          "source": "accusation",
+          "target": "cargo"
+        },
+        {
+          "source": "acquaintance",
+          "target": "conocido"
+        },
+        {
+          "source": "adherents",
+          "target": "partido"
+        },
+        {
+          "source": "adjustment",
+          "target": "construcción"
+        },
+        {
+          "source": "afar",
+          "target": "lejos"
+        },
+        {
+          "source": "affection",
+          "target": "amor"
+        },
+        {
+          "source": "agony",
+          "target": "miedo"
+        },
+        {
+          "source": "anguish",
+          "target": "miedo"
+        },
+        {
+          "source": "barn",
+          "target": "puesto"
+        },
+        {
+          "source": "beech",
+          "target": "haya"
+        }
+      ],
+      "share": 0.0169,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 381,
+      "sample_families": [
+        {
+          "source": "abiding",
+          "target": "continuo"
+        },
+        {
+          "source": "abject",
+          "target": "miserable"
+        },
+        {
+          "source": "abject",
+          "target": "pobre"
+        },
+        {
+          "source": "abode",
+          "target": "domicilio"
+        },
+        {
+          "source": "abomination",
+          "target": "horror"
+        },
+        {
+          "source": "aboriginal",
+          "target": "indígena"
+        },
+        {
+          "source": "aboriginal",
+          "target": "original"
+        },
+        {
+          "source": "abstraction",
+          "target": "robo"
+        },
+        {
+          "source": "abundance",
+          "target": "riqueza"
+        },
+        {
+          "source": "accession",
+          "target": "adquisición"
+        },
+        {
+          "source": "accession",
+          "target": "compra"
+        },
+        {
+          "source": "accession",
+          "target": "presentación"
+        }
+      ],
+      "share": 0.0894,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 582,
+      "sample_families": [
+        {
+          "source": "abandonment",
+          "target": "cesión"
+        },
+        {
+          "source": "abbey",
+          "target": "abadía"
+        },
+        {
+          "source": "abbot",
+          "target": "abad"
+        },
+        {
+          "source": "abdomen",
+          "target": "vientre"
+        },
+        {
+          "source": "abject",
+          "target": "necesitado"
+        },
+        {
+          "source": "abnormal",
+          "target": "anormal"
+        },
+        {
+          "source": "abnormal",
+          "target": "irregular"
+        },
+        {
+          "source": "abolish",
+          "target": "abolir"
+        },
+        {
+          "source": "abolition",
+          "target": "abolición"
+        },
+        {
+          "source": "abomination",
+          "target": "aversión"
+        },
+        {
+          "source": "abrupt",
+          "target": "brusco"
+        },
+        {
+          "source": "absent",
+          "target": "ausente"
+        }
+      ],
+      "share": 0.1366,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 37,
+      "sample_families": [
+        {
+          "source": "abbreviation",
+          "target": "abreviatura"
+        },
+        {
+          "source": "abide",
+          "target": "aguardar"
+        },
+        {
+          "source": "adjoining",
+          "target": "contiguo"
+        },
+        {
+          "source": "aversion",
+          "target": "repugnancia"
+        },
+        {
+          "source": "baltic",
+          "target": "báltico"
+        },
+        {
+          "source": "bleak",
+          "target": "lúgubre"
+        },
+        {
+          "source": "blister",
+          "target": "campanilla"
+        },
+        {
+          "source": "blunt",
+          "target": "despuntar"
+        },
+        {
+          "source": "diminish",
+          "target": "decrecer"
+        },
+        {
+          "source": "disgust",
+          "target": "repugnancia"
+        },
+        {
+          "source": "dislike",
+          "target": "repugnancia"
+        },
+        {
+          "source": "dismal",
+          "target": "lúgubre"
+        }
+      ],
+      "share": 0.0087,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 27,
+      "sample_families": [
+        {
+          "source": "abatement",
+          "target": "baja"
+        },
+        {
+          "source": "accomodate",
+          "target": "ayudar"
+        },
+        {
+          "source": "accredit",
+          "target": "creer"
+        },
+        {
+          "source": "acuity",
+          "target": "atención"
+        },
+        {
+          "source": "appellation",
+          "target": "nombre"
+        },
+        {
+          "source": "bairn",
+          "target": "niño"
+        },
+        {
+          "source": "bevy",
+          "target": "grupo"
+        },
+        {
+          "source": "contralto",
+          "target": "alto"
+        },
+        {
+          "source": "facile",
+          "target": "fácil"
+        },
+        {
+          "source": "foreward",
+          "target": "adelante"
+        },
+        {
+          "source": "gangway",
+          "target": "paso"
+        },
+        {
+          "source": "inducement",
+          "target": "lugar"
+        }
+      ],
+      "share": 0.0063,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 116,
+      "sample_families": [
+        {
+          "source": "abate",
+          "target": "disminuir"
+        },
+        {
+          "source": "abatement",
+          "target": "descuento"
+        },
+        {
+          "source": "abatement",
+          "target": "reducción"
+        },
+        {
+          "source": "aberration",
+          "target": "error"
+        },
+        {
+          "source": "abet",
+          "target": "sostener"
+        },
+        {
+          "source": "abhorrence",
+          "target": "horror"
+        },
+        {
+          "source": "abhorrent",
+          "target": "horrible"
+        },
+        {
+          "source": "abominable",
+          "target": "horrible"
+        },
+        {
+          "source": "accede",
+          "target": "acordar"
+        },
+        {
+          "source": "accomodate",
+          "target": "acabar"
+        },
+        {
+          "source": "accomodate",
+          "target": "servir"
+        },
+        {
+          "source": "accomodate",
+          "target": "terminar"
+        }
+      ],
+      "share": 0.0272,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 159,
+      "sample_families": [
+        {
+          "source": "aberration",
+          "target": "desvío"
+        },
+        {
+          "source": "aberration",
+          "target": "equivocación"
+        },
+        {
+          "source": "abhorrence",
+          "target": "aversión"
+        },
+        {
+          "source": "abhorrent",
+          "target": "abominable"
+        },
+        {
+          "source": "abjure",
+          "target": "anular"
+        },
+        {
+          "source": "abominable",
+          "target": "abominable"
+        },
+        {
+          "source": "abridge",
+          "target": "limitar"
+        },
+        {
+          "source": "abrogate",
+          "target": "abolir"
+        },
+        {
+          "source": "abrogation",
+          "target": "abolición"
+        },
+        {
+          "source": "acclamation",
+          "target": "aplauso"
+        },
+        {
+          "source": "accomodate",
+          "target": "acomodar"
+        },
+        {
+          "source": "accomodate",
+          "target": "adaptar"
+        }
+      ],
+      "share": 0.0373,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 24,
+      "sample_families": [
+        {
+          "source": "abate",
+          "target": "decrecer"
+        },
+        {
+          "source": "aberration",
+          "target": "yerro"
+        },
+        {
+          "source": "admonition",
+          "target": "exhortación"
+        },
+        {
+          "source": "aristocrat",
+          "target": "aristócrata"
+        },
+        {
+          "source": "battlefront",
+          "target": "frontón"
+        },
+        {
+          "source": "begrudge",
+          "target": "deplorar"
+        },
+        {
+          "source": "beret",
+          "target": "birrete"
+        },
+        {
+          "source": "bide",
+          "target": "aguardar"
+        },
+        {
+          "source": "cantabrian",
+          "target": "cantábrico"
+        },
+        {
+          "source": "confiscate",
+          "target": "confiscar"
+        },
+        {
+          "source": "drunkenness",
+          "target": "embriaguez"
+        },
+        {
+          "source": "dutchwoman",
+          "target": "neerlandesa"
+        }
+      ],
+      "share": 0.0056,
+      "source_zipf_band_en": "zipf_below_3_rare",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    },
+    {
+      "family_count": 33,
+      "sample_families": [
+        {
+          "source": "accusal",
+          "target": "cargo"
+        },
+        {
+          "source": "advertence",
+          "target": "atención"
+        },
+        {
+          "source": "advertency",
+          "target": "atención"
+        },
+        {
+          "source": "argentinianwoman",
+          "target": "argentina"
+        },
+        {
+          "source": "bassvoice",
+          "target": "bajo"
+        },
+        {
+          "source": "beableto",
+          "target": "poder"
+        },
+        {
+          "source": "contraltovoice",
+          "target": "alto"
+        },
+        {
+          "source": "englishlanguage",
+          "target": "inglés"
+        },
+        {
+          "source": "findoneself",
+          "target": "estar"
+        },
+        {
+          "source": "firstofall",
+          "target": "primero"
+        },
+        {
+          "source": "forthereasonthat",
+          "target": "porque"
+        },
+        {
+          "source": "goout",
+          "target": "salir"
+        }
+      ],
+      "share": 0.0077,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 80,
+      "sample_families": [
+        {
+          "source": "abreact",
+          "target": "descargar"
+        },
+        {
+          "source": "accidence",
+          "target": "acaso"
+        },
+        {
+          "source": "acclivity",
+          "target": "cuesta"
+        },
+        {
+          "source": "accusal",
+          "target": "acusación"
+        },
+        {
+          "source": "actout",
+          "target": "realizar"
+        },
+        {
+          "source": "addresslist",
+          "target": "directorio"
+        },
+        {
+          "source": "amountto",
+          "target": "importar"
+        },
+        {
+          "source": "appointmentbook",
+          "target": "agenda"
+        },
+        {
+          "source": "appointmenttooffice",
+          "target": "nombramiento"
+        },
+        {
+          "source": "bakedgoods",
+          "target": "pastel"
+        },
+        {
+          "source": "balancesheet",
+          "target": "balance"
+        },
+        {
+          "source": "basquelanguage",
+          "target": "vasco"
+        }
+      ],
+      "share": 0.0188,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 63,
+      "sample_families": [
+        {
+          "source": "aberrance",
+          "target": "desvío"
+        },
+        {
+          "source": "africanwoman",
+          "target": "africana"
+        },
+        {
+          "source": "attitudinizer",
+          "target": "farsante"
+        },
+        {
+          "source": "automoton",
+          "target": "automático"
+        },
+        {
+          "source": "avengeoneself",
+          "target": "vengar"
+        },
+        {
+          "source": "bankmanager",
+          "target": "banquero"
+        },
+        {
+          "source": "bathingbox",
+          "target": "cabina"
+        },
+        {
+          "source": "beworth",
+          "target": "valer"
+        },
+        {
+          "source": "brazilianwoman",
+          "target": "brasileña"
+        },
+        {
+          "source": "cafetaria",
+          "target": "cafetería"
+        },
+        {
+          "source": "commitaggression",
+          "target": "acometer"
+        },
+        {
+          "source": "conversance",
+          "target": "notoriedad"
+        }
+      ],
+      "share": 0.0148,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_3_to_4_mid"
+    },
+    {
+      "family_count": 5,
+      "sample_families": [
+        {
+          "source": "atthesametime",
+          "target": "juntamente"
+        },
+        {
+          "source": "dutchlanguage",
+          "target": "neerlandés"
+        },
+        {
+          "source": "finnishwoman",
+          "target": "finlandesa"
+        },
+        {
+          "source": "taketheplaceof",
+          "target": "relevar"
+        },
+        {
+          "source": "thisle",
+          "target": "cardo"
+        }
+      ],
+      "share": 0.0012,
+      "source_zipf_band_en": "missing",
+      "target_zipf_band_es": "zipf_below_3_rare"
+    }
+  ],
+  "generated_at": "2026-05-16T18:45:22+00:00",
+  "inputs": {
+    "active_only_plan_decision": "active_only_full_generation_plan_needs_review",
+    "active_only_plan_json": "docs/test_outputs/semantic_veto_active_only_full_generation_plan_post_tranche_011_en_es_latest.json",
+    "bridge_decision": "srs_zipf_bridge_established",
+    "registry_json": "docs/test_inputs/semantic_veto_system_registry_en_es.json",
+    "source_target_review_decision": "cumulative_reviewed_for_pre_spend_active_only_generation",
+    "source_target_review_json": "docs/test_inputs/semantic_veto_active_only_generation_source_target_review_en_es.json",
+    "srs_zipf_bridge_json": "docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json"
+  },
+  "issues": [
+    "bridge_and_plan_denominator_match"
+  ],
+  "limitations": [
+    "This audit reads existing no-spend artifacts; it does not rerun full rulegen.",
+    "The 570 denominator is current-resource truth, not a claim about all en-es vocabulary.",
+    "The 115 exclusions were manually reviewed for active-only generation value, not for every possible future product policy.",
+    "Coverage means active-only evidence coverage, not broad semantic-veto accuracy."
+  ],
+  "methodology": {
+    "coverage_definition": "A family is covered when the combined active-only semantic evidence pack has anchor_cue evidence for the normalized English trigger and Spanish target.",
+    "denominator_definition": "The semantic-veto source-target denominator is the set of current rulegen-produced English source / Spanish target replacement families for the installed en-es SRS target universe.",
+    "exclusion_definition": "The remaining uncovered families are active-only exclusions from the source-target review manifest, not pending LLM-generation rows.",
+    "llm_generation": "none",
+    "not_the_denominator": "The 1,984 SRS-admissible Spanish target lemmas are the learner target universe, not the browser replacement-family denominator.",
+    "runtime_policy_change": "none",
+    "scope_mismatch_definition": "When the SRS Zipf bridge source-target count differs from the active-only plan denominator, this audit is a current-plan accounting check, not an expanded-candidate coverage report."
+  },
+  "pair": "en-es",
+  "schema_version": 1,
+  "source_pipeline": {
+    "frequency_db": "/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+    "frequency_db_exists": true,
+    "reverse_translation_dict_exists": true,
+    "reverse_translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-en-es.sqlite",
+    "rule_count": 4260,
+    "rulegen_elapsed_seconds": 6.78,
+    "rulegen_target_count": 10000,
+    "seed_row_count": 10000,
+    "seed_top_n_requested": 10000,
+    "source_target_pair_count": 4260,
+    "translation_dict_exists": true,
+    "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-es-en/main.sqlite",
+    "unique_srs_target_lemmas": 10000
+  },
+  "status": "review",
+  "summary": {
+    "accounting_identity": "570 = 49 pre-full-generation covered + 406 reviewed/generated + 115 excluded",
+    "bridge_plan_denominator_delta": 3690,
+    "bridge_source_target_pair_count": 4260,
+    "covered_families": 455,
+    "covered_family_share": 0.7982,
+    "denominator_scope": "current_active_only_plan_not_expanded_candidate",
+    "exclusion_decision_counts": {
+      "exclude_no_visible_replacement": 27,
+      "exclude_weak_source_target_mapping": 88
+    },
+    "generation_queue_families": 0,
+    "product_scope_control_families": 49,
+    "selected_request_count": 0,
+    "semantic_veto_denominator_families": 570,
+    "semantic_veto_source_triggers": 536,
+    "semantic_veto_targets": 342,
+    "source_target_review_approved": 406,
+    "source_target_review_decisions": 521,
+    "source_target_review_excluded": 115,
+    "srs_seed_rows": 10000,
+    "srs_unique_target_lemmas": 10000,
+    "uncovered_families": 115
+  }
+}

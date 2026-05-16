@@ -17,6 +17,8 @@ Related docs:
 - `../test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_spalex_latest.md`
 - `../test_outputs/pack_lifecycle_audit_spalex_latest.md`
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_latest.md`
+- `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.md`
+- `../test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_10k_latest.md`
 
 ## Data-First Goal
 
@@ -152,6 +154,12 @@ Current provisional pack result:
   required; manifest, artifact, and provenance sidecars are present and valid.
 - The SRS Zipf bridge accepts the pack and reports `45,131` full SRS-admissible
   targets with no issues in the diagnostic bridge run.
+- The 10k full-rulegen bridge run produced `4,260` source-target families from
+  `10,000` SRS target lemmas. The active-only planner reports `49 / 4,260`
+  currently covered semantic-veto families, `4,211` uncovered families, and
+  `3,690` unreviewed source-target rows. This shows the candidate is large
+  enough for SRS expansion, while semantic-veto evidence expansion remains a
+  separate tranche-review problem.
 
 ### 2. POS And Function-Word Controls
 

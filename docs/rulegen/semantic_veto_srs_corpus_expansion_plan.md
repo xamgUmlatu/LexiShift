@@ -14,6 +14,8 @@ Related docs:
 - `../test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_spalex_latest.md`
 - `../test_outputs/pack_lifecycle_audit_spalex_latest.md`
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_latest.md`
+- `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.md`
+- `../test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_10k_latest.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
 
 ## Purpose
@@ -114,6 +116,17 @@ POS row coverage and `9.1%` topic row coverage. Pack lifecycle audit status is
 decision; manifest, artifact, and provenance sidecars are present and valid. The
 SRS Zipf bridge accepts the pack as a candidate override and reports `45,131`
 full SRS-admissible targets.
+
+The first full-rulegen 10k bridge run is also clean: the SPALEX candidate
+override produced `10,000` SRS target lemmas, `4,260` source-target families,
+`3,200` distinct English source triggers, and no bridge issues in `6.78`
+seconds. The active-only generation planner reads that expanded bridge as a
+real denominator and reports `49 / 4,260` currently covered families, `4,211`
+uncovered families, and a review posture of `406` approved, `115` excluded, and
+`3,690` unreviewed source-target rows. This is useful expansion evidence, but
+not a spend decision: the unreviewed majority needs tranche review before paid
+generation, and SRS-only admission remains separable from semantic-veto evidence
+generation.
 
 ## Decision Principles
 
@@ -256,12 +269,28 @@ python3 scripts/testing/semantic_veto_denominator_audit_en_es.py \
   --markdown-out docs/test_outputs/semantic_veto_denominator_audit_en_es_expanded_candidate.md
 ```
 
+For expanded candidates, also run the active-only planner against the same
+bridge artifact:
+
+```bash
+python3 scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py \
+  --srs-zipf-bridge-json docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.json \
+  --json-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_expanded_candidate.json \
+  --markdown-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_expanded_candidate.md
+```
+
+The current-state denominator audit remains useful, but it is anchored to the
+active-only plan artifact supplied to it. If the bridge source-target count and
+active-only denominator differ, read it as a scope-mismatch/accounting warning,
+not as expanded-candidate coverage.
+
 The important outputs are:
 
 - expanded SRS target lemmas,
 - expanded rulegen source-target families,
 - families already covered by current semantic-veto evidence,
 - new uncovered families,
+- approved, excluded, and unreviewed source-target rows,
 - weak/no-visible families that should not receive paid evidence.
 
 ### Phase 4: Generation Decision

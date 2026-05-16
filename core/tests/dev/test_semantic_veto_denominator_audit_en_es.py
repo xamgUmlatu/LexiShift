@@ -33,7 +33,10 @@ class SemanticVetoDenominatorAuditTests(unittest.TestCase):
             "3 = 1 pre-full-generation covered + 1 reviewed/generated + 1 excluded",
         )
         self.assertEqual(report["summary"]["srs_unique_target_lemmas"], 4)
+        self.assertEqual(report["summary"]["bridge_source_target_pair_count"], 3)
         self.assertEqual(report["summary"]["semantic_veto_denominator_families"], 3)
+        self.assertEqual(report["summary"]["bridge_plan_denominator_delta"], 0)
+        self.assertEqual(report["summary"]["denominator_scope"], "bridge_aligned_current_plan")
         self.assertEqual(report["summary"]["covered_families"], 2)
         self.assertEqual(report["summary"]["uncovered_families"], 1)
         self.assertEqual(report["checks"]["current_generation_queue_exhausted"], True)
@@ -41,7 +44,11 @@ class SemanticVetoDenominatorAuditTests(unittest.TestCase):
 
         markdown = render_denominator_audit_markdown(report)
         self.assertIn("SRS learner-target universe", markdown)
+        self.assertIn("Candidate bridge source-target families", markdown)
         self.assertIn("Semantic-veto replacement denominator", markdown)
+        self.assertIn(
+            "The SRS Zipf bridge and active-only plan denominator counts match.", markdown
+        )
         self.assertIn("3 = 1 pre-full-generation covered", markdown)
         self.assertIn("expand_or_replace_spanish_frequency_pack", markdown)
 
@@ -58,6 +65,15 @@ class SemanticVetoDenominatorAuditTests(unittest.TestCase):
 
         self.assertEqual(report["status"], "review")
         self.assertIn("bridge_and_plan_denominator_match", report["issues"])
+        self.assertEqual(
+            report["summary"]["denominator_scope"],
+            "current_active_only_plan_not_expanded_candidate",
+        )
+        self.assertEqual(report["summary"]["bridge_plan_denominator_delta"], -1)
+
+        markdown = render_denominator_audit_markdown(report)
+        self.assertIn("## Scope Mismatch", markdown)
+        self.assertIn("delta=-1", markdown)
 
 
 def _bridge_payload() -> dict[str, object]:

@@ -208,6 +208,21 @@ python3 scripts/testing/semantic_veto_denominator_audit_en_es.py \
   --markdown-out docs/test_outputs/semantic_veto_denominator_audit_en_es_expanded_candidate.md
 ```
 
+Then run the active-only planner against the same expanded bridge artifact:
+
+```bash
+python3 scripts/testing/semantic_veto_active_only_full_generation_plan_en_es.py \
+  --srs-zipf-bridge-json docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.json \
+  --json-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_expanded_candidate.json \
+  --markdown-out docs/test_outputs/semantic_veto_active_only_full_generation_plan_en_es_expanded_candidate.md
+```
+
+The denominator audit is a current-plan accounting check. If it reports
+`bridge_and_plan_denominator_match=False`, do not read the active-only
+denominator count as the expanded candidate's coverage denominator. In that
+case, use the active-only planner output for expanded candidate coverage,
+generation queue, and approved/excluded/unreviewed source-target status.
+
 Interpret the candidate by bucket:
 
 | Bucket | Decision |

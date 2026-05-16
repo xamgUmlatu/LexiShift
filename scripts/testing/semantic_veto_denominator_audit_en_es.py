@@ -124,6 +124,12 @@ def build_denominator_audit_report(
     excluded_review_count = int(review_counts.get("excluded_count") or 0)
     product_scope_control_families = int(registry_result.get("families") or 0)
     denominator_families = int(plan_summary.get("denominator_family_count") or 0)
+    bridge_source_target_pair_count = int(
+        bridge_summary.get("full_source_target_pair_count")
+        or full_rulegen_inputs.get("source_target_pair_count")
+        or 0
+    )
+    bridge_plan_denominator_delta = bridge_source_target_pair_count - denominator_families
     covered_families = int(plan_summary.get("covered_denominator_family_count") or 0)
     uncovered_families = int(plan_summary.get("uncovered_family_count") or 0)
     accounting_total = (
@@ -132,7 +138,7 @@ def build_denominator_audit_report(
 
     checks = {
         "bridge_and_plan_denominator_match": (
-            int(bridge_summary.get("full_source_target_pair_count") or 0) == denominator_families
+            bridge_source_target_pair_count == denominator_families
         ),
         "covered_plus_uncovered_matches_denominator": (
             covered_families + uncovered_families == denominator_families
@@ -191,6 +197,11 @@ def build_denominator_audit_report(
                 "A family is covered when the combined active-only semantic evidence pack "
                 "has anchor_cue evidence for the normalized English trigger and Spanish target."
             ),
+            "scope_mismatch_definition": (
+                "When the SRS Zipf bridge source-target count differs from the active-only "
+                "plan denominator, this audit is a current-plan accounting check, not an "
+                "expanded-candidate coverage report."
+            ),
             "exclusion_definition": (
                 "The remaining uncovered families are active-only exclusions from the "
                 "source-target review manifest, not pending LLM-generation rows."
@@ -222,7 +233,14 @@ def build_denominator_audit_report(
             "srs_unique_target_lemmas": int(
                 bridge_summary.get("full_srs_admissible_target_count") or 0
             ),
+            "bridge_source_target_pair_count": bridge_source_target_pair_count,
             "semantic_veto_denominator_families": denominator_families,
+            "bridge_plan_denominator_delta": bridge_plan_denominator_delta,
+            "denominator_scope": (
+                "bridge_aligned_current_plan"
+                if bridge_plan_denominator_delta == 0
+                else "current_active_only_plan_not_expanded_candidate"
+            ),
             "semantic_veto_source_triggers": int(
                 plan_summary.get("denominator_source_trigger_count") or 0
             ),
@@ -286,6 +304,7 @@ def build_denominator_audit_report(
             "Do not run more active-only paid generation while selected_request_count is 0.",
             "Treat the next denominator-expansion task as rulegen/SRS resource work, not LLM prompt work.",
             "Keep the 1,984 learner-target universe and 570 replacement-family universe labeled separately in product docs.",
+            "For expanded-candidate coverage, run the active-only full generation planner against the same SRS Zipf bridge artifact.",
         ],
         "limitations": [
             "This audit reads existing no-spend artifacts; it does not rerun full rulegen.",
@@ -306,7 +325,9 @@ def render_denominator_audit_markdown(report: Mapping[str, object]) -> str:
         f"- Decision: `{report.get('decision', '')}`",
         f"- Generated: `{report.get('generated_at', '')}`",
         f"- SRS learner-target universe: `{summary.get('srs_unique_target_lemmas', 0)}` target lemmas from `{summary.get('srs_seed_rows', 0)}` seed rows",
+        f"- Candidate bridge source-target families: `{summary.get('bridge_source_target_pair_count', 0)}`",
         f"- Semantic-veto replacement denominator: `{summary.get('semantic_veto_denominator_families', 0)}` source-target families",
+        f"- Denominator scope: `{summary.get('denominator_scope', '')}`",
         f"- Covered active-only families: `{summary.get('covered_families', 0)}` ({_format_percent(summary.get('covered_family_share'))})",
         f"- Uncovered active-only families: `{summary.get('uncovered_families', 0)}`",
         f"- Remaining generation queue: `{summary.get('generation_queue_families', 0)}` families / `{summary.get('selected_request_count', 0)}` selected requests",
@@ -318,6 +339,8 @@ def render_denominator_audit_markdown(report: Mapping[str, object]) -> str:
         str(_as_mapping(report.get("methodology")).get("not_the_denominator") or ""),
         "",
         f"Current accounting identity: `{_escape_md(str(summary.get('accounting_identity') or ''))}`.",
+        "",
+        _scope_mismatch_section(report),
         "",
         "## Source Pipeline",
         "",
@@ -430,6 +453,30 @@ def _review_table(summary: Mapping[str, object]) -> str:
     for decision, count in sorted(exclusion_counts.items()):
         rows.append(f"| `{_escape_md(str(decision))}` | {count} |")
     return "\n".join(rows)
+
+
+def _scope_mismatch_section(report: Mapping[str, object]) -> str:
+    checks = _as_mapping(report.get("checks"))
+    if checks.get("bridge_and_plan_denominator_match") is not False:
+        return "The SRS Zipf bridge and active-only plan denominator counts match."
+    summary = _as_mapping(report.get("summary"))
+    bridge_count = summary.get("bridge_source_target_pair_count", 0)
+    denominator_count = summary.get("semantic_veto_denominator_families", 0)
+    delta = summary.get("bridge_plan_denominator_delta", 0)
+    definition = str(_as_mapping(report.get("methodology")).get("scope_mismatch_definition") or "")
+    return "\n".join(
+        [
+            "## Scope Mismatch",
+            "",
+            definition,
+            "",
+            (
+                f"The bridge input has `{bridge_count}` source-target families, while the "
+                f"active-only plan denominator has `{denominator_count}` "
+                f"(`delta={delta}`)."
+            ),
+        ]
+    )
 
 
 def _coverage_table(value: object, band_key: str) -> str:
