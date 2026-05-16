@@ -2,10 +2,11 @@
 
 Status: active planning reference
 Role: Planning / WIP
-Last updated: 2026-05-14
-Last verified: 2026-05-14 with `docs/test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_latest.md`
+Last updated: 2026-05-16
+Last verified: 2026-05-16 with source-readiness audit review, local no-download wordfreq candidate probe, and SRS Zipf bridge candidate frequency override tests
 Related docs:
 - `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
+- `semantic_veto_srs_spanish_expansion_source_probe_2026-05-16.md`
 - `semantic_veto_denominator_current_state.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
 
@@ -46,6 +47,13 @@ The current pack has:
 
 That is enough for the current general-frequency baseline, but not enough for a
 5k-10k corpus or topic-personalized SRS admission.
+
+The 2026-05-16 no-download `wordfreq` probe shows the opposite side of the
+decision: a temporary 10k Spanish candidate can clear the raw size/rank/frequency
+ceiling and can be fed into the SRS Zipf bridge via `--frequency-db`, but it has
+`0%` POS coverage, `0%` topic/domain coverage, and only `25.7%` overlap with the
+current 1,984-lemma CDE sample. That makes it useful as a candidate strategy,
+not a drop-in promoted replacement.
 
 ## Decision Principles
 
@@ -122,10 +130,16 @@ After choosing a candidate source, rerun the existing bridge with full rulegen:
 
 ```bash
 python3 scripts/testing/semantic_veto_srs_zipf_bridge_en_es.py \
+  --frequency-db /absolute/path/to/candidate.sqlite \
   --include-full-rulegen \
   --json-out docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.json \
   --markdown-out docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.md
 ```
+
+Use `--frequency-db` for candidate evaluation so the bridge reads the same
+SQLite file that passed the source-readiness audit. This avoids installing a
+research candidate or overwriting the frozen `freq-es-cde` baseline before the
+candidate has denominator evidence.
 
 Then refresh denominator accounting against the current semantic-veto pack:
 

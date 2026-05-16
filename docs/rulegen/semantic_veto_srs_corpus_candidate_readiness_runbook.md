@@ -2,12 +2,13 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 6 pack lifecycle audit command with strict review gate, source-readiness audit command, SRS Zipf bridge command, denominator audit command review, and promotion evidence bundle command
+Last updated: 2026-05-16
+Last verified: 2026-05-16 Lane 6 pack lifecycle audit command with strict review gate, source-readiness audit command, SRS Zipf bridge candidate frequency override, denominator audit command review, and promotion evidence bundle command
 Purpose: give future agents a copy-pasteable sequence for evaluating an en-es Spanish SRS corpus or frequency-pack candidate before promotion or paid semantic-veto generation
 Source-of-truth: runbook only; current runtime truth lives in source code, generated artifacts, pack manifests, and the owning Lane 6 inventory.
 Related docs:
 - `semantic_veto_srs_corpus_expansion_plan.md`
+- `semantic_veto_srs_spanish_expansion_source_probe_2026-05-16.md`
 - `semantic_veto_denominator_current_state.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
 - `../developer/productization_closure_roadmap.md`
@@ -132,10 +133,15 @@ the bridge with full rulegen:
 
 ```bash
 python3 scripts/testing/semantic_veto_srs_zipf_bridge_en_es.py \
+  --frequency-db /absolute/path/to/candidate.sqlite \
   --include-full-rulegen \
   --json-out docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.json \
   --markdown-out docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_expanded_candidate.md
 ```
+
+`--frequency-db` should be the same candidate SQLite audited in Step 2. This
+keeps research candidates out of the installed default pack path until the
+source-readiness, rulegen, denominator, and promotion evidence checks agree.
 
 Read these outputs before moving on:
 

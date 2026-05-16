@@ -68,6 +68,16 @@ def _parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--srs-journey-json", type=Path, default=DEFAULT_SRS_JOURNEY_JSON)
     parser.add_argument("--pair", default=DEFAULT_PAIR)
+    parser.add_argument(
+        "--frequency-db",
+        type=Path,
+        default=None,
+        help=(
+            "Optional candidate frequency SQLite for the full SRS-admissible universe. "
+            "Use this to evaluate an expansion candidate without installing it or "
+            "overwriting the current default pack."
+        ),
+    )
     parser.add_argument("--full-srs-top-n", type=int, default=DEFAULT_FULL_SRS_TOP_N)
     parser.add_argument(
         "--include-full-rulegen",
@@ -88,6 +98,7 @@ def main() -> int:
     full_srs_rows, full_srs_inputs = build_full_srs_admissible_rows(
         pair=str(args.pair),
         top_n=max(1, int(args.full_srs_top_n)),
+        frequency_db=args.frequency_db,
     )
     full_rulegen_pairs: list[dict[str, object]] = []
     full_rulegen_inputs: dict[str, object] = {
@@ -239,6 +250,11 @@ def build_srs_zipf_bridge_report(
         target_scopes[1],
         bands={"zipf_5_plus_very_common", "zipf_4_to_5_common"},
     )
+    full_srs_frequency_limitation = (
+        "full_srs_universe_uses_candidate_frequency_db_override"
+        if str(full_srs_inputs.get("frequency_db_source") or "") == "override"
+        else "full_srs_universe_is_limited_by_current_installed_frequency_pack"
+    )
     return {
         "schema_version": 1,
         "pair": str(scenario.get("pair") or full_srs_inputs.get("pair") or DEFAULT_PAIR),
@@ -319,7 +335,7 @@ def build_srs_zipf_bridge_report(
             "srs_target_frequency_is_not_the_same_as_source_trigger_veto_difficulty",
             "zipf_frequency_is_not_cefr_or_user_known_word_level",
             "journey_candidate_universe_is_current_top_n_slice_not_full_srs_universe",
-            "full_srs_universe_is_limited_by_current_installed_frequency_pack",
+            full_srs_frequency_limitation,
             "source_target_matrix_depends_on_journey_artifact_preserving_rule_pairs",
             "full_source_target_matrix_requires_explicit_full_rulegen_run",
             "report_is_cost_planning_evidence_not_runtime_policy",
@@ -337,31 +353,37 @@ def build_full_srs_admissible_rows(
     *,
     pair: str,
     top_n: int,
+    frequency_db: Path | None = None,
 ) -> tuple[list[Mapping[str, object]], dict[str, object]]:
     normalized_pair = str(pair or DEFAULT_PAIR).strip().lower() or DEFAULT_PAIR
     paths = build_helper_paths()
     capability = resolve_pair_capability(normalized_pair)
-    jmdict_path, translation_dict_path, frequency_db = resolve_pair_resources(
+    jmdict_path, translation_dict_path, resolved_frequency_db = resolve_pair_resources(
         paths,
         pair=normalized_pair,
         jmdict_path=None,
         translation_dict_path=None,
         set_source_db=None,
     )
+    selected_frequency_db = (
+        Path(frequency_db).expanduser() if frequency_db else resolved_frequency_db
+    )
     stopwords_path = resolve_stopwords_path(paths, pair=normalized_pair)
     inputs: dict[str, object] = {
         "status": "ok",
         "pair": capability.pair,
         "top_n": int(top_n),
-        "frequency_db": _repo_path(frequency_db),
-        "frequency_db_exists": bool(frequency_db and frequency_db.exists()),
+        "frequency_db": _repo_path(selected_frequency_db),
+        "frequency_db_exists": bool(selected_frequency_db and selected_frequency_db.exists()),
+        "frequency_db_source": "override" if frequency_db else "installed_default",
+        "default_frequency_db": _repo_path(resolved_frequency_db),
         "jmdict_path": _repo_path(jmdict_path),
         "requires_jmdict_for_seed": bool(capability.requires_jmdict_for_seed),
         "stopwords_path": _repo_path(stopwords_path),
         "stopwords_exists": bool(stopwords_path and stopwords_path.exists()),
         "translation_dict_path": _repo_path(translation_dict_path),
     }
-    if frequency_db is None or not frequency_db.exists():
+    if selected_frequency_db is None or not selected_frequency_db.exists():
         inputs["status"] = "review"
         inputs["reason"] = "frequency_db_missing"
         inputs["seed_row_count"] = 0
@@ -375,7 +397,7 @@ def build_full_srs_admissible_rows(
         return [], inputs
 
     seeds = build_seed_candidates(
-        frequency_db=frequency_db,
+        frequency_db=selected_frequency_db,
         config=SeedSelectionConfig(
             language_pair=capability.pair,
             top_n=max(1, int(top_n)),
