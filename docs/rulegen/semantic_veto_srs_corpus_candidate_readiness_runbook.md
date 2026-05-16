@@ -52,6 +52,10 @@ Fill these in before running commands:
 If `license_status` is `unknown` or `requires_review`, the candidate may be
 audited, but it is not promotion-ready.
 
+If the license requires attribution, sharealike, non-redistribution, or manual
+user installation, record that as a promotion constraint before running the
+candidate through downstream denominator tests.
+
 ## Step 1: Pack Lifecycle Audit
 
 Run the local pack lifecycle audit first. It checks installed manifests,
@@ -150,6 +154,8 @@ Read these outputs before moving on:
 - ambiguous raw POS lemmas,
 - unresolved high-rank lemmas,
 - rank-band coverage for top 100/500/1k/2k/5k/10k candidates,
+- filter scenarios such as mapped POS, mapped non-ambiguous, and confident
+  weighted bucket,
 - per-source hit counts.
 
 Interpretation:
@@ -161,6 +167,9 @@ Interpretation:
   or an additional source,
 - topic/domain coverage remains separate; POS backfill does not create
   personalization metadata.
+- if surface cleanup barely changes the candidate, focus review on POS
+  ambiguity, function-word policy, and source quality rather than numeric token
+  filtering.
 
 ## Step 4: SRS Zipf Bridge
 

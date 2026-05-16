@@ -64,7 +64,17 @@ does not make the temporary candidate a 10k POS-complete source. Rank-band
 coverage also shows the top rows are not automatically cleaner: only `18%` of
 the top 100 and `35%` of the top 500 have confident weighted lexical buckets,
 so common function words, forms, and numerals need explicit filtering/defaulting
-policy before promotion.
+policy before promotion. A follow-up filter scenario probe shows basic
+numeric/surface cleanup is not the main lever: `9,981 / 10,000` rows remain
+surface-clean, while mapped non-ambiguous surface-clean rows fall to `3,936 /
+10,000` and confident weighted-bucket rows remain `4,122 / 10,000`.
+
+The local `wordfreq` package license posture is also research-only for now. The
+installed package reports Apache-2.0, but its metadata states that bundled data
+may be redistributed under Creative Commons Attribution-ShareAlike 4.0 and
+includes source-specific attribution requirements. Any `wordfreq`-derived pack
+promotion therefore needs explicit attribution/sharealike handling before it can
+be product evidence.
 
 ## Decision Principles
 
@@ -78,7 +88,9 @@ policy before promotion.
    came from frequency, learner-level, dictionary, or domain data.
 6. Do not claim profile-personalized SRS coverage from a source that has no
    topic/domain metadata.
-7. Do not start another paid semantic-veto generation wave until the expanded
+7. Treat license/provenance review as a promotion gate, not as a post-release
+   cleanup.
+8. Do not start another paid semantic-veto generation wave until the expanded
    source creates a measured replacement-family denominator.
 
 ## Candidate Source Families

@@ -161,6 +161,30 @@ def render_candidate_pos_backfill_markdown(report: Mapping[str, object]) -> str:
             f"{int(row.get('weighted_lexical_bucket_lemma_count') or 0)} ({_format_ratio(row.get('weighted_lexical_bucket_lemma_share'))}) | "
             f"{int(row.get('ambiguous_raw_pos_lemma_count') or 0)} ({_format_ratio(row.get('ambiguous_raw_pos_lemma_share'))}) |"
         )
+    lines.extend(
+        [
+            "",
+            "## Filter Scenarios",
+            "",
+            "| Scenario | Kept | Top 100 | Top 500 | Top 1,000 | First Kept Lemmas |",
+            "| --- | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for row in _mapping_rows(report.get("filter_scenarios")):
+        first_kept = row.get("first_kept_lemmas")
+        if isinstance(first_kept, list) and first_kept:
+            first_kept_text = ", ".join(f"`{item}`" for item in first_kept[:8])
+        else:
+            first_kept_text = "`none`"
+        lines.append(
+            "| "
+            f"`{row.get('scenario_id')}` | "
+            f"{int(row.get('kept_count') or 0)} ({_format_ratio(row.get('kept_share'))}) | "
+            f"{int(row.get('top_100_kept_count') or 0)} | "
+            f"{int(row.get('top_500_kept_count') or 0)} | "
+            f"{int(row.get('top_1000_kept_count') or 0)} | "
+            f"{first_kept_text} |"
+        )
     lines.extend(["", "## Chosen POS Distribution", ""])
     distribution = _as_mapping(report.get("chosen_pos_distribution"))
     lines.extend(

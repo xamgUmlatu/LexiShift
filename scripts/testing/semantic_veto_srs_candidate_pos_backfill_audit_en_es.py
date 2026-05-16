@@ -236,6 +236,7 @@ def build_candidate_pos_backfill_report(
         "sources": source_reports,
         "target_readiness": _target_readiness(summary, target_sizes=target_sizes),
         "rank_band_coverage": _rank_band_coverage(lemma_reports, target_sizes=target_sizes),
+        "filter_scenarios": _filter_scenarios(lemma_reports),
         "chosen_pos_distribution": build_chosen_pos_distribution(lemma_reports),
         "samples": build_samples(lemma_reports),
         "limitations": candidate_pos_backfill_limitations(),
@@ -720,6 +721,63 @@ def _rank_band_coverage(
             }
         )
     return rows
+
+
+def _filter_scenarios(lemma_reports: Sequence[Mapping[str, object]]) -> list[dict[str, object]]:
+    scenario_predicates = (
+        ("all_candidate_rows", lambda row: True),
+        ("surface_clean", _is_surface_clean),
+        ("mapped_pos", lambda row: bool(row.get("has_mapped_pos"))),
+        (
+            "mapped_pos_surface_clean",
+            lambda row: bool(row.get("has_mapped_pos")) and _is_surface_clean(row),
+        ),
+        (
+            "mapped_pos_nonambiguous_surface_clean",
+            lambda row: (
+                bool(row.get("has_mapped_pos"))
+                and not bool(row.get("ambiguous_raw_pos"))
+                and _is_surface_clean(row)
+            ),
+        ),
+        (
+            "confident_weighted_bucket",
+            lambda row: bool(row.get("has_weighted_lexical_bucket")),
+        ),
+        (
+            "confident_weighted_bucket_surface_clean",
+            lambda row: bool(row.get("has_weighted_lexical_bucket")) and _is_surface_clean(row),
+        ),
+    )
+    total_count = len(lemma_reports)
+    rows: list[dict[str, object]] = []
+    for scenario_id, predicate in scenario_predicates:
+        kept_rows = [row for row in lemma_reports if predicate(row)]
+        rows.append(
+            {
+                "scenario_id": scenario_id,
+                "kept_count": len(kept_rows),
+                "kept_share": _ratio(len(kept_rows), total_count),
+                "top_100_kept_count": sum(1 for row in lemma_reports[:100] if predicate(row)),
+                "top_500_kept_count": sum(1 for row in lemma_reports[:500] if predicate(row)),
+                "top_1000_kept_count": sum(1 for row in lemma_reports[:1000] if predicate(row)),
+                "first_kept_lemmas": [
+                    str(row.get("lemma") or "") for row in kept_rows if row.get("lemma")
+                ][:20],
+            }
+        )
+    return rows
+
+
+def _is_surface_clean(row: Mapping[str, object]) -> bool:
+    lemma = str(row.get("lemma") or "").strip()
+    if not lemma:
+        return False
+    if any(character.isdigit() for character in lemma):
+        return False
+    if not any(character.isalpha() for character in lemma):
+        return False
+    return not any(character.isspace() or character == "_" for character in lemma)
 
 
 def _ratio(numerator: int, denominator: int) -> float:

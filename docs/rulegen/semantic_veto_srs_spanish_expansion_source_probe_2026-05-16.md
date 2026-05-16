@@ -58,11 +58,24 @@ source_provider = wordfreq
 source_version = 3.1.1
 source_profile = wordfreq_es_best_10k
 build_command = python wordfreq top_n_list(es, 10000, wordlist=best)
-license_status = requires_review
+license_status = requires_attribution_sharealike_review
 ```
 
 This candidate is not installed, not committed as data, and not promoted. It is
 only a shape/readiness probe.
+
+## License Posture
+
+The locally installed `wordfreq 3.1.1` package metadata reports Apache-2.0 for
+the package itself, but its own metadata also says the included data files may be
+redistributed under Creative Commons Attribution-ShareAlike 4.0. It also records
+source-specific acknowledgement/attribution requirements for Google Books
+Ngrams, OPUS/OpenSubtitles, and SUBTLEX-derived data.
+
+Interpretation: this is acceptable for local diagnostic testing, but not yet a
+promotion-grade source license decision. A shipped or app-managed `wordfreq`
+derived pack would need explicit attribution/sharealike handling in pack
+metadata, docs, and any distribution bundle.
 
 ## Source-Readiness Result
 
@@ -135,6 +148,16 @@ Rank-band signal:
 | Top 5,000 | `62%` | `57%` | `45%` | `14%` |
 | Top 10,000 | `55%` | `50%` | `41%` | `11%` |
 
+Filter scenario signal:
+
+| Scenario | Kept | Top 100 | Top 500 | Top 1,000 |
+| --- | ---: | ---: | ---: | ---: |
+| All candidate rows | `10,000` | `100` | `500` | `1,000` |
+| Surface-clean rows | `9,981` | `98` | `491` | `989` |
+| Mapped POS | `5,036` | `77` | `348` | `685` |
+| Mapped POS, non-ambiguous, surface-clean | `3,936` | `35` | `203` | `445` |
+| Confident weighted bucket | `4,122` | `18` | `175` | `436` |
+
 Interpretation: installed Wiktionary ES-EN gives enough exact-headword POS
 signal to make a 5k shortlist plausible, but not enough to claim 10k POS-ready
 coverage. The confident weighted-bucket count is below 5k because ambiguous POS
@@ -142,7 +165,9 @@ rows are treated conservatively. The installed FreeDict ES-EN SQLite exists but
 has no usable POS rows in this local pack. The top-rank bands are especially
 ambiguous, which suggests this `wordfreq` candidate includes common function
 words, forms, and numerals that need explicit filtering or defaulting policy
-before promotion.
+before promotion. Basic numeric/surface filtering barely changes the candidate;
+the real quality decision is how strict to be about POS ambiguity and function
+word/defaulting policy.
 
 ## Baseline Overlap
 
