@@ -8,6 +8,7 @@ Purpose: define the product algorithm for tailoring SRS admission probabilities 
 Source-of-truth: target algorithm reference; current executable truth lives in `core/lexishift_core/srs/seed.py`, `core/lexishift_core/srs/profile_bootstrap.py`, `core/lexishift_core/srs/selector.py`, helper admission use cases, SRS tests, and `docs/developer/feature_state_matrix.md`.
 
 Related docs:
+- `srs_interest_tailored_data_acquisition_plan.md`
 - `srs_profile_schema.md`
 - `srs_selector_technical.md`
 - `srs_set_planning_technical.md`

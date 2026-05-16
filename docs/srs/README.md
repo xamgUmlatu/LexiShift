@@ -3,7 +3,7 @@
 Status: active SRS routing
 Role: Canonical current
 Last updated: 2026-05-16
-Last verified: 2026-05-16 interest-tailored admission algorithm routing update plus doc-reference check
+Last verified: 2026-05-16 interest-tailored admission algorithm and data-acquisition routing updates plus doc-reference check
 Purpose: route SRS cleanup work to the right current, mixed, planning, schema, or harness document without treating roadmap text as implementation truth
 Source-of-truth: SRS documentation routing only; implementation truth lives in SRS/helper/extension code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -28,7 +28,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Persisted SRS settings/store/signal shape | `docs/srs/srs_schema.md` | Mixed schema reference separating implemented fields from planned extensions. | Assuming planned schema sections are already written by runtime. |
 | Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming profile strategies are default execution paths. |
 | Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Treating `profile_growth` as broad admission execution. |
-| Selector and personalization algorithm ideas | `docs/srs/srs_selector_technical.md`, `docs/srs/srs_interest_tailored_admission_algorithm.md`, `docs/srs/srs_curriculum_notes.md` | Planning/WIP surfaces for future ranking and personalization. | Current product or runtime behavior claims. |
+| Selector, personalization, and required data | `docs/srs/srs_selector_technical.md`, `docs/srs/srs_interest_tailored_admission_algorithm.md`, `docs/srs/srs_interest_tailored_data_acquisition_plan.md`, `docs/srs/srs_curriculum_notes.md` | Planning/WIP surfaces for future ranking, data acquisition, and personalization. | Current product or runtime behavior claims. |
 | SRS journey and synthetic quality harness work | `docs/srs/srs_journey_harness_workstream.md`, `scripts/testing/srs_quality_harness.py` | Harness planning plus executable quality-harness entrypoints. | Broad LP coverage claims beyond the harness-supported scenarios. |
 
 ## Supersession Decision
@@ -45,7 +45,8 @@ Current disposition:
 - `srs_hybrid_model_technical.md`, `srs_practice_layer_design.md`, and
   `srs_set_planning_technical.md` remain mixed current-plus-target references.
 - `srs_selector_technical.md`, `srs_interest_tailored_admission_algorithm.md`,
-  and `srs_curriculum_notes.md` remain planning surfaces only.
+  `srs_interest_tailored_data_acquisition_plan.md`, and
+  `srs_curriculum_notes.md` remain planning surfaces only.
 - `srs_journey_harness_workstream.md` remains a harness workstream, not the
   required default SRS quality gate.
 
