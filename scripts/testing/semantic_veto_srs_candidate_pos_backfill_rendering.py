@@ -143,6 +143,24 @@ def render_candidate_pos_backfill_markdown(report: Mapping[str, object]) -> str:
             f"`{bool(row.get('weighted_lexical_bucket_reaches_target'))}` | "
             f"{int(row.get('mapped_pos_shortfall') or 0)} |"
         )
+    lines.extend(
+        [
+            "",
+            "## Rank-Band Coverage",
+            "",
+            "| Top N | Any POS | Mapped POS | Confident Weighted Bucket | Ambiguous Raw POS |",
+            "| ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for row in _mapping_rows(report.get("rank_band_coverage")):
+        lines.append(
+            "| "
+            f"{int(row.get('rank_band_top_n') or 0)} | "
+            f"{int(row.get('any_pos_lemma_count') or 0)} ({_format_ratio(row.get('any_pos_lemma_share'))}) | "
+            f"{int(row.get('mapped_pos_lemma_count') or 0)} ({_format_ratio(row.get('mapped_pos_lemma_share'))}) | "
+            f"{int(row.get('weighted_lexical_bucket_lemma_count') or 0)} ({_format_ratio(row.get('weighted_lexical_bucket_lemma_share'))}) | "
+            f"{int(row.get('ambiguous_raw_pos_lemma_count') or 0)} ({_format_ratio(row.get('ambiguous_raw_pos_lemma_share'))}) |"
+        )
     lines.extend(["", "## Chosen POS Distribution", ""])
     distribution = _as_mapping(report.get("chosen_pos_distribution"))
     lines.extend(

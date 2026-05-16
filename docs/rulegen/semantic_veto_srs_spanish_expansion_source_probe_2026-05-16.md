@@ -124,11 +124,25 @@ Result:
 | Wiktionary ES-EN candidate hits | `5,497` |
 | FreeDict ES-EN candidate hits | `0` |
 
+Rank-band signal:
+
+| Candidate Band | Any POS | Mapped POS | Confident Weighted Bucket | Ambiguous Raw POS |
+| ---: | ---: | ---: | ---: | ---: |
+| Top 100 | `78%` | `77%` | `18%` | `42%` |
+| Top 500 | `72%` | `70%` | `35%` | `29%` |
+| Top 1,000 | `72%` | `69%` | `44%` | `24%` |
+| Top 2,000 | `69%` | `65%` | `47%` | `19%` |
+| Top 5,000 | `62%` | `57%` | `45%` | `14%` |
+| Top 10,000 | `55%` | `50%` | `41%` | `11%` |
+
 Interpretation: installed Wiktionary ES-EN gives enough exact-headword POS
 signal to make a 5k shortlist plausible, but not enough to claim 10k POS-ready
 coverage. The confident weighted-bucket count is below 5k because ambiguous POS
 rows are treated conservatively. The installed FreeDict ES-EN SQLite exists but
-has no usable POS rows in this local pack.
+has no usable POS rows in this local pack. The top-rank bands are especially
+ambiguous, which suggests this `wordfreq` candidate includes common function
+words, forms, and numerals that need explicit filtering or defaulting policy
+before promotion.
 
 ## Baseline Overlap
 

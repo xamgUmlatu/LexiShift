@@ -182,9 +182,12 @@ def build_candidate_pos_backfill_report(
 ) -> dict[str, object]:
     target_sizes = tuple(sorted({max(1, int(size)) for size in target_sizes}))
     candidate_report, candidate_rows = _read_candidate_lemmas(candidate_db)
+    default_language_packs = build_helper_paths().language_packs_dir
     source_paths = {
-        "wiktionary_es_en": wiktionary_es_en_sqlite,
-        "freedict_es_en": freedict_es_en_sqlite,
+        "wiktionary_es_en": wiktionary_es_en_sqlite
+        or default_language_packs / "wiktionary-es-en.sqlite",
+        "freedict_es_en": freedict_es_en_sqlite
+        or default_language_packs / "freedict-es-en" / "main.sqlite",
     }
     source_reports, evidences_by_lemma = _read_pos_sources(
         source_paths=source_paths,
@@ -232,6 +235,7 @@ def build_candidate_pos_backfill_report(
         "candidate": candidate_report,
         "sources": source_reports,
         "target_readiness": _target_readiness(summary, target_sizes=target_sizes),
+        "rank_band_coverage": _rank_band_coverage(lemma_reports, target_sizes=target_sizes),
         "chosen_pos_distribution": build_chosen_pos_distribution(lemma_reports),
         "samples": build_samples(lemma_reports),
         "limitations": candidate_pos_backfill_limitations(),
@@ -671,6 +675,48 @@ def _target_readiness(
                 "any_pos_shortfall": max(0, target - any_pos_count),
                 "mapped_pos_shortfall": max(0, target - mapped_pos_count),
                 "weighted_lexical_bucket_shortfall": max(0, target - weighted_lexical_count),
+            }
+        )
+    return rows
+
+
+def _rank_band_coverage(
+    lemma_reports: Sequence[Mapping[str, object]],
+    *,
+    target_sizes: Sequence[int],
+) -> list[dict[str, object]]:
+    total_count = len(lemma_reports)
+    band_sizes = sorted(
+        {
+            size
+            for size in (*target_sizes, 100, 250, 500, 1000, 2000, 5000, 10000)
+            if 0 < int(size) <= max(1, total_count)
+        }
+    )
+    rows: list[dict[str, object]] = []
+    for band_size in band_sizes:
+        scoped_rows = list(lemma_reports[:band_size])
+        any_pos_count = sum(1 for row in scoped_rows if bool(row.get("has_any_pos")))
+        mapped_pos_count = sum(1 for row in scoped_rows if bool(row.get("has_mapped_pos")))
+        weighted_count = sum(
+            1 for row in scoped_rows if bool(row.get("has_weighted_lexical_bucket"))
+        )
+        ambiguous_count = sum(1 for row in scoped_rows if bool(row.get("ambiguous_raw_pos")))
+        rows.append(
+            {
+                "rank_band_top_n": band_size,
+                "rows_considered": len(scoped_rows),
+                "any_pos_lemma_count": any_pos_count,
+                "any_pos_lemma_share": _ratio(any_pos_count, len(scoped_rows)),
+                "mapped_pos_lemma_count": mapped_pos_count,
+                "mapped_pos_lemma_share": _ratio(mapped_pos_count, len(scoped_rows)),
+                "weighted_lexical_bucket_lemma_count": weighted_count,
+                "weighted_lexical_bucket_lemma_share": _ratio(
+                    weighted_count,
+                    len(scoped_rows),
+                ),
+                "ambiguous_raw_pos_lemma_count": ambiguous_count,
+                "ambiguous_raw_pos_lemma_share": _ratio(ambiguous_count, len(scoped_rows)),
             }
         )
     return rows

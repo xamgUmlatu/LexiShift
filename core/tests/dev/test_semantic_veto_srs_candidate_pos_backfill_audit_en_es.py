@@ -68,8 +68,12 @@ class SemanticVetoSrsCandidatePosBackfillAuditTests(unittest.TestCase):
             self.assertTrue(readiness[5]["mapped_pos_reaches_target"])
             self.assertFalse(readiness[5]["weighted_lexical_bucket_reaches_target"])
             self.assertFalse(readiness[6]["mapped_pos_reaches_target"])
+            rank_bands = {row["rank_band_top_n"]: row for row in report["rank_band_coverage"]}
+            self.assertEqual(rank_bands[3]["mapped_pos_lemma_count"], 3)
+            self.assertEqual(rank_bands[6]["mapped_pos_lemma_count"], 5)
             markdown = render_candidate_pos_backfill_markdown(report)
             self.assertIn("Source Coverage", markdown)
+            self.assertIn("Rank-Band Coverage", markdown)
             self.assertIn("no-mutation readiness audit", markdown)
 
     def test_missing_candidate_is_error_but_missing_source_is_review(self) -> None:

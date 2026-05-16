@@ -149,6 +149,7 @@ Read these outputs before moving on:
 - lemmas with a confident weighted lexical bucket,
 - ambiguous raw POS lemmas,
 - unresolved high-rank lemmas,
+- rank-band coverage for top 100/500/1k/2k/5k/10k candidates,
 - per-source hit counts.
 
 Interpretation:

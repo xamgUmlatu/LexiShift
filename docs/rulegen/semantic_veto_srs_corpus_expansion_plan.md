@@ -60,7 +60,11 @@ resources found that Wiktionary ES-EN supplies exact-headword POS for `5,497 /
 10,000` candidate lemmas and mapped POS for `5,036 / 10,000`; however, only
 `4,122 / 10,000` have a confident weighted lexical bucket after ambiguous POS is
 treated conservatively. This makes a 5k POS-aware shortlist plausible, but it
-does not make the temporary candidate a 10k POS-complete source.
+does not make the temporary candidate a 10k POS-complete source. Rank-band
+coverage also shows the top rows are not automatically cleaner: only `18%` of
+the top 100 and `35%` of the top 500 have confident weighted lexical buckets,
+so common function words, forms, and numerals need explicit filtering/defaulting
+policy before promotion.
 
 ## Decision Principles
 
