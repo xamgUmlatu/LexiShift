@@ -1,0 +1,403 @@
+{
+  "candidate_sqlite": [
+    {
+      "columns": [
+        "id",
+        "pmw",
+        "freq",
+        "lemma",
+        "pos",
+        "source_family",
+        "source_rank",
+        "source_frequency",
+        "cde_rank",
+        "cde_freq",
+        "cde_pos",
+        "spalex_rank",
+        "spalex_freq",
+        "spalex_zipf",
+        "spalex_prevalence_total",
+        "spalex_percent_total",
+        "pos_source",
+        "pos_canonical",
+        "topics",
+        "topic_source"
+      ],
+      "exists": true,
+      "issues": [],
+      "meta": {
+        "metadata": "{\"column_names\": [\"id\", \"pmw\", \"freq\", \"lemma\", \"pos\", \"source_family\", \"source_rank\", \"source_frequency\", \"topics\"], \"frequency_column_semantics\": {\"freq\": \"original_source_frequency\", \"pmw\": \"rank_descending_commonness_score\"}, \"generated_at_utc\": \"2026-05-16T18:40:29Z\", \"pack_id\": \"freq-es-spalex-expanded-v1\", \"pmw_column\": \"pmw\", \"pos_policy\": \"freq_es_cde_compact_else_kaikki_compact_mapped\", \"provider\": \"freq-es-spalex-expanded-v1\", \"rank_column\": \"id\", \"row_count\": 45131, \"source_kind\": \"frequency\", \"source_profile\": \"spalex_cde_union_v1\", \"source_provider\": \"freq-es-spalex-expanded-v1\", \"sources\": {\"current_frequency_db\": \"/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite\", \"kaikki_forward_db\": \"/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite\", \"spalex_csv\": \"/private/tmp/lexishift-spalex-audit/word_info.csv\"}, \"topic_policy\": \"kaikki_sense_topics_csv\"}"
+      },
+      "path": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+      "primary_table": "frequency",
+      "row_count": 45131,
+      "status": "ok",
+      "tables": [
+        "frequency",
+        "meta"
+      ]
+    }
+  ],
+  "catalog_summary": {
+    "cross_embedding_pack_count": 4,
+    "cross_embedding_pack_ids": [
+      "embed-xling-en",
+      "embed-xling-de",
+      "embed-xling-ja",
+      "embed-xling-es"
+    ],
+    "embedding_pack_count": 4,
+    "embedding_pack_ids": [
+      "embed-en-cc",
+      "embed-de-cc",
+      "embed-ja-cc",
+      "embed-es-cc"
+    ],
+    "frequency_pack_count": 4,
+    "frequency_pack_ids": [
+      "freq-en-coca",
+      "freq-ja-bccwj",
+      "freq-de-default",
+      "freq-es-cde"
+    ],
+    "language_pack_count": 15,
+    "language_pack_ids": [
+      "wordnet-en",
+      "moby-en",
+      "openthesaurus-de",
+      "odenet-de",
+      "jp-wordnet-sqlite",
+      "jp-wordnet",
+      "jmdict-ja-en",
+      "freedict-de-en",
+      "freedict-en-de",
+      "freedict-es-en",
+      "freedict-en-es",
+      "wiktionary-de-en",
+      "wiktionary-es-en",
+      "wiktionary-en-es",
+      "cc-cedict-zh-en"
+    ]
+  },
+  "data_root": "/private/tmp/lexishift-spalex-audit/data-root",
+  "decision": "pack_lifecycle_state_audited",
+  "generated_at": "2026-05-16T18:40:40+00:00",
+  "installed_pack_families": {
+    "embedding": {
+      "base_dir": "/private/tmp/lexishift-spalex-audit/data-root/embedding_packs",
+      "base_dir_exists": false,
+      "build_command_count": 0,
+      "converter_version_count": 0,
+      "expected_pack_kind": "embedding",
+      "invalid_provenance_count": 0,
+      "license_status_counts": {},
+      "missing_artifact_count": 0,
+      "missing_manifest_count": 0,
+      "missing_provenance_count": 0,
+      "pack_count": 0,
+      "packs": [],
+      "parser_config_count": 0,
+      "provenance_review_required_count": 0,
+      "source_bundle_component_checksum_count": 0,
+      "source_bundle_component_missing_checksum_count": 0,
+      "source_bundle_count": 0,
+      "source_version_count": 0
+    },
+    "frequency": {
+      "base_dir": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs",
+      "base_dir_exists": true,
+      "build_command_count": 1,
+      "converter_version_count": 1,
+      "expected_pack_kind": "frequency",
+      "invalid_provenance_count": 0,
+      "license_status_counts": {
+        "requires_review": 1
+      },
+      "missing_artifact_count": 0,
+      "missing_manifest_count": 0,
+      "missing_provenance_count": 0,
+      "pack_count": 1,
+      "packs": [
+        {
+          "artifact_exists": true,
+          "artifact_path": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+          "artifact_relpath": "main.sqlite",
+          "issues": [],
+          "manifest_errors": [],
+          "manifest_exists": true,
+          "manifest_path": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/manifest.json",
+          "pack_id": "freq-es-spalex-expanded-v1",
+          "pack_kind": "frequency",
+          "pack_root": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1",
+          "provenance_errors": [],
+          "provenance_exists": true,
+          "provenance_lineage": {
+            "build_command": "python3 scripts/data/build_spalex_frequency_pack_en_es.py",
+            "build_command_present": true,
+            "converter_version": "build_spalex_frequency_pack_en_es_v1",
+            "converter_version_present": true,
+            "lineage_readable": true,
+            "parser_config_keys": [
+              "current_seed",
+              "expansion_source",
+              "pos_policy",
+              "rank_policy",
+              "runtime_pmw",
+              "topic_policy"
+            ],
+            "parser_config_present": true,
+            "parser_profile": "spalex_cde_union_v1",
+            "source_bundle_component_checksum_count": 3,
+            "source_bundle_component_count": 3,
+            "source_bundle_component_missing_checksum_count": 0,
+            "source_bundle_id": "freq-es-spalex-expanded-v1:spalex_cde_kaikki_v1",
+            "source_bundle_present": true,
+            "source_version": "10.6084/m9.figshare.5924794.v4",
+            "source_version_present": true
+          },
+          "provenance_path": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/provenance.json",
+          "provenance_policy": {
+            "artifact_checksum_present": true,
+            "artifact_metric_keys": [
+              "distinct_lemma_count",
+              "pos_rows",
+              "row_count",
+              "topic_domain_rows"
+            ],
+            "artifact_metrics_present": true,
+            "checks": [
+              {
+                "check_id": "provenance_exists",
+                "observed": true,
+                "status": "ok"
+              },
+              {
+                "check_id": "provenance_valid",
+                "observed": true,
+                "status": "ok"
+              },
+              {
+                "check_id": "license_confirmed",
+                "observed": "requires_review",
+                "review_reason": "license_status_requires_review",
+                "status": "review"
+              },
+              {
+                "check_id": "source_pointer_present",
+                "observed": "source_url",
+                "status": "ok"
+              },
+              {
+                "check_id": "source_identity_present",
+                "observed": "source_version",
+                "status": "ok"
+              },
+              {
+                "check_id": "raw_artifacts_present",
+                "observed": 1,
+                "status": "ok"
+              },
+              {
+                "check_id": "raw_artifact_checksums_complete",
+                "observed": "1/1",
+                "status": "ok"
+              },
+              {
+                "check_id": "generated_artifact_checksum_present",
+                "observed": true,
+                "status": "ok"
+              },
+              {
+                "check_id": "source_bundle_component_pointers_complete",
+                "observed": "3/3",
+                "status": "ok"
+              },
+              {
+                "check_id": "source_bundle_component_checksums_complete",
+                "observed": "3/3",
+                "status": "ok"
+              },
+              {
+                "accepted_lineage_statuses": [
+                  "pinned_snapshot",
+                  "pinned_component_artifacts"
+                ],
+                "check_id": "source_bundle_pinning_declared",
+                "observed": "pinned_component_artifacts",
+                "status": "ok"
+              },
+              {
+                "check_id": "frequency_metrics_complete",
+                "missing_metric_keys": [],
+                "observed": [
+                  "distinct_lemma_count",
+                  "pos_rows",
+                  "row_count",
+                  "topic_domain_rows"
+                ],
+                "status": "ok"
+              }
+            ],
+            "license_status": "requires_review",
+            "policy_id": "pack_provenance_promotion_policy",
+            "policy_version": 2,
+            "promotion_ready": false,
+            "raw_artifact_checksum_count": 1,
+            "raw_artifact_count": 1,
+            "review_reasons": [
+              "license_status_requires_review"
+            ],
+            "review_required": true,
+            "source_bundle_component_checksum_count": 3,
+            "source_bundle_component_count": 3,
+            "source_bundle_component_pointer_count": 3,
+            "source_bundle_lineage_status": "pinned_component_artifacts",
+            "source_identity_kind": "source_version",
+            "source_name": "SPALEX plus freq-es-cde seed plus Kaikki enrichment",
+            "source_pointer_kind": "source_url",
+            "status": "review"
+          },
+          "provenance_review": {
+            "artifact_checksum_present": true,
+            "artifact_metric_keys": [
+              "distinct_lemma_count",
+              "pos_rows",
+              "row_count",
+              "topic_domain_rows"
+            ],
+            "artifact_metrics_present": true,
+            "license_status": "requires_review",
+            "raw_artifact_checksum_count": 1,
+            "raw_artifact_count": 1,
+            "review_reasons": [
+              "license_status_requires_review"
+            ],
+            "review_required": true,
+            "source_identity_kind": "source_version",
+            "source_name": "SPALEX plus freq-es-cde seed plus Kaikki enrichment",
+            "source_pointer_kind": "source_url"
+          },
+          "provenance_valid": true
+        }
+      ],
+      "parser_config_count": 1,
+      "provenance_review_required_count": 1,
+      "source_bundle_component_checksum_count": 3,
+      "source_bundle_component_missing_checksum_count": 0,
+      "source_bundle_count": 1,
+      "source_version_count": 1
+    },
+    "language": {
+      "base_dir": "/private/tmp/lexishift-spalex-audit/data-root/language_packs",
+      "base_dir_exists": false,
+      "build_command_count": 0,
+      "converter_version_count": 0,
+      "expected_pack_kind": "language",
+      "invalid_provenance_count": 0,
+      "license_status_counts": {},
+      "missing_artifact_count": 0,
+      "missing_manifest_count": 0,
+      "missing_provenance_count": 0,
+      "pack_count": 0,
+      "packs": [],
+      "parser_config_count": 0,
+      "provenance_review_required_count": 0,
+      "source_bundle_component_checksum_count": 0,
+      "source_bundle_component_missing_checksum_count": 0,
+      "source_bundle_count": 0,
+      "source_version_count": 0
+    }
+  },
+  "manual_resource_settings": {
+    "embedding_pair_pack_ids": {},
+    "managed_artifact_manual_path_count": 0,
+    "managed_frequency_pack_ids": [],
+    "managed_language_pack_ids": [],
+    "manual_path_count": 0,
+    "manual_path_missing_count": 0,
+    "manual_path_review_count": 0,
+    "manual_paths": [],
+    "settings_errors": [],
+    "settings_exists": false,
+    "settings_path": "/private/tmp/lexishift-spalex-audit/data-root/settings.json",
+    "status": "ok"
+  },
+  "pair": "en-es",
+  "profile_id": "default",
+  "publication_manifests": {
+    "invalid_count": 0,
+    "manifest_count": 0,
+    "manifests": [],
+    "profile_dir": "/private/tmp/lexishift-spalex-audit/data-root/srs/profiles/default",
+    "profile_dir_exists": false,
+    "source_lineage_count": 0
+  },
+  "runtime_policy_change": "none",
+  "schema_version": 1,
+  "semantic_pack_copies": {
+    "base_dir": "/private/tmp/lexishift-spalex-audit/data-root/language_packs/en-es/semantic_packs",
+    "base_dir_exists": false,
+    "build_command_count": 0,
+    "converter_version_count": 0,
+    "invalid_provenance_count": 0,
+    "license_status_counts": {},
+    "missing_inventory_count": 0,
+    "missing_manifest_count": 0,
+    "missing_provenance_count": 0,
+    "pack_count": 0,
+    "packs": [],
+    "parser_config_count": 0,
+    "provenance_review_required_count": 0,
+    "source_bundle_component_checksum_count": 0,
+    "source_bundle_component_missing_checksum_count": 0,
+    "source_bundle_count": 0,
+    "source_version_count": 0
+  },
+  "source_policy_decisions": {
+    "category_counts": {
+      "license_review": 1
+    },
+    "decision": "source_policy_review_only",
+    "decision_count": 1,
+    "recommended_action_counts": {
+      "record_source_license_decision": 1
+    },
+    "rows": [
+      {
+        "category": "license_review",
+        "check_id": "license_confirmed",
+        "check_status": "review",
+        "family": "frequency",
+        "observed": "requires_review",
+        "pack_id": "freq-es-spalex-expanded-v1",
+        "pack_kind": "frequency",
+        "policy_status": "review",
+        "provenance_path": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/provenance.json",
+        "recommended_action": "record_source_license_decision",
+        "review_reason": "license_status_requires_review"
+      }
+    ],
+    "runtime_policy_change": "none"
+  },
+  "summary": {
+    "candidate_error_count": 0,
+    "candidate_sqlite_count": 1,
+    "installed_pack_count": 1,
+    "invalid_provenance_count": 0,
+    "manual_resource_error_count": 0,
+    "manual_resource_path_count": 0,
+    "manual_resource_review_count": 0,
+    "missing_artifact_count": 0,
+    "missing_manifest_count": 0,
+    "missing_provenance_count": 0,
+    "provenance_review_required_count": 1,
+    "publication_invalid_count": 0,
+    "publication_manifest_count": 0,
+    "semantic_pack_count": 0,
+    "source_policy_category_counts": {
+      "license_review": 1
+    },
+    "source_policy_decision_count": 1,
+    "status": "review"
+  }
+}

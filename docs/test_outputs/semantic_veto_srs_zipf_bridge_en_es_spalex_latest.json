@@ -1,0 +1,878 @@
+{
+  "decision": "srs_zipf_bridge_established",
+  "full_source_target_family_zipf_matrix": [],
+  "full_source_target_pairs": [],
+  "full_source_zipf_scope_en": {
+    "breakdowns": [
+      {
+        "sample_terms": [],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": null,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_5_plus_very_common"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": null,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_4_to_5_common"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": null,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_3_to_4_mid"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": null,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_below_3_rare"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "full_srs_rule_source_triggers",
+        "share": null,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "missing"
+      }
+    ],
+    "language": "en",
+    "preview_only": false,
+    "scope_id": "full_srs_rule_source_triggers",
+    "term_count": 0,
+    "term_label": "source",
+    "weight_sum": null
+  },
+  "generated_at": "2026-05-16T18:40:43+00:00",
+  "inputs": {
+    "full_rulegen": {
+      "reason": "include_full_rulegen_not_requested",
+      "status": "skipped"
+    },
+    "full_srs": {
+      "default_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+      "frequency_db": "/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+      "frequency_db_exists": true,
+      "frequency_db_source": "override",
+      "jmdict_path": "",
+      "pair": "en-es",
+      "requires_jmdict_for_seed": false,
+      "seed_row_count": 45131,
+      "status": "ok",
+      "stopwords_exists": false,
+      "stopwords_path": "",
+      "top_n": 50000,
+      "translation_dict_path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/freedict-es-en/main.sqlite",
+      "unique_target_count": 45131
+    },
+    "srs_journey_path": "docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json",
+    "srs_journey_scenario": "en-es_installed_data_journey_v1",
+    "srs_resource_mode": "installed"
+  },
+  "journey_source_target_pairs": [
+    {
+      "source": "beginning",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.0,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "centennial",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.36,
+      "target": "siglo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "century",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.02,
+      "target": "siglo",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.15
+    },
+    {
+      "source": "commencement",
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "source_zipf_frequency_en": 3.48,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "hour",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.18,
+      "target": "hora",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.45
+    },
+    {
+      "source": "light",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "luz",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.25
+    },
+    {
+      "source": "million",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.33,
+      "target": "millón",
+      "target_zipf_band_es": "zipf_4_to_5_common",
+      "target_zipf_frequency_es": 4.59
+    },
+    {
+      "source": "music",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.52,
+      "target": "música",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.24
+    },
+    {
+      "source": "start",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 5.56,
+      "target": "principio",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.1
+    },
+    {
+      "source": "time",
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "source_zipf_frequency_en": 6.29,
+      "target": "hora",
+      "target_zipf_band_es": "zipf_5_plus_very_common",
+      "target_zipf_frequency_es": 5.45
+    }
+  ],
+  "limitations": [
+    "srs_target_frequency_is_not_the_same_as_source_trigger_veto_difficulty",
+    "zipf_frequency_is_not_cefr_or_user_known_word_level",
+    "journey_candidate_universe_is_current_top_n_slice_not_full_srs_universe",
+    "full_srs_universe_uses_candidate_frequency_db_override",
+    "source_target_matrix_depends_on_journey_artifact_preserving_rule_pairs",
+    "full_source_target_matrix_requires_explicit_full_rulegen_run",
+    "report_is_cost_planning_evidence_not_runtime_policy"
+  ],
+  "methodology": {
+    "llm_generation": "none",
+    "runtime_policy_change": "none",
+    "source_denominator": "Full generated rule source-target pairs when requested, plus published journey rule source triggers and source-target pairs.",
+    "source_language": "en",
+    "target_denominator": "Full installed SRS-admissible target lemmas from the SRS seed/admission path, plus journey-slice selected/admitted/due/published target lemmas.",
+    "target_language": "es",
+    "zipf_thresholds": {
+      "zipf_3_to_4_mid": ">= 3.0 and < 4.0",
+      "zipf_4_to_5_common": ">= 4.0 and < 5.0",
+      "zipf_5_plus_very_common": ">= 5.0",
+      "zipf_below_3_rare": "> 0.0 and < 3.0"
+    }
+  },
+  "next_steps": [
+    "Use target-side rows to estimate which SRS words users actually experience.",
+    "Use source-trigger rows to estimate which published replacement families need semantic-veto evidence.",
+    "Weight future LLM generation by SRS admission exposure and source-trigger veto difficulty, not by source frequency alone.",
+    "Keep target-side learner difficulty and source-side veto ambiguity as separate axes."
+  ],
+  "pair": "en-es",
+  "schema_version": 1,
+  "source_target_family_zipf_matrix": [
+    {
+      "family_count": 7,
+      "sample_families": [
+        {
+          "source": "beginning",
+          "target": "principio"
+        },
+        {
+          "source": "century",
+          "target": "siglo"
+        },
+        {
+          "source": "hour",
+          "target": "hora"
+        },
+        {
+          "source": "light",
+          "target": "luz"
+        },
+        {
+          "source": "music",
+          "target": "música"
+        },
+        {
+          "source": "start",
+          "target": "principio"
+        },
+        {
+          "source": "time",
+          "target": "hora"
+        }
+      ],
+      "share": 0.7,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    },
+    {
+      "family_count": 1,
+      "sample_families": [
+        {
+          "source": "million",
+          "target": "millón"
+        }
+      ],
+      "share": 0.1,
+      "source_zipf_band_en": "zipf_5_plus_very_common",
+      "target_zipf_band_es": "zipf_4_to_5_common"
+    },
+    {
+      "family_count": 2,
+      "sample_families": [
+        {
+          "source": "centennial",
+          "target": "siglo"
+        },
+        {
+          "source": "commencement",
+          "target": "principio"
+        }
+      ],
+      "share": 0.2,
+      "source_zipf_band_en": "zipf_3_to_4_mid",
+      "target_zipf_band_es": "zipf_5_plus_very_common"
+    }
+  ],
+  "source_zipf_scope_en": {
+    "breakdowns": [
+      {
+        "sample_terms": [
+          "beginning",
+          "century",
+          "hour",
+          "light",
+          "million",
+          "music",
+          "start",
+          "time"
+        ],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.8,
+        "source_count": 8,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_5_plus_very_common"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.0,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_4_to_5_common"
+      },
+      {
+        "sample_terms": [
+          "centennial",
+          "commencement"
+        ],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.2,
+        "source_count": 2,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_3_to_4_mid"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.0,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "zipf_below_3_rare"
+      },
+      {
+        "sample_terms": [],
+        "scope_id": "journey_union_rule_source_triggers",
+        "share": 0.0,
+        "source_count": 0,
+        "weight_share": null,
+        "weight_sum": 0.0,
+        "zipf_band": "missing"
+      }
+    ],
+    "language": "en",
+    "preview_only": false,
+    "scope_id": "journey_union_rule_source_triggers",
+    "term_count": 10,
+    "term_label": "source",
+    "weight_sum": null
+  },
+  "status": "ok",
+  "summary": {
+    "candidate_target_very_common_or_common_count": 172,
+    "candidate_target_very_common_or_common_share": 0.86,
+    "full_rule_source_trigger_count": 0,
+    "full_source_mapping_status": "skipped",
+    "full_source_target_pair_count": 0,
+    "full_srs_admissible_seed_row_count": 45131,
+    "full_srs_admissible_target_count": 45131,
+    "full_target_very_common_or_common_count": 3521,
+    "full_target_very_common_or_common_share": 0.078,
+    "issues": [],
+    "journey_candidate_target_very_common_or_common_count": 172,
+    "journey_candidate_target_very_common_or_common_share": 0.86,
+    "journey_srs_candidate_target_count": 200,
+    "journey_union_published_target_count": 6,
+    "journey_union_rule_source_trigger_count": 10,
+    "journey_union_source_target_pair_count": 10,
+    "latest_admitted_target_count": 7,
+    "latest_due_target_count": 3,
+    "latest_published_target_count": 6,
+    "source_mapping_status": "source_target_pairs_available",
+    "srs_candidate_target_count": 200,
+    "srs_selected_initial_active_count": 3
+  },
+  "target_zipf_scopes_es": [
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "abril",
+            "acceso",
+            "acción",
+            "actividad",
+            "actual",
+            "actualmente",
+            "acuerdo",
+            "acá",
+            "adelante",
+            "además",
+            "agosto",
+            "agua"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.0121,
+          "target_count": 545,
+          "weight_share": 0.0143,
+          "weight_sum": 471.23625,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "abajo",
+            "abandonado",
+            "abandonar",
+            "abandono",
+            "abarca",
+            "abierta",
+            "abiertamente",
+            "abierto",
+            "abogado",
+            "abordar",
+            "aborto",
+            "abrazo"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.0659,
+          "target_count": 2976,
+          "weight_share": 0.0818,
+          "weight_sum": 2690.681848,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [
+            "abad",
+            "abadía",
+            "abanderado",
+            "abanico",
+            "abarcar",
+            "abastecer",
+            "abasto",
+            "abatido",
+            "abdomen",
+            "abdominal",
+            "abeja",
+            "aberración"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.1844,
+          "target_count": 8322,
+          "weight_share": 0.2201,
+          "weight_sum": 7239.899379,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [
+            "ababa",
+            "ababol",
+            "abacería",
+            "abacial",
+            "abacá",
+            "abada",
+            "abadejo",
+            "abadengo",
+            "abadesa",
+            "abajar",
+            "abalorio",
+            "abanderar"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.5136,
+          "target_count": 23178,
+          "weight_share": 0.5423,
+          "weight_sum": 17838.208968,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [
+            "abacero",
+            "abadiato",
+            "abajadero",
+            "abajamiento",
+            "abalanzar",
+            "abalar",
+            "abalaustrado",
+            "abalear",
+            "abaleo",
+            "aballar",
+            "abandonismo",
+            "abandonista"
+          ],
+          "scope_id": "full_srs_admissible_universe",
+          "share": 0.224,
+          "target_count": 10110,
+          "weight_share": 0.1414,
+          "weight_sum": 4651.325053,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "full_srs_admissible_universe",
+      "term_count": 45131,
+      "term_label": "target",
+      "weight_sum": 32891.351498
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "actualmente",
+            "auto",
+            "autor",
+            "capital",
+            "común",
+            "corazón",
+            "crear",
+            "crisis",
+            "dentro",
+            "departamento",
+            "diciembre",
+            "el"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.31,
+          "target_count": 62,
+          "weight_share": 0.3298,
+          "weight_sum": 30.094586,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "alemán",
+            "altura",
+            "americano",
+            "ampliar",
+            "argentino",
+            "arreglar",
+            "asimismo",
+            "asistir",
+            "ave",
+            "barco",
+            "batalla",
+            "cargar"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.55,
+          "target_count": 110,
+          "weight_share": 0.5549,
+          "weight_sum": 50.63483,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [
+            "acusar",
+            "advertir",
+            "alimentar",
+            "arrastrar",
+            "atravesar",
+            "basar",
+            "caber",
+            "calcular",
+            "característico",
+            "ceder",
+            "condenar",
+            "diverso"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.13,
+          "target_count": 26,
+          "weight_share": 0.1072,
+          "weight_sum": 9.783293,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [
+            "consistir",
+            "oponer"
+          ],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.01,
+          "target_count": 2,
+          "weight_share": 0.0081,
+          "weight_sum": 0.742312,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_srs_candidate_slice",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "journey_srs_candidate_slice",
+      "term_count": 200,
+      "term_label": "target",
+      "weight_sum": 91.255021
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "siglo"
+          ],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.6667,
+          "target_count": 2,
+          "weight_share": 0.669,
+          "weight_sum": 1.335186,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.3333,
+          "target_count": 1,
+          "weight_share": 0.331,
+          "weight_sum": 0.660539,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "srs_selected_initial_active",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "srs_selected_initial_active",
+      "term_count": 3,
+      "term_label": "target",
+      "weight_sum": 1.995725
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "movimiento",
+            "música",
+            "principio",
+            "siglo"
+          ],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.8571,
+          "target_count": 6,
+          "weight_share": 0.8526,
+          "weight_sum": 3.819643,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.1429,
+          "target_count": 1,
+          "weight_share": 0.1474,
+          "weight_sum": 0.660539,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_admitted_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "latest_admitted_srs_items",
+      "term_count": 7,
+      "term_label": "target",
+      "weight_sum": 4.480182
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "movimiento"
+          ],
+          "scope_id": "latest_due_srs_items",
+          "share": 1.0,
+          "target_count": 3,
+          "weight_share": 1.0,
+          "weight_sum": 1.882375,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_due_srs_items",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "latest_due_srs_items",
+      "term_count": 3,
+      "term_label": "target",
+      "weight_sum": 1.882375
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "música",
+            "principio",
+            "siglo"
+          ],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.8333,
+          "target_count": 5,
+          "weight_share": 0.829,
+          "weight_sum": 3.203162,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.1667,
+          "target_count": 1,
+          "weight_share": 0.171,
+          "weight_sum": 0.660539,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "latest_published_srs_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": 0.0,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "latest_published_srs_targets",
+      "term_count": 6,
+      "term_label": "target",
+      "weight_sum": 3.863701
+    },
+    {
+      "breakdowns": [
+        {
+          "sample_terms": [
+            "hora",
+            "luz",
+            "música",
+            "principio",
+            "siglo"
+          ],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.8333,
+          "target_count": 5,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_5_plus_very_common"
+        },
+        {
+          "sample_terms": [
+            "millón"
+          ],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.1667,
+          "target_count": 1,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_4_to_5_common"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_3_to_4_mid"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "zipf_below_3_rare"
+        },
+        {
+          "sample_terms": [],
+          "scope_id": "journey_union_published_targets",
+          "share": 0.0,
+          "target_count": 0,
+          "weight_share": null,
+          "weight_sum": 0.0,
+          "zipf_band": "missing"
+        }
+      ],
+      "language": "es",
+      "scope_id": "journey_union_published_targets",
+      "term_count": 6,
+      "term_label": "target",
+      "weight_sum": null
+    }
+  ]
+}

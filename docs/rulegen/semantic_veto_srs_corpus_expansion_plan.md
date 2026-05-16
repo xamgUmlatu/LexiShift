@@ -3,7 +3,7 @@
 Status: active planning reference
 Role: Planning / WIP
 Last updated: 2026-05-17
-Last verified: 2026-05-17 with source-readiness audit review, local no-download wordfreq candidate probe, SPALEX + Kaikki source-stack audit, candidate POS backfill audit, and SRS Zipf bridge candidate frequency override tests
+Last verified: 2026-05-17 with source-readiness audit review, local no-download wordfreq candidate probe, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, candidate POS backfill audit, and SRS Zipf bridge candidate frequency override tests
 Related docs:
 - `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `semantic_veto_srs_spanish_expansion_source_probe_2026-05-16.md`
@@ -11,6 +11,9 @@ Related docs:
 - `../srs/srs_interest_tailored_admission_algorithm.md`
 - `../srs/srs_interest_tailored_data_acquisition_plan.md`
 - `../test_outputs/semantic_veto_srs_source_stack_audit_en_es_latest.md`
+- `../test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_spalex_latest.md`
+- `../test_outputs/pack_lifecycle_audit_spalex_latest.md`
+- `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_latest.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
 
 ## Purpose
@@ -98,6 +101,19 @@ coverage is only `1,353 / 10,000`, with an initial medicine/health signal for
 necessary before interest-tailored SRS admission can be claimed as complete.
 Kaikki enrichment also remains promotion-review data until attribution,
 share-alike/GFDL posture, and dated dump identity are encoded.
+
+The follow-up 2026-05-17 provisional pack build moved this from source-stack
+audit to a concrete research artifact. `scripts/data/build_spalex_frequency_pack_en_es.py`
+builds `freq-es-spalex-expanded-v1` as a normal frequency-pack-shaped SQLite:
+current `freq-es-cde` rows first, then SPALEX-ranked additions, with runtime
+`pmw` as a unified rank-descending commonness score and original source
+frequencies preserved in separate fields. The generated pack has `45,131` rows
+and `45,131` distinct lemmas; source-readiness audit status is `ok`, with `75.3%`
+POS row coverage and `9.1%` topic row coverage. Pack lifecycle audit status is
+`review` only because the combined source stack still needs an explicit license
+decision; manifest, artifact, and provenance sidecars are present and valid. The
+SRS Zipf bridge accepts the pack as a candidate override and reports `45,131`
+full SRS-admissible targets.
 
 ## Decision Principles
 
@@ -194,12 +210,25 @@ Do not overwrite `freq-es-cde.sqlite` during research.
 Preferred provisional naming:
 
 - `freq-es-cde.sqlite`: frozen current baseline,
-- `freq-es-expanded-v1.sqlite`: first expanded general-frequency candidate,
+- `freq-es-spalex-expanded-v1`: first CDE-seed plus SPALEX-ranked research pack,
 - `freq-es-expanded-topic-v1.sqlite`: first topic/domain-aware candidate,
 - `freq-es-hybrid-v1.sqlite`: first merged baseline plus overlays candidate.
 
 The first install should be local and reversible. Only promote a pack as the
 default after SRS, rulegen, and semantic-veto denominator artifacts are refreshed.
+
+Build the provisional SPALEX pack into a normal data-root-shaped temp directory:
+
+```bash
+python3 scripts/data/build_spalex_frequency_pack_en_es.py \
+  --spalex-csv /path/to/word_info.csv \
+  --pack-root /tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1 \
+  --overwrite \
+  --write-sidecars
+```
+
+This writes `main.sqlite`, `manifest.json`, and `provenance.json`; it does not
+download SPALEX or Kaikki and it does not mutate the installed product data root.
 
 ### Phase 3: SRS And Rulegen Denominator Refresh
 

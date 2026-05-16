@@ -3,7 +3,7 @@
 Status: active data planning reference
 Role: Planning / WIP
 Last updated: 2026-05-17
-Last verified: 2026-05-17 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, SRS profile/admission docs, and interest-tailored admission algorithm review
+Last verified: 2026-05-17 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, and interest-tailored admission algorithm review
 Purpose: enumerate the data needed to make interest-tailored SRS admission real, identify what is missing now, and define a practical acquisition strategy
 Source-of-truth: data acquisition plan; current executable truth lives in SRS seed/admission code, installed pack manifests, generated source-readiness audits, and promoted source packs.
 
@@ -14,6 +14,9 @@ Related docs:
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
 - `../rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `../test_outputs/semantic_veto_srs_source_stack_audit_en_es_latest.md`
+- `../test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_spalex_latest.md`
+- `../test_outputs/pack_lifecycle_audit_spalex_latest.md`
+- `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_latest.md`
 
 ## Data-First Goal
 
@@ -39,8 +42,8 @@ Current `en-es` state is useful but not enough for the target model.
 | --- | --- | --- |
 | General Spanish candidate size | Installed baseline has `2,000` rows and `1,984` distinct non-empty lemmas. SPALEX has `44,853` clean distinct spellings; CDE seed plus SPALEX expansion yields `45,131` distinct candidates. | A promoted, license-cleared 5k-10k+ candidate frontier. |
 | Frequency/rank | Current pack has usable rank/frequency. SPALEX has full `freq`, `zipf`, `percent_total`, and `prevalence_total` coverage. | Merge policy between current baseline and expansion source; field-level provenance. |
-| POS | Current baseline has 100% POS. In the CDE-seed plus SPALEX-expansion audit, CDE plus installed Kaikki maps POS for `9,435 / 10,000` combined candidates. | Promotion-grade POS policy for ambiguous/function-heavy candidates and Spanish stopwords. |
-| Topic/domain metadata | Current baseline has `0%`. Installed Kaikki gives explicit topic rows for `1,353 / 10,000` combined candidates. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
+| POS | Current baseline has 100% POS. In the CDE-seed plus SPALEX-expansion audit, CDE plus installed Kaikki maps POS for `9,435 / 10,000` combined candidates. The provisional full pack has POS rows for `33,968 / 45,131`. | Promotion-grade POS policy for ambiguous/function-heavy candidates and Spanish stopwords. |
+| Topic/domain metadata | Current baseline has `0%`. Installed Kaikki gives explicit topic rows for `1,353 / 10,000` combined candidates. The provisional full pack has topic rows for `4,114 / 45,131`. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
 | Medical/health domain support | Installed Kaikki gives an initial medicine/health-like signal for `248 / 10,000` combined candidates. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
 | Difficulty/readiness | Frequency rank can proxy difficulty. Profile schema supports proficiency/challenge fields. | CEFR/learner-level overlay or calibrated difficulty model for non-beginner users. |
 | Rulegen coverage | Current denominator evidence exists for current baseline; expanded candidate full-rulegen coverage was not promoted. | Per-candidate rulegen coverage cache for expanded corpus. |
@@ -135,6 +138,20 @@ Current practical source-stack finding:
 - Explicit Kaikki topic coverage remains partial at `1,353 / 10,000`, so topic
   overlays and/or embedding-assisted tagging are still required before
   interest-tailored admission quality claims.
+
+Current provisional pack result:
+
+- `scripts/data/build_spalex_frequency_pack_en_es.py` builds a reversible
+  `freq-es-spalex-expanded-v1` research pack from the current CDE seed, SPALEX
+  additions, and installed Kaikki enrichment.
+- The generated pack has `45,131` rows and `45,131` distinct lemmas.
+- Source-readiness audit status is `ok`: it reaches 2k, 5k, and 10k, resolves
+  rank through `id`, resolves runtime commonness through `pmw`, has `75.3%` POS
+  row coverage, and has `9.1%` topic row coverage.
+- Pack lifecycle audit status is `review` only because license review remains
+  required; manifest, artifact, and provenance sidecars are present and valid.
+- The SRS Zipf bridge accepts the pack and reports `45,131` full SRS-admissible
+  targets with no issues in the diagnostic bridge run.
 
 ### 2. POS And Function-Word Controls
 
