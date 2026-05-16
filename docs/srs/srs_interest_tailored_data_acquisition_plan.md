@@ -24,6 +24,7 @@ Related docs:
 - `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
+- `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 
 ## Data-First Goal
 
@@ -41,8 +42,8 @@ auditable `en-es` candidate corpus that supports:
 5. rulegen coverage evidence,
 6. feedback-ready user profile signals,
 7. user-delight topics that make preference selection feel worth using, such as
-   animals/nature, food/cooking, anime/manga/pop culture, games, music, travel,
-   and hobbies/crafts.
+   animals, plants/nature, food/cooking, anime/manga/pop culture, games, music,
+   travel, and hobbies/crafts.
 
 Exam-prep preferences such as SAT and TOEFL are product-aligned, but they are
 not source-aligned yet. They should become preference families only after legal
@@ -60,7 +61,7 @@ Current `en-es` state is useful but not enough for the target model.
 | POS | Current baseline has 100% POS. In the CDE-seed plus SPALEX-expansion audit, CDE plus installed Kaikki maps POS for `9,435 / 10,000` combined candidates. The provisional full pack has POS rows for `33,968 / 45,131`. | Promotion-grade POS policy for ambiguous/function-heavy candidates and Spanish stopwords. |
 | Topic/domain metadata | Current baseline has `0%` native topic columns. Installed Kaikki can enrich current CDE with explicit sense-topic rows for `234 / 1,984` lemmas and the SPALEX 10k frontier with explicit topic rows for `1,353 / 10,000` combined candidates. The provisional full pack has topic rows for `4,114 / 45,131`. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
 | Medical/health domain support | Installed Kaikki gives an initial `medicine` signal for `42 / 1,984` current CDE lemmas and a medicine/health-like signal for `248 / 10,000` combined candidates. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
-| User-delight topic support | Current trusted labels have sparse direct support for animals/nature, food/cooking, and anime/manga/pop culture. Some adjacent labels exist, such as `hobbies`, `games`, `entertainment`, `media`, `food`, `cooking`, `animals`, `zoology`, and `botany`. | P0 overlays or inference for animals/nature, food/cooking, anime/manga/pop culture, and hobbies/crafts. Current sparse labels should not demote these product goals. |
+| User-delight topic support | Current trusted labels have sparse direct support for animals, plants/nature, food/cooking, and anime/manga/pop culture. Some adjacent labels exist, such as `hobbies`, `games`, `entertainment`, `media`, `food`, `cooking`, `animals`, `zoology`, and `botany`. | P0 overlays or inference for animals, plants/nature, food/cooking, anime/manga/pop culture, and hobbies/crafts. Current sparse labels should not demote these product goals. |
 | Difficulty/readiness | Frequency rank can proxy difficulty. Profile schema supports proficiency/challenge fields. | CEFR/learner-level overlay or calibrated difficulty model for non-beginner users. |
 | Rulegen coverage | Current denominator evidence exists for current baseline; expanded candidate full-rulegen coverage was not promoted. | Per-candidate rulegen coverage cache for expanded corpus. |
 | Semantic-veto coverage | Current semantic-veto coverage is measured for current admitted families. | Expanded denominator and uncovered-family audit after candidate source selection. |
@@ -210,11 +211,15 @@ Current product-owned taxonomy artifact:
 - `scripts/testing/srs_topic_preference_taxonomy_en_es.py` validates that
   mapping file and measures current installed-source coverage without mutating
   packs or writing overlays.
+- `scripts/testing/srs_animals_plants_existing_signal_audit_en_es.py` adds a
+  focused read-only confidence audit over existing local Kaikki/Wiktionary
+  topics, allowlisted categories/tags, and narrow gloss/translation patterns.
 - The current audit shows source-ready utility families have measurable
-  installed support, while `animals_nature` has only `5 / 1,984` mapped current
-  CDE lemmas (`0.3%`), mostly from `botany` plus one `zoology` overlap. This
-  confirms animals/nature is a P0 overlay/inference task, not a topic to wait
-  for passively from the base frequency/dictionary source.
+  installed support, while trusted current CDE `sense_topics` map only
+  `1 / 1,984` lemmas to `animals` and `5 / 1,984` lemmas to `plants_nature`.
+  The focused confidence audit finds `26` animal candidates and `16`
+  plants/nature candidates in existing local sources, but this remains planning
+  evidence until converted into a sourced overlay with validation.
 
 ### 2. POS And Function-Word Controls
 
@@ -270,6 +275,7 @@ Initial taxonomy should be small and useful:
 - exam_prep,
 - technology,
 - animals,
+- plants_nature,
 - media.
 
 The taxonomy should support aliases and parent relationships. For example:
@@ -420,7 +426,7 @@ interest-tailored admission; then let feedback make it smoother.
 4. Add POS backfill and Spanish stopword/function-word policy.
 5. Use the topic preference decision matrix to create a small product-owned
    taxonomy with both source-ready utility topics and P0 user-delight topics.
-6. Add narrow overlays for animals/nature, food/cooking, anime/manga/pop
+6. Add narrow overlays for animals, plants/nature, food/cooking, anime/manga/pop
    culture, and hobbies/crafts instead of waiting for the base source to happen
    to label them well.
 7. Add embedding-assisted topic inference only after dictionary/gloss inputs are
@@ -441,8 +447,8 @@ The first milestone should produce an auditable `en-es` research dataset with:
 - rank/frequency for every row,
 - POS or conservative POS fallback for every admitted row,
 - health/medicine topic tags for a meaningful subset,
-- at least one user-delight overlay, preferably animals/nature, food/cooking, or
-  anime/manga/pop culture,
+- at least one user-delight overlay, preferably animals, plants/nature,
+  food/cooking, or anime/manga/pop culture,
 - topic confidence and provenance,
 - Spanish stopword/function-word filtering,
 - rulegen coverage flags,

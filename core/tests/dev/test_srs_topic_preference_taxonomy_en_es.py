@@ -19,7 +19,7 @@ from srs_topic_preference_taxonomy_en_es import (  # noqa: E402
 
 
 class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
-    def test_validates_animals_nature_mapping_and_measures_current_coverage(self) -> None:
+    def test_validates_animals_and_plants_mapping_and_measures_current_coverage(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             taxonomy = root / "taxonomy.json"
@@ -39,20 +39,25 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
 
             self.assertEqual(report["status"], "ok")
             findings = {row["code"]: row for row in report["findings"]}
-            self.assertIn("animals_nature_seed_labels_present", findings)
+            self.assertIn("animals_seed_labels_present", findings)
+            self.assertIn("plants_nature_seed_labels_present", findings)
             self.assertIn("excluded_labels_not_mapped_positive", findings)
             family_by_id = {row["family"]: row for row in report["coverage"]["families"]}
-            animals = family_by_id["animals_nature"]
-            self.assertEqual(animals["row_count"], 3)
+            animals = family_by_id["animals"]
+            self.assertEqual(animals["row_count"], 2)
             top_labels = {row["label"]: row["count"] for row in animals["top_source_labels"]}
             self.assertEqual(top_labels["animals"], 1)
             self.assertEqual(top_labels["zoology"], 1)
-            self.assertEqual(top_labels["botany"], 1)
+            plants = family_by_id["plants_nature"]
+            self.assertEqual(plants["row_count"], 1)
+            plant_labels = {row["label"]: row["count"] for row in plants["top_source_labels"]}
+            self.assertEqual(plant_labels["botany"], 1)
             self.assertEqual(family_by_id["sat_toefl_exam_prep"]["row_count"], 0)
 
             markdown = render_markdown(report)
-            self.assertIn("Animals/Nature Samples", markdown)
-            self.assertIn("animals_nature", markdown)
+            self.assertIn("Animals Samples", markdown)
+            self.assertIn("Plants/Nature Samples", markdown)
+            self.assertIn("plants_nature", markdown)
 
     def test_rejects_broad_excluded_label_as_positive_mapping(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -65,7 +70,7 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
                     extra_mapping={
                         "source_channel": "sense_topics",
                         "source_label": "natural_sciences",
-                        "target_family": "animals_nature",
+                        "target_family": "animals",
                         "weight": 0.4,
                         "confidence": 0.4,
                         "policy": "bad_broad_mapping",
@@ -136,7 +141,7 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
         {
             "source_channel": "sense_topics",
             "source_label": "animals",
-            "target_family": "animals_nature",
+            "target_family": "animals",
             "weight": 0.95,
             "confidence": 0.9,
             "policy": "trusted_direct_animal_label",
@@ -144,7 +149,7 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
         {
             "source_channel": "sense_topics",
             "source_label": "zoology",
-            "target_family": "animals_nature",
+            "target_family": "animals",
             "weight": 0.85,
             "confidence": 0.85,
             "policy": "trusted_animal_science_label",
@@ -152,10 +157,10 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
         {
             "source_channel": "sense_topics",
             "source_label": "botany",
-            "target_family": "animals_nature",
-            "weight": 0.55,
-            "confidence": 0.7,
-            "policy": "trusted_nature_label_not_animal_specific",
+            "target_family": "plants_nature",
+            "weight": 0.9,
+            "confidence": 0.9,
+            "policy": "trusted_direct_plant_label",
         },
     ]
     if extra_mapping:
@@ -166,14 +171,16 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
         {
             "schema_version": 1,
             "families": [
-                {"id": "animals_nature", "readiness_state": "p0_enrichment"},
+                {"id": "animals", "readiness_state": "p0_enrichment"},
+                {"id": "plants_nature", "readiness_state": "p0_enrichment"},
                 {"id": "sat_toefl_exam_prep", "readiness_state": "legal_source_gated"},
             ],
             "source_label_mappings": mappings,
             "excluded_source_labels": [
                 {
                     "source_label": "natural_sciences",
-                    "reason": "too broad to substitute for animals/nature preference",
+                    "target_family": "animals",
+                    "reason": "too broad to substitute for animals preference",
                 }
             ],
         }

@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_preference_taxonomy_validated`
-- Generated: `2026-05-16T21:08:25+00:00`
+- Generated: `2026-05-16T21:24:39+00:00`
 - Rows measured: `1984`
 - Unique lemmas measured: `1984`
 
@@ -12,9 +12,11 @@
 - `PASS` `family_ids_unique`: Product topic family ids are unique.
 - `PASS` `source_label_mappings_valid`: Source-label mappings reference known families and valid weights.
 - `PASS` `excluded_labels_not_mapped_positive`: Excluded broad labels are not positively mapped.
-- `PASS` `animals_nature_seed_labels_present`: Animals/nature includes the current trusted CDE seed labels.
+- `PASS` `animals_seed_labels_present`: Animals includes the current trusted CDE seed labels.
+- `PASS` `plants_nature_seed_labels_present`: Plants/nature includes the current trusted CDE seed labels.
 - `PASS` `exam_prep_legal_gated`: SAT/TOEFL remains legal/source gated.
-- `PASS` `animals_nature_current_signal_available`: Current installed sources provide some animals/nature seed coverage.
+- `PASS` `animals_current_signal_available`: Current installed sources provide some animal seed coverage.
+- `PASS` `plants_nature_current_signal_available`: Current installed sources provide some plants/nature seed coverage.
 
 ## Current Installed-Source Coverage
 
@@ -29,21 +31,28 @@
 | `finance_business` | 25 | 1.3% | business=23, finance=5, economics=2, banking=1, accounting=1 |
 | `arts_literature_humanities` | 23 | 1.2% | linguistics=7, philosophy=7, arts=5, architecture=4, art=3 |
 | `games` | 23 | 1.2% | games=21, card_games=5, video_games=2, gaming=1 |
-| `animals_nature` | 5 | 0.3% | botany=5, zoology=1 |
+| `plants_nature` | 5 | 0.3% | botany=5 |
+| `animals` | 1 | 0.1% | zoology=1 |
 | `anime_manga_pop_culture` | 0 | 0.0% | none |
 | `food_cooking` | 0 | 0.0% | none |
 | `hobbies_crafts` | 0 | 0.0% | none |
 | `sat_toefl_exam_prep` | 0 | 0.0% | none |
 
-## Animals/Nature Samples
+## Animals Samples
 
 | Lemma | Score | Source Labels |
 | --- | ---: | --- |
-| `estilo` | 0.385 | `botany` |
-| `coral` | 0.7225 | `botany, zoology` |
-| `vaina` | 0.385 | `botany` |
-| `viudo` | 0.385 | `botany` |
-| `cogollo` | 0.385 | `botany` |
+| `coral` | 0.7225 | `zoology` |
+
+## Plants/Nature Samples
+
+| Lemma | Score | Source Labels |
+| --- | ---: | --- |
+| `estilo` | 0.81 | `botany` |
+| `coral` | 0.81 | `botany` |
+| `vaina` | 0.81 | `botany` |
+| `viudo` | 0.81 | `botany` |
+| `cogollo` | 0.81 | `botany` |
 
 ## Limitations
 

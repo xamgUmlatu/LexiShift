@@ -1164,42 +1164,41 @@
         ]
       },
       {
-        "family": "animals_nature",
+        "family": "plants_nature",
         "row_count": 5,
         "row_share": 0.00252,
         "sample_rows": [
           {
             "lemma": "estilo",
-            "score": 0.385,
+            "score": 0.81,
             "source_labels": [
               "botany"
             ]
           },
           {
             "lemma": "coral",
-            "score": 0.7225,
+            "score": 0.81,
             "source_labels": [
-              "botany",
-              "zoology"
+              "botany"
             ]
           },
           {
             "lemma": "vaina",
-            "score": 0.385,
+            "score": 0.81,
             "source_labels": [
               "botany"
             ]
           },
           {
             "lemma": "viudo",
-            "score": 0.385,
+            "score": 0.81,
             "source_labels": [
               "botany"
             ]
           },
           {
             "lemma": "cogollo",
-            "score": 0.385,
+            "score": 0.81,
             "source_labels": [
               "botany"
             ]
@@ -1209,7 +1208,23 @@
           {
             "count": 5,
             "label": "botany"
-          },
+          }
+        ]
+      },
+      {
+        "family": "animals",
+        "row_count": 1,
+        "row_share": 0.000504,
+        "sample_rows": [
+          {
+            "lemma": "coral",
+            "score": 0.7225,
+            "source_labels": [
+              "zoology"
+            ]
+          }
+        ],
+        "top_source_labels": [
           {
             "count": 1,
             "label": "zoology"
@@ -1276,9 +1291,14 @@
       "message": "Excluded broad labels are not positively mapped."
     },
     {
-      "code": "animals_nature_seed_labels_present",
+      "code": "animals_seed_labels_present",
       "level": "PASS",
-      "message": "Animals/nature includes the current trusted CDE seed labels."
+      "message": "Animals includes the current trusted CDE seed labels."
+    },
+    {
+      "code": "plants_nature_seed_labels_present",
+      "level": "PASS",
+      "message": "Plants/nature includes the current trusted CDE seed labels."
     },
     {
       "code": "exam_prep_legal_gated",
@@ -1286,12 +1306,17 @@
       "message": "SAT/TOEFL remains legal/source gated."
     },
     {
-      "code": "animals_nature_current_signal_available",
+      "code": "animals_current_signal_available",
       "level": "PASS",
-      "message": "Current installed sources provide some animals/nature seed coverage."
+      "message": "Current installed sources provide some animal seed coverage."
+    },
+    {
+      "code": "plants_nature_current_signal_available",
+      "level": "PASS",
+      "message": "Current installed sources provide some plants/nature seed coverage."
     }
   ],
-  "generated_at": "2026-05-16T21:08:25+00:00",
+  "generated_at": "2026-05-16T21:24:39+00:00",
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -1308,7 +1333,7 @@
   "status": "ok",
   "summary": {
     "finding_counts": {
-      "PASS": 7
+      "PASS": 9
     },
     "issues": [],
     "warnings": []
@@ -1361,7 +1386,12 @@
         "readiness_state": "partial"
       },
       {
-        "id": "animals_nature",
+        "id": "animals",
+        "product_priority": "p0",
+        "readiness_state": "p0_enrichment"
+      },
+      {
+        "id": "plants_nature",
         "product_priority": "p0",
         "readiness_state": "p0_enrichment"
       },
@@ -1386,7 +1416,7 @@
         "readiness_state": "legal_source_gated"
       }
     ],
-    "family_count": 14,
+    "family_count": 15,
     "language_pair": "en-es",
     "mapping_count": 74,
     "taxonomy_id": "srs_topic_preference_taxonomy_en_es_v1"

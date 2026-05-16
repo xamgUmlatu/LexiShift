@@ -13,6 +13,7 @@ Related docs:
 - `../test_inputs/srs_topic_preference_taxonomy_en_es.json`
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
+- `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 
 ## Decision Frame
 
@@ -62,7 +63,8 @@ current trusted source labels are not enough by themselves.
 | `education_academic` | `education` 2, `higher_education` 1, plus possible academic aliases from `grammar`, `linguistics`, `mathematics`, and `sciences` | weak | Defer or parent-only | Needs a clearer taxonomy before becoming user-facing. |
 | `food_cooking` | `food` 2, `cooking` 2 | weak | P0 enrichment | Strong user-delight topic. Current trusted support is small, so use overlays, public recipe/food lexicons, or embedding inference before strong admission lift. |
 | `psychology_emotions` | `psychology` 1, `human_sciences` 17 | weak | Defer until overlay | Emotions are product-aligned but not directly present in trusted current-CDE topics. |
-| `animals_nature` | `animals` 1, `zoology` 1, `botany` 5, plus broader natural-science labels | weak | P0 enrichment | Strong user-delight topic. Needs direct animal/nature overlays or inference; broad science labels should not substitute for it. |
+| `animals` | `animals` 1, `zoology` 1, plus allowlisted animal categories/glosses in review-only channels | weak direct support | P0 enrichment | Strong user-delight topic. Keep separate from botany/plants; broad science labels should not substitute for it. |
+| `plants_nature` | `botany` 5, plus allowlisted plant categories/glosses in review-only channels | weak direct support | P0 enrichment | Keep plants/botany distinct from animals. Useful for gardening/nature interests, but broad natural-science labels are too broad for strong lift. |
 | `sat_toefl_exam_prep` | none in current trusted source data | none | Legal/source gated | Add only after allowed vocabulary, skill, or exam-prep data is identified. Do not infer from current Wiktionary labels. |
 
 ## Product-First P0 Set
@@ -79,7 +81,8 @@ current trusted labels are sparse.
 | `sports_fitness` | source-ready | trusted `sense_topics`, then sport/fitness aliases |
 | `games` | source-ready | trusted `sense_topics`, then game subtopic aliases |
 | `music_media_entertainment` | source-ready | trusted `sense_topics`, then media/pop-culture aliases |
-| `animals_nature` | P0 enrichment | animal/nature lexicons, Wiktionary labels, embeddings over glosses |
+| `animals` | P0 enrichment | animal lexicons, allowlisted Wiktionary animal categories, embeddings over glosses |
+| `plants_nature` | P0 enrichment | plant/nature lexicons, botany labels, allowlisted Wiktionary plant categories, embeddings over glosses |
 | `food_cooking` | P0 enrichment | food/cooking lexicons, recipe-domain sources, embeddings over glosses |
 | `anime_manga_pop_culture` | P0 enrichment | legally usable fandom/pop-culture sources, curated seed lists, embeddings |
 | `hobbies_crafts` | P0 enrichment | curated hobby taxonomy, craft/activity lexicons, reviewed broad `hobbies` labels |
@@ -89,9 +92,14 @@ current trusted labels are sparse.
 
 The first machine-readable taxonomy/mapping artifact is
 `../test_inputs/srs_topic_preference_taxonomy_en_es.json`. Its current installed
-source audit validates the taxonomy and shows why animals/nature needs overlay
-work: trusted current CDE source labels map only `5 / 1,984` lemmas to
-`animals_nature`, mostly through `botany` plus one `zoology` overlap.
+source audit validates the taxonomy and keeps `animals` separate from
+`plants_nature`: trusted current CDE `sense_topics` map only `1 / 1,984`
+lemmas to `animals` and `5 / 1,984` lemmas to `plants_nature`. The focused
+existing-signal audit expands the local, read-only inventory to `26` animal
+candidates and `16` plants/nature candidates using Tier A topics, Tier C
+allowlisted categories/tags, and Tier D review-gated gloss/translation
+patterns. That is useful evidence for enrichment design, not a promoted overlay
+or admission behavior change.
 
 ## Labels That Should Not Become User Preferences Directly
 
@@ -158,7 +166,8 @@ Treat these as P0 product goals that need enrichment before strong admission
 lift:
 
 - `food_cooking`
-- `animals_nature`
+- `animals`
+- `plants_nature`
 - `anime_manga_pop_culture`
 - `hobbies_crafts`
 

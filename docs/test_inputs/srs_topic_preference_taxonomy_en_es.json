@@ -82,11 +82,18 @@
       "data_strategy": "sense_topics_then_literature_art_overlay"
     },
     {
-      "id": "animals_nature",
-      "display_name": "Animals & Nature",
+      "id": "animals",
+      "display_name": "Animals",
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "data_strategy": "trusted_sense_topics_plus_curated_animal_nature_overlay"
+      "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay"
+    },
+    {
+      "id": "plants_nature",
+      "display_name": "Plants & Nature",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "trusted_botany_topics_plus_categories_glosses_then_curated_plant_overlay"
     },
     {
       "id": "food_cooking",
@@ -625,7 +632,7 @@
     {
       "source_channel": "sense_topics",
       "source_label": "animals",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "weight": 0.95,
       "confidence": 0.9,
       "policy": "trusted_direct_animal_label"
@@ -633,7 +640,7 @@
     {
       "source_channel": "sense_topics",
       "source_label": "zoology",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "weight": 0.85,
       "confidence": 0.85,
       "policy": "trusted_animal_science_label"
@@ -641,7 +648,7 @@
     {
       "source_channel": "sense_topics",
       "source_label": "veterinary",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "weight": 0.8,
       "confidence": 0.85,
       "policy": "trusted_animal_health_label"
@@ -649,15 +656,15 @@
     {
       "source_channel": "sense_topics",
       "source_label": "botany",
-      "target_family": "animals_nature",
-      "weight": 0.55,
-      "confidence": 0.7,
-      "policy": "trusted_nature_label_not_animal_specific"
+      "target_family": "plants_nature",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_direct_plant_label"
     },
     {
       "source_channel": "curated_overlay",
       "source_label": "pets",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "weight": 0.95,
       "confidence": 0.9,
       "policy": "curated_direct_animal_label"
@@ -665,7 +672,7 @@
     {
       "source_channel": "curated_overlay",
       "source_label": "wildlife",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "weight": 0.9,
       "confidence": 0.9,
       "policy": "curated_direct_animal_label"
@@ -673,7 +680,7 @@
     {
       "source_channel": "curated_overlay",
       "source_label": "fauna",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "weight": 0.9,
       "confidence": 0.85,
       "policy": "curated_direct_animal_label"
@@ -681,7 +688,7 @@
     {
       "source_channel": "curated_overlay",
       "source_label": "flora",
-      "target_family": "animals_nature",
+      "target_family": "plants_nature",
       "weight": 0.6,
       "confidence": 0.75,
       "policy": "curated_nature_label_not_animal_specific"
@@ -689,7 +696,7 @@
     {
       "source_channel": "curated_overlay",
       "source_label": "plants",
-      "target_family": "animals_nature",
+      "target_family": "plants_nature",
       "weight": 0.6,
       "confidence": 0.75,
       "policy": "curated_nature_label_not_animal_specific"
@@ -697,7 +704,7 @@
     {
       "source_channel": "curated_overlay",
       "source_label": "nature",
-      "target_family": "animals_nature",
+      "target_family": "plants_nature",
       "weight": 0.65,
       "confidence": 0.7,
       "policy": "curated_broad_nature_label"
@@ -705,7 +712,7 @@
     {
       "source_channel": "curated_overlay",
       "source_label": "ecology",
-      "target_family": "animals_nature",
+      "target_family": "plants_nature",
       "weight": 0.6,
       "confidence": 0.7,
       "policy": "curated_broad_nature_label"
@@ -714,33 +721,49 @@
   "excluded_source_labels": [
     {
       "source_label": "natural_sciences",
-      "target_family": "animals_nature",
-      "reason": "too broad to substitute for animals/nature preference"
+      "target_family": "animals",
+      "reason": "too broad to substitute for animals preference"
     },
     {
       "source_label": "sciences",
-      "target_family": "animals_nature",
-      "reason": "too broad to substitute for animals/nature preference"
+      "target_family": "animals",
+      "reason": "too broad to substitute for animals preference"
     },
     {
       "source_label": "biology",
-      "target_family": "animals_nature",
-      "reason": "too broad for v0 animals/nature lift without review"
+      "target_family": "animals",
+      "reason": "too broad for v0 animals lift without review"
     },
     {
       "source_label": "lifestyle",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "reason": "background topic, not a precise user preference"
     },
     {
       "source_label": "hobbies",
-      "target_family": "animals_nature",
+      "target_family": "animals",
       "reason": "background topic, useful only after reviewed hobby mapping"
+    },
+    {
+      "source_label": "natural_sciences",
+      "target_family": "plants_nature",
+      "reason": "too broad to substitute for plants/nature preference"
+    },
+    {
+      "source_label": "sciences",
+      "target_family": "plants_nature",
+      "reason": "too broad to substitute for plants/nature preference"
+    },
+    {
+      "source_label": "biology",
+      "target_family": "plants_nature",
+      "reason": "too broad for v0 plants/nature lift without review"
     }
   ],
   "notes": [
     "This taxonomy is product-owned; source labels are evidence, not the taxonomy itself.",
-    "The animals_nature mapping intentionally avoids broad science labels so animal/nature preferences do not become generic science preferences.",
+    "The animals mapping intentionally avoids broad science and botany labels so animal preferences do not become generic science or plant preferences.",
+    "Plants and botany evidence maps to plants_nature, not animals.",
     "SAT and TOEFL are included as product goals but remain legal/source gated."
   ]
 }

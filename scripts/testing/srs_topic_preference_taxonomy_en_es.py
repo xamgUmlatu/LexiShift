@@ -153,7 +153,7 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
     family_set = {family for family in family_ids if family}
     mappings = _mapping_rows(taxonomy.get("source_label_mappings"))
     mapping_failures: list[str] = []
-    positive_animals_labels: set[str] = set()
+    positive_labels_by_family: dict[str, set[str]] = defaultdict(set)
     for index, row in enumerate(mappings):
         source_label = _normalize_token(row.get("source_label"))
         target_family = _normalize_token(row.get("target_family"))
@@ -167,8 +167,8 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
             mapping_failures.append(f"mapping[{index}].weight")
         if confidence is None or not 0.0 < confidence <= 1.0:
             mapping_failures.append(f"mapping[{index}].confidence")
-        if target_family == "animals_nature" and source_label:
-            positive_animals_labels.add(source_label)
+        if target_family and source_label:
+            positive_labels_by_family[target_family].add(source_label)
     if mapping_failures:
         findings.append(
             _finding(
@@ -186,12 +186,20 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
                 "Source-label mappings reference known families and valid weights.",
             )
         )
-    excluded_labels = {
-        _normalize_token(row.get("source_label"))
+    excluded_pairs = {
+        (
+            _normalize_token(row.get("target_family")) or "animals",
+            _normalize_token(row.get("source_label")),
+        )
         for row in _mapping_rows(taxonomy.get("excluded_source_labels"))
         if _normalize_token(row.get("source_label"))
     }
-    blocked_positive_overlap = sorted(positive_animals_labels & excluded_labels)
+    blocked_positive_overlap = sorted(
+        f"{family}:{label}"
+        for family, labels in positive_labels_by_family.items()
+        for label in labels
+        if (family, label) in excluded_pairs
+    )
     if blocked_positive_overlap:
         findings.append(
             _finding(
@@ -209,14 +217,16 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
                 "Excluded broad labels are not positively mapped.",
             )
         )
-    required_animals_labels = {"animals", "zoology", "botany"}
-    missing_animals_labels = sorted(required_animals_labels - positive_animals_labels)
+    required_animals_labels = {"animals", "zoology"}
+    missing_animals_labels = sorted(
+        required_animals_labels - positive_labels_by_family.get("animals", set())
+    )
     if missing_animals_labels:
         findings.append(
             _finding(
                 "FAIL",
-                "animals_nature_seed_labels_missing",
-                "Animals/nature seed labels are missing from the mapping.",
+                "animals_seed_labels_missing",
+                "Animal seed labels are missing from the mapping.",
                 details=", ".join(missing_animals_labels),
             )
         )
@@ -224,8 +234,29 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
         findings.append(
             _finding(
                 "PASS",
-                "animals_nature_seed_labels_present",
-                "Animals/nature includes the current trusted CDE seed labels.",
+                "animals_seed_labels_present",
+                "Animals includes the current trusted CDE seed labels.",
+            )
+        )
+    required_plants_labels = {"botany"}
+    missing_plants_labels = sorted(
+        required_plants_labels - positive_labels_by_family.get("plants_nature", set())
+    )
+    if missing_plants_labels:
+        findings.append(
+            _finding(
+                "FAIL",
+                "plants_nature_seed_labels_missing",
+                "Plants/nature seed labels are missing from the mapping.",
+                details=", ".join(missing_plants_labels),
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "PASS",
+                "plants_nature_seed_labels_present",
+                "Plants/nature includes the current trusted CDE seed labels.",
             )
         )
     exam_family = next(
@@ -352,26 +383,30 @@ def render_markdown(report: Mapping[str, object]) -> str:
             f"| `{family.get('family', '')}` | {family.get('row_count', 0)} | "
             f"{_pct(family.get('row_share'))} | {top_labels or 'none'} |"
         )
-    lines.extend(["", "## Animals/Nature Samples", ""])
-    animals = next(
-        (
-            family
-            for family in _mapping_rows(coverage.get("families"))
-            if family.get("family") == "animals_nature"
-        ),
-        {},
-    )
-    sample_rows = _mapping_rows(_as_mapping(animals).get("sample_rows"))
-    if not sample_rows:
-        lines.append("No current installed-source samples matched `animals_nature`.")
-    else:
-        lines.append("| Lemma | Score | Source Labels |")
-        lines.append("| --- | ---: | --- |")
-        for sample in sample_rows:
-            lines.append(
-                f"| `{sample.get('lemma', '')}` | {sample.get('score', 0)} | "
-                f"`{', '.join(sample.get('source_labels', []))}` |"
-            )
+    for section_title, family_id in (
+        ("Animals Samples", "animals"),
+        ("Plants/Nature Samples", "plants_nature"),
+    ):
+        lines.extend(["", f"## {section_title}", ""])
+        family = next(
+            (
+                row
+                for row in _mapping_rows(coverage.get("families"))
+                if row.get("family") == family_id
+            ),
+            {},
+        )
+        sample_rows = _mapping_rows(_as_mapping(family).get("sample_rows"))
+        if not sample_rows:
+            lines.append(f"No current installed-source samples matched `{family_id}`.")
+        else:
+            lines.append("| Lemma | Score | Source Labels |")
+            lines.append("| --- | ---: | --- |")
+            for sample in sample_rows:
+                lines.append(
+                    f"| `{sample.get('lemma', '')}` | {sample.get('score', 0)} | "
+                    f"`{', '.join(sample.get('source_labels', []))}` |"
+                )
     lines.extend(["", "## Limitations", ""])
     lines.extend(f"- {item}" for item in report.get("limitations", []))
     return "\n".join(lines) + "\n"
@@ -390,21 +425,38 @@ def _coverage_findings(coverage: Mapping[str, object]) -> list[dict[str, object]
     family_by_id = {
         str(row.get("family") or ""): row for row in _mapping_rows(coverage.get("families"))
     }
-    animals = _as_mapping(family_by_id.get("animals_nature"))
+    animals = _as_mapping(family_by_id.get("animals"))
     if int(animals.get("row_count") or 0) > 0:
         findings.append(
             _finding(
                 "PASS",
-                "animals_nature_current_signal_available",
-                "Current installed sources provide some animals/nature seed coverage.",
+                "animals_current_signal_available",
+                "Current installed sources provide some animal seed coverage.",
             )
         )
     else:
         findings.append(
             _finding(
                 "WARN",
-                "animals_nature_current_signal_absent",
-                "No current installed-source animals/nature rows were found.",
+                "animals_current_signal_absent",
+                "No current installed-source animal rows were found.",
+            )
+        )
+    plants = _as_mapping(family_by_id.get("plants_nature"))
+    if int(plants.get("row_count") or 0) > 0:
+        findings.append(
+            _finding(
+                "PASS",
+                "plants_nature_current_signal_available",
+                "Current installed sources provide some plants/nature seed coverage.",
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "WARN",
+                "plants_nature_current_signal_absent",
+                "No current installed-source plants/nature rows were found.",
             )
         )
     return findings
