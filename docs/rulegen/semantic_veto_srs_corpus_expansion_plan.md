@@ -15,6 +15,7 @@ Related docs:
 - `../test_outputs/pack_lifecycle_audit_spalex_latest.md`
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_latest.md`
 - `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.md`
 - `../test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_10k_latest.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
@@ -52,10 +53,20 @@ The current pack has:
 - usable rank/order column: `id`,
 - usable frequency column: `freq`,
 - POS coverage: `2,000 / 2,000` rows,
-- topic/domain metadata coverage: `0 / 2,000` rows.
+- native topic/domain metadata coverage: `0 / 2,000` rows.
 
 That is enough for the current general-frequency baseline, but not enough for a
 5k-10k corpus or topic-personalized SRS admission.
+
+A follow-up installed-source topic signal inventory clarifies that "no native
+topic columns" does not mean "no enrichment signal exists." Current CDE joined
+to installed Kaikki/Wiktionary has trusted explicit `sense_topics` for `234 /
+1,984` distinct lemmas (`11.8%`) and review-only tag/category signals for
+`1,890 / 1,984` lemmas (`95.3%`). The trusted slice already includes product
+topic examples such as `medicine` (`42`), `sports` (`33`), `finance` (`24`),
+`business` (`23`), `music` (`15`), and `law` (`15`). The tag/category surface is
+large but noisy, so it is useful for allowlist and overlay work, not automatic
+profile-topic promotion.
 
 The 2026-05-16 no-download `wordfreq` probe shows the opposite side of the
 decision: a temporary 10k Spanish candidate can clear the raw size/rank/frequency
@@ -137,6 +148,11 @@ the rank-order top 100 to `0` in the admission-order top 100. Profile-interest
 diagnostics show usable tagged support for `medicine`, `finance`, `sports`, and
 `music`, while preserving the limitation that topic coverage is sparse at
 `13.5%` of the 10k frontier.
+
+SAT and TOEFL are product-aligned preference families if legal source review
+allows them, but they are not current data facts. Treat them like other
+interest-tailored overlays: useful once sourced and attributed, unavailable as
+automatic admissions signals until then.
 
 ## Decision Principles
 

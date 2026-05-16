@@ -20,6 +20,7 @@ Related docs:
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.md`
 - `../test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 
 ## Data-First Goal
 
@@ -37,6 +38,11 @@ auditable `en-es` candidate corpus that supports:
 5. rulegen coverage evidence,
 6. feedback-ready user profile signals.
 
+Exam-prep preferences such as SAT and TOEFL are product-aligned, but they are
+not source-aligned yet. They should become preference families only after legal
+review identifies allowed vocabulary, skill, or exam-prep source data. They
+should not be inferred from current Wiktionary topic labels.
+
 ## Missing Data Summary
 
 Current `en-es` state is useful but not enough for the target model.
@@ -46,8 +52,8 @@ Current `en-es` state is useful but not enough for the target model.
 | General Spanish candidate size | Installed baseline has `2,000` rows and `1,984` distinct non-empty lemmas. SPALEX has `44,853` clean distinct spellings; CDE seed plus SPALEX expansion yields `45,131` distinct candidates. | A promoted, license-cleared 5k-10k+ candidate frontier. |
 | Frequency/rank | Current pack has usable rank/frequency. SPALEX has full `freq`, `zipf`, `percent_total`, and `prevalence_total` coverage. | Merge policy between current baseline and expansion source; field-level provenance. |
 | POS | Current baseline has 100% POS. In the CDE-seed plus SPALEX-expansion audit, CDE plus installed Kaikki maps POS for `9,435 / 10,000` combined candidates. The provisional full pack has POS rows for `33,968 / 45,131`. | Promotion-grade POS policy for ambiguous/function-heavy candidates and Spanish stopwords. |
-| Topic/domain metadata | Current baseline has `0%`. Installed Kaikki gives explicit topic rows for `1,353 / 10,000` combined candidates. The provisional full pack has topic rows for `4,114 / 45,131`. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
-| Medical/health domain support | Installed Kaikki gives an initial medicine/health-like signal for `248 / 10,000` combined candidates. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
+| Topic/domain metadata | Current baseline has `0%` native topic columns. Installed Kaikki can enrich current CDE with explicit sense-topic rows for `234 / 1,984` lemmas and the SPALEX 10k frontier with explicit topic rows for `1,353 / 10,000` combined candidates. The provisional full pack has topic rows for `4,114 / 45,131`. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
+| Medical/health domain support | Installed Kaikki gives an initial `medicine` signal for `42 / 1,984` current CDE lemmas and a medicine/health-like signal for `248 / 10,000` combined candidates. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
 | Difficulty/readiness | Frequency rank can proxy difficulty. Profile schema supports proficiency/challenge fields. | CEFR/learner-level overlay or calibrated difficulty model for non-beginner users. |
 | Rulegen coverage | Current denominator evidence exists for current baseline; expanded candidate full-rulegen coverage was not promoted. | Per-candidate rulegen coverage cache for expanded corpus. |
 | Semantic-veto coverage | Current semantic-veto coverage is measured for current admitted families. | Expanded denominator and uncovered-family audit after candidate source selection. |
@@ -171,6 +177,25 @@ Current provisional pack result:
   is still sparse at `1,353 / 10,000`; this supports controlled profile lift for
   tagged rows, not a claim of complete interest-tailored coverage.
 
+Current installed-source topic signal inventory:
+
+- `scripts/testing/srs_topic_signal_inventory_en_es.py` inventories installed
+  Kaikki/Wiktionary topic, tag, and category channels against candidate
+  frequency packs without writing overlays or changing admission behavior.
+- Against current `freq-es-cde`, installed Kaikki adds trusted explicit
+  `sense_topics` for `234 / 1,984` distinct lemmas (`11.8%`).
+- Review-only tag/category channels touch `1,890 / 1,984` distinct lemmas
+  (`95.3%`), but the dominant signals include grammar, register, maintenance,
+  and Wiktionary housekeeping categories. They are useful inventory material,
+  not automatic product preferences.
+- Product-topic examples already visible in trusted current-CDE sense topics
+  include `medicine` (`42`), `sports` (`33`), `finance` (`24`), `games` (`24`),
+  `business` (`23`), `politics` (`22`), `music` (`15`), `law` (`15`),
+  `computing` (`8`), `literature` (`3`), `education` (`2`), `food` (`2`),
+  `psychology` (`1`), and `technology` (`1`).
+- SAT and TOEFL remain planned preference families that require allowed
+  exam-prep data or an internally defined skill taxonomy before product use.
+
 ### 2. POS And Function-Word Controls
 
 Preferred sources:
@@ -222,6 +247,7 @@ Initial taxonomy should be small and useful:
 - games,
 - daily_life,
 - academic,
+- exam_prep,
 - technology,
 - animals,
 - media.

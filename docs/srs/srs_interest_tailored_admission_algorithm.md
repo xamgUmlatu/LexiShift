@@ -14,6 +14,7 @@ Related docs:
 - `srs_set_planning_technical.md`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
 - `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 
 ## Product Goal
 
@@ -29,6 +30,8 @@ The core product advantage is individualized admission pressure:
 - a medical learner should see more health and clinical vocabulary,
 - a gamer should see more game vocabulary,
 - a finance reader should see more finance vocabulary,
+- an SAT or TOEFL prep learner should see exam-relevant vocabulary when legal
+  source data supports that preference family,
 - an advanced learner should not be forced through only beginner vocabulary,
 - a beginner should not be flooded with rare specialist words just because they
   selected a topic.
@@ -52,8 +55,10 @@ Current code already has important pieces of this model:
 The target described here is broader than current default behavior. In
 particular:
 
-- current Spanish frequency data has no topic/domain metadata, so interest
-  tailoring cannot meaningfully favor medical terms from that source alone;
+- current Spanish frequency data has no native topic/domain columns. Installed
+  Kaikki can enrich current CDE with explicit sense topics for `234 / 1,984`
+  lemmas, including `42` `medicine` rows, but this is still partial and should
+  be treated as an overlay signal rather than native frequency-pack truth;
 - current helper routing still keeps default bootstrap behavior conservative;
 - a promoted expansion pack needs source, POS, topic, license, and rulegen
   coverage evidence before product use.
@@ -71,6 +76,9 @@ Current SPALEX 10k candidate evidence:
   controlled profile lift for tagged interests such as `medicine`, `finance`,
   `sports`, and `music`, but still too sparse for a complete personalization
   claim.
+- SAT and TOEFL are intended preference families, but only after legal review
+  identifies allowed vocabulary, skill, or exam-prep source data. They should
+  not be inferred from current Wiktionary topic labels.
 
 ## Data Model
 
@@ -158,6 +166,11 @@ The admission candidate row should eventually expose these normalized fields:
 Rows without topic metadata remain valid general-frequency candidates, but their
 topic affinity is zero except for exact lexical fallback. They should not be
 used as evidence that an LP supports personalized topic admission.
+
+Exam-prep categories are the same shape as other preference families once data
+exists, but the source bar is higher: a row should carry an allowed exam-prep
+source, internal skill-taxonomy mapping, or reviewed proxy evidence before
+receiving `sat`, `toefl`, or related topic membership.
 
 ## Core Math
 
@@ -516,3 +529,5 @@ The product algorithm is ready to become default behavior for an LP when:
    selected lemmas, and explanation components;
 9. targeted tests cover neutral, beginner, advanced, topic-heavy, sparse-topic,
    and metadata-free source scenarios.
+10. exam-prep preferences such as SAT and TOEFL have documented legal/source
+    provenance before they appear as selectable product preferences.
