@@ -639,23 +639,39 @@
       "message": "Manual review queue generated."
     },
     {
-      "code": "manual_labels_pending",
+      "code": "manual_labels_applied",
       "level": "PASS",
-      "message": "All selected rows remain pending user review."
+      "message": "Agent labels were applied to every selected review row."
     }
   ],
-  "generated_at": "2026-05-16T22:49:05+00:00",
+  "generated_at": "2026-05-16T23:45:35+00:00",
   "inputs": {
     "audit_decision": "animals_plants_existing_signal_audit_completed",
     "audit_generated_at": "2026-05-16T22:48:32+00:00",
     "audit_json": "docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.json",
+    "labels_json": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+    "labels_review_id": "srs_animals_plants_signal_review_labels_en_es_spalex_10k_v1",
+    "labels_state": "agent_labeled_pending_user_approval",
     "max_rows": 96,
     "sample_per_cell": 4
+  },
+  "label_result": {
+    "applied_label_count": 96,
+    "duplicate_review_ids": [],
+    "invalid_decision_review_ids": [],
+    "labels_json": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+    "labels_provided": true,
+    "labels_review_id": "srs_animals_plants_signal_review_labels_en_es_spalex_10k_v1",
+    "labels_state": "agent_labeled_pending_user_approval",
+    "mismatched_review_ids": [],
+    "missing_review_ids": [],
+    "provided_label_count": 96,
+    "unknown_review_ids": []
   },
   "limitations": [
     "The packet samples existing audit candidates only; it does not collect new source data.",
     "Rows are selected deterministically by review cell and stable hash, not by model judgment.",
-    "Pending labels are a manual QA surface and must not be treated as approved overlay data."
+    "Agent labels are a QA surface and must not be treated as approved overlay data."
   ],
   "manual_review_policy": {
     "allowed_decisions": [
@@ -665,8 +681,8 @@
       "reject_secondary_or_obscure_sense",
       "uncertain_needs_source_check"
     ],
-    "promotion_rule": "No candidate is product-ready from this packet until its manual_review state is changed from pending_user_review.",
-    "state": "pending_user_review"
+    "promotion_rule": "Agent labels calibrate source-signal quality only. No candidate is product-ready until it is promoted through a reviewed overlay/policy artifact.",
+    "state": "agent_labeled_pending_user_approval"
   },
   "review_queue": [
     {
@@ -701,9 +717,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: vicuna mammal.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=D|band=review|review=True|source=animal_gloss_pattern",
       "review_id": "srs-anpl-001",
@@ -744,9 +763,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Plant or vegetable meaning is real, but broad and adjective-heavy.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=D|band=review|review=True|source=plant_translation_pattern",
       "review_id": "srs-anpl-002",
@@ -787,9 +809,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Fish-trap sense is animal-adjacent, not an animal noun.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=D|band=review|review=True|source=animal_translation_pattern",
       "review_id": "srs-anpl-003",
@@ -875,9 +900,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Lime fruit sense is useful but overlaps food and place-name senses.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=review|review=True|source=fruits",
       "review_id": "srs-anpl-004",
@@ -993,9 +1021,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: toad.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=amphibians",
       "review_id": "srs-anpl-005",
@@ -1036,9 +1067,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Herb sense is too secondary against dominant type/person senses.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=review|review=True|source=herbs",
       "review_id": "srs-anpl-006",
@@ -1079,9 +1113,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Bird sense appears real, but name/place ambiguity keeps it light.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=birds",
       "review_id": "srs-anpl-007",
@@ -1137,9 +1174,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Speedwell plant sense is real, but proper-name senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=review|review=True|source=plants",
       "review_id": "srs-anpl-008",
@@ -1225,9 +1265,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: ox/cattle.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=cattle",
       "review_id": "srs-anpl-009",
@@ -1313,9 +1356,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Chili pepper sense is real, but country and food senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=review|review=True|source=spices_and_herbs",
       "review_id": "srs-anpl-010",
@@ -1371,9 +1417,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Dog breed sense is real, but place/person ambiguity keeps it light.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=dogs",
       "review_id": "srs-anpl-011",
@@ -1429,9 +1478,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Chestnut tree sense is real, but color/adjective senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=review|review=True|source=trees",
       "review_id": "srs-anpl-012",
@@ -1517,9 +1569,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: goat.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=goats",
       "review_id": "srs-anpl-013",
@@ -1575,9 +1630,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Botany term is useful, but it is not a plant organism noun.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=A|band=review|review=True|source=botany",
       "review_id": "srs-anpl-014",
@@ -1678,9 +1736,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: pig.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=pigs",
       "review_id": "srs-anpl-015",
@@ -1721,9 +1782,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Flower sense appears real, but the common non-plant sense dominates.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=D|band=inventory|review=True|source=plant_gloss_pattern",
       "review_id": "srs-anpl-016",
@@ -1839,9 +1903,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: monkey/ape.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=primates",
       "review_id": "srs-anpl-017",
@@ -1882,9 +1949,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Plant sense is too secondary against common adjective/person senses.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=D|band=inventory|review=True|source=plant_translation_pattern",
       "review_id": "srs-anpl-018",
@@ -1970,9 +2040,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: viper/snake.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=review|review=True|source=snakes",
       "review_id": "srs-anpl-019",
@@ -2028,9 +2101,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Coral vine sense is secondary; animal/color senses dominate.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=A|band=inventory|review=False|source=botany",
       "review_id": "srs-anpl-020",
@@ -2131,9 +2207,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: bird.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:bird",
       "review_id": "srs-anpl-021",
@@ -2234,9 +2313,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Grape hyacinth sense is real, but religious/person senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=asparagus_family_plants",
       "review_id": "srs-anpl-022",
@@ -2352,9 +2434,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: cat.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:cat",
       "review_id": "srs-anpl-023",
@@ -2395,9 +2480,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Plant anatomy term is relevant, but not a plant organism noun.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=botany",
       "review_id": "srs-anpl-024",
@@ -2513,9 +2601,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: dog.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:dog",
       "review_id": "srs-anpl-025",
@@ -2631,9 +2722,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Plant senses are too secondary against common person/color senses.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=buckwheat_family_plants",
       "review_id": "srs-anpl-026",
@@ -2749,9 +2843,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: goat.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:goat",
       "review_id": "srs-anpl-027",
@@ -2792,9 +2889,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: hyacinth flower.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=flowers",
       "review_id": "srs-anpl-028",
@@ -2910,9 +3010,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: horse.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:horse",
       "review_id": "srs-anpl-029",
@@ -3028,9 +3131,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Apple fruit sense is useful, but food/category overlap keeps it light.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=fruits",
       "review_id": "srs-anpl-030",
@@ -3146,9 +3252,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: rabbit.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:rabbit",
       "review_id": "srs-anpl-031",
@@ -3204,9 +3313,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Rye crop/grain sense is useful, with food/crop overlap.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=grains",
       "review_id": "srs-anpl-032",
@@ -3307,9 +3419,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: rat.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:rat",
       "review_id": "srs-anpl-033",
@@ -3350,9 +3465,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Vineyard/grapevine context is useful but not simply an organism noun.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=grapevines",
       "review_id": "srs-anpl-034",
@@ -3468,9 +3586,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: rooster.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:rooster",
       "review_id": "srs-anpl-035",
@@ -3556,9 +3677,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Garlic plant/herb sense is useful, with food overlap.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=herbs",
       "review_id": "srs-anpl-036",
@@ -3659,9 +3783,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: snake.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:snake",
       "review_id": "srs-anpl-037",
@@ -3717,9 +3844,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: holm oak.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=oaks",
       "review_id": "srs-anpl-038",
@@ -3760,9 +3890,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: tiger.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=review|review=True|source=primary_translation:tiger",
       "review_id": "srs-anpl-039",
@@ -3848,9 +3981,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Palm tree sense is real, but hand/palm senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=palm_trees",
       "review_id": "srs-anpl-040",
@@ -3906,9 +4042,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Zoology companion/context sense is too indirect for animal topic admission.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=A|band=review|review=True|source=zoology",
       "review_id": "srs-anpl-041",
@@ -4009,9 +4148,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Plant anatomy calyx is real, but chalice sense competes.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=plant_anatomy",
       "review_id": "srs-anpl-042",
@@ -4052,9 +4194,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Regional fish sense is too secondary against common person senses.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=D|band=inventory|review=True|source=animal_gloss_pattern",
       "review_id": "srs-anpl-043",
@@ -4125,9 +4270,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Privet plant sense is too secondary against thunder primary sense.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=plants",
       "review_id": "srs-anpl-044",
@@ -4168,9 +4316,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_wrong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Animal evidence is figurative snake translation, not an animal topic row.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=D|band=inventory|review=True|source=animal_translation_pattern",
       "review_id": "srs-anpl-045",
@@ -4211,9 +4362,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: apple tree.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=pome_fruits",
       "review_id": "srs-anpl-046",
@@ -4329,9 +4483,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: lion, despite proper-name ambiguity.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=inventory|review=False|source=insects",
       "review_id": "srs-anpl-047",
@@ -4447,9 +4604,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Serrano chile evidence is useful, but adjective/place senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=spices_and_herbs",
       "review_id": "srs-anpl-048",
@@ -4505,9 +4665,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_wrong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Beak/crest evidence is animal anatomy, not an animal topic row.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=A|band=inventory|review=False|source=zoology",
       "review_id": "srs-anpl-049",
@@ -4593,9 +4756,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: pomegranate tree.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=trees",
       "review_id": "srs-anpl-050",
@@ -4651,9 +4817,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Desman animal sense is real, but abuse/excess sense is common.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=animals",
       "review_id": "srs-anpl-051",
@@ -4739,9 +4908,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: thistle/cardoon.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=C|band=medium|review=False|source=vegetables",
       "review_id": "srs-anpl-052",
@@ -4857,9 +5029,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: young dog or baby animal.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=baby_animals",
       "review_id": "srs-anpl-053",
@@ -4915,9 +5090,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant/crop sense: barley.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:barley",
       "review_id": "srs-anpl-054",
@@ -4988,9 +5166,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Bird sense is too secondary against airplane primary sense.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=birds",
       "review_id": "srs-anpl-055",
@@ -5046,9 +5227,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant/crop sense: corn/maize.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:corn",
       "review_id": "srs-anpl-056",
@@ -5164,9 +5348,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: kite bird.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=birds_of_prey",
       "review_id": "srs-anpl-057",
@@ -5282,9 +5469,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: flower.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:flower",
       "review_id": "srs-anpl-058",
@@ -5355,9 +5545,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Bovine sense is useful, but adjective/meat context keeps it light.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=bovines",
       "review_id": "srs-anpl-059",
@@ -5413,9 +5606,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: grapevine.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:grapevine",
       "review_id": "srs-anpl-060",
@@ -5501,9 +5697,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: coyote.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=canids",
       "review_id": "srs-anpl-061",
@@ -5604,9 +5803,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: grass/herb.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:grass",
       "review_id": "srs-anpl-062",
@@ -5647,9 +5849,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Animal enclosure context is relevant, but not an animal noun.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=cattle",
       "review_id": "srs-anpl-063",
@@ -5765,9 +5970,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: oak.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:oak",
       "review_id": "srs-anpl-064",
@@ -5808,9 +6016,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: reindeer.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=cervids",
       "review_id": "srs-anpl-065",
@@ -5881,9 +6092,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: pine.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:pine",
       "review_id": "srs-anpl-066",
@@ -5939,9 +6153,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Dog breed sense is strong despite place-name ambiguity.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=dogs",
       "review_id": "srs-anpl-067",
@@ -6042,9 +6259,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: rose.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:rose",
       "review_id": "srs-anpl-068",
@@ -6160,9 +6380,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Ray fish sense is real, but line/stripe senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=fish",
       "review_id": "srs-anpl-069",
@@ -6278,9 +6501,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: shrub/bush.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:shrub",
       "review_id": "srs-anpl-070",
@@ -6396,9 +6622,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Billy goat sense is real, but vulgar/person senses are strong.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=goats",
       "review_id": "srs-anpl-071",
@@ -6514,9 +6743,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: tree.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:tree",
       "review_id": "srs-anpl-072",
@@ -6572,9 +6804,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: small horse/mare.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=horses",
       "review_id": "srs-anpl-073",
@@ -6630,9 +6865,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: vine/grapevine.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:vine",
       "review_id": "srs-anpl-074",
@@ -6673,9 +6911,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: mayfly.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=insects",
       "review_id": "srs-anpl-075",
@@ -6731,9 +6972,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant/crop sense: wheat.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:wheat",
       "review_id": "srs-anpl-076",
@@ -6789,9 +7033,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: lizard.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=lizards",
       "review_id": "srs-anpl-077",
@@ -6862,9 +7109,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: willow.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=B|band=high|review=False|source=primary_translation:willow",
       "review_id": "srs-anpl-078",
@@ -6935,9 +7185,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: wild boar.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=mammals",
       "review_id": "srs-anpl-079",
@@ -7023,9 +7276,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: plant.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "plants_nature|tier=A|band=high|review=False|source=botany",
       "review_id": "srs-anpl-080",
@@ -7111,9 +7367,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: weasel.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=marsupials",
       "review_id": "srs-anpl-081",
@@ -7229,9 +7488,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Wildlife preserve context is useful, but not an animal noun.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=new_world_monkeys",
       "review_id": "srs-anpl-082",
@@ -7317,9 +7579,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: pike fish.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=pikes_fish",
       "review_id": "srs-anpl-083",
@@ -7360,9 +7625,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: pheasant.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=poultry",
       "review_id": "srs-anpl-084",
@@ -7463,9 +7731,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Female monkey sense is real, but common non-animal senses compete.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=primates",
       "review_id": "srs-anpl-085",
@@ -7536,9 +7807,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal class sense: reptile.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=reptiles",
       "review_id": "srs-anpl-086",
@@ -7654,9 +7928,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Owl/shark senses are too secondary against witch primary sense.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=sharks",
       "review_id": "srs-anpl-087",
@@ -7712,9 +7989,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: lamb.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=sheep",
       "review_id": "srs-anpl-088",
@@ -7770,9 +8050,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: cobra.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=snakes",
       "review_id": "srs-anpl-089",
@@ -7888,9 +8171,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Petrel sense is too secondary against board/table meanings.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=C|band=medium|review=False|source=tubenose_birds",
       "review_id": "srs-anpl-090",
@@ -7931,9 +8217,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: bear.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=high|review=False|source=primary_translation:bear",
       "review_id": "srs-anpl-091",
@@ -7974,9 +8263,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal/beast sense.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=high|review=False|source=primary_translation:beast",
       "review_id": "srs-anpl-092",
@@ -8047,9 +8339,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: beetle.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=high|review=False|source=primary_translation:beetle",
       "review_id": "srs-anpl-093",
@@ -8150,9 +8445,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal class sense: bird.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=high|review=False|source=primary_translation:bird",
       "review_id": "srs-anpl-094",
@@ -8193,9 +8491,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Chicken animal sense is real, but meat/food use is strong.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=high|review=False|source=primary_translation:chicken",
       "review_id": "srs-anpl-095",
@@ -8266,9 +8567,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: condor.",
+        "reviewed_at": "2026-05-17",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "animals|tier=B|band=high|review=False|source=primary_translation:condor",
       "review_id": "srs-anpl-096",
@@ -8300,6 +8604,17 @@
     },
     "cell_count": 125,
     "full_candidate_inventory_used": true,
+    "label_missing_count": 0,
+    "labeled_row_count": 96,
+    "manual_decision_counts": {
+      "accept_light_topic": 27,
+      "accept_strong_topic": 57,
+      "reject_secondary_or_obscure_sense": 10,
+      "reject_wrong_topic": 2
+    },
+    "manual_state_counts": {
+      "agent_labeled_pending_user_approval": 96
+    },
     "review_queue_count": 96,
     "review_rows_by_band": {
       "high": 20,

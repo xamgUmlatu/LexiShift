@@ -236,10 +236,12 @@ Current product-owned taxonomy artifact:
   enrichment before strong product claims.
 - The first manual QA surface for this source family is
   `docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.md`.
-  It samples `96` pending-review rows from `310` SPALEX candidates across
+  It samples `96` rows from `310` SPALEX candidates across
   `96 / 125` evidence cells (`56` animals, `40` plants/nature). The packet is
-  for precision calibration and policy tightening only; it does not promote any
-  candidate into an overlay.
+  now merged with separate agent review labels from
+  `docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json`.
+  The labels are for precision calibration and policy tightening only; they do
+  not promote any candidate into an overlay.
 - A focused low-confidence animal spot check is recorded at
   `docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The spot check
   found the low-confidence band mostly useful, with `tac` (`CAT scan`) as the

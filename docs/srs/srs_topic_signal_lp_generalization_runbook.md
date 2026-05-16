@@ -177,6 +177,8 @@ A topic family is not ready for product admission lift in an LP until:
 - the audit retains a full candidate inventory;
 - a deterministic review packet has sampled the candidate universe;
 - review results show acceptable precision for the intended band or tier;
+- agent/manual labels are stored as a separate input artifact rather than
+  hand-editing generated review outputs;
 - promotion writes a provenance-bearing overlay rather than mutating raw source
   rows silently;
 - SRS quality and focused tests pass;
@@ -194,3 +196,5 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:
   `docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.md`
+- SPALEX 10k review labels:
+  `docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json`

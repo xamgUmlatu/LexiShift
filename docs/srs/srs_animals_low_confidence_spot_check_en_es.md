@@ -13,6 +13,8 @@ Source-of-truth: review note only; product promotion still requires user review 
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.json`
 - Review packet:
   `docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json`
+- Review label input:
+  `docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json`
 - Source rows:
   installed `wiktionary-es-en.sqlite` Kaikki/Wiktionary pack
 

@@ -116,10 +116,13 @@ sense.
 
 The first review packet is generated at
 `docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.md`.
-It samples `96` pending-review rows from the full `310` SPALEX candidate
-universe, covering `96 / 125` evidence cells with `56` animal rows and `40`
-plants/nature rows. This packet is a QA surface only; no sampled row is promoted
-until its `manual_review.state` changes from `pending_user_review`.
+It samples `96` rows from the full `310` SPALEX candidate universe, covering
+`96 / 125` evidence cells with `56` animal rows and `40` plants/nature rows.
+Agent review labels are stored separately in
+`docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json`
+and merged into the generated packet for QA. These labels are a calibration
+surface only; no sampled row is promoted until it is converted into a reviewed,
+provenance-bearing overlay or policy artifact.
 
 A focused animal low-confidence spot check is recorded at
 `docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The review supports

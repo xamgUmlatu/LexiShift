@@ -17,7 +17,7 @@ from srs_animals_plants_signal_review_packet_en_es import (  # noqa: E402
 
 
 class SrsAnimalsPlantsSignalReviewPacketTests(unittest.TestCase):
-    def test_review_packet_samples_cells_and_keeps_labels_pending(self) -> None:
+    def test_review_packet_samples_cells_and_keeps_unlabeled_rows_pending(self) -> None:
         report = build_review_packet(
             audit_payload=_sample_audit_payload(),
             sample_per_cell=1,
@@ -45,6 +45,52 @@ class SrsAnimalsPlantsSignalReviewPacketTests(unittest.TestCase):
         self.assertIn("Manual Review Queue", markdown)
         self.assertIn("accept_strong_topic", markdown)
         self.assertIn("srs-anpl-001", markdown)
+
+    def test_review_packet_applies_complete_agent_labels(self) -> None:
+        pending_report = build_review_packet(
+            audit_payload=_sample_audit_payload(),
+            sample_per_cell=1,
+            max_rows=5,
+            generated_at="2026-05-17T00:00:00+00:00",
+        )
+        labels = [
+            {
+                "review_id": row["review_id"],
+                "family": row["family"],
+                "lemma": row["lemma"],
+                "decision": "accept_strong_topic",
+                "notes": f"Reviewed {row['lemma']}.",
+            }
+            for row in pending_report["review_queue"]
+        ]
+
+        report = build_review_packet(
+            audit_payload=_sample_audit_payload(),
+            labels_payload={
+                "review_id": "sample_agent_labels",
+                "reviewer": "codex_agent",
+                "reviewed_at": "2026-05-17",
+                "state": "agent_labeled_pending_user_approval",
+                "labels": labels,
+            },
+            sample_per_cell=1,
+            max_rows=5,
+            generated_at="2026-05-17T00:00:00+00:00",
+        )
+
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual(report["summary"]["labeled_row_count"], 5)
+        self.assertEqual(
+            report["summary"]["manual_decision_counts"]["accept_strong_topic"],
+            5,
+        )
+        self.assertEqual(
+            {row["manual_review"]["state"] for row in report["review_queue"]},
+            {"agent_labeled_pending_user_approval"},
+        )
+        self.assertIn("manual_labels_applied", {row["code"] for row in report["findings"]})
+        markdown = render_markdown(report)
+        self.assertIn("Reviewed", markdown)
 
 
 def _sample_audit_payload() -> dict[str, object]:
