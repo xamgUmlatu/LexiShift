@@ -10,7 +10,9 @@ Source-of-truth: decision aid; executable inventory lives in `scripts/testing/sr
 Related docs:
 - `srs_interest_tailored_data_acquisition_plan.md`
 - `srs_interest_tailored_admission_algorithm.md`
+- `../test_inputs/srs_topic_preference_taxonomy_en_es.json`
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
+- `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
 
 ## Decision Frame
 
@@ -84,6 +86,12 @@ current trusted labels are sparse.
 | `travel_places_transport` | partial | travel overlay plus existing geography/transport labels |
 | `arts_literature_humanities` | partial | literature/art overlays plus existing humanities labels |
 | `sat_toefl_exam_prep` | legal/source gated | allowed exam-prep vocabulary or internal skill taxonomy |
+
+The first machine-readable taxonomy/mapping artifact is
+`../test_inputs/srs_topic_preference_taxonomy_en_es.json`. Its current installed
+source audit validates the taxonomy and shows why animals/nature needs overlay
+work: trusted current CDE source labels map only `5 / 1,984` lemmas to
+`animals_nature`, mostly through `botany` plus one `zoology` overlap.
 
 ## Labels That Should Not Become User Preferences Directly
 

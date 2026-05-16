@@ -1,0 +1,746 @@
+{
+  "schema_version": 1,
+  "taxonomy_id": "srs_topic_preference_taxonomy_en_es_v1",
+  "language_pair": "en-es",
+  "status": "planning",
+  "purpose": "Product-owned SRS topic preference families and source-label mappings for en-es.",
+  "channel_policy": {
+    "trusted_mapping_channels": [
+      "sense_topics",
+      "curated_overlay",
+      "embedding_inference"
+    ],
+    "review_only_channels": [
+      "sense_tags",
+      "sense_categories",
+      "entry_tags",
+      "entry_categories"
+    ]
+  },
+  "families": [
+    {
+      "id": "medicine_health",
+      "display_name": "Medicine & Health",
+      "product_priority": "p0",
+      "readiness_state": "source_ready",
+      "data_strategy": "sense_topics_then_domain_overlay"
+    },
+    {
+      "id": "finance_business",
+      "display_name": "Finance & Business",
+      "product_priority": "p0",
+      "readiness_state": "source_ready",
+      "data_strategy": "sense_topics_then_alias_overlay"
+    },
+    {
+      "id": "sports_fitness",
+      "display_name": "Sports & Fitness",
+      "product_priority": "p0",
+      "readiness_state": "source_ready",
+      "data_strategy": "sense_topics_then_alias_overlay"
+    },
+    {
+      "id": "games",
+      "display_name": "Games",
+      "product_priority": "p0",
+      "readiness_state": "source_ready",
+      "data_strategy": "sense_topics_then_alias_overlay"
+    },
+    {
+      "id": "music_media_entertainment",
+      "display_name": "Music, Media & Entertainment",
+      "product_priority": "p0",
+      "readiness_state": "source_ready",
+      "data_strategy": "sense_topics_then_media_overlay"
+    },
+    {
+      "id": "law_politics_civics",
+      "display_name": "Law, Politics & Civics",
+      "product_priority": "p0",
+      "readiness_state": "source_ready",
+      "data_strategy": "sense_topics_then_civics_overlay"
+    },
+    {
+      "id": "science_technology",
+      "display_name": "Science & Technology",
+      "product_priority": "p0",
+      "readiness_state": "source_ready",
+      "data_strategy": "sense_topics_then_stem_overlay"
+    },
+    {
+      "id": "travel_places_transport",
+      "display_name": "Travel, Places & Transport",
+      "product_priority": "p0",
+      "readiness_state": "partial",
+      "data_strategy": "geography_transport_labels_then_travel_overlay"
+    },
+    {
+      "id": "arts_literature_humanities",
+      "display_name": "Arts, Literature & Humanities",
+      "product_priority": "p0",
+      "readiness_state": "partial",
+      "data_strategy": "sense_topics_then_literature_art_overlay"
+    },
+    {
+      "id": "animals_nature",
+      "display_name": "Animals & Nature",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "trusted_sense_topics_plus_curated_animal_nature_overlay"
+    },
+    {
+      "id": "food_cooking",
+      "display_name": "Food & Cooking",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "curated_food_overlay_then_embedding_inference"
+    },
+    {
+      "id": "anime_manga_pop_culture",
+      "display_name": "Anime, Manga & Pop Culture",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "legally_usable_seed_lists_then_embedding_inference"
+    },
+    {
+      "id": "hobbies_crafts",
+      "display_name": "Hobbies & Crafts",
+      "product_priority": "p0",
+      "readiness_state": "p0_enrichment",
+      "data_strategy": "curated_activity_overlay_then_reviewed_broad_labels"
+    },
+    {
+      "id": "sat_toefl_exam_prep",
+      "display_name": "SAT & TOEFL Prep",
+      "product_priority": "p0",
+      "readiness_state": "legal_source_gated",
+      "data_strategy": "allowed_exam_prep_vocabulary_or_internal_skill_taxonomy"
+    }
+  ],
+  "source_label_mappings": [
+    {
+      "source_channel": "sense_topics",
+      "source_label": "medicine",
+      "target_family": "medicine_health",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "anatomy",
+      "target_family": "medicine_health",
+      "weight": 0.75,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "pathology",
+      "target_family": "medicine_health",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "dentistry",
+      "target_family": "medicine_health",
+      "weight": 0.75,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "healthcare",
+      "target_family": "medicine_health",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "physiology",
+      "target_family": "medicine_health",
+      "weight": 0.65,
+      "confidence": 0.75,
+      "policy": "trusted_related_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "oncology",
+      "target_family": "medicine_health",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "pharmacology",
+      "target_family": "medicine_health",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "finance",
+      "target_family": "finance_business",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "business",
+      "target_family": "finance_business",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "economics",
+      "target_family": "finance_business",
+      "weight": 0.7,
+      "confidence": 0.8,
+      "policy": "trusted_related_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "banking",
+      "target_family": "finance_business",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "accounting",
+      "target_family": "finance_business",
+      "weight": 0.85,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "management",
+      "target_family": "finance_business",
+      "weight": 0.7,
+      "confidence": 0.75,
+      "policy": "trusted_related_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "sports",
+      "target_family": "sports_fitness",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "ball_games",
+      "target_family": "sports_fitness",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "soccer",
+      "target_family": "sports_fitness",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "baseball",
+      "target_family": "sports_fitness",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "basketball",
+      "target_family": "sports_fitness",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "exercise",
+      "target_family": "sports_fitness",
+      "weight": 0.75,
+      "confidence": 0.8,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "martial_arts",
+      "target_family": "sports_fitness",
+      "weight": 0.75,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "boxing",
+      "target_family": "sports_fitness",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "swimming",
+      "target_family": "sports_fitness",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "games",
+      "target_family": "games",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "card_games",
+      "target_family": "games",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "video_games",
+      "target_family": "games",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "gaming",
+      "target_family": "games",
+      "weight": 0.9,
+      "confidence": 0.85,
+      "policy": "trusted_child_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "government",
+      "target_family": "law_politics_civics",
+      "weight": 0.85,
+      "confidence": 0.85,
+      "policy": "trusted_civics_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "politics",
+      "target_family": "law_politics_civics",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "law",
+      "target_family": "law_politics_civics",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "music",
+      "target_family": "music_media_entertainment",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_domain_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "entertainment",
+      "target_family": "music_media_entertainment",
+      "weight": 0.6,
+      "confidence": 0.75,
+      "policy": "trusted_broad_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "media",
+      "target_family": "music_media_entertainment",
+      "weight": 0.75,
+      "confidence": 0.8,
+      "policy": "trusted_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "publishing",
+      "target_family": "music_media_entertainment",
+      "weight": 0.65,
+      "confidence": 0.75,
+      "policy": "trusted_related_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "broadcasting",
+      "target_family": "music_media_entertainment",
+      "weight": 0.7,
+      "confidence": 0.8,
+      "policy": "trusted_related_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "theater",
+      "target_family": "music_media_entertainment",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "television",
+      "target_family": "music_media_entertainment",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "film",
+      "target_family": "music_media_entertainment",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_child_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "radio",
+      "target_family": "music_media_entertainment",
+      "weight": 0.75,
+      "confidence": 0.8,
+      "policy": "trusted_child_media_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "sciences",
+      "target_family": "science_technology",
+      "weight": 0.35,
+      "confidence": 0.75,
+      "policy": "trusted_broad_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "natural_sciences",
+      "target_family": "science_technology",
+      "weight": 0.35,
+      "confidence": 0.75,
+      "policy": "trusted_broad_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "physical_sciences",
+      "target_family": "science_technology",
+      "weight": 0.4,
+      "confidence": 0.8,
+      "policy": "trusted_broad_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "engineering",
+      "target_family": "science_technology",
+      "weight": 0.75,
+      "confidence": 0.85,
+      "policy": "trusted_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "mathematics",
+      "target_family": "science_technology",
+      "weight": 0.7,
+      "confidence": 0.85,
+      "policy": "trusted_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "biology",
+      "target_family": "science_technology",
+      "weight": 0.7,
+      "confidence": 0.85,
+      "policy": "trusted_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "physics",
+      "target_family": "science_technology",
+      "weight": 0.75,
+      "confidence": 0.85,
+      "policy": "trusted_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "chemistry",
+      "target_family": "science_technology",
+      "weight": 0.75,
+      "confidence": 0.85,
+      "policy": "trusted_stem_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "computing",
+      "target_family": "science_technology",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_technology_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "geography",
+      "target_family": "travel_places_transport",
+      "weight": 0.7,
+      "confidence": 0.75,
+      "policy": "trusted_place_transport_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "transport",
+      "target_family": "travel_places_transport",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_transport_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "nautical",
+      "target_family": "travel_places_transport",
+      "weight": 0.65,
+      "confidence": 0.75,
+      "policy": "trusted_transport_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "aerospace",
+      "target_family": "travel_places_transport",
+      "weight": 0.55,
+      "confidence": 0.7,
+      "policy": "trusted_transport_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "aeronautics",
+      "target_family": "travel_places_transport",
+      "weight": 0.6,
+      "confidence": 0.75,
+      "policy": "trusted_transport_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "aviation",
+      "target_family": "travel_places_transport",
+      "weight": 0.65,
+      "confidence": 0.8,
+      "policy": "trusted_transport_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "automotive",
+      "target_family": "travel_places_transport",
+      "weight": 0.65,
+      "confidence": 0.8,
+      "policy": "trusted_transport_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "vehicles",
+      "target_family": "travel_places_transport",
+      "weight": 0.65,
+      "confidence": 0.8,
+      "policy": "trusted_transport_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "arts",
+      "target_family": "arts_literature_humanities",
+      "weight": 0.75,
+      "confidence": 0.8,
+      "policy": "trusted_humanities_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "art",
+      "target_family": "arts_literature_humanities",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_humanities_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "literature",
+      "target_family": "arts_literature_humanities",
+      "weight": 0.85,
+      "confidence": 0.9,
+      "policy": "trusted_humanities_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "history",
+      "target_family": "arts_literature_humanities",
+      "weight": 0.7,
+      "confidence": 0.8,
+      "policy": "trusted_humanities_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "philosophy",
+      "target_family": "arts_literature_humanities",
+      "weight": 0.75,
+      "confidence": 0.85,
+      "policy": "trusted_humanities_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "architecture",
+      "target_family": "arts_literature_humanities",
+      "weight": 0.65,
+      "confidence": 0.75,
+      "policy": "trusted_humanities_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "linguistics",
+      "target_family": "arts_literature_humanities",
+      "weight": 0.55,
+      "confidence": 0.7,
+      "policy": "trusted_humanities_adjacent_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "animals",
+      "target_family": "animals_nature",
+      "weight": 0.95,
+      "confidence": 0.9,
+      "policy": "trusted_direct_animal_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "zoology",
+      "target_family": "animals_nature",
+      "weight": 0.85,
+      "confidence": 0.85,
+      "policy": "trusted_animal_science_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "veterinary",
+      "target_family": "animals_nature",
+      "weight": 0.8,
+      "confidence": 0.85,
+      "policy": "trusted_animal_health_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "botany",
+      "target_family": "animals_nature",
+      "weight": 0.55,
+      "confidence": 0.7,
+      "policy": "trusted_nature_label_not_animal_specific"
+    },
+    {
+      "source_channel": "curated_overlay",
+      "source_label": "pets",
+      "target_family": "animals_nature",
+      "weight": 0.95,
+      "confidence": 0.9,
+      "policy": "curated_direct_animal_label"
+    },
+    {
+      "source_channel": "curated_overlay",
+      "source_label": "wildlife",
+      "target_family": "animals_nature",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "curated_direct_animal_label"
+    },
+    {
+      "source_channel": "curated_overlay",
+      "source_label": "fauna",
+      "target_family": "animals_nature",
+      "weight": 0.9,
+      "confidence": 0.85,
+      "policy": "curated_direct_animal_label"
+    },
+    {
+      "source_channel": "curated_overlay",
+      "source_label": "flora",
+      "target_family": "animals_nature",
+      "weight": 0.6,
+      "confidence": 0.75,
+      "policy": "curated_nature_label_not_animal_specific"
+    },
+    {
+      "source_channel": "curated_overlay",
+      "source_label": "plants",
+      "target_family": "animals_nature",
+      "weight": 0.6,
+      "confidence": 0.75,
+      "policy": "curated_nature_label_not_animal_specific"
+    },
+    {
+      "source_channel": "curated_overlay",
+      "source_label": "nature",
+      "target_family": "animals_nature",
+      "weight": 0.65,
+      "confidence": 0.7,
+      "policy": "curated_broad_nature_label"
+    },
+    {
+      "source_channel": "curated_overlay",
+      "source_label": "ecology",
+      "target_family": "animals_nature",
+      "weight": 0.6,
+      "confidence": 0.7,
+      "policy": "curated_broad_nature_label"
+    }
+  ],
+  "excluded_source_labels": [
+    {
+      "source_label": "natural_sciences",
+      "target_family": "animals_nature",
+      "reason": "too broad to substitute for animals/nature preference"
+    },
+    {
+      "source_label": "sciences",
+      "target_family": "animals_nature",
+      "reason": "too broad to substitute for animals/nature preference"
+    },
+    {
+      "source_label": "biology",
+      "target_family": "animals_nature",
+      "reason": "too broad for v0 animals/nature lift without review"
+    },
+    {
+      "source_label": "lifestyle",
+      "target_family": "animals_nature",
+      "reason": "background topic, not a precise user preference"
+    },
+    {
+      "source_label": "hobbies",
+      "target_family": "animals_nature",
+      "reason": "background topic, useful only after reviewed hobby mapping"
+    }
+  ],
+  "notes": [
+    "This taxonomy is product-owned; source labels are evidence, not the taxonomy itself.",
+    "The animals_nature mapping intentionally avoids broad science labels so animal/nature preferences do not become generic science preferences.",
+    "SAT and TOEFL are included as product goals but remain legal/source gated."
+  ]
+}

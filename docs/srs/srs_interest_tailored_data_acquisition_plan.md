@@ -12,6 +12,7 @@ Related docs:
 - `srs_topic_preference_decision_matrix_en_es.md`
 - `srs_profile_schema.md`
 - `srs_set_planning_technical.md`
+- `../test_inputs/srs_topic_preference_taxonomy_en_es.json`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
 - `../rulegen/semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `../test_outputs/semantic_veto_srs_source_stack_audit_en_es_latest.md`
@@ -22,6 +23,7 @@ Related docs:
 - `../test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
+- `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
 
 ## Data-First Goal
 
@@ -200,6 +202,19 @@ Current installed-source topic signal inventory:
   `psychology` (`1`), and `technology` (`1`).
 - SAT and TOEFL remain planned preference families that require allowed
   exam-prep data or an internally defined skill taxonomy before product use.
+
+Current product-owned taxonomy artifact:
+
+- `docs/test_inputs/srs_topic_preference_taxonomy_en_es.json` defines the first
+  product-owned topic families and source-label mappings.
+- `scripts/testing/srs_topic_preference_taxonomy_en_es.py` validates that
+  mapping file and measures current installed-source coverage without mutating
+  packs or writing overlays.
+- The current audit shows source-ready utility families have measurable
+  installed support, while `animals_nature` has only `5 / 1,984` mapped current
+  CDE lemmas (`0.3%`), mostly from `botany` plus one `zoology` overlap. This
+  confirms animals/nature is a P0 overlay/inference task, not a topic to wait
+  for passively from the base frequency/dictionary source.
 
 ### 2. POS And Function-Word Controls
 
