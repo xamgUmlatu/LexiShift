@@ -8,6 +8,7 @@ Related docs:
 - `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `semantic_veto_srs_spanish_expansion_source_probe_2026-05-16.md`
 - `semantic_veto_denominator_current_state.md`
+- `../srs/srs_interest_tailored_admission_algorithm.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
 
 ## Purpose
