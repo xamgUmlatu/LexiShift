@@ -14,6 +14,7 @@ Related docs:
 - `../test_outputs/semantic_veto_srs_corpus_expansion_audit_en_es_spalex_latest.md`
 - `../test_outputs/pack_lifecycle_audit_spalex_latest.md`
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_latest.md`
+- `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.md`
 - `../test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_10k_latest.md`
 - `../developer/productization_lane6_data_provenance_inventory.md`
@@ -127,6 +128,15 @@ uncovered families, and a review posture of `406` approved, `115` excluded, and
 not a spend decision: the unreviewed majority needs tranche review before paid
 generation, and SRS-only admission remains separable from semantic-veto evidence
 generation.
+
+The SRS admission check is now the first UX-pipeline gate before veto work. The
+SPALEX 10k admission audit passes with `10,000` selected unique lemmas, rank
+resolved through `id`, commonness resolved through `pmw`, `94.3%` POS mapping,
+and an expected POS-weighting shift from `19` non-lexical/function-heavy rows in
+the rank-order top 100 to `0` in the admission-order top 100. Profile-interest
+diagnostics show usable tagged support for `medicine`, `finance`, `sports`, and
+`music`, while preserving the limitation that topic coverage is sparse at
+`13.5%` of the 10k frontier.
 
 ## Decision Principles
 

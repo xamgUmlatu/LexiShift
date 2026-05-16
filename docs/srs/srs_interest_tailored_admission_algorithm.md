@@ -2,8 +2,8 @@
 
 Status: active design reference
 Role: Planning / WIP
-Last updated: 2026-05-16
-Last verified: 2026-05-16 by SRS seed/admission/profile-bootstrap code read and related SRS docs
+Last updated: 2026-05-17
+Last verified: 2026-05-17 by SRS seed/admission/profile-bootstrap code read, related SRS docs, and the SPALEX 10k SRS admission expansion audit
 Purpose: define the product algorithm for tailoring SRS admission probabilities to user interests, readiness, source quality, and LP resource coverage
 Source-of-truth: target algorithm reference; current executable truth lives in `core/lexishift_core/srs/seed.py`, `core/lexishift_core/srs/profile_bootstrap.py`, `core/lexishift_core/srs/selector.py`, helper admission use cases, SRS tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -13,6 +13,7 @@ Related docs:
 - `srs_selector_technical.md`
 - `srs_set_planning_technical.md`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
+- `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
 
 ## Product Goal
 
@@ -56,6 +57,20 @@ particular:
 - current helper routing still keeps default bootstrap behavior conservative;
 - a promoted expansion pack needs source, POS, topic, license, and rulegen
   coverage evidence before product use.
+
+Current SPALEX 10k candidate evidence:
+
+- the provisional `freq-es-spalex-expanded-v1` pack passes the SRS seed
+  admission path for `10,000` unique lemmas;
+- rank resolves to `id` and commonness resolves to `pmw`, so the existing seed
+  code reads the intended candidate ordering;
+- POS mapping covers `9,435 / 10,000` frontier rows, and POS weighting moves
+  non-lexical/function-heavy rows in the top 100 from `19` rank-order rows to
+  `0` admission-order rows;
+- topic metadata exists for `1,353 / 10,000` frontier rows, enough to prove
+  controlled profile lift for tagged interests such as `medicine`, `finance`,
+  `sports`, and `music`, but still too sparse for a complete personalization
+  claim.
 
 ## Data Model
 

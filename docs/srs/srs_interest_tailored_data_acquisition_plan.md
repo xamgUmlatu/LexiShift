@@ -19,6 +19,7 @@ Related docs:
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_latest.md`
 - `../test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.md`
 - `../test_outputs/semantic_veto_active_only_full_generation_plan_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
 
 ## Data-First Goal
 
@@ -154,12 +155,21 @@ Current provisional pack result:
   required; manifest, artifact, and provenance sidecars are present and valid.
 - The SRS Zipf bridge accepts the pack and reports `45,131` full SRS-admissible
   targets with no issues in the diagnostic bridge run.
+- The SRS admission expansion audit passes for the 10k candidate frontier:
+  existing seed admission selects `10,000` unique lemmas, resolves rank through
+  `id`, resolves commonness through `pmw`, maps POS for `9,435 / 10,000`, and
+  moves non-lexical/function-heavy rows in the top 100 from `19` rank-order rows
+  to `0` admission-order rows.
 - The 10k full-rulegen bridge run produced `4,260` source-target families from
   `10,000` SRS target lemmas. The active-only planner reports `49 / 4,260`
   currently covered semantic-veto families, `4,211` uncovered families, and
   `3,690` unreviewed source-target rows. This shows the candidate is large
   enough for SRS expansion, while semantic-veto evidence expansion remains a
   separate tranche-review problem.
+- Profile-interest diagnostics over the 10k frontier show enough tagged support
+  for `medicine`, `finance`, `sports`, and `music`, but overall topic coverage
+  is still sparse at `1,353 / 10,000`; this supports controlled profile lift for
+  tagged rows, not a claim of complete interest-tailored coverage.
 
 ### 2. POS And Function-Word Controls
 

@@ -1,0 +1,1832 @@
+{
+  "decision": "srs_admission_expansion_audit_passed",
+  "findings": [
+    {
+      "code": "candidate_reaches_top_n",
+      "level": "PASS",
+      "message": "Candidate pack reaches target size."
+    },
+    {
+      "code": "seed_selection_reaches_top_n",
+      "level": "PASS",
+      "message": "SRS seed path selected top_n rows."
+    },
+    {
+      "code": "pos_mapped_for_frontier",
+      "level": "PASS",
+      "message": "POS mapping covers the 10k frontier."
+    },
+    {
+      "code": "topic_rows_available",
+      "level": "PASS",
+      "message": "Topic rows are available for profile lift."
+    },
+    {
+      "code": "topic_coverage_sparse",
+      "level": "WARN",
+      "message": "Topic coverage is sparse; do not claim complete interest tailoring."
+    },
+    {
+      "code": "pos_weighting_changes_frontier",
+      "level": "PASS",
+      "message": "POS weighting demotes non-lexical/function-heavy rows in the top preview."
+    },
+    {
+      "code": "profile_interest_supported:medicine",
+      "level": "PASS",
+      "message": "Profile interest has enough tagged support for diagnostic reranking."
+    },
+    {
+      "code": "profile_interest_supported:finance",
+      "level": "PASS",
+      "message": "Profile interest has enough tagged support for diagnostic reranking."
+    },
+    {
+      "code": "profile_interest_supported:sports",
+      "level": "PASS",
+      "message": "Profile interest has enough tagged support for diagnostic reranking."
+    },
+    {
+      "code": "profile_interest_supported:music",
+      "level": "PASS",
+      "message": "Profile interest has enough tagged support for diagnostic reranking."
+    }
+  ],
+  "generated_at": "2026-05-16T18:54:35+00:00",
+  "inputs": {
+    "frequency_db": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+    "pair": "en-es",
+    "preview_limit": 20,
+    "profile_interests": [
+      "medicine",
+      "finance",
+      "sports",
+      "music"
+    ],
+    "profile_top_n": 20,
+    "source_label": "freq-es-spalex-expanded-v1",
+    "top_n": 10000
+  },
+  "limitations": [
+    "This audit does not mutate SRS state, run helper publication, or change default packs.",
+    "Profile scenarios prove that tagged rows can receive admission pressure; they do not prove that topic labels are complete or perfectly precise.",
+    "Topic metadata is sparse relative to the full 10k frontier, so untagged rows remain general-frequency candidates.",
+    "Semantic-veto evidence coverage remains a downstream concern after SRS admission readiness."
+  ],
+  "methodology": {
+    "admission_path": "Build rank-order seeds from the candidate SQLite, then let the existing SRS seed code sort by admission_weight = normalized commonness * POS weight.",
+    "frontier_boundary": "top_n is selected by candidate rank/commonness before POS/profile reranking.",
+    "helper_state_mutation": "none",
+    "profile_path": "Run existing profile-bootstrap reranking on the admitted seed frontier for diagnostic interests only; this does not publish or admit runtime items.",
+    "runtime_policy_change": "none",
+    "semantic_veto_generation": "none"
+  },
+  "pack": {
+    "columns": [
+      "id",
+      "pmw",
+      "freq",
+      "lemma",
+      "pos",
+      "source_family",
+      "source_rank",
+      "source_frequency",
+      "cde_rank",
+      "cde_freq",
+      "cde_pos",
+      "spalex_rank",
+      "spalex_freq",
+      "spalex_zipf",
+      "spalex_prevalence_total",
+      "spalex_percent_total",
+      "pos_source",
+      "pos_canonical",
+      "topics",
+      "topic_source"
+    ],
+    "db_path": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+    "distinct_lemma_count": 45131,
+    "exists": true,
+    "row_count": 45131,
+    "source_family_counts": {
+      "freq-es-cde": 1984,
+      "spalex": 43147
+    }
+  },
+  "pair": "en-es",
+  "profile_scenarios": [
+    {
+      "interest": "medicine",
+      "mean_neutral_rank_of_profile_top_rows": 1419.0,
+      "status": "eligible",
+      "support": {
+        "candidate_count": 170,
+        "candidate_ratio": 0.017,
+        "eligible_for_scarcity_calibration": true,
+        "mean_topic_specificity": 0.544498,
+        "requested_weight": 1.0,
+        "scarcity_multiplier_preview": 1.0,
+        "scarcity_readiness": "eligible",
+        "scarcity_readiness_reasons": [],
+        "support_mass": 89.280909,
+        "support_mass_ratio": 0.010077,
+        "top_examples": [
+          "estadio",
+          "fluido",
+          "fibrosis",
+          "acceso",
+          "toma"
+        ],
+        "topic": "medicine",
+        "weight_source": "interests"
+      },
+      "top_rows": [
+        {
+          "admission_weight": 0.999579,
+          "lemma": "estadio",
+          "neutral_rank": 95,
+          "pos_bucket": "noun",
+          "profile_rank": 1,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.99895,
+          "lemma": "fluido",
+          "neutral_rank": 262,
+          "pos_bucket": "noun",
+          "profile_rank": 2,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.997081,
+          "lemma": "fibrosis",
+          "neutral_rank": 759,
+          "pos_bucket": "noun",
+          "profile_rank": 3,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.994816,
+          "lemma": "acceso",
+          "neutral_rank": 1431,
+          "pos_bucket": "noun",
+          "profile_rank": 4,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.994545,
+          "lemma": "toma",
+          "neutral_rank": 1530,
+          "pos_bucket": "noun",
+          "profile_rank": 5,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.994391,
+          "lemma": "producto",
+          "neutral_rank": 1587,
+          "pos_bucket": "noun",
+          "profile_rank": 6,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.994352,
+          "lemma": "nacido",
+          "neutral_rank": 1601,
+          "pos_bucket": "noun",
+          "profile_rank": 7,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.9932,
+          "lemma": "episodio",
+          "neutral_rank": 1985,
+          "pos_bucket": "noun",
+          "profile_rank": 8,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.992614,
+          "lemma": "rechazo",
+          "neutral_rank": 2173,
+          "pos_bucket": "noun",
+          "profile_rank": 9,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.992428,
+          "lemma": "paciente",
+          "neutral_rank": 2240,
+          "pos_bucket": "noun",
+          "profile_rank": 10,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.991683,
+          "lemma": "fomento",
+          "neutral_rank": 2481,
+          "pos_bucket": "noun",
+          "profile_rank": 11,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.986563,
+          "lemma": "sonda",
+          "neutral_rank": 3982,
+          "pos_bucket": "noun",
+          "profile_rank": 12,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.976812,
+          "lemma": "distensión",
+          "neutral_rank": 6498,
+          "pos_bucket": "noun",
+          "profile_rank": 13,
+          "topics": [
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.999837,
+          "lemma": "rostro",
+          "neutral_rank": 37,
+          "pos_bucket": "noun",
+          "profile_rank": 14,
+          "topics": [
+            "anatomy",
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.999492,
+          "lemma": "oreja",
+          "neutral_rank": 116,
+          "pos_bucket": "noun",
+          "profile_rank": 15,
+          "topics": [
+            "anatomy",
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.999075,
+          "lemma": "cadera",
+          "neutral_rank": 228,
+          "pos_bucket": "noun",
+          "profile_rank": 16,
+          "topics": [
+            "anatomy",
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.998856,
+          "lemma": "lomo",
+          "neutral_rank": 289,
+          "pos_bucket": "noun",
+          "profile_rank": 17,
+          "topics": [
+            "anatomy",
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.998644,
+          "lemma": "mama",
+          "neutral_rank": 346,
+          "pos_bucket": "noun",
+          "profile_rank": 18,
+          "topics": [
+            "anatomy",
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.998577,
+          "lemma": "costilla",
+          "neutral_rank": 364,
+          "pos_bucket": "noun",
+          "profile_rank": 19,
+          "topics": [
+            "anatomy",
+            "medicine",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.998508,
+          "lemma": "lagarto",
+          "neutral_rank": 376,
+          "pos_bucket": "noun",
+          "profile_rank": 20,
+          "topics": [
+            "anatomy",
+            "medicine",
+            "sciences"
+          ]
+        }
+      ],
+      "top_rows_with_exact_interest": 20
+    },
+    {
+      "interest": "finance",
+      "mean_neutral_rank_of_profile_top_rows": 2002.1,
+      "status": "eligible",
+      "support": {
+        "candidate_count": 100,
+        "candidate_ratio": 0.01,
+        "eligible_for_scarcity_calibration": true,
+        "mean_topic_specificity": 0.679324,
+        "requested_weight": 1.0,
+        "scarcity_multiplier_preview": 1.0,
+        "scarcity_readiness": "eligible",
+        "scarcity_readiness_reasons": [],
+        "support_mass": 65.385078,
+        "support_mass_ratio": 0.00738,
+        "top_examples": [
+          "capital",
+          "trust",
+          "valor",
+          "interés",
+          "plaza"
+        ],
+        "topic": "finance",
+        "weight_source": "interests"
+      },
+      "top_rows": [
+        {
+          "admission_weight": 0.999903,
+          "lemma": "capital",
+          "neutral_rank": 15,
+          "pos_bucket": "noun",
+          "profile_rank": 1,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.996435,
+          "lemma": "trust",
+          "neutral_rank": 928,
+          "pos_bucket": "noun",
+          "profile_rank": 2,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.995263,
+          "lemma": "valor",
+          "neutral_rank": 1265,
+          "pos_bucket": "noun",
+          "profile_rank": 3,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.995174,
+          "lemma": "interés",
+          "neutral_rank": 1299,
+          "pos_bucket": "noun",
+          "profile_rank": 4,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.994866,
+          "lemma": "plaza",
+          "neutral_rank": 1413,
+          "pos_bucket": "noun",
+          "profile_rank": 5,
+          "topics": [
+            "business",
+            "commerce",
+            "entertainment",
+            "finance",
+            "lifestyle"
+          ]
+        },
+        {
+          "admission_weight": 0.993739,
+          "lemma": "bolsa",
+          "neutral_rank": 1809,
+          "pos_bucket": "noun",
+          "profile_rank": 6,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.993387,
+          "lemma": "firma",
+          "neutral_rank": 1923,
+          "pos_bucket": "noun",
+          "profile_rank": 7,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.993116,
+          "lemma": "letra",
+          "neutral_rank": 2012,
+          "pos_bucket": "noun",
+          "profile_rank": 8,
+          "topics": [
+            "banking",
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.993111,
+          "lemma": "obligación",
+          "neutral_rank": 2014,
+          "pos_bucket": "noun",
+          "profile_rank": 9,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.992602,
+          "lemma": "crédito",
+          "neutral_rank": 2177,
+          "pos_bucket": "noun",
+          "profile_rank": 10,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.988804,
+          "lemma": "prestación",
+          "neutral_rank": 3318,
+          "pos_bucket": "noun",
+          "profile_rank": 11,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.982218,
+          "lemma": "cédula",
+          "neutral_rank": 5164,
+          "pos_bucket": "noun",
+          "profile_rank": 12,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.979978,
+          "lemma": "vencimiento",
+          "neutral_rank": 5709,
+          "pos_bucket": "noun",
+          "profile_rank": 13,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.978724,
+          "lemma": "solvencia",
+          "neutral_rank": 6025,
+          "pos_bucket": "noun",
+          "profile_rank": 14,
+          "topics": [
+            "business",
+            "finance"
+          ]
+        },
+        {
+          "admission_weight": 0.999938,
+          "lemma": "movimiento",
+          "neutral_rank": 6,
+          "pos_bucket": "noun",
+          "profile_rank": 15,
+          "topics": [
+            "banking",
+            "business",
+            "entertainment",
+            "finance",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.998386,
+          "lemma": "boom",
+          "neutral_rank": 413,
+          "pos_bucket": "noun",
+          "profile_rank": 16,
+          "topics": [
+            "business",
+            "economics",
+            "finance",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.999405,
+          "lemma": "fusión",
+          "neutral_rank": 140,
+          "pos_bucket": "noun",
+          "profile_rank": 17,
+          "topics": [
+            "economics",
+            "finance",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.996495,
+          "lemma": "secano",
+          "neutral_rank": 912,
+          "pos_bucket": "noun",
+          "profile_rank": 18,
+          "topics": [
+            "agriculture",
+            "business",
+            "finance",
+            "lifestyle"
+          ]
+        },
+        {
+          "admission_weight": 0.994455,
+          "lemma": "ejercicio",
+          "neutral_rank": 1565,
+          "pos_bucket": "noun",
+          "profile_rank": 19,
+          "topics": [
+            "economics",
+            "finance",
+            "sciences"
+          ]
+        },
+        {
+          "admission_weight": 0.993358,
+          "lemma": "oferta",
+          "neutral_rank": 1935,
+          "pos_bucket": "noun",
+          "profile_rank": 20,
+          "topics": [
+            "economics",
+            "finance",
+            "sciences"
+          ]
+        }
+      ],
+      "top_rows_with_exact_interest": 20
+    },
+    {
+      "interest": "sports",
+      "mean_neutral_rank_of_profile_top_rows": 1650.6,
+      "status": "eligible",
+      "support": {
+        "candidate_count": 208,
+        "candidate_ratio": 0.0208,
+        "eligible_for_scarcity_calibration": true,
+        "mean_topic_specificity": 0.751277,
+        "requested_weight": 1.0,
+        "scarcity_multiplier_preview": 1.0,
+        "scarcity_readiness": "eligible",
+        "scarcity_readiness_reasons": [],
+        "support_mass": 146.182194,
+        "support_mass_ratio": 0.016499,
+        "top_examples": [
+          "narrador",
+          "remate",
+          "descuento",
+          "plantel",
+          "final"
+        ],
+        "topic": "sports",
+        "weight_source": "interests"
+      },
+      "top_rows": [
+        {
+          "admission_weight": 0.999217,
+          "lemma": "narrador",
+          "neutral_rank": 189,
+          "pos_bucket": "noun",
+          "profile_rank": 1,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.998879,
+          "lemma": "remate",
+          "neutral_rank": 282,
+          "pos_bucket": "noun",
+          "profile_rank": 2,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.998457,
+          "lemma": "descuento",
+          "neutral_rank": 394,
+          "pos_bucket": "noun",
+          "profile_rank": 3,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.998396,
+          "lemma": "plantel",
+          "neutral_rank": 410,
+          "pos_bucket": "noun",
+          "profile_rank": 4,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.995524,
+          "lemma": "final",
+          "neutral_rank": 1168,
+          "pos_bucket": "noun",
+          "profile_rank": 5,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.995161,
+          "lemma": "resultado",
+          "neutral_rank": 1305,
+          "pos_bucket": "noun",
+          "profile_rank": 6,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.995109,
+          "lemma": "lucha",
+          "neutral_rank": 1323,
+          "pos_bucket": "noun",
+          "profile_rank": 7,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.995063,
+          "lemma": "puerta",
+          "neutral_rank": 1341,
+          "pos_bucket": "noun",
+          "profile_rank": 8,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.994858,
+          "lemma": "disco",
+          "neutral_rank": 1417,
+          "pos_bucket": "noun",
+          "profile_rank": 9,
+          "topics": [
+            "athletics",
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.994558,
+          "lemma": "selección",
+          "neutral_rank": 1524,
+          "pos_bucket": "noun",
+          "profile_rank": 10,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.993953,
+          "lemma": "global",
+          "neutral_rank": 1738,
+          "pos_bucket": "noun",
+          "profile_rank": 11,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.993349,
+          "lemma": "asistencia",
+          "neutral_rank": 1938,
+          "pos_bucket": "noun",
+          "profile_rank": 12,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.99241,
+          "lemma": "salto",
+          "neutral_rank": 2246,
+          "pos_bucket": "noun",
+          "profile_rank": 13,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.9923,
+          "lemma": "descanso",
+          "neutral_rank": 2283,
+          "pos_bucket": "noun",
+          "profile_rank": 14,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.991976,
+          "lemma": "tiro",
+          "neutral_rank": 2391,
+          "pos_bucket": "noun",
+          "profile_rank": 15,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.991956,
+          "lemma": "pase",
+          "neutral_rank": 2396,
+          "pos_bucket": "noun",
+          "profile_rank": 16,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.99171,
+          "lemma": "plantilla",
+          "neutral_rank": 2472,
+          "pos_bucket": "noun",
+          "profile_rank": 17,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.991004,
+          "lemma": "esquina",
+          "neutral_rank": 2682,
+          "pos_bucket": "noun",
+          "profile_rank": 18,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.990957,
+          "lemma": "peña",
+          "neutral_rank": 2698,
+          "pos_bucket": "noun",
+          "profile_rank": 19,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        },
+        {
+          "admission_weight": 0.990552,
+          "lemma": "portero",
+          "neutral_rank": 2815,
+          "pos_bucket": "noun",
+          "profile_rank": 20,
+          "topics": [
+            "hobbies",
+            "lifestyle",
+            "sports"
+          ]
+        }
+      ],
+      "top_rows_with_exact_interest": 20
+    },
+    {
+      "interest": "music",
+      "mean_neutral_rank_of_profile_top_rows": 1629.45,
+      "status": "eligible",
+      "support": {
+        "candidate_count": 88,
+        "candidate_ratio": 0.0088,
+        "eligible_for_scarcity_calibration": true,
+        "mean_topic_specificity": 0.756327,
+        "requested_weight": 1.0,
+        "scarcity_multiplier_preview": 1.0,
+        "scarcity_readiness": "eligible",
+        "scarcity_readiness_reasons": [],
+        "support_mass": 64.070162,
+        "support_mass_ratio": 0.007231,
+        "top_examples": [
+          "orquesta",
+          "ronda",
+          "acompañamiento",
+          "blues",
+          "son"
+        ],
+        "topic": "music",
+        "weight_source": "interests"
+      },
+      "top_rows": [
+        {
+          "admission_weight": 0.999832,
+          "lemma": "orquesta",
+          "neutral_rank": 38,
+          "pos_bucket": "noun",
+          "profile_rank": 1,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.999313,
+          "lemma": "ronda",
+          "neutral_rank": 166,
+          "pos_bucket": "noun",
+          "profile_rank": 2,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.998682,
+          "lemma": "acompañamiento",
+          "neutral_rank": 333,
+          "pos_bucket": "noun",
+          "profile_rank": 3,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.998369,
+          "lemma": "blues",
+          "neutral_rank": 419,
+          "pos_bucket": "noun",
+          "profile_rank": 4,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.995775,
+          "lemma": "son",
+          "neutral_rank": 1097,
+          "pos_bucket": "noun",
+          "profile_rank": 5,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.995678,
+          "lemma": "grupo",
+          "neutral_rank": 1118,
+          "pos_bucket": "noun",
+          "profile_rank": 6,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.995598,
+          "lemma": "bajo",
+          "neutral_rank": 1143,
+          "pos_bucket": "noun",
+          "profile_rank": 7,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.994912,
+          "lemma": "ámbito",
+          "neutral_rank": 1393,
+          "pos_bucket": "noun",
+          "profile_rank": 8,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.994729,
+          "lemma": "tercera",
+          "neutral_rank": 1462,
+          "pos_bucket": "noun",
+          "profile_rank": 9,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.994207,
+          "lemma": "escala",
+          "neutral_rank": 1651,
+          "pos_bucket": "noun",
+          "profile_rank": 10,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.994008,
+          "lemma": "clave",
+          "neutral_rank": 1717,
+          "pos_bucket": "noun",
+          "profile_rank": 11,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.993982,
+          "lemma": "nota",
+          "neutral_rank": 1727,
+          "pos_bucket": "noun",
+          "profile_rank": 12,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.99314,
+          "lemma": "espiritual",
+          "neutral_rank": 2004,
+          "pos_bucket": "noun",
+          "profile_rank": 13,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.992712,
+          "lemma": "piano",
+          "neutral_rank": 2141,
+          "pos_bucket": "noun",
+          "profile_rank": 14,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.992264,
+          "lemma": "ópera",
+          "neutral_rank": 2296,
+          "pos_bucket": "noun",
+          "profile_rank": 15,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.991438,
+          "lemma": "prima",
+          "neutral_rank": 2558,
+          "pos_bucket": "noun",
+          "profile_rank": 16,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.990811,
+          "lemma": "armonía",
+          "neutral_rank": 2744,
+          "pos_bucket": "noun",
+          "profile_rank": 17,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.990568,
+          "lemma": "fantasía",
+          "neutral_rank": 2810,
+          "pos_bucket": "noun",
+          "profile_rank": 18,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.990376,
+          "lemma": "pabellón",
+          "neutral_rank": 2866,
+          "pos_bucket": "noun",
+          "profile_rank": 19,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        },
+        {
+          "admission_weight": 0.990241,
+          "lemma": "toque",
+          "neutral_rank": 2906,
+          "pos_bucket": "noun",
+          "profile_rank": 20,
+          "topics": [
+            "entertainment",
+            "lifestyle",
+            "music"
+          ]
+        }
+      ],
+      "top_rows_with_exact_interest": 20
+    }
+  ],
+  "schema_version": 1,
+  "seed_admission": {
+    "admission_order_preview": [
+      {
+        "admission_weight": 0.999979,
+        "base_weight": 0.999979,
+        "lemma": "siglo",
+        "pmw": 45121.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 11.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999969,
+        "base_weight": 0.999969,
+        "lemma": "millón",
+        "pmw": 45116.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 16.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999965,
+        "base_weight": 0.999965,
+        "lemma": "hora",
+        "pmw": 45114.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 18.0,
+        "topics": [
+          "education"
+        ]
+      },
+      {
+        "admission_weight": 0.99995,
+        "base_weight": 0.99995,
+        "lemma": "música",
+        "pmw": 45107.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 25.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999946,
+        "base_weight": 0.999946,
+        "lemma": "principio",
+        "pmw": 45105.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 27.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999938,
+        "base_weight": 0.999938,
+        "lemma": "movimiento",
+        "pmw": 45101.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 31.0,
+        "topics": [
+          "banking",
+          "business",
+          "entertainment",
+          "finance",
+          "lifestyle",
+          "music"
+        ]
+      },
+      {
+        "admission_weight": 0.999936,
+        "base_weight": 0.999936,
+        "lemma": "luz",
+        "pmw": 45100.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 32.0,
+        "topics": [
+          "anatomy",
+          "architecture",
+          "business",
+          "electrical_engineering",
+          "electricity",
+          "electromagnetism",
+          "energy",
+          "engineering",
+          "finance",
+          "medicine",
+          "natural_sciences",
+          "physical_sciences"
+        ]
+      },
+      {
+        "admission_weight": 0.999934,
+        "base_weight": 0.999934,
+        "lemma": "mayoría",
+        "pmw": 45099.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 33.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999926,
+        "base_weight": 0.999926,
+        "lemma": "fondo",
+        "pmw": 45095.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 37.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999923,
+        "base_weight": 0.999923,
+        "lemma": "hermano",
+        "pmw": 45094.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 38.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999919,
+        "base_weight": 0.999919,
+        "lemma": "producción",
+        "pmw": 45092.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 40.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999917,
+        "base_weight": 0.999917,
+        "lemma": "teatro",
+        "pmw": 45091.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 41.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999907,
+        "base_weight": 0.999907,
+        "lemma": "área",
+        "pmw": 45086.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 46.0,
+        "topics": [
+          "mathematics",
+          "sciences"
+        ]
+      },
+      {
+        "admission_weight": 0.999905,
+        "base_weight": 0.999905,
+        "lemma": "autor",
+        "pmw": 45085.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 47.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999903,
+        "base_weight": 0.999903,
+        "lemma": "capital",
+        "pmw": 45084.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 48.0,
+        "topics": [
+          "business",
+          "finance"
+        ]
+      },
+      {
+        "admission_weight": 0.999901,
+        "base_weight": 0.999901,
+        "lemma": "estilo",
+        "pmw": 45083.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 49.0,
+        "topics": [
+          "biology",
+          "botany",
+          "natural_sciences"
+        ]
+      },
+      {
+        "admission_weight": 0.999899,
+        "base_weight": 0.999899,
+        "lemma": "resto",
+        "pmw": 45082.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 50.0,
+        "topics": [
+          "mathematics",
+          "sciences"
+        ]
+      },
+      {
+        "admission_weight": 0.999897,
+        "base_weight": 0.999897,
+        "lemma": "sol",
+        "pmw": 45081.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 51.0,
+        "topics": [
+          "chemistry",
+          "natural_sciences",
+          "physical_sciences"
+        ]
+      },
+      {
+        "admission_weight": 0.999895,
+        "base_weight": 0.999895,
+        "lemma": "espacio",
+        "pmw": 45080.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 52.0,
+        "topics": [
+          "media",
+          "publishing",
+          "typography"
+        ]
+      },
+      {
+        "admission_weight": 0.99989,
+        "base_weight": 0.99989,
+        "lemma": "necesidad",
+        "pmw": 45078.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 54.0,
+        "topics": []
+      }
+    ],
+    "admitted_top_100_pos_bucket_counts": {
+      "noun": 100
+    },
+    "nonlexical_top_100_after": 0,
+    "nonlexical_top_100_before": 19,
+    "pmw_column_counts": {
+      "pmw": 10000
+    },
+    "pos_bucket_counts": {
+      "adjective": 1487,
+      "adverb": 228,
+      "noun": 6542,
+      "other": 638,
+      "verb": 1105
+    },
+    "pos_mapped_count": 9435,
+    "pos_mapped_share": 0.9435,
+    "pos_source_profile_counts": {
+      "freq-es-cde": 10000
+    },
+    "rank_column_counts": {
+      "id": 10000
+    },
+    "rank_order_preview": [
+      {
+        "admission_weight": 0.4,
+        "base_weight": 1.0,
+        "lemma": "el",
+        "pmw": 45131.0,
+        "pos": "l",
+        "pos_bucket": "other",
+        "pos_mapped": true,
+        "rank": 1.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.549999,
+        "base_weight": 0.999998,
+        "lemma": "no",
+        "pmw": 45130.0,
+        "pos": "r",
+        "pos_bucket": "adverb",
+        "pos_mapped": true,
+        "rank": 2.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.549998,
+        "base_weight": 0.999996,
+        "lemma": "más",
+        "pmw": 45129.0,
+        "pos": "r",
+        "pos_bucket": "adverb",
+        "pos_mapped": true,
+        "rank": 3.0,
+        "topics": [
+          "mathematics",
+          "sciences"
+        ]
+      },
+      {
+        "admission_weight": 0.399998,
+        "base_weight": 0.999994,
+        "lemma": "ese",
+        "pmw": 45128.0,
+        "pos": "d",
+        "pos_bucket": "other",
+        "pos_mapped": true,
+        "rank": 4.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.399997,
+        "base_weight": 0.999992,
+        "lemma": "entre",
+        "pmw": 45127.0,
+        "pos": "e",
+        "pos_bucket": "other",
+        "pos_mapped": true,
+        "rank": 5.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.399996,
+        "base_weight": 0.99999,
+        "lemma": "hasta",
+        "pmw": 45126.0,
+        "pos": "e",
+        "pos_bucket": "other",
+        "pos_mapped": true,
+        "rank": 6.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.699991,
+        "base_weight": 0.999988,
+        "lemma": "deber",
+        "pmw": 45125.0,
+        "pos": "v",
+        "pos_bucket": "verb",
+        "pos_mapped": true,
+        "rank": 7.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.399994,
+        "base_weight": 0.999986,
+        "lemma": "pues",
+        "pmw": 45124.0,
+        "pos": "c",
+        "pos_bucket": "other",
+        "pos_mapped": true,
+        "rank": 8.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.549991,
+        "base_weight": 0.999983,
+        "lemma": "sólo",
+        "pmw": 45123.0,
+        "pos": "r",
+        "pos_bucket": "adverb",
+        "pos_mapped": true,
+        "rank": 9.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.699987,
+        "base_weight": 0.999981,
+        "lemma": "poner",
+        "pmw": 45122.0,
+        "pos": "v",
+        "pos_bucket": "verb",
+        "pos_mapped": true,
+        "rank": 10.0,
+        "topics": [
+          "business",
+          "electrical_engineering",
+          "electricity",
+          "electromagnetism",
+          "electronics",
+          "energy",
+          "engineering",
+          "finance",
+          "natural_sciences",
+          "physical_sciences",
+          "physics"
+        ]
+      },
+      {
+        "admission_weight": 0.999979,
+        "base_weight": 0.999979,
+        "lemma": "siglo",
+        "pmw": 45121.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 11.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.699984,
+        "base_weight": 0.999977,
+        "lemma": "llamar",
+        "pmw": 45120.0,
+        "pos": "v",
+        "pos_bucket": "verb",
+        "pos_mapped": true,
+        "rank": 12.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.849979,
+        "base_weight": 0.999975,
+        "lemma": "mayor",
+        "pmw": 45119.0,
+        "pos": "j",
+        "pos_bucket": "adjective",
+        "pos_mapped": true,
+        "rank": 13.0,
+        "topics": [
+          "entertainment",
+          "government",
+          "lifestyle",
+          "military",
+          "music",
+          "nautical",
+          "politics",
+          "transport",
+          "war"
+        ]
+      },
+      {
+        "admission_weight": 0.849977,
+        "base_weight": 0.999973,
+        "lemma": "nacional",
+        "pmw": 45118.0,
+        "pos": "j",
+        "pos_bucket": "adjective",
+        "pos_mapped": true,
+        "rank": 14.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.849975,
+        "base_weight": 0.999971,
+        "lemma": "político",
+        "pmw": 45117.0,
+        "pos": "j",
+        "pos_bucket": "adjective",
+        "pos_mapped": true,
+        "rank": 15.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999969,
+        "base_weight": 0.999969,
+        "lemma": "millón",
+        "pmw": 45116.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 16.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.699977,
+        "base_weight": 0.999967,
+        "lemma": "preguntar",
+        "pmw": 45115.0,
+        "pos": "v",
+        "pos_bucket": "verb",
+        "pos_mapped": true,
+        "rank": 17.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.999965,
+        "base_weight": 0.999965,
+        "lemma": "hora",
+        "pmw": 45114.0,
+        "pos": "n",
+        "pos_bucket": "noun",
+        "pos_mapped": true,
+        "rank": 18.0,
+        "topics": [
+          "education"
+        ]
+      },
+      {
+        "admission_weight": 0.699974,
+        "base_weight": 0.999963,
+        "lemma": "trabajar",
+        "pmw": 45113.0,
+        "pos": "v",
+        "pos_bucket": "verb",
+        "pos_mapped": true,
+        "rank": 19.0,
+        "topics": []
+      },
+      {
+        "admission_weight": 0.849967,
+        "base_weight": 0.999961,
+        "lemma": "pequeño",
+        "pmw": 45112.0,
+        "pos": "j",
+        "pos_bucket": "adjective",
+        "pos_mapped": true,
+        "rank": 20.0,
+        "topics": []
+      }
+    ],
+    "raw_top_100_pos_bucket_counts": {
+      "adjective": 11,
+      "adverb": 7,
+      "noun": 46,
+      "other": 12,
+      "verb": 24
+    },
+    "selected_count": 10000,
+    "top_n_requested": 10000,
+    "top_topics": [
+      {
+        "count": 464,
+        "topic": "lifestyle"
+      },
+      {
+        "count": 422,
+        "topic": "sciences"
+      },
+      {
+        "count": 335,
+        "topic": "natural_sciences"
+      },
+      {
+        "count": 261,
+        "topic": "hobbies"
+      },
+      {
+        "count": 208,
+        "topic": "sports"
+      },
+      {
+        "count": 187,
+        "topic": "physical_sciences"
+      },
+      {
+        "count": 170,
+        "topic": "medicine"
+      },
+      {
+        "count": 164,
+        "topic": "government"
+      },
+      {
+        "count": 158,
+        "topic": "politics"
+      },
+      {
+        "count": 152,
+        "topic": "mathematics"
+      },
+      {
+        "count": 136,
+        "topic": "entertainment"
+      },
+      {
+        "count": 125,
+        "topic": "human_sciences"
+      },
+      {
+        "count": 112,
+        "topic": "engineering"
+      },
+      {
+        "count": 109,
+        "topic": "games"
+      },
+      {
+        "count": 100,
+        "topic": "finance"
+      },
+      {
+        "count": 97,
+        "topic": "anatomy"
+      },
+      {
+        "count": 94,
+        "topic": "law"
+      },
+      {
+        "count": 91,
+        "topic": "business"
+      },
+      {
+        "count": 88,
+        "topic": "music"
+      },
+      {
+        "count": 83,
+        "topic": "biology"
+      }
+    ],
+    "topic_row_count": 1353,
+    "topic_row_share": 0.1353,
+    "unique_lemma_count": 10000
+  },
+  "status": "ok",
+  "summary": {
+    "finding_counts": {
+      "PASS": 9,
+      "WARN": 1
+    },
+    "issues": [],
+    "nonlexical_top_100_after": 0,
+    "nonlexical_top_100_before": 19,
+    "pos_mapped_share": 0.9435,
+    "profile_interest_status_counts": {
+      "eligible": 4
+    },
+    "selected_count": 10000,
+    "topic_row_share": 0.1353,
+    "unique_lemma_count": 10000,
+    "warnings": [
+      "topic_coverage_sparse"
+    ]
+  }
+}
