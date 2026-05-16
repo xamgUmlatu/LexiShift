@@ -14,6 +14,7 @@ Related docs:
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
+- `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 
 ## Decision Frame
 
@@ -100,6 +101,16 @@ candidates and `16` plants/nature candidates using Tier A topics, Tier C
 allowlisted categories/tags, and Tier D review-gated gloss/translation
 patterns. That is useful evidence for enrichment design, not a promoted overlay
 or admission behavior change.
+
+The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
+more absolute candidates but a similar sparse share: `126 / 10,000` animal
+candidates (`1.3%`) and `92 / 10,000` plants/nature candidates (`0.9%`). This
+means the larger source gives enough examples for validation and overlay design,
+but it does not remove the need for product-owned animal and plant overlays or
+embedding-assisted enrichment. The SPALEX audit also shows why sense-level
+evidence needs review before promotion: some high-scoring Tier A hits are
+polysemous headwords where the animal/plant sense is real but not necessarily
+the dominant learner-facing sense.
 
 ## Labels That Should Not Become User Preferences Directly
 

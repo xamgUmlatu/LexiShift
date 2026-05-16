@@ -25,6 +25,7 @@ Related docs:
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
+- `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 
 ## Data-First Goal
 
@@ -220,6 +221,12 @@ Current product-owned taxonomy artifact:
   The focused confidence audit finds `26` animal candidates and `16`
   plants/nature candidates in existing local sources, but this remains planning
   evidence until converted into a sourced overlay with validation.
+- Rebuilding the provisional SPALEX research pack and running the same
+  read-only confidence audit over the top 10k frontier finds `126` animal
+  candidates (`1.3%`) and `92` plants/nature candidates (`0.9%`). The larger
+  frontier improves absolute sample size but not coverage share, so animal and
+  plant personalization still needs overlays or embedding-assisted enrichment
+  before strong product claims.
 
 ### 2. POS And Function-Word Controls
 
