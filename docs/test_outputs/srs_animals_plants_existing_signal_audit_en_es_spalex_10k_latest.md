@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `animals_plants_existing_signal_audit_completed`
-- Generated: `2026-05-16T21:55:55+00:00`
+- Generated: `2026-05-16T22:20:08+00:00`
 - Rows measured: `10000`
 
 ## Findings
@@ -16,42 +16,42 @@
 
 | Family | Candidates | Share | Tiers | Confidence Bands | Review Required |
 | --- | ---: | ---: | --- | --- | ---: |
-| `animals` | 126 | 1.3% | A=14, C=65, D=47 | high=12, medium=57, review=54, inventory=3 | 57 |
-| `plants_nature` | 92 | 0.9% | A=29, C=54, D=9 | high=27, medium=53, review=12, inventory=0 | 12 |
+| `animals` | 172 | 1.7% | A=14, B=48, C=88, D=22 | high=42, medium=76, review=45, inventory=9 | 52 |
+| `plants_nature` | 138 | 1.4% | A=24, B=13, C=93, D=8 | high=22, medium=85, review=28, inventory=3 | 30 |
 
 ## `animals` Top Candidates
 
 | Lemma | Confidence | Band | Tier | Evidence |
 | --- | ---: | --- | --- | --- |
-| `acompañante` | 0.9 | `high` | `A` | `sense_topics:zoology` |
-| `artículo` | 0.9 | `high` | `A` | `sense_topics:zoology` |
-| `bonito` | 0.9 | `high` | `A` | `sense_topics:zoology` |
-| `broma` | 0.9 | `high` | `A` | `sense_topics:zoology` |
-| `cubrir` | 0.9 | `high` | `A` | `sense_topics:zoology` |
 | `dinosaurio` | 0.9 | `high` | `A` | `sense_topics:zoology` |
-| `listado` | 0.9 | `high` | `A` | `sense_topics:zoology` |
 | `manada` | 0.9 | `high` | `A` | `sense_topics:zoology` |
-| `manta` | 0.9 | `high` | `A` | `sense_topics:zoology` |
 | `morena` | 0.9 | `high` | `A` | `sense_topics:zoology` |
 | `potro` | 0.9 | `high` | `A` | `sense_topics:zoology` |
-| `reo` | 0.9 | `high` | `A` | `sense_topics:zoology` |
+| `araña` | 0.855 | `high` | `B` | `translation:primary_translation:spider` |
+| `asno` | 0.855 | `high` | `B` | `translation:primary_translation:donkey` |
+| `ave` | 0.855 | `high` | `B` | `translation:primary_translation:bird` |
+| `ballena` | 0.855 | `high` | `B` | `translation:primary_translation:whale` |
+| `bestia` | 0.855 | `high` | `B` | `translation:primary_translation:beast` |
+| `burro` | 0.855 | `high` | `B` | `translation:primary_translation:donkey` |
+| `can` | 0.855 | `high` | `B` | `translation:primary_translation:dog` |
+| `carnero` | 0.855 | `high` | `B` | `translation:primary_translation:sheep` |
 
 ## `plants_nature` Top Candidates
 
 | Lemma | Confidence | Band | Tier | Evidence |
 | --- | ---: | --- | --- | --- |
 | `brote` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `campanilla` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `cima` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `cogollo` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `cono` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `cultivar` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `cáliz` | 0.9 | `high` | `A` | `sense_topics:botany` |
 | `espiga` | 0.9 | `high` | `A` | `sense_topics:botany` |
 | `espino` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `estilo` | 0.9 | `high` | `A` | `sense_topics:botany` |
 | `fruto` | 0.9 | `high` | `A` | `sense_topics:botany` |
 | `goma` | 0.9 | `high` | `A` | `sense_topics:botany` |
+| `invernadero` | 0.9 | `high` | `A` | `sense_topics:botany` |
+| `planta` | 0.9 | `high` | `A` | `sense_topics:botany` |
+| `polen` | 0.9 | `high` | `A` | `sense_topics:botany` |
+| `vaina` | 0.9 | `high` | `A` | `sense_topics:botany` |
+| `cebada` | 0.855 | `high` | `B` | `translation:primary_translation:barley` |
+| `flor` | 0.855 | `high` | `B` | `translation:primary_translation:flower` |
+| `hierba` | 0.855 | `high` | `B` | `translation:primary_translation:grass` |
 
 ## Broad Exclusions Sample
 

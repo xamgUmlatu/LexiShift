@@ -96,21 +96,23 @@ The first machine-readable taxonomy/mapping artifact is
 source audit validates the taxonomy and keeps `animals` separate from
 `plants_nature`: trusted current CDE `sense_topics` map only `1 / 1,984`
 lemmas to `animals` and `5 / 1,984` lemmas to `plants_nature`. The focused
-existing-signal audit expands the local, read-only inventory to `26` animal
-candidates and `16` plants/nature candidates using Tier A topics, Tier C
-allowlisted categories/tags, and Tier D review-gated gloss/translation
-patterns. That is useful evidence for enrichment design, not a promoted overlay
-or admission behavior change.
+existing-signal audit expands the local, read-only inventory to `38` animal
+candidates and `22` plants/nature candidates using Tier A topics, Tier B
+primary-sense exact noun translations, Tier C allowlisted categories/tags, and
+Tier D review-gated gloss/translation patterns. That is useful evidence for
+enrichment design, not a promoted overlay or admission behavior change. The
+editable signal policy is tracked in
+`docs/test_inputs/srs_animals_plants_signal_policy_en_es.json`.
 
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
-more absolute candidates but a similar sparse share: `126 / 10,000` animal
-candidates (`1.3%`) and `92 / 10,000` plants/nature candidates (`0.9%`). This
+more absolute candidates but still sparse coverage: `172 / 10,000` animal
+candidates (`1.7%`) and `138 / 10,000` plants/nature candidates (`1.4%`). This
 means the larger source gives enough examples for validation and overlay design,
 but it does not remove the need for product-owned animal and plant overlays or
-embedding-assisted enrichment. The SPALEX audit also shows why sense-level
-evidence needs review before promotion: some high-scoring Tier A hits are
-polysemous headwords where the animal/plant sense is real but not necessarily
-the dominant learner-facing sense.
+embedding-assisted enrichment. The SPALEX audit also applies a secondary-sense
+penalty, because some Tier A/C hits are polysemous headwords where the
+animal/plant sense is real but not necessarily the dominant learner-facing
+sense.
 
 ## Labels That Should Not Become User Preferences Directly
 

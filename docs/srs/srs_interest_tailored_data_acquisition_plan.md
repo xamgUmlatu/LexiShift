@@ -218,15 +218,19 @@ Current product-owned taxonomy artifact:
 - The current audit shows source-ready utility families have measurable
   installed support, while trusted current CDE `sense_topics` map only
   `1 / 1,984` lemmas to `animals` and `5 / 1,984` lemmas to `plants_nature`.
-  The focused confidence audit finds `26` animal candidates and `16`
-  plants/nature candidates in existing local sources, but this remains planning
-  evidence until converted into a sourced overlay with validation.
+  The focused confidence audit finds `38` animal candidates and `22`
+  plants/nature candidates in existing local sources after applying
+  primary-sense exact noun translation evidence, expanded exact category
+  allowlists, and secondary-sense penalties. This remains planning evidence
+  until converted into a sourced overlay with validation. The editable audit
+  policy lives at
+  `docs/test_inputs/srs_animals_plants_signal_policy_en_es.json`.
 - Rebuilding the provisional SPALEX research pack and running the same
-  read-only confidence audit over the top 10k frontier finds `126` animal
-  candidates (`1.3%`) and `92` plants/nature candidates (`0.9%`). The larger
-  frontier improves absolute sample size but not coverage share, so animal and
-  plant personalization still needs overlays or embedding-assisted enrichment
-  before strong product claims.
+  read-only confidence audit over the top 10k frontier finds `172` animal
+  candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger
+  frontier improves absolute sample size but leaves coverage sparse, so animal
+  and plant personalization still needs overlays or embedding-assisted
+  enrichment before strong product claims.
 
 ### 2. POS And Function-Word Controls
 

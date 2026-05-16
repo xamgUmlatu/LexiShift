@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `animals_plants_existing_signal_audit_completed`
-- Generated: `2026-05-16T21:24:10+00:00`
+- Generated: `2026-05-16T22:20:00+00:00`
 - Rows measured: `1984`
 
 ## Findings
@@ -16,34 +16,32 @@
 
 | Family | Candidates | Share | Tiers | Confidence Bands | Review Required |
 | --- | ---: | ---: | --- | --- | ---: |
-| `animals` | 26 | 1.3% | A=1, C=16, D=9 | high=0, medium=13, review=12, inventory=1 | 13 |
-| `plants_nature` | 16 | 0.8% | A=5, C=10, D=1 | high=4, medium=9, review=3, inventory=0 | 3 |
+| `animals` | 38 | 1.9% | A=1, B=10, C=24, D=3 | high=8, medium=21, review=7, inventory=2 | 9 |
+| `plants_nature` | 22 | 1.1% | A=3, B=1, C=17, D=1 | high=2, medium=16, review=3, inventory=1 | 3 |
 
 ## `animals` Top Candidates
 
 | Lemma | Confidence | Band | Tier | Evidence |
 | --- | ---: | --- | --- | --- |
-| `ave` | 0.798 | `medium` | `C` | `entry_categories:birds` |
+| `ave` | 0.855 | `high` | `B` | `translation:primary_translation:bird` |
+| `chancho` | 0.855 | `high` | `B` | `translation:primary_translation:pig` |
+| `ciervo` | 0.855 | `high` | `B` | `translation:primary_translation:deer` |
+| `escarabajo` | 0.855 | `high` | `B` | `translation:primary_translation:beetle` |
+| `lagarto` | 0.855 | `high` | `B` | `translation:primary_translation:lizard` |
+| `lobo` | 0.855 | `high` | `B` | `translation:primary_translation:wolf` |
+| `loro` | 0.855 | `high` | `B` | `translation:primary_translation:parrot` |
+| `puerco` | 0.855 | `high` | `B` | `translation:primary_translation:pig` |
+| `avispa` | 0.798 | `medium` | `C` | `entry_categories:insects` |
+| `chacal` | 0.798 | `medium` | `C` | `entry_categories:canids` |
 | `cordero` | 0.798 | `medium` | `C` | `sense_categories:sheep` |
 | `cormorán` | 0.798 | `medium` | `C` | `sense_categories:birds` |
-| `desmán` | 0.798 | `medium` | `C` | `entry_categories:animals` |
-| `galgo` | 0.798 | `medium` | `C` | `entry_categories:dogs` |
-| `ganso` | 0.798 | `medium` | `C` | `entry_categories:birds` |
-| `labrador` | 0.798 | `medium` | `C` | `entry_categories:dogs` |
-| `lazarillo` | 0.798 | `medium` | `C` | `entry_categories:dogs` |
-| `pichón` | 0.798 | `medium` | `C` | `entry_categories:birds` |
-| `semental` | 0.798 | `medium` | `C` | `entry_categories:horses` |
-| `cachorro` | 0.779 | `medium` | `C` | `entry_categories:baby_animals` |
-| `erizo` | 0.779 | `medium` | `C` | `entry_categories:mammals` |
 
 ## `plants_nature` Top Candidates
 
 | Lemma | Confidence | Band | Tier | Evidence |
 | --- | ---: | --- | --- | --- |
-| `cogollo` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `estilo` | 0.9 | `high` | `A` | `sense_topics:botany` |
 | `vaina` | 0.9 | `high` | `A` | `sense_topics:botany` |
-| `viudo` | 0.9 | `high` | `A` | `sense_topics:botany` |
+| `sauce` | 0.855 | `high` | `B` | `translation:primary_translation:willow` |
 | `añil` | 0.779 | `medium` | `C` | `entry_categories:plants` |
 | `cacao` | 0.779 | `medium` | `C` | `entry_categories:trees` |
 | `cocotero` | 0.779 | `medium` | `C` | `entry_categories:trees` |
@@ -51,7 +49,9 @@
 | `jacinto` | 0.779 | `medium` | `C` | `sense_categories:flowers` |
 | `morera` | 0.779 | `medium` | `C` | `sense_categories:plants` |
 | `nodo` | 0.779 | `medium` | `C` | `sense_categories:botany` |
-| `sauce` | 0.779 | `medium` | `C` | `sense_categories:trees` |
+| `vera` | 0.779 | `medium` | `C` | `entry_categories:trees` |
+| `estilo` | 0.76 | `medium` | `C` | `entry_categories:plant_anatomy` |
+| `canónigo` | 0.741 | `medium` | `C` | `entry_categories:vegetables` |
 
 ## Broad Exclusions Sample
 

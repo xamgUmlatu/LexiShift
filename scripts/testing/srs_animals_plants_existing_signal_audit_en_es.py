@@ -11,6 +11,14 @@ import re
 import sqlite3
 from typing import Mapping, Sequence
 
+from srs_animals_plants_existing_signal_rendering import render_markdown
+from srs_animals_plants_signal_policy import (
+    DEFAULT_SIGNAL_POLICY,
+    SignalPolicy,
+    load_signal_policy,
+    normalize_source_label,
+)
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DATA_ROOT = Path.home() / "Library/Application Support/LexiShift/LexiShift"
@@ -40,68 +48,6 @@ FREQUENCY_VALUE_COLUMNS = (
     "ipm",
 )
 FAMILIES = ("animals", "plants_nature")
-BROAD_EXCLUDED_LABELS = {
-    "biology",
-    "hobbies",
-    "lifestyle",
-    "natural_sciences",
-    "sciences",
-}
-ANIMAL_TOPIC_LABELS = {
-    "animals": 0.95,
-    "zoology": 0.9,
-    "veterinary": 0.85,
-}
-PLANT_TOPIC_LABELS = {
-    "botany": 0.9,
-}
-ANIMAL_CATEGORY_CONFIDENCE = {
-    "animals": 0.84,
-    "baby_animals": 0.82,
-    "birds": 0.84,
-    "cats": 0.84,
-    "dogs": 0.84,
-    "fish": 0.82,
-    "horses": 0.84,
-    "mammals": 0.82,
-    "sheep": 0.84,
-    "zoology": 0.8,
-}
-PLANT_CATEGORY_CONFIDENCE = {
-    "botany": 0.82,
-    "flowers": 0.82,
-    "plants": 0.82,
-    "trees": 0.82,
-    "willows_and_poplars": 0.78,
-}
-ANIMAL_TRANSLATION_PATTERN = re.compile(
-    r"^(?:a |an |the )?"
-    r"(?:animal|bird|cat|cattle|cow|deer|dog|fish|foal|goat|horse|insect|mammal|"
-    r"pig|rabbit|reptile|sheep|snake|spider|wolf)\b"
-)
-ANIMAL_GLOSS_PATTERN = re.compile(
-    r"\b(?:species|breed|genus|family|type|kind) of "
-    r"(?:animal|bird|cat|dog|fish|horse|insect|mammal|reptile|sheep)s?\b|"
-    r"\b(?:catfish|dogfish|mammal|reptile|amphibian)\b"
-)
-PLANT_TRANSLATION_PATTERN = re.compile(r"^(?:a |an |the )?(?:flower|plant|shrub|tree|vine)\b")
-PLANT_GLOSS_PATTERN = re.compile(
-    r"\b(?:species|genus|family|type|kind) of (?:flower|plant|shrub|tree|vine)s?\b|"
-    r"\b(?:flowering plant|woody plant|perennial plant)\b"
-)
-AMBIGUOUS_CONTEXT_LABELS = {
-    "anatomy",
-    "architecture",
-    "astrology",
-    "chess",
-    "colors",
-    "games",
-    "genitalia",
-    "heraldry",
-    "medicine",
-    "people",
-    "tools",
-}
 
 
 @dataclass(frozen=True)
@@ -144,6 +90,7 @@ def _parse_args() -> argparse.Namespace:
             "local en-es sources. Read-only; no downloads and no pack mutation."
         )
     )
+    parser.add_argument("--policy-json", type=Path, default=DEFAULT_SIGNAL_POLICY)
     parser.add_argument("--frequency-db", type=Path, default=DEFAULT_FREQUENCY_DB)
     parser.add_argument("--kaikki-forward-db", type=Path, default=DEFAULT_KAIKKI_FORWARD_DB)
     parser.add_argument("--top-n", type=int, default=10000)
@@ -156,6 +103,7 @@ def _parse_args() -> argparse.Namespace:
 def main() -> int:
     args = _parse_args()
     report = build_report(
+        policy_path=args.policy_json,
         frequency_db=args.frequency_db,
         kaikki_forward_db=args.kaikki_forward_db,
         top_n=max(1, int(args.top_n)),
@@ -176,11 +124,13 @@ def main() -> int:
 
 def build_report(
     *,
+    policy_path: Path = DEFAULT_SIGNAL_POLICY,
     frequency_db: Path = DEFAULT_FREQUENCY_DB,
     kaikki_forward_db: Path = DEFAULT_KAIKKI_FORWARD_DB,
     top_n: int = 10000,
     generated_at: str | None = None,
 ) -> dict[str, object]:
+    policy = load_signal_policy(policy_path)
     frequency_path = Path(frequency_db).expanduser().resolve(strict=False)
     kaikki_path = Path(kaikki_forward_db).expanduser().resolve(strict=False)
     if not frequency_path.exists() or not kaikki_path.exists():
@@ -199,6 +149,7 @@ def build_report(
             family_summaries=[],
             findings=findings,
             broad_exclusions=[],
+            signal_policy=policy,
         )
     lemmas = list(dict.fromkeys(_candidate_lemmas(frequency_path, top_n=top_n)))
     source_rows = load_kaikki_rows(kaikki_path)
@@ -206,7 +157,7 @@ def build_report(
     broad_exclusions: list[dict[str, object]] = []
     for lemma in lemmas:
         rows = source_rows.get(lemma, [])
-        for evidence in evidence_from_rows(lemma, rows):
+        for evidence in evidence_from_rows(lemma, rows, policy):
             evidence_by_family_lemma[(evidence.family, lemma)].append(evidence)
         if len(broad_exclusions) < 24:
             broad_hits = sorted(
@@ -214,7 +165,7 @@ def build_report(
                     label
                     for row in rows
                     for label in row_labels(row)
-                    if label in BROAD_EXCLUDED_LABELS
+                    if label in policy.broad_excluded_labels
                 }
             )
             if broad_hits and not any(
@@ -270,6 +221,7 @@ def build_report(
         family_summaries=family_summaries,
         findings=findings,
         broad_exclusions=broad_exclusions,
+        signal_policy=policy,
     )
 
 
@@ -284,6 +236,7 @@ def _report(
     family_summaries: Sequence[Mapping[str, object]],
     findings: Sequence[Mapping[str, object]],
     broad_exclusions: Sequence[Mapping[str, object]],
+    signal_policy: SignalPolicy,
 ) -> dict[str, object]:
     return {
         "schema_version": 1,
@@ -295,6 +248,8 @@ def _report(
         ),
         "generated_at": generated_at or _utc_now(),
         "inputs": {
+            "signal_policy_json": str(signal_policy.path),
+            "signal_policy_id": signal_policy.policy_id,
             "frequency_db": str(frequency_db),
             "kaikki_forward_db": str(kaikki_forward_db),
             "top_n": int(top_n),
@@ -310,8 +265,13 @@ def _report(
             },
             "tier_policy": {
                 "A": "explicit sense_topics, highest trust",
+                "B": "primary-sense exact noun translation, high trust",
                 "C": "allowlisted categories/tags from existing Kaikki fields",
                 "D": "narrow translation/gloss patterns, review-gated",
+            },
+            "penalty_policy": {
+                "secondary_sense": "0.70 multiplier for non-primary sense rows",
+                "ambiguous_context": "0.70 multiplier when unrelated domain labels are present",
             },
         },
         "row_count": int(row_count),
@@ -332,14 +292,22 @@ def _report(
     }
 
 
-def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list[Evidence]:
+def evidence_from_rows(
+    lemma: str, rows: Sequence[Mapping[str, object]], policy: SignalPolicy
+) -> list[Evidence]:
     evidence: list[Evidence] = []
+    animal_topic_labels = policy.topic_confidence.get("animals", {})
+    plant_topic_labels = policy.topic_confidence.get("plants_nature", {})
+    animal_category_confidence = policy.category_confidence.get("animals", {})
+    plant_category_confidence = policy.category_confidence.get("plants_nature", {})
+    animal_primary_translations = policy.primary_translations.get("animals", frozenset())
+    plant_primary_translations = policy.primary_translations.get("plants_nature", frozenset())
     for row in rows:
         row_context = row_labels(row)
-        ambiguity_penalty = 0.7 if row_context & AMBIGUOUS_CONTEXT_LABELS else 1.0
+        ambiguity_penalty = _combined_penalty(row, row_context, policy)
         for topic_value in _string_list(row.get("topics")):
             topic = normalize_source_label(topic_value)
-            if topic in ANIMAL_TOPIC_LABELS:
+            if topic in animal_topic_labels:
                 evidence.append(
                     make_evidence(
                         family="animals",
@@ -348,13 +316,13 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                         evidence_type="explicit_sense_topic",
                         source_channel="sense_topics",
                         source_label=topic,
-                        base_confidence=ANIMAL_TOPIC_LABELS[topic],
+                        base_confidence=animal_topic_labels[topic],
                         specificity=1.0,
                         ambiguity_penalty=ambiguity_penalty,
                         review_required=False,
                     )
                 )
-            if topic in PLANT_TOPIC_LABELS:
+            if topic in plant_topic_labels:
                 evidence.append(
                     make_evidence(
                         family="plants_nature",
@@ -363,7 +331,7 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                         evidence_type="explicit_sense_topic",
                         source_channel="sense_topics",
                         source_label=topic,
-                        base_confidence=PLANT_TOPIC_LABELS[topic],
+                        base_confidence=plant_topic_labels[topic],
                         specificity=1.0,
                         ambiguity_penalty=ambiguity_penalty,
                         review_required=False,
@@ -372,7 +340,7 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
         for channel in ("sense_categories", "entry_categories", "sense_tags", "entry_tags"):
             for label in _string_list(row.get(channel)):
                 normalized_label = normalize_source_label(label)
-                if normalized_label in ANIMAL_CATEGORY_CONFIDENCE:
+                if normalized_label in animal_category_confidence:
                     evidence.append(
                         make_evidence(
                             family="animals",
@@ -381,13 +349,13 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                             evidence_type="allowlisted_category_or_tag",
                             source_channel=channel,
                             source_label=normalized_label,
-                            base_confidence=ANIMAL_CATEGORY_CONFIDENCE[normalized_label],
+                            base_confidence=animal_category_confidence[normalized_label],
                             specificity=0.95,
                             ambiguity_penalty=ambiguity_penalty,
                             review_required=False,
                         )
                     )
-                if normalized_label in PLANT_CATEGORY_CONFIDENCE:
+                if normalized_label in plant_category_confidence:
                     evidence.append(
                         make_evidence(
                             family="plants_nature",
@@ -396,14 +364,36 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                             evidence_type="allowlisted_category_or_tag",
                             source_channel=channel,
                             source_label=normalized_label,
-                            base_confidence=PLANT_CATEGORY_CONFIDENCE[normalized_label],
+                            base_confidence=plant_category_confidence[normalized_label],
                             specificity=0.95,
                             ambiguity_penalty=ambiguity_penalty,
                             review_required=False,
                         )
                     )
         text_fields = _sense_text(row)
-        if ANIMAL_TRANSLATION_PATTERN.search(text_fields["translation"]):
+        animal_primary = _primary_translation_match(
+            text_fields["translation"], animal_primary_translations
+        )
+        plant_primary = _primary_translation_match(
+            text_fields["translation"], plant_primary_translations
+        )
+        if animal_primary and _is_primary_noun_sense(row):
+            evidence.append(
+                make_evidence(
+                    family="animals",
+                    lemma=lemma,
+                    tier="B",
+                    evidence_type="primary_exact_translation",
+                    source_channel="translation",
+                    source_label=f"primary_translation:{animal_primary}",
+                    base_confidence=0.9,
+                    specificity=0.95,
+                    ambiguity_penalty=ambiguity_penalty,
+                    review_required=False,
+                    snippet=text_fields["translation"][:160],
+                )
+            )
+        elif policy.animal_translation_pattern.search(text_fields["translation"]):
             evidence.append(
                 make_evidence(
                     family="animals",
@@ -419,7 +409,7 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                     snippet=text_fields["translation"][:160],
                 )
             )
-        elif ANIMAL_GLOSS_PATTERN.search(text_fields["combined"]):
+        elif policy.animal_gloss_pattern.search(text_fields["combined"]):
             evidence.append(
                 make_evidence(
                     family="animals",
@@ -435,7 +425,23 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                     snippet=text_fields["combined"][:160],
                 )
             )
-        if PLANT_TRANSLATION_PATTERN.search(text_fields["translation"]):
+        if plant_primary and _is_primary_noun_sense(row):
+            evidence.append(
+                make_evidence(
+                    family="plants_nature",
+                    lemma=lemma,
+                    tier="B",
+                    evidence_type="primary_exact_translation",
+                    source_channel="translation",
+                    source_label=f"primary_translation:{plant_primary}",
+                    base_confidence=0.9,
+                    specificity=0.95,
+                    ambiguity_penalty=ambiguity_penalty,
+                    review_required=False,
+                    snippet=text_fields["translation"][:160],
+                )
+            )
+        elif policy.plant_translation_pattern.search(text_fields["translation"]):
             evidence.append(
                 make_evidence(
                     family="plants_nature",
@@ -451,7 +457,7 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                     snippet=text_fields["translation"][:160],
                 )
             )
-        elif PLANT_GLOSS_PATTERN.search(text_fields["combined"]):
+        elif policy.plant_gloss_pattern.search(text_fields["combined"]):
             evidence.append(
                 make_evidence(
                     family="plants_nature",
@@ -468,6 +474,48 @@ def evidence_from_rows(lemma: str, rows: Sequence[Mapping[str, object]]) -> list
                 )
             )
     return evidence
+
+
+def _combined_penalty(
+    row: Mapping[str, object], row_context: set[str], policy: SignalPolicy
+) -> float:
+    penalty = 1.0
+    if row_context & policy.ambiguous_context_labels:
+        penalty *= 0.7
+    if _sense_index(row) > 0:
+        penalty *= 0.7
+    return penalty
+
+
+def _is_primary_noun_sense(row: Mapping[str, object]) -> bool:
+    return _sense_index(row) == 0 and _is_noun_pos(row.get("pos"))
+
+
+def _sense_index(row: Mapping[str, object]) -> int:
+    value = row.get("sense_index")
+    return value if isinstance(value, int) else 0
+
+
+def _is_noun_pos(value: object) -> bool:
+    return str(value or "").strip().casefold() in {"noun", "n", "sustantivo"}
+
+
+def _primary_translation_match(translation: str, allowlist: set[str] | frozenset[str]) -> str:
+    item = _first_translation_item(translation)
+    return item if item in allowlist else ""
+
+
+def _first_translation_item(translation: str) -> str:
+    text = str(translation or "").strip().casefold()
+    if not text:
+        return ""
+    text = text.replace("’", "'").replace("“", '"').replace("”", '"')
+    text = re.sub(r"^\([^)]*\)\s*", "", text)
+    first = re.split(r"[,;]", text, maxsplit=1)[0]
+    first = re.sub(r"\([^)]*\)", "", first).strip()
+    first = re.sub(r"^(?:a|an|the)\s+", "", first).strip()
+    first = re.sub(r"\s+", " ", first)
+    return first
 
 
 def make_evidence(
@@ -562,9 +610,16 @@ def load_kaikki_rows(path: Path) -> dict[str, list[dict[str, object]]]:
                 "entry_tags": _json_string_list(row["tags_json"]),
                 "entry_categories": _json_string_list(row["categories_json"]),
             }
+        sense_columns = _column_names(conn, "sense_glosses")
+        entry_ord_select = _optional_select_expr(sense_columns, "entry_ord", "rowid", "entry_ord")
+        sense_ord_select = _optional_select_expr(sense_columns, "sense_ord", "rowid", "sense_ord")
+        gloss_ord_select = _optional_select_expr(sense_columns, "gloss_ord", "rowid", "gloss_ord")
+        pos_select = _optional_select_expr(sense_columns, "pos", "''", "pos")
         for row in conn.execute(
-            "SELECT entry_ord, headword_lc, translation, raw_glosses_json, tags_json, "
-            "topics_json, categories_json FROM sense_glosses"
+            f"SELECT {entry_ord_select}, headword_lc, translation, raw_glosses_json, tags_json, "
+            f"topics_json, categories_json, {pos_select}, {sense_ord_select}, {gloss_ord_select}, "
+            "rowid AS rowid FROM sense_glosses "
+            "ORDER BY headword_lc, entry_ord, sense_ord, gloss_ord, rowid"
         ):
             lemma = _normalize_lemma(row["headword_lc"])
             if not lemma:
@@ -572,6 +627,13 @@ def load_kaikki_rows(path: Path) -> dict[str, list[dict[str, object]]]:
             entry_meta = entry_meta_by_ord.get(int(row["entry_ord"]), {})
             rows_by_lemma[lemma].append(
                 {
+                    "sort_key": (
+                        _safe_int(row["entry_ord"]),
+                        _safe_int(row["sense_ord"]),
+                        _safe_int(row["gloss_ord"]),
+                        _safe_int(row["rowid"]),
+                    ),
+                    "pos": str(row["pos"] or ""),
                     "translation": str(row["translation"] or ""),
                     "raw_glosses": _json_string_list(row["raw_glosses_json"]),
                     "topics": _json_string_list(row["topics_json"]),
@@ -581,66 +643,11 @@ def load_kaikki_rows(path: Path) -> dict[str, list[dict[str, object]]]:
                     "entry_categories": _string_list(entry_meta.get("entry_categories")),
                 }
             )
+    for lemma, rows in rows_by_lemma.items():
+        rows.sort(key=lambda row: row.get("sort_key", (0, 0, 0, 0)))
+        for index, row in enumerate(rows):
+            row["sense_index"] = index
     return rows_by_lemma
-
-
-def render_markdown(report: Mapping[str, object]) -> str:
-    lines = [
-        "# en-es Animals/Plants Existing Signal Audit",
-        "",
-        f"- Status: `{report.get('status', '')}`",
-        f"- Decision: `{report.get('decision', '')}`",
-        f"- Generated: `{report.get('generated_at', '')}`",
-        f"- Rows measured: `{report.get('row_count', 0)}`",
-        "",
-        "## Findings",
-        "",
-    ]
-    for finding in _mapping_rows(report.get("findings")):
-        lines.append(
-            f"- `{finding.get('level', '')}` `{finding.get('code', '')}`: "
-            f"{finding.get('message', '')}"
-        )
-    lines.extend(["", "## Family Summary", ""])
-    lines.append("| Family | Candidates | Share | Tiers | Confidence Bands | Review Required |")
-    lines.append("| --- | ---: | ---: | --- | --- | ---: |")
-    for family in _mapping_rows(report.get("families")):
-        lines.append(
-            f"| `{family.get('family', '')}` | {family.get('candidate_count', 0)} | "
-            f"{_pct(family.get('candidate_share'))} | {_compact_counts(family.get('tier_counts'))} | "
-            f"{_compact_counts(family.get('confidence_band_counts'))} | "
-            f"{family.get('review_required_count', 0)} |"
-        )
-    for family in _mapping_rows(report.get("families")):
-        lines.extend(["", f"## `{family.get('family', '')}` Top Candidates", ""])
-        rows = _mapping_rows(family.get("top_candidates"))
-        if not rows:
-            lines.append("_No candidates found._")
-            continue
-        lines.append("| Lemma | Confidence | Band | Tier | Evidence |")
-        lines.append("| --- | ---: | --- | --- | --- |")
-        for row in rows[:12]:
-            evidence = _mapping_rows(row.get("evidence"))
-            top_evidence = evidence[0] if evidence else {}
-            lines.append(
-                f"| `{row.get('lemma', '')}` | {row.get('confidence', 0)} | "
-                f"`{row.get('confidence_band', '')}` | `{row.get('best_tier', '')}` | "
-                f"`{top_evidence.get('source_channel', '')}:{top_evidence.get('source_label', '')}` |"
-            )
-    lines.extend(["", "## Broad Exclusions Sample", ""])
-    broad_exclusions = _mapping_rows(report.get("broad_exclusions"))
-    if not broad_exclusions:
-        lines.append("_No broad-only exclusions sampled._")
-    else:
-        lines.append("| Lemma | Excluded Labels |")
-        lines.append("| --- | --- |")
-        for row in broad_exclusions[:12]:
-            lines.append(
-                f"| `{row.get('lemma', '')}` | `{', '.join(row.get('excluded_labels', []))}` |"
-            )
-    lines.extend(["", "## Limitations", ""])
-    lines.extend(f"- {item}" for item in report.get("limitations", []))
-    return "\n".join(lines) + "\n"
 
 
 def confidence_band(score: float) -> str:
@@ -664,15 +671,6 @@ def row_labels(row: Mapping[str, object]) -> set[str]:
     ):
         labels.update(normalize_source_label(value) for value in _string_list(row.get(key)))
     return {label for label in labels if label}
-
-
-def normalize_source_label(value: object) -> str:
-    text = str(value or "").strip()
-    if ":" in text:
-        prefix, suffix = text.split(":", 1)
-        if prefix.lower() in {"es", "spanish"} and suffix.strip():
-            text = suffix
-    return _normalize_token(text)
 
 
 def _sense_text(row: Mapping[str, object]) -> dict[str, str]:
@@ -713,6 +711,14 @@ def _column_names(conn: sqlite3.Connection, table_name: str) -> list[str]:
     return [str(row[1]) for row in conn.execute(f"PRAGMA table_info({table_name})")]
 
 
+def _optional_select_expr(
+    columns: Sequence[str], column_name: str, fallback_sql: str, alias: str
+) -> str:
+    if column_name in columns:
+        return f"{_quote_identifier(column_name)} AS {_quote_identifier(alias)}"
+    return f"{fallback_sql} AS {_quote_identifier(alias)}"
+
+
 def _resolve_column(requested: str, columns: Sequence[str]) -> str | None:
     lowered = {column.lower(): column for column in columns}
     return lowered.get(str(requested).strip().lower())
@@ -724,6 +730,13 @@ def _resolve_first_column(candidates: Sequence[str], columns: Sequence[str]) -> 
         if resolved:
             return resolved
     return None
+
+
+def _safe_int(value: object) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
 
 
 def _json_string_list(value: object) -> list[str]:
@@ -753,19 +766,8 @@ def _string_list(value: object) -> list[str]:
     return []
 
 
-def _mapping_rows(value: object) -> list[Mapping[str, object]]:
-    if not isinstance(value, list):
-        return []
-    return [row for row in value if isinstance(row, Mapping)]
-
-
 def _counter_rows(counter: Counter[str]) -> list[dict[str, object]]:
     return [{"label": label, "count": count} for label, count in counter.most_common(20)]
-
-
-def _compact_counts(value: object) -> str:
-    mapping = value if isinstance(value, Mapping) else {}
-    return ", ".join(f"{key}={value}" for key, value in mapping.items()) or "none"
 
 
 def _finding(level: str, code: str, message: str) -> dict[str, object]:
@@ -778,26 +780,8 @@ def _ratio(numerator: int, denominator: int) -> float:
     return round(numerator / denominator, 6)
 
 
-def _pct(value: object) -> str:
-    try:
-        return f"{float(value) * 100:.1f}%"
-    except (TypeError, ValueError):
-        return "n/a"
-
-
 def _quote_identifier(value: object) -> str:
     return '"' + str(value).replace('"', '""') + '"'
-
-
-def _normalize_token(value: object) -> str:
-    raw = str(value or "").strip().lower()
-    if not raw:
-        return ""
-    normalized = raw.replace("\\", "_").replace("/", "_").replace("-", "_").replace(" ", "_")
-    normalized = re.sub(r"[^a-z0-9_]+", "_", normalized)
-    while "__" in normalized:
-        normalized = normalized.replace("__", "_")
-    return normalized.strip("_")
 
 
 def _normalize_lemma(value: object) -> str:

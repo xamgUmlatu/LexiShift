@@ -166,9 +166,14 @@
       "review": ">= 0.45 and < 0.65, review-gated inventory"
     },
     "combiner": "max_evidence_score_v1",
+    "penalty_policy": {
+      "ambiguous_context": "0.70 multiplier when unrelated domain labels are present",
+      "secondary_sense": "0.70 multiplier for non-primary sense rows"
+    },
     "score_formula": "base_confidence * specificity * ambiguity_penalty",
     "tier_policy": {
       "A": "explicit sense_topics, highest trust",
+      "B": "primary-sense exact noun translation, high trust",
       "C": "allowlisted categories/tags from existing Kaikki fields",
       "D": "narrow translation/gloss patterns, review-gated"
     }
@@ -176,40 +181,16 @@
   "decision": "animals_plants_existing_signal_audit_completed",
   "families": [
     {
-      "candidate_count": 126,
-      "candidate_share": 0.0126,
+      "candidate_count": 172,
+      "candidate_share": 0.0172,
       "confidence_band_counts": {
-        "high": 12,
-        "inventory": 3,
-        "medium": 57,
-        "review": 54
+        "high": 42,
+        "inventory": 9,
+        "medium": 76,
+        "review": 45
       },
       "family": "animals",
       "review_candidates": [
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "araña",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "spider",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "araña",
-          "review_required": true
-        },
         {
           "best_tier": "D",
           "confidence": 0.648,
@@ -232,246 +213,6 @@
             }
           ],
           "lemma": "aviar",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "bestia",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "animal",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "bestia",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "can",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "dog, hound",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "can",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "carne",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "an animal’s meat, or by extension the edible “fleshy” or soft part of a fruit or vegetable",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "carne",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "cerda",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "pig, slob (woman)",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "cerda",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "chancho",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "pig",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "chancho",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "ciervo",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "deer, stag",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "ciervo",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "collar",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "an animal's collar, band or chain around its neck",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "collar",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "conejera",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "rabbit hutch",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "conejera",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "cuero",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "animal skin, hide",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "cuero",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "culebra",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "snake, serpent (legless reptile of the sub-order serpentes)",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "culebra",
           "review_required": true
         },
         {
@@ -509,102 +250,6 @@
               "confidence_band": "review",
               "evidence_type": "narrow_translation_pattern",
               "family": "animals",
-              "lemma": "gusano",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "insect larva, such as a grub, caterpillar, or maggot",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "gusano",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "insecto",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "insect",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "insecto",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "jardín",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "rabbit hole; a time-consuming, hard to abandon tangent or detour",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "jardín",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "lobo",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "wolf",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "lobo",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
               "lemma": "majada",
               "review_required": true,
               "score": 0.648,
@@ -629,17 +274,17 @@
               "confidence_band": "review",
               "evidence_type": "narrow_translation_pattern",
               "family": "animals",
-              "lemma": "manco",
+              "lemma": "pescado",
               "review_required": true,
               "score": 0.648,
-              "snippet": "horse",
+              "snippet": "fish that has been caught; food fish",
               "source_channel": "translation",
               "source_label": "animal_translation_pattern",
               "specificity": 0.9,
               "tier": "D"
             }
           ],
-          "lemma": "manco",
+          "lemma": "pescado",
           "review_required": true
         },
         {
@@ -653,41 +298,96 @@
               "confidence_band": "review",
               "evidence_type": "narrow_translation_pattern",
               "family": "animals",
-              "lemma": "mozo",
+              "lemma": "pesquera",
               "review_required": true,
               "score": 0.648,
-              "snippet": "cat, tomcat",
+              "snippet": "fish company",
               "source_channel": "translation",
               "source_label": "animal_translation_pattern",
               "specificity": 0.9,
               "tier": "D"
             }
           ],
-          "lemma": "mozo",
+          "lemma": "pesquera",
           "review_required": true
-        }
-      ],
-      "review_required_count": 57,
-      "tier_counts": {
-        "A": 14,
-        "C": 65,
-        "D": 47
-      },
-      "top_candidates": [
+        },
         {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
+          "best_tier": "D",
+          "confidence": 0.648,
+          "confidence_band": "review",
           "evidence": [
             {
               "ambiguity_penalty": 1.0,
+              "base_confidence": 0.72,
+              "confidence_band": "review",
+              "evidence_type": "narrow_translation_pattern",
+              "family": "animals",
+              "lemma": "piscifactoría",
+              "review_required": true,
+              "score": 0.648,
+              "snippet": "fish farm",
+              "source_channel": "translation",
+              "source_label": "animal_translation_pattern",
+              "specificity": 0.9,
+              "tier": "D"
+            }
+          ],
+          "lemma": "piscifactoría",
+          "review_required": true
+        },
+        {
+          "best_tier": "D",
+          "confidence": 0.648,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.72,
+              "confidence_band": "review",
+              "evidence_type": "narrow_translation_pattern",
+              "family": "animals",
+              "lemma": "tac",
+              "review_required": true,
+              "score": 0.648,
+              "snippet": "cat scan; ct scan",
+              "source_channel": "translation",
+              "source_label": "animal_translation_pattern",
+              "specificity": 0.9,
+              "tier": "D"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.72,
+              "confidence_band": "review",
+              "evidence_type": "narrow_translation_pattern",
+              "family": "animals",
+              "lemma": "tac",
+              "review_required": true,
+              "score": 0.4536,
+              "snippet": "cat",
+              "source_channel": "translation",
+              "source_label": "animal_translation_pattern",
+              "specificity": 0.9,
+              "tier": "D"
+            }
+          ],
+          "lemma": "tac",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.9,
-              "confidence_band": "high",
+              "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "animals",
               "lemma": "acompañante",
               "review_required": false,
-              "score": 0.9,
+              "score": 0.63,
               "snippet": "",
               "source_channel": "sense_topics",
               "source_label": "zoology",
@@ -695,14 +395,14 @@
               "tier": "A"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.8,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "acompañante",
               "review_required": false,
-              "score": 0.76,
+              "score": 0.532,
               "snippet": "",
               "source_channel": "sense_categories",
               "source_label": "zoology",
@@ -711,22 +411,22 @@
             }
           ],
           "lemma": "acompañante",
-          "review_required": false
+          "review_required": true
         },
         {
           "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
+          "confidence": 0.63,
+          "confidence_band": "review",
           "evidence": [
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.9,
-              "confidence_band": "high",
+              "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "animals",
               "lemma": "artículo",
               "review_required": false,
-              "score": 0.9,
+              "score": 0.63,
               "snippet": "",
               "source_channel": "sense_topics",
               "source_label": "zoology",
@@ -734,14 +434,14 @@
               "tier": "A"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.8,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "artículo",
               "review_required": false,
-              "score": 0.76,
+              "score": 0.532,
               "snippet": "",
               "source_channel": "sense_categories",
               "source_label": "zoology",
@@ -750,22 +450,22 @@
             }
           ],
           "lemma": "artículo",
-          "review_required": false
+          "review_required": true
         },
         {
           "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
+          "confidence": 0.63,
+          "confidence_band": "review",
           "evidence": [
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.9,
-              "confidence_band": "high",
+              "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "animals",
               "lemma": "bonito",
               "review_required": false,
-              "score": 0.9,
+              "score": 0.63,
               "snippet": "",
               "source_channel": "sense_topics",
               "source_label": "zoology",
@@ -773,14 +473,14 @@
               "tier": "A"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.9,
-              "confidence_band": "high",
+              "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "animals",
               "lemma": "bonito",
               "review_required": false,
-              "score": 0.9,
+              "score": 0.63,
               "snippet": "",
               "source_channel": "sense_topics",
               "source_label": "zoology",
@@ -788,14 +488,14 @@
               "tier": "A"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.82,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "bonito",
               "review_required": false,
-              "score": 0.779,
+              "score": 0.5453,
               "snippet": "",
               "source_channel": "sense_categories",
               "source_label": "fish",
@@ -803,14 +503,14 @@
               "tier": "C"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.82,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "bonito",
               "review_required": false,
-              "score": 0.779,
+              "score": 0.5453,
               "snippet": "",
               "source_channel": "sense_categories",
               "source_label": "fish",
@@ -819,22 +519,22 @@
             }
           ],
           "lemma": "bonito",
-          "review_required": false
+          "review_required": true
         },
         {
           "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
+          "confidence": 0.63,
+          "confidence_band": "review",
           "evidence": [
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.9,
-              "confidence_band": "high",
+              "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "animals",
               "lemma": "broma",
               "review_required": false,
-              "score": 0.9,
+              "score": 0.63,
               "snippet": "",
               "source_channel": "sense_topics",
               "source_label": "zoology",
@@ -842,14 +542,14 @@
               "tier": "A"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.8,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "broma",
               "review_required": false,
-              "score": 0.76,
+              "score": 0.532,
               "snippet": "",
               "source_channel": "sense_categories",
               "source_label": "zoology",
@@ -858,22 +558,22 @@
             }
           ],
           "lemma": "broma",
-          "review_required": false
+          "review_required": true
         },
         {
           "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
+          "confidence": 0.63,
+          "confidence_band": "review",
           "evidence": [
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.9,
-              "confidence_band": "high",
+              "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "animals",
-              "lemma": "cubrir",
+              "lemma": "coral",
               "review_required": false,
-              "score": 0.9,
+              "score": 0.63,
               "snippet": "",
               "source_channel": "sense_topics",
               "source_label": "zoology",
@@ -881,14 +581,53 @@
               "tier": "A"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.8,
-              "confidence_band": "medium",
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "coral",
+              "review_required": false,
+              "score": 0.532,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "zoology",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "coral",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "animals",
+              "lemma": "cubrir",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "zoology",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.8,
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "cubrir",
               "review_required": false,
-              "score": 0.76,
+              "score": 0.532,
               "snippet": "",
               "source_channel": "sense_categories",
               "source_label": "zoology",
@@ -897,8 +636,530 @@
             }
           ],
           "lemma": "cubrir",
-          "review_required": false
+          "review_required": true
         },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "animals",
+              "lemma": "listado",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "zoology",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "listado",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "fish",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "listado",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "animals",
+              "lemma": "manta",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "zoology",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.72,
+              "confidence_band": "review",
+              "evidence_type": "narrow_translation_pattern",
+              "family": "animals",
+              "lemma": "manta",
+              "review_required": true,
+              "score": 0.4536,
+              "snippet": "a fish trap shaped like a blanket",
+              "source_channel": "translation",
+              "source_label": "animal_translation_pattern",
+              "specificity": 0.9,
+              "tier": "D"
+            }
+          ],
+          "lemma": "manta",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "animals",
+              "lemma": "reo",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "zoology",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "reo",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "fish",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "reo",
+          "review_required": true
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.5985,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "caballo",
+              "review_required": false,
+              "score": 0.5985,
+              "snippet": "horse",
+              "source_channel": "translation",
+              "source_label": "primary_translation:horse",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "caballo",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "horses",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "caballo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "horses",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "caballo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "horses",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "caballo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "horses",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "caballo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "horses",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "caballo",
+          "review_required": true
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.5985,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "chivo",
+              "review_required": false,
+              "score": 0.5985,
+              "snippet": "goat (animal), kid (young male goat, most often)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:goat",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "chivo",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "goats",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "chivo",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "baby_animals",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "chivo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "goats",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "chivo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "goats",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "chivo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "goats",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "chivo",
+          "review_required": true
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.5985,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "conejo",
+              "review_required": false,
+              "score": 0.5985,
+              "snippet": "rabbit, cony, coney (male or unspecified sex)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:rabbit",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "conejo",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "rabbits",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "conejo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "rabbits",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "conejo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "rabbits",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "conejo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "rabbits",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "conejo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "rabbits",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "conejo",
+          "review_required": true
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.5985,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "gallo",
+              "review_required": false,
+              "score": 0.5985,
+              "snippet": "rooster, cock (male domestic chicken)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:rooster",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallo",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "poultry",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "poultry",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "poultry",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "poultry",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.84,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallo",
+              "review_required": false,
+              "score": 0.39102,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "poultry",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "gallo",
+          "review_required": true
+        }
+      ],
+      "review_required_count": 52,
+      "tier_counts": {
+        "A": 14,
+        "B": 48,
+        "C": 88,
+        "D": 22
+      },
+      "top_candidates": [
         {
           "best_tier": "A",
           "confidence": 0.9,
@@ -918,6 +1179,21 @@
               "source_label": "zoology",
               "specificity": 1.0,
               "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "dinosaurio",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "dinosaur",
+              "source_channel": "translation",
+              "source_label": "primary_translation:dinosaur",
+              "specificity": 0.95,
+              "tier": "B"
             },
             {
               "ambiguity_penalty": 1.0,
@@ -936,45 +1212,6 @@
             }
           ],
           "lemma": "dinosaurio",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "animals",
-              "lemma": "listado",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "zoology",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "listado",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "fish",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "listado",
           "review_required": false
         },
         {
@@ -1014,45 +1251,6 @@
             }
           ],
           "lemma": "manada",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "animals",
-              "lemma": "manta",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "zoology",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "manta",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "a fish trap shaped like a blanket",
-              "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "manta",
           "review_required": false
         },
         {
@@ -1133,11 +1331,41 @@
               "ambiguity_penalty": 1.0,
               "base_confidence": 0.9,
               "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "potro",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "(young) stallion",
+              "source_channel": "translation",
+              "source_label": "primary_translation:stallion",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "potro",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "horses",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "animals",
               "lemma": "potro",
               "review_required": false,
-              "score": 0.9,
+              "score": 0.63,
               "snippet": "",
               "source_channel": "sense_topics",
               "source_label": "zoology",
@@ -1145,14 +1373,14 @@
               "tier": "A"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.84,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "potro",
               "review_required": false,
-              "score": 0.798,
+              "score": 0.5586,
               "snippet": "",
               "source_channel": "entry_categories",
               "source_label": "horses",
@@ -1160,44 +1388,14 @@
               "tier": "C"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.84,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
               "lemma": "potro",
               "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "horses",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "potro",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "horses",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "potro",
-              "review_required": false,
-              "score": 0.798,
+              "score": 0.5586,
               "snippet": "",
               "source_channel": "entry_categories",
               "source_label": "horses",
@@ -1209,294 +1407,156 @@
           "review_required": false
         },
         {
-          "best_tier": "A",
-          "confidence": 0.9,
+          "best_tier": "B",
+          "confidence": 0.855,
           "confidence_band": "high",
           "evidence": [
             {
               "ambiguity_penalty": 1.0,
               "base_confidence": 0.9,
               "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
+              "evidence_type": "primary_exact_translation",
               "family": "animals",
-              "lemma": "reo",
+              "lemma": "araña",
               "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "zoology",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "reo",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "fish",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "reo",
-          "review_required": false
-        },
-        {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "animal",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "animals",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "animal",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "animals",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "animal",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "animal",
+              "score": 0.855,
+              "snippet": "spider",
               "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            },
+              "source_label": "primary_translation:spider",
+              "specificity": 0.95,
+              "tier": "B"
+            }
+          ],
+          "lemma": "araña",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
             {
               "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
               "family": "animals",
-              "lemma": "animal",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "animal",
+              "lemma": "asno",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "donkey, ass",
               "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
+              "source_label": "primary_translation:donkey",
+              "specificity": 0.95,
+              "tier": "B"
             }
           ],
-          "lemma": "animal",
+          "lemma": "asno",
           "review_required": false
         },
         {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
           "evidence": [
             {
               "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "ara",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "ara",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "ara",
-          "review_required": false
-        },
-        {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "aura",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "aura",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "aura",
-          "review_required": false
-        },
-        {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
               "family": "animals",
               "lemma": "ave",
               "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "ave",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "ave",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "ave",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "ave",
-              "review_required": true,
-              "score": 0.648,
+              "score": 0.855,
               "snippet": "bird",
               "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
+              "source_label": "primary_translation:bird",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "ave",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "ave",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "ave",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "ave",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
             }
           ],
           "lemma": "ave",
           "review_required": false
         },
         {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
           "evidence": [
             {
               "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
               "family": "animals",
-              "lemma": "avión",
+              "lemma": "ballena",
               "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
+              "score": 0.855,
+              "snippet": "whale",
+              "source_channel": "translation",
+              "source_label": "primary_translation:whale",
               "specificity": 0.95,
-              "tier": "C"
+              "tier": "B"
             },
             {
               "ambiguity_penalty": 1.0,
@@ -1504,190 +1564,631 @@
               "confidence_band": "medium",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
-              "lemma": "avión",
+              "lemma": "ballena",
               "review_required": false,
               "score": 0.798,
               "snippet": "",
               "source_channel": "entry_categories",
-              "source_label": "birds",
+              "source_label": "whales",
               "specificity": 0.95,
               "tier": "C"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.84,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
-              "lemma": "avión",
+              "lemma": "ballena",
               "review_required": false,
-              "score": 0.798,
+              "score": 0.5586,
               "snippet": "",
               "source_channel": "entry_categories",
-              "source_label": "birds",
+              "source_label": "whales",
               "specificity": 0.95,
               "tier": "C"
             }
           ],
-          "lemma": "avión",
+          "lemma": "ballena",
           "review_required": false
         },
         {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
           "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "bestia",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "beast",
+              "source_channel": "translation",
+              "source_label": "primary_translation:beast",
+              "specificity": 0.95,
+              "tier": "B"
+            }
+          ],
+          "lemma": "bestia",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "burro",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "donkey, especially one used as a pack animal",
+              "source_channel": "translation",
+              "source_label": "primary_translation:donkey",
+              "specificity": 0.95,
+              "tier": "B"
+            }
+          ],
+          "lemma": "burro",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "can",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "dog, hound",
+              "source_channel": "translation",
+              "source_label": "primary_translation:dog",
+              "specificity": 0.95,
+              "tier": "B"
+            }
+          ],
+          "lemma": "can",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "carnero",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "a sheep, a ram (woolly ruminant of the genus ovis, especially a male)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:sheep",
+              "specificity": 0.95,
+              "tier": "B"
+            },
             {
               "ambiguity_penalty": 1.0,
               "base_confidence": 0.84,
               "confidence_band": "medium",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "animals",
-              "lemma": "buitre",
+              "lemma": "carnero",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "sheep",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "carnero",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "sheep",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "carnero",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "sheep",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "carnero",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "sheep",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "carnero",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "sheep",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "carnero",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "chancho",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "pig",
+              "source_channel": "translation",
+              "source_label": "primary_translation:pig",
+              "specificity": 0.95,
+              "tier": "B"
+            }
+          ],
+          "lemma": "chancho",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "ciervo",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "deer, stag",
+              "source_channel": "translation",
+              "source_label": "primary_translation:deer",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "ciervo",
               "review_required": false,
               "score": 0.798,
               "snippet": "",
               "source_channel": "sense_categories",
-              "source_label": "birds",
+              "source_label": "cervids",
               "specificity": 0.95,
               "tier": "C"
             }
           ],
-          "lemma": "buitre",
+          "lemma": "ciervo",
           "review_required": false
         },
         {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
           "evidence": [
             {
               "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
               "family": "animals",
-              "lemma": "buscarla",
+              "lemma": "cuervo",
               "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "birds",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "buscarla",
-          "review_required": false
-        },
-        {
-          "best_tier": "C",
-          "confidence": 0.798,
-          "confidence_band": "medium",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "carnero",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "sheep",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "carnero",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "sheep",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "carnero",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "sheep",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "carnero",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "sheep",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.84,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "animals",
-              "lemma": "carnero",
-              "review_required": false,
-              "score": 0.798,
-              "snippet": "",
-              "source_channel": "entry_categories",
-              "source_label": "sheep",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "animals",
-              "lemma": "carnero",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "a sheep, a ram (woolly ruminant of the genus ovis, especially a male)",
+              "score": 0.855,
+              "snippet": "crow (bird)",
               "source_channel": "translation",
-              "source_label": "animal_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
+              "source_label": "primary_translation:crow",
+              "specificity": 0.95,
+              "tier": "B"
             }
           ],
-          "lemma": "carnero",
+          "lemma": "cuervo",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "culebra",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "snake, serpent (legless reptile of the sub-order serpentes)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:snake",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "culebra",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "snakes",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "culebra",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "snakes",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "culebra",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "snakes",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "culebra",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "cóndor",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "condor",
+              "source_channel": "translation",
+              "source_label": "primary_translation:condor",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "cóndor",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds_of_prey",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "cóndor",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds_of_prey",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "cóndor",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "escarabajo",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "beetle",
+              "source_channel": "translation",
+              "source_label": "primary_translation:beetle",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "escarabajo",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "beetles",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "escarabajo",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "beetles",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "escarabajo",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "gallina",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "hen",
+              "source_channel": "translation",
+              "source_label": "primary_translation:hen",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallina",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallina",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "poultry",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallina",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "gallina",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "poultry",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "gallina",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "animals",
+              "lemma": "halcón",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "falcon (diurnal bird of prey in falconidae and especially in falco)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:falcon",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.84,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "halcón",
+              "review_required": false,
+              "score": 0.798,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "halcón",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.84,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "animals",
+              "lemma": "halcón",
+              "review_required": false,
+              "score": 0.5586,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "birds",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "halcón",
           "review_required": false
         }
       ],
       "top_source_labels": [
         {
-          "count": 37,
-          "label": "animal_translation_pattern"
+          "count": 24,
+          "label": "birds"
         },
         {
-          "count": 30,
-          "label": "birds"
+          "count": 15,
+          "label": "animal_translation_pattern"
         },
         {
           "count": 14,
@@ -1695,125 +2196,85 @@
         },
         {
           "count": 10,
-          "label": "animal_gloss_pattern"
+          "label": "insects"
         },
         {
-          "count": 10,
+          "count": 9,
           "label": "fish"
         },
         {
-          "count": 6,
-          "label": "mammals"
-        },
-        {
-          "count": 6,
-          "label": "horses"
+          "count": 7,
+          "label": "animal_gloss_pattern"
         },
         {
           "count": 5,
+          "label": "cattle"
+        },
+        {
+          "count": 4,
           "label": "dogs"
         },
         {
+          "count": 4,
+          "label": "mammals"
+        },
+        {
+          "count": 4,
+          "label": "horses"
+        },
+        {
           "count": 3,
-          "label": "sheep"
+          "label": "primates"
         },
         {
           "count": 2,
-          "label": "baby_animals"
+          "label": "primary_translation:bird"
+        },
+        {
+          "count": 2,
+          "label": "poultry"
+        },
+        {
+          "count": 2,
+          "label": "primary_translation:deer"
+        },
+        {
+          "count": 2,
+          "label": "snakes"
         },
         {
           "count": 2,
           "label": "animals"
         },
         {
-          "count": 1,
-          "label": "cats"
+          "count": 2,
+          "label": "primary_translation:pig"
+        },
+        {
+          "count": 2,
+          "label": "canids"
+        },
+        {
+          "count": 2,
+          "label": "primary_translation:dog"
+        },
+        {
+          "count": 2,
+          "label": "primary_translation:sheep"
         }
       ]
     },
     {
-      "candidate_count": 92,
-      "candidate_share": 0.0092,
+      "candidate_count": 138,
+      "candidate_share": 0.0138,
       "confidence_band_counts": {
-        "high": 27,
-        "inventory": 0,
-        "medium": 53,
-        "review": 12
+        "high": 22,
+        "inventory": 3,
+        "medium": 85,
+        "review": 28
       },
       "family": "plants_nature",
       "review_candidates": [
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "plants_nature",
-              "lemma": "carolina",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "a tree of species sideroxylon salicifolium (willow bully, white bully, willow bustic; syn. dipholis salicifolia)",
-              "source_channel": "translation",
-              "source_label": "plant_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "carolina",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "plants_nature",
-              "lemma": "palo",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "tree",
-              "source_channel": "translation",
-              "source_label": "plant_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "palo",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "plants_nature",
-              "lemma": "rambla",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "tree-lined avenue",
-              "source_channel": "translation",
-              "source_label": "plant_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "rambla",
-          "review_required": true
-        },
         {
           "best_tier": "D",
           "confidence": 0.648,
@@ -1849,30 +2310,6 @@
               "confidence_band": "review",
               "evidence_type": "narrow_translation_pattern",
               "family": "plants_nature",
-              "lemma": "valdivia",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "plant in the valdivia genus",
-              "source_channel": "translation",
-              "source_label": "plant_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "valdivia",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "plants_nature",
               "lemma": "vegetal",
               "review_required": true,
               "score": 0.648,
@@ -1887,30 +2324,6 @@
           "review_required": true
         },
         {
-          "best_tier": "D",
-          "confidence": 0.648,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "plants_nature",
-              "lemma": "vid",
-              "review_required": true,
-              "score": 0.648,
-              "snippet": "vine, grapevine",
-              "source_channel": "translation",
-              "source_label": "plant_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
-            }
-          ],
-          "lemma": "vid",
-          "review_required": true
-        },
-        {
           "best_tier": "A",
           "confidence": 0.63,
           "confidence_band": "review",
@@ -1921,7 +2334,7 @@
               "confidence_band": "review",
               "evidence_type": "explicit_sense_topic",
               "family": "plants_nature",
-              "lemma": "coral",
+              "lemma": "campanilla",
               "review_required": false,
               "score": 0.63,
               "snippet": "",
@@ -1936,7 +2349,7 @@
               "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "plants_nature",
-              "lemma": "coral",
+              "lemma": "campanilla",
               "review_required": false,
               "score": 0.5453,
               "snippet": "",
@@ -1946,7 +2359,85 @@
               "tier": "C"
             }
           ],
-          "lemma": "coral",
+          "lemma": "campanilla",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "cima",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cima",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "cima",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "cultivar",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cultivar",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "cultivar",
           "review_required": true
         },
         {
@@ -1989,6 +2480,456 @@
           "review_required": true
         },
         {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "hueso",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "hueso",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "hueso",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "lata",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "lata",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "lata",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "limbo",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "limbo",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "limbo",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "lámina",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "lámina",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.9,
+              "confidence_band": "inventory",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "lámina",
+              "review_required": false,
+              "score": 0.441,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.82,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "lámina",
+              "review_required": false,
+              "score": 0.38171,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "lámina",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "médula",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "médula",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "médula",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "pulpa",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "pulpa",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "pulpa",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "pulpa",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "pulpa",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "rabo",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "rabo",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "rabo",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "vicio",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "vicio",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "vicio",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "viudo",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "viudo",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "plants",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "viudo",
+          "review_required": true
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.63,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "ápice",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "ápice",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "ápice",
+          "review_required": true
+        },
+        {
           "best_tier": "C",
           "confidence": 0.5453,
           "confidence_band": "review",
@@ -2009,14 +2950,14 @@
               "tier": "C"
             },
             {
-              "ambiguity_penalty": 0.7,
+              "ambiguity_penalty": 0.49,
               "base_confidence": 0.82,
-              "confidence_band": "review",
+              "confidence_band": "inventory",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "plants_nature",
               "lemma": "castaño",
               "review_required": false,
-              "score": 0.5453,
+              "score": 0.38171,
               "snippet": "",
               "source_channel": "entry_categories",
               "source_label": "trees",
@@ -2028,59 +2969,189 @@
           "review_required": true
         },
         {
-          "best_tier": "D",
-          "confidence": 0.527,
-          "confidence_band": "review",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.62,
-              "confidence_band": "review",
-              "evidence_type": "narrow_gloss_pattern",
-              "family": "plants_nature",
-              "lemma": "suspiro",
-              "review_required": true,
-              "score": 0.527,
-              "snippet": "nolana (type of flower)",
-              "source_channel": "gloss_or_translation",
-              "source_label": "plant_gloss_pattern",
-              "specificity": 0.85,
-              "tier": "D"
-            }
-          ],
-          "lemma": "suspiro",
-          "review_required": true
-        },
-        {
-          "best_tier": "D",
-          "confidence": 0.4536,
+          "best_tier": "C",
+          "confidence": 0.5453,
           "confidence_band": "review",
           "evidence": [
             {
               "ambiguity_penalty": 0.7,
-              "base_confidence": 0.72,
+              "base_confidence": 0.82,
               "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
+              "evidence_type": "allowlisted_category_or_tag",
               "family": "plants_nature",
-              "lemma": "loco",
-              "review_required": true,
-              "score": 0.4536,
-              "snippet": "a plant in the genus astragalus or oxytropis",
-              "source_channel": "translation",
-              "source_label": "plant_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
+              "lemma": "cola",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cola",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cola",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cola",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cola",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cola",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
             }
           ],
-          "lemma": "loco",
+          "lemma": "cola",
+          "review_required": true
+        },
+        {
+          "best_tier": "C",
+          "confidence": 0.5453,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "verónica",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "plants",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "verónica",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "plants",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "verónica",
+          "review_required": true
+        },
+        {
+          "best_tier": "C",
+          "confidence": 0.532,
+          "confidence_band": "review",
+          "evidence": [
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.8,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "angélica",
+              "review_required": false,
+              "score": 0.532,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "herbs",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.78,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "angélica",
+              "review_required": false,
+              "score": 0.5187,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "spices_and_herbs",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "angélica",
           "review_required": true
         }
       ],
-      "review_required_count": 12,
+      "review_required_count": 30,
       "tier_counts": {
-        "A": 29,
-        "C": 54,
-        "D": 9
+        "A": 24,
+        "B": 13,
+        "C": 93,
+        "D": 8
       },
       "top_candidates": [
         {
@@ -2120,270 +3191,6 @@
             }
           ],
           "lemma": "brote",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "campanilla",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "campanilla",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "plants",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "campanilla",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "cima",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "cima",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "cima",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "cogollo",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "cogollo",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "cogollo",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "cogollo",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "cogollo",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "cono",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "cono",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "cono",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "cultivar",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "cultivar",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "cultivar",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "cáliz",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "cáliz",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "cáliz",
           "review_required": false
         },
         {
@@ -2475,45 +3282,6 @@
               "confidence_band": "high",
               "evidence_type": "explicit_sense_topic",
               "family": "plants_nature",
-              "lemma": "estilo",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "estilo",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "estilo",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
               "lemma": "fruto",
               "review_required": false,
               "score": 0.9,
@@ -2564,21 +3332,6 @@
             },
             {
               "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "goma",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
               "base_confidence": 0.82,
               "confidence_band": "medium",
               "evidence_type": "allowlisted_category_or_tag",
@@ -2593,14 +3346,29 @@
               "tier": "C"
             },
             {
-              "ambiguity_penalty": 1.0,
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.9,
+              "confidence_band": "review",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "goma",
+              "review_required": false,
+              "score": 0.63,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.82,
-              "confidence_band": "medium",
+              "confidence_band": "review",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "plants_nature",
               "lemma": "goma",
               "review_required": false,
-              "score": 0.779,
+              "score": 0.5453,
               "snippet": "",
               "source_channel": "sense_categories",
               "source_label": "botany",
@@ -2609,45 +3377,6 @@
             }
           ],
           "lemma": "goma",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "hueso",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "hueso",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "hueso",
           "review_required": false
         },
         {
@@ -2700,192 +3429,6 @@
               "confidence_band": "high",
               "evidence_type": "explicit_sense_topic",
               "family": "plants_nature",
-              "lemma": "lata",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "lata",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "lata",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "limbo",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "limbo",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "limbo",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "lámina",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "lámina",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 0.7,
-              "base_confidence": 0.9,
-              "confidence_band": "review",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "lámina",
-              "review_required": false,
-              "score": 0.63,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 0.7,
-              "base_confidence": 0.82,
-              "confidence_band": "review",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "lámina",
-              "review_required": false,
-              "score": 0.5453,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "lámina",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
-              "lemma": "médula",
-              "review_required": false,
-              "score": 0.9,
-              "snippet": "",
-              "source_channel": "sense_topics",
-              "source_label": "botany",
-              "specificity": 1.0,
-              "tier": "A"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
-              "family": "plants_nature",
-              "lemma": "médula",
-              "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            }
-          ],
-          "lemma": "médula",
-          "review_required": false
-        },
-        {
-          "best_tier": "A",
-          "confidence": 0.9,
-          "confidence_band": "high",
-          "evidence": [
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.9,
-              "confidence_band": "high",
-              "evidence_type": "explicit_sense_topic",
-              "family": "plants_nature",
               "lemma": "planta",
               "review_required": false,
               "score": 0.9,
@@ -2897,43 +3440,43 @@
             },
             {
               "ambiguity_penalty": 1.0,
-              "base_confidence": 0.82,
-              "confidence_band": "medium",
-              "evidence_type": "allowlisted_category_or_tag",
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
               "family": "plants_nature",
               "lemma": "planta",
               "review_required": false,
-              "score": 0.779,
-              "snippet": "",
-              "source_channel": "sense_categories",
-              "source_label": "botany",
-              "specificity": 0.95,
-              "tier": "C"
-            },
-            {
-              "ambiguity_penalty": 1.0,
-              "base_confidence": 0.72,
-              "confidence_band": "review",
-              "evidence_type": "narrow_translation_pattern",
-              "family": "plants_nature",
-              "lemma": "planta",
-              "review_required": true,
-              "score": 0.648,
+              "score": 0.855,
               "snippet": "plant (an organism of the kingdom plantae)",
               "source_channel": "translation",
-              "source_label": "plant_translation_pattern",
-              "specificity": 0.9,
-              "tier": "D"
+              "source_label": "primary_translation:plant",
+              "specificity": 0.95,
+              "tier": "B"
             },
             {
               "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "planta",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
               "base_confidence": 0.72,
               "confidence_band": "review",
               "evidence_type": "narrow_translation_pattern",
               "family": "plants_nature",
               "lemma": "planta",
               "review_required": true,
-              "score": 0.648,
+              "score": 0.4536,
               "snippet": "plant (factory)",
               "source_channel": "translation",
               "source_label": "plant_translation_pattern",
@@ -2955,7 +3498,7 @@
               "confidence_band": "high",
               "evidence_type": "explicit_sense_topic",
               "family": "plants_nature",
-              "lemma": "plátano",
+              "lemma": "polen",
               "review_required": false,
               "score": 0.9,
               "snippet": "",
@@ -2970,7 +3513,7 @@
               "confidence_band": "medium",
               "evidence_type": "allowlisted_category_or_tag",
               "family": "plants_nature",
-              "lemma": "plátano",
+              "lemma": "polen",
               "review_required": false,
               "score": 0.779,
               "snippet": "",
@@ -2980,18 +3523,790 @@
               "tier": "C"
             }
           ],
-          "lemma": "plátano",
+          "lemma": "polen",
+          "review_required": false
+        },
+        {
+          "best_tier": "A",
+          "confidence": 0.9,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "explicit_sense_topic",
+              "family": "plants_nature",
+              "lemma": "vaina",
+              "review_required": false,
+              "score": 0.9,
+              "snippet": "",
+              "source_channel": "sense_topics",
+              "source_label": "botany",
+              "specificity": 1.0,
+              "tier": "A"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "vaina",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "botany",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "vaina",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "cebada",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "barley",
+              "source_channel": "translation",
+              "source_label": "primary_translation:barley",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.8,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "cebada",
+              "review_required": false,
+              "score": 0.76,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "grains",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "cebada",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "flor",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "flower (structure in angiosperms)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:flower",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "flor",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "flor",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "flor",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "flor",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "flor",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "flor",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "hierba",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "grass (plant of the family poaceae or plant that resembles grasses)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:grass",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.8,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "hierba",
+              "review_required": false,
+              "score": 0.76,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "herbs",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.8,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "hierba",
+              "review_required": false,
+              "score": 0.532,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "herbs",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.8,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "hierba",
+              "review_required": false,
+              "score": 0.532,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "herbs",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.8,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "hierba",
+              "review_required": false,
+              "score": 0.532,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "herbs",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "hierba",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "mata",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "shrub",
+              "source_channel": "translation",
+              "source_label": "primary_translation:shrub",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "mata",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "mata",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "mata",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "mata",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.72,
+              "confidence_band": "review",
+              "evidence_type": "narrow_translation_pattern",
+              "family": "plants_nature",
+              "lemma": "mata",
+              "review_required": true,
+              "score": 0.4536,
+              "snippet": "plant (organism of the kingdom plantae)",
+              "source_channel": "translation",
+              "source_label": "plant_translation_pattern",
+              "specificity": 0.9,
+              "tier": "D"
+            }
+          ],
+          "lemma": "mata",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "maíz",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "corn, maize",
+              "source_channel": "translation",
+              "source_label": "primary_translation:corn",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.8,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "maíz",
+              "review_required": false,
+              "score": 0.76,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "grains",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "maíz",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "parra",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "grapevine (the plant on which grapes grow)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:grapevine",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "parra",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "grapevines",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "parra",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "pino",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "pine",
+              "source_channel": "translation",
+              "source_label": "primary_translation:pine",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "pino",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "pino",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "pino",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "roble",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "oak, several species of the genus quercus.",
+              "source_channel": "translation",
+              "source_label": "primary_translation:oak",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "roble",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "oaks",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "roble",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "roble",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "oaks",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "roble",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "oaks",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "roble",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "oaks",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "roble",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "rosa",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "rose (flower)",
+              "source_channel": "translation",
+              "source_label": "primary_translation:rose",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "rosa",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "rosa",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.7,
+              "base_confidence": 0.82,
+              "confidence_band": "review",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "rosa",
+              "review_required": false,
+              "score": 0.5453,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 0.49,
+              "base_confidence": 0.82,
+              "confidence_band": "inventory",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "rosa",
+              "review_required": false,
+              "score": 0.38171,
+              "snippet": "",
+              "source_channel": "entry_categories",
+              "source_label": "flowers",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "rosa",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "sauce",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "willow",
+              "source_channel": "translation",
+              "source_label": "primary_translation:willow",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.82,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "sauce",
+              "review_required": false,
+              "score": 0.779,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "trees",
+              "specificity": 0.95,
+              "tier": "C"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.78,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "sauce",
+              "review_required": false,
+              "score": 0.741,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "willows_and_poplars",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "sauce",
+          "review_required": false
+        },
+        {
+          "best_tier": "B",
+          "confidence": 0.855,
+          "confidence_band": "high",
+          "evidence": [
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.9,
+              "confidence_band": "high",
+              "evidence_type": "primary_exact_translation",
+              "family": "plants_nature",
+              "lemma": "trigo",
+              "review_required": false,
+              "score": 0.855,
+              "snippet": "wheat",
+              "source_channel": "translation",
+              "source_label": "primary_translation:wheat",
+              "specificity": 0.95,
+              "tier": "B"
+            },
+            {
+              "ambiguity_penalty": 1.0,
+              "base_confidence": 0.8,
+              "confidence_band": "medium",
+              "evidence_type": "allowlisted_category_or_tag",
+              "family": "plants_nature",
+              "lemma": "trigo",
+              "review_required": false,
+              "score": 0.76,
+              "snippet": "",
+              "source_channel": "sense_categories",
+              "source_label": "grains",
+              "specificity": 0.95,
+              "tier": "C"
+            }
+          ],
+          "lemma": "trigo",
           "review_required": false
         }
       ],
       "top_source_labels": [
         {
-          "count": 34,
+          "count": 29,
           "label": "botany"
         },
         {
-          "count": 26,
+          "count": 19,
           "label": "trees"
+        },
+        {
+          "count": 13,
+          "label": "fruits"
         },
         {
           "count": 12,
@@ -2999,15 +4314,67 @@
         },
         {
           "count": 11,
+          "label": "vegetables"
+        },
+        {
+          "count": 9,
           "label": "flowers"
         },
         {
-          "count": 8,
+          "count": 7,
           "label": "plant_translation_pattern"
         },
         {
+          "count": 7,
+          "label": "herbs"
+        },
+        {
+          "count": 3,
+          "label": "plant_anatomy"
+        },
+        {
+          "count": 3,
+          "label": "spices_and_herbs"
+        },
+        {
+          "count": 2,
+          "label": "pome_fruits"
+        },
+        {
+          "count": 2,
+          "label": "palm_trees"
+        },
+        {
+          "count": 2,
+          "label": "grapevines"
+        },
+        {
+          "count": 2,
+          "label": "grains"
+        },
+        {
           "count": 1,
-          "label": "plant_gloss_pattern"
+          "label": "primary_translation:willow"
+        },
+        {
+          "count": 1,
+          "label": "buckwheat_family_plants"
+        },
+        {
+          "count": 1,
+          "label": "primary_translation:rose"
+        },
+        {
+          "count": 1,
+          "label": "primary_translation:tree"
+        },
+        {
+          "count": 1,
+          "label": "primary_translation:flower"
+        },
+        {
+          "count": 1,
+          "label": "primary_translation:corn"
         }
       ]
     }
@@ -3034,10 +4401,12 @@
       "message": "Existing sources contain plants/nature evidence."
     }
   ],
-  "generated_at": "2026-05-16T21:55:55+00:00",
+  "generated_at": "2026-05-16T22:20:08+00:00",
   "inputs": {
     "frequency_db": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "signal_policy_id": "srs_animals_plants_existing_signal_policy_en_es_v1",
+    "signal_policy_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/srs_animals_plants_signal_policy_en_es.json",
     "top_n": 10000
   },
   "limitations": [
