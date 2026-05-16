@@ -9,6 +9,7 @@ Source-of-truth: data acquisition plan; current executable truth lives in SRS se
 
 Related docs:
 - `srs_interest_tailored_admission_algorithm.md`
+- `srs_topic_preference_decision_matrix_en_es.md`
 - `srs_profile_schema.md`
 - `srs_set_planning_technical.md`
 - `../rulegen/semantic_veto_srs_corpus_expansion_plan.md`
@@ -398,7 +399,8 @@ interest-tailored admission; then let feedback make it smoother.
 2. Choose or recover a license-clear expanded Spanish candidate source.
 3. Build a provisional expanded SQLite with rank/frequency and provenance.
 4. Add POS backfill and Spanish stopword/function-word policy.
-5. Create a small topic taxonomy and health/medicine overlay first.
+5. Use the topic preference decision matrix to create a small taxonomy and
+   health/medicine overlay first.
 6. Add embedding-assisted topic inference only after dictionary/gloss inputs are
    available.
 7. Add difficulty proxy and any available learner-level overlay.
