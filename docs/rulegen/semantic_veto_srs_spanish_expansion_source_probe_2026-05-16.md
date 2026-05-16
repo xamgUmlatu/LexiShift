@@ -3,7 +3,7 @@
 Status: research checkpoint
 Role: Decision support / no-download candidate probe
 Last updated: 2026-05-16
-Last verified: 2026-05-16 with source-readiness audit and SRS Zipf bridge candidate frequency override
+Last verified: 2026-05-16 with source-readiness audit, POS backfill audit, and SRS Zipf bridge candidate frequency override
 Related docs:
 - `semantic_veto_srs_corpus_expansion_plan.md`
 - `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
@@ -97,6 +97,39 @@ Interpretation: a 10k Spanish source is locally testable and clears the raw
 size/rank/frequency ceiling, but it is not promotion-ready because POS and
 topic/domain metadata are absent and source/license policy is not reviewed.
 
+## POS Backfill Probe
+
+Because the candidate frequency DB has no POS column, I tested whether the
+already-installed Spanish-headword lexical resources can backfill POS without
+installing or mutating the candidate.
+
+Command:
+
+```bash
+python3 scripts/testing/semantic_veto_srs_candidate_pos_backfill_audit_en_es.py \
+  --candidate-db /tmp/lexishift_wordfreq_es_10k.sqlite \
+  --json-out /tmp/lexishift_wordfreq_es_10k_pos_backfill_audit.json \
+  --markdown-out /tmp/lexishift_wordfreq_es_10k_pos_backfill_audit.md
+```
+
+Result:
+
+| Metric | Value |
+| --- | ---: |
+| Candidate unique lemmas | `10,000` |
+| Lemmas with any external POS | `5,497` |
+| Lemmas with mapped POS | `5,036` |
+| Lemmas with confident weighted lexical bucket | `4,122` |
+| Ambiguous raw POS lemmas | `1,101` |
+| Wiktionary ES-EN candidate hits | `5,497` |
+| FreeDict ES-EN candidate hits | `0` |
+
+Interpretation: installed Wiktionary ES-EN gives enough exact-headword POS
+signal to make a 5k shortlist plausible, but not enough to claim 10k POS-ready
+coverage. The confident weighted-bucket count is below 5k because ambiguous POS
+rows are treated conservatively. The installed FreeDict ES-EN SQLite exists but
+has no usable POS rows in this local pack.
+
 ## Baseline Overlap
 
 Quick overlap against the current installed `freq-es-cde.sqlite` baseline:
@@ -167,8 +200,10 @@ Preferred next slice:
    - a licensing-safe corpus pipeline,
    - or a hybrid frequency plus overlay candidate.
 2. Add or choose a POS backfill path for that candidate before full rulegen.
-3. Run source-readiness and SRS bridge on the candidate with candidate-specific
+3. Use the POS backfill audit to decide whether the target is a safe 5k
+   shortlist, a 10k candidate needing more metadata, or not worth promoting.
+4. Run source-readiness and SRS bridge on the candidate with candidate-specific
    artifact filenames.
-4. Only then run full rulegen and denominator audit.
+5. Only then run full rulegen and denominator audit.
 
 Do not overwrite `freq-es-cde`. Do not launch paid generation yet.

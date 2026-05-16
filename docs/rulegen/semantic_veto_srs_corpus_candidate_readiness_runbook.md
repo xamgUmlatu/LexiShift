@@ -3,7 +3,7 @@
 Status: active runbook
 Role: Runbook / operational
 Last updated: 2026-05-16
-Last verified: 2026-05-16 Lane 6 pack lifecycle audit command with strict review gate, source-readiness audit command, SRS Zipf bridge candidate frequency override, denominator audit command review, and promotion evidence bundle command
+Last verified: 2026-05-16 Lane 6 pack lifecycle audit command with strict review gate, source-readiness audit command, candidate POS backfill audit command, SRS Zipf bridge candidate frequency override, denominator audit command review, and promotion evidence bundle command
 Purpose: give future agents a copy-pasteable sequence for evaluating an en-es Spanish SRS corpus or frequency-pack candidate before promotion or paid semantic-veto generation
 Source-of-truth: runbook only; current runtime truth lives in source code, generated artifacts, pack manifests, and the owning Lane 6 inventory.
 Related docs:
@@ -126,10 +126,46 @@ Stop conditions:
 - source or license status is missing,
 - candidate is just a renamed copy of the current 2k baseline.
 
-## Step 3: SRS Zipf Bridge
+## Step 3: POS Backfill Audit
 
-Only after the source-readiness audit passes for the intended target size, run
-the bridge with full rulegen:
+If the candidate has no usable POS column, run the no-mutation POS backfill
+audit against Spanish-headword lexical resources before any full rulegen run:
+
+```bash
+python3 scripts/testing/semantic_veto_srs_candidate_pos_backfill_audit_en_es.py \
+  --candidate-db /absolute/path/to/candidate.sqlite \
+  --json-out docs/test_outputs/semantic_veto_srs_candidate_pos_backfill_audit_en_es_candidate.json \
+  --markdown-out docs/test_outputs/semantic_veto_srs_candidate_pos_backfill_audit_en_es_candidate.md
+```
+
+The audit reads the candidate and installed lexical SQLite files only. It does
+not install the candidate, modify the current default pack, or use English-side
+translation POS as Spanish target POS.
+
+Read these outputs before moving on:
+
+- lemmas with any external POS,
+- lemmas with mapped POS,
+- lemmas with a confident weighted lexical bucket,
+- ambiguous raw POS lemmas,
+- unresolved high-rank lemmas,
+- per-source hit counts.
+
+Interpretation:
+
+- mapped POS can make a 5k shortlist plausible,
+- confident weighted-bucket coverage is the safer signal for POS-weighted SRS
+  admission,
+- 10k promotion still requires enough POS coverage, explicit defaulting policy,
+  or an additional source,
+- topic/domain coverage remains separate; POS backfill does not create
+  personalization metadata.
+
+## Step 4: SRS Zipf Bridge
+
+Only after the source-readiness audit passes for the intended target size and
+POS coverage is either present or explicitly backfilled, run the bridge with
+full rulegen:
 
 ```bash
 python3 scripts/testing/semantic_veto_srs_zipf_bridge_en_es.py \
@@ -151,7 +187,7 @@ Read these outputs before moving on:
 - weak or no-visible family count,
 - current semantic-veto coverage overlap.
 
-## Step 4: Denominator Audit
+## Step 5: Denominator Audit
 
 Refresh denominator accounting against the current semantic-veto pack:
 
@@ -171,10 +207,11 @@ Interpret the candidate by bucket:
 | Domain/preference target with low general frequency | Keep as user-preference overlay, not general baseline. |
 | Poor learner target or bad source mapping | Exclude or keep out of default admission. |
 
-## Step 5: Promotion Evidence Bundle
+## Step 6: Promotion Evidence Bundle
 
-After the lifecycle, source-readiness, SRS Zipf bridge, and denominator
-artifacts have candidate-specific filenames, run the bundle gate:
+After the lifecycle, source-readiness, POS backfill when used, SRS Zipf bridge,
+and denominator artifacts have candidate-specific filenames, run the bundle
+gate:
 
 ```bash
 python3 scripts/testing/pack_lifecycle_promotion_evidence.py \
@@ -199,9 +236,11 @@ Interpretation:
 
 This command does not approve the source, install the pack, promote defaults, or
 launch generation. It only checks that the required proof artifacts form a
-complete candidate bundle.
+complete candidate bundle. If POS was supplied through a backfill audit rather
+than a candidate POS column, keep that artifact next to the bundle until the
+promotion gate accepts it directly.
 
-## Step 6: Update Canonical Docs Before Generation
+## Step 7: Update Canonical Docs Before Generation
 
 Before any paid generation or default promotion:
 
@@ -250,6 +289,7 @@ Data root:
 Source/license status:
 Pack lifecycle audit JSON/MD:
 Source-readiness audit JSON/MD:
+POS backfill audit JSON/MD:
 SRS Zipf bridge JSON/MD:
 Denominator audit JSON/MD:
 Promotion evidence JSON/MD:

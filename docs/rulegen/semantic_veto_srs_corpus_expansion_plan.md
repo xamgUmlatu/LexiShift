@@ -3,7 +3,7 @@
 Status: active planning reference
 Role: Planning / WIP
 Last updated: 2026-05-16
-Last verified: 2026-05-16 with source-readiness audit review, local no-download wordfreq candidate probe, and SRS Zipf bridge candidate frequency override tests
+Last verified: 2026-05-16 with source-readiness audit review, local no-download wordfreq candidate probe, candidate POS backfill audit, and SRS Zipf bridge candidate frequency override tests
 Related docs:
 - `semantic_veto_srs_corpus_candidate_readiness_runbook.md`
 - `semantic_veto_srs_spanish_expansion_source_probe_2026-05-16.md`
@@ -54,6 +54,13 @@ ceiling and can be fed into the SRS Zipf bridge via `--frequency-db`, but it has
 `0%` POS coverage, `0%` topic/domain coverage, and only `25.7%` overlap with the
 current 1,984-lemma CDE sample. That makes it useful as a candidate strategy,
 not a drop-in promoted replacement.
+
+A follow-up POS backfill audit against installed Spanish-headword lexical
+resources found that Wiktionary ES-EN supplies exact-headword POS for `5,497 /
+10,000` candidate lemmas and mapped POS for `5,036 / 10,000`; however, only
+`4,122 / 10,000` have a confident weighted lexical bucket after ambiguous POS is
+treated conservatively. This makes a 5k POS-aware shortlist plausible, but it
+does not make the temporary candidate a 10k POS-complete source.
 
 ## Decision Principles
 
@@ -109,6 +116,20 @@ The audit checks:
 - topic/domain column coverage,
 - readiness for 2k, 5k, and 10k target sizes,
 - source metadata from the SQLite `meta` table when present.
+
+If POS coverage is missing, run the backfill audit before treating the candidate
+as SRS-ready:
+
+```bash
+python3 scripts/testing/semantic_veto_srs_candidate_pos_backfill_audit_en_es.py \
+  --candidate-db /path/to/candidate.sqlite \
+  --json-out docs/test_outputs/semantic_veto_srs_candidate_pos_backfill_audit_en_es_candidate.json \
+  --markdown-out docs/test_outputs/semantic_veto_srs_candidate_pos_backfill_audit_en_es_candidate.md
+```
+
+This audit is intentionally conservative: it joins candidate lemmas only to
+Spanish resource `headword_lc` values, excludes English-side translation POS,
+and does not mutate the candidate or installed language packs.
 
 ### Phase 2: Pack Naming And Installation
 
