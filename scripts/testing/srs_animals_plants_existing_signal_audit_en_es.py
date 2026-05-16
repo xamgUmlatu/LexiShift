@@ -593,6 +593,7 @@ def summarize_family(
             band: band_counter.get(band, 0) for band in ("high", "medium", "review", "inventory")
         },
         "top_source_labels": _counter_rows(source_counter),
+        "candidate_inventory": best_rows,
         "top_candidates": best_rows[:20],
         "review_candidates": [row for row in best_rows if row["review_required"]][:20],
     }

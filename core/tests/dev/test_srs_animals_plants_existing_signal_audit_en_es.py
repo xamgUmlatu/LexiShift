@@ -43,6 +43,8 @@ class SrsAnimalsPlantsExistingSignalAuditTests(unittest.TestCase):
             families = {row["family"]: row for row in report["families"]}
             animals = families["animals"]
             plants = families["plants_nature"]
+            self.assertEqual(len(animals["candidate_inventory"]), animals["candidate_count"])
+            self.assertEqual(len(plants["candidate_inventory"]), plants["candidate_count"])
             animal_candidates = _candidate_by_lemma(animals)
             plant_candidates = _candidate_by_lemma(plants)
 

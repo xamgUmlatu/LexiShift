@@ -231,6 +231,12 @@ Current product-owned taxonomy artifact:
   frontier improves absolute sample size but leaves coverage sparse, so animal
   and plant personalization still needs overlays or embedding-assisted
   enrichment before strong product claims.
+- The first manual QA surface for this source family is
+  `docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.md`.
+  It samples `96` pending-review rows from `310` SPALEX candidates across
+  `96 / 125` evidence cells (`56` animals, `40` plants/nature). The packet is
+  for precision calibration and policy tightening only; it does not promote any
+  candidate into an overlay.
 
 ### 2. POS And Function-Word Controls
 

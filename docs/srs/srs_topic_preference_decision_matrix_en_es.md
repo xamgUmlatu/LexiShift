@@ -114,6 +114,13 @@ penalty, because some Tier A/C hits are polysemous headwords where the
 animal/plant sense is real but not necessarily the dominant learner-facing
 sense.
 
+The first review packet is generated at
+`docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.md`.
+It samples `96` pending-review rows from the full `310` SPALEX candidate
+universe, covering `96 / 125` evidence cells with `56` animal rows and `40`
+plants/nature rows. This packet is a QA surface only; no sampled row is promoted
+until its `manual_review.state` changes from `pending_user_review`.
+
 ## Labels That Should Not Become User Preferences Directly
 
 Some labels are useful internally but should not appear directly as user
