@@ -240,6 +240,11 @@ Current product-owned taxonomy artifact:
   `96 / 125` evidence cells (`56` animals, `40` plants/nature). The packet is
   for precision calibration and policy tightening only; it does not promote any
   candidate into an overlay.
+- A focused low-confidence animal spot check is recorded at
+  `docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The spot check
+  found the low-confidence band mostly useful, with `tac` (`CAT scan`) as the
+  clearest mechanical false positive and several true but secondary or
+  animal-adjacent terms that should remain review-only.
 
 ### 2. POS And Function-Word Controls
 

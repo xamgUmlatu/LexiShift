@@ -121,6 +121,11 @@ universe, covering `96 / 125` evidence cells with `56` animal rows and `40`
 plants/nature rows. This packet is a QA surface only; no sampled row is promoted
 until its `manual_review.state` changes from `pending_user_review`.
 
+A focused animal low-confidence spot check is recorded at
+`docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The review supports
+the current conservative posture: low-confidence rows preserve useful recall for
+manual QA, but should not be automatically promoted.
+
 ## Labels That Should Not Become User Preferences Directly
 
 Some labels are useful internally but should not appear directly as user
