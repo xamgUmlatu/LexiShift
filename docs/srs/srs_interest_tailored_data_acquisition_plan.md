@@ -209,6 +209,9 @@ Current product-owned taxonomy artifact:
 
 - `docs/test_inputs/srs_topic_preference_taxonomy_en_es.json` defines the first
   product-owned topic families and source-label mappings.
+- Cross-LP reusable lessons from this pass are tracked in
+  `docs/srs/srs_topic_signal_lp_generalization_runbook.md`; future LPs should
+  use that runbook before cloning en-es-specific scripts or policy files.
 - `scripts/testing/srs_topic_preference_taxonomy_en_es.py` validates that
   mapping file and measures current installed-source coverage without mutating
   packs or writing overlays.

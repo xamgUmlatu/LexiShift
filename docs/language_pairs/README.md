@@ -2,8 +2,8 @@
 
 Status: active LP docs routing
 Role: Canonical current
-Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 1 LP supersession review; routing only, LP capability/status claims not re-audited
+Last updated: 2026-05-17
+Last verified: 2026-05-17 SRS topic-signal LP generalization runbook routing update; routing only, LP capability/status claims not re-audited
 Purpose: route language-pair, resource, and onboarding claims without treating older checklist or roadmap snapshots as current implementation truth
 Source-of-truth: routing guide only; executable truth lives in LP capability/resource code, rulegen/SRS code, GUI pack registration, tests, generated audits, and `docs/developer/feature_state_matrix.md`.
 
@@ -23,6 +23,7 @@ owns which claim type and which docs are planning or historical context.
 | Resource requirements and gaps | `lp_resource_requirements.md` | Mixed current-plus-target matrix; verify status-sensitive claims against code and audits. |
 | Resource inventory | `lp_data_inventory_matrix.md` | Mixed inventory matrix; use generated resource/POS audits for current local machine state. |
 | POS source and pipeline behavior | `pos_source_and_pipeline_reference.md` and `../rulegen/pos_normalization_workstream.md` | POS policy and raw-tag claims should stay tied to provider/profile code and probe artifacts. |
+| SRS topic-signal data acquisition and cross-LP lessons | `../srs/srs_topic_signal_lp_generalization_runbook.md`, `../srs/srs_interest_tailored_data_acquisition_plan.md`, and `../srs/srs_topic_preference_decision_matrix_en_es.md` | General method and en-es worked example only; do not use as proof that another LP has promoted topic overlays. |
 | Licensing and distribution posture | `data_source_licensing_and_distribution.md` and `hybrid_data_distribution_north_star.md` | Legal/distribution posture remains review-required where the underlying doc says so. |
 | Resource recovery | `resource_recovery_playbook.md` | Operational recovery runbook for invalid/unlinked packs. |
 | Extension/helper LP rollout | `extension_lp_generalization_checklist.md`, `../architecture/srs_lp_architecture.md`, and `../developer/feature_state_matrix.md` | Checklist rows are not proof of default-on shipped behavior. |
@@ -44,6 +45,10 @@ No language-pair docs are archived in this Lane 1 pass.
 - Pair-specific workstream roadmaps remain planning or mixed references. They
   can explain intent and history, but they do not promote a pair without current
   source/test/artifact evidence.
+- SRS topic-signal lessons should route through
+  `../srs/srs_topic_signal_lp_generalization_runbook.md` before they are copied
+  into pair-specific roadmaps. The en-es animals/plants packet is a worked
+  example, not a cross-LP status claim.
 - One-off research snapshots under this folder should stay snapshot-only until
   explicitly promoted into the authority map, feature-state ledger, or another
   canonical current doc.
