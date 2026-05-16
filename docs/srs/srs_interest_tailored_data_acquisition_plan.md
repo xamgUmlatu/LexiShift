@@ -37,7 +37,10 @@ auditable `en-es` candidate corpus that supports:
 3. topic/domain tags for high-value categories such as medicine and health,
 4. non-beginner readiness signals,
 5. rulegen coverage evidence,
-6. feedback-ready user profile signals.
+6. feedback-ready user profile signals,
+7. user-delight topics that make preference selection feel worth using, such as
+   animals/nature, food/cooking, anime/manga/pop culture, games, music, travel,
+   and hobbies/crafts.
 
 Exam-prep preferences such as SAT and TOEFL are product-aligned, but they are
 not source-aligned yet. They should become preference families only after legal
@@ -55,6 +58,7 @@ Current `en-es` state is useful but not enough for the target model.
 | POS | Current baseline has 100% POS. In the CDE-seed plus SPALEX-expansion audit, CDE plus installed Kaikki maps POS for `9,435 / 10,000` combined candidates. The provisional full pack has POS rows for `33,968 / 45,131`. | Promotion-grade POS policy for ambiguous/function-heavy candidates and Spanish stopwords. |
 | Topic/domain metadata | Current baseline has `0%` native topic columns. Installed Kaikki can enrich current CDE with explicit sense-topic rows for `234 / 1,984` lemmas and the SPALEX 10k frontier with explicit topic rows for `1,353 / 10,000` combined candidates. The provisional full pack has topic rows for `4,114 / 45,131`. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
 | Medical/health domain support | Installed Kaikki gives an initial `medicine` signal for `42 / 1,984` current CDE lemmas and a medicine/health-like signal for `248 / 10,000` combined candidates. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
+| User-delight topic support | Current trusted labels have sparse direct support for animals/nature, food/cooking, and anime/manga/pop culture. Some adjacent labels exist, such as `hobbies`, `games`, `entertainment`, `media`, `food`, `cooking`, `animals`, `zoology`, and `botany`. | P0 overlays or inference for animals/nature, food/cooking, anime/manga/pop culture, and hobbies/crafts. Current sparse labels should not demote these product goals. |
 | Difficulty/readiness | Frequency rank can proxy difficulty. Profile schema supports proficiency/challenge fields. | CEFR/learner-level overlay or calibrated difficulty model for non-beginner users. |
 | Rulegen coverage | Current denominator evidence exists for current baseline; expanded candidate full-rulegen coverage was not promoted. | Per-candidate rulegen coverage cache for expanded corpus. |
 | Semantic-veto coverage | Current semantic-veto coverage is measured for current admitted families. | Expanded denominator and uncovered-family audit after candidate source selection. |
@@ -399,16 +403,20 @@ interest-tailored admission; then let feedback make it smoother.
 2. Choose or recover a license-clear expanded Spanish candidate source.
 3. Build a provisional expanded SQLite with rank/frequency and provenance.
 4. Add POS backfill and Spanish stopword/function-word policy.
-5. Use the topic preference decision matrix to create a small taxonomy and
-   health/medicine overlay first.
-6. Add embedding-assisted topic inference only after dictionary/gloss inputs are
+5. Use the topic preference decision matrix to create a small product-owned
+   taxonomy with both source-ready utility topics and P0 user-delight topics.
+6. Add narrow overlays for animals/nature, food/cooking, anime/manga/pop
+   culture, and hobbies/crafts instead of waiting for the base source to happen
+   to label them well.
+7. Add embedding-assisted topic inference only after dictionary/gloss inputs are
    available.
-7. Add difficulty proxy and any available learner-level overlay.
-8. Run rulegen coverage over the expanded candidate frontier.
-9. Run neutral vs medicine-weighted admission probes.
-10. Run metadata-free-source probes to confirm missing topics stay neutral.
-11. Document source/license/promote-or-hold decisions.
-12. Only then consider default product wiring.
+8. Add difficulty proxy and any available learner-level overlay.
+9. Run rulegen coverage over the expanded candidate frontier.
+10. Run neutral vs interest-weighted admission probes for both source-ready and
+    overlay-backed topics.
+11. Run metadata-free-source probes to confirm missing topics stay neutral.
+12. Document source/license/promote-or-hold decisions.
+13. Only then consider default product wiring.
 
 ## First Concrete Data Milestone
 
@@ -418,6 +426,8 @@ The first milestone should produce an auditable `en-es` research dataset with:
 - rank/frequency for every row,
 - POS or conservative POS fallback for every admitted row,
 - health/medicine topic tags for a meaningful subset,
+- at least one user-delight overlay, preferably animals/nature, food/cooking, or
+  anime/manga/pop culture,
 - topic confidence and provenance,
 - Spanish stopword/function-word filtering,
 - rulegen coverage flags,

@@ -19,12 +19,15 @@ installed Kaikki/Wiktionary pack can still enrich it with explicit
 `sense_topics` for `234 / 1,984` current CDE lemmas (`11.8%`).
 
 That gives us a real topic surface, but it is not a finished product taxonomy.
-The product taxonomy should be ours:
+The product taxonomy should be ours. Current source coverage tells us how much
+implementation work remains; it should not decide what users are allowed to
+care about.
 
 1. choose user-facing preference families,
 2. map source labels into those families,
 3. assign confidence/weight per mapping,
-4. keep unsupported or legally gated preferences unavailable until sourced.
+4. mark high-value but under-covered topics as P0 enrichment targets,
+5. keep unsupported or legally gated preferences unavailable until sourced.
 
 Use these source channels differently:
 
@@ -38,7 +41,8 @@ Use these source channels differently:
 
 This is the practical v0 shortlist. "Adopt" means the topic family is plausible
 as a product preference once the mapping file, source provenance, and tests are
-in place. It does not mean the current app behavior changes now.
+in place. "P0 enrichment" means the product should support the topic, but the
+current trusted source labels are not enough by themselves.
 
 | Product Preference Family | Source Labels In Current Trusted Data | Current CDE Support | Proposed Decision | Notes |
 | --- | --- | ---: | --- | --- |
@@ -51,11 +55,35 @@ in place. It does not mean the current app behavior changes now.
 | `science_technology` | `sciences` 78, `natural_sciences` 59, `physical_sciences` 34, `engineering` 21, `mathematics` 20, `biology` 13, `physics` 10, `chemistry` 10, `computing` 8 | strong | Adopt as parent family | High coverage, but broad labels should have lower confidence than specific labels such as `computing` or `chemistry`. |
 | `travel_places_transport` | `geography` 14, `transport` 11, `nautical` 9, `aerospace` 3, `aeronautics` 2, `aviation` 2, `automotive` 1, `vehicles` 1 | medium | Adopt as parent family | This is the closest current source surface to travel. It needs aliases and maybe a future travel-domain overlay. |
 | `arts_literature_humanities` | `arts` 5, `art` 3, `literature` 3, `history` 3, `philosophy` 7, `architecture` 4, `linguistics` 7 | medium | Adopt as parent family | Literature alone is sparse in current CDE; humanities as a parent is more viable. |
+| `anime_manga_pop_culture` | adjacent labels only: `entertainment` 20, `media` 9, `film` 1, `television` 2, `gaming` 1 | weak/adjacent | P0 enrichment | High UX value. Needs public sources, curated seed lists, or embedding/gloss inference; do not pretend broad media tags mean anime. |
+| `hobbies_crafts` | `hobbies` 41, plus narrow labels such as `sewing` 1, `textiles` 2, `arts` 5, `games` 24 | medium but ambiguous | P0 enrichment | Users care about hobbies, but `hobbies` is too broad/polysemous to use directly without review. |
 | `education_academic` | `education` 2, `higher_education` 1, plus possible academic aliases from `grammar`, `linguistics`, `mathematics`, and `sciences` | weak | Defer or parent-only | Needs a clearer taxonomy before becoming user-facing. |
-| `food_cooking` | `food` 2, `cooking` 2 | weak | Defer until expansion | Product-aligned, but current trusted support is too small for a meaningful current-CDE preference. |
+| `food_cooking` | `food` 2, `cooking` 2 | weak | P0 enrichment | Strong user-delight topic. Current trusted support is small, so use overlays, public recipe/food lexicons, or embedding inference before strong admission lift. |
 | `psychology_emotions` | `psychology` 1, `human_sciences` 17 | weak | Defer until overlay | Emotions are product-aligned but not directly present in trusted current-CDE topics. |
-| `animals_nature` | `animals` 1, `zoology` 1, `botany` 5, plus broader natural-science labels | weak | Defer or map under science | Needs more direct animal/nature support before user-facing use. |
+| `animals_nature` | `animals` 1, `zoology` 1, `botany` 5, plus broader natural-science labels | weak | P0 enrichment | Strong user-delight topic. Needs direct animal/nature overlays or inference; broad science labels should not substitute for it. |
 | `sat_toefl_exam_prep` | none in current trusted source data | none | Legal/source gated | Add only after allowed vocabulary, skill, or exam-prep data is identified. Do not infer from current Wiktionary labels. |
+
+## Product-First P0 Set
+
+The first product taxonomy should include both utility topics and topics users
+will enjoy choosing. The implementation can assign each family a readiness
+state, but the UX roadmap should not drop high-delight topics just because
+current trusted labels are sparse.
+
+| P0 Family | Readiness Now | Main Path To Usable Coverage |
+| --- | --- | --- |
+| `medicine_health` | source-ready | trusted `sense_topics`, then health/medicine overlay |
+| `finance_business` | source-ready | trusted `sense_topics`, then business/finance aliases |
+| `sports_fitness` | source-ready | trusted `sense_topics`, then sport/fitness aliases |
+| `games` | source-ready | trusted `sense_topics`, then game subtopic aliases |
+| `music_media_entertainment` | source-ready | trusted `sense_topics`, then media/pop-culture aliases |
+| `animals_nature` | P0 enrichment | animal/nature lexicons, Wiktionary labels, embeddings over glosses |
+| `food_cooking` | P0 enrichment | food/cooking lexicons, recipe-domain sources, embeddings over glosses |
+| `anime_manga_pop_culture` | P0 enrichment | legally usable fandom/pop-culture sources, curated seed lists, embeddings |
+| `hobbies_crafts` | P0 enrichment | curated hobby taxonomy, craft/activity lexicons, reviewed broad `hobbies` labels |
+| `travel_places_transport` | partial | travel overlay plus existing geography/transport labels |
+| `arts_literature_humanities` | partial | literature/art overlays plus existing humanities labels |
+| `sat_toefl_exam_prep` | legal/source gated | allowed exam-prep vocabulary or internal skill taxonomy |
 
 ## Labels That Should Not Become User Preferences Directly
 
@@ -99,11 +127,14 @@ Suggested initial confidence pattern:
 | Child domain to product family | `pathology` -> `medicine_health` | `0.75` |
 | Broad parent to product family | `sciences` -> `science_technology` | `0.35` |
 | Ambiguous or polysemous source label | `lifestyle`, `hobbies` | `0.00` until reviewed |
+| Product-desired overlay label | curated animal/cooking/anime source -> matching family | source-dependent |
+| Embedding-inferred label | gloss/example embedding -> matching family | low-to-medium until validated |
 | Legally gated exam prep | `sat`, `toefl` | unavailable until sourced |
 
 ## Suggested v0 Decision
 
-Adopt these first as user-facing or near-user-facing preferences:
+Adopt these first as user-facing or near-user-facing preferences with current
+source support:
 
 - `medicine_health`
 - `finance_business`
@@ -115,12 +146,18 @@ Adopt these first as user-facing or near-user-facing preferences:
 - `travel_places_transport`
 - `arts_literature_humanities`
 
+Treat these as P0 product goals that need enrichment before strong admission
+lift:
+
+- `food_cooking`
+- `animals_nature`
+- `anime_manga_pop_culture`
+- `hobbies_crafts`
+
 Keep these as planned but not current-CDE-ready:
 
 - `education_academic`
-- `food_cooking`
 - `psychology_emotions`
-- `animals_nature`
 - `sat_toefl_exam_prep`
 
 ## Complete Trusted Current-CDE Source Topic List
