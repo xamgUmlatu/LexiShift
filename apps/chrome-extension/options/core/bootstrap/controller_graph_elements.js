@@ -110,6 +110,7 @@
         srsBootstrapTopNInput: dom.srsBootstrapTopNInput,
         srsInitialActiveCountInput: dom.srsInitialActiveCountInput,
         srsTopicInterestsInput: dom.srsTopicInterestsInput,
+        srsTopicInterestChipButtons: dom.srsTopicInterestChipButtons,
         srsProficiencyEstimateInput: dom.srsProficiencyEstimateInput,
         srsChallengeTargetInput: dom.srsChallengeTargetInput,
         srsSoundInput: dom.srsSoundInput,

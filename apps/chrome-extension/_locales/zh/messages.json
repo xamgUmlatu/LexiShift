@@ -122,11 +122,29 @@
   "hint_srs_admission_preferences": {
     "message": "这些值会重新排序所选配置和语言对的初始 S 纳入结果。"
   },
+  "label_srs_topic_interest_presets": {
+    "message": "推荐主题"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "预览支持因语言对而异"
+  },
+  "topic_srs_animals": {
+    "message": "动物"
+  },
+  "topic_srs_plants_nature": {
+    "message": "植物与自然"
+  },
+  "hint_srs_topic_interest_presets": {
+    "message": "选择想在纳入时优先的主题。预览会显示当前语言对实际可支持的范围。"
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "高级标签"
+  },
   "label_srs_topic_interests": {
     "message": "主题兴趣"
   },
   "hint_srs_topic_interests": {
-    "message": "用逗号分隔的标签。目前会直接使用完全匹配的标签。"
+    "message": "可为实验或上方未列出的主题添加逗号分隔标签。"
   },
   "label_srs_proficiency_estimate": {
     "message": "熟练度估计 (%)"

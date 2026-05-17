@@ -122,11 +122,29 @@
   "hint_srs_admission_preferences": {
     "message": "これらの値は、選択したプロファイルと言語ペアに対する初期S採用順位を再調整します。"
   },
+  "label_srs_topic_interest_presets": {
+    "message": "おすすめトピック"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "プレビュー対応は言語ペアで変わります"
+  },
+  "topic_srs_animals": {
+    "message": "動物"
+  },
+  "topic_srs_plants_nature": {
+    "message": "植物・自然"
+  },
+  "hint_srs_topic_interest_presets": {
+    "message": "採用で優先したいトピックを選びます。現在の言語ペアで対応できる範囲はプレビューで確認できます。"
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "高度なタグ"
+  },
   "label_srs_topic_interests": {
     "message": "興味トピック"
   },
   "hint_srs_topic_interests": {
-    "message": "カンマ区切りのタグ。現在は完全一致したタグをそのまま使います。"
+    "message": "実験用、または上にないトピック用に、カンマ区切りのタグを追加できます。"
   },
   "label_srs_proficiency_estimate": {
     "message": "習熟度の推定 (%)"

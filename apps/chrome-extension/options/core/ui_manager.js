@@ -80,6 +80,50 @@ class UIManager {
     });
     this.dom.rulesSourceInputs = Array.from(document.querySelectorAll("input[name='rules-source']"));
     this.dom.shareCenterTargetInputs = Array.from(document.querySelectorAll("input[name='share-center-target']"));
+    this.dom.srsTopicInterestChipButtons = Array.from(
+      document.querySelectorAll("[data-srs-topic-interest]")
+    );
+  }
+
+  normalizeSrsTopicInterestList(value) {
+    const source = Array.isArray(value)
+      ? value
+      : String(value || "").split(",");
+    const seen = new Set();
+    return source
+      .map((entry) => String(entry || "").trim())
+      .filter((entry) => {
+        if (!entry || seen.has(entry)) {
+          return false;
+        }
+        seen.add(entry);
+        return true;
+      });
+  }
+
+  syncSrsTopicInterestChips(interestsArg) {
+    const buttons = Array.isArray(this.dom.srsTopicInterestChipButtons)
+      ? this.dom.srsTopicInterestChipButtons
+      : [];
+    if (!buttons.length) {
+      return;
+    }
+    const interests = this.normalizeSrsTopicInterestList(
+      interestsArg !== undefined
+        ? interestsArg
+        : (this.dom.srsTopicInterests ? this.dom.srsTopicInterests.value : "")
+    );
+    const selectedInterests = new Set(interests);
+    buttons.forEach((button) => {
+      const topic = String(button.getAttribute("data-srs-topic-interest") || "").trim();
+      const selected = Boolean(topic && selectedInterests.has(topic));
+      if (button.classList && typeof button.classList.toggle === "function") {
+        button.classList.toggle("is-selected", selected);
+      }
+      if (typeof button.setAttribute === "function") {
+        button.setAttribute("aria-pressed", selected ? "true" : "false");
+      }
+    });
   }
 
   setStatus(message, color) {
@@ -149,6 +193,7 @@ class UIManager {
     if (this.dom.srsTopicInterests) {
       this.dom.srsTopicInterests.value = interests.join(", ");
     }
+    this.syncSrsTopicInterestChips(interests);
     if (this.dom.srsProficiencyEstimate) {
       this.dom.srsProficiencyEstimate.value = proficiencyEstimate === "" ? "" : String(proficiencyEstimate);
     }

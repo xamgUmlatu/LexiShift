@@ -599,6 +599,67 @@ header p {
   background: #fffefb;
 }
 
+.srs-topic-interest-picker {
+  margin-top: 12px;
+}
+
+.srs-topic-interest-picker-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.srs-topic-interest-support {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #7a5c32;
+}
+
+.srs-topic-interest-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.srs-topic-interest-chip {
+  border: 1px solid #c9bca8;
+  border-radius: 999px;
+  background: #f7f0e4;
+  color: #41392f;
+  padding: 6px 12px;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
+.srs-topic-interest-chip:hover {
+  background: #efe2cf;
+}
+
+.srs-topic-interest-chip.is-selected,
+.srs-topic-interest-chip[aria-pressed="true"] {
+  border-color: #2d5f44;
+  background: #e6f2e8;
+  color: #1d3f2d;
+}
+
+.srs-topic-interest-picker .hint {
+  margin: 8px 0 0;
+}
+
+.srs-advanced-topic-tags {
+  margin-top: 10px;
+}
+
+.srs-advanced-topic-tags .field-row input[type="text"] {
+  flex: 1 1 260px;
+  width: min(420px, 100%);
+}
+
 .target-language-controls {
   display: inline-flex;
   align-items: center;

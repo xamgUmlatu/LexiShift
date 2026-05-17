@@ -122,11 +122,29 @@
   "hint_srs_admission_preferences": {
     "message": "Diese Werte gewichten die Bootstrap-Aufnahme für das ausgewählte Profil und Sprachpaar neu."
   },
+  "label_srs_topic_interest_presets": {
+    "message": "Vorgeschlagene Themen"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "Vorschau-Unterstützung variiert je Sprachpaar"
+  },
+  "topic_srs_animals": {
+    "message": "Tiere"
+  },
+  "topic_srs_plants_nature": {
+    "message": "Pflanzen & Natur"
+  },
+  "hint_srs_topic_interest_presets": {
+    "message": "Wähle Themen aus, die bei der Aufnahme bevorzugt werden. Die Vorschau zeigt, was das ausgewählte Sprachpaar unterstützen kann."
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "Erweiterte Tags"
+  },
   "label_srs_topic_interests": {
     "message": "Themeninteressen"
   },
   "hint_srs_topic_interests": {
-    "message": "Kommagetrennte Tags. Exakte Tag-Treffer werden derzeit direkt verwendet."
+    "message": "Füge kommagetrennte Tags für Experimente oder oben nicht aufgeführte Themen hinzu."
   },
   "label_srs_proficiency_estimate": {
     "message": "Kompetenzeinschätzung (%)"

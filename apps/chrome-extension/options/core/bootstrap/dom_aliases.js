@@ -51,6 +51,7 @@
       srsBootstrapTopNInput: source.srsBootstrapTopN || null,
       srsInitialActiveCountInput: source.srsInitialActiveCount || null,
       srsTopicInterestsInput: source.srsTopicInterests || null,
+      srsTopicInterestChipButtons: source.srsTopicInterestChipButtons || [],
       srsProficiencyEstimateInput: source.srsProficiencyEstimate || null,
       srsChallengeTargetInput: source.srsChallengeTarget || null,
       srsSoundInput: source.srsSoundEnabled || null,

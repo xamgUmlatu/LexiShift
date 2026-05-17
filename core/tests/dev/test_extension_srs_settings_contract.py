@@ -409,10 +409,133 @@ for (const entry of settingsBindings) {{
   assert.equal(entry.eventName, "change");
   assert.equal(entry.fallbackMessage, "Failed to save SRS settings.");
 }}
-assert.equal(
-  directBindings.some((entry) => settingNames.has(entry.name)),
-  false
-);
+assert.deepEqual(directBindings, [{{ name: "topicInterests", eventName: "input" }}]);
+"""
+        _run_node(script)
+
+    def test_topic_interest_chips_update_interest_signal_input_and_save(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(SRS_BINDINGS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const bind = context.LexiShift.optionsEventSrsBindings.bind;
+const savedValues = [];
+
+function makeInput(value) {{
+  return {{
+    value,
+    asyncListeners: {{}},
+    listeners: {{}},
+    addEventListener(eventName, handler) {{
+      this.listeners[eventName] = handler;
+    }}
+  }};
+}}
+
+function makeChip(topic) {{
+  const classes = new Set();
+  const attributes = {{
+    "data-srs-topic-interest": topic,
+    "aria-pressed": "false"
+  }};
+  return {{
+    attributes,
+    asyncListeners: {{}},
+    classList: {{
+      toggle(name, selected) {{
+        if (selected) {{
+          classes.add(name);
+        }} else {{
+          classes.delete(name);
+        }}
+      }},
+      contains(name) {{
+        return classes.has(name);
+      }}
+    }},
+    getAttribute(name) {{
+      return attributes[name] || "";
+    }},
+    setAttribute(name, value) {{
+      attributes[name] = value;
+    }}
+  }};
+}}
+
+const topicInput = makeInput("travel, animals");
+const animalsChip = makeChip("animals");
+const plantsChip = makeChip("plants_nature");
+
+bind({{
+  bindAsyncListener: (element, eventName, action) => {{
+    if (!element) {{
+      return;
+    }}
+    element.asyncListeners[eventName] = action;
+  }},
+  saveSrsSettings: async () => {{
+    savedValues.push(topicInput.value);
+  }},
+  saveSrsProfileId: async () => {{}},
+  refreshSrsProfiles: async () => {{}},
+  helperActionsController: {{}},
+  srsActionsController: {{
+    initializeSet: async () => {{}},
+    previewAdmission: async () => {{}},
+    previewRebalance: async () => {{}},
+    applyRebalance: async () => {{}},
+    refreshSetNow: async () => {{}},
+    runRuntimeDiagnostics: async () => {{}},
+    previewSampledRulegen: async () => {{}},
+    resetSrsData: async () => {{}}
+  }},
+  elements: {{
+    srsTopicInterestsInput: topicInput,
+    srsTopicInterestChipButtons: [animalsChip, plantsChip]
+  }}
+}});
+
+assert.equal(animalsChip.attributes["aria-pressed"], "true");
+assert.equal(animalsChip.classList.contains("is-selected"), true);
+assert.equal(plantsChip.attributes["aria-pressed"], "false");
+
+(async () => {{
+  await plantsChip.asyncListeners.click();
+  assert.equal(topicInput.value, "travel, animals, plants_nature");
+  assert.deepEqual(savedValues, ["travel, animals, plants_nature"]);
+  assert.equal(plantsChip.attributes["aria-pressed"], "true");
+
+  await animalsChip.asyncListeners.click();
+  assert.equal(topicInput.value, "travel, plants_nature");
+  assert.deepEqual(savedValues, [
+    "travel, animals, plants_nature",
+    "travel, plants_nature"
+  ]);
+  assert.equal(animalsChip.attributes["aria-pressed"], "false");
+
+  topicInput.value = "animals, plants_nature";
+  topicInput.listeners.input();
+  assert.equal(animalsChip.attributes["aria-pressed"], "true");
+  assert.equal(plantsChip.attributes["aria-pressed"], "true");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
 """
         _run_node(script)
 

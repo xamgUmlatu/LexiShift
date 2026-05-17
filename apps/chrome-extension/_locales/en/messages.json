@@ -122,11 +122,29 @@
   "hint_srs_admission_preferences": {
     "message": "These values rerank bootstrap admission for the selected profile and pair."
   },
+  "label_srs_topic_interest_presets": {
+    "message": "Suggested topics"
+  },
+  "badge_srs_topic_interest_pair_support": {
+    "message": "Preview support varies by pair"
+  },
+  "topic_srs_animals": {
+    "message": "Animals"
+  },
+  "topic_srs_plants_nature": {
+    "message": "Plants & nature"
+  },
+  "hint_srs_topic_interest_presets": {
+    "message": "Choose topics to favor in admission. Preview shows what the selected pair can support."
+  },
+  "summary_srs_advanced_topic_tags": {
+    "message": "Advanced tags"
+  },
   "label_srs_topic_interests": {
     "message": "Topic interests"
   },
   "hint_srs_topic_interests": {
-    "message": "Comma-separated tags. Exact tag matches are used directly today."
+    "message": "Add comma-separated tags for experiments or topics not listed above."
   },
   "label_srs_proficiency_estimate": {
     "message": "Proficiency estimate (%)"

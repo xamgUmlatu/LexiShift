@@ -108,13 +108,50 @@
           <p class="hint" data-i18n="hint_srs_admission_preferences">
             These values rerank bootstrap admission for the selected profile and pair.
           </p>
-          <div class="field-row">
-            <label for="srs-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
-            <input id="srs-topic-interests" type="text" />
+          <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
+            <div class="srs-topic-interest-picker-heading">
+              <span
+                id="srs-topic-interest-picker-label"
+                class="meta-label"
+                data-i18n="label_srs_topic_interest_presets"
+              >Suggested topics</span>
+              <span
+                class="srs-topic-interest-support"
+                data-i18n="badge_srs_topic_interest_pair_support"
+              >Preview support varies by pair</span>
+            </div>
+            <div id="srs-topic-interest-chips" class="srs-topic-interest-chips" role="group">
+              <button
+                type="button"
+                class="srs-topic-interest-chip"
+                data-srs-topic-interest="animals"
+                aria-pressed="false"
+              >
+                <span data-i18n="topic_srs_animals">Animals</span>
+              </button>
+              <button
+                type="button"
+                class="srs-topic-interest-chip"
+                data-srs-topic-interest="plants_nature"
+                aria-pressed="false"
+              >
+                <span data-i18n="topic_srs_plants_nature">Plants & nature</span>
+              </button>
+            </div>
+            <p class="hint" data-i18n="hint_srs_topic_interest_presets">
+              Choose topics to favor in admission. Preview shows what the selected pair can support.
+            </p>
           </div>
-          <p class="hint" data-i18n="hint_srs_topic_interests">
-            Comma-separated tags. Exact tag matches are used directly today.
-          </p>
+          <details class="advanced srs-advanced-topic-tags">
+            <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
+            <div class="field-row">
+              <label for="srs-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
+              <input id="srs-topic-interests" type="text" />
+            </div>
+            <p class="hint" data-i18n="hint_srs_topic_interests">
+              Add comma-separated tags for experiments or topics not listed above.
+            </p>
+          </details>
           <div class="field-row">
             <label for="srs-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate (%)</label>
             <input id="srs-proficiency-estimate" type="number" min="0" max="100" step="1" />

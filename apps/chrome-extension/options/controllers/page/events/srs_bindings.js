@@ -30,6 +30,9 @@
     const srsBootstrapTopNInput = elements.srsBootstrapTopNInput || null;
     const srsInitialActiveCountInput = elements.srsInitialActiveCountInput || null;
     const srsTopicInterestsInput = elements.srsTopicInterestsInput || null;
+    const srsTopicInterestChipButtons = Array.isArray(elements.srsTopicInterestChipButtons)
+      ? elements.srsTopicInterestChipButtons
+      : [];
     const srsProficiencyEstimateInput = elements.srsProficiencyEstimateInput || null;
     const srsChallengeTargetInput = elements.srsChallengeTargetInput || null;
     const srsSoundInput = elements.srsSoundInput || null;
@@ -68,6 +71,68 @@
       });
     }
 
+    function normalizeInterestList(value) {
+      const source = Array.isArray(value)
+        ? value
+        : String(value || "").split(",");
+      const seen = new Set();
+      return source
+        .map((entry) => String(entry || "").trim())
+        .filter((entry) => {
+          if (!entry || seen.has(entry)) {
+            return false;
+          }
+          seen.add(entry);
+          return true;
+        });
+    }
+
+    function syncTopicInterestChips() {
+      if (!srsTopicInterestChipButtons.length) {
+        return;
+      }
+      const interests = new Set(normalizeInterestList(srsTopicInterestsInput ? srsTopicInterestsInput.value : ""));
+      srsTopicInterestChipButtons.forEach((button) => {
+        const topic = String(button.getAttribute("data-srs-topic-interest") || "").trim();
+        const selected = Boolean(topic && interests.has(topic));
+        if (button.classList && typeof button.classList.toggle === "function") {
+          button.classList.toggle("is-selected", selected);
+        }
+        if (typeof button.setAttribute === "function") {
+          button.setAttribute("aria-pressed", selected ? "true" : "false");
+        }
+      });
+    }
+
+    function setTopicInterests(interests) {
+      if (!srsTopicInterestsInput) {
+        return;
+      }
+      srsTopicInterestsInput.value = normalizeInterestList(interests).join(", ");
+      syncTopicInterestChips();
+    }
+
+    function bindTopicInterestChip(button) {
+      if (!button || !srsTopicInterestsInput) {
+        return;
+      }
+      bindAsyncListener(button, "click", () => {
+        const topic = String(button.getAttribute("data-srs-topic-interest") || "").trim();
+        if (!topic) {
+          return Promise.resolve();
+        }
+        const interests = normalizeInterestList(srsTopicInterestsInput.value);
+        const nextInterests = interests.includes(topic)
+          ? interests.filter((entry) => entry !== topic)
+          : [...interests, topic];
+        setTopicInterests(nextInterests);
+        return saveSrsSettings();
+      }, {
+        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+        logMessage: "SRS settings save failed."
+      });
+    }
+
     bindSrsSettingsChange(srsEnabledInput);
     bindAsyncListener(srsProfileIdInput, "change", () => saveSrsProfileId(), {
       fallbackMessage: () => translate("status_srs_profile_save_failed", null, "Failed to save SRS profile selection."),
@@ -80,7 +145,16 @@
     bindSrsSettingsChange(srsMaxActiveInput);
     bindSrsSettingsChange(srsBootstrapTopNInput);
     bindSrsSettingsChange(srsInitialActiveCountInput);
-    bindSrsSettingsChange(srsTopicInterestsInput);
+    bindSrsSettingsChange(srsTopicInterestsInput, () => {
+      setTopicInterests(srsTopicInterestsInput ? srsTopicInterestsInput.value : "");
+    });
+    if (srsTopicInterestsInput) {
+      srsTopicInterestsInput.addEventListener("input", () => {
+        syncTopicInterestChips();
+      });
+    }
+    srsTopicInterestChipButtons.forEach(bindTopicInterestChip);
+    syncTopicInterestChips();
     bindSrsSettingsChange(srsProficiencyEstimateInput);
     bindSrsSettingsChange(srsChallengeTargetInput);
     bindSrsSettingsChange(srsSoundInput);
