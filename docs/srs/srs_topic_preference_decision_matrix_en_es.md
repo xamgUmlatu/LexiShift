@@ -124,6 +124,17 @@ and merged into the generated packet for QA. These labels are a calibration
 surface only; no sampled row is promoted until it is converted into a reviewed,
 provenance-bearing overlay or policy artifact.
 
+The first executable overlay PoC is generated at
+`docs/test_outputs/srs_animals_plants_topic_overlay_poc_en_es_spalex_10k_latest.md`.
+It creates an overlay candidate with `84` accepted rows (`49` animals, `35`
+plants/nature). For the runnable preview, only strong accepted rows are injected
+into `profile_topics` because the current profile-bootstrap scorer consumes
+topic presence rather than scalar topic membership. Against the SPALEX 10k seed
+frontier, the overlay preview increases topic-labeled rows in the top profile
+preview by `+24` for `animals` and `+19` for `plants_nature`. This proves the
+review-label-to-profile-admission path works, but it is not a default runtime
+admission change.
+
 A focused animal low-confidence spot check is recorded at
 `docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The review supports
 the current conservative posture: low-confidence rows preserve useful recall for

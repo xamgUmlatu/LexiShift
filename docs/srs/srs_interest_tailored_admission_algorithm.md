@@ -76,6 +76,11 @@ Current SPALEX 10k candidate evidence:
   controlled profile lift for tagged interests such as `medicine`, `finance`,
   `sports`, and `music`, but still too sparse for a complete personalization
   claim.
+- the animals/plants overlay PoC demonstrates the intended overlay path without
+  changing runtime behavior: accepted review labels become a candidate overlay,
+  strong accepted rows are injected into `profile_topics`, and the existing
+  profile-bootstrap reranker visibly lifts reviewed `animals` and
+  `plants_nature` rows in the top preview.
 - SAT and TOEFL are intended preference families, but only after legal review
   identifies allowed vocabulary, skill, or exam-prep source data. They should
   not be inferred from current Wiktionary topic labels.

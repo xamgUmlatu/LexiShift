@@ -242,6 +242,15 @@ Current product-owned taxonomy artifact:
   `docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json`.
   The labels are for precision calibration and policy tightening only; they do
   not promote any candidate into an overlay.
+- The first executable animals/plants overlay PoC is
+  `docs/test_outputs/srs_animals_plants_topic_overlay_poc_en_es_spalex_10k_latest.md`.
+  It builds a candidate overlay from accepted labels (`84` rows: `49` animals,
+  `35` plants/nature) and runs the current profile-bootstrap reranker over the
+  existing SPALEX 10k seed frontier. Strong accepted rows only are injected into
+  `profile_topics`; light accepted rows stay in the overlay artifact because
+  current scoring treats topic presence as binary. The profile preview moves
+  reviewed topic rows into the top preview for both `animals` (`+24`) and
+  `plants_nature` (`+19`) without mutating helper state.
 - A focused low-confidence animal spot check is recorded at
   `docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The spot check
   found the low-confidence band mostly useful, with `tac` (`CAT scan`) as the

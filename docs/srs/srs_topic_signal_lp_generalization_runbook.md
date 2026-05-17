@@ -198,3 +198,10 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.md`
 - SPALEX 10k review labels:
   `docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json`
+- SPALEX 10k topic-overlay PoC:
+  `docs/test_outputs/srs_animals_plants_topic_overlay_poc_en_es_spalex_10k_latest.md`
+
+The topic-overlay PoC turns accepted review labels into a provenance-bearing
+candidate overlay, injects strong accepted rows into `profile_topics`, and runs
+the existing profile-bootstrap reranker. This is still diagnostic-only: it does
+not install a pack, mutate helper state, or enable default runtime admission.
