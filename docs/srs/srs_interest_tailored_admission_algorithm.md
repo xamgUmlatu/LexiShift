@@ -128,6 +128,28 @@ Interpretation:
   behavior.
 - inferred weights should change gradually with smoothing and decay.
 
+Product UX should present these values as qualitative influence, not
+percentages or quota shares. A user should be able to say "I care about
+animals strongly" and "I care about cooking lightly" without managing a finite
+allocation budget. Multiple topics can all be `strong`; that means they all
+receive strong admission pressure when supported by the source frontier,
+readiness gate, and other admission constraints.
+
+Suggested product labels:
+
+| UX label | Internal scalar |
+| --- | ---: |
+| Off | `0.00` |
+| Light | `0.25` |
+| Medium | `0.50` |
+| Strong | `0.75` |
+| Focused | `1.00` |
+
+User-facing copy should avoid claims like "50% animals." Prefer language such
+as "more likely to admit animal words when they fit your level" or "strongly
+shape new-word admission toward animals." Developer diagnostics and local labs
+may expose the raw scalar values.
+
 ### Candidate Topic Matrix
 
 Each candidate lemma should have a topic-membership vector over the same topic
@@ -386,31 +408,79 @@ Initial product posture:
   preferences;
 - diversity should prevent one topic from monopolizing the admitted set.
 
-## Admission Probability
+## Admission Selection Semantics
 
-The score can be converted to admission probability with a softmax:
+Current profile-bootstrap admission does not treat topic strength as a direct
+percentage chance. The topic scalar is an input to candidate scoring. The
+realized share of preferred-topic admissions is an output determined by:
+
+- the eligible candidate frontier;
+- active topic weights and candidate topic metadata;
+- source/topic label coverage;
+- proficiency and readiness gates;
+- active SRS inventory, blocked lemmas, and deduplication;
+- selector policy and requested admission count.
+
+Let `A` be the set of candidates that match at least one active preferred
+topic. In the current executable profile-bootstrap path, topic affinity is the
+strongest active topic match after topic-specificity dampening:
 
 ```text
-probability_i = exp(raw_score_i / temperature)
-                / sum(exp(raw_score_j / temperature) for j in eligible_pool)
+topic_affinity_i = max(topic_weight_t * topic_specificity_i,t)
 ```
 
-Temperature controls exploration:
-
-- lower temperature: more deterministic, top-score-heavy admission;
-- higher temperature: more variety and exploration.
-
-An implementation may also use weighted sampling without replacement over
-positive scores:
+The current profile-bootstrap selector weights are:
 
 ```text
-mass_i = max(epsilon, raw_score_i)
-probability_i = mass_i / sum(mass_j for j in eligible_pool)
+weighted_score_i =
+    0.55 * base_frequency_i
+  + 0.15 * topic_affinity_i
+  + 0.05 * scarcity_bonus_i
+  + 0.10 * proficiency_fit_i
+  + 0.10 * challenge_fit_i
+
+final_score_i = weighted_score_i * readiness_multiplier_i
 ```
+
+The default selection policy is deterministic top-N ranking. For a batch of
+`k` admitted words:
+
+```text
+selected = top_k(sort_by(final_score, descending))
+preferred_topic_share = count(i in selected where i in A) / k
+```
+
+Under deterministic top-N, the "chance" that the next admitted word is a
+preferred-topic word is therefore `0` or `1` for a single slot, and the batch
+share is a measured result, not a probability guarantee. A topic scalar of
+`0.50` does not mean "50% of admitted words should be this topic."
+
+The optional weighted-without-replacement selector, used by previews and labs
+when explicitly requested, does have probability mass. Its first-draw mass is:
+
+```text
+base_mass_i = base_frequency_i * readiness_multiplier_i
+score_mass_i = final_score_i
+mass_i = 0.35 * base_mass_i + 0.65 * score_mass_i
+```
+
+For a single admitted word:
+
+```text
+P(first word is in preferred topic A) =
+    sum(mass_i for i in A) / sum(mass_j for j in eligible_pool)
+```
+
+For `k > 1` weighted draws without replacement, the exact topic inclusion
+probability is sequential: after each selected word, its mass is removed and
+the next draw is normalized over the remaining pool. The expected preferred
+topic share is computable from the same selector code, but it is not a simple
+function of the user scalar alone.
 
 The product requirement is not a specific probability formula. The requirement
-is that admission probability is a monotonic, explainable function of the
-candidate's weighted score, with diversity and safety constraints applied.
+is that stronger topic preference monotonically increases matching candidates'
+rank or sampling mass when source coverage and readiness allow it, while
+diagnostics report the realized preferred-topic share and source-limited cases.
 
 ## Clean Admission Sequence
 
@@ -455,22 +525,20 @@ Admission should be staged.
    - penalties,
    - explanation components.
 
-7. Convert scores to selection probabilities:
-   - softmax or weighted sampling mass,
-   - optionally keep top safety floor deterministic.
-
-8. Select admitted lemmas:
-   - sample or take top candidates,
+7. Select admitted lemmas:
+   - default to deterministic top-N over final scores,
+   - optionally use weighted sampling mass for preview or exploration modes,
    - enforce topic/POS/source caps,
    - persist only the admitted subset into `S`.
 
-9. Generate rulegen outputs:
+8. Generate rulegen outputs:
    - use admitted active targets,
    - preserve word-package provenance,
    - publish helper artifacts for runtime.
 
-10. Store decision evidence:
+9. Store decision evidence:
    - selected lemmas,
+   - realized preferred-topic share when topic preferences are active,
    - top rejected near-misses when useful,
    - profile hash,
    - source pack hashes,
