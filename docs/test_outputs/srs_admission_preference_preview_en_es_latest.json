@@ -1,0 +1,3087 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-18T15:49:37.650164+00:00",
+  "pair": "en-es",
+  "runtime_scope": "admission_preview_only",
+  "parameters": {
+    "set_top_n": 2000,
+    "initial_active_count": 120,
+    "preview_count": 20,
+    "preview_sampling_mode": "ranked",
+    "preview_seed": null
+  },
+  "inputs": {
+    "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "frequency_db_exists": true,
+    "overlay_source_path": null,
+    "copied_overlay_path": null
+  },
+  "source_summary": {
+    "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "row_count": 2000,
+    "distinct_non_empty_lemma_count": 1984,
+    "columns": [
+      "id",
+      "freq",
+      "lemma",
+      "pos"
+    ]
+  },
+  "summary": {
+    "status": "PASS",
+    "pass_count": 5,
+    "warn_count": 0,
+    "fail_count": 0,
+    "scenario_count": 7,
+    "preference_scenarios_with_topic_movers": 5,
+    "frequency_db_row_count": 2000
+  },
+  "findings": [
+    {
+      "level": "PASS",
+      "code": "FREQUENCY_DB_READABLE",
+      "message": "Frequency DB has 2000 rows."
+    },
+    {
+      "level": "PASS",
+      "code": "ANIMALS_INTEREST_MOVES_ADMISSION",
+      "message": "animals preference produced 7 topic movers in the admission preview.",
+      "details": {
+        "application_status": "applied",
+        "applied_seed_count": 11,
+        "applied_row_count": 11
+      }
+    },
+    {
+      "level": "PASS",
+      "code": "PLANTS_NATURE_INTEREST_MOVES_ADMISSION",
+      "message": "plants_nature preference produced 2 topic movers in the admission preview.",
+      "details": {
+        "application_status": "applied",
+        "applied_seed_count": 4,
+        "applied_row_count": 4
+      }
+    },
+    {
+      "level": "PASS",
+      "code": "SCALAR_TOPIC_WEIGHTS_AFFECT_PRIORITY",
+      "message": "Weighted plants-over-animals profile surfaces plants/nature movers."
+    },
+    {
+      "level": "PASS",
+      "code": "UNSUPPORTED_TOPIC_CONTROL_STAYS_NEUTRAL",
+      "message": "Finance control remains neutral because current tested metadata has no finance support."
+    }
+  ],
+  "comparisons": {
+    "animals_interest_vs_neutral": {
+      "introduced_lemmas": [
+        "ave",
+        "cordero",
+        "cachorro",
+        "víbora",
+        "lagartija",
+        "chivo",
+        "escarabajo"
+      ],
+      "removed_neutral_lemmas": [
+        "autor",
+        "capital",
+        "estilo",
+        "resto",
+        "sol",
+        "espacio",
+        "necesidad"
+      ],
+      "top_20_overlap_count": 13,
+      "topic_mover_count_delta": 7
+    },
+    "animals_light_weight_vs_neutral": {
+      "introduced_lemmas": [
+        "ave"
+      ],
+      "removed_neutral_lemmas": [
+        "necesidad"
+      ],
+      "top_20_overlap_count": 19,
+      "topic_mover_count_delta": 1
+    },
+    "plants_nature_interest_vs_neutral": {
+      "introduced_lemmas": [
+        "sauce",
+        "granado"
+      ],
+      "removed_neutral_lemmas": [
+        "espacio",
+        "necesidad"
+      ],
+      "top_20_overlap_count": 18,
+      "topic_mover_count_delta": 2
+    },
+    "animals_plants_interest_vs_neutral": {
+      "introduced_lemmas": [
+        "ave",
+        "cordero",
+        "cachorro",
+        "sauce",
+        "víbora",
+        "lagartija",
+        "granado",
+        "chivo"
+      ],
+      "removed_neutral_lemmas": [
+        "área",
+        "autor",
+        "capital",
+        "estilo",
+        "resto",
+        "sol",
+        "espacio",
+        "necesidad"
+      ],
+      "top_20_overlap_count": 12,
+      "topic_mover_count_delta": 8
+    },
+    "weighted_plants_over_animals_vs_neutral": {
+      "introduced_lemmas": [
+        "sauce",
+        "granado"
+      ],
+      "removed_neutral_lemmas": [
+        "espacio",
+        "necesidad"
+      ],
+      "top_20_overlap_count": 18,
+      "topic_mover_count_delta": 2
+    },
+    "finance_control_vs_neutral": {
+      "introduced_lemmas": [],
+      "removed_neutral_lemmas": [],
+      "top_20_overlap_count": 20,
+      "topic_mover_count_delta": 0
+    }
+  },
+  "scenarios": [
+    {
+      "name": "neutral",
+      "description": "No user preference signals.",
+      "requested_profile_context": {},
+      "effective_profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [],
+        "interests": [],
+        "explicit_topic_weights": {},
+        "implicit_topic_weights": {},
+        "topic_weights": {},
+        "topic_weight_sources": {},
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [],
+        "missing_signals": [
+          "interests",
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {}
+      },
+      "plan": {
+        "strategy_requested": "profile_bootstrap",
+        "strategy_effective": "frequency_bootstrap",
+        "execution_mode": "frequency_bootstrap",
+        "can_execute": true
+      },
+      "preview_counts": {
+        "selected_count": 2000,
+        "selected_unique_count": 1984,
+        "admitted_count": 120,
+        "sample_count_requested": 20,
+        "sample_count_effective": 20,
+        "sampling_mode": "top_n"
+      },
+      "top_lemmas": [
+        "siglo",
+        "millón",
+        "hora",
+        "música",
+        "principio",
+        "movimiento",
+        "luz",
+        "mayoría",
+        "fondo",
+        "hermano",
+        "producción",
+        "teatro",
+        "área",
+        "autor",
+        "capital",
+        "estilo",
+        "resto",
+        "sol",
+        "espacio",
+        "necesidad"
+      ],
+      "admitted_words": [
+        {
+          "lemma": "siglo",
+          "pos_bucket": "noun",
+          "base_rank": 1,
+          "reranked_rank": 1,
+          "rank_delta": 0,
+          "profile_score": 0.37609,
+          "admission_weight": 0.6838,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "millón",
+          "pos_bucket": "noun",
+          "base_rank": 2,
+          "reranked_rank": 2,
+          "rank_delta": 0,
+          "profile_score": 0.363297,
+          "admission_weight": 0.660539,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hora",
+          "pos_bucket": "noun",
+          "base_rank": 3,
+          "reranked_rank": 3,
+          "rank_delta": 0,
+          "profile_score": 0.358262,
+          "admission_weight": 0.651386,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "música",
+          "pos_bucket": "noun",
+          "base_rank": 4,
+          "reranked_rank": 4,
+          "rank_delta": 0,
+          "profile_score": 0.345476,
+          "admission_weight": 0.628139,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "principio",
+          "pos_bucket": "noun",
+          "base_rank": 5,
+          "reranked_rank": 5,
+          "rank_delta": 0,
+          "profile_score": 0.343931,
+          "admission_weight": 0.625329,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "movimiento",
+          "pos_bucket": "noun",
+          "base_rank": 6,
+          "reranked_rank": 6,
+          "rank_delta": 0,
+          "profile_score": 0.339065,
+          "admission_weight": 0.616481,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "luz",
+          "pos_bucket": "noun",
+          "base_rank": 7,
+          "reranked_rank": 7,
+          "rank_delta": 0,
+          "profile_score": 0.33798,
+          "admission_weight": 0.614508,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "mayoría",
+          "pos_bucket": "noun",
+          "base_rank": 8,
+          "reranked_rank": 8,
+          "rank_delta": 0,
+          "profile_score": 0.33666,
+          "admission_weight": 0.612108,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "fondo",
+          "pos_bucket": "noun",
+          "base_rank": 9,
+          "reranked_rank": 9,
+          "rank_delta": 0,
+          "profile_score": 0.332046,
+          "admission_weight": 0.60372,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hermano",
+          "pos_bucket": "noun",
+          "base_rank": 10,
+          "reranked_rank": 10,
+          "rank_delta": 0,
+          "profile_score": 0.330851,
+          "admission_weight": 0.601548,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "producción",
+          "pos_bucket": "noun",
+          "base_rank": 11,
+          "reranked_rank": 11,
+          "rank_delta": 0,
+          "profile_score": 0.328887,
+          "admission_weight": 0.597976,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "teatro",
+          "pos_bucket": "noun",
+          "base_rank": 12,
+          "reranked_rank": 12,
+          "rank_delta": 0,
+          "profile_score": 0.327332,
+          "admission_weight": 0.595148,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "área",
+          "pos_bucket": "noun",
+          "base_rank": 13,
+          "reranked_rank": 13,
+          "rank_delta": 0,
+          "profile_score": 0.324003,
+          "admission_weight": 0.589097,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "autor",
+          "pos_bucket": "noun",
+          "base_rank": 14,
+          "reranked_rank": 14,
+          "rank_delta": 0,
+          "profile_score": 0.32336,
+          "admission_weight": 0.587927,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "capital",
+          "pos_bucket": "noun",
+          "base_rank": 15,
+          "reranked_rank": 15,
+          "rank_delta": 0,
+          "profile_score": 0.322238,
+          "admission_weight": 0.585887,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "estilo",
+          "pos_bucket": "noun",
+          "base_rank": 16,
+          "reranked_rank": 16,
+          "rank_delta": 0,
+          "profile_score": 0.321942,
+          "admission_weight": 0.585348,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "resto",
+          "pos_bucket": "noun",
+          "base_rank": 17,
+          "reranked_rank": 17,
+          "rank_delta": 0,
+          "profile_score": 0.321331,
+          "admission_weight": 0.584237,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "sol",
+          "pos_bucket": "noun",
+          "base_rank": 18,
+          "reranked_rank": 18,
+          "rank_delta": 0,
+          "profile_score": 0.320321,
+          "admission_weight": 0.582402,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "espacio",
+          "pos_bucket": "noun",
+          "base_rank": 19,
+          "reranked_rank": 19,
+          "rank_delta": 0,
+          "profile_score": 0.319591,
+          "admission_weight": 0.581074,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "necesidad",
+          "pos_bucket": "noun",
+          "base_rank": 20,
+          "reranked_rank": 20,
+          "rank_delta": 0,
+          "profile_score": 0.318234,
+          "admission_weight": 0.578606,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        }
+      ],
+      "topic_mover_count": 0,
+      "positive_mover_count": 0,
+      "topic_mover_counts": {},
+      "top_topic_movers": [],
+      "active_topic_support": {
+        "scope": "neutral_seed_frontier",
+        "total_candidates": 2000,
+        "topics": []
+      },
+      "profile_topic_overlay": {}
+    },
+    {
+      "name": "animals_interest",
+      "description": "Strong explicit animals interest from the UX chip.",
+      "requested_profile_context": {
+        "interests": [
+          "animals"
+        ]
+      },
+      "effective_profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "interests"
+        ],
+        "interests": [
+          "animals"
+        ],
+        "explicit_topic_weights": {
+          "animals": 1.0
+        },
+        "implicit_topic_weights": {},
+        "topic_weights": {
+          "animals": 1.0
+        },
+        "topic_weight_sources": {
+          "animals": "interests"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "interests"
+        }
+      },
+      "plan": {
+        "strategy_requested": "profile_bootstrap",
+        "strategy_effective": "frequency_bootstrap",
+        "execution_mode": "frequency_bootstrap",
+        "can_execute": true
+      },
+      "preview_counts": {
+        "selected_count": 2000,
+        "selected_unique_count": 1984,
+        "admitted_count": 120,
+        "sample_count_requested": 20,
+        "sample_count_effective": 20,
+        "sampling_mode": "top_n"
+      },
+      "top_lemmas": [
+        "ave",
+        "siglo",
+        "cordero",
+        "millón",
+        "cachorro",
+        "hora",
+        "víbora",
+        "música",
+        "principio",
+        "movimiento",
+        "luz",
+        "mayoría",
+        "lagartija",
+        "fondo",
+        "hermano",
+        "producción",
+        "teatro",
+        "chivo",
+        "área",
+        "escarabajo"
+      ],
+      "admitted_words": [
+        {
+          "lemma": "ave",
+          "pos_bucket": "noun",
+          "base_rank": 91,
+          "reranked_rank": 1,
+          "rank_delta": 90,
+          "profile_score": 0.435597,
+          "admission_weight": 0.497712,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "siglo",
+          "pos_bucket": "noun",
+          "base_rank": 1,
+          "reranked_rank": 2,
+          "rank_delta": -1,
+          "profile_score": 0.37609,
+          "admission_weight": 0.6838,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "cordero",
+          "pos_bucket": "noun",
+          "base_rank": 387,
+          "reranked_rank": 3,
+          "rank_delta": 384,
+          "profile_score": 0.366446,
+          "admission_weight": 0.371982,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "millón",
+          "pos_bucket": "noun",
+          "base_rank": 2,
+          "reranked_rank": 4,
+          "rank_delta": -2,
+          "profile_score": 0.363297,
+          "admission_weight": 0.660539,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "cachorro",
+          "pos_bucket": "noun",
+          "base_rank": 429,
+          "reranked_rank": 5,
+          "rank_delta": 424,
+          "profile_score": 0.361097,
+          "admission_weight": 0.362257,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "hora",
+          "pos_bucket": "noun",
+          "base_rank": 3,
+          "reranked_rank": 6,
+          "rank_delta": -3,
+          "profile_score": 0.358262,
+          "admission_weight": 0.651386,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "víbora",
+          "pos_bucket": "noun",
+          "base_rank": 524,
+          "reranked_rank": 7,
+          "rank_delta": 517,
+          "profile_score": 0.350597,
+          "admission_weight": 0.343166,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "música",
+          "pos_bucket": "noun",
+          "base_rank": 4,
+          "reranked_rank": 8,
+          "rank_delta": -4,
+          "profile_score": 0.345476,
+          "admission_weight": 0.628139,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "principio",
+          "pos_bucket": "noun",
+          "base_rank": 5,
+          "reranked_rank": 9,
+          "rank_delta": -4,
+          "profile_score": 0.343931,
+          "admission_weight": 0.625329,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "movimiento",
+          "pos_bucket": "noun",
+          "base_rank": 6,
+          "reranked_rank": 10,
+          "rank_delta": -4,
+          "profile_score": 0.339065,
+          "admission_weight": 0.616481,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "luz",
+          "pos_bucket": "noun",
+          "base_rank": 7,
+          "reranked_rank": 11,
+          "rank_delta": -4,
+          "profile_score": 0.33798,
+          "admission_weight": 0.614508,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "mayoría",
+          "pos_bucket": "noun",
+          "base_rank": 8,
+          "reranked_rank": 12,
+          "rank_delta": -4,
+          "profile_score": 0.33666,
+          "admission_weight": 0.612108,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "lagartija",
+          "pos_bucket": "noun",
+          "base_rank": 727,
+          "reranked_rank": 13,
+          "rank_delta": 714,
+          "profile_score": 0.332294,
+          "admission_weight": 0.309889,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "fondo",
+          "pos_bucket": "noun",
+          "base_rank": 9,
+          "reranked_rank": 14,
+          "rank_delta": -5,
+          "profile_score": 0.332046,
+          "admission_weight": 0.60372,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "hermano",
+          "pos_bucket": "noun",
+          "base_rank": 10,
+          "reranked_rank": 15,
+          "rank_delta": -5,
+          "profile_score": 0.330851,
+          "admission_weight": 0.601548,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "producción",
+          "pos_bucket": "noun",
+          "base_rank": 11,
+          "reranked_rank": 16,
+          "rank_delta": -5,
+          "profile_score": 0.328887,
+          "admission_weight": 0.597976,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "teatro",
+          "pos_bucket": "noun",
+          "base_rank": 12,
+          "reranked_rank": 17,
+          "rank_delta": -5,
+          "profile_score": 0.327332,
+          "admission_weight": 0.595148,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "chivo",
+          "pos_bucket": "noun",
+          "base_rank": 812,
+          "reranked_rank": 18,
+          "rank_delta": 794,
+          "profile_score": 0.326141,
+          "admission_weight": 0.298701,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "área",
+          "pos_bucket": "noun",
+          "base_rank": 13,
+          "reranked_rank": 19,
+          "rank_delta": -6,
+          "profile_score": 0.324003,
+          "admission_weight": 0.589097,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "escarabajo",
+          "pos_bucket": "noun",
+          "base_rank": 855,
+          "reranked_rank": 20,
+          "rank_delta": 835,
+          "profile_score": 0.323642,
+          "admission_weight": 0.294156,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ],
+      "topic_mover_count": 7,
+      "positive_mover_count": 7,
+      "topic_mover_counts": {
+        "animals": 7
+      },
+      "top_topic_movers": [
+        {
+          "lemma": "ave",
+          "pos_bucket": "noun",
+          "base_rank": 91,
+          "reranked_rank": 1,
+          "rank_delta": 90,
+          "profile_score": 0.435597,
+          "admission_weight": 0.497712,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "cordero",
+          "pos_bucket": "noun",
+          "base_rank": 387,
+          "reranked_rank": 3,
+          "rank_delta": 384,
+          "profile_score": 0.366446,
+          "admission_weight": 0.371982,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "cachorro",
+          "pos_bucket": "noun",
+          "base_rank": 429,
+          "reranked_rank": 5,
+          "rank_delta": 424,
+          "profile_score": 0.361097,
+          "admission_weight": 0.362257,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "víbora",
+          "pos_bucket": "noun",
+          "base_rank": 524,
+          "reranked_rank": 7,
+          "rank_delta": 517,
+          "profile_score": 0.350597,
+          "admission_weight": 0.343166,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "lagartija",
+          "pos_bucket": "noun",
+          "base_rank": 727,
+          "reranked_rank": 13,
+          "rank_delta": 714,
+          "profile_score": 0.332294,
+          "admission_weight": 0.309889,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "chivo",
+          "pos_bucket": "noun",
+          "base_rank": 812,
+          "reranked_rank": 18,
+          "rank_delta": 794,
+          "profile_score": 0.326141,
+          "admission_weight": 0.298701,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "escarabajo",
+          "pos_bucket": "noun",
+          "base_rank": 855,
+          "reranked_rank": 20,
+          "rank_delta": 835,
+          "profile_score": 0.323642,
+          "admission_weight": 0.294156,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ],
+      "active_topic_support": {
+        "scope": "neutral_seed_frontier",
+        "total_candidates": 2000,
+        "topics": [
+          {
+            "topic": "animals",
+            "candidate_count": 11,
+            "support_mass": 3.42043,
+            "scarcity_readiness": "eligible",
+            "top_examples": [
+              "ave",
+              "cordero",
+              "cachorro",
+              "víbora",
+              "lagartija"
+            ]
+          }
+        ]
+      },
+      "profile_topic_overlay": {
+        "status": "active",
+        "reason": "overlay_artifact_ready",
+        "application_status": "applied",
+        "runtime_scope": "admission_preview_only",
+        "active_topics": [
+          "animals"
+        ],
+        "available_row_count": 84,
+        "applicable_row_count": 49,
+        "matched_seed_count": 13,
+        "eligible_row_count": 38,
+        "applied_seed_count": 11,
+        "applied_row_count": 11,
+        "applied_topics": {
+          "animals": 11
+        },
+        "source_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+        "promotion_state": "poc_candidate_not_product_overlay"
+      }
+    },
+    {
+      "name": "animals_light_weight",
+      "description": "Scalar animals preference below the full chip weight.",
+      "requested_profile_context": {
+        "topic_weights": {
+          "animals": 0.35
+        }
+      },
+      "effective_profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "topic_weights"
+        ],
+        "interests": [],
+        "explicit_topic_weights": {
+          "animals": 0.35
+        },
+        "implicit_topic_weights": {},
+        "topic_weights": {
+          "animals": 0.35
+        },
+        "topic_weight_sources": {
+          "animals": "topic_weights"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "topic_weights"
+        }
+      },
+      "plan": {
+        "strategy_requested": "profile_bootstrap",
+        "strategy_effective": "frequency_bootstrap",
+        "execution_mode": "frequency_bootstrap",
+        "can_execute": true
+      },
+      "preview_counts": {
+        "selected_count": 2000,
+        "selected_unique_count": 1984,
+        "admitted_count": 120,
+        "sample_count_requested": 20,
+        "sample_count_effective": 20,
+        "sampling_mode": "top_n"
+      },
+      "top_lemmas": [
+        "siglo",
+        "millón",
+        "hora",
+        "música",
+        "principio",
+        "movimiento",
+        "luz",
+        "mayoría",
+        "fondo",
+        "hermano",
+        "ave",
+        "producción",
+        "teatro",
+        "área",
+        "autor",
+        "capital",
+        "estilo",
+        "resto",
+        "sol",
+        "espacio"
+      ],
+      "admitted_words": [
+        {
+          "lemma": "siglo",
+          "pos_bucket": "noun",
+          "base_rank": 1,
+          "reranked_rank": 1,
+          "rank_delta": 0,
+          "profile_score": 0.37609,
+          "admission_weight": 0.6838,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "millón",
+          "pos_bucket": "noun",
+          "base_rank": 2,
+          "reranked_rank": 2,
+          "rank_delta": 0,
+          "profile_score": 0.363297,
+          "admission_weight": 0.660539,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hora",
+          "pos_bucket": "noun",
+          "base_rank": 3,
+          "reranked_rank": 3,
+          "rank_delta": 0,
+          "profile_score": 0.358262,
+          "admission_weight": 0.651386,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "música",
+          "pos_bucket": "noun",
+          "base_rank": 4,
+          "reranked_rank": 4,
+          "rank_delta": 0,
+          "profile_score": 0.345476,
+          "admission_weight": 0.628139,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "principio",
+          "pos_bucket": "noun",
+          "base_rank": 5,
+          "reranked_rank": 5,
+          "rank_delta": 0,
+          "profile_score": 0.343931,
+          "admission_weight": 0.625329,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "movimiento",
+          "pos_bucket": "noun",
+          "base_rank": 6,
+          "reranked_rank": 6,
+          "rank_delta": 0,
+          "profile_score": 0.339065,
+          "admission_weight": 0.616481,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "luz",
+          "pos_bucket": "noun",
+          "base_rank": 7,
+          "reranked_rank": 7,
+          "rank_delta": 0,
+          "profile_score": 0.33798,
+          "admission_weight": 0.614508,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "mayoría",
+          "pos_bucket": "noun",
+          "base_rank": 8,
+          "reranked_rank": 8,
+          "rank_delta": 0,
+          "profile_score": 0.33666,
+          "admission_weight": 0.612108,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "fondo",
+          "pos_bucket": "noun",
+          "base_rank": 9,
+          "reranked_rank": 9,
+          "rank_delta": 0,
+          "profile_score": 0.332046,
+          "admission_weight": 0.60372,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hermano",
+          "pos_bucket": "noun",
+          "base_rank": 10,
+          "reranked_rank": 10,
+          "rank_delta": 0,
+          "profile_score": 0.330851,
+          "admission_weight": 0.601548,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "ave",
+          "pos_bucket": "noun",
+          "base_rank": 91,
+          "reranked_rank": 11,
+          "rank_delta": 80,
+          "profile_score": 0.330391,
+          "admission_weight": 0.497712,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 0.35,
+          "scarcity_bonus": 0.082989,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "producción",
+          "pos_bucket": "noun",
+          "base_rank": 11,
+          "reranked_rank": 12,
+          "rank_delta": -1,
+          "profile_score": 0.328887,
+          "admission_weight": 0.597976,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "teatro",
+          "pos_bucket": "noun",
+          "base_rank": 12,
+          "reranked_rank": 13,
+          "rank_delta": -1,
+          "profile_score": 0.327332,
+          "admission_weight": 0.595148,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "área",
+          "pos_bucket": "noun",
+          "base_rank": 13,
+          "reranked_rank": 14,
+          "rank_delta": -1,
+          "profile_score": 0.324003,
+          "admission_weight": 0.589097,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "autor",
+          "pos_bucket": "noun",
+          "base_rank": 14,
+          "reranked_rank": 15,
+          "rank_delta": -1,
+          "profile_score": 0.32336,
+          "admission_weight": 0.587927,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "capital",
+          "pos_bucket": "noun",
+          "base_rank": 15,
+          "reranked_rank": 16,
+          "rank_delta": -1,
+          "profile_score": 0.322238,
+          "admission_weight": 0.585887,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "estilo",
+          "pos_bucket": "noun",
+          "base_rank": 16,
+          "reranked_rank": 17,
+          "rank_delta": -1,
+          "profile_score": 0.321942,
+          "admission_weight": 0.585348,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "resto",
+          "pos_bucket": "noun",
+          "base_rank": 17,
+          "reranked_rank": 18,
+          "rank_delta": -1,
+          "profile_score": 0.321331,
+          "admission_weight": 0.584237,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "sol",
+          "pos_bucket": "noun",
+          "base_rank": 18,
+          "reranked_rank": 19,
+          "rank_delta": -1,
+          "profile_score": 0.320321,
+          "admission_weight": 0.582402,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "espacio",
+          "pos_bucket": "noun",
+          "base_rank": 19,
+          "reranked_rank": 20,
+          "rank_delta": -1,
+          "profile_score": 0.319591,
+          "admission_weight": 0.581074,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        }
+      ],
+      "topic_mover_count": 1,
+      "positive_mover_count": 1,
+      "topic_mover_counts": {
+        "animals": 1
+      },
+      "top_topic_movers": [
+        {
+          "lemma": "ave",
+          "pos_bucket": "noun",
+          "base_rank": 91,
+          "reranked_rank": 11,
+          "rank_delta": 80,
+          "profile_score": 0.330391,
+          "admission_weight": 0.497712,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 0.35,
+          "scarcity_bonus": 0.082989,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ],
+      "active_topic_support": {
+        "scope": "neutral_seed_frontier",
+        "total_candidates": 2000,
+        "topics": [
+          {
+            "topic": "animals",
+            "candidate_count": 11,
+            "support_mass": 3.42043,
+            "scarcity_readiness": "eligible",
+            "top_examples": [
+              "ave",
+              "cordero",
+              "cachorro",
+              "víbora",
+              "lagartija"
+            ]
+          }
+        ]
+      },
+      "profile_topic_overlay": {
+        "status": "active",
+        "reason": "overlay_artifact_ready",
+        "application_status": "applied",
+        "runtime_scope": "admission_preview_only",
+        "active_topics": [
+          "animals"
+        ],
+        "available_row_count": 84,
+        "applicable_row_count": 49,
+        "matched_seed_count": 13,
+        "eligible_row_count": 38,
+        "applied_seed_count": 11,
+        "applied_row_count": 11,
+        "applied_topics": {
+          "animals": 11
+        },
+        "source_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+        "promotion_state": "poc_candidate_not_product_overlay"
+      }
+    },
+    {
+      "name": "plants_nature_interest",
+      "description": "Strong explicit plants/nature interest from the UX chip.",
+      "requested_profile_context": {
+        "interests": [
+          "plants_nature"
+        ]
+      },
+      "effective_profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "interests"
+        ],
+        "interests": [
+          "plants_nature"
+        ],
+        "explicit_topic_weights": {
+          "plants_nature": 1.0
+        },
+        "implicit_topic_weights": {},
+        "topic_weights": {
+          "plants_nature": 1.0
+        },
+        "topic_weight_sources": {
+          "plants_nature": "interests"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "interests"
+        }
+      },
+      "plan": {
+        "strategy_requested": "profile_bootstrap",
+        "strategy_effective": "frequency_bootstrap",
+        "execution_mode": "frequency_bootstrap",
+        "can_execute": true
+      },
+      "preview_counts": {
+        "selected_count": 2000,
+        "selected_unique_count": 1984,
+        "admitted_count": 120,
+        "sample_count_requested": 20,
+        "sample_count_effective": 20,
+        "sampling_mode": "top_n"
+      },
+      "top_lemmas": [
+        "siglo",
+        "millón",
+        "hora",
+        "sauce",
+        "música",
+        "principio",
+        "movimiento",
+        "luz",
+        "mayoría",
+        "fondo",
+        "granado",
+        "hermano",
+        "producción",
+        "teatro",
+        "área",
+        "autor",
+        "capital",
+        "estilo",
+        "resto",
+        "sol"
+      ],
+      "admitted_words": [
+        {
+          "lemma": "siglo",
+          "pos_bucket": "noun",
+          "base_rank": 1,
+          "reranked_rank": 1,
+          "rank_delta": 0,
+          "profile_score": 0.37609,
+          "admission_weight": 0.6838,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "millón",
+          "pos_bucket": "noun",
+          "base_rank": 2,
+          "reranked_rank": 2,
+          "rank_delta": 0,
+          "profile_score": 0.363297,
+          "admission_weight": 0.660539,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hora",
+          "pos_bucket": "noun",
+          "base_rank": 3,
+          "reranked_rank": 3,
+          "rank_delta": 0,
+          "profile_score": 0.358262,
+          "admission_weight": 0.651386,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "sauce",
+          "pos_bucket": "noun",
+          "base_rank": 578,
+          "reranked_rank": 4,
+          "rank_delta": 574,
+          "profile_score": 0.356402,
+          "admission_weight": 0.334367,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "música",
+          "pos_bucket": "noun",
+          "base_rank": 4,
+          "reranked_rank": 5,
+          "rank_delta": -1,
+          "profile_score": 0.345476,
+          "admission_weight": 0.628139,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "principio",
+          "pos_bucket": "noun",
+          "base_rank": 5,
+          "reranked_rank": 6,
+          "rank_delta": -1,
+          "profile_score": 0.343931,
+          "admission_weight": 0.625329,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "movimiento",
+          "pos_bucket": "noun",
+          "base_rank": 6,
+          "reranked_rank": 7,
+          "rank_delta": -1,
+          "profile_score": 0.339065,
+          "admission_weight": 0.616481,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "luz",
+          "pos_bucket": "noun",
+          "base_rank": 7,
+          "reranked_rank": 8,
+          "rank_delta": -1,
+          "profile_score": 0.33798,
+          "admission_weight": 0.614508,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "mayoría",
+          "pos_bucket": "noun",
+          "base_rank": 8,
+          "reranked_rank": 9,
+          "rank_delta": -1,
+          "profile_score": 0.33666,
+          "admission_weight": 0.612108,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "fondo",
+          "pos_bucket": "noun",
+          "base_rank": 9,
+          "reranked_rank": 10,
+          "rank_delta": -1,
+          "profile_score": 0.332046,
+          "admission_weight": 0.60372,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "granado",
+          "pos_bucket": "noun",
+          "base_rank": 909,
+          "reranked_rank": 11,
+          "rank_delta": 898,
+          "profile_score": 0.33092,
+          "admission_weight": 0.288037,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "hermano",
+          "pos_bucket": "noun",
+          "base_rank": 10,
+          "reranked_rank": 12,
+          "rank_delta": -2,
+          "profile_score": 0.330851,
+          "admission_weight": 0.601548,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "producción",
+          "pos_bucket": "noun",
+          "base_rank": 11,
+          "reranked_rank": 13,
+          "rank_delta": -2,
+          "profile_score": 0.328887,
+          "admission_weight": 0.597976,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "teatro",
+          "pos_bucket": "noun",
+          "base_rank": 12,
+          "reranked_rank": 14,
+          "rank_delta": -2,
+          "profile_score": 0.327332,
+          "admission_weight": 0.595148,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "área",
+          "pos_bucket": "noun",
+          "base_rank": 13,
+          "reranked_rank": 15,
+          "rank_delta": -2,
+          "profile_score": 0.324003,
+          "admission_weight": 0.589097,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "autor",
+          "pos_bucket": "noun",
+          "base_rank": 14,
+          "reranked_rank": 16,
+          "rank_delta": -2,
+          "profile_score": 0.32336,
+          "admission_weight": 0.587927,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "capital",
+          "pos_bucket": "noun",
+          "base_rank": 15,
+          "reranked_rank": 17,
+          "rank_delta": -2,
+          "profile_score": 0.322238,
+          "admission_weight": 0.585887,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "estilo",
+          "pos_bucket": "noun",
+          "base_rank": 16,
+          "reranked_rank": 18,
+          "rank_delta": -2,
+          "profile_score": 0.321942,
+          "admission_weight": 0.585348,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "resto",
+          "pos_bucket": "noun",
+          "base_rank": 17,
+          "reranked_rank": 19,
+          "rank_delta": -2,
+          "profile_score": 0.321331,
+          "admission_weight": 0.584237,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "sol",
+          "pos_bucket": "noun",
+          "base_rank": 18,
+          "reranked_rank": 20,
+          "rank_delta": -2,
+          "profile_score": 0.320321,
+          "admission_weight": 0.582402,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        }
+      ],
+      "topic_mover_count": 2,
+      "positive_mover_count": 2,
+      "topic_mover_counts": {
+        "plants_nature": 2
+      },
+      "top_topic_movers": [
+        {
+          "lemma": "sauce",
+          "pos_bucket": "noun",
+          "base_rank": 578,
+          "reranked_rank": 4,
+          "rank_delta": 574,
+          "profile_score": 0.356402,
+          "admission_weight": 0.334367,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "granado",
+          "pos_bucket": "noun",
+          "base_rank": 909,
+          "reranked_rank": 11,
+          "rank_delta": 898,
+          "profile_score": 0.33092,
+          "admission_weight": 0.288037,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ],
+      "active_topic_support": {
+        "scope": "neutral_seed_frontier",
+        "total_candidates": 2000,
+        "topics": [
+          {
+            "topic": "plants_nature",
+            "candidate_count": 4,
+            "support_mass": 1.126507,
+            "scarcity_readiness": "eligible",
+            "top_examples": [
+              "sauce",
+              "granado",
+              "manzano",
+              "jacinto"
+            ]
+          }
+        ]
+      },
+      "profile_topic_overlay": {
+        "status": "active",
+        "reason": "overlay_artifact_ready",
+        "application_status": "applied",
+        "runtime_scope": "admission_preview_only",
+        "active_topics": [
+          "plants_nature"
+        ],
+        "available_row_count": 84,
+        "applicable_row_count": 35,
+        "matched_seed_count": 6,
+        "eligible_row_count": 19,
+        "applied_seed_count": 4,
+        "applied_row_count": 4,
+        "applied_topics": {
+          "plants_nature": 4
+        },
+        "source_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+        "promotion_state": "poc_candidate_not_product_overlay"
+      }
+    },
+    {
+      "name": "animals_plants_interest",
+      "description": "Combined animals plus plants/nature interests.",
+      "requested_profile_context": {
+        "interests": [
+          "animals",
+          "plants_nature"
+        ]
+      },
+      "effective_profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "interests"
+        ],
+        "interests": [
+          "animals",
+          "plants_nature"
+        ],
+        "explicit_topic_weights": {
+          "animals": 1.0,
+          "plants_nature": 1.0
+        },
+        "implicit_topic_weights": {},
+        "topic_weights": {
+          "animals": 1.0,
+          "plants_nature": 1.0
+        },
+        "topic_weight_sources": {
+          "animals": "interests",
+          "plants_nature": "interests"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "interests"
+        }
+      },
+      "plan": {
+        "strategy_requested": "profile_bootstrap",
+        "strategy_effective": "frequency_bootstrap",
+        "execution_mode": "frequency_bootstrap",
+        "can_execute": true
+      },
+      "preview_counts": {
+        "selected_count": 2000,
+        "selected_unique_count": 1984,
+        "admitted_count": 120,
+        "sample_count_requested": 20,
+        "sample_count_effective": 20,
+        "sampling_mode": "top_n"
+      },
+      "top_lemmas": [
+        "ave",
+        "siglo",
+        "cordero",
+        "millón",
+        "cachorro",
+        "hora",
+        "sauce",
+        "víbora",
+        "música",
+        "principio",
+        "movimiento",
+        "luz",
+        "mayoría",
+        "lagartija",
+        "fondo",
+        "granado",
+        "hermano",
+        "producción",
+        "teatro",
+        "chivo"
+      ],
+      "admitted_words": [
+        {
+          "lemma": "ave",
+          "pos_bucket": "noun",
+          "base_rank": 91,
+          "reranked_rank": 1,
+          "rank_delta": 90,
+          "profile_score": 0.435597,
+          "admission_weight": 0.497712,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "siglo",
+          "pos_bucket": "noun",
+          "base_rank": 1,
+          "reranked_rank": 2,
+          "rank_delta": -1,
+          "profile_score": 0.37609,
+          "admission_weight": 0.6838,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "cordero",
+          "pos_bucket": "noun",
+          "base_rank": 387,
+          "reranked_rank": 3,
+          "rank_delta": 384,
+          "profile_score": 0.366446,
+          "admission_weight": 0.371982,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "millón",
+          "pos_bucket": "noun",
+          "base_rank": 2,
+          "reranked_rank": 4,
+          "rank_delta": -2,
+          "profile_score": 0.363297,
+          "admission_weight": 0.660539,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "cachorro",
+          "pos_bucket": "noun",
+          "base_rank": 429,
+          "reranked_rank": 5,
+          "rank_delta": 424,
+          "profile_score": 0.361097,
+          "admission_weight": 0.362257,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "hora",
+          "pos_bucket": "noun",
+          "base_rank": 3,
+          "reranked_rank": 6,
+          "rank_delta": -3,
+          "profile_score": 0.358262,
+          "admission_weight": 0.651386,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "sauce",
+          "pos_bucket": "noun",
+          "base_rank": 578,
+          "reranked_rank": 7,
+          "rank_delta": 571,
+          "profile_score": 0.356402,
+          "admission_weight": 0.334367,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "víbora",
+          "pos_bucket": "noun",
+          "base_rank": 524,
+          "reranked_rank": 8,
+          "rank_delta": 516,
+          "profile_score": 0.350597,
+          "admission_weight": 0.343166,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "música",
+          "pos_bucket": "noun",
+          "base_rank": 4,
+          "reranked_rank": 9,
+          "rank_delta": -5,
+          "profile_score": 0.345476,
+          "admission_weight": 0.628139,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "principio",
+          "pos_bucket": "noun",
+          "base_rank": 5,
+          "reranked_rank": 10,
+          "rank_delta": -5,
+          "profile_score": 0.343931,
+          "admission_weight": 0.625329,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "movimiento",
+          "pos_bucket": "noun",
+          "base_rank": 6,
+          "reranked_rank": 11,
+          "rank_delta": -5,
+          "profile_score": 0.339065,
+          "admission_weight": 0.616481,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "luz",
+          "pos_bucket": "noun",
+          "base_rank": 7,
+          "reranked_rank": 12,
+          "rank_delta": -5,
+          "profile_score": 0.33798,
+          "admission_weight": 0.614508,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "mayoría",
+          "pos_bucket": "noun",
+          "base_rank": 8,
+          "reranked_rank": 13,
+          "rank_delta": -5,
+          "profile_score": 0.33666,
+          "admission_weight": 0.612108,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "lagartija",
+          "pos_bucket": "noun",
+          "base_rank": 727,
+          "reranked_rank": 14,
+          "rank_delta": 713,
+          "profile_score": 0.332294,
+          "admission_weight": 0.309889,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "fondo",
+          "pos_bucket": "noun",
+          "base_rank": 9,
+          "reranked_rank": 15,
+          "rank_delta": -6,
+          "profile_score": 0.332046,
+          "admission_weight": 0.60372,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "granado",
+          "pos_bucket": "noun",
+          "base_rank": 909,
+          "reranked_rank": 16,
+          "rank_delta": 893,
+          "profile_score": 0.33092,
+          "admission_weight": 0.288037,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "hermano",
+          "pos_bucket": "noun",
+          "base_rank": 10,
+          "reranked_rank": 17,
+          "rank_delta": -7,
+          "profile_score": 0.330851,
+          "admission_weight": 0.601548,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "producción",
+          "pos_bucket": "noun",
+          "base_rank": 11,
+          "reranked_rank": 18,
+          "rank_delta": -7,
+          "profile_score": 0.328887,
+          "admission_weight": 0.597976,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "teatro",
+          "pos_bucket": "noun",
+          "base_rank": 12,
+          "reranked_rank": 19,
+          "rank_delta": -7,
+          "profile_score": 0.327332,
+          "admission_weight": 0.595148,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "chivo",
+          "pos_bucket": "noun",
+          "base_rank": 812,
+          "reranked_rank": 20,
+          "rank_delta": 792,
+          "profile_score": 0.326141,
+          "admission_weight": 0.298701,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ],
+      "topic_mover_count": 8,
+      "positive_mover_count": 8,
+      "topic_mover_counts": {
+        "animals": 6,
+        "plants_nature": 2
+      },
+      "top_topic_movers": [
+        {
+          "lemma": "ave",
+          "pos_bucket": "noun",
+          "base_rank": 91,
+          "reranked_rank": 1,
+          "rank_delta": 90,
+          "profile_score": 0.435597,
+          "admission_weight": 0.497712,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "cordero",
+          "pos_bucket": "noun",
+          "base_rank": 387,
+          "reranked_rank": 3,
+          "rank_delta": 384,
+          "profile_score": 0.366446,
+          "admission_weight": 0.371982,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "cachorro",
+          "pos_bucket": "noun",
+          "base_rank": 429,
+          "reranked_rank": 5,
+          "rank_delta": 424,
+          "profile_score": 0.361097,
+          "admission_weight": 0.362257,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "sauce",
+          "pos_bucket": "noun",
+          "base_rank": 578,
+          "reranked_rank": 7,
+          "rank_delta": 571,
+          "profile_score": 0.356402,
+          "admission_weight": 0.334367,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "víbora",
+          "pos_bucket": "noun",
+          "base_rank": 524,
+          "reranked_rank": 8,
+          "rank_delta": 516,
+          "profile_score": 0.350597,
+          "admission_weight": 0.343166,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "lagartija",
+          "pos_bucket": "noun",
+          "base_rank": 727,
+          "reranked_rank": 14,
+          "rank_delta": 713,
+          "profile_score": 0.332294,
+          "admission_weight": 0.309889,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "granado",
+          "pos_bucket": "noun",
+          "base_rank": 909,
+          "reranked_rank": 16,
+          "rank_delta": 893,
+          "profile_score": 0.33092,
+          "admission_weight": 0.288037,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "chivo",
+          "pos_bucket": "noun",
+          "base_rank": 812,
+          "reranked_rank": 20,
+          "rank_delta": 792,
+          "profile_score": 0.326141,
+          "admission_weight": 0.298701,
+          "topic_affinity_source": "topic_hint:animals",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.237111,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ],
+      "active_topic_support": {
+        "scope": "neutral_seed_frontier",
+        "total_candidates": 2000,
+        "topics": [
+          {
+            "topic": "animals",
+            "candidate_count": 11,
+            "support_mass": 3.42043,
+            "scarcity_readiness": "eligible",
+            "top_examples": [
+              "ave",
+              "cordero",
+              "cachorro",
+              "víbora",
+              "lagartija"
+            ]
+          },
+          {
+            "topic": "plants_nature",
+            "candidate_count": 4,
+            "support_mass": 1.126507,
+            "scarcity_readiness": "eligible",
+            "top_examples": [
+              "sauce",
+              "granado",
+              "manzano",
+              "jacinto"
+            ]
+          }
+        ]
+      },
+      "profile_topic_overlay": {
+        "status": "active",
+        "reason": "overlay_artifact_ready",
+        "application_status": "applied",
+        "runtime_scope": "admission_preview_only",
+        "active_topics": [
+          "animals",
+          "plants_nature"
+        ],
+        "available_row_count": 84,
+        "applicable_row_count": 84,
+        "matched_seed_count": 19,
+        "eligible_row_count": 57,
+        "applied_seed_count": 15,
+        "applied_row_count": 15,
+        "applied_topics": {
+          "animals": 11,
+          "plants_nature": 4
+        },
+        "source_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+        "promotion_state": "poc_candidate_not_product_overlay"
+      }
+    },
+    {
+      "name": "weighted_plants_over_animals",
+      "description": "Scalar topic weights preferring plants/nature over animals.",
+      "requested_profile_context": {
+        "topic_weights": {
+          "plants_nature": 1.0,
+          "animals": 0.25
+        }
+      },
+      "effective_profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "topic_weights"
+        ],
+        "interests": [],
+        "explicit_topic_weights": {
+          "plants_nature": 1.0,
+          "animals": 0.25
+        },
+        "implicit_topic_weights": {},
+        "topic_weights": {
+          "plants_nature": 1.0,
+          "animals": 0.25
+        },
+        "topic_weight_sources": {
+          "plants_nature": "topic_weights",
+          "animals": "topic_weights"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "topic_weights"
+        }
+      },
+      "plan": {
+        "strategy_requested": "profile_bootstrap",
+        "strategy_effective": "frequency_bootstrap",
+        "execution_mode": "frequency_bootstrap",
+        "can_execute": true
+      },
+      "preview_counts": {
+        "selected_count": 2000,
+        "selected_unique_count": 1984,
+        "admitted_count": 120,
+        "sample_count_requested": 20,
+        "sample_count_effective": 20,
+        "sampling_mode": "top_n"
+      },
+      "top_lemmas": [
+        "siglo",
+        "millón",
+        "hora",
+        "sauce",
+        "música",
+        "principio",
+        "movimiento",
+        "luz",
+        "mayoría",
+        "fondo",
+        "granado",
+        "hermano",
+        "producción",
+        "teatro",
+        "área",
+        "autor",
+        "capital",
+        "estilo",
+        "resto",
+        "sol"
+      ],
+      "admitted_words": [
+        {
+          "lemma": "siglo",
+          "pos_bucket": "noun",
+          "base_rank": 1,
+          "reranked_rank": 1,
+          "rank_delta": 0,
+          "profile_score": 0.37609,
+          "admission_weight": 0.6838,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "millón",
+          "pos_bucket": "noun",
+          "base_rank": 2,
+          "reranked_rank": 2,
+          "rank_delta": 0,
+          "profile_score": 0.363297,
+          "admission_weight": 0.660539,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hora",
+          "pos_bucket": "noun",
+          "base_rank": 3,
+          "reranked_rank": 3,
+          "rank_delta": 0,
+          "profile_score": 0.358262,
+          "admission_weight": 0.651386,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "sauce",
+          "pos_bucket": "noun",
+          "base_rank": 578,
+          "reranked_rank": 4,
+          "rank_delta": 574,
+          "profile_score": 0.356402,
+          "admission_weight": 0.334367,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "música",
+          "pos_bucket": "noun",
+          "base_rank": 4,
+          "reranked_rank": 5,
+          "rank_delta": -1,
+          "profile_score": 0.345476,
+          "admission_weight": 0.628139,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "principio",
+          "pos_bucket": "noun",
+          "base_rank": 5,
+          "reranked_rank": 6,
+          "rank_delta": -1,
+          "profile_score": 0.343931,
+          "admission_weight": 0.625329,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "movimiento",
+          "pos_bucket": "noun",
+          "base_rank": 6,
+          "reranked_rank": 7,
+          "rank_delta": -1,
+          "profile_score": 0.339065,
+          "admission_weight": 0.616481,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "luz",
+          "pos_bucket": "noun",
+          "base_rank": 7,
+          "reranked_rank": 8,
+          "rank_delta": -1,
+          "profile_score": 0.33798,
+          "admission_weight": 0.614508,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "mayoría",
+          "pos_bucket": "noun",
+          "base_rank": 8,
+          "reranked_rank": 9,
+          "rank_delta": -1,
+          "profile_score": 0.33666,
+          "admission_weight": 0.612108,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "fondo",
+          "pos_bucket": "noun",
+          "base_rank": 9,
+          "reranked_rank": 10,
+          "rank_delta": -1,
+          "profile_score": 0.332046,
+          "admission_weight": 0.60372,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "granado",
+          "pos_bucket": "noun",
+          "base_rank": 909,
+          "reranked_rank": 11,
+          "rank_delta": 898,
+          "profile_score": 0.33092,
+          "admission_weight": 0.288037,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "hermano",
+          "pos_bucket": "noun",
+          "base_rank": 10,
+          "reranked_rank": 12,
+          "rank_delta": -2,
+          "profile_score": 0.330851,
+          "admission_weight": 0.601548,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "producción",
+          "pos_bucket": "noun",
+          "base_rank": 11,
+          "reranked_rank": 13,
+          "rank_delta": -2,
+          "profile_score": 0.328887,
+          "admission_weight": 0.597976,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "teatro",
+          "pos_bucket": "noun",
+          "base_rank": 12,
+          "reranked_rank": 14,
+          "rank_delta": -2,
+          "profile_score": 0.327332,
+          "admission_weight": 0.595148,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "área",
+          "pos_bucket": "noun",
+          "base_rank": 13,
+          "reranked_rank": 15,
+          "rank_delta": -2,
+          "profile_score": 0.324003,
+          "admission_weight": 0.589097,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "autor",
+          "pos_bucket": "noun",
+          "base_rank": 14,
+          "reranked_rank": 16,
+          "rank_delta": -2,
+          "profile_score": 0.32336,
+          "admission_weight": 0.587927,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "capital",
+          "pos_bucket": "noun",
+          "base_rank": 15,
+          "reranked_rank": 17,
+          "rank_delta": -2,
+          "profile_score": 0.322238,
+          "admission_weight": 0.585887,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "estilo",
+          "pos_bucket": "noun",
+          "base_rank": 16,
+          "reranked_rank": 18,
+          "rank_delta": -2,
+          "profile_score": 0.321942,
+          "admission_weight": 0.585348,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "resto",
+          "pos_bucket": "noun",
+          "base_rank": 17,
+          "reranked_rank": 19,
+          "rank_delta": -2,
+          "profile_score": 0.321331,
+          "admission_weight": 0.584237,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        },
+        {
+          "lemma": "sol",
+          "pos_bucket": "noun",
+          "base_rank": 18,
+          "reranked_rank": 20,
+          "rank_delta": -2,
+          "profile_score": 0.320321,
+          "admission_weight": 0.582402,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Still supported by coverage_gain, but moved down because other items received stronger overall profile lift."
+        }
+      ],
+      "topic_mover_count": 2,
+      "positive_mover_count": 2,
+      "topic_mover_counts": {
+        "plants_nature": 2
+      },
+      "top_topic_movers": [
+        {
+          "lemma": "sauce",
+          "pos_bucket": "noun",
+          "base_rank": 578,
+          "reranked_rank": 4,
+          "rank_delta": 574,
+          "profile_score": 0.356402,
+          "admission_weight": 0.334367,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        },
+        {
+          "lemma": "granado",
+          "pos_bucket": "noun",
+          "base_rank": 909,
+          "reranked_rank": 11,
+          "rank_delta": 898,
+          "profile_score": 0.33092,
+          "admission_weight": 0.288037,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "topic_affinity": 1.0,
+          "scarcity_bonus": 0.45,
+          "explanation": "Boosted by topic_affinity, while remaining supported by coverage_gain."
+        }
+      ],
+      "active_topic_support": {
+        "scope": "neutral_seed_frontier",
+        "total_candidates": 2000,
+        "topics": [
+          {
+            "topic": "plants_nature",
+            "candidate_count": 4,
+            "support_mass": 1.126507,
+            "scarcity_readiness": "eligible",
+            "top_examples": [
+              "sauce",
+              "granado",
+              "manzano",
+              "jacinto"
+            ]
+          },
+          {
+            "topic": "animals",
+            "candidate_count": 11,
+            "support_mass": 3.42043,
+            "scarcity_readiness": "eligible",
+            "top_examples": [
+              "ave",
+              "cordero",
+              "cachorro",
+              "víbora",
+              "lagartija"
+            ]
+          }
+        ]
+      },
+      "profile_topic_overlay": {
+        "status": "active",
+        "reason": "overlay_artifact_ready",
+        "application_status": "applied",
+        "runtime_scope": "admission_preview_only",
+        "active_topics": [
+          "plants_nature",
+          "animals"
+        ],
+        "available_row_count": 84,
+        "applicable_row_count": 84,
+        "matched_seed_count": 19,
+        "eligible_row_count": 57,
+        "applied_seed_count": 15,
+        "applied_row_count": 15,
+        "applied_topics": {
+          "animals": 11,
+          "plants_nature": 4
+        },
+        "source_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+        "promotion_state": "poc_candidate_not_product_overlay"
+      }
+    },
+    {
+      "name": "finance_control",
+      "description": "Control preference for an unsupported topic in the current metadata.",
+      "requested_profile_context": {
+        "interests": [
+          "finance"
+        ]
+      },
+      "effective_profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "interests"
+        ],
+        "interests": [
+          "finance"
+        ],
+        "explicit_topic_weights": {
+          "finance": 1.0
+        },
+        "implicit_topic_weights": {},
+        "topic_weights": {
+          "finance": 1.0
+        },
+        "topic_weight_sources": {
+          "finance": "interests"
+        },
+        "proficiency_estimate": null,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "interests"
+        ],
+        "missing_signals": [
+          "proficiency",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "interests": "interests"
+        }
+      },
+      "plan": {
+        "strategy_requested": "profile_bootstrap",
+        "strategy_effective": "frequency_bootstrap",
+        "execution_mode": "frequency_bootstrap",
+        "can_execute": true
+      },
+      "preview_counts": {
+        "selected_count": 2000,
+        "selected_unique_count": 1984,
+        "admitted_count": 120,
+        "sample_count_requested": 20,
+        "sample_count_effective": 20,
+        "sampling_mode": "top_n"
+      },
+      "top_lemmas": [
+        "siglo",
+        "millón",
+        "hora",
+        "música",
+        "principio",
+        "movimiento",
+        "luz",
+        "mayoría",
+        "fondo",
+        "hermano",
+        "producción",
+        "teatro",
+        "área",
+        "autor",
+        "capital",
+        "estilo",
+        "resto",
+        "sol",
+        "espacio",
+        "necesidad"
+      ],
+      "admitted_words": [
+        {
+          "lemma": "siglo",
+          "pos_bucket": "noun",
+          "base_rank": 1,
+          "reranked_rank": 1,
+          "rank_delta": 0,
+          "profile_score": 0.37609,
+          "admission_weight": 0.6838,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "millón",
+          "pos_bucket": "noun",
+          "base_rank": 2,
+          "reranked_rank": 2,
+          "rank_delta": 0,
+          "profile_score": 0.363297,
+          "admission_weight": 0.660539,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hora",
+          "pos_bucket": "noun",
+          "base_rank": 3,
+          "reranked_rank": 3,
+          "rank_delta": 0,
+          "profile_score": 0.358262,
+          "admission_weight": 0.651386,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "música",
+          "pos_bucket": "noun",
+          "base_rank": 4,
+          "reranked_rank": 4,
+          "rank_delta": 0,
+          "profile_score": 0.345476,
+          "admission_weight": 0.628139,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "principio",
+          "pos_bucket": "noun",
+          "base_rank": 5,
+          "reranked_rank": 5,
+          "rank_delta": 0,
+          "profile_score": 0.343931,
+          "admission_weight": 0.625329,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "movimiento",
+          "pos_bucket": "noun",
+          "base_rank": 6,
+          "reranked_rank": 6,
+          "rank_delta": 0,
+          "profile_score": 0.339065,
+          "admission_weight": 0.616481,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "luz",
+          "pos_bucket": "noun",
+          "base_rank": 7,
+          "reranked_rank": 7,
+          "rank_delta": 0,
+          "profile_score": 0.33798,
+          "admission_weight": 0.614508,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "mayoría",
+          "pos_bucket": "noun",
+          "base_rank": 8,
+          "reranked_rank": 8,
+          "rank_delta": 0,
+          "profile_score": 0.33666,
+          "admission_weight": 0.612108,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "fondo",
+          "pos_bucket": "noun",
+          "base_rank": 9,
+          "reranked_rank": 9,
+          "rank_delta": 0,
+          "profile_score": 0.332046,
+          "admission_weight": 0.60372,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "hermano",
+          "pos_bucket": "noun",
+          "base_rank": 10,
+          "reranked_rank": 10,
+          "rank_delta": 0,
+          "profile_score": 0.330851,
+          "admission_weight": 0.601548,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "producción",
+          "pos_bucket": "noun",
+          "base_rank": 11,
+          "reranked_rank": 11,
+          "rank_delta": 0,
+          "profile_score": 0.328887,
+          "admission_weight": 0.597976,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "teatro",
+          "pos_bucket": "noun",
+          "base_rank": 12,
+          "reranked_rank": 12,
+          "rank_delta": 0,
+          "profile_score": 0.327332,
+          "admission_weight": 0.595148,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "área",
+          "pos_bucket": "noun",
+          "base_rank": 13,
+          "reranked_rank": 13,
+          "rank_delta": 0,
+          "profile_score": 0.324003,
+          "admission_weight": 0.589097,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "autor",
+          "pos_bucket": "noun",
+          "base_rank": 14,
+          "reranked_rank": 14,
+          "rank_delta": 0,
+          "profile_score": 0.32336,
+          "admission_weight": 0.587927,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "capital",
+          "pos_bucket": "noun",
+          "base_rank": 15,
+          "reranked_rank": 15,
+          "rank_delta": 0,
+          "profile_score": 0.322238,
+          "admission_weight": 0.585887,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "estilo",
+          "pos_bucket": "noun",
+          "base_rank": 16,
+          "reranked_rank": 16,
+          "rank_delta": 0,
+          "profile_score": 0.321942,
+          "admission_weight": 0.585348,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "resto",
+          "pos_bucket": "noun",
+          "base_rank": 17,
+          "reranked_rank": 17,
+          "rank_delta": 0,
+          "profile_score": 0.321331,
+          "admission_weight": 0.584237,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "sol",
+          "pos_bucket": "noun",
+          "base_rank": 18,
+          "reranked_rank": 18,
+          "rank_delta": 0,
+          "profile_score": 0.320321,
+          "admission_weight": 0.582402,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "espacio",
+          "pos_bucket": "noun",
+          "base_rank": 19,
+          "reranked_rank": 19,
+          "rank_delta": 0,
+          "profile_score": 0.319591,
+          "admission_weight": 0.581074,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        },
+        {
+          "lemma": "necesidad",
+          "pos_bucket": "noun",
+          "base_rank": 20,
+          "reranked_rank": 20,
+          "rank_delta": 0,
+          "profile_score": 0.318234,
+          "admission_weight": 0.578606,
+          "topic_affinity_source": null,
+          "topic_affinity": 0.0,
+          "scarcity_bonus": 0.0,
+          "explanation": "Kept in neutral frequency order because profile signals were effectively neutral."
+        }
+      ],
+      "topic_mover_count": 0,
+      "positive_mover_count": 0,
+      "topic_mover_counts": {},
+      "top_topic_movers": [],
+      "active_topic_support": {
+        "scope": "neutral_seed_frontier",
+        "total_candidates": 2000,
+        "topics": [
+          {
+            "topic": "finance",
+            "candidate_count": 0,
+            "support_mass": 0.0,
+            "scarcity_readiness": "insufficient_labeled_support",
+            "top_examples": []
+          }
+        ]
+      },
+      "profile_topic_overlay": {}
+    }
+  ]
+}
