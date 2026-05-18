@@ -220,6 +220,17 @@
     .muted {
       color: var(--muted);
     }
+    .coverage-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 12px;
+      font-size: 13px;
+    }
+    .coverage-grid b {
+      display: block;
+      margin-bottom: 3px;
+    }
     .warn {
       color: var(--warn);
     }
@@ -367,6 +378,11 @@
           <b id="movedIntoSample">-</b>
           <span>changed vs neutral</span>
         </div>
+      </div>
+
+      <div class="result-panel" style="margin-bottom: 14px;">
+        <h2>Topic Coverage</h2>
+        <div id="topicCoverage"></div>
       </div>
 
       <div class="comparison">
@@ -563,11 +579,17 @@
         const delta = word.rank_delta === null || word.rank_delta === undefined
           ? ""
           : (word.rank_delta >= 0 ? "+" : "") + word.rank_delta;
+        const posDetail = [
+          word.pos_raw ? "raw=" + word.pos_raw : "",
+          word.pos_canonical ? "canon=" + word.pos_canonical : "",
+          word.pos_matched_rule ? word.pos_matched_rule : ""
+        ].filter(Boolean).join(" ");
         return '<tr>'
           + '<td class="mono">' + (index + 1) + '</td>'
           + '<td><b>' + escapeHtml(word.lemma) + '</b><br><span class="muted">'
           + escapeHtml(word.explanation || "") + '</span></td>'
-          + '<td>' + escapeHtml(word.pos_bucket || "") + '</td>'
+          + '<td>' + escapeHtml(word.pos_bucket || "") + '<br><span class="muted mono">'
+          + escapeHtml(posDetail) + '</span></td>'
           + '<td>' + topic + '</td>'
           + '<td class="mono">' + escapeHtml(fit) + '</td>'
           + '<td class="' + readinessClass + '">' + escapeHtml(gate) + '</td>'
@@ -578,6 +600,48 @@
       return '<table><thead><tr>'
         + '<th>#</th><th>Lemma</th><th>POS</th><th>Topic</th><th>Fit</th><th>Gate</th><th>Score</th><th>Delta</th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    function renderTopicCoverage(preference) {
+      const support = preference && preference.active_topic_support
+        ? preference.active_topic_support
+        : {};
+      const overlay = preference && preference.profile_topic_overlay
+        ? preference.profile_topic_overlay
+        : {};
+      const topics = Array.isArray(support.topics) ? support.topics : [];
+      const topicText = topics.length
+        ? topics.map((topic) => {
+            const examples = Array.isArray(topic.top_examples) && topic.top_examples.length
+              ? " examples: " + topic.top_examples.join(", ")
+              : "";
+            return escapeHtml(topic.topic || "topic")
+              + ": " + escapeHtml(topic.candidate_count ?? 0)
+              + " / " + escapeHtml(support.total_candidates ?? "?")
+              + " candidates" + escapeHtml(examples);
+          }).join("<br>")
+        : '<span class="muted">No active supported topic in the current candidate frontier.</span>';
+      const unmatched = Array.isArray(overlay.unmatched_eligible_lemma_sample)
+        && overlay.unmatched_eligible_lemma_sample.length
+        ? overlay.unmatched_eligible_lemma_sample.join(", ")
+        : "none";
+      const applied = Array.isArray(overlay.applied_lemma_sample)
+        && overlay.applied_lemma_sample.length
+        ? overlay.applied_lemma_sample.join(", ")
+        : "none";
+      const overlayText = overlay.status
+        ? "overlay " + overlay.status
+          + ", applied=" + (overlay.applied_seed_count ?? 0)
+          + " / eligible=" + (overlay.eligible_lemma_count ?? overlay.eligible_row_count ?? 0)
+          + ", missing-from-seed=" + (overlay.unmatched_eligible_lemma_count ?? 0)
+        : "overlay inactive";
+      return '<div class="coverage-grid">'
+        + '<div><b>Candidate Support</b>' + topicText + '</div>'
+        + '<div><b>Overlay Match</b>'
+        + '<div>' + escapeHtml(overlayText) + '</div>'
+        + '<div class="muted">applied: ' + escapeHtml(applied) + '</div>'
+        + '<div class="muted">missing: ' + escapeHtml(unmatched) + '</div>'
+        + '</div></div>';
     }
 
     function summarizeChanged(comparison) {
@@ -595,6 +659,7 @@
       $("#selectedCount").textContent = data.preference.preview_counts.selected_count ?? "-";
       $("#topicMoverCount").textContent = data.preference.topic_mover_count ?? "-";
       $("#movedIntoSample").textContent = (data.comparison.changed_or_new || []).length;
+      $("#topicCoverage").innerHTML = renderTopicCoverage(data.preference);
       $("#preferenceTable").innerHTML = renderWords(data.preference.admitted_words);
       $("#neutralTable").innerHTML = renderWords(data.neutral.admitted_words);
       $("#profileJson").textContent = JSON.stringify(data.profile_context, null, 2);

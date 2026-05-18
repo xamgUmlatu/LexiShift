@@ -81,6 +81,14 @@ def _create_overlay(path: Path) -> Path:
                         "review_id": "unit-plant",
                         "confidence_label": "strong",
                     },
+                    {
+                        "lemma": "perro",
+                        "language_pair": "en-es",
+                        "topic": "animals",
+                        "membership": 1.0,
+                        "review_id": "unit-animal-missing-from-seed",
+                        "confidence_label": "strong",
+                    },
                 ],
             },
             ensure_ascii=False,
@@ -165,6 +173,12 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
         self.assertEqual(response["neutral"]["top_lemmas"][0], "alpha")
         self.assertEqual(response["preference"]["top_lemmas"][0], "beta")
         self.assertEqual(response["preference"]["admitted_words"][0]["difficulty_estimate"], 0.004)
+        self.assertEqual(response["preference"]["admitted_words"][0]["pos_raw"], "n")
+        self.assertEqual(response["preference"]["admitted_words"][0]["pos_canonical"], "noun")
+        self.assertEqual(
+            response["preference"]["admitted_words"][0]["pos_matched_rule"],
+            "freq-es-cde_compact:n",
+        )
         self.assertEqual(response["preference"]["admitted_words"][0]["proficiency_fit"], 1.0)
         self.assertLess(response["preference"]["admitted_words"][0]["readiness_multiplier"], 0.20)
         self.assertEqual(
@@ -175,6 +189,10 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
         self.assertEqual(
             response["preference"]["profile_topic_overlay"]["application_status"],
             "applied",
+        )
+        self.assertEqual(
+            response["preference"]["profile_topic_overlay"]["unmatched_eligible_lemma_sample"],
+            ["perro"],
         )
         self.assertEqual(
             response["comparison"]["changed_or_new"][0],

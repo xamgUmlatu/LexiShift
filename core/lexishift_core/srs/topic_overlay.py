@@ -129,6 +129,23 @@ def apply_profile_topic_overlay_to_seeds(
     applied_rows_by_topic: Counter[str] = Counter()
     matched_seed_count = 0
     applied_seed_count = 0
+    seed_lemmas = {
+        str(getattr(seed, "lemma", "") or "").strip()
+        for seed in seeds
+        if getattr(seed, "lemma", None)
+    }
+    eligible_rows = [
+        row
+        for row in rows
+        if (safe_optional_float(row.get("membership")) or 0.0)
+        >= PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP
+    ]
+    eligible_lemmas = _unique_row_lemmas(eligible_rows)
+    matched_eligible_lemmas = tuple(lemma for lemma in eligible_lemmas if lemma in seed_lemmas)
+    unmatched_eligible_lemmas = tuple(
+        lemma for lemma in eligible_lemmas if lemma not in seed_lemmas
+    )
+    applied_lemmas: list[str] = []
     next_seeds: list[object] = []
     for seed in seeds:
         lemma = str(getattr(seed, "lemma", "") or "").strip()
@@ -144,15 +161,10 @@ def apply_profile_topic_overlay_to_seeds(
         )
         if applied_topics:
             applied_seed_count += 1
+            applied_lemmas.append(lemma)
             applied_rows_by_topic.update(applied_topics)
         next_seeds.append(updated_seed)
 
-    eligible_row_count = sum(
-        1
-        for row in rows
-        if (safe_optional_float(row.get("membership")) or 0.0)
-        >= PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP
-    )
     application_status = "applied"
     if not applied_seed_count:
         application_status = (
@@ -163,8 +175,15 @@ def apply_profile_topic_overlay_to_seeds(
         "schema_version": PROFILE_TOPIC_OVERLAY_SCHEMA_VERSION,
         "application_status": application_status,
         "matched_seed_count": matched_seed_count,
-        "eligible_row_count": eligible_row_count,
+        "eligible_row_count": len(eligible_rows),
+        "eligible_lemma_count": len(eligible_lemmas),
+        "eligible_lemma_sample": list(eligible_lemmas[:20]),
+        "matched_eligible_lemma_count": len(matched_eligible_lemmas),
+        "matched_eligible_lemma_sample": list(matched_eligible_lemmas[:20]),
+        "unmatched_eligible_lemma_count": len(unmatched_eligible_lemmas),
+        "unmatched_eligible_lemma_sample": list(unmatched_eligible_lemmas[:20]),
         "applied_seed_count": applied_seed_count,
+        "applied_lemma_sample": list(dict.fromkeys(applied_lemmas))[:20],
         "applied_row_count": sum(applied_rows_by_topic.values()),
         "applied_topics": dict(sorted(applied_rows_by_topic.items())),
         "min_membership": PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP,
@@ -283,6 +302,17 @@ def _overlay_rows_by_lemma(
         if lemma:
             grouped.setdefault(lemma, []).append(row)
     return {lemma: tuple(values) for lemma, values in grouped.items()}
+
+
+def _unique_row_lemmas(rows: Sequence[Mapping[str, object]]) -> tuple[str, ...]:
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for row in rows:
+        lemma = str(row.get("lemma") or "").strip()
+        if lemma and lemma not in seen:
+            ordered.append(lemma)
+            seen.add(lemma)
+    return tuple(ordered)
 
 
 def _mapping_rows(value: object) -> list[Mapping[str, object]]:

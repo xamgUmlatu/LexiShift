@@ -201,6 +201,11 @@ def simplify_admitted_word(entry: Mapping[str, object]) -> dict[str, object]:
     return {
         "lemma": str(entry.get("lemma") or ""),
         "pos_bucket": entry.get("pos_bucket"),
+        "pos_raw": entry.get("pos_raw"),
+        "pos_canonical": entry.get("pos_canonical"),
+        "pos_source_profile": entry.get("pos_source_profile"),
+        "pos_matched_rule": entry.get("pos_matched_rule"),
+        "pos_weight": rounded(entry.get("pos_weight")),
         "base_rank": entry.get("base_rank"),
         "reranked_rank": entry.get("reranked_rank"),
         "rank_delta": entry.get("rank_delta"),

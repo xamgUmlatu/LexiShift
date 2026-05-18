@@ -11,6 +11,7 @@ from lexishift_core.srs.admission_features import (
     clamp01,
     expand_topic_token_family,
     is_background_topic_token,
+    mapping_or_empty,
     rounded_or_none as admission_rounded_or_none,
     safe_optional_float,
 )
@@ -330,6 +331,7 @@ def build_preview_entry(
     base_rank: int,
     policy: object,
 ) -> dict[str, object]:
+    seed_metadata = mapping_or_empty(getattr(seed, "metadata", None))
     weighted_profile_components = {
         "topic_affinity": float(scored_candidate.breakdown.components.get("topic_bias", 0.0)),
         "scarcity_bonus": float(scored_candidate.breakdown.components.get("scarcity_bonus", 0.0)),
@@ -360,6 +362,14 @@ def build_preview_entry(
         "reranked_rank": reranked_rank,
         "rank_delta": rank_delta,
         "pos_bucket": str(getattr(seed, "pos_bucket", "") or "").strip() or None,
+        "pos_raw": _metadata_or_attr(seed, seed_metadata, "pos_raw")
+        or _metadata_or_attr(seed, seed_metadata, "pos"),
+        "pos_canonical": _metadata_or_attr(seed, seed_metadata, "pos_canonical"),
+        "pos_source_profile": _metadata_or_attr(seed, seed_metadata, "pos_source_profile"),
+        "pos_matched_rule": _metadata_or_attr(seed, seed_metadata, "pos_matched_rule"),
+        "pos_weight": rounded_or_none(
+            safe_optional_float(_metadata_or_attr(seed, seed_metadata, "pos_weight"))
+        ),
         "base_weight": rounded_or_none(safe_optional_float(getattr(seed, "base_weight", None))),
         "admission_weight": rounded_or_none(
             safe_optional_float(getattr(seed, "admission_weight", None))
@@ -413,6 +423,20 @@ def build_preview_entry(
 
 def rounded_or_none(value: Optional[float]) -> Optional[float]:
     return admission_rounded_or_none(value)
+
+
+def _metadata_or_attr(
+    seed: object,
+    metadata: Mapping[str, object],
+    key: str,
+) -> object:
+    value = getattr(seed, key, None)
+    if value is None or str(value or "").strip() == "":
+        value = metadata.get(key)
+    if value is None:
+        return None
+    text = str(value or "").strip()
+    return text or None
 
 
 def _compute_topic_specificity(
