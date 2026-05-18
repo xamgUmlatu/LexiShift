@@ -206,6 +206,15 @@ def simplify_admitted_word(entry: Mapping[str, object]) -> dict[str, object]:
         "rank_delta": entry.get("rank_delta"),
         "profile_score": rounded(entry.get("profile_score")),
         "admission_weight": rounded(entry.get("admission_weight")),
+        "difficulty_estimate": rounded(signals.get("difficulty_estimate"))
+        if isinstance(signals, Mapping)
+        else None,
+        "proficiency_fit": rounded(signals.get("proficiency_fit"))
+        if isinstance(signals, Mapping)
+        else None,
+        "challenge_fit": rounded(signals.get("challenge_fit"))
+        if isinstance(signals, Mapping)
+        else None,
         "topic_affinity_source": source,
         "topic_affinity_source_display": display_topic_source(source),
         "topic_affinity": rounded(signals.get("topic_affinity"))
@@ -214,6 +223,9 @@ def simplify_admitted_word(entry: Mapping[str, object]) -> dict[str, object]:
         "scarcity_bonus": rounded(signals.get("scarcity_bonus"))
         if isinstance(signals, Mapping)
         else None,
+        "weighted_components": dict(entry.get("weighted_components") or {})
+        if isinstance(entry.get("weighted_components"), Mapping)
+        else {},
         "explanation": str(entry.get("explanation") or ""),
     }
 

@@ -147,6 +147,9 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
                     "initial_active_count": 3,
                     "preview_count": 3,
                     "preview_sampling_mode": "ranked",
+                    "proficiency_estimate": 0.45,
+                    "challenge_target": 0.45,
+                    "challenge_spread": 0.2,
                 },
                 config=LabConfig(
                     frequency_db=frequency_db,
@@ -161,6 +164,8 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
         self.assertTrue(response["ok"])
         self.assertEqual(response["neutral"]["top_lemmas"][0], "alpha")
         self.assertEqual(response["preference"]["top_lemmas"][0], "beta")
+        self.assertEqual(response["preference"]["admitted_words"][0]["difficulty_estimate"], 0.004)
+        self.assertEqual(response["preference"]["admitted_words"][0]["proficiency_fit"], 1.0)
         self.assertEqual(response["preference"]["topic_mover_count"], 1)
         self.assertEqual(
             response["preference"]["profile_topic_overlay"]["application_status"],

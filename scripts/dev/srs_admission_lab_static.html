@@ -299,6 +299,7 @@
           <button type="button" data-preset="mixed">Mixed</button>
           <button type="button" data-preset="finance">Finance control</button>
         </div>
+        <div id="topicWeightSummary" class="status">Effective topic weights: none</div>
       </fieldset>
 
       <fieldset>
@@ -409,9 +410,51 @@
 
     function updateOutputs() {
       for (const [inputId, outputId] of rangeIds) {
-        $(outputId).textContent = numberValue("#" + inputId, 0).toFixed(2);
+        $("#" + outputId).textContent = numberValue("#" + inputId, 0).toFixed(2);
       }
       $("#sampleButton").textContent = "Sample " + numberValue("#previewCount", 10);
+      updateTopicWeightSummary();
+    }
+
+    function selectedInterests() {
+      return $$("[data-interest]:checked").map((input) => input.dataset.interest);
+    }
+
+    function sliderTopicWeights() {
+      return {
+        animals: numberValue("#animalsWeight", 0),
+        plants_nature: numberValue("#plantsWeight", 0),
+        finance: numberValue("#financeWeight", 0)
+      };
+    }
+
+    function effectiveTopicWeights() {
+      const effective = {};
+      for (const topic of selectedInterests()) {
+        effective[topic] = { value: 1, source: "chip" };
+      }
+      for (const [topic, value] of Object.entries(sliderTopicWeights())) {
+        if (value <= 0) {
+          continue;
+        }
+        const current = effective[topic];
+        if (!current || value >= current.value) {
+          effective[topic] = { value, source: "scalar" };
+        }
+      }
+      return effective;
+    }
+
+    function updateTopicWeightSummary() {
+      const summary = $("#topicWeightSummary");
+      if ($("#useRawProfile").checked) {
+        summary.textContent = "Effective topic weights: raw profile JSON";
+        return;
+      }
+      const entries = Object.entries(effectiveTopicWeights())
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([topic, entry]) => topic + "=" + entry.value.toFixed(2) + " (" + entry.source + ")");
+      summary.textContent = "Effective topic weights: " + (entries.length ? entries.join(", ") : "none");
     }
 
     function clearTopics() {
@@ -447,14 +490,9 @@
           profile_context: JSON.parse($("#rawProfile").value || "{}")
         };
       }
-      const interests = $$("[data-interest]:checked").map((input) => input.dataset.interest);
+      const interests = selectedInterests();
       const topicWeights = {};
-      const weights = {
-        animals: numberValue("#animalsWeight", 0),
-        plants_nature: numberValue("#plantsWeight", 0),
-        finance: numberValue("#financeWeight", 0)
-      };
-      for (const [topic, value] of Object.entries(weights)) {
+      for (const [topic, value] of Object.entries(sliderTopicWeights())) {
         if (value > 0) {
           topicWeights[topic] = value;
         }
@@ -496,6 +534,16 @@
         const topic = word.topic_affinity_source_display
           ? '<span class="tag">' + escapeHtml(word.topic_affinity_source_display) + '</span>'
           : '<span class="muted">none</span>';
+        const difficulty = word.difficulty_estimate === null || word.difficulty_estimate === undefined
+          ? ""
+          : "d=" + word.difficulty_estimate;
+        const proficiencyFit = word.proficiency_fit === null || word.proficiency_fit === undefined
+          ? ""
+          : "p=" + word.proficiency_fit;
+        const challengeFit = word.challenge_fit === null || word.challenge_fit === undefined
+          ? ""
+          : "c=" + word.challenge_fit;
+        const fit = [difficulty, proficiencyFit, challengeFit].filter(Boolean).join(" ");
         const delta = word.rank_delta === null || word.rank_delta === undefined
           ? ""
           : (word.rank_delta >= 0 ? "+" : "") + word.rank_delta;
@@ -505,12 +553,13 @@
           + escapeHtml(word.explanation || "") + '</span></td>'
           + '<td>' + escapeHtml(word.pos_bucket || "") + '</td>'
           + '<td>' + topic + '</td>'
+          + '<td class="mono">' + escapeHtml(fit) + '</td>'
           + '<td class="mono">' + escapeHtml(word.profile_score ?? "") + '</td>'
           + '<td class="mono">' + escapeHtml(delta) + '</td>'
           + '</tr>';
       }).join("");
       return '<table><thead><tr>'
-        + '<th>#</th><th>Lemma</th><th>POS</th><th>Topic</th><th>Score</th><th>Delta</th>'
+        + '<th>#</th><th>Lemma</th><th>POS</th><th>Topic</th><th>Fit</th><th>Score</th><th>Delta</th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
     }
 
@@ -554,6 +603,7 @@
       status.className = "status";
       status.textContent = "Running admission preview...";
       try {
+        updateOutputs();
         const response = await fetch("/api/preview", {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -575,8 +625,15 @@
 
     for (const [inputId] of rangeIds) {
       $("#" + inputId).addEventListener("input", updateOutputs);
+      $("#" + inputId).addEventListener("change", updateOutputs);
     }
     $("#previewCount").addEventListener("input", updateOutputs);
+    $("#previewCount").addEventListener("change", updateOutputs);
+    $("#useRawProfile").addEventListener("change", updateOutputs);
+    $("#rawProfile").addEventListener("input", updateOutputs);
+    $$("[data-interest]").forEach((input) => {
+      input.addEventListener("change", updateOutputs);
+    });
     $("#sampleButton").addEventListener("click", sample);
     $$("[data-preset]").forEach((button) => {
       button.addEventListener("click", () => applyPreset(button.dataset.preset));
