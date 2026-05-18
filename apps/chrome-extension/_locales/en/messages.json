@@ -291,7 +291,7 @@
     "message": "Sample active words…"
   },
   "button_srs_admission_preview": {
-    "message": "Generate admitted words sample (5)…"
+    "message": "Sample 10 preference-matched words…"
   },
   "button_srs_initialize": {
     "message": "Initialize S for this pair"

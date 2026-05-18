@@ -144,6 +144,7 @@ proto.getClient = function getClient() {{
   assert.equal(captured.request.bootstrap_top_n, 900);
   assert.equal(captured.request.initial_active_count, 33);
   assert.equal(captured.request.max_active_items_hint, 24);
+  assert.equal(captured.request.preview_count, 10);
   assert.deepEqual(captured.request.profile_context.constraints, {{ max_active_items: 7 }});
   assert.deepEqual(captured.request.profile_context.sizing, {{
     bootstrap_top_n: 123,

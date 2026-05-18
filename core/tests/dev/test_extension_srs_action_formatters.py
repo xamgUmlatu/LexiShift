@@ -99,6 +99,9 @@ const text = formatter.buildAdmissionPreviewOutput({{
 }});
 
 assert.match(text, /Topic overlay:/);
+assert.match(text, /Sampled words:\\n- beta \\[noun, topic=animals, score=0\\.689, delta=\\+1\\]/);
+assert.ok(text.indexOf("Sampled words:") < text.indexOf("Sample details:"));
+assert.ok(text.indexOf("Sampled words:") < text.indexOf("Topic overlay:"));
 assert.match(text, /status: active/);
 assert.match(text, /application_status: applied/);
 assert.match(text, /scope: admission_preview_only/);

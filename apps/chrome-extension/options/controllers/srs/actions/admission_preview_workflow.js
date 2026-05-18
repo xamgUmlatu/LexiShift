@@ -43,7 +43,7 @@
         return;
       }
       const srsPair = resolvePair();
-      const previewCount = 5;
+      const previewCount = 10;
       admissionPreviewButton.disabled = true;
       setAdmissionPreviewOutputText(translate(
         "status_srs_admission_preview_running",

@@ -68,6 +68,20 @@
     return `- ${topic}: ${parts.join(" | ")}`;
   }
 
+  function formatTopicAffinitySource(source) {
+    const value = String(source || "").trim();
+    if (!value) {
+      return "";
+    }
+    if (value.startsWith("topic_hint:")) {
+      return value.slice("topic_hint:".length);
+    }
+    if (value.startsWith("lexical:")) {
+      return value.slice("lexical:".length);
+    }
+    return value;
+  }
+
   function buildAdmissionPreviewOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
@@ -132,7 +146,50 @@
           srsPair
         ],
         `Admission sample: ${preview.sample_count_effective ?? admittedWords.length} shown / ${preview.admitted_count ?? 0} admitted words for ${srsPair}.`
-      ),
+      )
+    ];
+    if (plan.can_execute && admittedWords.length) {
+      lines.push("");
+      lines.push("Sampled words:");
+      admittedWords.forEach((entry) => {
+        const lemma = String(entry && entry.lemma ? entry.lemma : "").trim();
+        if (!lemma) {
+          return;
+        }
+        const posBucket = String(entry && entry.pos_bucket ? entry.pos_bucket : "").trim();
+        const rankDelta = Number.isFinite(Number(entry && entry.rank_delta))
+          ? Number(entry.rank_delta)
+          : null;
+        const profileScore = Number.isFinite(Number(entry && entry.profile_score))
+          ? Number(entry.profile_score).toFixed(3)
+          : null;
+        const signals = entry && entry.signals && typeof entry.signals === "object"
+          ? entry.signals
+          : {};
+        const topicAffinitySource = formatTopicAffinitySource(signals.topic_affinity_source);
+        const detailParts = [];
+        if (posBucket) {
+          detailParts.push(posBucket);
+        }
+        if (topicAffinitySource) {
+          detailParts.push(`topic=${topicAffinitySource}`);
+        }
+        if (profileScore !== null) {
+          detailParts.push(`score=${profileScore}`);
+        }
+        if (rankDelta !== null) {
+          detailParts.push(`delta=${rankDelta >= 0 ? "+" : ""}${rankDelta}`);
+        }
+        lines.push(detailParts.length ? `- ${lemma} [${detailParts.join(", ")}]` : `- ${lemma}`);
+        const explanation = String(entry && entry.explanation ? entry.explanation : "").trim();
+        if (explanation) {
+          lines.push(`  ${explanation}`);
+        }
+      });
+    }
+    lines.push("");
+    lines.push("Sample details:");
+    lines.push(
       `- profile_id: ${profileId}`,
       `- strategy_requested: ${plan.strategy_requested || "n/a"}`,
       `- strategy_effective: ${plan.strategy_effective || "n/a"}`,
@@ -146,7 +203,7 @@
       `- selection_seed: ${preview.selection_seed ?? "none"}`,
       `- active_signals: ${activeSignals.length ? activeSignals.join(", ") : "none"}`,
       `- missing_signals: ${missingSignals.length ? missingSignals.join(", ") : "none"}`
-    ];
+    );
     lines.push("");
     lines.push("Effective profile context:");
     lines.push(`- context_source: ${requestProfileContextMeta.source || "saved_profile"}`);
@@ -225,35 +282,6 @@
       }
       return lines.join("\n");
     }
-    lines.push("");
-    admittedWords.forEach((entry) => {
-      const lemma = String(entry && entry.lemma ? entry.lemma : "").trim();
-      if (!lemma) {
-        return;
-      }
-      const posBucket = String(entry && entry.pos_bucket ? entry.pos_bucket : "").trim();
-      const rankDelta = Number.isFinite(Number(entry && entry.rank_delta))
-        ? Number(entry.rank_delta)
-        : null;
-      const profileScore = Number.isFinite(Number(entry && entry.profile_score))
-        ? Number(entry.profile_score).toFixed(3)
-        : null;
-      const detailParts = [];
-      if (posBucket) {
-        detailParts.push(posBucket);
-      }
-      if (profileScore !== null) {
-        detailParts.push(`score=${profileScore}`);
-      }
-      if (rankDelta !== null) {
-        detailParts.push(`delta=${rankDelta >= 0 ? "+" : ""}${rankDelta}`);
-      }
-      lines.push(detailParts.length ? `- ${lemma} [${detailParts.join(", ")}]` : `- ${lemma}`);
-      const explanation = String(entry && entry.explanation ? entry.explanation : "").trim();
-      if (explanation) {
-        lines.push(`  ${explanation}`);
-      }
-    });
     return lines.join("\n");
   }
 

@@ -291,7 +291,7 @@
     "message": "抽样活跃词…"
   },
   "button_srs_admission_preview": {
-    "message": "生成纳入词样本 (5)…"
+    "message": "抽样 10 个匹配偏好的词…"
   },
   "button_srs_initialize": {
     "message": "为该语言对初始化 S"

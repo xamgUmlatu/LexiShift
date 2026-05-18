@@ -291,7 +291,7 @@
     "message": "Aktive Wörter testen…"
   },
   "button_srs_admission_preview": {
-    "message": "Beispiel zugelassener Wörter erzeugen (5)…"
+    "message": "10 passende Wörter testen…"
   },
   "button_srs_initialize": {
     "message": "S für dieses Paar initialisieren"

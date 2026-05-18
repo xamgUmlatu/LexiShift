@@ -291,7 +291,7 @@
     "message": "アクティブ語をサンプル…"
   },
   "button_srs_admission_preview": {
-    "message": "採用語サンプルを生成 (5)…"
+    "message": "好みに合う10語をサンプル…"
   },
   "button_srs_initialize": {
     "message": "このペアのSを初期化"

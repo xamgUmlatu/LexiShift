@@ -106,7 +106,7 @@
         bootstrap_top_n: sizing.bootstrapTopN,
         initial_active_count: sizing.initialActiveCount,
         max_active_items_hint: sizing.maxActiveItemsHint,
-        preview_count: Number.isFinite(previewCount) ? Math.max(1, Math.min(previewCount, 20)) : 5,
+        preview_count: Number.isFinite(previewCount) ? Math.max(1, Math.min(previewCount, 20)) : 10,
         preview_sampling_mode: previewSamplingMode,
         preview_seed: Number.isFinite(previewSeed) ? previewSeed : undefined,
         trigger,
