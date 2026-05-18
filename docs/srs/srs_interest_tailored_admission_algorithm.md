@@ -297,6 +297,52 @@ acceptable band a little below and above the learner's proficiency level, but
 it does not bypass the gate: a very basic word can still collapse to near-zero
 admission mass for a high-proficiency learner.
 
+### Deferred Problem: Global Vs Topic-Local Proficiency
+
+The current readiness model deliberately uses one global proficiency estimate.
+That is a useful first product simplification, but it is not conceptually
+complete for highly specialized journeys.
+
+Example clash:
+
+- a doctor may have strong medical vocabulary in the target language while
+  still having weaker everyday vocabulary;
+- another learner may be generally advanced but weak in medical terminology;
+- a learner may only care about one domain, such as medicine, law, gaming, or
+  cooking, and may want admission to optimize that domain rather than a general
+  frequency journey.
+
+In those cases, one scalar `user_proficiency` can be misleading. General
+proficiency and topic-local proficiency may need to diverge:
+
+```json
+{
+  "proficiency": {
+    "estimated_value": 0.55
+  },
+  "topic_proficiency": {
+    "medicine": 0.82,
+    "animals": 0.35
+  }
+}
+```
+
+Potential future approaches:
+
+1. Keep global proficiency as the default and add optional topic-local
+   proficiency estimates only for well-supported topics.
+2. Add explicit journey modes, such as `general_srs`, `topic_intensive`, or
+   `domain_pack`, so a hyperspecialized learner is not treated as a normal
+   frequency-frontier learner.
+3. Treat curated/user-defined vocabulary packs as a separate admission surface
+   when a user intentionally wants a closed domain list. That path should not be
+   assumed to support SRS until a dedicated SRS integration exists.
+
+Current decision: do not implement topic-local proficiency yet. The current
+readiness gate remains global, with topic relevance only widening the global
+band. This keeps the model testable while preserving the unresolved product
+problem for a later design pass.
+
 The exact difficulty source can evolve:
 
 - frequency rank proxy,
