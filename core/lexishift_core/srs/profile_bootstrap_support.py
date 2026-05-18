@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 import math
 from typing import Mapping, Optional, Sequence
 
@@ -16,6 +17,16 @@ from lexishift_core.srs.admission_features import (
 from lexishift_core.srs.selector import resolve_selection_mass
 
 
+@dataclass(frozen=True)
+class ReadinessGate:
+    multiplier: float
+    lower_bound: float
+    upper_bound: float
+    topic_strength: float
+    too_easy_gap: float
+    too_hard_gap: float
+
+
 def build_policy_summary(policy: object) -> dict[str, object]:
     return {
         "version": policy.version,
@@ -25,6 +36,16 @@ def build_policy_summary(policy: object) -> dict[str, object]:
         "proficiency_taper_width": rounded_or_none(policy.proficiency_taper_width),
         "challenge_default_spread": rounded_or_none(policy.challenge_default_spread),
         "challenge_min_spread": rounded_or_none(policy.challenge_min_spread),
+        "readiness_base_lower_margin": rounded_or_none(policy.readiness_base_lower_margin),
+        "readiness_base_upper_margin": rounded_or_none(policy.readiness_base_upper_margin),
+        "readiness_topic_extra_lower_margin": rounded_or_none(
+            policy.readiness_topic_extra_lower_margin
+        ),
+        "readiness_topic_extra_upper_margin": rounded_or_none(
+            policy.readiness_topic_extra_upper_margin
+        ),
+        "readiness_too_easy_penalty": rounded_or_none(policy.readiness_too_easy_penalty),
+        "readiness_too_hard_penalty": rounded_or_none(policy.readiness_too_hard_penalty),
         "explanation_component_floor": rounded_or_none(policy.explanation_component_floor),
         "topic_specificity_floor": rounded_or_none(policy.topic_specificity_floor),
         "scarcity_support_min_count": int(policy.scarcity_support_min_count),
@@ -45,6 +66,7 @@ def build_policy_summary(policy: object) -> dict[str, object]:
             ],
             "negative_terms": ["lexical_risk", "redundancy"],
             "exploration_terms": ["exploration_bonus"],
+            "multipliers": ["readiness_multiplier"],
         },
     }
 
@@ -254,6 +276,50 @@ def compute_challenge_fit(
     return clamp01(math.exp(-0.5 * ((distance / effective_spread) ** 2))) or 0.0
 
 
+def compute_readiness_gate(
+    difficulty_estimate: float,
+    proficiency_estimate: Optional[float],
+    topic_affinity: float,
+    *,
+    policy: object,
+) -> ReadinessGate:
+    if proficiency_estimate is None:
+        return ReadinessGate(
+            multiplier=1.0,
+            lower_bound=0.0,
+            upper_bound=1.0,
+            topic_strength=0.0,
+            too_easy_gap=0.0,
+            too_hard_gap=0.0,
+        )
+
+    proficiency = clamp01(proficiency_estimate) or 0.0
+    difficulty = clamp01(difficulty_estimate) or 0.0
+    topic_strength = clamp01(topic_affinity) or 0.0
+    lower_margin = float(policy.readiness_base_lower_margin) + topic_strength * float(
+        policy.readiness_topic_extra_lower_margin
+    )
+    upper_margin = float(policy.readiness_base_upper_margin) + topic_strength * float(
+        policy.readiness_topic_extra_upper_margin
+    )
+    lower_bound = clamp01(proficiency - lower_margin) or 0.0
+    upper_bound = clamp01(proficiency + upper_margin) or 1.0
+    too_easy_gap = max(0.0, lower_bound - difficulty)
+    too_hard_gap = max(0.0, difficulty - upper_bound)
+    penalty = float(policy.readiness_too_easy_penalty) * (too_easy_gap**2) + float(
+        policy.readiness_too_hard_penalty
+    ) * (too_hard_gap**2)
+    multiplier = clamp01(math.exp(-penalty)) or 0.0
+    return ReadinessGate(
+        multiplier=multiplier,
+        lower_bound=lower_bound,
+        upper_bound=upper_bound,
+        topic_strength=topic_strength,
+        too_easy_gap=too_easy_gap,
+        too_hard_gap=too_hard_gap,
+    )
+
+
 def build_preview_entry(
     *,
     reranked_rank: int,
@@ -299,6 +365,7 @@ def build_preview_entry(
             safe_optional_float(getattr(seed, "admission_weight", None))
         ),
         "profile_score": round(float(scored_candidate.breakdown.final_score), 6),
+        "penalties": list(scored_candidate.breakdown.penalties),
         "selection_mass": round(
             float(resolve_selection_mass(scored_candidate, policy.selector_config)),
             6,

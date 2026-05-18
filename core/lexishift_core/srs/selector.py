@@ -129,6 +129,11 @@ def score_candidate(candidate: SelectorCandidate, config: SelectorConfig) -> Sco
         score *= config.penalties.oversubscribed_multiplier
         penalties.append("oversubscribed")
 
+    readiness_multiplier = _candidate_readiness_multiplier(candidate)
+    if readiness_multiplier < 1.0:
+        score *= readiness_multiplier
+        penalties.append("readiness_gate")
+
     return ScoredCandidate(
         candidate=candidate,
         breakdown=ScoreBreakdown(
@@ -161,14 +166,15 @@ def resolve_selection_policy(config: SelectorConfig) -> str:
 def resolve_selection_mass(entry: ScoredCandidate, config: SelectorConfig) -> float:
     baseline_alpha = _clamp_01(config.sampling_baseline_alpha)
     score_temperature = max(0.05, float(config.sampling_temperature))
-    base_mass = max(0.0, float(entry.candidate.base_freq))
+    readiness_multiplier = _candidate_readiness_multiplier(entry.candidate)
+    base_mass = max(0.0, float(entry.candidate.base_freq)) * readiness_multiplier
     score_mass = max(0.0, float(entry.breakdown.final_score))
     if score_mass > 0.0 and score_temperature != 1.0:
         score_mass = score_mass ** (1.0 / score_temperature)
     combined_mass = (baseline_alpha * base_mass) + ((1.0 - baseline_alpha) * score_mass)
     if combined_mass <= 0.0:
         return 0.0
-    return max(float(config.sampling_min_mass), combined_mass)
+    return max(float(config.sampling_min_mass) * readiness_multiplier, combined_mass)
 
 
 def select_candidates(
@@ -255,3 +261,15 @@ def _resolve_selection_count(value: Optional[int], *, fallback: int) -> int:
 
 def _clamp_01(value: float) -> float:
     return max(0.0, min(1.0, float(value)))
+
+
+def _candidate_readiness_multiplier(candidate: SelectorCandidate) -> float:
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    raw_value = metadata.get("readiness_multiplier", 1.0)
+    try:
+        parsed = float(raw_value)
+    except (TypeError, ValueError):
+        return 1.0
+    if parsed != parsed:
+        return 1.0
+    return _clamp_01(parsed)

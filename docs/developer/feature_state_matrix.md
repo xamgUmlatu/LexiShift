@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-05-16
+Last updated: 2026-05-19
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -1381,20 +1381,26 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-04-18` planner-strategy truth pass confirmed bootstrap fallback plus executable rebalance-only `profile_growth`
-- Last verified: `2026-04-18` targeted planner/helper strategy contract tests plus state/doc inspection
+- Last documented checkpoint: `2026-05-19` profile-bootstrap scoring now includes a multiplicative readiness gate that suppresses too-easy/too-hard candidates while allowing topic-relevant words a wider proficiency band; the local SRS admission lab exposes the gate diagnostics
+- Last verified: `2026-05-19` focused profile-bootstrap/selector/admission-lab tests, SRS quality harness, changed-file gate, and local admission-lab browser smoke
 - Default behavior:
   - Default bootstrap execution remains frequency bootstrap.
-  - `profile_bootstrap` now has implemented normalization, scoring, diagnostics, and standalone/dev harness coverage, but helper initialization/admission preview still fall back to frequency bootstrap execution until later wiring.
+  - `profile_bootstrap` now has implemented normalization, scoring, diagnostics, and standalone/dev harness coverage, including a proficiency readiness multiplier that affects both ranked score and weighted sampling mass; helper initialization/admission preview still fall back to frequency bootstrap execution until later wiring.
   - `profile_growth` is executable for the dedicated rebalance preview/apply lane, but not yet as a general growth-admission strategy for adding new items into `S`.
   - `adaptive_refresh` still falls back to planning-only behavior.
 - Evidence:
   - `docs/srs/srs_set_planning_technical.md`
   - `core/lexishift_core/srs/admission_features.py`
   - `core/lexishift_core/srs/profile_bootstrap.py`
+  - `core/lexishift_core/srs/profile_bootstrap_support.py`
   - `core/lexishift_core/srs/set_planner.py`
+  - `core/lexishift_core/srs/selector.py`
+  - `scripts/dev/srs_admission_lab_server.py`
+  - `scripts/dev/srs_admission_lab_static.html`
   - `core/lexishift_core/helper/use_cases/rebalance_set.py`
   - `core/tests/srs/test_profile_bootstrap.py`
+  - `core/tests/srs/test_selector.py`
+  - `core/tests/dev/test_srs_admission_lab_server.py`
   - `core/tests/srs/test_srs_set_planner.py`
   - `core/tests/dev/test_srs_planner_strategy_contract.py`
   - `core/tests/dev/test_srs_admission_preference_sanity.py`

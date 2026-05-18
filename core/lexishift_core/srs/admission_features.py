@@ -144,6 +144,12 @@ class AdmissionUtilitySignals:
     topic_hint_count: int = 0
     proficiency_fit: float = 0.0
     challenge_fit: float = 0.0
+    readiness_multiplier: float = 1.0
+    readiness_lower_bound: float = 0.0
+    readiness_upper_bound: float = 1.0
+    readiness_topic_strength: float = 0.0
+    readiness_too_easy_gap: float = 0.0
+    readiness_too_hard_gap: float = 0.0
     lexical_risk: float = 0.0
     redundancy: float = 0.0
     exploration_bonus: float = 0.0
@@ -174,6 +180,12 @@ class AdmissionUtilitySignals:
             "topic_hint_count": int(self.topic_hint_count),
             "proficiency_fit": rounded_or_none(self.proficiency_fit),
             "challenge_fit": rounded_or_none(self.challenge_fit),
+            "readiness_multiplier": rounded_or_none(self.readiness_multiplier),
+            "readiness_lower_bound": rounded_or_none(self.readiness_lower_bound),
+            "readiness_upper_bound": rounded_or_none(self.readiness_upper_bound),
+            "readiness_topic_strength": rounded_or_none(self.readiness_topic_strength),
+            "readiness_too_easy_gap": rounded_or_none(self.readiness_too_easy_gap),
+            "readiness_too_hard_gap": rounded_or_none(self.readiness_too_hard_gap),
             "lexical_risk": rounded_or_none(self.lexical_risk),
             "redundancy": rounded_or_none(self.redundancy),
             "exploration_bonus": rounded_or_none(self.exploration_bonus),

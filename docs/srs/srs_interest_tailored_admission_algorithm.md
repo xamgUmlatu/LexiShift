@@ -2,8 +2,8 @@
 
 Status: active design reference
 Role: Planning / WIP
-Last updated: 2026-05-17
-Last verified: 2026-05-17 by SRS seed/admission/profile-bootstrap code read, related SRS docs, and the SPALEX 10k SRS admission expansion audit
+Last updated: 2026-05-19
+Last verified: 2026-05-19 by SRS profile-bootstrap readiness-gate code read, focused SRS admission tests, SRS quality harness, and local admission-lab browser smoke
 Purpose: define the product algorithm for tailoring SRS admission probabilities to user interests, readiness, source quality, and LP resource coverage
 Source-of-truth: target algorithm reference; current executable truth lives in `core/lexishift_core/srs/seed.py`, `core/lexishift_core/srs/profile_bootstrap.py`, `core/lexishift_core/srs/selector.py`, helper admission use cases, SRS tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -47,8 +47,11 @@ Current code already has important pieces of this model:
 - supported topic columns are `sense_topics`, `topics`, `topic`, and
   `profile_topics`;
 - profile-bootstrap scoring computes coverage, topic affinity, scarcity,
-  proficiency fit, and challenge fit;
+  proficiency fit, challenge fit, and a multiplicative readiness gate;
 - selector scoring uses weighted normalized signals;
+- profile-bootstrap selector metadata now carries `readiness_multiplier`, so
+  both ranked score and weighted sampling mass can suppress candidates that are
+  much too easy or too hard for the learner's proficiency band;
 - preview tests prove that topic-bearing candidates can move ahead of neutral
   frequency order.
 
@@ -252,12 +255,47 @@ Behavior:
 - topic preference can lift a word only inside the readiness envelope, not
   override all other quality signals.
 
-The system may also keep a separate proficiency guard:
+The executable profile-bootstrap path also keeps a separate proficiency guard:
 
 ```text
 proficiency_fit_i = 1.0                 if d_i <= user_proficiency
 proficiency_fit_i = taper_down(d_i)     if d_i > user_proficiency
 ```
+
+That guard is only a positive fit signal. To avoid admitting extremely basic
+words to advanced users, profile bootstrap also computes a multiplicative
+readiness gate:
+
+```text
+topic_strength_i = clamp01(topic_affinity_i)
+
+lower_i = clamp01(
+    user_proficiency
+  - base_lower_margin
+  - topic_strength_i * topic_extra_lower_margin
+)
+
+upper_i = clamp01(
+    user_proficiency
+  + base_upper_margin
+  + topic_strength_i * topic_extra_upper_margin
+)
+
+too_easy_gap_i = max(0, lower_i - d_i)
+too_hard_gap_i = max(0, d_i - upper_i)
+
+readiness_multiplier_i = exp(
+    -too_easy_penalty * too_easy_gap_i^2
+    -too_hard_penalty * too_hard_gap_i^2
+)
+```
+
+The multiplier is neutral (`1.0`) when no proficiency estimate is available.
+When proficiency is available, it is applied after the additive score and to
+the frequency baseline used by weighted sampling. Topic relevance widens the
+acceptable band a little below and above the learner's proficiency level, but
+it does not bypass the gate: a very basic word can still collapse to near-zero
+admission mass for a high-proficiency learner.
 
 The exact difficulty source can evolve:
 
@@ -282,6 +320,12 @@ raw_score_i =
   + w_novelty    * novelty_i
   + w_diversity  * diversity_bonus_i
   - penalties_i
+```
+
+For profile bootstrap, the final executable score is:
+
+```text
+final_score_i = raw_score_i * readiness_multiplier_i
 ```
 
 All components should be normalized to `0..1` before scoring.

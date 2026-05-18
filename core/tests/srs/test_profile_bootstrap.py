@@ -119,6 +119,48 @@ class TestProfileBootstrapTraits(unittest.TestCase):
         self.assertEqual(signal_pack.topic_affinity_source, "topic_hint:animals")
         self.assertGreater(signal_pack.proficiency_fit, 0.0)
         self.assertGreater(signal_pack.challenge_fit, 0.0)
+        self.assertAlmostEqual(signal_pack.readiness_multiplier, 1.0, places=6)
+
+    def test_readiness_gate_suppresses_far_too_easy_words_for_advanced_users(self) -> None:
+        context = normalize_profile_bootstrap_context(
+            {
+                "interests": ["animals"],
+                "proficiency": {"estimated_value": 0.80},
+                "difficulty_preferences": {
+                    "target_challenge_center": 0.80,
+                    "target_challenge_spread": 0.12,
+                },
+            }
+        )
+        slightly_easy_topic_traits = extract_profile_bootstrap_candidate_traits(
+            SimpleNamespace(
+                lemma="falcon",
+                admission_weight=0.44,
+                metadata={"topics": ["animals"]},
+            )
+        )
+        far_too_easy_topic_traits = extract_profile_bootstrap_candidate_traits(
+            SimpleNamespace(
+                lemma="cat",
+                admission_weight=0.90,
+                metadata={"topics": ["animals"]},
+            )
+        )
+
+        slightly_easy_signal_pack = build_profile_bootstrap_signal_pack(
+            slightly_easy_topic_traits,
+            context,
+        )
+        far_too_easy_signal_pack = build_profile_bootstrap_signal_pack(
+            far_too_easy_topic_traits,
+            context,
+        )
+
+        self.assertGreater(slightly_easy_signal_pack.readiness_multiplier, 0.95)
+        self.assertAlmostEqual(slightly_easy_signal_pack.readiness_lower_bound, 0.53, places=6)
+        self.assertAlmostEqual(slightly_easy_signal_pack.readiness_too_easy_gap, 0.0, places=6)
+        self.assertLess(far_too_easy_signal_pack.readiness_multiplier, 0.01)
+        self.assertGreater(far_too_easy_signal_pack.readiness_too_easy_gap, 0.40)
 
     def test_topic_family_expansion_allows_pets_to_match_animals(self) -> None:
         context = normalize_profile_bootstrap_context({"interests": ["animals"]})
@@ -247,6 +289,57 @@ class TestProfileBootstrapReranking(unittest.TestCase):
         self.assertEqual(
             diagnostics["ranking_preview"][0]["signals"]["topic_affinity_source"],
             "topic_hint:card_games->games",
+        )
+
+    def test_readiness_gate_lets_relevant_near_level_words_beat_too_easy_words(
+        self,
+    ) -> None:
+        seeds = [
+            SimpleNamespace(
+                lemma="basic",
+                language_pair="en-ja",
+                admission_weight=0.95,
+                metadata={},
+            ),
+            SimpleNamespace(
+                lemma="falcon",
+                language_pair="en-ja",
+                admission_weight=0.44,
+                metadata={"topics": ["animals"]},
+            ),
+            SimpleNamespace(
+                lemma="advanced",
+                language_pair="en-ja",
+                admission_weight=0.20,
+                metadata={},
+            ),
+        ]
+
+        _reranked, diagnostics = rerank_seed_words_for_profile(
+            seeds,
+            profile_context={
+                "interests": ["animals"],
+                "proficiency": {"estimated_value": 0.80},
+                "difficulty_preferences": {
+                    "target_challenge_center": 0.80,
+                    "target_challenge_spread": 0.12,
+                },
+            },
+        )
+
+        preview_by_lemma = {entry["lemma"]: entry for entry in diagnostics["ranking_preview"]}
+        self.assertEqual(diagnostics["ranking_preview"][0]["lemma"], "falcon")
+        self.assertGreater(
+            preview_by_lemma["falcon"]["signals"]["readiness_multiplier"],
+            0.95,
+        )
+        self.assertLess(
+            preview_by_lemma["basic"]["signals"]["readiness_multiplier"],
+            0.001,
+        )
+        self.assertIn(
+            "readiness_gate",
+            preview_by_lemma["basic"]["penalties"],
         )
 
     def test_active_topic_support_reports_sparse_topic_as_not_ready(self) -> None:

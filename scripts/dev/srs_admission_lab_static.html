@@ -177,7 +177,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       background: var(--panel);
-      overflow: hidden;
+      overflow: auto;
     }
     .result-panel h2 {
       margin: 0;
@@ -187,6 +187,7 @@
     }
     table {
       width: 100%;
+      min-width: 760px;
       border-collapse: collapse;
       font-size: 13px;
     }
@@ -544,6 +545,21 @@
           ? ""
           : "c=" + word.challenge_fit;
         const fit = [difficulty, proficiencyFit, challengeFit].filter(Boolean).join(" ");
+        const readiness = word.readiness_multiplier === null || word.readiness_multiplier === undefined
+          ? ""
+          : "r=" + word.readiness_multiplier;
+        const readinessBand = word.readiness_lower_bound === null || word.readiness_lower_bound === undefined
+          || word.readiness_upper_bound === null || word.readiness_upper_bound === undefined
+          ? ""
+          : "[" + word.readiness_lower_bound + ".." + word.readiness_upper_bound + "]";
+        const easyGap = word.readiness_too_easy_gap
+          ? "easy=" + word.readiness_too_easy_gap
+          : "";
+        const hardGap = word.readiness_too_hard_gap
+          ? "hard=" + word.readiness_too_hard_gap
+          : "";
+        const readinessClass = Number(word.readiness_multiplier) < 0.5 ? "mono warn" : "mono";
+        const gate = [readiness, readinessBand, easyGap, hardGap].filter(Boolean).join(" ");
         const delta = word.rank_delta === null || word.rank_delta === undefined
           ? ""
           : (word.rank_delta >= 0 ? "+" : "") + word.rank_delta;
@@ -554,12 +570,13 @@
           + '<td>' + escapeHtml(word.pos_bucket || "") + '</td>'
           + '<td>' + topic + '</td>'
           + '<td class="mono">' + escapeHtml(fit) + '</td>'
+          + '<td class="' + readinessClass + '">' + escapeHtml(gate) + '</td>'
           + '<td class="mono">' + escapeHtml(word.profile_score ?? "") + '</td>'
           + '<td class="mono">' + escapeHtml(delta) + '</td>'
           + '</tr>';
       }).join("");
       return '<table><thead><tr>'
-        + '<th>#</th><th>Lemma</th><th>POS</th><th>Topic</th><th>Fit</th><th>Score</th><th>Delta</th>'
+        + '<th>#</th><th>Lemma</th><th>POS</th><th>Topic</th><th>Fit</th><th>Gate</th><th>Score</th><th>Delta</th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
     }
 

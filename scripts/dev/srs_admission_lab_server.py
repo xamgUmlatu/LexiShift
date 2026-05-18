@@ -205,6 +205,9 @@ def simplify_admitted_word(entry: Mapping[str, object]) -> dict[str, object]:
         "reranked_rank": entry.get("reranked_rank"),
         "rank_delta": entry.get("rank_delta"),
         "profile_score": rounded(entry.get("profile_score")),
+        "penalties": list(entry.get("penalties") or [])
+        if isinstance(entry.get("penalties"), list | tuple)
+        else [],
         "admission_weight": rounded(entry.get("admission_weight")),
         "difficulty_estimate": rounded(signals.get("difficulty_estimate"))
         if isinstance(signals, Mapping)
@@ -213,6 +216,24 @@ def simplify_admitted_word(entry: Mapping[str, object]) -> dict[str, object]:
         if isinstance(signals, Mapping)
         else None,
         "challenge_fit": rounded(signals.get("challenge_fit"))
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_multiplier": rounded(signals.get("readiness_multiplier"))
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_lower_bound": rounded(signals.get("readiness_lower_bound"))
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_upper_bound": rounded(signals.get("readiness_upper_bound"))
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_topic_strength": rounded(signals.get("readiness_topic_strength"))
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_too_easy_gap": rounded(signals.get("readiness_too_easy_gap"))
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_too_hard_gap": rounded(signals.get("readiness_too_hard_gap"))
         if isinstance(signals, Mapping)
         else None,
         "topic_affinity_source": source,

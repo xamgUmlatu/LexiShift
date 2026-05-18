@@ -20,6 +20,7 @@ from lexishift_core.srs.profile_bootstrap_support import (
     build_preview_entry as _build_preview_entry,
     compute_challenge_fit as _compute_challenge_fit,
     compute_proficiency_fit as _compute_proficiency_fit,
+    compute_readiness_gate as _compute_readiness_gate,
     compute_scarcity_bonus as _compute_scarcity_bonus,
     compute_topic_affinity as _compute_topic_affinity,
 )
@@ -31,8 +32,8 @@ from lexishift_core.srs.selector import (
     score_candidate,
 )
 
-PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v2"
-PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v3"
+PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v3"
+PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v4"
 
 
 @dataclass(frozen=True)
@@ -61,6 +62,12 @@ class ProfileBootstrapPolicy:
     proficiency_taper_width: float = 0.75
     challenge_default_spread: float = 0.18
     challenge_min_spread: float = 0.10
+    readiness_base_lower_margin: float = 0.15
+    readiness_base_upper_margin: float = 0.18
+    readiness_topic_extra_lower_margin: float = 0.12
+    readiness_topic_extra_upper_margin: float = 0.08
+    readiness_too_easy_penalty: float = 60.0
+    readiness_too_hard_penalty: float = 35.0
     explanation_component_floor: float = 0.025
     topic_specificity_floor: float = 0.45
     scarcity_support_min_count: int = 3
@@ -230,6 +237,12 @@ def build_profile_bootstrap_signal_pack(
         active_topic_support=active_topic_support,
         policy=policy,
     )
+    readiness_gate = _compute_readiness_gate(
+        traits.difficulty_estimate,
+        context.proficiency_estimate,
+        preference_affinity,
+        policy=policy,
+    )
     return ProfileBootstrapSignalPack(
         coverage_gain=traits.lexical_commonness,
         difficulty_estimate=traits.difficulty_estimate,
@@ -242,6 +255,12 @@ def build_profile_bootstrap_signal_pack(
         topic_hint_count=topic_hint_count,
         proficiency_fit=proficiency_fit,
         challenge_fit=challenge_fit,
+        readiness_multiplier=readiness_gate.multiplier,
+        readiness_lower_bound=readiness_gate.lower_bound,
+        readiness_upper_bound=readiness_gate.upper_bound,
+        readiness_topic_strength=readiness_gate.topic_strength,
+        readiness_too_easy_gap=readiness_gate.too_easy_gap,
+        readiness_too_hard_gap=readiness_gate.too_hard_gap,
     )
 
 
@@ -306,6 +325,7 @@ def score_seed_words_for_profile(
             difficulty_target=float(signal_pack.challenge_fit),
             pos=str(getattr(seed, "pos_bucket", "") or "").strip() or None,
             metadata={
+                "readiness_multiplier": signal_pack.readiness_multiplier,
                 "profile_bootstrap_traits": traits.to_dict(),
                 "profile_bootstrap_signals": signal_pack.to_dict(),
             },
