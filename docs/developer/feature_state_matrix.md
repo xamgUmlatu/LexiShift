@@ -1381,11 +1381,12 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-19` profile-bootstrap scoring now includes a multiplicative readiness gate that suppresses too-easy/too-hard candidates while allowing topic-relevant words a wider proficiency band; the local SRS admission lab exposes the gate diagnostics
+- Last documented checkpoint: `2026-05-19` profile-bootstrap scoring now includes a multiplicative readiness gate that suppresses too-easy/too-hard candidates while allowing topic-relevant words a wider proficiency band; the local SRS admission lab exposes gate diagnostics and can build a dev-only Zipf-bridge augmented EN-ES frontier for fuller topic-preference testing
 - Last verified: `2026-05-19` focused profile-bootstrap/selector/admission-lab tests, SRS quality harness, changed-file gate, and local admission-lab browser smoke
 - Default behavior:
   - Default bootstrap execution remains frequency bootstrap.
   - `profile_bootstrap` now has implemented normalization, scoring, diagnostics, and standalone/dev harness coverage, including a proficiency readiness multiplier that affects both ranked score and weighted sampling mass; helper initialization/admission preview still fall back to frequency bootstrap execution until later wiring.
+  - The local SRS admission lab may create a temporary EN-ES Zipf-bridge augmented frequency DB from committed test artifacts plus installed Kaikki POS data; this is dev-lab-only and does not install, mutate, or promote a production frequency pack.
   - `profile_growth` is executable for the dedicated rebalance preview/apply lane, but not yet as a general growth-admission strategy for adding new items into `S`.
   - `adaptive_refresh` still falls back to planning-only behavior.
 - Evidence:

@@ -268,7 +268,7 @@
           <input id="pair" type="text" value="en-es">
         </label>
         <label>Pool top N
-          <input id="setTopN" type="number" min="1" max="50000" value="2000">
+          <input id="setTopN" type="number" min="1" max="50000" value="5000">
         </label>
         <label>Initial active count
           <input id="initialActiveCount" type="number" min="1" max="10000" value="120">
@@ -526,7 +526,7 @@
     function readPayload() {
       return {
         pair: $("#pair").value,
-        set_top_n: numberValue("#setTopN", 2000),
+        set_top_n: numberValue("#setTopN", 5000),
         initial_active_count: numberValue("#initialActiveCount", 120),
         preview_count: numberValue("#previewCount", 10),
         preview_sampling_mode: $("#samplingMode").value,
@@ -602,7 +602,23 @@
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
     }
 
-    function renderTopicCoverage(preference) {
+    function renderSourceAugmentation(source) {
+      const augmentation = source && source.source_augmentation
+        ? source.source_augmentation
+        : {};
+      if (!augmentation.status || augmentation.status !== "applied") {
+        return '<span class="muted">base frequency source only</span>';
+      }
+      const examples = augmentation.example_zipf_ranks || {};
+      const exampleText = Object.entries(examples).map(([lemma, entry]) => {
+        return lemma + "#" + (entry.rank ?? "?") + " z=" + (entry.zipf ?? "?");
+      }).join(", ");
+      return "Zipf bridge lab source, rows=" + (augmentation.output_row_count ?? "?")
+        + ", added=" + (augmentation.added_row_count ?? "?")
+        + (exampleText ? "<br><span class=\"muted mono\">" + escapeHtml(exampleText) + "</span>" : "");
+    }
+
+    function renderTopicCoverage(preference, source) {
       const support = preference && preference.active_topic_support
         ? preference.active_topic_support
         : {};
@@ -641,7 +657,9 @@
         + '<div>' + escapeHtml(overlayText) + '</div>'
         + '<div class="muted">applied: ' + escapeHtml(applied) + '</div>'
         + '<div class="muted">missing: ' + escapeHtml(unmatched) + '</div>'
-        + '</div></div>';
+        + '</div>'
+        + '<div><b>Source Frontier</b>' + renderSourceAugmentation(source) + '</div>'
+        + '</div>';
     }
 
     function summarizeChanged(comparison) {
@@ -659,7 +677,7 @@
       $("#selectedCount").textContent = data.preference.preview_counts.selected_count ?? "-";
       $("#topicMoverCount").textContent = data.preference.topic_mover_count ?? "-";
       $("#movedIntoSample").textContent = (data.comparison.changed_or_new || []).length;
-      $("#topicCoverage").innerHTML = renderTopicCoverage(data.preference);
+      $("#topicCoverage").innerHTML = renderTopicCoverage(data.preference, data.source);
       $("#preferenceTable").innerHTML = renderWords(data.preference.admitted_words);
       $("#neutralTable").innerHTML = renderWords(data.neutral.admitted_words);
       $("#profileJson").textContent = JSON.stringify(data.profile_context, null, 2);

@@ -18,22 +18,44 @@ CORE_ROOT = PROJECT_ROOT / "core"
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
+from srs_admission_lab_source_support import (  # noqa: E402
+    path_if_exists,
+    prepare_lab_frequency_db,
+    resolve_kaikki_forward_db,
+)
+
 DEFAULT_PAIR = "en-es"
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
+DEFAULT_SET_TOP_N = 5000
+DEFAULT_TOPIC_OVERLAY_SOURCE_PATH = (
+    PROJECT_ROOT
+    / "docs"
+    / "test_outputs"
+    / "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json"
+)
+DEFAULT_ZIPF_BRIDGE_PATH = (
+    PROJECT_ROOT
+    / "docs"
+    / "test_outputs"
+    / "semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json"
+)
 SUPPORTED_SAMPLING_MODES = frozenset({"ranked", "weighted_without_replacement"})
 
 
 @dataclass(frozen=True)
 class LabConfig:
     pair: str = DEFAULT_PAIR
-    set_top_n: int = 2000
+    set_top_n: int = DEFAULT_SET_TOP_N
     initial_active_count: int = 120
     preview_count: int = 10
     preview_sampling_mode: str = "ranked"
     preview_seed: int | None = 424242
     frequency_db: Path | None = None
-    overlay_source_path: Path | None = None
+    overlay_source_path: Path | None = DEFAULT_TOPIC_OVERLAY_SOURCE_PATH
+    augment_with_zipf_bridge: bool = True
+    zipf_bridge_path: Path | None = DEFAULT_ZIPF_BRIDGE_PATH
+    kaikki_forward_db: Path | None = None
 
 
 HTML_PATH = Path(__file__).with_name("srs_admission_lab_static.html")
@@ -405,19 +427,31 @@ def build_lab_response(
     frequency_db = resolve_frequency_db(pair, resolved_config.frequency_db)
     if not frequency_db.exists():
         raise FileNotFoundError(frequency_db)
+    overlay_source_path = path_if_exists(resolved_config.overlay_source_path)
+    kaikki_forward_db = resolve_kaikki_forward_db(pair, resolved_config.kaikki_forward_db)
 
     with tempfile.TemporaryDirectory(prefix="lexishift-srs-admission-lab-") as tmp:
         from lexishift_core.helper.paths import build_helper_paths
 
-        paths = build_helper_paths(Path(tmp))
+        tmp_root = Path(tmp)
+        paths = build_helper_paths(tmp_root)
+        preview_frequency_db, source_augmentation = prepare_lab_frequency_db(
+            base_frequency_db=frequency_db,
+            pair=pair,
+            work_dir=tmp_root,
+            overlay_source_path=overlay_source_path,
+            augment_with_zipf_bridge=resolved_config.augment_with_zipf_bridge,
+            zipf_bridge_path=resolved_config.zipf_bridge_path,
+            kaikki_forward_db=kaikki_forward_db,
+        )
         copied_overlay_path = copy_overlay_fixture(
             paths.srs_dir,
-            resolved_config.overlay_source_path,
+            overlay_source_path,
         )
         neutral = run_preview_sample(
             paths=paths,
             pair=pair,
-            frequency_db=frequency_db,
+            frequency_db=preview_frequency_db,
             profile_context={},
             set_top_n=set_top_n,
             initial_active_count=initial_active_count,
@@ -429,7 +463,7 @@ def build_lab_response(
         preference = run_preview_sample(
             paths=paths,
             pair=pair,
-            frequency_db=frequency_db,
+            frequency_db=preview_frequency_db,
             profile_context=profile_context,
             set_top_n=set_top_n,
             initial_active_count=initial_active_count,
@@ -452,10 +486,14 @@ def build_lab_response(
         "profile_context": profile_context,
         "source": {
             "frequency_db": str(frequency_db),
-            "overlay_source_path": str(resolved_config.overlay_source_path)
-            if resolved_config.overlay_source_path
-            else None,
+            "preview_frequency_db": str(preview_frequency_db),
+            "source_augmentation": source_augmentation,
+            "overlay_source_path": str(overlay_source_path) if overlay_source_path else None,
             "copied_overlay_path": str(copied_overlay_path) if copied_overlay_path else None,
+            "zipf_bridge_path": str(resolved_config.zipf_bridge_path)
+            if resolved_config.zipf_bridge_path
+            else None,
+            "kaikki_forward_db": str(kaikki_forward_db) if kaikki_forward_db else None,
         },
         "neutral": neutral,
         "preference": preference,
@@ -555,7 +593,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pair", default=DEFAULT_PAIR)
     parser.add_argument("--frequency-db", type=Path)
     parser.add_argument("--overlay-source-path", type=Path)
-    parser.add_argument("--set-top-n", type=int, default=2000)
+    parser.add_argument("--set-top-n", type=int, default=DEFAULT_SET_TOP_N)
     parser.add_argument("--initial-active-count", type=int, default=120)
     parser.add_argument("--preview-count", type=int, default=10)
     parser.add_argument(
@@ -564,6 +602,14 @@ def parse_args() -> argparse.Namespace:
         default="ranked",
     )
     parser.add_argument("--preview-seed", type=int, default=424242)
+    parser.add_argument(
+        "--augment-with-zipf-bridge",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Build a temporary dev-only frequency DB from the local Zipf bridge artifact.",
+    )
+    parser.add_argument("--zipf-bridge-path", type=Path, default=DEFAULT_ZIPF_BRIDGE_PATH)
+    parser.add_argument("--kaikki-forward-db", type=Path)
     return parser.parse_args()
 
 
@@ -577,7 +623,10 @@ def main() -> int:
         preview_sampling_mode=args.preview_sampling_mode,
         preview_seed=args.preview_seed,
         frequency_db=args.frequency_db,
-        overlay_source_path=args.overlay_source_path,
+        overlay_source_path=args.overlay_source_path or DEFAULT_TOPIC_OVERLAY_SOURCE_PATH,
+        augment_with_zipf_bridge=args.augment_with_zipf_bridge,
+        zipf_bridge_path=args.zipf_bridge_path,
+        kaikki_forward_db=args.kaikki_forward_db,
     )
     server = ThreadingHTTPServer((args.host, args.port), make_handler(config))
     url = f"http://{args.host}:{args.port}"
