@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LexiShift SRS Admission Lab</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      --border: #c9d2dc;
+      --ink: #142033;
+      --muted: #5d6b7c;
+      --surface: #f6f8fa;
+      --panel: #ffffff;
+      --accent: #1467b8;
+      --accent-soft: #e8f2ff;
+      --warn: #8a5400;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--surface);
+    }
+    header {
+      padding: 18px 24px 12px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+    }
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 720;
+      letter-spacing: 0;
+    }
+    main {
+      display: grid;
+      grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+      min-height: calc(100vh - 60px);
+    }
+    aside {
+      padding: 18px;
+      border-right: 1px solid var(--border);
+      background: var(--panel);
+    }
+    section {
+      padding: 18px 22px;
+    }
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 0 0 14px;
+      padding: 12px;
+    }
+    legend {
+      padding: 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+      font-size: 13px;
+      font-weight: 650;
+    }
+    input,
+    select,
+    textarea,
+    button {
+      font: inherit;
+    }
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      margin-top: 5px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      background: #fff;
+      color: var(--ink);
+    }
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 78px;
+      gap: 10px;
+      align-items: center;
+    }
+    .check-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0;
+      font-size: 13px;
+      font-weight: 620;
+    }
+    .check-row input {
+      width: 16px;
+      height: 16px;
+    }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    button {
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 11px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+    }
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+    .status {
+      min-height: 20px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .error {
+      color: #a01818;
+      white-space: pre-wrap;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .metric {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+    .metric b {
+      display: block;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .result-panel {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+    .result-panel h2 {
+      margin: 0;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th,
+    td {
+      padding: 8px 9px;
+      border-bottom: 1px solid #e4e9ef;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      background: #fbfcfd;
+    }
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 7px;
+      background: var(--accent-soft);
+      color: #0c4f92;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .warn {
+      color: var(--warn);
+    }
+    pre {
+      margin: 0;
+      padding: 12px;
+      overflow: auto;
+      background: #111827;
+      color: #e5e7eb;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    @media (max-width: 900px) {
+      main,
+      .comparison,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LexiShift SRS Admission Lab</h1>
+  </header>
+  <main>
+    <aside>
+      <fieldset>
+        <legend>Candidate Pool</legend>
+        <label>Pair
+          <input id="pair" type="text" value="en-es">
+        </label>
+        <label>Pool top N
+          <input id="setTopN" type="number" min="1" max="50000" value="2000">
+        </label>
+        <label>Initial active count
+          <input id="initialActiveCount" type="number" min="1" max="10000" value="120">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Topic Signals</legend>
+        <label class="check-row">
+          <input type="checkbox" data-interest="animals"> Animals interest chip
+        </label>
+        <div class="row">
+          <label>Animals scalar
+            <input id="animalsWeight" type="range" min="0" max="1" step="0.05" value="0">
+          </label>
+          <output id="animalsOut">0.00</output>
+        </div>
+        <label class="check-row">
+          <input type="checkbox" data-interest="plants_nature"> Plants/nature interest chip
+        </label>
+        <div class="row">
+          <label>Plants scalar
+            <input id="plantsWeight" type="range" min="0" max="1" step="0.05" value="0">
+          </label>
+          <output id="plantsOut">0.00</output>
+        </div>
+        <label class="check-row">
+          <input type="checkbox" data-interest="finance"> Finance control chip
+        </label>
+        <div class="row">
+          <label>Finance scalar
+            <input id="financeWeight" type="range" min="0" max="1" step="0.05" value="0">
+          </label>
+          <output id="financeOut">0.00</output>
+        </div>
+        <div class="button-row">
+          <button type="button" data-preset="neutral">Neutral</button>
+          <button type="button" data-preset="animals">Animals</button>
+          <button type="button" data-preset="plants">Plants</button>
+          <button type="button" data-preset="mixed">Mixed</button>
+          <button type="button" data-preset="finance">Finance control</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Difficulty Signals</legend>
+        <div class="row">
+          <label>Proficiency
+            <input id="proficiency" type="range" min="0" max="1" step="0.05" value="0.45">
+          </label>
+          <output id="proficiencyOut">0.45</output>
+        </div>
+        <div class="row">
+          <label>Target challenge
+            <input id="challengeTarget" type="range" min="0" max="1" step="0.05" value="0.45">
+          </label>
+          <output id="challengeTargetOut">0.45</output>
+        </div>
+        <div class="row">
+          <label>Challenge spread
+            <input id="challengeSpread" type="range" min="0.05" max="1" step="0.05" value="0.20">
+          </label>
+          <output id="challengeSpreadOut">0.20</output>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Sampling</legend>
+        <label>Mode
+          <select id="samplingMode">
+            <option value="ranked">ranked</option>
+            <option value="weighted_without_replacement">weighted_without_replacement</option>
+          </select>
+        </label>
+        <label>Seed
+          <input id="seed" type="number" value="424242">
+        </label>
+        <label>Count
+          <input id="previewCount" type="number" min="1" max="20" value="10">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Advanced</legend>
+        <label class="check-row">
+          <input id="useRawProfile" type="checkbox"> Use raw profile context JSON
+        </label>
+        <textarea id="rawProfile">{}</textarea>
+      </fieldset>
+
+      <button id="sampleButton" class="primary" type="button">Sample 10</button>
+      <div id="status" class="status">Idle.</div>
+    </aside>
+
+    <section>
+      <div class="grid">
+        <div class="metric">
+          <b id="selectedCount">-</b>
+          <span>selected candidates</span>
+        </div>
+        <div class="metric">
+          <b id="topicMoverCount">-</b>
+          <span>topic movers in sample</span>
+        </div>
+        <div class="metric">
+          <b id="movedIntoSample">-</b>
+          <span>changed vs neutral</span>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="result-panel">
+          <h2>Preference Sample</h2>
+          <div id="preferenceTable"></div>
+        </div>
+        <div class="result-panel">
+          <h2>Neutral Baseline</h2>
+          <div id="neutralTable"></div>
+        </div>
+      </div>
+
+      <div class="result-panel">
+        <h2>Profile Context Sent To Admission</h2>
+        <pre id="profileJson">{}</pre>
+      </div>
+
+      <div class="result-panel" style="margin-top: 14px;">
+        <h2>Diagnostics</h2>
+        <pre id="diagnostics">No run yet.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+    const rangeIds = [
+      ["animalsWeight", "animalsOut"],
+      ["plantsWeight", "plantsOut"],
+      ["financeWeight", "financeOut"],
+      ["proficiency", "proficiencyOut"],
+      ["challengeTarget", "challengeTargetOut"],
+      ["challengeSpread", "challengeSpreadOut"]
+    ];
+
+    function numberValue(id, fallback) {
+      const parsed = Number($(id).value);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function updateOutputs() {
+      for (const [inputId, outputId] of rangeIds) {
+        $(outputId).textContent = numberValue("#" + inputId, 0).toFixed(2);
+      }
+      $("#sampleButton").textContent = "Sample " + numberValue("#previewCount", 10);
+    }
+
+    function clearTopics() {
+      $$("[data-interest]").forEach((input) => {
+        input.checked = false;
+      });
+      $("#animalsWeight").value = "0";
+      $("#plantsWeight").value = "0";
+      $("#financeWeight").value = "0";
+    }
+
+    function applyPreset(name) {
+      clearTopics();
+      $("#useRawProfile").checked = false;
+      $("#rawProfile").value = "{}";
+      if (name === "animals") {
+        $('[data-interest="animals"]').checked = true;
+      } else if (name === "plants") {
+        $('[data-interest="plants_nature"]').checked = true;
+      } else if (name === "mixed") {
+        $("#animalsWeight").value = "0.25";
+        $("#plantsWeight").value = "1";
+      } else if (name === "finance") {
+        $('[data-interest="finance"]').checked = true;
+      }
+      updateOutputs();
+    }
+
+    function readProfilePayload() {
+      if ($("#useRawProfile").checked) {
+        return {
+          use_profile_context: true,
+          profile_context: JSON.parse($("#rawProfile").value || "{}")
+        };
+      }
+      const interests = $$("[data-interest]:checked").map((input) => input.dataset.interest);
+      const topicWeights = {};
+      const weights = {
+        animals: numberValue("#animalsWeight", 0),
+        plants_nature: numberValue("#plantsWeight", 0),
+        finance: numberValue("#financeWeight", 0)
+      };
+      for (const [topic, value] of Object.entries(weights)) {
+        if (value > 0) {
+          topicWeights[topic] = value;
+        }
+      }
+      return {
+        interests,
+        topic_weights: topicWeights,
+        proficiency_estimate: numberValue("#proficiency", 0.45),
+        challenge_target: numberValue("#challengeTarget", 0.45),
+        challenge_spread: numberValue("#challengeSpread", 0.2)
+      };
+    }
+
+    function readPayload() {
+      return {
+        pair: $("#pair").value,
+        set_top_n: numberValue("#setTopN", 2000),
+        initial_active_count: numberValue("#initialActiveCount", 120),
+        preview_count: numberValue("#previewCount", 10),
+        preview_sampling_mode: $("#samplingMode").value,
+        preview_seed: numberValue("#seed", 424242),
+        ...readProfilePayload()
+      };
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function renderWords(words) {
+      if (!words || words.length === 0) {
+        return '<p class="muted" style="padding: 12px;">No sampled words.</p>';
+      }
+      const rows = words.map((word, index) => {
+        const topic = word.topic_affinity_source_display
+          ? '<span class="tag">' + escapeHtml(word.topic_affinity_source_display) + '</span>'
+          : '<span class="muted">none</span>';
+        const delta = word.rank_delta === null || word.rank_delta === undefined
+          ? ""
+          : (word.rank_delta >= 0 ? "+" : "") + word.rank_delta;
+        return '<tr>'
+          + '<td class="mono">' + (index + 1) + '</td>'
+          + '<td><b>' + escapeHtml(word.lemma) + '</b><br><span class="muted">'
+          + escapeHtml(word.explanation || "") + '</span></td>'
+          + '<td>' + escapeHtml(word.pos_bucket || "") + '</td>'
+          + '<td>' + topic + '</td>'
+          + '<td class="mono">' + escapeHtml(word.profile_score ?? "") + '</td>'
+          + '<td class="mono">' + escapeHtml(delta) + '</td>'
+          + '</tr>';
+      }).join("");
+      return '<table><thead><tr>'
+        + '<th>#</th><th>Lemma</th><th>POS</th><th>Topic</th><th>Score</th><th>Delta</th>'
+        + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    function summarizeChanged(comparison) {
+      const moved = comparison.changed_or_new || [];
+      if (moved.length === 0) {
+        return "No changed words in the top sample.";
+      }
+      return moved.map((entry) => {
+        const from = entry.neutral_position ? "from #" + entry.neutral_position : "new";
+        return entry.lemma + " " + from + " -> #" + entry.preference_position;
+      }).join("\n");
+    }
+
+    function renderResult(data) {
+      $("#selectedCount").textContent = data.preference.preview_counts.selected_count ?? "-";
+      $("#topicMoverCount").textContent = data.preference.topic_mover_count ?? "-";
+      $("#movedIntoSample").textContent = (data.comparison.changed_or_new || []).length;
+      $("#preferenceTable").innerHTML = renderWords(data.preference.admitted_words);
+      $("#neutralTable").innerHTML = renderWords(data.neutral.admitted_words);
+      $("#profileJson").textContent = JSON.stringify(data.profile_context, null, 2);
+      $("#diagnostics").textContent = JSON.stringify({
+        source: data.source,
+        parameters: data.parameters,
+        comparison: {
+          changed_or_new: summarizeChanged(data.comparison),
+          moved_up: data.comparison.moved_up,
+          new_to_sample: data.comparison.new_to_sample
+        },
+        preference_overlay: data.preference.profile_topic_overlay,
+        preference_context: data.preference.effective_profile_context,
+        active_topic_support: data.preference.active_topic_support,
+        plan: data.preference.plan
+      }, null, 2);
+    }
+
+    async function sample() {
+      const button = $("#sampleButton");
+      const status = $("#status");
+      button.disabled = true;
+      status.className = "status";
+      status.textContent = "Running admission preview...";
+      try {
+        const response = await fetch("/api/preview", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(readPayload())
+        });
+        const data = await response.json();
+        if (!response.ok || data.ok === false) {
+          throw new Error(data.error || "Preview failed.");
+        }
+        renderResult(data);
+        status.textContent = "Done.";
+      } catch (error) {
+        status.className = "status error";
+        status.textContent = error && error.message ? error.message : String(error);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    for (const [inputId] of rangeIds) {
+      $("#" + inputId).addEventListener("input", updateOutputs);
+    }
+    $("#previewCount").addEventListener("input", updateOutputs);
+    $("#sampleButton").addEventListener("click", sample);
+    $$("[data-preset]").forEach((button) => {
+      button.addEventListener("click", () => applyPreset(button.dataset.preset));
+    });
+    updateOutputs();
+  </script>
+</body>
+</html>

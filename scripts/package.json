@@ -28,6 +28,7 @@
     "inventory:experiments": "node dev/run_python.js dev/experiment_payload_retention_audit.py",
     "inventory:structure": "node dev/run_python.js dev/project_structure_inventory.py",
     "inventory:unnecessary": "node dev/run_python.js dev/generated_output_unnecessary_audit.py",
+    "dev:srs-admission-lab": "node dev/run_python.js dev/srs_admission_lab_server.py",
     "preflight:cws": "node dev/cws_preflight.js",
     "build": "node dev/run_python.js dev/dev_workflow_build.py",
     "build:ci": "node dev/run_python.js dev/dev_workflow_build.py --ci-safe",

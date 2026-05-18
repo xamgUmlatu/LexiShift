@@ -27,6 +27,7 @@ Use the package-script workflow surfaces first when they exist:
 - Feature-state audit: `npm --prefix scripts run check:state`
 - Project structure inventory: `npm --prefix scripts run inventory:structure`
 - Generated-output unnecessary audit: `npm --prefix scripts run inventory:unnecessary`
+- SRS admission lab: `npm --prefix scripts run dev:srs-admission-lab`
 - Build safety: `npm --prefix scripts run build`
 - Project health: `npm --prefix scripts run health:project`
 - SRS quality harness: `npm --prefix scripts run quality:srs:harness`
@@ -67,6 +68,13 @@ you need to choose the smallest honest bundle for a specific change type.
   - Separates mechanically safe `definite_prune` groups from `review_only` and
     `retain` groups using exact non-output references, retained generated-output
     provenance references, and narrow generated-output rules
+- Local SRS admission lab:
+  `dev/srs_admission_lab_server.py`
+  - Exposed via `npm --prefix scripts run dev:srs-admission-lab`
+  - Serves a read-only localhost UI for comparing neutral and preference-shaped
+    admission previews without mutating SRS store state
+  - Uses the same helper admission preview path as the extension and testing
+    harnesses, with per-request temporary helper data roots
 - Changed-scope workflow check (changed-only health + changed-file Ruff advisory + generated artifact freshness + rulegen-quality detection):
   `dev/dev_workflow_changed_check.py`
   - Optional JSON report via `--json-out` or `npm --prefix scripts run check:changed:report`
