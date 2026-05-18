@@ -39,6 +39,7 @@ from lexishift_core.helper.engine import (  # noqa: E402
 from lexishift_core.helper.installed_packs import write_installed_pack_manifest  # noqa: E402
 from lexishift_core.helper.paths import HelperPaths, build_helper_paths  # noqa: E402
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
+from lexishift_core.srs.topic_overlay import ANIMALS_PLANTS_OVERLAY_FILENAME  # noqa: E402
 from lexishift_core.srs import (
     SrsInventory,
     SrsHistoryEntry,
@@ -144,6 +145,33 @@ def _create_frequency_db(
     finally:
         conn.close()
     return path
+
+
+def _write_animals_plants_topic_overlay(
+    paths: HelperPaths,
+    *,
+    rows: tuple[dict[str, object], ...],
+) -> Path:
+    overlay_path = paths.srs_dir / "topic_overlays" / ANIMALS_PLANTS_OVERLAY_FILENAME
+    overlay_path.parent.mkdir(parents=True, exist_ok=True)
+    overlay_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "status": "ok",
+                "overlay_id": "unit_animals_plants_overlay",
+                "overlay_policy": {
+                    "promotion_state": "poc_candidate_not_product_overlay",
+                },
+                "summary": {"row_count": len(rows)},
+                "rows": list(rows),
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    return overlay_path
 
 
 def _artifact_manifest_entry(path: Path) -> dict[str, object]:
@@ -2917,6 +2945,83 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
                     "eligible_for_scarcity_calibration"
                 ]
             )
+
+    def test_preview_applies_animals_plants_overlay_for_supported_en_es_interest(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            source_db = root / "freq.sqlite"
+            overlay_path = _write_animals_plants_topic_overlay(
+                paths,
+                rows=(
+                    {
+                        "lemma": "beta",
+                        "language_pair": "en-es",
+                        "topic": "animals",
+                        "membership": 1.0,
+                        "review_id": "unit-strong-animal",
+                        "confidence_label": "strong",
+                    },
+                    {
+                        "lemma": "gamma",
+                        "language_pair": "en-es",
+                        "topic": "plants_nature",
+                        "membership": 0.65,
+                        "review_id": "unit-light-plant",
+                        "confidence_label": "light",
+                    },
+                ),
+            )
+            _create_frequency_db(
+                source_db,
+                rows=(
+                    ("alpha", 1.0, 100.0, "n", None, None, None, None, None, None, None),
+                    ("beta", 2.0, 98.0, "n", None, None, None, None, None, None, None),
+                    ("gamma", 3.0, 96.0, "n", None, None, None, None, None, None, None),
+                ),
+            )
+
+            payload = preview_srs_admission(
+                paths,
+                config=SetAdmissionPreviewJobConfig(
+                    pair="en-es",
+                    set_source_db=source_db,
+                    strategy="profile_bootstrap",
+                    preview_count=2,
+                    initial_active_count=2,
+                    profile_context={"interests": ["animals"]},
+                ),
+            )
+
+            preview = payload["preview"]
+            self.assertEqual(preview["selection_strategy"], "profile_bootstrap")
+            self.assertEqual(preview["admitted_words"][0]["lemma"], "beta")
+            self.assertEqual(preview["admitted_words"][0]["rank_delta"], 1)
+            self.assertEqual(
+                preview["admitted_words"][0]["signals"]["topic_affinity_source"],
+                "topic_hint:animals",
+            )
+            self.assertEqual(
+                preview["profile_bootstrap"]["active_topic_support"]["topics"][0][
+                    "candidate_count"
+                ],
+                1,
+            )
+            overlay = preview["profile_bootstrap"]["profile_topic_overlay"]
+            self.assertEqual(overlay["status"], "active")
+            self.assertEqual(overlay["reason"], "overlay_artifact_ready")
+            self.assertEqual(overlay["application_status"], "applied")
+            self.assertEqual(overlay["runtime_scope"], "admission_preview_only")
+            self.assertEqual(overlay["source_path"], str(overlay_path))
+            self.assertEqual(overlay["active_topics"], ["animals"])
+            self.assertEqual(overlay["applicable_row_count"], 1)
+            self.assertEqual(overlay["eligible_row_count"], 1)
+            self.assertEqual(overlay["matched_seed_count"], 1)
+            self.assertEqual(overlay["applied_seed_count"], 1)
+            self.assertEqual(overlay["applied_row_count"], 1)
+            self.assertEqual(overlay["applied_topics"], {"animals": 1})
 
     def test_preview_omits_large_ranking_preview_from_helper_payload(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

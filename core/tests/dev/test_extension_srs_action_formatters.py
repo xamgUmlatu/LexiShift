@@ -8,6 +8,10 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 FORMATTERS_JS = PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/formatters.js"
+ADMISSION_PREVIEW_FORMATTER_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/admission_preview_formatter.js"
+)
 
 
 def _run_node(script: str) -> None:
@@ -26,6 +30,85 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionSrsActionFormatters(unittest.TestCase):
+    def test_admission_preview_output_shows_profile_topic_overlay(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(ADMISSION_PREVIEW_FORMATTER_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const formatter = context.LexiShift.optionsSrsAdmissionPreviewFormatter;
+const text = formatter.buildAdmissionPreviewOutput({{
+  srsPair: "en-es",
+  profileId: "default",
+  plan: {{
+    can_execute: true,
+    strategy_requested: "profile_bootstrap",
+    strategy_effective: "frequency_bootstrap",
+    execution_mode: "profile_bootstrap"
+  }},
+  preview: {{
+    sample_count_requested: 1,
+    sample_count_effective: 1,
+    selected_unique_count: 3,
+    admitted_count: 1,
+    sampling_mode: "ranked",
+    profile_bootstrap: {{
+      profile_context: {{
+        active_signals: ["interests"],
+        raw_profile_keys: ["interests"],
+        interests: ["animals"],
+        explicit_topic_weights: {{ animals: 1 }},
+        topic_weights: {{ animals: 1 }},
+        signal_sources: {{ animals: "interests" }}
+      }},
+      profile_topic_overlay: {{
+        status: "active",
+        application_status: "applied",
+        runtime_scope: "admission_preview_only",
+        active_topics: ["animals"],
+        applied_seed_count: 1,
+        applied_row_count: 1,
+        source_path: "/tmp/topic-overlays/animals-plants.json"
+      }}
+    }},
+    admitted_words: [
+      {{
+        lemma: "beta",
+        pos_bucket: "noun",
+        profile_score: 0.689,
+        rank_delta: 1,
+        signals: {{ topic_affinity_source: "topic_hint:animals" }},
+        explanation: "Boosted by topic_affinity."
+      }}
+    ]
+  }}
+}});
+
+assert.match(text, /Topic overlay:/);
+assert.match(text, /status: active/);
+assert.match(text, /application_status: applied/);
+assert.match(text, /scope: admission_preview_only/);
+assert.match(text, /active_topics: animals/);
+assert.match(text, /applied_seed_count: 1/);
+assert.match(text, /applied_row_count: 1/);
+assert.match(text, /source_path: \\/tmp\\/topic-overlays\\/animals-plants\\.json/);
+"""
+        _run_node(script)
+
     def test_preflight_and_runtime_diagnostics_show_frequency_pack_identity(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

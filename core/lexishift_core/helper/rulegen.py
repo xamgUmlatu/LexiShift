@@ -75,6 +75,8 @@ class SetInitializationConfig:
     profile_context: Optional[Mapping[str, object]] = None
     selection_seed: Optional[int] = None
     selection_policy_override: Optional[str] = None
+    profile_topic_overlay: Optional[Mapping[str, object]] = None
+    profile_topic_overlay_diagnostics: Mapping[str, object] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -117,6 +119,13 @@ def _load_seed_module():
     return __import__(
         "lexishift_core.srs.seed",
         fromlist=["SeedSelectionConfig", "build_seed_candidates"],
+    )
+
+
+def _load_topic_overlay_module():
+    return __import__(
+        "lexishift_core.srs.topic_overlay",
+        fromlist=["apply_profile_topic_overlay_to_seeds"],
     )
 
 
@@ -251,6 +260,16 @@ def initialize_store_from_frequency_list_with_report(
         frequency_db=config.frequency_db,
         config=selection_config,
     )
+    topic_overlay_module = _load_topic_overlay_module()
+    selected_words, profile_topic_overlay_diagnostics = (
+        topic_overlay_module.apply_profile_topic_overlay_to_seeds(
+            selected_words,
+            overlay_payload=config.profile_topic_overlay,
+            profile_context=config.profile_context,
+            pair=config.language_pair,
+            diagnostics=config.profile_topic_overlay_diagnostics,
+        )
+    )
     initial_active_count = max(0, int(config.initial_active_count))
     selection_seed = _normalize_optional_int(config.selection_seed)
     selection_policy = _resolve_selection_policy_override(config.selection_policy_override)
@@ -277,6 +296,10 @@ def initialize_store_from_frequency_list_with_report(
             **dict(profile_bootstrap_diagnostics),
             "selection_policy": selection_policy,
         }
+        if profile_topic_overlay_diagnostics:
+            profile_bootstrap_diagnostics["profile_topic_overlay"] = dict(
+                profile_topic_overlay_diagnostics
+            )
         unique_scored_entries = _dedupe_profile_bootstrap_entries(scored_entries)
         selected_candidates = select_scored_candidates(
             [entry.scored_candidate for entry in unique_scored_entries],

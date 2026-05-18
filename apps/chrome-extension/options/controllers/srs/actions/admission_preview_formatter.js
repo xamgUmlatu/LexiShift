@@ -117,6 +117,10 @@
     const activeTopicSupportEntries = Array.isArray(activeTopicSupport.topics)
       ? activeTopicSupport.topics
       : [];
+    const profileTopicOverlay = profileBootstrap.profile_topic_overlay
+      && typeof profileBootstrap.profile_topic_overlay === "object"
+      ? profileBootstrap.profile_topic_overlay
+      : {};
     const admittedWords = Array.isArray(preview.admitted_words) ? preview.admitted_words : [];
     const notes = Array.isArray(plan.notes) ? plan.notes : [];
     const lines = [
@@ -163,6 +167,23 @@
     lines.push(`- implicit_topic_weights: ${formatTopicWeightsSummary(implicitTopicWeights)}`);
     lines.push(`- topic_weights: ${formatTopicWeightsSummary(mergedTopicWeights)}`);
     lines.push(`- signal_sources: ${formatSignalSourcesSummary(signalSources)}`);
+    if (profileTopicOverlay.status || profileTopicOverlay.application_status) {
+      lines.push("");
+      lines.push("Topic overlay:");
+      lines.push(`- status: ${profileTopicOverlay.status || "unknown"}`);
+      lines.push(`- application_status: ${profileTopicOverlay.application_status || "n/a"}`);
+      lines.push(`- scope: ${profileTopicOverlay.runtime_scope || "admission_preview_only"}`);
+      lines.push(`- active_topics: ${
+        Array.isArray(profileTopicOverlay.active_topics) && profileTopicOverlay.active_topics.length
+          ? profileTopicOverlay.active_topics.join(", ")
+          : "none"
+      }`);
+      lines.push(`- applied_seed_count: ${profileTopicOverlay.applied_seed_count ?? 0}`);
+      lines.push(`- applied_row_count: ${profileTopicOverlay.applied_row_count ?? 0}`);
+      if (profileTopicOverlay.source_path) {
+        lines.push(`- source_path: ${profileTopicOverlay.source_path}`);
+      }
+    }
     if (activeTopicSupportEntries.length) {
       lines.push("");
       lines.push("Neutral frontier topic support:");

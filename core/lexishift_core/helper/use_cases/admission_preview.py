@@ -15,6 +15,7 @@ from lexishift_core.srs.selector import (
 )
 from lexishift_core.srs.set_policy import resolve_set_sizing_policy
 from lexishift_core.srs.signal_queue import summarize_signal_events
+from lexishift_core.srs.topic_overlay import resolve_preview_profile_topic_overlay
 
 PREVIEW_SAMPLING_MODE_RANKED = "ranked"
 PREVIEW_SAMPLING_MODE_WEIGHTED = "weighted_without_replacement"
@@ -128,6 +129,13 @@ def preview_srs_admission(
         paths.srs_signal_queue_path_for(profile_id),
         pair=pair,
     )
+    profile_topic_overlay, profile_topic_overlay_diagnostics = (
+        resolve_preview_profile_topic_overlay(
+            paths,
+            pair=pair,
+            profile_context=config.profile_context,
+        )
+    )
     plan_payload = build_set_plan_payload_fn(
         pair=pair,
         strategy=config.strategy,
@@ -200,6 +208,8 @@ def preview_srs_admission(
             selection_policy_override=_resolve_preview_selection_policy(
                 getattr(config, "preview_sampling_mode", None)
             ),
+            profile_topic_overlay=profile_topic_overlay,
+            profile_topic_overlay_diagnostics=profile_topic_overlay_diagnostics,
         ),
     )
     preview_payload = _build_preview_payload(
