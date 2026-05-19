@@ -379,6 +379,58 @@ class TestProfileBootstrapReranking(unittest.TestCase):
         )
         self.assertEqual(topic_entry["top_examples"], ["beta"])
 
+    def test_topic_depth_by_level_reports_preferred_topic_readiness_bands(self) -> None:
+        seeds = [
+            SimpleNamespace(
+                lemma="cat",
+                language_pair="en-ja",
+                admission_weight=0.90,
+                metadata={"topics": ["animals"]},
+            ),
+            SimpleNamespace(
+                lemma="falcon",
+                language_pair="en-ja",
+                admission_weight=0.44,
+                metadata={"topics": ["animals"]},
+            ),
+            SimpleNamespace(
+                lemma="advanced",
+                language_pair="en-ja",
+                admission_weight=0.20,
+                metadata={},
+            ),
+        ]
+
+        _reranked, diagnostics = rerank_seed_words_for_profile(
+            seeds,
+            profile_context={
+                "interests": ["animals"],
+                "proficiency": {"estimated_value": 0.80},
+                "difficulty_preferences": {
+                    "target_challenge_center": 0.80,
+                    "target_challenge_spread": 0.12,
+                },
+            },
+        )
+
+        depth = diagnostics["topic_depth_by_level"]
+        self.assertEqual(depth["version"], "profile_topic_depth_v1")
+        self.assertEqual(depth["total_candidates"], 3)
+        topic_entry = depth["topics"][0]
+        self.assertEqual(topic_entry["topic"], "animals")
+        self.assertEqual(topic_entry["candidate_count"], 2)
+        self.assertEqual(topic_entry["ready_candidate_count"], 1)
+        self.assertAlmostEqual(topic_entry["max_difficulty"], 0.56, places=6)
+        bands_by_id = {entry["band"]: entry for entry in topic_entry["bands"]}
+        self.assertEqual(bands_by_id["0.00-0.20"]["candidate_count"], 1)
+        self.assertEqual(bands_by_id["0.00-0.20"]["ready_candidate_count"], 0)
+        self.assertEqual(bands_by_id["0.40-0.60"]["candidate_count"], 1)
+        self.assertEqual(bands_by_id["0.40-0.60"]["ready_candidate_count"], 1)
+        self.assertEqual(
+            bands_by_id["0.40-0.60"]["top_examples"][0]["lemma"],
+            "falcon",
+        )
+
     def test_active_topic_support_reports_eligible_topic_when_frontier_support_is_real(
         self,
     ) -> None:

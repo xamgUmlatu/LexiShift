@@ -148,7 +148,7 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
       margin-bottom: 14px;
     }
@@ -373,6 +373,10 @@
         <div class="metric">
           <b id="topicMoverCount">-</b>
           <span>topic movers in sample</span>
+        </div>
+        <div class="metric">
+          <b id="topicMoverShare">-</b>
+          <span>preferred-topic share</span>
         </div>
         <div class="metric">
           <b id="movedIntoSample">-</b>
@@ -618,6 +622,46 @@
         + (exampleText ? "<br><span class=\"muted mono\">" + escapeHtml(exampleText) + "</span>" : "");
     }
 
+    function renderTopicDepth(depth) {
+      if (!depth || !Array.isArray(depth.topics) || depth.topics.length === 0) {
+        return '<div class="muted" style="padding: 12px;">No active preferred topic depth to show.</div>';
+      }
+      const threshold = depth.ready_threshold ?? 0.5;
+      const topicSections = depth.topics.map((topic) => {
+        const rows = Array.isArray(topic.bands) ? topic.bands.map((band) => {
+          const examples = Array.isArray(band.top_examples) && band.top_examples.length
+            ? band.top_examples.map((entry) => {
+                return entry.lemma + " d=" + entry.difficulty_estimate + " r=" + entry.readiness_multiplier;
+              }).join(", ")
+            : "";
+          return '<tr>'
+            + '<td class="mono">' + escapeHtml(band.band || "") + '</td>'
+            + '<td class="mono">' + escapeHtml(band.candidate_count ?? 0) + '</td>'
+            + '<td class="mono">' + escapeHtml(band.ready_candidate_count ?? 0) + '</td>'
+            + '<td class="muted mono">' + escapeHtml(examples) + '</td>'
+            + '</tr>';
+        }).join("") : "";
+        const hardest = Array.isArray(topic.hardest_examples) && topic.hardest_examples.length
+          ? topic.hardest_examples.map((entry) => {
+              return entry.lemma + " d=" + entry.difficulty_estimate + " r=" + entry.readiness_multiplier;
+            }).join(", ")
+          : "none";
+        return '<div style="padding: 12px; border-top: 1px solid #e4e9ef;">'
+          + '<b>' + escapeHtml(topic.topic || "topic") + '</b>'
+          + '<div class="muted">weight=' + escapeHtml(topic.requested_weight ?? "")
+          + ', candidates=' + escapeHtml(topic.candidate_count ?? 0)
+          + ', ready>=' + escapeHtml(threshold) + ': ' + escapeHtml(topic.ready_candidate_count ?? 0)
+          + ', max difficulty=' + escapeHtml(topic.max_difficulty ?? "none") + '</div>'
+          + '<div class="muted mono">hardest: ' + escapeHtml(hardest) + '</div>'
+          + '<table style="margin-top: 8px;"><thead><tr>'
+          + '<th>Difficulty</th><th>Topic candidates</th><th>Ready</th><th>Best examples</th>'
+          + '</tr></thead><tbody>' + rows + '</tbody></table>'
+          + '</div>';
+      }).join("");
+      return '<div><b style="display:block; padding: 12px 12px 0;">Topic Depth By Difficulty</b>'
+        + topicSections + '</div>';
+    }
+
     function renderTopicCoverage(preference, source) {
       const support = preference && preference.active_topic_support
         ? preference.active_topic_support
@@ -651,6 +695,9 @@
           + " / eligible=" + (overlay.eligible_lemma_count ?? overlay.eligible_row_count ?? 0)
           + ", missing-from-seed=" + (overlay.unmatched_eligible_lemma_count ?? 0)
         : "overlay inactive";
+      const depth = preference && preference.topic_depth_by_level
+        ? preference.topic_depth_by_level
+        : {};
       return '<div class="coverage-grid">'
         + '<div><b>Candidate Support</b>' + topicText + '</div>'
         + '<div><b>Overlay Match</b>'
@@ -659,7 +706,8 @@
         + '<div class="muted">missing: ' + escapeHtml(unmatched) + '</div>'
         + '</div>'
         + '<div><b>Source Frontier</b>' + renderSourceAugmentation(source) + '</div>'
-        + '</div>';
+        + '</div>'
+        + renderTopicDepth(depth);
     }
 
     function summarizeChanged(comparison) {
@@ -676,6 +724,10 @@
     function renderResult(data) {
       $("#selectedCount").textContent = data.preference.preview_counts.selected_count ?? "-";
       $("#topicMoverCount").textContent = data.preference.topic_mover_count ?? "-";
+      $("#topicMoverShare").textContent = data.preference.topic_mover_share === null
+        || data.preference.topic_mover_share === undefined
+        ? "-"
+        : Math.round(Number(data.preference.topic_mover_share) * 100) + "%";
       $("#movedIntoSample").textContent = (data.comparison.changed_or_new || []).length;
       $("#topicCoverage").innerHTML = renderTopicCoverage(data.preference, data.source);
       $("#preferenceTable").innerHTML = renderWords(data.preference.admitted_words);
@@ -692,6 +744,7 @@
         preference_overlay: data.preference.profile_topic_overlay,
         preference_context: data.preference.effective_profile_context,
         active_topic_support: data.preference.active_topic_support,
+        topic_depth_by_level: data.preference.topic_depth_by_level,
         plan: data.preference.plan
       }, null, 2);
     }

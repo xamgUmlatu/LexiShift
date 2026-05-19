@@ -238,6 +238,11 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
             response["preference"]["profile_topic_overlay"]["application_status"],
             "applied",
         )
+        self.assertAlmostEqual(response["preference"]["topic_mover_share"], 1 / 3, places=3)
+        topic_depth = response["preference"]["topic_depth_by_level"]
+        self.assertEqual(topic_depth["version"], "profile_topic_depth_v1")
+        self.assertEqual(topic_depth["topics"][0]["topic"], "animals")
+        self.assertEqual(topic_depth["topics"][0]["candidate_count"], 1)
         self.assertEqual(
             response["preference"]["profile_topic_overlay"]["unmatched_eligible_lemma_sample"],
             ["perro"],

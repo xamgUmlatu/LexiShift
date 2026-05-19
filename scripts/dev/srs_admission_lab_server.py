@@ -294,6 +294,7 @@ def summarize_preview(payload: Mapping[str, object]) -> dict[str, object]:
     topic_movers = [
         entry for entry in admitted_words if str(entry.get("topic_affinity_source") or "").strip()
     ]
+    selected_count = len(admitted_words)
     return {
         "plan": {
             key: plan.get(key)
@@ -313,8 +314,10 @@ def summarize_preview(payload: Mapping[str, object]) -> dict[str, object]:
         "top_lemmas": [str(entry.get("lemma") or "") for entry in admitted_words],
         "admitted_words": admitted_words,
         "topic_mover_count": len(topic_movers),
+        "topic_mover_share": rounded(len(topic_movers) / selected_count if selected_count else 0.0),
         "effective_profile_context": dict(profile_bootstrap.get("profile_context") or {}),
         "active_topic_support": profile_bootstrap.get("active_topic_support") or {},
+        "topic_depth_by_level": profile_bootstrap.get("topic_depth_by_level") or {},
         "profile_topic_overlay": profile_bootstrap.get("profile_topic_overlay") or {},
     }
 

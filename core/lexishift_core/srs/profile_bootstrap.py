@@ -34,6 +34,18 @@ from lexishift_core.srs.selector import (
 
 PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v3"
 PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v4"
+PROFILE_TOPIC_DEPTH_VERSION = "profile_topic_depth_v1"
+
+PROFILE_TOPIC_DEPTH_BANDS: tuple[tuple[str, float, float], ...] = (
+    ("0.00-0.20", 0.0, 0.2),
+    ("0.20-0.40", 0.2, 0.4),
+    ("0.40-0.60", 0.4, 0.6),
+    ("0.60-0.80", 0.6, 0.8),
+    ("0.80-1.00", 0.8, 1.0),
+)
+PROFILE_TOPIC_DEPTH_READY_THRESHOLD = 0.5
+PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD = 0.9
+PROFILE_TOPIC_DEPTH_EXAMPLE_LIMIT = 5
 
 
 @dataclass(frozen=True)
@@ -369,6 +381,11 @@ def score_seed_words_for_profile(
         )
         for index, entry in enumerate(ranked_entries[:ranking_preview_limit])
     ]
+    topic_depth_by_level = _build_topic_depth_by_level(
+        ranked_entries,
+        normalized_context,
+        policy=policy,
+    )
     return ranked_entries, {
         "selector_version": PROFILE_BOOTSTRAP_SELECTOR_VERSION,
         "selector_policy_version": policy.version,
@@ -388,5 +405,171 @@ def score_seed_words_for_profile(
         "admission_profile": normalized_context.to_dict(),
         "policy": _build_policy_summary(policy),
         "active_topic_support": active_topic_support,
+        "topic_depth_by_level": topic_depth_by_level,
         "ranking_preview": ranking_preview,
     }
+
+
+def _build_topic_depth_by_level(
+    ranked_entries: Sequence[ProfileBootstrapScoredEntry],
+    context: NormalizedProfileBootstrapContext,
+    *,
+    policy: ProfileBootstrapPolicy,
+) -> dict[str, object]:
+    active_topics = [
+        (str(topic or "").strip(), float(weight or 0.0))
+        for topic, weight in context.topic_weights.items()
+        if str(topic or "").strip() and float(weight or 0.0) > 0.0
+    ]
+    active_topics.sort(key=lambda item: (-item[1], item[0]))
+    bands = [
+        _new_depth_band(label, lower, upper) for label, lower, upper in PROFILE_TOPIC_DEPTH_BANDS
+    ]
+    topic_entries = [
+        {
+            "topic": topic,
+            "requested_weight": round(weight, 6),
+            "candidate_count": 0,
+            "ready_candidate_count": 0,
+            "high_readiness_candidate_count": 0,
+            "max_difficulty": None,
+            "bands": [
+                _new_topic_depth_band(label, lower, upper)
+                for label, lower, upper in PROFILE_TOPIC_DEPTH_BANDS
+            ],
+            "hardest_examples": [],
+        }
+        for topic, weight in active_topics
+    ]
+    topic_entry_by_name = {str(entry["topic"]): entry for entry in topic_entries}
+    hardest_examples_by_topic: dict[str, list[tuple[float, dict[str, object]]]] = {
+        topic: [] for topic, _weight in active_topics
+    }
+
+    for entry in ranked_entries:
+        difficulty = _clamped_signal_value(entry.signal_pack.difficulty_estimate)
+        readiness = _clamped_signal_value(entry.signal_pack.readiness_multiplier)
+        topic_affinity = _clamped_signal_value(entry.signal_pack.preference_affinity)
+        band_index = _topic_depth_band_index(difficulty)
+        band = bands[band_index]
+        band["candidate_count"] = int(band["candidate_count"]) + 1
+        if topic_affinity > 0.0:
+            band["preferred_topic_count"] = int(band["preferred_topic_count"]) + 1
+            if readiness >= PROFILE_TOPIC_DEPTH_READY_THRESHOLD:
+                band["ready_preferred_topic_count"] = int(band["ready_preferred_topic_count"]) + 1
+            if readiness >= PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD:
+                band["high_readiness_preferred_topic_count"] = (
+                    int(band["high_readiness_preferred_topic_count"]) + 1
+                )
+            _append_topic_depth_example(band["top_preferred_examples"], entry)
+
+        for topic, _weight in active_topics:
+            if not _entry_matches_active_topic(entry, topic):
+                continue
+            topic_entry = topic_entry_by_name[topic]
+            topic_entry["candidate_count"] = int(topic_entry["candidate_count"]) + 1
+            if readiness >= PROFILE_TOPIC_DEPTH_READY_THRESHOLD:
+                topic_entry["ready_candidate_count"] = int(topic_entry["ready_candidate_count"]) + 1
+            if readiness >= PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD:
+                topic_entry["high_readiness_candidate_count"] = (
+                    int(topic_entry["high_readiness_candidate_count"]) + 1
+                )
+            max_difficulty = topic_entry["max_difficulty"]
+            if max_difficulty is None or difficulty > float(max_difficulty):
+                topic_entry["max_difficulty"] = round(difficulty, 6)
+            topic_band = topic_entry["bands"][band_index]
+            topic_band["candidate_count"] = int(topic_band["candidate_count"]) + 1
+            if readiness >= PROFILE_TOPIC_DEPTH_READY_THRESHOLD:
+                topic_band["ready_candidate_count"] = int(topic_band["ready_candidate_count"]) + 1
+            if readiness >= PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD:
+                topic_band["high_readiness_candidate_count"] = (
+                    int(topic_band["high_readiness_candidate_count"]) + 1
+                )
+            _append_topic_depth_example(topic_band["top_examples"], entry)
+            hardest_examples_by_topic[topic].append((difficulty, _topic_depth_example(entry)))
+
+    for topic_entry in topic_entries:
+        topic = str(topic_entry["topic"])
+        hardest = sorted(
+            hardest_examples_by_topic.get(topic, []),
+            key=lambda item: (-item[0], str(item[1].get("lemma") or "")),
+        )
+        topic_entry["hardest_examples"] = [
+            example for _difficulty, example in hardest[:PROFILE_TOPIC_DEPTH_EXAMPLE_LIMIT]
+        ]
+
+    return {
+        "version": PROFILE_TOPIC_DEPTH_VERSION,
+        "difficulty_proxy": policy.difficulty_proxy,
+        "ready_threshold": PROFILE_TOPIC_DEPTH_READY_THRESHOLD,
+        "high_readiness_threshold": PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD,
+        "total_candidates": len(ranked_entries),
+        "active_topic_count": len(active_topics),
+        "bands": bands,
+        "topics": topic_entries,
+    }
+
+
+def _new_depth_band(label: str, lower: float, upper: float) -> dict[str, object]:
+    return {
+        "band": label,
+        "lower": lower,
+        "upper": upper,
+        "candidate_count": 0,
+        "preferred_topic_count": 0,
+        "ready_preferred_topic_count": 0,
+        "high_readiness_preferred_topic_count": 0,
+        "top_preferred_examples": [],
+    }
+
+
+def _new_topic_depth_band(label: str, lower: float, upper: float) -> dict[str, object]:
+    return {
+        "band": label,
+        "lower": lower,
+        "upper": upper,
+        "candidate_count": 0,
+        "ready_candidate_count": 0,
+        "high_readiness_candidate_count": 0,
+        "top_examples": [],
+    }
+
+
+def _topic_depth_band_index(difficulty: float) -> int:
+    for index, (_label, lower, upper) in enumerate(PROFILE_TOPIC_DEPTH_BANDS):
+        if index == len(PROFILE_TOPIC_DEPTH_BANDS) - 1:
+            if lower <= difficulty <= upper:
+                return index
+        elif lower <= difficulty < upper:
+            return index
+    return len(PROFILE_TOPIC_DEPTH_BANDS) - 1
+
+
+def _append_topic_depth_example(target: object, entry: ProfileBootstrapScoredEntry) -> None:
+    if not isinstance(target, list):
+        return
+    if len(target) >= PROFILE_TOPIC_DEPTH_EXAMPLE_LIMIT:
+        return
+    target.append(_topic_depth_example(entry))
+
+
+def _topic_depth_example(entry: ProfileBootstrapScoredEntry) -> dict[str, object]:
+    return {
+        "lemma": entry.traits.lemma,
+        "difficulty_estimate": round(float(entry.signal_pack.difficulty_estimate), 6),
+        "readiness_multiplier": round(float(entry.signal_pack.readiness_multiplier), 6),
+        "topic_affinity": round(float(entry.signal_pack.preference_affinity), 6),
+        "topic_affinity_source": entry.signal_pack.preference_affinity_source,
+        "profile_score": round(float(entry.scored_candidate.breakdown.final_score), 6),
+    }
+
+
+def _entry_matches_active_topic(entry: ProfileBootstrapScoredEntry, topic: str) -> bool:
+    if topic in entry.traits.topic_hints:
+        return True
+    source = str(entry.signal_pack.preference_affinity_source or "")
+    return source == f"lexical:{topic}"
+
+
+def _clamped_signal_value(value: float) -> float:
+    return max(0.0, min(1.0, float(value)))

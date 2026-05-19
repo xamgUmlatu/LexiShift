@@ -1381,7 +1381,7 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-19` profile-bootstrap scoring now includes a multiplicative readiness gate that suppresses too-easy/too-hard candidates while allowing topic-relevant words a wider proficiency band; the local SRS admission lab exposes gate diagnostics and can build a dev-only Zipf-bridge augmented EN-ES frontier for fuller topic-preference testing
+- Last documented checkpoint: `2026-05-19` profile-bootstrap scoring now includes a multiplicative readiness gate that suppresses too-easy/too-hard candidates while allowing topic-relevant words a wider proficiency band; the local SRS admission lab exposes gate and topic-depth diagnostics and can build a dev-only Zipf-bridge augmented EN-ES frontier for fuller topic-preference testing
 - Last verified: `2026-05-19` focused profile-bootstrap/selector/admission-lab tests, SRS quality harness, changed-file gate, and local admission-lab browser smoke
 - Default behavior:
   - Default bootstrap execution remains frequency bootstrap.
