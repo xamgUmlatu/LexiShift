@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import argparse
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime, timezone
 import json
 from pathlib import Path
@@ -27,13 +27,17 @@ CORE_ROOT = PROJECT_ROOT / "core"
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
-from lexishift_core.srs.admission_features import (  # noqa: E402
-    clamp01,
-    normalize_topic_string_list,
-    normalize_topic_token,
-)
+from lexishift_core.srs.admission_features import normalize_topic_token  # noqa: E402
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
 from srs_topic_family_depth_audit_markdown import render_markdown  # noqa: E402
+from srs_topic_source_policy_en_es import (  # noqa: E402
+    raw_topic_tokens,
+    seed_info as source_seed_info,
+    trusted_labels_for_seed,
+    trusted_source_exclusion,
+    trusted_source_exclusions,
+    trusted_source_mappings,
+)
 from srs_topic_signal_inventory_en_es import load_kaikki_topic_signal_index  # noqa: E402
 
 
@@ -97,7 +101,8 @@ def build_report(
     signal_db = kaikki_forward_db or DEFAULT_KAIKKI_FORWARD_DB
     taxonomy = _load_json(taxonomy_path)
     family_rows = _taxonomy_families(taxonomy)
-    source_mappings = _trusted_source_mappings(taxonomy)
+    source_mappings = trusted_source_mappings(taxonomy)
+    source_exclusions = trusted_source_exclusions(taxonomy)
     signal_index = load_kaikki_topic_signal_index(signal_db)
     frontier_specs = list(frontiers) if frontiers is not None else _default_frontiers()
     audits = [
@@ -107,6 +112,7 @@ def build_report(
             required=required,
             family_rows=family_rows,
             source_mappings=source_mappings,
+            source_exclusions=source_exclusions,
             signal_index=signal_index,
             top_n=top_n,
         )
@@ -136,7 +142,7 @@ def build_report(
             "runtime_policy_change": "none",
             "helper_state_mutation": "none",
             "source_download": "none",
-            "trusted_topic_policy": "taxonomy source_label_mappings over Kaikki/Wiktionary sense_topics and pack topic columns",
+            "trusted_topic_policy": "taxonomy source_label_mappings over Kaikki/Wiktionary sense_topics and pack topic columns, minus taxonomy source-topic exclusions",
             "register_policy": "review-only allowlisted tag/category inventory; no admission lift",
             "difficulty_proxy": "1_minus_admission_weight",
         },
@@ -169,6 +175,7 @@ def audit_frontier(
     required: bool,
     family_rows: Mapping[str, Mapping[str, object]],
     source_mappings: Mapping[str, Sequence[Mapping[str, object]]],
+    source_exclusions: Sequence[Mapping[str, object]],
     signal_index: Mapping[str, object],
     top_n: int,
 ) -> dict[str, object]:
@@ -199,14 +206,29 @@ def audit_frontier(
         family_id: _new_family_accumulator(family) for family_id, family in family_rows.items()
     }
     for seed_index, seed in enumerate(seeds, start=1):
-        seed_info = _seed_info(seed, seed_index)
+        seed_info = source_seed_info(seed, seed_index)
         lemma = seed_info["lemma"]
-        trusted_labels = _trusted_labels_for_seed(seed, lemma=lemma, by_channel=by_channel)
+        trusted_labels = trusted_labels_for_seed(seed, lemma=lemma, by_channel=by_channel)
         trusted_matches_by_family: dict[str, dict[str, object]] = {}
         for label_token in trusted_labels:
             for mapping in source_mappings.get(label_token, ()):
                 family_id = str(mapping.get("target_family") or "")
                 if family_id not in family_accumulators:
+                    continue
+                exclusion = trusted_source_exclusion(
+                    source_exclusions,
+                    lemma=lemma,
+                    seed_info=seed_info,
+                    source_label=label_token,
+                    target_family=family_id,
+                )
+                if exclusion:
+                    _add_excluded_family_match(
+                        family_accumulators[family_id],
+                        seed_info=seed_info,
+                        source_label=label_token,
+                        reason=str(exclusion.get("reason") or ""),
+                    )
                     continue
                 score = _float(mapping.get("weight")) * _float(mapping.get("confidence"))
                 match = trusted_matches_by_family.setdefault(
@@ -267,29 +289,6 @@ def audit_frontier(
     }
 
 
-def _trusted_source_mappings(
-    taxonomy: Mapping[str, object],
-) -> dict[str, list[Mapping[str, object]]]:
-    by_label: dict[str, list[Mapping[str, object]]] = defaultdict(list)
-    family_ids = {str(row.get("id") or "") for row in _mapping_rows(taxonomy.get("families"))}
-    for row in _mapping_rows(taxonomy.get("source_label_mappings")):
-        if str(row.get("source_channel") or "") != "sense_topics":
-            continue
-        source_label = normalize_topic_token(row.get("source_label"))
-        target_family = normalize_topic_token(row.get("target_family"))
-        if not source_label or target_family not in family_ids:
-            continue
-        by_label[source_label].append(
-            {
-                "source_label": source_label,
-                "target_family": target_family,
-                "weight": _float(row.get("weight")),
-                "confidence": _float(row.get("confidence")),
-            }
-        )
-    return dict(by_label)
-
-
 def _taxonomy_families(taxonomy: Mapping[str, object]) -> dict[str, Mapping[str, object]]:
     families: dict[str, Mapping[str, object]] = {}
     for row in _mapping_rows(taxonomy.get("families")):
@@ -314,6 +313,8 @@ def _new_family_accumulator(family: Mapping[str, object]) -> dict[str, object]:
         "family": family,
         "trusted_lemmas": set(),
         "trusted_source_counter": Counter(),
+        "trusted_excluded_counter": Counter(),
+        "trusted_excluded_examples": [],
         "trusted_hits": [],
         "trusted_bands": [
             _new_band(label, lower, upper) for label, lower, upper in DIFFICULTY_BANDS
@@ -325,6 +326,30 @@ def _new_family_accumulator(family: Mapping[str, object]) -> dict[str, object]:
             _new_band(label, lower, upper) for label, lower, upper in DIFFICULTY_BANDS
         ],
     }
+
+
+def _add_excluded_family_match(
+    accumulator: dict[str, object],
+    *,
+    seed_info: Mapping[str, object],
+    source_label: str,
+    reason: str,
+) -> None:
+    counter = accumulator.get("trusted_excluded_counter")
+    if isinstance(counter, Counter):
+        counter[source_label] += 1
+    examples = accumulator.get("trusted_excluded_examples")
+    if isinstance(examples, list) and len(examples) < 12:
+        examples.append(
+            {
+                "lemma": seed_info.get("lemma"),
+                "seed_rank": seed_info.get("seed_rank"),
+                "difficulty": seed_info.get("difficulty"),
+                "pos_bucket": seed_info.get("pos_bucket"),
+                "source_label": source_label,
+                "reason": reason,
+            }
+        )
 
 
 def _new_band(label: str, lower: float, upper: float) -> dict[str, object]:
@@ -465,6 +490,10 @@ def _finalize_family_report(
         ),
         "trusted_bands": trusted_bands,
         "trusted_top_source_labels": _counter_rows(accumulator.get("trusted_source_counter")),
+        "trusted_excluded_source_labels": _counter_rows(
+            accumulator.get("trusted_excluded_counter")
+        ),
+        "trusted_excluded_examples": _mapping_rows(accumulator.get("trusted_excluded_examples")),
         "trusted_top_examples": [_public_hit(row) for row in trusted_hits[:8]],
         "trusted_hardest_examples": [
             _public_hit(row)
@@ -509,21 +538,6 @@ def _coverage_posture(
     return "measurable_trusted_coverage"
 
 
-def _trusted_labels_for_seed(
-    seed: object,
-    *,
-    lemma: str,
-    by_channel: Mapping[str, object],
-) -> list[str]:
-    labels: list[str] = []
-    metadata = _as_mapping(getattr(seed, "metadata", {}))
-    for key in ("sense_topics", "topics", "topic", "profile_topics"):
-        labels.extend(_raw_topic_tokens(metadata.get(key)))
-    sense_topics = _as_mapping(by_channel.get("sense_topics"))
-    labels.extend(_raw_topic_tokens(sense_topics.get(lemma)))
-    return sorted(dict.fromkeys(label for label in labels if label))
-
-
 def _register_review_matches(
     *,
     lemma: str,
@@ -534,38 +548,11 @@ def _register_review_matches(
     for channel, allowed_labels in channel_rules.items():
         allowed = {normalize_topic_token(label) for label in allowed_labels}
         lemma_signals = _as_mapping(by_channel.get(channel))
-        labels = _raw_topic_tokens(lemma_signals.get(lemma))
+        labels = raw_topic_tokens(lemma_signals.get(lemma))
         for label in labels:
             if label in allowed:
                 matches.append((channel, label))
     return sorted(dict.fromkeys(matches))
-
-
-def _seed_info(seed: object, seed_rank: int) -> dict[str, object]:
-    admission_weight = _float(getattr(seed, "admission_weight", None))
-    base_weight = _float(getattr(seed, "base_weight", None))
-    commonness = admission_weight if admission_weight > 0.0 else base_weight
-    difficulty = clamp01(1.0 - commonness) or 0.0
-    return {
-        "seed_rank": int(seed_rank),
-        "lemma": str(getattr(seed, "lemma", "") or "").strip(),
-        "pos_bucket": str(getattr(seed, "pos_bucket", "") or ""),
-        "admission_weight": round(admission_weight, 6),
-        "difficulty": round(float(difficulty), 6),
-    }
-
-
-def _raw_topic_tokens(value: object) -> list[str]:
-    if value is None:
-        return []
-    if isinstance(value, str):
-        return normalize_topic_string_list(value)
-    if isinstance(value, (list, tuple, set)):
-        tokens: list[str] = []
-        for item in value:
-            tokens.extend(_raw_topic_tokens(item))
-        return sorted(dict.fromkeys(tokens))
-    return []
 
 
 def _finalize_bands(value: object) -> list[dict[str, object]]:

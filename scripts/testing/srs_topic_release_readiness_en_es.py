@@ -8,6 +8,8 @@ import json
 from pathlib import Path
 from typing import Mapping, Sequence
 
+from srs_topic_release_overlay_summary import summarize_topic_overlays
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 TEST_OUTPUTS_ROOT = PROJECT_ROOT / "docs" / "test_outputs"
@@ -18,6 +20,7 @@ DEFAULT_DEPTH_AUDIT = TEST_OUTPUTS_ROOT / "srs_topic_family_depth_audit_en_es_la
 DEFAULT_OVERLAYS = (
     TEST_OUTPUTS_ROOT / "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
     TEST_OUTPUTS_ROOT / "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+    TEST_OUTPUTS_ROOT / "srs_source_topic_overlay_en_es_spalex_10k_latest.json",
 )
 DEFAULT_SOURCE_PRECISION_REVIEW = (
     TEST_OUTPUTS_ROOT / "srs_source_topic_precision_review_en_es_spalex_10k_latest.json"
@@ -120,7 +123,7 @@ def build_report(
     depth_by_family = {
         str(row.get("family") or ""): row for row in _mapping_rows(frontier.get("families"))
     }
-    overlays = _overlay_summary(overlay_payloads)
+    overlays = summarize_topic_overlays(overlay_payloads)
     topic_rows = [
         _readiness_row(family, depth_by_family.get(str(family.get("id") or ""), {}), overlays)
         for family in families
@@ -167,8 +170,8 @@ def build_report(
         "findings": findings,
         "limitations": [
             "This is a release-readiness classifier, not a new source audit.",
-            "Reviewed overlay rows are counted separately from source-derived trusted rows.",
-            "Effective rows use the larger of source-trusted and reviewed-overlay counts to avoid optimistic double counting.",
+            "Runtime-eligible full-membership overlay rows are counted separately from source-derived trusted rows.",
+            "Effective rows use the larger of source-trusted and runtime-eligible overlay counts to avoid optimistic double counting.",
             "Difficulty bands currently come from the source-depth audit; overlay rows do not yet carry a calibrated difficulty-band distribution.",
             "Source precision review is sampled compact evidence, not a full-universe precision estimate.",
             "Register rows are policy-review candidates, not ordinary interest topics.",
@@ -214,6 +217,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
                 f"({_format_percent(precision.get('accepted_rate'))})",
                 f"- Rejected rows: `{precision.get('rejected_count', 0)}` "
                 f"({_format_percent(precision.get('rejected_rate'))})",
+                f"- Pending rows: `{precision.get('pending_count', 0)}`",
                 "- Families needing guard review: "
                 f"`{', '.join(_string_list(precision.get('noisy_families'))) or 'none'}`",
             ]
@@ -225,7 +229,7 @@ def render_markdown(report: Mapping[str, object]) -> str:
             "",
             "## Topic Matrix",
             "",
-            "| Family | Axis | Status | Visibility | Effective Rows | Source Rows | Overlay Rows | Bands | Next Work |",
+            "| Family | Axis | Status | Visibility | Effective Rows | Source Rows | Runtime Overlay Rows | Bands | Next Work |",
             "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
         ]
     )
@@ -556,55 +560,6 @@ def _resolve_frontier(
     return {}
 
 
-def _overlay_summary(overlay_payloads: Sequence[Mapping[str, object]]) -> dict[str, object]:
-    by_topic: dict[str, dict[str, object]] = {}
-    overlay_ids: list[str] = []
-    for payload in overlay_payloads:
-        if str(payload.get("status") or "") != "ok":
-            continue
-        overlay_ids.append(str(payload.get("overlay_id") or ""))
-        for row in _mapping_rows(payload.get("rows")):
-            topic = str(row.get("topic") or "").strip()
-            lemma = str(row.get("lemma") or "").strip()
-            if not topic or not lemma:
-                continue
-            topic_entry = by_topic.setdefault(
-                topic,
-                {
-                    "row_count": 0,
-                    "lemma_count": 0,
-                    "lemmas": set(),
-                    "counts_by_confidence": Counter(),
-                },
-            )
-            topic_entry["row_count"] = int(topic_entry["row_count"]) + 1
-            lemmas = topic_entry["lemmas"]
-            if isinstance(lemmas, set):
-                lemmas.add(lemma)
-            confidence_counts = topic_entry["counts_by_confidence"]
-            if isinstance(confidence_counts, Counter):
-                confidence = str(row.get("confidence_label") or "unknown").strip() or "unknown"
-                confidence_counts[confidence] += 1
-
-    public_by_topic: dict[str, dict[str, object]] = {}
-    for topic, row in by_topic.items():
-        lemmas = row.get("lemmas")
-        confidence_counts = row.get("counts_by_confidence")
-        public_by_topic[topic] = {
-            "row_count": int(row.get("row_count") or 0),
-            "lemma_count": len(lemmas) if isinstance(lemmas, set) else 0,
-            "counts_by_confidence": dict(confidence_counts)
-            if isinstance(confidence_counts, Counter)
-            else {},
-        }
-    return {
-        "overlay_count": len(overlay_payloads),
-        "ready_overlay_ids": [overlay_id for overlay_id in overlay_ids if overlay_id],
-        "topics_with_reviewed_overlay": sorted(public_by_topic),
-        "by_topic": public_by_topic,
-    }
-
-
 def _findings(
     topic_rows: Sequence[Mapping[str, object]],
     *,
@@ -677,6 +632,14 @@ def _findings(
                     "WARN",
                     "source_precision_guards_needed",
                     "Some default-visible source topics need guard review before promotion.",
+                )
+            )
+        if int(source_precision.get("pending_count") or 0) > 0:
+            findings.append(
+                _finding(
+                    "WARN",
+                    "source_precision_review_pending",
+                    "Some source-backed release candidates still need sampled precision labels.",
                 )
             )
     return findings

@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_family_depth_audit_completed`
-- Generated: `2026-05-19T03:41:52+00:00`
+- Generated: `2026-05-19T22:11:22+00:00`
 - Frontier count: `2`
 - Missing optional frontiers: `0`
 
@@ -29,15 +29,15 @@ This is a read-only coverage/depth audit for the product-owned SRS topic/registe
 
 | Family | Axis | State | Trusted Rows | Bands | Max Difficulty | Review-Only Rows | Posture |
 | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `science_technology` | `topic` | `source_ready` | 120 | 4 | 0.837 | 0 | `measurable_trusted_coverage` |
+| `science_technology` | `topic` | `source_ready` | 117 | 4 | 0.837 | 0 | `measurable_trusted_coverage` |
 | `medicine_health` | `topic` | `source_ready` | 43 | 4 | 0.837 | 0 | `measurable_trusted_coverage` |
-| `law_politics_civics` | `topic` | `source_ready` | 38 | 3 | 0.876 | 0 | `measurable_trusted_coverage` |
-| `sports_fitness` | `topic` | `source_ready` | 33 | 3 | 0.867 | 0 | `measurable_trusted_coverage` |
+| `law_politics_civics` | `topic` | `source_ready` | 37 | 3 | 0.845 | 0 | `measurable_trusted_coverage` |
+| `sports_fitness` | `topic` | `source_ready` | 31 | 3 | 0.845 | 0 | `measurable_trusted_coverage` |
 | `music_media_entertainment` | `topic` | `source_ready` | 28 | 4 | 0.824 | 0 | `measurable_trusted_coverage` |
 | `travel_places_transport` | `topic` | `partial` | 27 | 2 | 0.786 | 0 | `measurable_trusted_coverage` |
 | `finance_business` | `topic` | `source_ready` | 25 | 4 | 0.828 | 0 | `measurable_trusted_coverage` |
-| `games` | `topic` | `source_ready` | 24 | 3 | 0.867 | 0 | `measurable_trusted_coverage` |
-| `arts_literature_humanities` | `topic` | `partial` | 23 | 4 | 0.818 | 0 | `measurable_trusted_coverage` |
+| `arts_literature_humanities` | `topic` | `partial` | 21 | 4 | 0.818 | 0 | `measurable_trusted_coverage` |
+| `games` | `topic` | `source_ready` | 21 | 3 | 0.815 | 0 | `measurable_trusted_coverage` |
 | `plants_nature` | `topic` | `p0_enrichment` | 5 | 2 | 0.789 | 0 | `thin_trusted_coverage` |
 | `food_cooking` | `topic` | `p0_enrichment` | 2 | 2 | 0.821 | 0 | `thin_trusted_coverage` |
 | `animals` | `topic` | `p0_enrichment` | 1 | 1 | 0.630 | 0 | `thin_trusted_coverage` |
@@ -52,12 +52,12 @@ This is a read-only coverage/depth audit for the product-owned SRS topic/registe
 - `science_technology`: `entrada` (0.463811), `defecto` (0.55838), `cargar` (0.658392), `quemar` (0.658887), `controlador` (0.72922)
 - `medicine_health`: `luz` (0.385492), `corazón` (0.441503), `rostro` (0.447399), `órgano` (0.483237), `estadio` (0.519217)
 - `law_politics_civics`: `mayor` (0.427453), `jefe` (0.428496), `demanda` (0.469488), `tropa` (0.478046), `órgano` (0.483237)
-- `sports_fitness`: `reunión` (0.437836), `entrada` (0.463811), `pista` (0.523674), `palo` (0.530825), `titular` (0.536097)
+- `sports_fitness`: `entrada` (0.463811), `pista` (0.523674), `palo` (0.530825), `titular` (0.536097), `barrera` (0.55531)
 - `music_media_entertainment`: `movimiento` (0.383519), `mayor` (0.427453), `orquesta` (0.449716), `órgano` (0.483237), `pista` (0.523674)
 - `travel_places_transport`: `mayor` (0.427453), `tren` (0.498631), `derrota` (0.506575), `palo` (0.530825), `bordo` (0.580628)
 - `finance_business`: `movimiento` (0.383519), `luz` (0.385492), `capital` (0.414113), `par` (0.467531), `poner` (0.517899)
-- `games`: `jefe` (0.428496), `corazón` (0.441503), `entrada` (0.463811), `pista` (0.523674), `palo` (0.530825)
-- `arts_literature_humanities`: `auto` (0.507449), `doble` (0.574759), `enano` (0.760857), `sombra` (0.463097), `mosaico` (0.587468)
+- `arts_literature_humanities`: `doble` (0.574759), `enano` (0.760857), `sombra` (0.463097), `mosaico` (0.587468), `naturalismo` (0.674902)
+- `games`: `jefe` (0.428496), `corazón` (0.441503), `pista` (0.523674), `palo` (0.530825), `barrera` (0.55531)
 - `plants_nature`: `estilo` (0.414652), `coral` (0.629617), `vaina` (0.656245), `viudo` (0.716935), `cogollo` (0.789309)
 - `food_cooking`: `careta` (0.602102), `batido` (0.820912)
 - `animals`: `coral` (0.629617)
@@ -76,15 +76,15 @@ This is a read-only coverage/depth audit for the product-owned SRS topic/registe
 
 | Family | Axis | State | Trusted Rows | Bands | Max Difficulty | Review-Only Rows | Posture |
 | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `science_technology` | `topic` | `source_ready` | 629 | 4 | 0.609 | 0 | `measurable_trusted_coverage` |
-| `law_politics_civics` | `topic` | `source_ready` | 256 | 3 | 0.601 | 0 | `measurable_trusted_coverage` |
-| `sports_fitness` | `topic` | `source_ready` | 208 | 3 | 0.601 | 0 | `measurable_trusted_coverage` |
+| `science_technology` | `topic` | `source_ready` | 621 | 2 | 0.316 | 0 | `shallow_difficulty_depth` |
+| `law_politics_civics` | `topic` | `source_ready` | 254 | 2 | 0.315 | 0 | `shallow_difficulty_depth` |
+| `sports_fitness` | `topic` | `source_ready` | 205 | 2 | 0.315 | 0 | `shallow_difficulty_depth` |
 | `music_media_entertainment` | `topic` | `source_ready` | 194 | 2 | 0.315 | 0 | `shallow_difficulty_depth` |
 | `medicine_health` | `topic` | `source_ready` | 172 | 2 | 0.308 | 0 | `shallow_difficulty_depth` |
-| `arts_literature_humanities` | `topic` | `partial` | 168 | 4 | 0.609 | 0 | `measurable_trusted_coverage` |
+| `arts_literature_humanities` | `topic` | `partial` | 160 | 2 | 0.609 | 0 | `measurable_trusted_coverage` |
 | `travel_places_transport` | `topic` | `partial` | 139 | 2 | 0.308 | 0 | `shallow_difficulty_depth` |
-| `games` | `topic` | `source_ready` | 109 | 3 | 0.601 | 0 | `measurable_trusted_coverage` |
 | `finance_business` | `topic` | `source_ready` | 102 | 2 | 0.314 | 0 | `shallow_difficulty_depth` |
+| `games` | `topic` | `source_ready` | 102 | 2 | 0.315 | 0 | `shallow_difficulty_depth` |
 | `plants_nature` | `topic` | `p0_enrichment` | 29 | 1 | 0.151 | 0 | `shallow_difficulty_depth` |
 | `animals` | `topic` | `p0_enrichment` | 17 | 2 | 0.306 | 0 | `shallow_difficulty_depth` |
 | `food_cooking` | `topic` | `p0_enrichment` | 17 | 2 | 0.312 | 0 | `shallow_difficulty_depth` |
@@ -96,15 +96,15 @@ This is a read-only coverage/depth audit for the product-owned SRS topic/registe
 
 #### Trusted Examples
 
-- `science_technology`: `entrada` (0.000209), `defecto` (0.000641), `controlador` (0.002736), `pincho` (0.003703), `vida` (0.004283)
+- `science_technology`: `entrada` (0.000209), `defecto` (0.000641), `controlador` (0.002736), `vida` (0.004283), `cuenta` (0.004413)
 - `law_politics_civics`: `jefe` (0.000122), `demanda` (0.000228), `tropa` (0.000255), `órgano` (0.000273), `competencia` (0.000275)
-- `sports_fitness`: `reunión` (0.000141), `entrada` (0.000209), `pista` (0.000441), `palo` (0.000475), `titular` (0.000504)
+- `sports_fitness`: `entrada` (0.000209), `pista` (0.000441), `palo` (0.000475), `titular` (0.000504), `barrera` (0.000622)
 - `music_media_entertainment`: `movimiento` (6.2e-05), `orquesta` (0.000168), `órgano` (0.000273), `pista` (0.000441), `palo` (0.000475)
 - `medicine_health`: `luz` (6.4e-05), `corazón` (0.000149), `rostro` (0.000163), `órgano` (0.000273), `estadio` (0.000421)
-- `arts_literature_humanities`: `auto` (0.000367), `pie` (0.005291), `género` (0.005341), `concepto` (0.005438), `metro` (0.006482)
+- `arts_literature_humanities`: `pie` (0.005291), `género` (0.005341), `concepto` (0.005438), `metro` (0.006482), `arco` (0.007292)
 - `travel_places_transport`: `tren` (0.000333), `derrota` (0.000363), `palo` (0.000475), `bordo` (0.000795), `propulsión` (0.001753)
-- `games`: `jefe` (0.000122), `corazón` (0.000149), `entrada` (0.000209), `pista` (0.000441), `palo` (0.000475)
 - `finance_business`: `movimiento` (6.2e-05), `luz` (6.4e-05), `capital` (9.7e-05), `par` (0.000219), `pista` (0.000441)
+- `games`: `jefe` (0.000122), `corazón` (0.000149), `pista` (0.000441), `palo` (0.000475), `barrera` (0.000622)
 - `plants_nature`: `estilo` (9.9e-05), `coral` (0.001228), `vaina` (0.001547), `cogollo` (0.004054), `planta` (0.00573)
 - `animals`: `coral` (0.001228), `artículo` (0.004918), `pico` (0.00772), `reo` (0.010406), `bonito` (0.011618)
 - `food_cooking`: `careta` (0.000962), `menudo` (0.005528), `masa` (0.006372), `duro` (0.006955), `leche` (0.007319)

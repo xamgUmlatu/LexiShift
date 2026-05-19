@@ -26,7 +26,7 @@ DEFAULT_MARKDOWN_OUT = (
     TEST_OUTPUTS_ROOT / "srs_source_topic_precision_review_en_es_spalex_10k_latest.md"
 )
 DEFAULT_FRONTIER_LABEL = "spalex_10k_research"
-DEFAULT_RELEASE_STATUSES = ("release_candidate",)
+DEFAULT_RELEASE_STATUSES = ("release_candidate", "release_candidate_limited_depth")
 DEFAULT_MAX_ROWS_PER_FAMILY = 12
 ACCEPT_DECISIONS = {"accept_strong_topic", "accept_light_topic"}
 REJECT_DECISIONS = {"reject_wrong_topic", "reject_secondary_or_obscure_sense"}
@@ -53,7 +53,10 @@ def _parse_args() -> argparse.Namespace:
         "--release-status",
         action="append",
         default=[],
-        help=("Release status to include. May be repeated. Defaults to release_candidate only."),
+        help=(
+            "Release status to include. May be repeated. Defaults to default and "
+            "limited-depth release candidates."
+        ),
     )
     parser.add_argument(
         "--labels-json",
@@ -370,24 +373,41 @@ def _apply_labels(
             "labels_state": "",
             "missing_review_ids": [],
             "unknown_review_ids": [],
+            "retired_review_ids": [],
+            "invalid_decisions": [],
         }
-    labels_by_id = {
-        str(row.get("review_id") or ""): row for row in _mapping_rows(labels_payload.get("labels"))
+    label_rows = _mapping_rows(labels_payload.get("labels"))
+    labels_by_id = {str(row.get("review_id") or ""): row for row in label_rows}
+    labels_by_key = {
+        key: row
+        for row in label_rows
+        if (key := _label_key(row)) and str(row.get("decision") or "")
     }
-    queue_ids = {str(row.get("review_id") or "") for row in review_queue}
-    missing = sorted(queue_ids - set(labels_by_id))
-    unknown = sorted(set(labels_by_id) - queue_ids)
+    queue_keys = {_label_key(row) for row in review_queue if _label_key(row)}
+    applied_label_ids: set[str] = set()
+    missing: list[str] = []
     invalid_decisions = sorted(
         {
             str(row.get("decision") or "")
-            for row in labels_by_id.values()
-            if str(row.get("decision") or "") not in ALLOWED_DECISIONS
+            for row in label_rows
+            if str(row.get("decision") or "")
+            and str(row.get("decision") or "") not in ALLOWED_DECISIONS
         }
     )
     for row in review_queue:
-        label = labels_by_id.get(str(row.get("review_id") or ""))
+        row_key = _label_key(row)
+        label = labels_by_key.get(row_key)
+        label_match = "family_lemma"
+        id_label = labels_by_id.get(str(row.get("review_id") or ""))
+        if not label and id_label:
+            id_label_key = _label_key(id_label)
+            if not id_label_key or id_label_key == row_key:
+                label = id_label
+                label_match = "review_id"
         if not label:
+            missing.append(str(row.get("review_id") or ""))
             continue
+        applied_label_ids.add(str(label.get("review_id") or ""))
         manual = _as_mapping(row.get("manual_review"))
         row["manual_review"] = {
             **manual,
@@ -396,15 +416,31 @@ def _apply_labels(
             "reviewer": str(labels_payload.get("reviewer") or ""),
             "reviewed_at": str(labels_payload.get("reviewed_at") or ""),
             "label_source": _repo_path(labels_path) or "",
+            "label_match": label_match,
             "notes": str(label.get("notes") or ""),
         }
+    unknown = sorted(
+        str(row.get("review_id") or "")
+        for row in label_rows
+        if not str(row.get("review_id") or "") and not _label_key(row)
+    )
+    retired = sorted(
+        {
+            str(row.get("review_id") or "")
+            for row in label_rows
+            if str(row.get("review_id") or "")
+            and str(row.get("review_id") or "") not in applied_label_ids
+            and _label_key(row) not in queue_keys
+        }
+    )
     return {
         "labels_provided": True,
         "labels_json": _repo_path(labels_path),
         "labels_review_id": str(labels_payload.get("review_id") or ""),
         "labels_state": str(labels_payload.get("state") or ""),
-        "missing_review_ids": missing,
+        "missing_review_ids": sorted(missing),
         "unknown_review_ids": unknown,
+        "retired_review_ids": retired,
         "invalid_decisions": invalid_decisions,
     }
 
@@ -500,10 +536,9 @@ def _findings(
     else:
         findings.append(_finding("FAIL", "review_rows_missing", "No review rows were generated."))
     if label_result.get("labels_provided"):
-        missing = label_result.get("missing_review_ids") or []
         unknown = label_result.get("unknown_review_ids") or []
         invalid = label_result.get("invalid_decisions") or []
-        if missing or unknown or invalid:
+        if unknown or invalid:
             findings.append(
                 _finding("FAIL", "manual_labels_invalid", "Label input has unresolved issues.")
             )
@@ -625,6 +660,12 @@ def _string_list(value: object) -> list[str]:
     if isinstance(value, (list, tuple)):
         return [str(item) for item in value if str(item).strip()]
     return []
+
+
+def _label_key(row: Mapping[str, object]) -> tuple[str, str]:
+    family = str(row.get("family") or "").strip()
+    lemma = str(row.get("lemma") or "").strip().lower()
+    return (family, lemma) if family and lemma else ("", "")
 
 
 def _round_float(value: object) -> float | None:

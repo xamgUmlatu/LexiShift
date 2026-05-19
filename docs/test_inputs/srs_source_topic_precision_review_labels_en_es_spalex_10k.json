@@ -388,6 +388,188 @@
       "lemma": "afrodita",
       "decision": "accept_light_topic",
       "notes": "Mythology/culture relevance is real, but proper-noun policy should stay light."
+    },
+    {
+      "review_id": "srs-src-topic-004",
+      "family": "sports_fitness",
+      "lemma": "titular",
+      "decision": "accept_light_topic",
+      "notes": "Starter/headline sports sense is useful, but headline/title senses are broad."
+    },
+    {
+      "review_id": "srs-src-topic-007",
+      "family": "sports_fitness",
+      "lemma": "doblar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Sports sense is too indirect for learner-facing release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-014",
+      "family": "games",
+      "lemma": "palo",
+      "decision": "accept_light_topic",
+      "notes": "Card-suit or game-piece sense is useful, but stick/club senses compete."
+    },
+    {
+      "review_id": "srs-src-topic-016",
+      "family": "games",
+      "lemma": "descartar",
+      "decision": "accept_light_topic",
+      "notes": "Discard is direct card/game vocabulary, but also a general verb."
+    },
+    {
+      "review_id": "srs-src-topic-017",
+      "family": "games",
+      "lemma": "centrar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Gameplay relation is too generic without stronger game-specific corroboration."
+    },
+    {
+      "review_id": "srs-src-topic-018",
+      "family": "games",
+      "lemma": "expulsar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Possible game action is too broad for topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-019",
+      "family": "games",
+      "lemma": "apuntar",
+      "decision": "accept_light_topic",
+      "notes": "Aim/point is common gameplay vocabulary, but the verb is broad."
+    },
+    {
+      "review_id": "srs-src-topic-027",
+      "family": "law_politics_civics",
+      "lemma": "comparecer",
+      "decision": "accept_strong_topic",
+      "notes": "Appear before court or authority is direct legal/civics vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-028",
+      "family": "law_politics_civics",
+      "lemma": "alzar",
+      "decision": "accept_light_topic",
+      "notes": "Legal or political uprising/appeal senses are relevant, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-034",
+      "family": "science_technology",
+      "lemma": "vida",
+      "decision": "accept_light_topic",
+      "notes": "Life is relevant to biology/science, but the word is very broad."
+    },
+    {
+      "review_id": "srs-src-topic-038",
+      "family": "science_technology",
+      "lemma": "cargar",
+      "decision": "accept_light_topic",
+      "notes": "Load/charge is useful computing and engineering vocabulary, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-039",
+      "family": "science_technology",
+      "lemma": "rea",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Proper-noun science sense is too fragile under generic science labels."
+    },
+    {
+      "review_id": "srs-src-topic-040",
+      "family": "science_technology",
+      "lemma": "afrodita",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Proper-noun astronomy/science sense is too fragile under generic science labels."
+    },
+    {
+      "review_id": "srs-src-topic-041",
+      "family": "science_technology",
+      "lemma": "colgar",
+      "decision": "accept_light_topic",
+      "notes": "Hang/freeze computing sense is useful, but the word is broad."
+    },
+    {
+      "review_id": "srs-src-topic-042",
+      "family": "science_technology",
+      "lemma": "programar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct computing/technology vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-046",
+      "family": "arts_literature_humanities",
+      "lemma": "metro",
+      "decision": "accept_light_topic",
+      "notes": "Metre/meter is relevant to poetry and humanities, but transit/measurement senses compete."
+    },
+    {
+      "review_id": "srs-src-topic-048",
+      "family": "arts_literature_humanities",
+      "lemma": "sombra",
+      "decision": "accept_light_topic",
+      "notes": "Shadow/shading is useful in art vocabulary, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-049",
+      "family": "arts_literature_humanities",
+      "lemma": "regir",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Linguistic government sense is too technical and broad for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-051",
+      "family": "arts_literature_humanities",
+      "lemma": "neutro",
+      "decision": "accept_light_topic",
+      "notes": "Neutral/neuter grammar and humanities sense is relevant, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-052",
+      "family": "arts_literature_humanities",
+      "lemma": "reflexivo",
+      "decision": "accept_strong_topic",
+      "notes": "Direct linguistics/grammar vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-007",
+      "family": "sports_fitness",
+      "lemma": "recortar",
+      "decision": "accept_light_topic",
+      "notes": "Cut back/change direction is useful sports vocabulary, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-017",
+      "family": "games",
+      "lemma": "levantar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Game/card sense is too weak compared with the broad general verb."
+    },
+    {
+      "review_id": "srs-src-topic-018",
+      "family": "games",
+      "lemma": "bailar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Could occur in games, but the source relation is too indirect for game-topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-039",
+      "family": "science_technology",
+      "lemma": "actualizar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct computing/technology vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-040",
+      "family": "science_technology",
+      "lemma": "regir",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Scientific or mathematical governing sense is too broad for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-050",
+      "family": "arts_literature_humanities",
+      "lemma": "paleolítico",
+      "decision": "accept_strong_topic",
+      "notes": "Direct history/humanities vocabulary."
     }
   ]
 }

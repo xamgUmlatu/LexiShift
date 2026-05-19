@@ -6,6 +6,9 @@ import sqlite3
 from typing import Mapping, Sequence
 
 
+TOPIC_OVERLAY_MIN_LAB_MEMBERSHIP = 1.0
+
+
 def path_if_exists(path: Path | None) -> Path | None:
     if path is None:
         return None
@@ -304,7 +307,7 @@ def _load_overlay_topics(path: Path | None, *, pair: str) -> dict[str, tuple[str
         if str(row.get("language_pair") or "").strip() != pair:
             continue
         membership = _safe_float(row.get("membership")) or 0.0
-        if membership < 0.5:
+        if membership < TOPIC_OVERLAY_MIN_LAB_MEMBERSHIP:
             continue
         lemma = str(row.get("lemma") or "").strip()
         topic = str(row.get("topic") or "").strip()

@@ -16,7 +16,8 @@ from lexishift_core.srs.admission_features import (
 )
 
 PROFILE_TOPIC_OVERLAY_SCHEMA_VERSION = 1
-ANIMALS_PLANTS_OVERLAY_PAIR = "en-es"
+PROFILE_TOPIC_OVERLAY_PAIR = "en-es"
+ANIMALS_PLANTS_OVERLAY_PAIR = PROFILE_TOPIC_OVERLAY_PAIR
 ANIMALS_PLANTS_OVERLAY_FILENAME = "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json"
 ANIMALS_PLANTS_OVERLAY_TOPICS = frozenset({"animals", "plants_nature"})
 PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP = 1.0
@@ -29,11 +30,15 @@ def resolve_preview_profile_topic_overlay(
     profile_context: Mapping[str, object] | None,
 ) -> tuple[Mapping[str, object] | None, dict[str, object]]:
     resolved_pair = str(pair or "").strip()
-    active_topics = _active_supported_topics(profile_context)
-    base_diagnostics = _base_diagnostics(pair=resolved_pair, active_topics=active_topics)
-    if resolved_pair != ANIMALS_PLANTS_OVERLAY_PAIR:
+    requested_topics = _active_requested_topics(profile_context)
+    base_diagnostics = _base_diagnostics(
+        pair=resolved_pair,
+        requested_topics=requested_topics,
+        active_topics=requested_topics,
+    )
+    if resolved_pair != PROFILE_TOPIC_OVERLAY_PAIR:
         return None, {}
-    if not active_topics:
+    if not requested_topics:
         return None, {}
 
     candidate_paths = _candidate_overlay_paths(paths)
@@ -70,6 +75,27 @@ def resolve_preview_profile_topic_overlay(
             **base_diagnostics,
             "status": "unavailable",
             "reason": "overlay_artifact_not_ready",
+            "source_path": str(overlay_path),
+            "overlay_id": overlay_id,
+        }
+
+    supported_topics = _supported_topics_for_pair(payload, pair=resolved_pair)
+    active_topics = _active_supported_topics(
+        profile_context,
+        overlay_payload=payload,
+        pair=resolved_pair,
+    )
+    base_diagnostics = _base_diagnostics(
+        pair=resolved_pair,
+        requested_topics=requested_topics,
+        active_topics=active_topics,
+        supported_topics=supported_topics,
+    )
+    if not active_topics:
+        return None, {
+            **base_diagnostics,
+            "status": "unavailable",
+            "reason": "requested_topics_not_available_in_overlay",
             "source_path": str(overlay_path),
             "overlay_id": overlay_id,
         }
@@ -118,7 +144,11 @@ def apply_profile_topic_overlay_to_seeds(
     if not overlay_payload:
         return list(seeds), base_diagnostics
 
-    active_topics = _active_supported_topics(profile_context)
+    active_topics = _active_supported_topics(
+        profile_context,
+        overlay_payload=overlay_payload,
+        pair=str(pair or "").strip(),
+    )
     rows = _applicable_overlay_rows(
         overlay_payload,
         pair=str(pair or "").strip(),
@@ -190,27 +220,62 @@ def apply_profile_topic_overlay_to_seeds(
     }
 
 
-def _base_diagnostics(*, pair: str, active_topics: Sequence[str]) -> dict[str, object]:
+def _base_diagnostics(
+    *,
+    pair: str,
+    requested_topics: Sequence[str],
+    active_topics: Sequence[str],
+    supported_topics: Sequence[str] = (),
+) -> dict[str, object]:
     return {
         "schema_version": PROFILE_TOPIC_OVERLAY_SCHEMA_VERSION,
-        "overlay_family": "animals_plants",
+        "overlay_family": "profile_topics",
         "pair": pair,
-        "supported_pair": ANIMALS_PLANTS_OVERLAY_PAIR,
-        "supported_topics": sorted(ANIMALS_PLANTS_OVERLAY_TOPICS),
+        "supported_pair": PROFILE_TOPIC_OVERLAY_PAIR,
+        "supported_topics": list(supported_topics),
+        "requested_topics": list(requested_topics),
         "active_topics": list(active_topics),
         "runtime_scope": "admission_preview_only",
         "policy_change": "none",
     }
 
 
-def _active_supported_topics(profile_context: Mapping[str, object] | None) -> tuple[str, ...]:
+def _active_requested_topics(profile_context: Mapping[str, object] | None) -> tuple[str, ...]:
     normalized_context = normalize_admission_profile_features(profile_context)
-    active = [
-        canonicalize_topic_token(topic)
-        for topic in normalized_context.topic_weights.keys()
-        if canonicalize_topic_token(topic) in ANIMALS_PLANTS_OVERLAY_TOPICS
-    ]
+    active = [canonicalize_topic_token(topic) for topic in normalized_context.topic_weights.keys()]
     return tuple(dict.fromkeys(topic for topic in active if topic))
+
+
+def _active_supported_topics(
+    profile_context: Mapping[str, object] | None,
+    *,
+    overlay_payload: Mapping[str, object] | None,
+    pair: str,
+) -> tuple[str, ...]:
+    requested_topics = _active_requested_topics(profile_context)
+    supported_topics = set(_supported_topics_for_pair(overlay_payload, pair=pair))
+    active = [topic for topic in requested_topics if topic in supported_topics]
+    return tuple(dict.fromkeys(topic for topic in active if topic))
+
+
+def _supported_topics_for_pair(
+    overlay_payload: Mapping[str, object] | None,
+    *,
+    pair: str,
+) -> tuple[str, ...]:
+    if not overlay_payload:
+        return tuple()
+    topics: list[str] = []
+    seen: set[str] = set()
+    for row in _mapping_rows(overlay_payload.get("rows")):
+        if str(row.get("language_pair") or "").strip() != pair:
+            continue
+        topic = canonicalize_topic_token(row.get("topic"))
+        lemma = str(row.get("lemma") or "").strip()
+        if topic and lemma and topic not in seen:
+            seen.add(topic)
+            topics.append(topic)
+    return tuple(sorted(topics))
 
 
 def _candidate_overlay_paths(paths: object) -> tuple[Path, ...]:

@@ -38,6 +38,7 @@ class SrsTopicReleaseReadinessTests(unittest.TestCase):
         )
         self.assertEqual(rows["food_cooking"]["effective_candidate_count"], 91)
         self.assertEqual(rows["food_cooking"]["effective_candidate_source"], "reviewed_overlay")
+        self.assertEqual(rows["food_cooking"]["reviewed_overlay_candidate_count"], 91)
 
         self.assertEqual(rows["animals"]["release_status"], "beta_limited_candidate")
         self.assertEqual(
@@ -193,6 +194,15 @@ def _overlay_payload() -> dict[str, object]:
                 "confidence_label": "strong",
             }
             for index in range(91)
+        ]
+        + [
+            {
+                "language_pair": "en-es",
+                "lemma": "food-light",
+                "topic": "food_cooking",
+                "membership": 0.65,
+                "confidence_label": "light",
+            }
         ],
     }
 

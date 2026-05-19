@@ -28,30 +28,20 @@ DEFAULT_PAIR = "en-es"
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
 DEFAULT_SET_TOP_N = 5000
-DEFAULT_ANIMALS_PLANTS_TOPIC_OVERLAY_SOURCE_PATH = (
-    PROJECT_ROOT
-    / "docs"
-    / "test_outputs"
-    / "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json"
-)
-DEFAULT_FOOD_COOKING_TOPIC_OVERLAY_SOURCE_PATH = (
-    PROJECT_ROOT
-    / "docs"
-    / "test_outputs"
-    / "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json"
-)
+TEST_OUTPUTS_ROOT = PROJECT_ROOT / "docs" / "test_outputs"
 DEFAULT_TOPIC_TAXONOMY_PATH = (
     PROJECT_ROOT / "docs" / "test_inputs" / "srs_topic_preference_taxonomy_en_es.json"
 )
-DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS = (
-    DEFAULT_ANIMALS_PLANTS_TOPIC_OVERLAY_SOURCE_PATH,
-    DEFAULT_FOOD_COOKING_TOPIC_OVERLAY_SOURCE_PATH,
+DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS = tuple(
+    TEST_OUTPUTS_ROOT / filename
+    for filename in (
+        "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+        "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+        "srs_source_topic_overlay_en_es_spalex_10k_latest.json",
+    )
 )
-DEFAULT_ZIPF_BRIDGE_PATH = (
-    PROJECT_ROOT
-    / "docs"
-    / "test_outputs"
-    / "semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json"
+DEFAULT_ZIPF_BRIDGE_PATH = TEST_OUTPUTS_ROOT / (
+    "semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json"
 )
 SUPPORTED_SAMPLING_MODES = frozenset({"ranked", "weighted_without_replacement"})
 

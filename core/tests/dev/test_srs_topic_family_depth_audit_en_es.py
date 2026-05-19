@@ -49,6 +49,14 @@ class SrsTopicFamilyDepthAuditTests(unittest.TestCase):
             self.assertEqual(register["review_only_candidate_count"], 1)
             self.assertEqual(register["coverage_posture"], "review_only_signal_available")
 
+            animals = family_by_id["animals"]
+            self.assertEqual(animals["trusted_candidate_count"], 0)
+            excluded_labels = {
+                row["label"]: row["count"] for row in animals["trusted_excluded_source_labels"]
+            }
+            self.assertEqual(excluded_labels["animals"], 1)
+            self.assertEqual(animals["trusted_excluded_examples"][0]["lemma"], "perro")
+
             markdown = render_markdown(report)
             self.assertIn("Topic Family Depth Audit", markdown)
             self.assertIn("casual_slang_register", markdown)
@@ -125,6 +133,14 @@ def _taxonomy_json() -> dict[str, object]:
                 "weight": 0.9,
                 "confidence": 0.9,
             },
+        ],
+        "source_topic_candidate_exclusions": [
+            {
+                "target_family": "animals",
+                "source_labels": ["animals"],
+                "lemmas": ["perro"],
+                "reason": "unit-test exclusion",
+            }
         ],
     }
 

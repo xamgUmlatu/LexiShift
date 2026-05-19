@@ -841,6 +841,109 @@
       "reason": "too broad for v0 plants/nature lift without review"
     }
   ],
+  "source_topic_candidate_exclusions": [
+    {
+      "target_family": "sports_fitness",
+      "lemmas": [
+        "doblar",
+        "center"
+      ],
+      "reason": "English artifact, not a Spanish learner-facing sports lemma",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "sports_fitness",
+      "source_labels": [
+        "sports"
+      ],
+      "lemmas": [
+        "reunión"
+      ],
+      "reason": "meeting is too broad; sports relevance is not learner-facing topic evidence",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "games",
+      "lemmas": [
+        "centrar",
+        "center"
+      ],
+      "reason": "English artifact, not a Spanish learner-facing games lemma",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "games",
+      "source_labels": [
+        "games"
+      ],
+      "lemmas": [
+        "entrada",
+        "expulsar",
+        "sacar",
+        "recortar",
+        "encerrar"
+      ],
+      "reason": "generic gameplay relation is too weak for learner-facing games evidence",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "law_politics_civics",
+      "source_labels": [
+        "law"
+      ],
+      "lemmas": [
+        "apartar",
+        "duplicar"
+      ],
+      "reason": "legal relation is too narrow or unsupported for learner-facing law/civics evidence",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "science_technology",
+      "source_labels": [
+        "computing",
+        "engineering",
+        "mathematics",
+        "natural_sciences",
+        "physical_sciences",
+        "physics",
+        "sciences"
+      ],
+      "lemmas": [
+        "activamente",
+        "más",
+        "afrodita",
+        "pincho",
+        "poner",
+        "por",
+        "rea",
+        "venus"
+      ],
+      "reason": "function words, broad verbs, adverbs, and fragile proper nouns are not useful topic evidence",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "arts_literature_humanities",
+      "source_labels": [
+        "architecture",
+        "linguistics",
+        "literature",
+        "philosophy"
+      ],
+      "lemmas": [
+        "activamente",
+        "auto",
+        "cerrar",
+        "falta",
+        "rea",
+        "regir",
+        "situar",
+        "venus"
+      ],
+      "reason": "source sense is too narrow, broad, or proper-noun-fragile for release evidence",
+      "policy": "sampled_precision_false_positive"
+    }
+  ],
   "notes": [
     "This taxonomy is product-owned; source labels are evidence, not the taxonomy itself.",
     "The animals mapping intentionally avoids broad science and botany labels so animal preferences do not become generic science or plant preferences.",

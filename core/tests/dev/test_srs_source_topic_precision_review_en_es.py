@@ -20,6 +20,7 @@ class SrsSourceTopicPrecisionReviewTests(unittest.TestCase):
             release_readiness_payload=_release_readiness_payload(),
             labels_payload=_labels_payload(),
             frontier_label="unit_10k",
+            release_statuses=("release_candidate",),
             max_rows_per_family=3,
             generated_at="2026-05-19T00:00:00+00:00",
         )
@@ -50,6 +51,7 @@ class SrsSourceTopicPrecisionReviewTests(unittest.TestCase):
             release_readiness_payload=_release_readiness_payload(),
             labels_payload=labels,
             frontier_label="unit_10k",
+            release_statuses=("release_candidate",),
             max_rows_per_family=3,
             generated_at="2026-05-19T00:00:00+00:00",
         )
@@ -58,12 +60,33 @@ class SrsSourceTopicPrecisionReviewTests(unittest.TestCase):
         self.assertEqual(report["label_result"]["invalid_decisions"], ["accept_typo"])
         self.assertIn("manual_labels_invalid", report["summary"]["issues"])
 
+    def test_stale_review_ids_fall_back_to_family_lemma_labels(self) -> None:
+        labels = _labels_payload()
+        labels["labels"][0]["review_id"] = "retired-review-id"
+
+        report = build_report(
+            depth_audit_payload=_depth_audit_payload(),
+            release_readiness_payload=_release_readiness_payload(),
+            labels_payload=labels,
+            frontier_label="unit_10k",
+            release_statuses=("release_candidate",),
+            max_rows_per_family=3,
+            generated_at="2026-05-19T00:00:00+00:00",
+        )
+
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual(report["label_result"]["missing_review_ids"], [])
+        first_review = report["review_queue"][0]["manual_review"]
+        self.assertEqual(first_review["decision"], "accept_strong_topic")
+        self.assertEqual(first_review["label_match"], "family_lemma")
+
     def test_markdown_surfaces_rejected_rows(self) -> None:
         report = build_report(
             depth_audit_payload=_depth_audit_payload(),
             release_readiness_payload=_release_readiness_payload(),
             labels_payload=_labels_payload(),
             frontier_label="unit_10k",
+            release_statuses=("release_candidate",),
             max_rows_per_family=3,
             generated_at="2026-05-19T00:00:00+00:00",
         )
@@ -155,16 +178,22 @@ def _labels_payload() -> dict[str, object]:
         "labels": [
             {
                 "review_id": "srs-src-topic-001",
+                "family": "science_technology",
+                "lemma": "controlador",
                 "decision": "accept_strong_topic",
                 "notes": "Direct technical noun.",
             },
             {
                 "review_id": "srs-src-topic-002",
+                "family": "science_technology",
+                "lemma": "center",
                 "decision": "reject_wrong_topic",
                 "notes": "English artifact, not a Spanish topic lemma.",
             },
             {
                 "review_id": "srs-src-topic-003",
+                "family": "science_technology",
+                "lemma": "venus",
                 "decision": "accept_light_topic",
                 "notes": "Useful topic term, but proper-noun handling needs policy review.",
             },

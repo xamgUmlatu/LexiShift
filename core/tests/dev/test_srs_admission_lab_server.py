@@ -18,6 +18,7 @@ from srs_admission_lab_server import (  # noqa: E402
     build_profile_context,
     load_topic_options,
 )
+from srs_admission_lab_source_support import _load_overlay_topics  # noqa: E402
 
 
 def _create_frequency_db(path: Path) -> Path:
@@ -89,6 +90,43 @@ def _create_overlay(path: Path) -> Path:
                         "membership": 1.0,
                         "review_id": "unit-animal-missing-from-seed",
                         "confidence_label": "strong",
+                    },
+                ],
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    return path
+
+
+def _create_source_topic_overlay(path: Path) -> Path:
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "status": "ok",
+                "overlay_id": "unit_source_topic_overlay",
+                "overlay_policy": {
+                    "promotion_state": "precision_backed_poc_candidate_not_product_overlay",
+                },
+                "summary": {"row_count": 1},
+                "rows": [
+                    {
+                        "lemma": "beta",
+                        "language_pair": "en-es",
+                        "topic": "science_technology",
+                        "membership": 1.0,
+                        "review_id": "unit-source-topic",
+                        "confidence_label": "strong",
+                    },
+                    {
+                        "lemma": "gamma",
+                        "language_pair": "en-es",
+                        "topic": "science_technology",
+                        "membership": 0.65,
+                        "review_id": "unit-source-topic-light",
+                        "confidence_label": "light",
                     },
                 ],
             },
@@ -312,6 +350,51 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
             response["preference"]["profile_topic_overlay"]["unmatched_eligible_lemma_sample"],
             [],
         )
+
+    def test_build_lab_response_applies_dynamic_source_topic_overlay(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            frequency_db = _create_frequency_db(root / "freq.sqlite")
+            overlay_path = _create_source_topic_overlay(root / "source-topic-overlay.json")
+
+            response = build_lab_response(
+                {
+                    "pair": "en-es",
+                    "interests": ["science_technology"],
+                    "set_top_n": 3,
+                    "initial_active_count": 3,
+                    "preview_count": 3,
+                    "preview_sampling_mode": "ranked",
+                    "proficiency_estimate": 0.45,
+                    "challenge_target": 0.45,
+                    "challenge_spread": 0.2,
+                },
+                config=LabConfig(
+                    frequency_db=frequency_db,
+                    overlay_source_path=overlay_path,
+                    augment_with_zipf_bridge=False,
+                    set_top_n=3,
+                    initial_active_count=3,
+                    preview_count=3,
+                    preview_sampling_mode="ranked",
+                ),
+            )
+
+        self.assertTrue(response["ok"])
+        self.assertEqual(response["neutral"]["top_lemmas"][0], "alpha")
+        self.assertEqual(response["preference"]["top_lemmas"][0], "beta")
+        overlay = response["preference"]["profile_topic_overlay"]
+        self.assertEqual(overlay["application_status"], "applied")
+        self.assertIn("science_technology", overlay["supported_topics"])
+        self.assertEqual(overlay["applied_topics"], {"science_technology": 1})
+
+    def test_lab_frequency_augmentation_uses_only_full_membership_topic_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            overlay_path = _create_source_topic_overlay(Path(tmp) / "source-topic-overlay.json")
+
+            topics_by_lemma = _load_overlay_topics(overlay_path, pair="en-es")
+
+        self.assertEqual(topics_by_lemma, {"beta": ("science_technology",)})
 
 
 if __name__ == "__main__":
