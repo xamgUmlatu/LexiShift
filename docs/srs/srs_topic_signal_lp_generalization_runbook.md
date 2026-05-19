@@ -2,8 +2,8 @@
 
 Status: active planning runbook
 Role: Cross-LP operating guide
-Last updated: 2026-05-17
-Last verified: 2026-05-17 en-es animals/plants audit and review-packet artifacts, focused tests, SRS quality harness, changed-file gate
+Last updated: 2026-05-19
+Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audit, focused tests, SRS quality harness, changed-file gate
 Purpose: preserve reusable lessons from the en-es interest-topic source work so future language pairs do not repeat avoidable source, policy, and review mistakes
 Source-of-truth: process guide only; pair-specific truth remains in the pair's source-readiness audits, policy files, generated review packets, tests, and current LP capability/resource code.
 
@@ -11,7 +11,8 @@ Source-of-truth: process guide only; pair-specific truth remains in the pair's s
 
 This runbook applies when adding or improving SRS topic-preference evidence for a
 new or existing language pair. It is currently grounded in the en-es
-animals/plants pass, but the rules below are meant to generalize to other LPs.
+animals/plants and food/cooking passes, but the rules below are meant to
+generalize to other LPs.
 
 Do not use this file to claim that a topic family is implemented, default-on, or
 verified for an LP. It describes the safe method for getting from source data to
@@ -69,25 +70,31 @@ reviewable topic candidates.
    ambiguous exact triggers after sampling rather than assuming the first
    allowlist is final.
 
-9. Audits must retain the full candidate inventory.
+9. Topic overlap is allowed, but it must be evidence-specific.
+   Food/cooking can legitimately overlap animals or plants/nature when a lemma
+   has a culinary sense. That does not mean animal or plant evidence should
+   imply food by default. Treat overlap as multiple source-backed memberships,
+   and keep noisy category/gloss overlap review-required until sampled.
+
+10. Audits must retain the full candidate inventory.
    Top previews are not enough for review or precision estimates. The audit
    artifact should keep all candidates plus small human-readable previews, so a
    review packet can sample the actual candidate universe.
 
-10. Review packets are QA surfaces, not promotion artifacts.
+11. Review packets are QA surfaces, not promotion artifacts.
     Every selected row should remain `pending_user_review` until explicitly
     labeled. Manual decisions should be structured and limited, for example
     `accept_strong_topic`, `accept_light_topic`, `reject_wrong_topic`,
     `reject_secondary_or_obscure_sense`, or
     `uncertain_needs_source_check`.
 
-11. Sampling should be deterministic and stratified.
+12. Sampling should be deterministic and stratified.
     Stable-hash selection by family, tier, band, review flag, and evidence
     source makes packets reproducible. Balance families before spending the
     review budget on large high-cardinality families, otherwise one family can
     crowd out another.
 
-12. No raw-source download belongs in the repo by accident.
+13. No raw-source download belongs in the repo by accident.
     If a license or size constraint requires local/manual source handling, keep
     raw source and rebuilt research packs outside tracked files unless the
     distribution policy explicitly allows committing them. Generated audit
@@ -196,6 +203,10 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_inputs/srs_animals_plants_signal_policy_en_es.json`
 - Current CDE audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
+- Editable food/cooking policy:
+  `docs/test_inputs/srs_food_cooking_signal_policy_en_es.json`
+- Current CDE food/cooking audit:
+  `docs/test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
 - SPALEX 10k audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:

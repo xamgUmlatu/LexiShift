@@ -1,0 +1,5075 @@
+{
+  "broad_exclusions": [
+    {
+      "excluded_labels": [
+        "anatomy",
+        "medicine"
+      ],
+      "lemma": "luz"
+    },
+    {
+      "excluded_labels": [
+        "biology",
+        "botany"
+      ],
+      "lemma": "estilo"
+    },
+    {
+      "excluded_labels": [
+        "chemistry"
+      ],
+      "lemma": "sol"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "jefe"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "reunión"
+    },
+    {
+      "excluded_labels": [
+        "anatomy",
+        "medicine"
+      ],
+      "lemma": "rostro"
+    },
+    {
+      "excluded_labels": [
+        "anatomy"
+      ],
+      "lemma": "piel"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "entrada"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "marcar"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "luchar"
+    },
+    {
+      "excluded_labels": [
+        "anatomy",
+        "biology",
+        "medicine"
+      ],
+      "lemma": "órgano"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "creciente"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "cargar"
+    },
+    {
+      "excluded_labels": [
+        "medicine"
+      ],
+      "lemma": "estadio"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "pista"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "palo"
+    },
+    {
+      "excluded_labels": [
+        "chemistry",
+        "hobbies"
+      ],
+      "lemma": "titular"
+    },
+    {
+      "excluded_labels": [
+        "anatomy",
+        "medicine"
+      ],
+      "lemma": "oreja"
+    },
+    {
+      "excluded_labels": [
+        "medicine"
+      ],
+      "lemma": "placa"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "calentar"
+    },
+    {
+      "excluded_labels": [
+        "anatomy",
+        "medicine"
+      ],
+      "lemma": "garganta"
+    },
+    {
+      "excluded_labels": [
+        "hobbies"
+      ],
+      "lemma": "barrera"
+    },
+    {
+      "excluded_labels": [
+        "chemistry"
+      ],
+      "lemma": "retener"
+    },
+    {
+      "excluded_labels": [
+        "agriculture"
+      ],
+      "lemma": "campesino"
+    }
+  ],
+  "confidence_model": {
+    "bands": {
+      "high": ">= 0.85, eligible for strong review after policy adoption",
+      "inventory": "< 0.45, not counted as product-ready evidence",
+      "medium": ">= 0.65 and < 0.85, eligible for light lift or review",
+      "review": ">= 0.45 and < 0.65, review-gated inventory"
+    },
+    "combiner": "max_evidence_score_v1",
+    "penalty_policy": {
+      "ambiguous_context": "0.70 multiplier when unrelated domain labels are present",
+      "secondary_sense": "0.70 multiplier for non-primary sense rows"
+    },
+    "score_formula": "base_confidence * specificity * ambiguity_penalty",
+    "tier_policy": {
+      "A": "explicit sense_topics, highest trust",
+      "B": "primary-sense exact noun translation",
+      "C": "allowlisted categories/tags from existing Kaikki fields",
+      "D": "narrow translation/gloss patterns, review-gated"
+    }
+  },
+  "decision": "food_cooking_existing_signal_audit_completed",
+  "family": {
+    "candidate_count": 46,
+    "candidate_inventory": [
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.9,
+            "confidence_band": "high",
+            "evidence_type": "primary_exact_translation",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": false,
+            "score": 0.855,
+            "snippet": "cereal (type of grass cultivated for edible grains)",
+            "source_channel": "translation",
+            "source_label": "primary_translation:cereal",
+            "specificity": 0.95,
+            "tier": "B"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "cereal (the grains of such plants) (uncountable) cereal (the grains of such plants)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "breakfast cereal (food processed from grains and eaten with milk) (in the plural) breakfast cereal (food processed from grains and eaten with milk)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "cereal",
+        "review_required": false
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.9,
+            "confidence_band": "high",
+            "evidence_type": "primary_exact_translation",
+            "family": "food_cooking",
+            "lemma": "té",
+            "review_required": false,
+            "score": 0.855,
+            "snippet": "tea",
+            "source_channel": "translation",
+            "source_label": "primary_translation:tea",
+            "specificity": 0.95,
+            "tier": "B"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "té",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "beverages",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "té",
+        "review_required": false
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "chipa",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "empanada",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "ensalada",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "jelly, jello (dessert)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "jalea",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "pincho",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "tortilla",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "a clear soup, broth, bouillon",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "caldo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pimienta",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "spices",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "pimienta",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.72,
+            "confidence_band": "review",
+            "evidence_type": "narrow_translation_pattern",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.4536,
+            "snippet": "stew (soup)",
+            "source_channel": "translation",
+            "source_label": "food_translation_pattern",
+            "specificity": 0.9,
+            "tier": "D"
+          }
+        ],
+        "lemma": "puchero",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "erizo",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "erizo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "langostino",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "langostino",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mejillón",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.82,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mejillón",
+            "review_required": true,
+            "score": 0.5453,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "mejillón",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.741,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.78,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.741,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.78,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.36309,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "mariposa",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "ave",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "canónigo",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "canónigo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "canónigo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chancho",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chancho",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "chancho",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "lettuce (or other vegetable) heart",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "cogollo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "damasco",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "magro",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "magro",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "magro",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "orange (fruit)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "naranja",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "papaya",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "papaya",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "papaya (fruit)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "papaya",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "papaya",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "papaya",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "papaya",
+            "review_required": true,
+            "score": 0.25823,
+            "snippet": "vulva (likely from the shape of the fruit when sliced in half lengthwise: see image) (cuba, slang, euphemistic) vulva (likely from the shape of the fruit when s",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "papaya",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "picadillo",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "picadillo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "picadillo",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "minced meat",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "picadillo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pichón",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pichón",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pichón",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "pichón",
+        "review_required": true
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.665,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.95,
+            "confidence_band": "medium",
+            "evidence_type": "explicit_sense_topic",
+            "family": "food_cooking",
+            "lemma": "batido",
+            "review_required": false,
+            "score": 0.665,
+            "snippet": "",
+            "source_channel": "sense_topics",
+            "source_label": "cooking",
+            "specificity": 1.0,
+            "tier": "A"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.95,
+            "confidence_band": "medium",
+            "evidence_type": "explicit_sense_topic",
+            "family": "food_cooking",
+            "lemma": "batido",
+            "review_required": false,
+            "score": 0.665,
+            "snippet": "",
+            "source_channel": "sense_topics",
+            "source_label": "food",
+            "specificity": 1.0,
+            "tier": "A"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.9,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "batido",
+            "review_required": true,
+            "score": 0.5985,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "cooking",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "batido",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "smoothie (fruit drink), milkshake",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "batido",
+        "review_required": false
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.665,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.95,
+            "confidence_band": "medium",
+            "evidence_type": "explicit_sense_topic",
+            "family": "food_cooking",
+            "lemma": "careta",
+            "review_required": false,
+            "score": 0.665,
+            "snippet": "",
+            "source_channel": "sense_topics",
+            "source_label": "cooking",
+            "specificity": 1.0,
+            "tier": "A"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.95,
+            "confidence_band": "medium",
+            "evidence_type": "explicit_sense_topic",
+            "family": "food_cooking",
+            "lemma": "careta",
+            "review_required": false,
+            "score": 0.665,
+            "snippet": "",
+            "source_channel": "sense_topics",
+            "source_label": "food",
+            "specificity": 1.0,
+            "tier": "A"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.9,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "careta",
+            "review_required": true,
+            "score": 0.5985,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "cooking",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "careta",
+        "review_required": false
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.5719,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tamal",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.86,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tamal",
+            "review_required": true,
+            "score": 0.40033,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.86,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tamal",
+            "review_required": true,
+            "score": 0.40033,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.86,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tamal",
+            "review_required": true,
+            "score": 0.40033,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.86,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tamal",
+            "review_required": true,
+            "score": 0.40033,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.86,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tamal",
+            "review_required": true,
+            "score": 0.40033,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "tamal",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.527,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "frutar",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "to fruit; bear fruit",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "frutar",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.527,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "panadero",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "baker (a person who bakes and sells bread, etc)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "panadero",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.527,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "piltrafa",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "scrap of meat",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "piltrafa",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.527,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "ronda",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "round, iteration (of drinks, golf, elections, cards, etc.)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "ronda",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.5054,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "lomo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "lomo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "lomo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "lomo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "lomo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "lomo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "lomo",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.4536,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.72,
+            "confidence_band": "review",
+            "evidence_type": "narrow_translation_pattern",
+            "family": "food_cooking",
+            "lemma": "chica",
+            "review_required": true,
+            "score": 0.4536,
+            "snippet": "a spice made from the sobralia orchid.",
+            "source_channel": "translation",
+            "source_label": "food_translation_pattern",
+            "specificity": 0.9,
+            "tier": "D"
+          }
+        ],
+        "lemma": "chica",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.4536,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.72,
+            "confidence_band": "review",
+            "evidence_type": "narrow_translation_pattern",
+            "family": "food_cooking",
+            "lemma": "pelotazo",
+            "review_required": true,
+            "score": 0.4536,
+            "snippet": "drink",
+            "source_channel": "translation",
+            "source_label": "food_translation_pattern",
+            "specificity": 0.9,
+            "tier": "D"
+          }
+        ],
+        "lemma": "pelotazo",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.4536,
+        "confidence_band": "review",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.72,
+            "confidence_band": "review",
+            "evidence_type": "narrow_translation_pattern",
+            "family": "food_cooking",
+            "lemma": "pote",
+            "review_required": true,
+            "score": 0.4536,
+            "snippet": "stew",
+            "source_channel": "translation",
+            "source_label": "food_translation_pattern",
+            "specificity": 0.9,
+            "tier": "D"
+          }
+        ],
+        "lemma": "pote",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "acompañamiento",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "side dish",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "acompañamiento",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "corazón",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "core (of a fruit)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "corazón",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "dulce",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "sweet food, dessert",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "dulce",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "falda",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "brisket (a cut of meat) (butchery) brisket (a cut of meat)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "falda",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "farsa",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "farce (in gastronomy: forcemeat, stuffing, seasoned stuffing, ground meat filling, mincemeat)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "farsa",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "fonda",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "boarding house, inn, or tavern providing lodging and meals",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "fonda",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "stall or canteen where food and drinks are served",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "fonda",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "morocho",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "dark yellow and hard grain (colombia, ecuador, peru, chile, of corn) dark yellow and hard grain",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "morocho",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "picante",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "hot sauce or any hot or spicy condiment or ingredient",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "picante",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "puerco",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "pork (the meat of a pig)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "puerco",
+        "review_required": true
+      },
+      {
+        "best_tier": "D",
+        "confidence": 0.3689,
+        "confidence_band": "inventory",
+        "evidence": [
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "sacar",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "to scoop (e.g. fruit, flour, sugar, salt, sand) (transitive) to scoop (e.g. fruit, flour, sugar, salt, sand)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "sacar",
+        "review_required": true
+      }
+    ],
+    "candidate_share": 0.023185,
+    "confidence_band_counts": {
+      "high": 2,
+      "inventory": 10,
+      "medium": 25,
+      "review": 9
+    },
+    "family": "food_cooking",
+    "review_candidates": [
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "chipa",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "empanada",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "ensalada",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "jelly, jello (dessert)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "jalea",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "pincho",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "tortilla",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "a clear soup, broth, bouillon",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "caldo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pimienta",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "spices",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "pimienta",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.72,
+            "confidence_band": "review",
+            "evidence_type": "narrow_translation_pattern",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.4536,
+            "snippet": "stew (soup)",
+            "source_channel": "translation",
+            "source_label": "food_translation_pattern",
+            "specificity": 0.9,
+            "tier": "D"
+          }
+        ],
+        "lemma": "puchero",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "erizo",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "erizo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "langostino",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "langostino",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mejillón",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.82,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mejillón",
+            "review_required": true,
+            "score": 0.5453,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "mejillón",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.741,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.78,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.741,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.78,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.36309,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "mariposa",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "ave",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "canónigo",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "canónigo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "canónigo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chancho",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chancho",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "chancho",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "lettuce (or other vegetable) heart",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "cogollo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "damasco",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "magro",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "magro",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "magro",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "naranja",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "orange (fruit)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "naranja",
+        "review_required": true
+      }
+    ],
+    "review_required_count": 42,
+    "tier_counts": {
+      "A": 2,
+      "B": 2,
+      "C": 25,
+      "D": 17
+    },
+    "top_candidates": [
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.9,
+            "confidence_band": "high",
+            "evidence_type": "primary_exact_translation",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": false,
+            "score": 0.855,
+            "snippet": "cereal (type of grass cultivated for edible grains)",
+            "source_channel": "translation",
+            "source_label": "primary_translation:cereal",
+            "specificity": 0.95,
+            "tier": "B"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "cereal (the grains of such plants) (uncountable) cereal (the grains of such plants)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "cereal",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "breakfast cereal (food processed from grains and eaten with milk) (in the plural) breakfast cereal (food processed from grains and eaten with milk)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "cereal",
+        "review_required": false
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.9,
+            "confidence_band": "high",
+            "evidence_type": "primary_exact_translation",
+            "family": "food_cooking",
+            "lemma": "té",
+            "review_required": false,
+            "score": 0.855,
+            "snippet": "tea",
+            "source_channel": "translation",
+            "source_label": "primary_translation:tea",
+            "specificity": 0.95,
+            "tier": "B"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "té",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "beverages",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "té",
+        "review_required": false
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chipa",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "chipa",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "empanada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "empanada",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ensalada",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "ensalada",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.62,
+            "confidence_band": "inventory",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "jalea",
+            "review_required": true,
+            "score": 0.3689,
+            "snippet": "jelly, jello (dessert)",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "jalea",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pincho",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "pincho",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.817,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.86,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.817,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.86,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5719,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "foods",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "tortilla",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "breads",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "tortilla",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "caldo",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "a clear soup, broth, bouillon",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          }
+        ],
+        "lemma": "caldo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "pimienta",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "spices",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "pimienta",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.798,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.84,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.798,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.84,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.5586,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "soups",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.72,
+            "confidence_band": "review",
+            "evidence_type": "narrow_translation_pattern",
+            "family": "food_cooking",
+            "lemma": "puchero",
+            "review_required": true,
+            "score": 0.4536,
+            "snippet": "stew (soup)",
+            "source_channel": "translation",
+            "source_label": "food_translation_pattern",
+            "specificity": 0.9,
+            "tier": "D"
+          }
+        ],
+        "lemma": "puchero",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "erizo",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "erizo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "langostino",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "sense_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "langostino",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.779,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.82,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mejillón",
+            "review_required": true,
+            "score": 0.779,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.82,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mejillón",
+            "review_required": true,
+            "score": 0.5453,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "seafood",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "mejillón",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.741,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.78,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.741,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.78,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.5187,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.78,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "mariposa",
+            "review_required": true,
+            "score": 0.36309,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "legumes",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "mariposa",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "ave",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "ave",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "canónigo",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "canónigo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "canónigo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chancho",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "chancho",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "meats",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "chancho",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.62,
+            "confidence_band": "review",
+            "evidence_type": "narrow_gloss_pattern",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.527,
+            "snippet": "lettuce (or other vegetable) heart",
+            "source_channel": "gloss_or_translation",
+            "source_label": "food_gloss_pattern",
+            "specificity": 0.85,
+            "tier": "D"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.49,
+            "base_confidence": 0.76,
+            "confidence_band": "inventory",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "cogollo",
+            "review_required": true,
+            "score": 0.35378,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "vegetables",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "cogollo",
+        "review_required": true
+      },
+      {
+        "best_tier": "C",
+        "confidence": 0.722,
+        "confidence_band": "medium",
+        "evidence": [
+          {
+            "ambiguity_penalty": 1.0,
+            "base_confidence": 0.76,
+            "confidence_band": "medium",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.722,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          },
+          {
+            "ambiguity_penalty": 0.7,
+            "base_confidence": 0.76,
+            "confidence_band": "review",
+            "evidence_type": "allowlisted_category_or_tag",
+            "family": "food_cooking",
+            "lemma": "damasco",
+            "review_required": true,
+            "score": 0.5054,
+            "snippet": "",
+            "source_channel": "entry_categories",
+            "source_label": "fruits",
+            "specificity": 0.95,
+            "tier": "C"
+          }
+        ],
+        "lemma": "damasco",
+        "review_required": true
+      }
+    ],
+    "top_source_labels": [
+      {
+        "count": 14,
+        "label": "food_gloss_pattern"
+      },
+      {
+        "count": 7,
+        "label": "foods"
+      },
+      {
+        "count": 6,
+        "label": "meats"
+      },
+      {
+        "count": 3,
+        "label": "food_translation_pattern"
+      },
+      {
+        "count": 3,
+        "label": "fruits"
+      },
+      {
+        "count": 3,
+        "label": "seafood"
+      },
+      {
+        "count": 2,
+        "label": "cooking"
+      },
+      {
+        "count": 2,
+        "label": "soups"
+      },
+      {
+        "count": 2,
+        "label": "vegetables"
+      },
+      {
+        "count": 1,
+        "label": "primary_translation:tea"
+      },
+      {
+        "count": 1,
+        "label": "primary_translation:cereal"
+      },
+      {
+        "count": 1,
+        "label": "spices"
+      },
+      {
+        "count": 1,
+        "label": "legumes"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "code": "existing_sources_loaded",
+      "level": "PASS",
+      "message": "Frequency and Kaikki DBs are available."
+    },
+    {
+      "code": "food_cooking_overlap_allowed",
+      "level": "PASS",
+      "message": "Food/cooking evidence may overlap animals or plants; overlap is a topic-membership feature, not a conflict."
+    },
+    {
+      "code": "food_cooking_evidence_found",
+      "level": "PASS",
+      "message": "Existing sources contain food/cooking evidence beyond direct sense topics."
+    }
+  ],
+  "generated_at": "2026-05-19T00:44:43+00:00",
+  "inputs": {
+    "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "signal_policy_id": "srs_food_cooking_existing_signal_policy_en_es_v1",
+    "signal_policy_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/srs_food_cooking_signal_policy_en_es.json",
+    "top_n": 10000
+  },
+  "limitations": [
+    "This audit uses only existing local frequency and Kaikki/Wiktionary data.",
+    "It does not write overlays, mutate packs, or change admission behavior.",
+    "food/cooking can intentionally overlap animals and plants/nature.",
+    "Category-derived food evidence needs review before product lift because many food labels are sense-specific."
+  ],
+  "row_count": 1984,
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "finding_counts": {
+      "PASS": 3
+    },
+    "issues": [],
+    "warnings": []
+  }
+}

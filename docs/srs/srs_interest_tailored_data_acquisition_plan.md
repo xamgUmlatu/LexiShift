@@ -258,6 +258,13 @@ Current product-owned taxonomy artifact:
   until converted into a sourced overlay with validation. The editable audit
   policy lives at
   `docs/test_inputs/srs_animals_plants_signal_policy_en_es.json`.
+- `scripts/testing/srs_food_cooking_existing_signal_audit_en_es.py` applies the
+  same read-only confidence-audit posture to food/cooking. The current CDE run
+  finds `46` food/cooking candidates from existing local Kaikki/Wiktionary
+  categories, primary translations, and narrow gloss/translation patterns.
+  `42` rows remain review-required because food labels often attach to
+  secondary culinary senses or overlap animals/plants. The policy lives at
+  `docs/test_inputs/srs_food_cooking_signal_policy_en_es.json`.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger

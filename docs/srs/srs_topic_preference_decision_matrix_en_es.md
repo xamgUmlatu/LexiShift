@@ -3,7 +3,7 @@
 Status: active decision aid
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, `srs_topic_family_depth_audit_en_es_latest`, animals/plants overlay artifacts, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
+Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, `srs_topic_family_depth_audit_en_es_latest`, animals/plants overlay artifacts, the food/cooking existing-signal audit, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
 Purpose: lay out the current trusted source-topic surface so product preferences can be selected deliberately
 Source-of-truth: decision aid; executable inventory lives in `scripts/testing/srs_topic_signal_inventory_en_es.py` and the latest generated artifacts.
 
@@ -17,6 +17,7 @@ Related docs:
 - `../test_outputs/srs_topic_family_depth_audit_en_es_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
 
 ## Decision Frame
 
@@ -116,6 +117,16 @@ Tier D review-gated gloss/translation patterns. That is useful evidence for
 enrichment design, not a promoted overlay or admission behavior change. The
 editable signal policy is tracked in
 `docs/test_inputs/srs_animals_plants_signal_policy_en_es.json`.
+
+The first food/cooking confidence audit is
+`../test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`.
+It keeps the same read-only posture and expands the current CDE food/cooking
+inventory from `2` trusted `sense_topics` rows to `46` existing-source
+candidates. Only `2` candidates are high-confidence primary translations; `42`
+rows remain review-required because food categories and glosses are often
+sense-specific. Food/cooking is allowed to overlap animals or plants/nature
+when the evidence supports a culinary sense, but that overlap is not automatic
+product lift.
 
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal
@@ -225,6 +236,12 @@ installed current CDE frontier it reports:
   `hobbies_crafts`, or `sat_toefl_exam_prep`;
 - review-only register signals for `casual_slang_register` (`85` candidates)
   and `formal_professional_register` (`5` candidates).
+
+The targeted food/cooking confidence audit confirms that the broad trusted
+audit is conservative rather than exhaustive: existing local categories,
+primary translations, and narrow gloss/translation patterns produce `46`
+current-CDE food/cooking candidates, with `42` intentionally review-required
+before any overlay or admission lift.
 
 The prior SPALEX 10k research SQLite path is not currently present locally, so
 the audit reports that optional frontier as unavailable and does not download

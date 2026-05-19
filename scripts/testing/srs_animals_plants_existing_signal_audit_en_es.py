@@ -602,7 +602,8 @@ def summarize_family(
 def load_kaikki_rows(path: Path) -> dict[str, list[dict[str, object]]]:
     rows_by_lemma: dict[str, list[dict[str, object]]] = defaultdict(list)
     entry_meta_by_ord: dict[int, dict[str, object]] = {}
-    with sqlite3.connect(path) as conn:
+    conn = sqlite3.connect(path)
+    try:
         conn.row_factory = sqlite3.Row
         for row in conn.execute(
             "SELECT entry_ord, headword_lc, tags_json, categories_json FROM entry_meta"
@@ -644,11 +645,13 @@ def load_kaikki_rows(path: Path) -> dict[str, list[dict[str, object]]]:
                     "entry_categories": _string_list(entry_meta.get("entry_categories")),
                 }
             )
-    for lemma, rows in rows_by_lemma.items():
-        rows.sort(key=lambda row: row.get("sort_key", (0, 0, 0, 0)))
-        for index, row in enumerate(rows):
-            row["sense_index"] = index
-    return rows_by_lemma
+        for lemma, rows in rows_by_lemma.items():
+            rows.sort(key=lambda row: row.get("sort_key", (0, 0, 0, 0)))
+            for index, row in enumerate(rows):
+                row["sense_index"] = index
+        return rows_by_lemma
+    finally:
+        conn.close()
 
 
 def confidence_band(score: float) -> str:
