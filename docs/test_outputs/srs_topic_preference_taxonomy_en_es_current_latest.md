@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_preference_taxonomy_validated`
-- Generated: `2026-05-19T00:30:21+00:00`
+- Generated: `2026-05-19T22:39:15+00:00`
 - Rows measured: `1984`
 - Unique lemmas measured: `1984`
 

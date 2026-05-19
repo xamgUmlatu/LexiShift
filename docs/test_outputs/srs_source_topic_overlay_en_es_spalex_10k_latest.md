@@ -2,21 +2,25 @@
 
 - Status: `ok`
 - Decision: `srs_source_topic_overlay_ready`
-- Generated: `2026-05-19T22:22:10+00:00`
-- Rows: `957`
-- Topics: `5`
-- Precision reviewed rows: `91`
-- Precision accepted rate: `53.8%`
+- Generated: `2026-05-19T22:40:01+00:00`
+- Rows: `1501`
+- Topics: `9`
+- Precision reviewed rows: `85`
+- Precision accepted rate: `95.3%`
 
 ## Topic Counts
 
 | Topic | Rows |
 | --- | ---: |
 | `arts_literature_humanities` | 71 |
-| `games` | 102 |
+| `finance_business` | 91 |
+| `games` | 100 |
 | `law_politics_civics` | 254 |
+| `medicine_health` | 168 |
+| `music_media_entertainment` | 157 |
 | `science_technology` | 325 |
 | `sports_fitness` | 205 |
+| `travel_places_transport` | 130 |
 
 ## Limitations
 

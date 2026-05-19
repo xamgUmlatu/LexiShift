@@ -2,11 +2,11 @@
 
 - Status: `ok`
 - Decision: `srs_topic_release_readiness_classified`
-- Generated: `2026-05-19T22:22:14.395184+00:00`
+- Generated: `2026-05-19T22:40:03.524709+00:00`
 - Frontier: `spalex_10k_research` (`10000` seeds)
 - Default-visible candidates: `0`
-- Limited-visible candidates: `12`
-- Beta-visible candidates: `1`
+- Limited-visible candidates: `11`
+- Beta-visible candidates: `2`
 - Hidden/source-blocked candidates: `4`
 
 ## Release Gate
@@ -20,24 +20,24 @@
 ## Source Precision Review
 
 - Review state: `agent_labeled_pending_user_approval`
-- Reviewed rows: `91`
-- Accepted rows: `49` (53.8%)
-- Rejected rows: `3` (3.3%)
-- Pending rows: `39`
+- Reviewed rows: `85`
+- Accepted rows: `81` (95.3%)
+- Rejected rows: `4` (4.7%)
+- Pending rows: `0`
 - Families needing guard review: `none`
 
 ## Topic Matrix
 
 | Family | Axis | Status | Visibility | Effective Rows | Source Rows | Runtime Overlay Rows | Bands | Next Work |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `medicine_health` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 172 | 172 | 0 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `finance_business` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 102 | 102 | 0 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
+| `medicine_health` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 168 | 168 | 166 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
+| `finance_business` | `topic` | `limited_release_candidate` | `visible_with_limited_depth_note` | 91 | 91 | 89 | 2 | add more reviewed rows if the lab still feels clumpy; lab-smoke preference strength across proficiency values |
 | `sports_fitness` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 205 | 205 | 205 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `games` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 102 | 102 | 102 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `music_media_entertainment` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 194 | 194 | 0 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
+| `games` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 100 | 100 | 100 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
+| `music_media_entertainment` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 186 | 186 | 85 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
 | `law_politics_civics` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 254 | 254 | 249 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `science_technology` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 621 | 621 | 74 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `travel_places_transport` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 139 | 139 | 0 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
+| `science_technology` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 620 | 620 | 74 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
+| `travel_places_transport` | `topic` | `beta_limited_candidate` | `beta_visible_or_hidden` | 132 | 132 | 0 | 1 | add enough reviewed rows to reach the limited-release floor; improve difficulty spread beyond one or two bands; label the topic as limited/beta if exposed |
 | `arts_literature_humanities` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 160 | 160 | 19 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
 | `animals` | `topic` | `limited_release_candidate` | `visible_with_limited_depth_note` | 80 | 17 | 80 | 2 | run sampled precision review; add more reviewed rows if the lab still feels clumpy; lab-smoke preference strength across proficiency values |
 | `plants_nature` | `topic` | `enrichment_required` | `hidden_until_enriched` | 29 | 29 | 24 | 1 | add reviewed source or curated overlay rows; target at least two difficulty bands; rerun the release-readiness classifier |
@@ -54,7 +54,6 @@
 - `PASS` `reviewed_overlays_available`: Reviewed topic overlay artifacts are available.
 - `WARN` `some_topics_blocked`: Some topic families should stay hidden until source or legal blockers clear.
 - `PASS` `source_precision_review_available`: Sampled source precision review is available.
-- `WARN` `source_precision_review_pending`: Some source-backed release candidates still need sampled precision labels.
 
 ## Limitations
 

@@ -20,11 +20,6 @@
       "code": "source_precision_review_available",
       "level": "PASS",
       "message": "Sampled source precision review is available."
-    },
-    {
-      "code": "source_precision_review_pending",
-      "level": "WARN",
-      "message": "Some source-backed release candidates still need sampled precision labels."
     }
   ],
   "frontier": {
@@ -33,7 +28,7 @@
     "seed_count": 10000,
     "unique_lemma_count": 10000
   },
-  "generated_at": "2026-05-19T22:22:14.395184+00:00",
+  "generated_at": "2026-05-19T22:40:03.524709+00:00",
   "inputs": {
     "depth_audit_json": "docs/test_outputs/srs_topic_family_depth_audit_en_es_latest.json",
     "frontier_label": "spalex_10k_research",
@@ -82,6 +77,19 @@
         "raw_row_count": 71,
         "row_count": 19
       },
+      "finance_business": {
+        "counts_by_confidence": {
+          "strong": 89
+        },
+        "lemma_count": 89,
+        "raw_counts_by_confidence": {
+          "light": 2,
+          "strong": 89
+        },
+        "raw_lemma_count": 91,
+        "raw_row_count": 91,
+        "row_count": 89
+      },
       "food_cooking": {
         "counts_by_confidence": {
           "strong": 54
@@ -97,15 +105,15 @@
       },
       "games": {
         "counts_by_confidence": {
-          "strong": 102
+          "strong": 100
         },
-        "lemma_count": 102,
+        "lemma_count": 100,
         "raw_counts_by_confidence": {
-          "strong": 102
+          "strong": 100
         },
-        "raw_lemma_count": 102,
-        "raw_row_count": 102,
-        "row_count": 102
+        "raw_lemma_count": 100,
+        "raw_row_count": 100,
+        "row_count": 100
       },
       "law_politics_civics": {
         "counts_by_confidence": {
@@ -119,6 +127,32 @@
         "raw_lemma_count": 254,
         "raw_row_count": 254,
         "row_count": 249
+      },
+      "medicine_health": {
+        "counts_by_confidence": {
+          "strong": 166
+        },
+        "lemma_count": 166,
+        "raw_counts_by_confidence": {
+          "light": 2,
+          "strong": 166
+        },
+        "raw_lemma_count": 168,
+        "raw_row_count": 168,
+        "row_count": 166
+      },
+      "music_media_entertainment": {
+        "counts_by_confidence": {
+          "strong": 85
+        },
+        "lemma_count": 85,
+        "raw_counts_by_confidence": {
+          "light": 72,
+          "strong": 85
+        },
+        "raw_lemma_count": 157,
+        "raw_row_count": 157,
+        "row_count": 85
       },
       "plants_nature": {
         "counts_by_confidence": {
@@ -157,6 +191,16 @@
         "raw_lemma_count": 205,
         "raw_row_count": 205,
         "row_count": 205
+      },
+      "travel_places_transport": {
+        "counts_by_confidence": {},
+        "lemma_count": 0,
+        "raw_counts_by_confidence": {
+          "light": 130
+        },
+        "raw_lemma_count": 130,
+        "raw_row_count": 130,
+        "row_count": 0
       }
     },
     "overlay_count": 3,
@@ -168,12 +212,16 @@
     "topics_with_reviewed_overlay": [
       "animals",
       "arts_literature_humanities",
+      "finance_business",
       "food_cooking",
       "games",
       "law_politics_civics",
+      "medicine_health",
+      "music_media_entertainment",
       "plants_nature",
       "science_technology",
-      "sports_fitness"
+      "sports_fitness",
+      "travel_places_transport"
     ]
   },
   "release_gate": {
@@ -186,8 +234,8 @@
   },
   "schema_version": 1,
   "source_precision_review": {
-    "accepted_count": 49,
-    "accepted_rate": 0.538462,
+    "accepted_count": 81,
+    "accepted_rate": 0.952941,
     "by_family": {
       "arts_literature_humanities": {
         "accepted_count": 10,
@@ -208,36 +256,37 @@
         "wrong_topic_count": 0
       },
       "finance_business": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
-        "count": 10,
+        "accepted_count": 6,
+        "accepted_rate": 0.75,
+        "count": 8,
         "decision_counts": {
-          "": 10
+          "accept_light_topic": 3,
+          "accept_strong_topic": 3,
+          "reject_secondary_or_obscure_sense": 2
         },
         "label": "finance_business",
-        "light_count": 0,
-        "pending_count": 10,
-        "rejected_count": 0,
-        "rejected_rate": 0.0,
-        "secondary_or_obscure_count": 0,
-        "strong_count": 0,
+        "light_count": 3,
+        "pending_count": 0,
+        "rejected_count": 2,
+        "rejected_rate": 0.25,
+        "secondary_or_obscure_count": 2,
+        "strong_count": 3,
         "uncertain_count": 0,
         "wrong_topic_count": 0
       },
       "games": {
-        "accepted_count": 8,
-        "accepted_rate": 0.8,
+        "accepted_count": 10,
+        "accepted_rate": 1.0,
         "count": 10,
         "decision_counts": {
-          "accept_light_topic": 8,
-          "reject_secondary_or_obscure_sense": 2
+          "accept_light_topic": 10
         },
         "label": "games",
-        "light_count": 8,
+        "light_count": 10,
         "pending_count": 0,
-        "rejected_count": 2,
-        "rejected_rate": 0.2,
-        "secondary_or_obscure_count": 2,
+        "rejected_count": 0,
+        "rejected_rate": 0.0,
+        "secondary_or_obscure_count": 0,
         "strong_count": 0,
         "uncertain_count": 0,
         "wrong_topic_count": 0
@@ -261,54 +310,55 @@
         "wrong_topic_count": 0
       },
       "medicine_health": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
-        "count": 9,
+        "accepted_count": 8,
+        "accepted_rate": 1.0,
+        "count": 8,
         "decision_counts": {
-          "": 9
+          "accept_light_topic": 4,
+          "accept_strong_topic": 4
         },
         "label": "medicine_health",
-        "light_count": 0,
-        "pending_count": 9,
+        "light_count": 4,
+        "pending_count": 0,
         "rejected_count": 0,
         "rejected_rate": 0.0,
         "secondary_or_obscure_count": 0,
-        "strong_count": 0,
+        "strong_count": 4,
         "uncertain_count": 0,
         "wrong_topic_count": 0
       },
       "music_media_entertainment": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
-        "count": 11,
+        "accepted_count": 8,
+        "accepted_rate": 1.0,
+        "count": 8,
         "decision_counts": {
-          "": 11
+          "accept_light_topic": 4,
+          "accept_strong_topic": 4
         },
         "label": "music_media_entertainment",
-        "light_count": 0,
-        "pending_count": 11,
+        "light_count": 4,
+        "pending_count": 0,
         "rejected_count": 0,
         "rejected_rate": 0.0,
         "secondary_or_obscure_count": 0,
-        "strong_count": 0,
+        "strong_count": 4,
         "uncertain_count": 0,
         "wrong_topic_count": 0
       },
       "science_technology": {
-        "accepted_count": 11,
-        "accepted_rate": 0.916667,
+        "accepted_count": 12,
+        "accepted_rate": 1.0,
         "count": 12,
         "decision_counts": {
-          "accept_light_topic": 6,
-          "accept_strong_topic": 5,
-          "reject_secondary_or_obscure_sense": 1
+          "accept_light_topic": 7,
+          "accept_strong_topic": 5
         },
         "label": "science_technology",
-        "light_count": 6,
+        "light_count": 7,
         "pending_count": 0,
-        "rejected_count": 1,
-        "rejected_rate": 0.083333,
-        "secondary_or_obscure_count": 1,
+        "rejected_count": 0,
+        "rejected_rate": 0.0,
+        "secondary_or_obscure_count": 0,
         "strong_count": 5,
         "uncertain_count": 0,
         "wrong_topic_count": 0
@@ -331,64 +381,67 @@
         "wrong_topic_count": 0
       },
       "travel_places_transport": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
+        "accepted_count": 7,
+        "accepted_rate": 0.777778,
         "count": 9,
         "decision_counts": {
-          "": 9
+          "accept_light_topic": 5,
+          "accept_strong_topic": 2,
+          "reject_secondary_or_obscure_sense": 2
         },
         "label": "travel_places_transport",
-        "light_count": 0,
-        "pending_count": 9,
-        "rejected_count": 0,
-        "rejected_rate": 0.0,
-        "secondary_or_obscure_count": 0,
-        "strong_count": 0,
+        "light_count": 5,
+        "pending_count": 0,
+        "rejected_count": 2,
+        "rejected_rate": 0.222222,
+        "secondary_or_obscure_count": 2,
+        "strong_count": 2,
         "uncertain_count": 0,
         "wrong_topic_count": 0
       }
     },
-    "decision": "srs_source_topic_precision_review_needs_review",
+    "decision": "srs_source_topic_precision_review_ready",
     "exists": true,
     "labels_state": "agent_labeled_pending_user_approval",
     "noisy_families": [],
-    "pending_count": 39,
-    "rejected_count": 3,
-    "rejected_rate": 0.032967,
-    "reviewed_count": 91
+    "pending_count": 0,
+    "rejected_count": 4,
+    "rejected_rate": 0.047059,
+    "reviewed_count": 85
   },
   "status": "ok",
   "summary": {
-    "beta_visible_count": 1,
+    "beta_visible_count": 2,
     "default_visible_count": 0,
     "finding_counts": {
       "PASS": 3,
-      "WARN": 2
+      "WARN": 1
     },
     "hidden_count": 4,
     "issues": [],
-    "limited_visible_count": 12,
+    "limited_visible_count": 11,
     "release_status_counts": {
+      "beta_limited_candidate": 1,
       "blocked_legal_source_required": 1,
       "blocked_source_required": 2,
       "enrichment_required": 1,
-      "limited_release_candidate": 2,
+      "limited_release_candidate": 3,
       "register_beta_candidate_policy_review": 1,
       "register_release_candidate_policy_review": 1,
-      "release_candidate_limited_depth": 9
+      "release_candidate_limited_depth": 7
     },
     "topic_count": 17,
     "visibility_counts": {
       "beta_after_policy_review": 1,
+      "beta_visible_or_hidden": 1,
       "hidden_until_enriched": 1,
       "hidden_until_licensed_source": 1,
       "hidden_until_source_backed": 2,
       "visible_after_policy_review": 1,
-      "visible_with_limited_depth_note": 11
+      "visible_with_limited_depth_note": 10
     },
     "warnings": [
-      "some_topics_blocked",
-      "source_precision_review_pending"
+      "some_topics_blocked"
     ]
   },
   "topics": [
@@ -396,7 +449,7 @@
       "axis": "topic",
       "data_strategy": "sense_topics_then_domain_overlay",
       "display_name": "Medicine & Health",
-      "effective_candidate_count": 172,
+      "effective_candidate_count": 168,
       "effective_candidate_source": "source_depth",
       "family": "medicine_health",
       "next_work": [
@@ -408,53 +461,57 @@
       "recommended_visibility": "visible_with_limited_depth_note",
       "release_status": "release_candidate_limited_depth",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 0,
-      "reviewed_overlay_confidence_counts": {},
+      "reviewed_overlay_candidate_count": 166,
+      "reviewed_overlay_confidence_counts": {
+        "strong": 166
+      },
       "source_coverage_posture": "shallow_difficulty_depth",
-      "source_max_difficulty": 0.307503,
+      "source_max_difficulty": 0.305559,
       "source_nonempty_band_count": 2,
       "source_precision_review": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
-        "light_count": 0,
+        "accepted_count": 8,
+        "accepted_rate": 1.0,
+        "light_count": 4,
         "rejected_count": 0,
         "rejected_rate": 0.0,
-        "reviewed_count": 9,
-        "strong_count": 0
+        "reviewed_count": 8,
+        "strong_count": 4
       },
-      "source_trusted_candidate_count": 172
+      "source_trusted_candidate_count": 168
     },
     {
       "axis": "topic",
       "data_strategy": "sense_topics_then_alias_overlay",
       "display_name": "Finance & Business",
-      "effective_candidate_count": 102,
+      "effective_candidate_count": 91,
       "effective_candidate_source": "source_depth",
       "family": "finance_business",
       "next_work": [
-        "add mid/hard-band enrichment if release UX needs smoother progression",
+        "add more reviewed rows if the lab still feels clumpy",
         "lab-smoke preference strength across proficiency values"
       ],
       "product_priority": "p0",
       "readiness_state": "source_ready",
       "recommended_visibility": "visible_with_limited_depth_note",
-      "release_status": "release_candidate_limited_depth",
+      "release_status": "limited_release_candidate",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 0,
-      "reviewed_overlay_confidence_counts": {},
+      "reviewed_overlay_candidate_count": 89,
+      "reviewed_overlay_confidence_counts": {
+        "strong": 89
+      },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.314492,
       "source_nonempty_band_count": 2,
       "source_precision_review": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
-        "light_count": 0,
-        "rejected_count": 0,
-        "rejected_rate": 0.0,
-        "reviewed_count": 10,
-        "strong_count": 0
+        "accepted_count": 6,
+        "accepted_rate": 0.75,
+        "light_count": 3,
+        "rejected_count": 2,
+        "rejected_rate": 0.25,
+        "reviewed_count": 8,
+        "strong_count": 3
       },
-      "source_trusted_candidate_count": 102
+      "source_trusted_candidate_count": 91
     },
     {
       "axis": "topic",
@@ -494,7 +551,7 @@
       "axis": "topic",
       "data_strategy": "sense_topics_then_alias_overlay",
       "display_name": "Games",
-      "effective_candidate_count": 102,
+      "effective_candidate_count": 100,
       "effective_candidate_source": "reviewed_overlay",
       "family": "games",
       "next_work": [
@@ -506,29 +563,29 @@
       "recommended_visibility": "visible_with_limited_depth_note",
       "release_status": "release_candidate_limited_depth",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 102,
+      "reviewed_overlay_candidate_count": 100,
       "reviewed_overlay_confidence_counts": {
-        "strong": 102
+        "strong": 100
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.315153,
       "source_nonempty_band_count": 2,
       "source_precision_review": {
-        "accepted_count": 8,
-        "accepted_rate": 0.8,
-        "light_count": 8,
-        "rejected_count": 2,
-        "rejected_rate": 0.2,
+        "accepted_count": 10,
+        "accepted_rate": 1.0,
+        "light_count": 10,
+        "rejected_count": 0,
+        "rejected_rate": 0.0,
         "reviewed_count": 10,
         "strong_count": 0
       },
-      "source_trusted_candidate_count": 102
+      "source_trusted_candidate_count": 100
     },
     {
       "axis": "topic",
       "data_strategy": "sense_topics_then_media_overlay",
       "display_name": "Music, Media & Entertainment",
-      "effective_candidate_count": 194,
+      "effective_candidate_count": 186,
       "effective_candidate_source": "source_depth",
       "family": "music_media_entertainment",
       "next_work": [
@@ -540,21 +597,23 @@
       "recommended_visibility": "visible_with_limited_depth_note",
       "release_status": "release_candidate_limited_depth",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 0,
-      "reviewed_overlay_confidence_counts": {},
+      "reviewed_overlay_candidate_count": 85,
+      "reviewed_overlay_confidence_counts": {
+        "strong": 85
+      },
       "source_coverage_posture": "shallow_difficulty_depth",
-      "source_max_difficulty": 0.315177,
+      "source_max_difficulty": 0.306597,
       "source_nonempty_band_count": 2,
       "source_precision_review": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
-        "light_count": 0,
+        "accepted_count": 8,
+        "accepted_rate": 1.0,
+        "light_count": 4,
         "rejected_count": 0,
         "rejected_rate": 0.0,
-        "reviewed_count": 11,
-        "strong_count": 0
+        "reviewed_count": 8,
+        "strong_count": 4
       },
-      "source_trusted_candidate_count": 194
+      "source_trusted_candidate_count": 186
     },
     {
       "axis": "topic",
@@ -594,7 +653,7 @@
       "axis": "topic",
       "data_strategy": "sense_topics_then_stem_overlay",
       "display_name": "Science & Technology",
-      "effective_candidate_count": 621,
+      "effective_candidate_count": 620,
       "effective_candidate_source": "source_depth",
       "family": "science_technology",
       "next_work": [
@@ -614,47 +673,48 @@
       "source_max_difficulty": 0.316254,
       "source_nonempty_band_count": 2,
       "source_precision_review": {
-        "accepted_count": 11,
-        "accepted_rate": 0.916667,
-        "light_count": 6,
-        "rejected_count": 1,
-        "rejected_rate": 0.083333,
+        "accepted_count": 12,
+        "accepted_rate": 1.0,
+        "light_count": 7,
+        "rejected_count": 0,
+        "rejected_rate": 0.0,
         "reviewed_count": 12,
         "strong_count": 5
       },
-      "source_trusted_candidate_count": 621
+      "source_trusted_candidate_count": 620
     },
     {
       "axis": "topic",
       "data_strategy": "geography_transport_labels_then_travel_overlay",
       "display_name": "Travel, Places & Transport",
-      "effective_candidate_count": 139,
+      "effective_candidate_count": 132,
       "effective_candidate_source": "source_depth",
       "family": "travel_places_transport",
       "next_work": [
-        "add mid/hard-band enrichment if release UX needs smoother progression",
-        "lab-smoke preference strength across proficiency values"
+        "add enough reviewed rows to reach the limited-release floor",
+        "improve difficulty spread beyond one or two bands",
+        "label the topic as limited/beta if exposed"
       ],
       "product_priority": "p0",
       "readiness_state": "partial",
-      "recommended_visibility": "visible_with_limited_depth_note",
-      "release_status": "release_candidate_limited_depth",
+      "recommended_visibility": "beta_visible_or_hidden",
+      "release_status": "beta_limited_candidate",
       "review_only_candidate_count": 0,
       "reviewed_overlay_candidate_count": 0,
       "reviewed_overlay_confidence_counts": {},
       "source_coverage_posture": "shallow_difficulty_depth",
-      "source_max_difficulty": 0.30812,
-      "source_nonempty_band_count": 2,
+      "source_max_difficulty": 0.167956,
+      "source_nonempty_band_count": 1,
       "source_precision_review": {
-        "accepted_count": 0,
-        "accepted_rate": 0.0,
-        "light_count": 0,
-        "rejected_count": 0,
-        "rejected_rate": 0.0,
+        "accepted_count": 7,
+        "accepted_rate": 0.777778,
+        "light_count": 5,
+        "rejected_count": 2,
+        "rejected_rate": 0.222222,
         "reviewed_count": 9,
-        "strong_count": 0
+        "strong_count": 2
       },
-      "source_trusted_candidate_count": 139
+      "source_trusted_candidate_count": 132
     },
     {
       "axis": "topic",

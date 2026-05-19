@@ -917,6 +917,7 @@
         "poner",
         "por",
         "rea",
+        "regir",
         "venus"
       ],
       "reason": "function words, broad verbs, adverbs, and fragile proper nouns are not useful topic evidence",
@@ -941,6 +942,100 @@
         "venus"
       ],
       "reason": "source sense is too narrow, broad, or proper-noun-fragile for release evidence",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "medicine_health",
+      "source_labels": [
+        "anatomy",
+        "medicine",
+        "physiology"
+      ],
+      "lemmas": [
+        "luz",
+        "responder",
+        "indicar",
+        "liberar"
+      ],
+      "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "finance_business",
+      "source_labels": [
+        "banking",
+        "business",
+        "finance"
+      ],
+      "lemmas": [
+        "movimiento",
+        "luz",
+        "poner",
+        "conectar",
+        "campear",
+        "zurcir",
+        "ascender",
+        "pista",
+        "placa",
+        "biológico",
+        "orgánico"
+      ],
+      "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "games",
+      "source_labels": [
+        "card_games",
+        "games"
+      ],
+      "lemmas": [
+        "levantar",
+        "bailar"
+      ],
+      "reason": "sampled game rows were broad or weak game senses rather than learner-facing games vocabulary",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "music_media_entertainment",
+      "source_labels": [
+        "entertainment",
+        "media",
+        "music",
+        "publishing",
+        "theater"
+      ],
+      "lemmas": [
+        "espacio",
+        "transportar",
+        "brindar",
+        "apuntar",
+        "encerrar",
+        "lidiar",
+        "blando",
+        "acordar"
+      ],
+      "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+      "policy": "sampled_precision_false_positive"
+    },
+    {
+      "target_family": "travel_places_transport",
+      "source_labels": [
+        "geography",
+        "nautical",
+        "transport"
+      ],
+      "lemmas": [
+        "derrota",
+        "palo",
+        "reclamar",
+        "sísmico",
+        "paleolítico",
+        "escarabajo",
+        "vigía",
+        "mayor"
+      ],
+      "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
       "policy": "sampled_precision_false_positive"
     }
   ],

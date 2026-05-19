@@ -2,7 +2,7 @@
   "schema_version": 1,
   "review_id": "srs_source_topic_precision_review_en_es_spalex_10k_v1",
   "reviewer": "codex_agent",
-  "reviewed_at": "2026-05-19",
+  "reviewed_at": "2026-05-20",
   "state": "agent_labeled_pending_user_approval",
   "labeling_policy": {
     "accept_strong_topic": "Direct, user-useful vocabulary for the topic family.",
@@ -570,6 +570,475 @@
       "lemma": "paleolítico",
       "decision": "accept_strong_topic",
       "notes": "Direct history/humanities vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-001",
+      "family": "medicine_health",
+      "lemma": "luz",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Anatomical lumen/light sense is too obscure compared with the common light sense."
+    },
+    {
+      "review_id": "srs-src-topic-002",
+      "family": "medicine_health",
+      "lemma": "corazón",
+      "decision": "accept_strong_topic",
+      "notes": "Direct anatomy and health vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-003",
+      "family": "medicine_health",
+      "lemma": "rostro",
+      "decision": "accept_light_topic",
+      "notes": "Body/anatomy vocabulary is health-relevant, but the lemma is broad and basic."
+    },
+    {
+      "review_id": "srs-src-topic-004",
+      "family": "medicine_health",
+      "lemma": "órgano",
+      "decision": "accept_strong_topic",
+      "notes": "Direct anatomy and medicine vocabulary despite nonmedical senses."
+    },
+    {
+      "review_id": "srs-src-topic-005",
+      "family": "medicine_health",
+      "lemma": "enconar",
+      "decision": "accept_light_topic",
+      "notes": "The inflame/fester sense is medical, but specialized."
+    },
+    {
+      "review_id": "srs-src-topic-006",
+      "family": "medicine_health",
+      "lemma": "responder",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Responding to treatment is a real context, but the general verb is too broad for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-007",
+      "family": "medicine_health",
+      "lemma": "dormir",
+      "decision": "accept_light_topic",
+      "notes": "Sleep is health-relevant, but the verb remains very general."
+    },
+    {
+      "review_id": "srs-src-topic-008",
+      "family": "medicine_health",
+      "lemma": "indicar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Indicate/prescribe senses are too broad for a medicine preference."
+    },
+    {
+      "review_id": "srs-src-topic-009",
+      "family": "medicine_health",
+      "lemma": "liberar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Physiological release is too broad and source-fragile compared with the general release sense."
+    },
+    {
+      "review_id": "srs-src-topic-010",
+      "family": "finance_business",
+      "lemma": "movimiento",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Transaction/accounting movement sense is too broad compared with the general word."
+    },
+    {
+      "review_id": "srs-src-topic-011",
+      "family": "finance_business",
+      "lemma": "luz",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The source signal is not a learner-facing finance or business sense."
+    },
+    {
+      "review_id": "srs-src-topic-012",
+      "family": "finance_business",
+      "lemma": "capital",
+      "decision": "accept_strong_topic",
+      "notes": "Direct finance and business vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-013",
+      "family": "finance_business",
+      "lemma": "par",
+      "decision": "accept_light_topic",
+      "notes": "Par value and market senses are real, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-014",
+      "family": "finance_business",
+      "lemma": "poner",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Business/finance uses are too idiomatic and broad for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-015",
+      "family": "finance_business",
+      "lemma": "conectar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Connect is too general for a finance or business preference."
+    },
+    {
+      "review_id": "srs-src-topic-016",
+      "family": "finance_business",
+      "lemma": "campear",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The finance/business relation is not a useful learner-facing topic sense."
+    },
+    {
+      "review_id": "srs-src-topic-017",
+      "family": "finance_business",
+      "lemma": "zurcir",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The finance/business relation is not a useful learner-facing topic sense."
+    },
+    {
+      "review_id": "srs-src-topic-018",
+      "family": "finance_business",
+      "lemma": "ascender",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Rise/promote senses are too broad for finance or business release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-019",
+      "family": "finance_business",
+      "lemma": "cancelar",
+      "decision": "accept_light_topic",
+      "notes": "Cancel/pay off debt or invoice senses are finance-relevant, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-040",
+      "family": "music_media_entertainment",
+      "lemma": "movimiento",
+      "decision": "accept_light_topic",
+      "notes": "Musical movement is a real sense, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-041",
+      "family": "music_media_entertainment",
+      "lemma": "orquesta",
+      "decision": "accept_strong_topic",
+      "notes": "Direct music vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-042",
+      "family": "music_media_entertainment",
+      "lemma": "órgano",
+      "decision": "accept_strong_topic",
+      "notes": "Musical instrument sense is direct and learner-useful."
+    },
+    {
+      "review_id": "srs-src-topic-043",
+      "family": "music_media_entertainment",
+      "lemma": "pista",
+      "decision": "accept_light_topic",
+      "notes": "Track/media sense is useful, but the lemma is highly polysemous."
+    },
+    {
+      "review_id": "srs-src-topic-044",
+      "family": "music_media_entertainment",
+      "lemma": "espacio",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Media/publishing usage is too broad compared with the general space sense."
+    },
+    {
+      "review_id": "srs-src-topic-045",
+      "family": "music_media_entertainment",
+      "lemma": "transportar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The entertainment/music relation is too indirect for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-046",
+      "family": "music_media_entertainment",
+      "lemma": "pinchar",
+      "decision": "accept_light_topic",
+      "notes": "DJ/play-record sense is entertainment-relevant, but broad and colloquial."
+    },
+    {
+      "review_id": "srs-src-topic-047",
+      "family": "music_media_entertainment",
+      "lemma": "brindar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The entertainment relation is too broad and indirect."
+    },
+    {
+      "review_id": "srs-src-topic-048",
+      "family": "music_media_entertainment",
+      "lemma": "apuntar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The theater prompting sense is too obscure compared with the general verb."
+    },
+    {
+      "review_id": "srs-src-topic-049",
+      "family": "music_media_entertainment",
+      "lemma": "encerrar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Media/publishing usage is too broad and not learner-facing enough for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-050",
+      "family": "music_media_entertainment",
+      "lemma": "lidiar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Entertainment/bullfighting relation is too indirect and broad for this family."
+    },
+    {
+      "review_id": "srs-src-topic-073",
+      "family": "travel_places_transport",
+      "lemma": "tren",
+      "decision": "accept_strong_topic",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-074",
+      "family": "travel_places_transport",
+      "lemma": "derrota",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Nautical course sense is too obscure compared with the common defeat sense."
+    },
+    {
+      "review_id": "srs-src-topic-075",
+      "family": "travel_places_transport",
+      "lemma": "palo",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Nautical mast sense is too obscure compared with broad common senses."
+    },
+    {
+      "review_id": "srs-src-topic-076",
+      "family": "travel_places_transport",
+      "lemma": "bordo",
+      "decision": "accept_light_topic",
+      "notes": "Aboard/ship-side travel expressions are relevant, but the lemma is specialized."
+    },
+    {
+      "review_id": "srs-src-topic-077",
+      "family": "travel_places_transport",
+      "lemma": "etapa",
+      "decision": "accept_light_topic",
+      "notes": "Trip stage or leg is travel-relevant, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-078",
+      "family": "travel_places_transport",
+      "lemma": "reclamar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The nautical/transport relation is too broad for a travel preference."
+    },
+    {
+      "review_id": "srs-src-topic-079",
+      "family": "travel_places_transport",
+      "lemma": "sísmico",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Geology/science relevance is not travel or place preference evidence."
+    },
+    {
+      "review_id": "srs-src-topic-080",
+      "family": "travel_places_transport",
+      "lemma": "paleolítico",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "History/humanities relevance is not travel or place preference evidence."
+    },
+    {
+      "review_id": "srs-src-topic-081",
+      "family": "travel_places_transport",
+      "lemma": "antártico",
+      "decision": "accept_light_topic",
+      "notes": "Place/geography adjective is useful for travel and places, but narrow."
+    },
+    {
+      "review_id": "srs-src-topic-004",
+      "family": "medicine_health",
+      "lemma": "estadio",
+      "decision": "accept_light_topic",
+      "notes": "Disease stage is a real medicine sense, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-007",
+      "family": "medicine_health",
+      "lemma": "renal",
+      "decision": "accept_strong_topic",
+      "notes": "Direct kidney/anatomy and health vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-008",
+      "family": "medicine_health",
+      "lemma": "inmune",
+      "decision": "accept_strong_topic",
+      "notes": "Direct immune/health vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-011",
+      "family": "finance_business",
+      "lemma": "pista",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The business/finance sense is too weak compared with track/clue senses."
+    },
+    {
+      "review_id": "srs-src-topic-012",
+      "family": "finance_business",
+      "lemma": "placa",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The business/finance relation is too broad or source-fragile for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-014",
+      "family": "finance_business",
+      "lemma": "acreedor",
+      "decision": "accept_strong_topic",
+      "notes": "Direct creditor/finance vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-015",
+      "family": "finance_business",
+      "lemma": "biológico",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Business/finance source relation is not a useful learner-facing finance sense."
+    },
+    {
+      "review_id": "srs-src-topic-016",
+      "family": "finance_business",
+      "lemma": "orgánico",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Organic-growth/business use is too broad for finance preference evidence."
+    },
+    {
+      "review_id": "srs-src-topic-033",
+      "family": "games",
+      "lemma": "tocar",
+      "decision": "accept_light_topic",
+      "notes": "Turn/play/touch senses can be useful in games, but the verb is very broad."
+    },
+    {
+      "review_id": "srs-src-topic-034",
+      "family": "games",
+      "lemma": "lanzar",
+      "decision": "accept_light_topic",
+      "notes": "Throw/launch is useful in games, but also broad."
+    },
+    {
+      "review_id": "srs-src-topic-042",
+      "family": "music_media_entertainment",
+      "lemma": "interpretar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct perform/interpret vocabulary for music, theater, and entertainment."
+    },
+    {
+      "review_id": "srs-src-topic-043",
+      "family": "music_media_entertainment",
+      "lemma": "blando",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Soft music/media usage is too broad compared with the general adjective."
+    },
+    {
+      "review_id": "srs-src-topic-044",
+      "family": "music_media_entertainment",
+      "lemma": "acordar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The music sense is too obscure compared with agree/arrange senses."
+    },
+    {
+      "review_id": "srs-src-topic-063",
+      "family": "science_technology",
+      "lemma": "activar",
+      "decision": "accept_light_topic",
+      "notes": "Activation is useful technical vocabulary, but the verb is broad."
+    },
+    {
+      "review_id": "srs-src-topic-069",
+      "family": "travel_places_transport",
+      "lemma": "propulsión",
+      "decision": "accept_strong_topic",
+      "notes": "Direct propulsion/transport vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-070",
+      "family": "travel_places_transport",
+      "lemma": "escarabajo",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Vehicle/model-name evidence is too fragile compared with the animal meaning."
+    },
+    {
+      "review_id": "srs-src-topic-072",
+      "family": "travel_places_transport",
+      "lemma": "vigía",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Nautical lookout sense is too narrow and obscure for travel preference evidence."
+    },
+    {
+      "review_id": "srs-src-topic-073",
+      "family": "travel_places_transport",
+      "lemma": "mayor",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Nautical/main sense is too obscure compared with broad common meanings."
+    },
+    {
+      "review_id": "srs-src-topic-074",
+      "family": "travel_places_transport",
+      "lemma": "naval",
+      "decision": "accept_light_topic",
+      "notes": "Naval/maritime adjective is transport-adjacent, but not ordinary travel vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-011",
+      "family": "finance_business",
+      "lemma": "fusión",
+      "decision": "accept_strong_topic",
+      "notes": "Merger/fusion is direct finance and business vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-012",
+      "family": "finance_business",
+      "lemma": "silicio",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Silicon business/finance relation is source-fragile and primarily science/technology vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-014",
+      "family": "finance_business",
+      "lemma": "auxiliar",
+      "decision": "accept_light_topic",
+      "notes": "Accounting or business assistant/subledger senses are useful, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-015",
+      "family": "finance_business",
+      "lemma": "raso",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "The business/finance relation is too weak compared with the broad adjective."
+    },
+    {
+      "review_id": "srs-src-topic-043",
+      "family": "music_media_entertainment",
+      "lemma": "trágico",
+      "decision": "accept_light_topic",
+      "notes": "Tragic drama/film/theater usage is entertainment-relevant, but the adjective is broad."
+    },
+    {
+      "review_id": "srs-src-topic-044",
+      "family": "music_media_entertainment",
+      "lemma": "presto",
+      "decision": "accept_strong_topic",
+      "notes": "Direct music tempo vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-070",
+      "family": "travel_places_transport",
+      "lemma": "quilla",
+      "decision": "accept_light_topic",
+      "notes": "Keel is direct nautical/transport vocabulary, but specialized."
+    },
+    {
+      "review_id": "srs-src-topic-072",
+      "family": "travel_places_transport",
+      "lemma": "plutón",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Planet/geography evidence is not useful travel or transport preference evidence."
+    },
+    {
+      "review_id": "srs-src-topic-073",
+      "family": "travel_places_transport",
+      "lemma": "bonanza",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Nautical fair-weather sense is too narrow compared with common prosperity/good-fortune senses."
     }
   ]
 }

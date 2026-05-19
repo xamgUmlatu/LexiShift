@@ -659,14 +659,8 @@
             },
             {
               "band": "0.20-0.40",
-              "count": 1,
-              "examples": [
-                {
-                  "difficulty": 0.385492,
-                  "lemma": "luz",
-                  "source_label": "anatomy,medicine"
-                }
-              ],
+              "count": 0,
+              "examples": [],
               "lower": 0.2,
               "upper": 0.4
             },
@@ -765,10 +759,36 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 43,
-          "trusted_candidate_share": 0.0215,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
+          "trusted_candidate_count": 42,
+          "trusted_candidate_share": 0.021,
+          "trusted_excluded_examples": [
+            {
+              "difficulty": 0.385492,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+              "seed_rank": 7,
+              "source_label": "anatomy"
+            },
+            {
+              "difficulty": 0.385492,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+              "seed_rank": 7,
+              "source_label": "medicine"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 1,
+              "label": "anatomy"
+            },
+            {
+              "count": 1,
+              "label": "medicine"
+            }
+          ],
           "trusted_hardest_examples": [
             {
               "admission_weight": 0.163195,
@@ -864,20 +884,8 @@
             }
           ],
           "trusted_max_difficulty": 0.836805,
-          "trusted_nonempty_band_count": 4,
+          "trusted_nonempty_band_count": 3,
           "trusted_top_examples": [
-            {
-              "admission_weight": 0.614508,
-              "difficulty": 0.385492,
-              "lemma": "luz",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 7,
-              "source_labels": [
-                "anatomy",
-                "medicine"
-              ]
-            },
             {
               "admission_weight": 0.558497,
               "difficulty": 0.441503,
@@ -960,15 +968,27 @@
                 "anatomy",
                 "medicine"
               ]
+            },
+            {
+              "admission_weight": 0.402688,
+              "difficulty": 0.597312,
+              "lemma": "cadera",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 273,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
             }
           ],
           "trusted_top_source_labels": [
             {
-              "count": 44,
+              "count": 43,
               "label": "medicine"
             },
             {
-              "count": 20,
+              "count": 19,
               "label": "anatomy"
             },
             {
@@ -1893,13 +1913,8 @@
             },
             {
               "band": "0.40-0.60",
-              "count": 12,
+              "count": 11,
               "examples": [
-                {
-                  "difficulty": 0.418926,
-                  "lemma": "espacio",
-                  "source_label": "media,publishing"
-                },
                 {
                   "difficulty": 0.427453,
                   "lemma": "mayor",
@@ -1919,6 +1934,11 @@
                   "difficulty": 0.507449,
                   "lemma": "auto",
                   "source_label": "media,publishing"
+                },
+                {
+                  "difficulty": 0.523674,
+                  "lemma": "pista",
+                  "source_label": "entertainment,music"
                 }
               ],
               "lower": 0.4,
@@ -1926,7 +1946,7 @@
             },
             {
               "band": "0.60-0.80",
-              "count": 14,
+              "count": 13,
               "examples": [
                 {
                   "difficulty": 0.628415,
@@ -1939,11 +1959,6 @@
                   "source_label": "entertainment,music"
                 },
                 {
-                  "difficulty": 0.661786,
-                  "lemma": "transportar",
-                  "source_label": "entertainment,music"
-                },
-                {
                   "difficulty": 0.662365,
                   "lemma": "blues",
                   "source_label": "entertainment,music"
@@ -1952,6 +1967,11 @@
                   "difficulty": 0.675359,
                   "lemma": "gracioso",
                   "source_label": "entertainment,theater"
+                },
+                {
+                  "difficulty": 0.675667,
+                  "lemma": "cápsula",
+                  "source_label": "media"
                 }
               ],
               "lower": 0.6,
@@ -1976,10 +1996,60 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 28,
-          "trusted_candidate_share": 0.014,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
+          "trusted_candidate_count": 26,
+          "trusted_candidate_share": 0.013,
+          "trusted_excluded_examples": [
+            {
+              "difficulty": 0.418926,
+              "lemma": "espacio",
+              "pos_bucket": "noun",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 19,
+              "source_label": "media"
+            },
+            {
+              "difficulty": 0.418926,
+              "lemma": "espacio",
+              "pos_bucket": "noun",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 19,
+              "source_label": "publishing"
+            },
+            {
+              "difficulty": 0.661786,
+              "lemma": "transportar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 557,
+              "source_label": "entertainment"
+            },
+            {
+              "difficulty": 0.661786,
+              "lemma": "transportar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 557,
+              "source_label": "music"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 1,
+              "label": "media"
+            },
+            {
+              "count": 1,
+              "label": "publishing"
+            },
+            {
+              "count": 1,
+              "label": "entertainment"
+            },
+            {
+              "count": 1,
+              "label": "music"
+            }
+          ],
           "trusted_hardest_examples": [
             {
               "admission_weight": 0.175799,
@@ -2181,19 +2251,19 @@
           ],
           "trusted_top_source_labels": [
             {
-              "count": 20,
+              "count": 19,
               "label": "entertainment"
             },
             {
-              "count": 15,
+              "count": 14,
               "label": "music"
             },
             {
-              "count": 10,
+              "count": 9,
               "label": "media"
             },
             {
-              "count": 6,
+              "count": 5,
               "label": "publishing"
             },
             {
@@ -2286,13 +2356,8 @@
             },
             {
               "band": "0.40-0.60",
-              "count": 14,
+              "count": 11,
               "examples": [
-                {
-                  "difficulty": 0.427453,
-                  "lemma": "mayor",
-                  "source_label": "nautical,transport"
-                },
                 {
                   "difficulty": 0.466863,
                   "lemma": "etapa",
@@ -2304,14 +2369,19 @@
                   "source_label": "transport"
                 },
                 {
-                  "difficulty": 0.506575,
-                  "lemma": "derrota",
-                  "source_label": "nautical,transport"
-                },
-                {
                   "difficulty": 0.523674,
                   "lemma": "pista",
                   "source_label": "aeronautics,aerospace,aviation"
+                },
+                {
+                  "difficulty": 0.526967,
+                  "lemma": "llanura",
+                  "source_label": "geography"
+                },
+                {
+                  "difficulty": 0.539457,
+                  "lemma": "placa",
+                  "source_label": "geography"
                 }
               ],
               "lower": 0.4,
@@ -2319,7 +2389,7 @@
             },
             {
               "band": "0.60-0.80",
-              "count": 13,
+              "count": 12,
               "examples": [
                 {
                   "difficulty": 0.619745,
@@ -2358,10 +2428,88 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 27,
-          "trusted_candidate_share": 0.0135,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
+          "trusted_candidate_count": 23,
+          "trusted_candidate_share": 0.0115,
+          "trusted_excluded_examples": [
+            {
+              "difficulty": 0.427453,
+              "lemma": "mayor",
+              "pos_bucket": "adjective",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 24,
+              "source_label": "nautical"
+            },
+            {
+              "difficulty": 0.427453,
+              "lemma": "mayor",
+              "pos_bucket": "adjective",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 24,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.506575,
+              "lemma": "derrota",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 93,
+              "source_label": "nautical"
+            },
+            {
+              "difficulty": 0.506575,
+              "lemma": "derrota",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 93,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.530825,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 123,
+              "source_label": "nautical"
+            },
+            {
+              "difficulty": 0.530825,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 123,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.705844,
+              "lemma": "escarabajo",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 855,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.714661,
+              "lemma": "sísmico",
+              "pos_bucket": "adjective",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 929,
+              "source_label": "geography"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 4,
+              "label": "transport"
+            },
+            {
+              "count": 3,
+              "label": "nautical"
+            },
+            {
+              "count": 1,
+              "label": "geography"
+            }
+          ],
           "trusted_hardest_examples": [
             {
               "admission_weight": 0.214362,
@@ -2422,26 +2570,14 @@
               ]
             },
             {
-              "admission_weight": 0.285339,
-              "difficulty": 0.714661,
-              "lemma": "sísmico",
-              "pos_bucket": "adjective",
-              "score": 0.525,
-              "seed_rank": 929,
-              "source_labels": [
-                "geography"
-              ]
-            },
-            {
               "admission_weight": 0.294156,
               "difficulty": 0.705844,
               "lemma": "escarabajo",
               "pos_bucket": "noun",
-              "score": 0.68,
+              "score": 0.52,
               "seed_rank": 855,
               "source_labels": [
                 "automotive",
-                "transport",
                 "vehicles"
               ]
             },
@@ -2455,23 +2591,22 @@
               "source_labels": [
                 "geography"
               ]
+            },
+            {
+              "admission_weight": 0.304004,
+              "difficulty": 0.695996,
+              "lemma": "meandro",
+              "pos_bucket": "noun",
+              "score": 0.525,
+              "seed_rank": 764,
+              "source_labels": [
+                "geography"
+              ]
             }
           ],
           "trusted_max_difficulty": 0.785638,
           "trusted_nonempty_band_count": 2,
           "trusted_top_examples": [
-            {
-              "admission_weight": 0.572547,
-              "difficulty": 0.427453,
-              "lemma": "mayor",
-              "pos_bucket": "adjective",
-              "score": 0.68,
-              "seed_rank": 24,
-              "source_labels": [
-                "nautical",
-                "transport"
-              ]
-            },
             {
               "admission_weight": 0.501369,
               "difficulty": 0.498631,
@@ -2480,30 +2615,6 @@
               "score": 0.68,
               "seed_rank": 87,
               "source_labels": [
-                "transport"
-              ]
-            },
-            {
-              "admission_weight": 0.493425,
-              "difficulty": 0.506575,
-              "lemma": "derrota",
-              "pos_bucket": "noun",
-              "score": 0.68,
-              "seed_rank": 93,
-              "source_labels": [
-                "nautical",
-                "transport"
-              ]
-            },
-            {
-              "admission_weight": 0.469175,
-              "difficulty": 0.530825,
-              "lemma": "palo",
-              "pos_bucket": "noun",
-              "score": 0.68,
-              "seed_rank": 123,
-              "source_labels": [
-                "nautical",
                 "transport"
               ]
             },
@@ -2547,30 +2658,64 @@
               ]
             },
             {
-              "admission_weight": 0.294156,
-              "difficulty": 0.705844,
-              "lemma": "escarabajo",
+              "admission_weight": 0.278482,
+              "difficulty": 0.721518,
+              "lemma": "quilla",
               "pos_bucket": "noun",
               "score": 0.68,
-              "seed_rank": 855,
+              "seed_rank": 986,
               "source_labels": [
-                "automotive",
-                "transport",
-                "vehicles"
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.214362,
+              "difficulty": 0.785638,
+              "lemma": "pescante",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 1623,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.214362,
+              "difficulty": 0.785638,
+              "lemma": "espolón",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 1630,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.533137,
+              "difficulty": 0.466863,
+              "lemma": "etapa",
+              "pos_bucket": "noun",
+              "score": 0.525,
+              "seed_rank": 54,
+              "source_labels": [
+                "geography"
               ]
             }
           ],
           "trusted_top_source_labels": [
             {
-              "count": 14,
+              "count": 13,
               "label": "geography"
             },
             {
-              "count": 11,
+              "count": 7,
               "label": "transport"
             },
             {
-              "count": 9,
+              "count": 6,
               "label": "nautical"
             },
             {
@@ -2592,402 +2737,6 @@
             {
               "count": 1,
               "label": "vehicles"
-            }
-          ],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "measurable_trusted_coverage",
-          "data_strategy": "sense_topics_then_alias_overlay",
-          "display_name": "Finance & Business",
-          "family": "finance_business",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 2,
-              "examples": [
-                {
-                  "difficulty": 0.383519,
-                  "lemma": "movimiento",
-                  "source_label": "banking,business,finance"
-                },
-                {
-                  "difficulty": 0.385492,
-                  "lemma": "luz",
-                  "source_label": "business,finance"
-                }
-              ],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 6,
-              "examples": [
-                {
-                  "difficulty": 0.414113,
-                  "lemma": "capital",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.467531,
-                  "lemma": "par",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.517899,
-                  "lemma": "poner",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.523674,
-                  "lemma": "pista",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.539457,
-                  "lemma": "placa",
-                  "source_label": "business,finance"
-                }
-              ],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 14,
-              "examples": [
-                {
-                  "difficulty": 0.642503,
-                  "lemma": "ecológico",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.650068,
-                  "lemma": "silicio",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.661098,
-                  "lemma": "boom",
-                  "source_label": "business,economics,finance"
-                },
-                {
-                  "difficulty": 0.665932,
-                  "lemma": "conectar",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.670474,
-                  "lemma": "propulsión",
-                  "source_label": "business,finance"
-                }
-              ],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 3,
-              "examples": [
-                {
-                  "difficulty": 0.814825,
-                  "lemma": "acreedor",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.815228,
-                  "lemma": "campear",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.827995,
-                  "lemma": "zurcir",
-                  "source_label": "business,finance"
-                }
-              ],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 25,
-          "trusted_candidate_share": 0.0125,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
-          "trusted_hardest_examples": [
-            {
-              "admission_weight": 0.172005,
-              "difficulty": 0.827995,
-              "lemma": "zurcir",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 1906,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.184772,
-              "difficulty": 0.815228,
-              "lemma": "campear",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 1841,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.185175,
-              "difficulty": 0.814825,
-              "lemma": "acreedor",
-              "pos_bucket": "adjective",
-              "score": 0.81,
-              "seed_rank": 1836,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.233135,
-              "difficulty": 0.766865,
-              "lemma": "trust",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 1413,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.235836,
-              "difficulty": 0.764164,
-              "lemma": "secano",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 1387,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.235836,
-              "difficulty": 0.764164,
-              "lemma": "diodo",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 1388,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.27078,
-              "difficulty": 0.72922,
-              "lemma": "controlador",
-              "pos_bucket": "noun",
-              "score": 0.525,
-              "seed_rank": 1052,
-              "source_labels": [
-                "management"
-              ]
-            },
-            {
-              "admission_weight": 0.271627,
-              "difficulty": 0.728373,
-              "lemma": "raso",
-              "pos_bucket": "adjective",
-              "score": 0.81,
-              "seed_rank": 1044,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            }
-          ],
-          "trusted_max_difficulty": 0.827995,
-          "trusted_nonempty_band_count": 4,
-          "trusted_top_examples": [
-            {
-              "admission_weight": 0.616481,
-              "difficulty": 0.383519,
-              "lemma": "movimiento",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 6,
-              "source_labels": [
-                "banking",
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.614508,
-              "difficulty": 0.385492,
-              "lemma": "luz",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 7,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.585887,
-              "difficulty": 0.414113,
-              "lemma": "capital",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 15,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.532469,
-              "difficulty": 0.467531,
-              "lemma": "par",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 55,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.482101,
-              "difficulty": 0.517899,
-              "lemma": "poner",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 104,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.476326,
-              "difficulty": 0.523674,
-              "lemma": "pista",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 111,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.460543,
-              "difficulty": 0.539457,
-              "lemma": "placa",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 135,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.44886,
-              "difficulty": 0.55114,
-              "lemma": "fusión",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 157,
-              "source_labels": [
-                "economics",
-                "finance"
-              ]
-            }
-          ],
-          "trusted_top_source_labels": [
-            {
-              "count": 24,
-              "label": "finance"
-            },
-            {
-              "count": 23,
-              "label": "business"
-            },
-            {
-              "count": 2,
-              "label": "economics"
-            },
-            {
-              "count": 1,
-              "label": "banking"
-            },
-            {
-              "count": 1,
-              "label": "accounting"
-            },
-            {
-              "count": 1,
-              "label": "management"
             }
           ],
           "ux_group": "interests_style"
@@ -3788,6 +3537,478 @@
             {
               "count": 1,
               "label": "gaming"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "measurable_trusted_coverage",
+          "data_strategy": "sense_topics_then_alias_overlay",
+          "display_name": "Finance & Business",
+          "family": "finance_business",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "source_ready",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 3,
+              "examples": [
+                {
+                  "difficulty": 0.414113,
+                  "lemma": "capital",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.467531,
+                  "lemma": "par",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.55114,
+                  "lemma": "fusión",
+                  "source_label": "economics,finance"
+                }
+              ],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 13,
+              "examples": [
+                {
+                  "difficulty": 0.642503,
+                  "lemma": "ecológico",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.650068,
+                  "lemma": "silicio",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.661098,
+                  "lemma": "boom",
+                  "source_label": "business,economics,finance"
+                },
+                {
+                  "difficulty": 0.670474,
+                  "lemma": "propulsión",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.675667,
+                  "lemma": "cápsula",
+                  "source_label": "business,finance"
+                }
+              ],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.814825,
+                  "lemma": "acreedor",
+                  "source_label": "business,finance"
+                }
+              ],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 17,
+          "trusted_candidate_share": 0.0085,
+          "trusted_excluded_examples": [
+            {
+              "difficulty": 0.383519,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 6,
+              "source_label": "banking"
+            },
+            {
+              "difficulty": 0.383519,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 6,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.383519,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 6,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.385492,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 7,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.385492,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 7,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.517899,
+              "lemma": "poner",
+              "pos_bucket": "verb",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 104,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.517899,
+              "lemma": "poner",
+              "pos_bucket": "verb",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 104,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.523674,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 111,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.523674,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 111,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.539457,
+              "lemma": "placa",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 135,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.539457,
+              "lemma": "placa",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 135,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.665932,
+              "lemma": "conectar",
+              "pos_bucket": "verb",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 580,
+              "source_label": "business"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 8,
+              "label": "business"
+            },
+            {
+              "count": 8,
+              "label": "finance"
+            },
+            {
+              "count": 1,
+              "label": "banking"
+            }
+          ],
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.185175,
+              "difficulty": 0.814825,
+              "lemma": "acreedor",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 1836,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.233135,
+              "difficulty": 0.766865,
+              "lemma": "trust",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 1413,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.235836,
+              "difficulty": 0.764164,
+              "lemma": "secano",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 1387,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.235836,
+              "difficulty": 0.764164,
+              "lemma": "diodo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 1388,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.27078,
+              "difficulty": 0.72922,
+              "lemma": "controlador",
+              "pos_bucket": "noun",
+              "score": 0.525,
+              "seed_rank": 1052,
+              "source_labels": [
+                "management"
+              ]
+            },
+            {
+              "admission_weight": 0.271627,
+              "difficulty": 0.728373,
+              "lemma": "raso",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 1044,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.278482,
+              "difficulty": 0.721518,
+              "lemma": "aspa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 987,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.283641,
+              "difficulty": 0.716359,
+              "lemma": "auxiliar",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 944,
+              "source_labels": [
+                "accounting",
+                "business",
+                "finance"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.814825,
+          "trusted_nonempty_band_count": 3,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.585887,
+              "difficulty": 0.414113,
+              "lemma": "capital",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 15,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.532469,
+              "difficulty": 0.467531,
+              "lemma": "par",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 55,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.44886,
+              "difficulty": 0.55114,
+              "lemma": "fusión",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 157,
+              "source_labels": [
+                "economics",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.357497,
+              "difficulty": 0.642503,
+              "lemma": "ecológico",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 457,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.349932,
+              "difficulty": 0.650068,
+              "lemma": "silicio",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 486,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.338902,
+              "difficulty": 0.661098,
+              "lemma": "boom",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 551,
+              "source_labels": [
+                "business",
+                "economics",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.329526,
+              "difficulty": 0.670474,
+              "lemma": "propulsión",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 608,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.324333,
+              "difficulty": 0.675667,
+              "lemma": "cápsula",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 638,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 16,
+              "label": "finance"
+            },
+            {
+              "count": 15,
+              "label": "business"
+            },
+            {
+              "count": 2,
+              "label": "economics"
+            },
+            {
+              "count": 1,
+              "label": "accounting"
+            },
+            {
+              "count": 1,
+              "label": "management"
             }
           ],
           "ux_group": "interests_style"
@@ -5300,7 +5521,7 @@
             },
             {
               "band": "0.20-0.40",
-              "count": 29,
+              "count": 28,
               "examples": [
                 {
                   "difficulty": 0.300196,
@@ -5353,8 +5574,8 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 621,
-          "trusted_candidate_share": 0.0621,
+          "trusted_candidate_count": 620,
+          "trusted_candidate_share": 0.062,
           "trusted_excluded_examples": [
             {
               "difficulty": 0.003703,
@@ -5437,12 +5658,12 @@
               "source_label": "physics"
             },
             {
-              "difficulty": 0.450002,
-              "lemma": "más",
-              "pos_bucket": "adverb",
+              "difficulty": 0.315195,
+              "lemma": "regir",
+              "pos_bucket": "verb",
               "reason": "function words, broad verbs, adverbs, and fragile proper nouns are not useful topic evidence",
-              "seed_rank": 9136,
-              "source_label": "mathematics"
+              "seed_rank": 9066,
+              "source_label": "sciences"
             },
             {
               "difficulty": 0.450002,
@@ -5450,12 +5671,12 @@
               "pos_bucket": "adverb",
               "reason": "function words, broad verbs, adverbs, and fragile proper nouns are not useful topic evidence",
               "seed_rank": 9136,
-              "source_label": "sciences"
+              "source_label": "mathematics"
             }
           ],
           "trusted_excluded_source_labels": [
             {
-              "count": 7,
+              "count": 8,
               "label": "sciences"
             },
             {
@@ -5513,17 +5734,6 @@
                 "mathematics",
                 "natural_sciences",
                 "physical_sciences",
-                "sciences"
-              ]
-            },
-            {
-              "admission_weight": 0.684805,
-              "difficulty": 0.315195,
-              "lemma": "regir",
-              "pos_bucket": "verb",
-              "score": 0.2625,
-              "seed_rank": 9066,
-              "source_labels": [
                 "sciences"
               ]
             },
@@ -5602,6 +5812,18 @@
                 "mathematics",
                 "natural_sciences",
                 "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.691162,
+              "difficulty": 0.308838,
+              "lemma": "sumar",
+              "pos_bucket": "verb",
+              "score": 0.595,
+              "seed_rank": 8697,
+              "source_labels": [
+                "mathematics",
                 "sciences"
               ]
             }
@@ -5740,7 +5962,7 @@
           ],
           "trusted_top_source_labels": [
             {
-              "count": 415,
+              "count": 414,
               "label": "sciences"
             },
             {
@@ -6630,17 +6852,12 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
-              "count": 186,
+              "count": 184,
               "examples": [
                 {
                   "difficulty": 6.2e-05,
                   "lemma": "movimiento",
                   "source_label": "entertainment,music"
-                },
-                {
-                  "difficulty": 0.000105,
-                  "lemma": "espacio",
-                  "source_label": "media,publishing"
                 },
                 {
                   "difficulty": 0.000168,
@@ -6656,6 +6873,11 @@
                   "difficulty": 0.000367,
                   "lemma": "auto",
                   "source_label": "media,publishing"
+                },
+                {
+                  "difficulty": 0.000441,
+                  "lemma": "pista",
+                  "source_label": "entertainment,music"
                 }
               ],
               "lower": 0.0,
@@ -6663,13 +6885,8 @@
             },
             {
               "band": "0.20-0.40",
-              "count": 8,
+              "count": 2,
               "examples": [
-                {
-                  "difficulty": 0.300284,
-                  "lemma": "transportar",
-                  "source_label": "entertainment,music"
-                },
                 {
                   "difficulty": 0.301313,
                   "lemma": "pinchar",
@@ -6679,16 +6896,6 @@
                   "difficulty": 0.306597,
                   "lemma": "interpretar",
                   "source_label": "entertainment,music,theater"
-                },
-                {
-                  "difficulty": 0.309862,
-                  "lemma": "acordar",
-                  "source_label": "entertainment,music"
-                },
-                {
-                  "difficulty": 0.310931,
-                  "lemma": "brindar",
-                  "source_label": "entertainment"
                 }
               ],
               "lower": 0.2,
@@ -6716,69 +6923,129 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 194,
-          "trusted_candidate_share": 0.0194,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
-          "trusted_hardest_examples": [
+          "trusted_candidate_count": 186,
+          "trusted_candidate_share": 0.0186,
+          "trusted_excluded_examples": [
             {
-              "admission_weight": 0.684823,
-              "difficulty": 0.315177,
-              "lemma": "lidiar",
-              "pos_bucket": "verb",
-              "score": 0.45,
-              "seed_rank": 9065,
-              "source_labels": [
-                "entertainment"
-              ]
+              "difficulty": 0.000105,
+              "lemma": "espacio",
+              "pos_bucket": "noun",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 19,
+              "source_label": "media"
             },
             {
-              "admission_weight": 0.685746,
-              "difficulty": 0.314254,
-              "lemma": "encerrar",
-              "pos_bucket": "verb",
-              "score": 0.6,
-              "seed_rank": 9019,
-              "source_labels": [
-                "media",
-                "publishing"
-              ]
+              "difficulty": 0.000105,
+              "lemma": "espacio",
+              "pos_bucket": "noun",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 19,
+              "source_label": "publishing"
             },
             {
-              "admission_weight": 0.688198,
-              "difficulty": 0.311802,
-              "lemma": "apuntar",
-              "pos_bucket": "verb",
-              "score": 0.68,
-              "seed_rank": 8880,
-              "source_labels": [
-                "entertainment",
-                "theater"
-              ]
+              "difficulty": 0.163671,
+              "lemma": "blando",
+              "pos_bucket": "adjective",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 7611,
+              "source_label": "entertainment"
             },
             {
-              "admission_weight": 0.689069,
-              "difficulty": 0.310931,
-              "lemma": "brindar",
-              "pos_bucket": "verb",
-              "score": 0.45,
-              "seed_rank": 8824,
-              "source_labels": [
-                "entertainment"
-              ]
+              "difficulty": 0.163671,
+              "lemma": "blando",
+              "pos_bucket": "adjective",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 7611,
+              "source_label": "media"
             },
             {
-              "admission_weight": 0.690138,
+              "difficulty": 0.163671,
+              "lemma": "blando",
+              "pos_bucket": "adjective",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 7611,
+              "source_label": "music"
+            },
+            {
+              "difficulty": 0.300284,
+              "lemma": "transportar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 8083,
+              "source_label": "entertainment"
+            },
+            {
+              "difficulty": 0.300284,
+              "lemma": "transportar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 8083,
+              "source_label": "music"
+            },
+            {
               "difficulty": 0.309862,
               "lemma": "acordar",
               "pos_bucket": "verb",
-              "score": 0.81,
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
               "seed_rank": 8767,
-              "source_labels": [
-                "entertainment",
-                "music"
-              ]
+              "source_label": "entertainment"
             },
+            {
+              "difficulty": 0.309862,
+              "lemma": "acordar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 8767,
+              "source_label": "music"
+            },
+            {
+              "difficulty": 0.310931,
+              "lemma": "brindar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 8824,
+              "source_label": "entertainment"
+            },
+            {
+              "difficulty": 0.311802,
+              "lemma": "apuntar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 8880,
+              "source_label": "entertainment"
+            },
+            {
+              "difficulty": 0.311802,
+              "lemma": "apuntar",
+              "pos_bucket": "verb",
+              "reason": "sampled music/media/entertainment rows were broad or obscure senses rather than learner-facing topic vocabulary",
+              "seed_rank": 8880,
+              "source_label": "theater"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 6,
+              "label": "entertainment"
+            },
+            {
+              "count": 3,
+              "label": "media"
+            },
+            {
+              "count": 3,
+              "label": "music"
+            },
+            {
+              "count": 2,
+              "label": "publishing"
+            },
+            {
+              "count": 1,
+              "label": "theater"
+            }
+          ],
+          "trusted_hardest_examples": [
             {
               "admission_weight": 0.693403,
               "difficulty": 0.306597,
@@ -6805,19 +7072,84 @@
               ]
             },
             {
-              "admission_weight": 0.699716,
-              "difficulty": 0.300284,
-              "lemma": "transportar",
-              "pos_bucket": "verb",
+              "admission_weight": 0.836843,
+              "difficulty": 0.163157,
+              "lemma": "presto",
+              "pos_bucket": "adjective",
               "score": 0.81,
-              "seed_rank": 8083,
+              "seed_rank": 7582,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.839038,
+              "difficulty": 0.160962,
+              "lemma": "trágico",
+              "pos_bucket": "adjective",
+              "score": 0.68,
+              "seed_rank": 7436,
+              "source_labels": [
+                "broadcasting",
+                "entertainment",
+                "film",
+                "media",
+                "television",
+                "theater"
+              ]
+            },
+            {
+              "admission_weight": 0.84646,
+              "difficulty": 0.15354,
+              "lemma": "volado",
+              "pos_bucket": "adjective",
+              "score": 0.6,
+              "seed_rank": 7025,
+              "source_labels": [
+                "media",
+                "publishing"
+              ]
+            },
+            {
+              "admission_weight": 0.84688,
+              "difficulty": 0.15312,
+              "lemma": "trombón",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 6954,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.847448,
+              "difficulty": 0.152552,
+              "lemma": "mosca",
+              "pos_bucket": "adjective",
+              "score": 0.68,
+              "seed_rank": 6870,
+              "source_labels": [
+                "broadcasting",
+                "media",
+                "television"
+              ]
+            },
+            {
+              "admission_weight": 0.847673,
+              "difficulty": 0.152327,
+              "lemma": "contrabajo",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 6837,
               "source_labels": [
                 "entertainment",
                 "music"
               ]
             }
           ],
-          "trusted_max_difficulty": 0.315177,
+          "trusted_max_difficulty": 0.306597,
           "trusted_nonempty_band_count": 2,
           "trusted_top_examples": [
             {
@@ -6919,19 +7251,19 @@
           ],
           "trusted_top_source_labels": [
             {
-              "count": 136,
+              "count": 130,
               "label": "entertainment"
             },
             {
-              "count": 88,
+              "count": 85,
               "label": "music"
             },
             {
-              "count": 74,
+              "count": 71,
               "label": "media"
             },
             {
-              "count": 40,
+              "count": 38,
               "label": "publishing"
             },
             {
@@ -6943,7 +7275,7 @@
               "label": "television"
             },
             {
-              "count": 19,
+              "count": 18,
               "label": "theater"
             },
             {
@@ -7010,13 +7342,8 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
-              "count": 167,
+              "count": 166,
               "examples": [
-                {
-                  "difficulty": 6.4e-05,
-                  "lemma": "luz",
-                  "source_label": "anatomy,medicine"
-                },
                 {
                   "difficulty": 0.000149,
                   "lemma": "corazón",
@@ -7036,6 +7363,11 @@
                   "difficulty": 0.000421,
                   "lemma": "estadio",
                   "source_label": "medicine"
+                },
+                {
+                  "difficulty": 0.000508,
+                  "lemma": "oreja",
+                  "source_label": "anatomy,medicine"
                 }
               ],
               "lower": 0.0,
@@ -7043,7 +7375,7 @@
             },
             {
               "band": "0.20-0.40",
-              "count": 5,
+              "count": 2,
               "examples": [
                 {
                   "difficulty": 0.302479,
@@ -7051,24 +7383,9 @@
                   "source_label": "medicine"
                 },
                 {
-                  "difficulty": 0.304614,
-                  "lemma": "responder",
-                  "source_label": "medicine"
-                },
-                {
                   "difficulty": 0.305559,
                   "lemma": "dormir",
                   "source_label": "medicine"
-                },
-                {
-                  "difficulty": 0.306076,
-                  "lemma": "indicar",
-                  "source_label": "medicine"
-                },
-                {
-                  "difficulty": 0.307503,
-                  "lemma": "liberar",
-                  "source_label": "medicine,physiology"
                 }
               ],
               "lower": 0.2,
@@ -7096,34 +7413,73 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 172,
-          "trusted_candidate_share": 0.0172,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
-          "trusted_hardest_examples": [
+          "trusted_candidate_count": 168,
+          "trusted_candidate_share": 0.0168,
+          "trusted_excluded_examples": [
             {
-              "admission_weight": 0.692497,
-              "difficulty": 0.307503,
-              "lemma": "liberar",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8621,
-              "source_labels": [
-                "medicine",
-                "physiology"
-              ]
+              "difficulty": 6.4e-05,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+              "seed_rank": 7,
+              "source_label": "anatomy"
             },
             {
-              "admission_weight": 0.693924,
+              "difficulty": 6.4e-05,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+              "seed_rank": 7,
+              "source_label": "medicine"
+            },
+            {
+              "difficulty": 0.304614,
+              "lemma": "responder",
+              "pos_bucket": "verb",
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+              "seed_rank": 8417,
+              "source_label": "medicine"
+            },
+            {
               "difficulty": 0.306076,
               "lemma": "indicar",
               "pos_bucket": "verb",
-              "score": 0.81,
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
               "seed_rank": 8503,
-              "source_labels": [
-                "medicine"
-              ]
+              "source_label": "medicine"
             },
+            {
+              "difficulty": 0.307503,
+              "lemma": "liberar",
+              "pos_bucket": "verb",
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+              "seed_rank": 8621,
+              "source_label": "medicine"
+            },
+            {
+              "difficulty": 0.307503,
+              "lemma": "liberar",
+              "pos_bucket": "verb",
+              "reason": "sampled medicine/health rows were broad verbs or obscure senses rather than learner-facing health vocabulary",
+              "seed_rank": 8621,
+              "source_label": "physiology"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 4,
+              "label": "medicine"
+            },
+            {
+              "count": 1,
+              "label": "anatomy"
+            },
+            {
+              "count": 1,
+              "label": "physiology"
+            }
+          ],
+          "trusted_hardest_examples": [
             {
               "admission_weight": 0.694441,
               "difficulty": 0.305559,
@@ -7131,17 +7487,6 @@
               "pos_bucket": "verb",
               "score": 0.81,
               "seed_rank": 8473,
-              "source_labels": [
-                "medicine"
-              ]
-            },
-            {
-              "admission_weight": 0.695386,
-              "difficulty": 0.304614,
-              "lemma": "responder",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8417,
               "source_labels": [
                 "medicine"
               ]
@@ -7190,23 +7535,47 @@
               "source_labels": [
                 "medicine"
               ]
-            }
-          ],
-          "trusted_max_difficulty": 0.307503,
-          "trusted_nonempty_band_count": 2,
-          "trusted_top_examples": [
+            },
             {
-              "admission_weight": 0.999936,
-              "difficulty": 6.4e-05,
-              "lemma": "luz",
-              "pos_bucket": "noun",
+              "admission_weight": 0.834604,
+              "difficulty": 0.165396,
+              "lemma": "vertebral",
+              "pos_bucket": "adjective",
               "score": 0.81,
-              "seed_rank": 7,
+              "seed_rank": 7722,
               "source_labels": [
                 "anatomy",
                 "medicine"
               ]
             },
+            {
+              "admission_weight": 0.835337,
+              "difficulty": 0.164663,
+              "lemma": "plantar",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7672,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.835992,
+              "difficulty": 0.164008,
+              "lemma": "orgánico",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7630,
+              "source_labels": [
+                "medicine",
+                "physiology"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.305559,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
             {
               "admission_weight": 0.999851,
               "difficulty": 0.000149,
@@ -7289,15 +7658,27 @@
                 "anatomy",
                 "medicine"
               ]
+            },
+            {
+              "admission_weight": 0.999075,
+              "difficulty": 0.000925,
+              "lemma": "cadera",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 228,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
             }
           ],
           "trusted_top_source_labels": [
             {
-              "count": 170,
+              "count": 166,
               "label": "medicine"
             },
             {
-              "count": 97,
+              "count": 96,
               "label": "anatomy"
             },
             {
@@ -7305,7 +7686,7 @@
               "label": "pathology"
             },
             {
-              "count": 5,
+              "count": 4,
               "label": "physiology"
             },
             {
@@ -7805,7 +8186,7 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
-              "count": 138,
+              "count": 132,
               "examples": [
                 {
                   "difficulty": 0.000217,
@@ -7818,11 +8199,6 @@
                   "source_label": "transport"
                 },
                 {
-                  "difficulty": 0.000363,
-                  "lemma": "derrota",
-                  "source_label": "nautical,transport"
-                },
-                {
                   "difficulty": 0.000441,
                   "lemma": "pista",
                   "source_label": "aeronautics,aerospace,aviation"
@@ -7831,6 +8207,11 @@
                   "difficulty": 0.000456,
                   "lemma": "llanura",
                   "source_label": "geography"
+                },
+                {
+                  "difficulty": 0.000522,
+                  "lemma": "placa",
+                  "source_label": "geography"
                 }
               ],
               "lower": 0.0,
@@ -7838,14 +8219,8 @@
             },
             {
               "band": "0.20-0.40",
-              "count": 1,
-              "examples": [
-                {
-                  "difficulty": 0.30812,
-                  "lemma": "reclamar",
-                  "source_label": "nautical,transport"
-                }
-              ],
+              "count": 0,
+              "examples": [],
               "lower": 0.2,
               "upper": 0.4
             },
@@ -7871,23 +8246,121 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 139,
-          "trusted_candidate_share": 0.0139,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
-          "trusted_hardest_examples": [
+          "trusted_candidate_count": 132,
+          "trusted_candidate_share": 0.0132,
+          "trusted_excluded_examples": [
             {
-              "admission_weight": 0.69188,
+              "difficulty": 0.000363,
+              "lemma": "derrota",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 86,
+              "source_label": "nautical"
+            },
+            {
+              "difficulty": 0.000363,
+              "lemma": "derrota",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 86,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.000475,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 109,
+              "source_label": "nautical"
+            },
+            {
+              "difficulty": 0.000475,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 109,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.002315,
+              "lemma": "escarabajo",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 600,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.023302,
+              "lemma": "vigía",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 6525,
+              "source_label": "nautical"
+            },
+            {
+              "difficulty": 0.023302,
+              "lemma": "vigía",
+              "pos_bucket": "noun",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 6525,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.150021,
+              "lemma": "mayor",
+              "pos_bucket": "adjective",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 6543,
+              "source_label": "nautical"
+            },
+            {
+              "difficulty": 0.150021,
+              "lemma": "mayor",
+              "pos_bucket": "adjective",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 6543,
+              "source_label": "transport"
+            },
+            {
+              "difficulty": 0.151413,
+              "lemma": "sísmico",
+              "pos_bucket": "adjective",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 6708,
+              "source_label": "geography"
+            },
+            {
+              "difficulty": 0.166346,
+              "lemma": "paleolítico",
+              "pos_bucket": "adjective",
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
+              "seed_rank": 7800,
+              "source_label": "geography"
+            },
+            {
               "difficulty": 0.30812,
               "lemma": "reclamar",
               "pos_bucket": "verb",
-              "score": 0.68,
+              "reason": "sampled travel/place/transport rows were obscure nautical senses or non-travel geography/history evidence",
               "seed_rank": 8654,
-              "source_labels": [
-                "nautical",
-                "transport"
-              ]
+              "source_label": "nautical"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 6,
+              "label": "transport"
             },
+            {
+              "count": 5,
+              "label": "nautical"
+            },
+            {
+              "count": 2,
+              "label": "geography"
+            }
+          ],
+          "trusted_hardest_examples": [
             {
               "admission_weight": 0.832044,
               "difficulty": 0.167956,
@@ -7895,28 +8368,6 @@
               "pos_bucket": "adjective",
               "score": 0.525,
               "seed_rank": 7915,
-              "source_labels": [
-                "geography"
-              ]
-            },
-            {
-              "admission_weight": 0.833654,
-              "difficulty": 0.166346,
-              "lemma": "paleolítico",
-              "pos_bucket": "adjective",
-              "score": 0.525,
-              "seed_rank": 7800,
-              "source_labels": [
-                "geography"
-              ]
-            },
-            {
-              "admission_weight": 0.848587,
-              "difficulty": 0.151413,
-              "lemma": "sísmico",
-              "pos_bucket": "adjective",
-              "score": 0.525,
-              "seed_rank": 6708,
               "source_labels": [
                 "geography"
               ]
@@ -7934,30 +8385,6 @@
               ]
             },
             {
-              "admission_weight": 0.849979,
-              "difficulty": 0.150021,
-              "lemma": "mayor",
-              "pos_bucket": "adjective",
-              "score": 0.68,
-              "seed_rank": 6543,
-              "source_labels": [
-                "nautical",
-                "transport"
-              ]
-            },
-            {
-              "admission_weight": 0.976698,
-              "difficulty": 0.023302,
-              "lemma": "vigía",
-              "pos_bucket": "noun",
-              "score": 0.68,
-              "seed_rank": 6525,
-              "source_labels": [
-                "nautical",
-                "transport"
-              ]
-            },
-            {
               "admission_weight": 0.9767,
               "difficulty": 0.0233,
               "lemma": "bonanza",
@@ -7968,10 +8395,67 @@
                 "nautical",
                 "transport"
               ]
+            },
+            {
+              "admission_weight": 0.976732,
+              "difficulty": 0.023268,
+              "lemma": "plutón",
+              "pos_bucket": "noun",
+              "score": 0.525,
+              "seed_rank": 6516,
+              "source_labels": [
+                "geography"
+              ]
+            },
+            {
+              "admission_weight": 0.977116,
+              "difficulty": 0.022884,
+              "lemma": "escandalosa",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 6423,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.977293,
+              "difficulty": 0.022707,
+              "lemma": "fogón",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 6378,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.977569,
+              "difficulty": 0.022431,
+              "lemma": "arista",
+              "pos_bucket": "noun",
+              "score": 0.525,
+              "seed_rank": 6310,
+              "source_labels": [
+                "geography"
+              ]
+            },
+            {
+              "admission_weight": 0.977722,
+              "difficulty": 0.022278,
+              "lemma": "jade",
+              "pos_bucket": "noun",
+              "score": 0.525,
+              "seed_rank": 6277,
+              "source_labels": [
+                "geography"
+              ]
             }
           ],
-          "trusted_max_difficulty": 0.30812,
-          "trusted_nonempty_band_count": 2,
+          "trusted_max_difficulty": 0.167956,
+          "trusted_nonempty_band_count": 1,
           "trusted_top_examples": [
             {
               "admission_weight": 0.999667,
@@ -7981,30 +8465,6 @@
               "score": 0.68,
               "seed_rank": 81,
               "source_labels": [
-                "transport"
-              ]
-            },
-            {
-              "admission_weight": 0.999637,
-              "difficulty": 0.000363,
-              "lemma": "derrota",
-              "pos_bucket": "noun",
-              "score": 0.68,
-              "seed_rank": 86,
-              "source_labels": [
-                "nautical",
-                "transport"
-              ]
-            },
-            {
-              "admission_weight": 0.999525,
-              "difficulty": 0.000475,
-              "lemma": "palo",
-              "pos_bucket": "noun",
-              "score": 0.68,
-              "seed_rank": 109,
-              "source_labels": [
-                "nautical",
                 "transport"
               ]
             },
@@ -8036,19 +8496,6 @@
               ]
             },
             {
-              "admission_weight": 0.997685,
-              "difficulty": 0.002315,
-              "lemma": "escarabajo",
-              "pos_bucket": "noun",
-              "score": 0.68,
-              "seed_rank": 600,
-              "source_labels": [
-                "automotive",
-                "transport",
-                "vehicles"
-              ]
-            },
-            {
               "admission_weight": 0.997403,
               "difficulty": 0.002597,
               "lemma": "quilla",
@@ -8071,19 +8518,55 @@
                 "nautical",
                 "transport"
               ]
+            },
+            {
+              "admission_weight": 0.996017,
+              "difficulty": 0.003983,
+              "lemma": "espolón",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 1038,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.995278,
+              "difficulty": 0.004722,
+              "lemma": "alto",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 1260,
+              "source_labels": [
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.995211,
+              "difficulty": 0.004789,
+              "lemma": "cabo",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 1284,
+              "source_labels": [
+                "geography",
+                "nautical",
+                "transport"
+              ]
             }
           ],
           "trusted_top_source_labels": [
             {
-              "count": 70,
-              "label": "transport"
-            },
-            {
-              "count": 67,
+              "count": 65,
               "label": "geography"
             },
             {
-              "count": 50,
+              "count": 64,
+              "label": "transport"
+            },
+            {
+              "count": 45,
               "label": "nautical"
             },
             {
@@ -8105,376 +8588,6 @@
             {
               "count": 4,
               "label": "aviation"
-            }
-          ],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "shallow_difficulty_depth",
-          "data_strategy": "sense_topics_then_alias_overlay",
-          "display_name": "Finance & Business",
-          "family": "finance_business",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 96,
-              "examples": [
-                {
-                  "difficulty": 6.2e-05,
-                  "lemma": "movimiento",
-                  "source_label": "banking,business,finance"
-                },
-                {
-                  "difficulty": 6.4e-05,
-                  "lemma": "luz",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 9.7e-05,
-                  "lemma": "capital",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.000219,
-                  "lemma": "par",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.000441,
-                  "lemma": "pista",
-                  "source_label": "business,finance"
-                }
-              ],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 6,
-              "examples": [
-                {
-                  "difficulty": 0.300013,
-                  "lemma": "poner",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.300306,
-                  "lemma": "conectar",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.302028,
-                  "lemma": "campear",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.302302,
-                  "lemma": "zurcir",
-                  "source_label": "business,finance"
-                },
-                {
-                  "difficulty": 0.310088,
-                  "lemma": "ascender",
-                  "source_label": "business,finance"
-                }
-              ],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 102,
-          "trusted_candidate_share": 0.0102,
-          "trusted_excluded_examples": [],
-          "trusted_excluded_source_labels": [],
-          "trusted_hardest_examples": [
-            {
-              "admission_weight": 0.685508,
-              "difficulty": 0.314492,
-              "lemma": "cancelar",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 9032,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.689912,
-              "difficulty": 0.310088,
-              "lemma": "ascender",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8782,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.697698,
-              "difficulty": 0.302302,
-              "lemma": "zurcir",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8292,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.697972,
-              "difficulty": 0.302028,
-              "lemma": "campear",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8267,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.699694,
-              "difficulty": 0.300306,
-              "lemma": "conectar",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8089,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.699987,
-              "difficulty": 0.300013,
-              "lemma": "poner",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8031,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.835992,
-              "difficulty": 0.164008,
-              "lemma": "orgánico",
-              "pos_bucket": "adjective",
-              "score": 0.81,
-              "seed_rank": 7630,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.837125,
-              "difficulty": 0.162875,
-              "lemma": "biológico",
-              "pos_bucket": "adjective",
-              "score": 0.81,
-              "seed_rank": 7562,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            }
-          ],
-          "trusted_max_difficulty": 0.314492,
-          "trusted_nonempty_band_count": 2,
-          "trusted_top_examples": [
-            {
-              "admission_weight": 0.999938,
-              "difficulty": 6.2e-05,
-              "lemma": "movimiento",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 6,
-              "source_labels": [
-                "banking",
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.999936,
-              "difficulty": 6.4e-05,
-              "lemma": "luz",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 7,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.999903,
-              "difficulty": 9.7e-05,
-              "lemma": "capital",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 15,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.999781,
-              "difficulty": 0.000219,
-              "lemma": "par",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 51,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.999559,
-              "difficulty": 0.000441,
-              "lemma": "pista",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 98,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.999478,
-              "difficulty": 0.000522,
-              "lemma": "placa",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 120,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.999405,
-              "difficulty": 0.000595,
-              "lemma": "fusión",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 140,
-              "source_labels": [
-                "economics",
-                "finance"
-              ]
-            },
-            {
-              "admission_weight": 0.998541,
-              "difficulty": 0.001459,
-              "lemma": "silicio",
-              "pos_bucket": "noun",
-              "score": 0.81,
-              "seed_rank": 371,
-              "source_labels": [
-                "business",
-                "finance"
-              ]
-            }
-          ],
-          "trusted_top_source_labels": [
-            {
-              "count": 100,
-              "label": "finance"
-            },
-            {
-              "count": 91,
-              "label": "business"
-            },
-            {
-              "count": 11,
-              "label": "economics"
-            },
-            {
-              "count": 6,
-              "label": "accounting"
-            },
-            {
-              "count": 2,
-              "label": "banking"
-            },
-            {
-              "count": 2,
-              "label": "management"
             }
           ],
           "ux_group": "interests_style"
@@ -8565,7 +8678,7 @@
             },
             {
               "band": "0.20-0.40",
-              "count": 14,
+              "count": 12,
               "examples": [
                 {
                   "difficulty": 0.30027,
@@ -8618,8 +8731,8 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 102,
-          "trusted_candidate_share": 0.0102,
+          "trusted_candidate_count": 100,
+          "trusted_candidate_share": 0.01,
           "trusted_excluded_examples": [
             {
               "difficulty": 0.000209,
@@ -8635,6 +8748,30 @@
               "pos_bucket": "verb",
               "reason": "generic gameplay relation is too weak for learner-facing games evidence",
               "seed_rank": 8039,
+              "source_label": "games"
+            },
+            {
+              "difficulty": 0.306012,
+              "lemma": "levantar",
+              "pos_bucket": "verb",
+              "reason": "sampled game rows were broad or weak game senses rather than learner-facing games vocabulary",
+              "seed_rank": 8501,
+              "source_label": "card_games"
+            },
+            {
+              "difficulty": 0.306012,
+              "lemma": "levantar",
+              "pos_bucket": "verb",
+              "reason": "sampled game rows were broad or weak game senses rather than learner-facing games vocabulary",
+              "seed_rank": 8501,
+              "source_label": "games"
+            },
+            {
+              "difficulty": 0.308534,
+              "lemma": "bailar",
+              "pos_bucket": "verb",
+              "reason": "sampled game rows were broad or weak game senses rather than learner-facing games vocabulary",
+              "seed_rank": 8685,
               "source_label": "games"
             },
             {
@@ -8680,8 +8817,12 @@
           ],
           "trusted_excluded_source_labels": [
             {
-              "count": 7,
+              "count": 9,
               "label": "games"
+            },
+            {
+              "count": 1,
+              "label": "card_games"
             }
           ],
           "trusted_hardest_examples": [
@@ -8703,29 +8844,6 @@
               "pos_bucket": "verb",
               "score": 0.81,
               "seed_rank": 8880,
-              "source_labels": [
-                "card_games",
-                "games"
-              ]
-            },
-            {
-              "admission_weight": 0.691466,
-              "difficulty": 0.308534,
-              "lemma": "bailar",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8685,
-              "source_labels": [
-                "games"
-              ]
-            },
-            {
-              "admission_weight": 0.693988,
-              "difficulty": 0.306012,
-              "lemma": "levantar",
-              "pos_bucket": "verb",
-              "score": 0.81,
-              "seed_rank": 8501,
               "source_labels": [
                 "card_games",
                 "games"
@@ -8774,6 +8892,29 @@
               "source_labels": [
                 "games",
                 "video_games"
+              ]
+            },
+            {
+              "admission_weight": 0.698292,
+              "difficulty": 0.301708,
+              "lemma": "cabecear",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8242,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.699364,
+              "difficulty": 0.300636,
+              "lemma": "agravar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8132,
+              "source_labels": [
+                "games",
+                "gaming"
               ]
             }
           ],
@@ -8874,11 +9015,11 @@
           ],
           "trusted_top_source_labels": [
             {
-              "count": 102,
+              "count": 100,
               "label": "games"
             },
             {
-              "count": 18,
+              "count": 17,
               "label": "card_games"
             },
             {
@@ -8888,6 +9029,467 @@
             {
               "count": 1,
               "label": "gaming"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "shallow_difficulty_depth",
+          "data_strategy": "sense_topics_then_alias_overlay",
+          "display_name": "Finance & Business",
+          "family": "finance_business",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "source_ready",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 90,
+              "examples": [
+                {
+                  "difficulty": 9.7e-05,
+                  "lemma": "capital",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.000219,
+                  "lemma": "par",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.000595,
+                  "lemma": "fusión",
+                  "source_label": "economics,finance"
+                },
+                {
+                  "difficulty": 0.001459,
+                  "lemma": "silicio",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.001614,
+                  "lemma": "boom",
+                  "source_label": "business,economics,finance"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.314492,
+                  "lemma": "cancelar",
+                  "source_label": "business,finance"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 91,
+          "trusted_candidate_share": 0.0091,
+          "trusted_excluded_examples": [
+            {
+              "difficulty": 6.2e-05,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 6,
+              "source_label": "banking"
+            },
+            {
+              "difficulty": 6.2e-05,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 6,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 6.2e-05,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 6,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 6.4e-05,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 7,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 6.4e-05,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 7,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.000441,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 98,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.000441,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 98,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.000522,
+              "lemma": "placa",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 120,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.000522,
+              "lemma": "placa",
+              "pos_bucket": "noun",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 120,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.162875,
+              "lemma": "biológico",
+              "pos_bucket": "adjective",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 7562,
+              "source_label": "business"
+            },
+            {
+              "difficulty": 0.162875,
+              "lemma": "biológico",
+              "pos_bucket": "adjective",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 7562,
+              "source_label": "finance"
+            },
+            {
+              "difficulty": 0.164008,
+              "lemma": "orgánico",
+              "pos_bucket": "adjective",
+              "reason": "sampled finance/business rows were broad or source-fragile senses rather than learner-facing finance vocabulary",
+              "seed_rank": 7630,
+              "source_label": "business"
+            }
+          ],
+          "trusted_excluded_source_labels": [
+            {
+              "count": 11,
+              "label": "business"
+            },
+            {
+              "count": 11,
+              "label": "finance"
+            },
+            {
+              "count": 1,
+              "label": "banking"
+            }
+          ],
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.685508,
+              "difficulty": 0.314492,
+              "lemma": "cancelar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9032,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.84666,
+              "difficulty": 0.15334,
+              "lemma": "acreedor",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 6990,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.84839,
+              "difficulty": 0.15161,
+              "lemma": "raso",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 6734,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.848567,
+              "difficulty": 0.151433,
+              "lemma": "auxiliar",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 6714,
+              "source_labels": [
+                "accounting",
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.849336,
+              "difficulty": 0.150664,
+              "lemma": "ecológico",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 6604,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.977346,
+              "difficulty": 0.022654,
+              "lemma": "gancho",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6365,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.977569,
+              "difficulty": 0.022431,
+              "lemma": "arista",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6310,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.978096,
+              "difficulty": 0.021904,
+              "lemma": "hilera",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6193,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.314492,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999903,
+              "difficulty": 9.7e-05,
+              "lemma": "capital",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 15,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999781,
+              "difficulty": 0.000219,
+              "lemma": "par",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 51,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999405,
+              "difficulty": 0.000595,
+              "lemma": "fusión",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 140,
+              "source_labels": [
+                "economics",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.998541,
+              "difficulty": 0.001459,
+              "lemma": "silicio",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 371,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.998386,
+              "difficulty": 0.001614,
+              "lemma": "boom",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 413,
+              "source_labels": [
+                "business",
+                "economics",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.998247,
+              "difficulty": 0.001753,
+              "lemma": "propulsión",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 449,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.998173,
+              "difficulty": 0.001827,
+              "lemma": "cápsula",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 467,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.997524,
+              "difficulty": 0.002476,
+              "lemma": "gaveta",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 642,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 89,
+              "label": "finance"
+            },
+            {
+              "count": 80,
+              "label": "business"
+            },
+            {
+              "count": 11,
+              "label": "economics"
+            },
+            {
+              "count": 6,
+              "label": "accounting"
+            },
+            {
+              "count": 2,
+              "label": "management"
+            },
+            {
+              "count": 1,
+              "label": "banking"
             }
           ],
           "ux_group": "interests_style"
@@ -10833,7 +11435,7 @@
       "unique_lemma_count": 10000
     }
   ],
-  "generated_at": "2026-05-19T22:11:22+00:00",
+  "generated_at": "2026-05-19T22:39:21+00:00",
   "inputs": {
     "frontiers": [
       {
