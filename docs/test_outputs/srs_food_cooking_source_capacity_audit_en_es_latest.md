@@ -2,10 +2,10 @@
 
 - Status: `ok`
 - Decision: `food_cooking_source_capacity_audit_completed`
-- Generated: `2026-05-19T01:00:38+00:00`
-- Full local Kaikki food-signal lemmas: `2129`
+- Generated: `2026-05-19T02:39:09+00:00`
+- Full local Kaikki food-signal lemmas: `2122`
 - Current frequency frontier food-signal lemmas: `46`
-- Outside current frontier: `2083`
+- Outside current frontier: `2076`
 
 ## Findings
 
@@ -15,25 +15,25 @@
 
 ## Source Capacity
 
-- Tier counts: `{'A': 80, 'B': 79, 'C': 1213, 'D': 757}`
-- Confidence bands: `{'high': 154, 'inventory': 179, 'medium': 1143, 'review': 653}`
+- Tier counts: `{'A': 80, 'B': 76, 'C': 1209, 'D': 757}`
+- Confidence bands: `{'high': 152, 'inventory': 179, 'medium': 1142, 'review': 649}`
 
 ### Top Source Labels
 
 - `food_gloss_pattern`: 610
 - `foods`: 264
 - `food_translation_pattern`: 147
-- `fruits`: 135
-- `fish`: 111
+- `fruits`: 134
+- `fish`: 110
 - `cooking`: 101
 - `vegetables`: 86
 - `meats`: 72
 - `sauces`: 72
-- `legumes`: 70
+- `legumes`: 69
 - `beverages`: 51
 - `spices_and_herbs`: 42
-- `seafood`: 42
 - `desserts`: 42
+- `seafood`: 41
 - `alcoholic_beverages`: 33
 - `herbs`: 31
 - `breads`: 29
@@ -99,5 +99,5 @@
 
 - This audit uses installed local Kaikki/Wiktionary rows and the current food/cooking policy only.
 - It does not download sources, mutate packs, write overlays, or change admission behavior.
-- Full-source capacity is not precision-reviewed; review labels currently apply only to the current CDE packet.
+- Source-capacity totals are not precision-reviewed; use the full-source review packet for sampled precision.
 - The common probe list is diagnostic and intentionally small.

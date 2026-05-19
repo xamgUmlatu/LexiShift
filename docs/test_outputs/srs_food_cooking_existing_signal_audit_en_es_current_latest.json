@@ -163,6 +163,8 @@
     "combiner": "max_evidence_score_v1",
     "penalty_policy": {
       "ambiguous_context": "0.70 multiplier when unrelated domain labels are present",
+      "primary_translation_reject_context": "skip exact translation matches when policy-listed context labels prove the match is not food/cooking",
+      "reviewed_signal_rejects": "skip lemma/source-label pairs already rejected by manual review",
       "secondary_sense": "0.70 multiplier for non-primary sense rows"
     },
     "score_formula": "base_confidence * specificity * ambiguity_penalty",
@@ -5048,11 +5050,11 @@
       "message": "Existing sources contain food/cooking evidence beyond direct sense topics."
     }
   ],
-  "generated_at": "2026-05-19T00:44:43+00:00",
+  "generated_at": "2026-05-19T02:36:57+00:00",
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
-    "signal_policy_id": "srs_food_cooking_existing_signal_policy_en_es_v1",
+    "signal_policy_id": "srs_food_cooking_existing_signal_policy_en_es_v2",
     "signal_policy_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/srs_food_cooking_signal_policy_en_es.json",
     "top_n": 10000
   },

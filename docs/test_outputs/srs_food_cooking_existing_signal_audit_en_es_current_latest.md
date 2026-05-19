@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `food_cooking_existing_signal_audit_completed`
-- Generated: `2026-05-19T00:44:43+00:00`
+- Generated: `2026-05-19T02:36:57+00:00`
 - Candidate lemmas measured: `1984`
 - Food/cooking candidates: `46`
 - Review-required candidates: `42`

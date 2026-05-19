@@ -14,6 +14,8 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from srs_food_cooking_existing_signal_audit_en_es import (  # noqa: E402
     build_report,
+    evidence_from_rows,
+    load_food_policy,
     render_markdown,
 )
 
@@ -58,6 +60,31 @@ class SrsFoodCookingExistingSignalAuditTests(unittest.TestCase):
             self.assertIn("Food/Cooking Existing Signal Audit", markdown)
             self.assertIn("food_cooking_evidence_found", markdown)
             self.assertIn("food/cooking can intentionally overlap", str(report["limitations"]))
+
+    def test_policy_skips_reviewed_false_positive_signals(self) -> None:
+        policy = load_food_policy()
+
+        blocked_examples = {
+            "anaranjado": [
+                _row("noun", "orange (the colour of the fruit of an orange tree)", ["es:Colors"])
+            ],
+            "limonero": [_row("noun", "lemon, lemon tree", [], entry_categories=["es:Trees"])],
+            "cha": [_row("noun", "tea", ["Spanish terms with historical senses"])],
+            "claudia": [_row("noun", "greengage", ["es:Fruits"])],
+            "cocobolo": [_row("noun", "cocobolo", ["es:Legumes"])],
+            "loco": [
+                _row("adj", "crazy", [], entry_categories=["es:Seafood", "es:Legumes"]),
+                _row("noun", "person", [], raw_glosses=["fruit"]),
+            ],
+            "morena": [_row("noun", "moray", ["es:Fish"])],
+        }
+        for lemma, rows in blocked_examples.items():
+            with self.subTest(lemma=lemma):
+                self.assertEqual(evidence_from_rows(lemma, rows, policy), [])
+
+        accepted = evidence_from_rows("arroz", [_row("noun", "rice", ["es:Foods"])], policy)
+        self.assertTrue(accepted)
+        self.assertEqual(accepted[0].source_label, "foods")
 
 
 def _candidate_by_lemma(family: dict[str, object] | object) -> dict[str, dict[str, object]]:
@@ -158,6 +185,27 @@ def _write_kaikki_db(path: Path) -> None:
         conn.commit()
     finally:
         conn.close()
+
+
+def _row(
+    pos: str,
+    translation: str,
+    sense_categories: list[str],
+    *,
+    entry_categories: list[str] | None = None,
+    raw_glosses: list[str] | None = None,
+) -> dict[str, object]:
+    return {
+        "pos": pos,
+        "translation": translation,
+        "raw_glosses": raw_glosses or [],
+        "topics": [],
+        "sense_tags": [],
+        "sense_categories": sense_categories,
+        "entry_tags": [],
+        "entry_categories": entry_categories or [],
+        "sense_index": 0,
+    }
 
 
 if __name__ == "__main__":

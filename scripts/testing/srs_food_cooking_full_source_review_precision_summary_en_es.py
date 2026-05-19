@@ -115,13 +115,14 @@ def build_report(
                 "most rows while surfacing specific false-positive classes before product lift."
             ),
             "next_best_step": (
-                "Convert review results into small policy guards, then rerun the audit/review "
-                "summary before promoting any broader food/cooking overlay."
+                "Use the remaining rejects to decide whether another narrow guard pass is "
+                "worth it, then validate the larger frontier and overlay/admission behavior "
+                "before any broader food/cooking product lift."
             ),
         },
         "findings": findings,
         "limitations": [
-            "This summary describes one deterministic 96-row review packet, not the full 2,083-row precision.",
+            "This summary describes one deterministic 96-row review packet, not full-universe precision.",
             "Agent labels remain pending user approval and are not product-overlay approval by themselves.",
             "High acceptance supports continuing the source path, but false-positive classes still need policy guards.",
         ],

@@ -54,6 +54,8 @@ class FoodPolicy:
     topic_confidence: Mapping[str, float]
     category_confidence: Mapping[str, float]
     primary_translations: frozenset[str]
+    primary_translation_reject_context_labels: Mapping[str, frozenset[str]]
+    reviewed_signal_rejects: frozenset[tuple[str, str]]
     food_translation_pattern: re.Pattern[str]
     food_gloss_pattern: re.Pattern[str]
 
@@ -216,6 +218,8 @@ def evidence_from_rows(
                 normalized_label = normalize_source_label(label)
                 if normalized_label not in policy.category_confidence:
                     continue
+                if _reviewed_signal_rejected(lemma, normalized_label, policy):
+                    continue
                 evidence.append(
                     make_evidence(
                         family=FAMILY,
@@ -233,6 +237,11 @@ def evidence_from_rows(
         text_fields = _sense_text(row)
         primary = _primary_translation_match(text_fields["translation"], policy)
         if primary and _is_primary_noun_sense(row):
+            source_label = f"primary_translation:{primary}"
+            if _reviewed_signal_rejected(
+                lemma, source_label, policy
+            ) or _primary_translation_context_rejected(primary, row_context, policy):
+                continue
             evidence.append(
                 make_evidence(
                     family=FAMILY,
@@ -240,7 +249,7 @@ def evidence_from_rows(
                     tier="B",
                     evidence_type="primary_exact_translation",
                     source_channel="translation",
-                    source_label=f"primary_translation:{primary}",
+                    source_label=source_label,
                     base_confidence=0.9,
                     specificity=0.95,
                     ambiguity_penalty=ambiguity_penalty,
@@ -248,7 +257,9 @@ def evidence_from_rows(
                     snippet=text_fields["translation"][:160],
                 )
             )
-        elif policy.food_translation_pattern.search(text_fields["translation"]):
+        elif policy.food_translation_pattern.search(
+            text_fields["translation"]
+        ) and not _reviewed_signal_rejected(lemma, "food_translation_pattern", policy):
             evidence.append(
                 make_evidence(
                     family=FAMILY,
@@ -264,7 +275,9 @@ def evidence_from_rows(
                     snippet=text_fields["translation"][:160],
                 )
             )
-        elif policy.food_gloss_pattern.search(text_fields["combined"]):
+        elif policy.food_gloss_pattern.search(
+            text_fields["combined"]
+        ) and not _reviewed_signal_rejected(lemma, "food_gloss_pattern", policy):
             evidence.append(
                 make_evidence(
                     family=FAMILY,
@@ -300,6 +313,12 @@ def load_food_policy(path: Path = DEFAULT_POLICY) -> FoodPolicy:
             str(item or "").strip().casefold()
             for item in _string_list(payload.get("primary_translations"))
             if str(item or "").strip()
+        ),
+        primary_translation_reject_context_labels=_translation_context_map(
+            payload.get("primary_translation_reject_context_labels")
+        ),
+        reviewed_signal_rejects=frozenset(
+            _reviewed_signal_rejects(payload.get("reviewed_signal_rejects"))
         ),
         food_translation_pattern=re.compile(str(patterns.get("food_translation") or r"(?!x)x")),
         food_gloss_pattern=re.compile(str(patterns.get("food_gloss") or r"(?!x)x")),
@@ -405,6 +424,8 @@ def _report(
             "penalty_policy": {
                 "secondary_sense": "0.70 multiplier for non-primary sense rows",
                 "ambiguous_context": "0.70 multiplier when unrelated domain labels are present",
+                "primary_translation_reject_context": "skip exact translation matches when policy-listed context labels prove the match is not food/cooking",
+                "reviewed_signal_rejects": "skip lemma/source-label pairs already rejected by manual review",
             },
         },
         "row_count": int(row_count),
@@ -441,6 +462,19 @@ def _primary_translation_match(translation: str, policy: FoodPolicy) -> str:
     return item if item in policy.primary_translations else ""
 
 
+def _primary_translation_context_rejected(
+    primary: str, row_context: set[str], policy: FoodPolicy
+) -> bool:
+    rejected_context = policy.primary_translation_reject_context_labels.get(primary, frozenset())
+    return bool(row_context & rejected_context)
+
+
+def _reviewed_signal_rejected(lemma: str, source_label: str, policy: FoodPolicy) -> bool:
+    return (_normalize_review_key_part(lemma), _normalize_review_key_part(source_label)) in (
+        policy.reviewed_signal_rejects
+    )
+
+
 def _empty_family_summary() -> dict[str, object]:
     return {
         "family": FAMILY,
@@ -469,6 +503,33 @@ def _confidence_map(value: object) -> dict[str, float]:
         for label, confidence in value.items()
         if normalize_source_label(label)
     }
+
+
+def _translation_context_map(value: object) -> dict[str, frozenset[str]]:
+    if not isinstance(value, Mapping):
+        return {}
+    result: dict[str, frozenset[str]] = {}
+    for translation, labels in value.items():
+        key = str(translation or "").strip().casefold()
+        if not key:
+            continue
+        result[key] = frozenset(_normalized_list(labels))
+    return result
+
+
+def _reviewed_signal_rejects(value: object) -> list[tuple[str, str]]:
+    rows = _mapping_rows(value)
+    result: list[tuple[str, str]] = []
+    for row in rows:
+        lemma = _normalize_review_key_part(row.get("lemma"))
+        source_label = _normalize_review_key_part(row.get("source_label"))
+        if lemma and source_label:
+            result.append((lemma, source_label))
+    return result
+
+
+def _normalize_review_key_part(value: object) -> str:
+    return str(value or "").strip().casefold()
 
 
 def _normalized_list(value: object) -> list[str]:

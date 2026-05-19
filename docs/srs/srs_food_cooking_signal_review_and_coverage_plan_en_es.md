@@ -84,11 +84,11 @@ the conservative food/cooking policy with the current CDE frequency frontier.
 
 The source-capacity audit shows:
 
-- full installed local Kaikki/Wiktionary food-signal lemmas: `2,129`;
+- full installed local Kaikki/Wiktionary food-signal lemmas: `2,122`;
 - current frequency-frontier food-signal lemmas: `46`;
-- food-signal lemmas outside the current frontier: `2,083`;
-- high-confidence full-source rows: `154`;
-- medium-confidence full-source rows: `1,143`.
+- food-signal lemmas outside the current frontier: `2,076`;
+- high-confidence full-source rows: `152`;
+- medium-confidence full-source rows: `1,142`.
 
 Common food probes missing from the current frequency frontier include:
 `comida`, `cocinar`, `cocina`, `agua`, `vino`, `pan`, `arroz`, `pollo`,
@@ -183,49 +183,53 @@ The generated artifacts are:
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 
-Current result:
+Current guarded result:
 
-- full local source candidates: `2,129`;
+- full local source candidates: `2,122`;
 - current-frontier candidates excluded as already reviewed: `46`;
-- expansion candidates sampled from: `2,083`;
+- expansion candidates sampled from: `2,076`;
 - review rows: `96`;
-- review cells covered: `83 / 83`;
+- review cells covered: `80 / 80`;
 - labeled rows: `96`;
-- strong accepts: `53`;
-- light accepts: `36`;
-- rejects: `7`.
+- strong accepts: `54`;
+- light accepts: `37`;
+- rejects: `5`.
 
 This packet answers the immediate coverage question more directly than more
 admission tuning: the installed source has enough food/cooking supply for a
-larger vocabulary surface, but broader source-label quality still needs review
-before product lift. The reviewed sample accepted `89 / 96` rows, which is
-promising enough to keep the broad local-source path alive, but still not an
-automatic product overlay.
+larger vocabulary surface. A first guard pass now excludes the seven reviewed
+false positives from the initial broad packet (`anaranjado`, `cha`, `claudia`,
+`cocobolo`, `limonero`, `loco`, and `morena`) by using reviewed
+lemma/source-label rejects and context rejects for color/tree/historical exact
+translation matches.
 
-Rejects in this broader packet mostly reinforce the existing safety rules:
+The guarded sample accepted `91 / 96` rows, which is promising enough to keep
+the broad local-source path alive, but still not an automatic product overlay.
+The remaining rejects show the next false-positive classes to consider before
+product lift:
 
-- color/tree matches from primary translations can be wrong-topic
-  (`anaranjado`, `limonero`);
-- name/person/adjective collisions can make category hits too secondary
-  (`claudia`, `loco`, `morena`);
-- broad botanical category overlap can still misfire (`cocobolo`);
-- historical/regional variants can be too obscure for product lift (`cha`).
+- botanical or fodder terms that enter through broad `legumes`
+  (`maní forrajero`);
+- zoological fish terms that are not food/cooking vocabulary (`artrodiro`);
+- proper-name-first entries with secondary fruit/fish senses (`pavía`, `reo`);
+- Tier D gloss matches that describe eaters rather than foods (`carnívoro`).
 
 The precision summary is
 `../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`.
 It reports:
 
-- accepted rows: `89 / 96` (`92.7%`);
+- accepted rows: `91 / 96` (`94.8%`);
 - Tier C accepted `44 / 48`;
-- Tier B accepted `36 / 39`;
-- high-confidence rows accepted `36 / 38`;
-- review-band rows accepted `30 / 34`;
+- Tier B accepted `38 / 38`;
+- high-confidence rows accepted `37 / 37`;
+- review-band rows accepted `31 / 33`;
 - flow assessment: the current source -> review -> precision -> overlay path is
-  the right direction, but policy guards are still required before product lift.
+  the right direction, but residual source-label false positives still need
+  either another narrow guard pass or review-gated promotion before product lift.
 
 ## Immediate Next Slice
 
-Apply a small policy adjustment pass for wrong-topic translation matches and
-noisy category overlaps, then rerun the audit, full-source packet, and precision
-summary to verify the guards reduce rejects without erasing useful food/cooking
-coverage.
+Decide whether to add one more narrow guard pass for the remaining broad-source
+rejects or move to the larger-frontier overlay/admission validation while
+keeping the residual classes review-gated. Do not promote a broad food/cooking
+overlay directly from unreviewed source labels.

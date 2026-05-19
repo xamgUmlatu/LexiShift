@@ -313,7 +313,7 @@ def _report(
         "limitations": [
             "This audit uses installed local Kaikki/Wiktionary rows and the current food/cooking policy only.",
             "It does not download sources, mutate packs, write overlays, or change admission behavior.",
-            "Full-source capacity is not precision-reviewed; review labels currently apply only to the current CDE packet.",
+            "Source-capacity totals are not precision-reviewed; use the full-source review packet for sampled precision.",
             "The common probe list is diagnostic and intentionally small.",
         ],
     }

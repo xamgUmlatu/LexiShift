@@ -31,7 +31,7 @@
       "selected_count": 2
     },
     {
-      "candidate_count": 9,
+      "candidate_count": 8,
       "cell": "food_cooking|tier=C|band=review|review=True|source=fish",
       "selected_count": 2
     },
@@ -41,7 +41,7 @@
       "selected_count": 2
     },
     {
-      "candidate_count": 11,
+      "candidate_count": 10,
       "cell": "food_cooking|tier=C|band=review|review=True|source=fruits",
       "selected_count": 2
     },
@@ -66,11 +66,6 @@
       "selected_count": 1
     },
     {
-      "candidate_count": 1,
-      "cell": "food_cooking|tier=C|band=review|review=True|source=seafood",
-      "selected_count": 1
-    },
-    {
       "candidate_count": 2,
       "cell": "food_cooking|tier=C|band=review|review=True|source=spices",
       "selected_count": 2
@@ -88,16 +83,11 @@
     {
       "candidate_count": 4,
       "cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:beer",
-      "selected_count": 1
+      "selected_count": 2
     },
     {
       "candidate_count": 1,
       "cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:food",
-      "selected_count": 1
-    },
-    {
-      "candidate_count": 1,
-      "cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:orange",
       "selected_count": 1
     },
     {
@@ -108,12 +98,12 @@
     {
       "candidate_count": 164,
       "cell": "food_cooking|tier=D|band=inventory|review=True|source=food_gloss_pattern",
-      "selected_count": 1
+      "selected_count": 2
     },
     {
       "candidate_count": 5,
       "cell": "food_cooking|tier=C|band=inventory|review=True|source=fish",
-      "selected_count": 1
+      "selected_count": 2
     },
     {
       "candidate_count": 32,
@@ -171,7 +161,7 @@
       "selected_count": 1
     },
     {
-      "candidate_count": 67,
+      "candidate_count": 66,
       "cell": "food_cooking|tier=C|band=medium|review=True|source=legumes",
       "selected_count": 1
     },
@@ -331,7 +321,7 @@
       "selected_count": 1
     },
     {
-      "candidate_count": 2,
+      "candidate_count": 1,
       "cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:lemon",
       "selected_count": 1
     },
@@ -383,11 +373,6 @@
     {
       "candidate_count": 3,
       "cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:sugar",
-      "selected_count": 1
-    },
-    {
-      "candidate_count": 1,
-      "cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:tea",
       "selected_count": 1
     },
     {
@@ -449,20 +434,20 @@
       "message": "Already reviewed current-frontier candidates were excluded from this packet."
     }
   ],
-  "generated_at": "2026-05-19T01:37:29+00:00",
+  "generated_at": "2026-05-19T02:38:12+00:00",
   "inputs": {
     "audit_decision": "food_cooking_full_source_candidate_inventory_ready",
-    "audit_generated_at": "2026-05-19T01:37:29+00:00",
+    "audit_generated_at": "2026-05-19T02:38:12+00:00",
     "audit_json": "",
     "excluded_current_frontier_lemma_count": 1984,
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
     "labels_json": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-    "labels_review_id": "srs_food_cooking_full_source_review_en_es_v1",
+    "labels_review_id": "srs_food_cooking_full_source_review_en_es_v2",
     "labels_state": "agent_labeled_pending_user_approval",
     "max_rows": 96,
     "sample_per_cell": 4,
-    "signal_policy_id": "srs_food_cooking_existing_signal_policy_en_es_v1",
+    "signal_policy_id": "srs_food_cooking_existing_signal_policy_en_es_v2",
     "signal_policy_json": "docs/test_inputs/srs_food_cooking_signal_policy_en_es.json",
     "source_scope": "full_local_kaikki_minus_current_frontier",
     "top_n": 10000
@@ -473,7 +458,7 @@
     "invalid_decision_review_ids": [],
     "labels_json": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
     "labels_provided": true,
-    "labels_review_id": "srs_food_cooking_full_source_review_en_es_v1",
+    "labels_review_id": "srs_food_cooking_full_source_review_en_es_v2",
     "labels_state": "agent_labeled_pending_user_approval",
     "mismatched_review_ids": [],
     "missing_review_ids": [],
@@ -1147,11 +1132,86 @@
           "confidence_band": "review",
           "evidence_type": "allowlisted_category_or_tag",
           "family": "food_cooking",
-          "lemma": "claudia",
+          "lemma": "chocho",
           "review_required": true,
           "score": 0.5054,
           "snippet": "",
-          "source_channel": "sense_categories",
+          "source_channel": "entry_categories",
+          "source_label": "fruits",
+          "specificity": 0.95,
+          "tier": "C"
+        },
+        {
+          "ambiguity_penalty": 0.7,
+          "base_confidence": 0.62,
+          "confidence_band": "inventory",
+          "evidence_type": "narrow_gloss_pattern",
+          "family": "food_cooking",
+          "lemma": "chocho",
+          "review_required": true,
+          "score": 0.3689,
+          "snippet": "lupin beans, lupin fruit",
+          "source_channel": "gloss_or_translation",
+          "source_label": "food_gloss_pattern",
+          "specificity": 0.85,
+          "tier": "D"
+        },
+        {
+          "ambiguity_penalty": 0.49,
+          "base_confidence": 0.76,
+          "confidence_band": "inventory",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "chocho",
+          "review_required": true,
+          "score": 0.35378,
+          "snippet": "",
+          "source_channel": "entry_categories",
+          "source_label": "fruits",
+          "specificity": 0.95,
+          "tier": "C"
+        },
+        {
+          "ambiguity_penalty": 0.49,
+          "base_confidence": 0.76,
+          "confidence_band": "inventory",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "chocho",
+          "review_required": true,
+          "score": 0.35378,
+          "snippet": "",
+          "source_channel": "entry_categories",
+          "source_label": "fruits",
+          "specificity": 0.95,
+          "tier": "C"
+        },
+        {
+          "ambiguity_penalty": 0.49,
+          "base_confidence": 0.76,
+          "confidence_band": "inventory",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "chocho",
+          "review_required": true,
+          "score": 0.35378,
+          "snippet": "",
+          "source_channel": "entry_categories",
+          "source_label": "fruits",
+          "specificity": 0.95,
+          "tier": "C"
+        },
+        {
+          "ambiguity_penalty": 0.49,
+          "base_confidence": 0.76,
+          "confidence_band": "inventory",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "chocho",
+          "review_required": true,
+          "score": 0.35378,
+          "snippet": "",
+          "source_channel": "entry_categories",
           "source_label": "fruits",
           "specificity": 0.95,
           "tier": "C"
@@ -1159,7 +1219,7 @@
       ],
       "evidence_type": "allowlisted_category_or_tag",
       "family": "food_cooking",
-      "lemma": "claudia",
+      "lemma": "chocho",
       "manual_review": {
         "allowed_decisions": [
           "accept_strong_topic",
@@ -1168,9 +1228,9 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "reject_secondary_or_obscure_sense",
+        "decision": "accept_light_topic",
         "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "Greengage sense exists, but the dominant entry is a given name.",
+        "notes": "Lupin bean/sweet senses are food-related, but slang/person senses compete.",
         "reviewed_at": "2026-05-19",
         "reviewer": "codex_agent",
         "state": "agent_labeled_pending_user_approval"
@@ -1179,7 +1239,7 @@
       "review_id": "srs-food-009",
       "review_required_by_policy": true,
       "snippet": "",
-      "source_channel": "sense_categories",
+      "source_channel": "entry_categories",
       "source_label": "fruits"
     },
     {
@@ -1548,127 +1608,6 @@
     },
     {
       "best_tier": "C",
-      "confidence": 0.5453,
-      "confidence_band": "review",
-      "evidence": [
-        {
-          "ambiguity_penalty": 0.7,
-          "base_confidence": 0.82,
-          "confidence_band": "review",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "loco",
-          "review_required": true,
-          "score": 0.5453,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "seafood",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.7,
-          "base_confidence": 0.78,
-          "confidence_band": "review",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "loco",
-          "review_required": true,
-          "score": 0.5187,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "legumes",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.82,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "loco",
-          "review_required": true,
-          "score": 0.38171,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "seafood",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.82,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "loco",
-          "review_required": true,
-          "score": 0.38171,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "seafood",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.82,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "loco",
-          "review_required": true,
-          "score": 0.38171,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "seafood",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.82,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "loco",
-          "review_required": true,
-          "score": 0.38171,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "seafood",
-          "specificity": 0.95,
-          "tier": "C"
-        }
-      ],
-      "evidence_type": "allowlisted_category_or_tag",
-      "family": "food_cooking",
-      "lemma": "loco",
-      "manual_review": {
-        "allowed_decisions": [
-          "accept_strong_topic",
-          "accept_light_topic",
-          "reject_wrong_topic",
-          "reject_secondary_or_obscure_sense",
-          "uncertain_needs_source_check"
-        ],
-        "decision": "reject_secondary_or_obscure_sense",
-        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "Seafood sense is buried under dominant adjective/person senses.",
-        "reviewed_at": "2026-05-19",
-        "reviewer": "codex_agent",
-        "state": "agent_labeled_pending_user_approval"
-      },
-      "review_cell": "food_cooking|tier=C|band=review|review=True|source=seafood",
-      "review_id": "srs-food-014",
-      "review_required_by_policy": true,
-      "snippet": "",
-      "source_channel": "entry_categories",
-      "source_label": "seafood"
-    },
-    {
-      "best_tier": "C",
       "confidence": 0.5586,
       "confidence_band": "review",
       "evidence": [
@@ -1767,7 +1706,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices",
-      "review_id": "srs-food-015",
+      "review_id": "srs-food-014",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -1888,7 +1827,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices_and_herbs",
-      "review_id": "srs-food-016",
+      "review_id": "srs-food-015",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -1934,7 +1873,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=vegetables",
-      "review_id": "srs-food-017",
+      "review_id": "srs-food-016",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -1980,7 +1919,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:beer",
-      "review_id": "srs-food-018",
+      "review_id": "srs-food-017",
       "review_required_by_policy": true,
       "snippet": "beer",
       "source_channel": "translation",
@@ -2026,57 +1965,11 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:food",
-      "review_id": "srs-food-019",
+      "review_id": "srs-food-018",
       "review_required_by_policy": true,
       "snippet": "food",
       "source_channel": "translation",
       "source_label": "primary_translation:food"
-    },
-    {
-      "best_tier": "B",
-      "confidence": 0.5985,
-      "confidence_band": "review",
-      "evidence": [
-        {
-          "ambiguity_penalty": 0.7,
-          "base_confidence": 0.9,
-          "confidence_band": "review",
-          "evidence_type": "primary_exact_translation",
-          "family": "food_cooking",
-          "lemma": "anaranjado",
-          "review_required": false,
-          "score": 0.5985,
-          "snippet": "orange (the colour of the fruit of an orange tree)",
-          "source_channel": "translation",
-          "source_label": "primary_translation:orange",
-          "specificity": 0.95,
-          "tier": "B"
-        }
-      ],
-      "evidence_type": "primary_exact_translation",
-      "family": "food_cooking",
-      "lemma": "anaranjado",
-      "manual_review": {
-        "allowed_decisions": [
-          "accept_strong_topic",
-          "accept_light_topic",
-          "reject_wrong_topic",
-          "reject_secondary_or_obscure_sense",
-          "uncertain_needs_source_check"
-        ],
-        "decision": "reject_wrong_topic",
-        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "The matched sense is orange color, not orange fruit or food.",
-        "reviewed_at": "2026-05-19",
-        "reviewer": "codex_agent",
-        "state": "agent_labeled_pending_user_approval"
-      },
-      "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:orange",
-      "review_id": "srs-food-020",
-      "review_required_by_policy": true,
-      "snippet": "orange (the colour of the fruit of an orange tree)",
-      "source_channel": "translation",
-      "source_label": "primary_translation:orange"
     },
     {
       "best_tier": "B",
@@ -2133,7 +2026,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:tomato",
-      "review_id": "srs-food-021",
+      "review_id": "srs-food-019",
       "review_required_by_policy": true,
       "snippet": "tomato (usually red)",
       "source_channel": "translation",
@@ -2179,7 +2072,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=inventory|review=True|source=food_gloss_pattern",
-      "review_id": "srs-food-022",
+      "review_id": "srs-food-020",
       "review_required_by_policy": true,
       "snippet": "slice of meat or fish",
       "source_channel": "gloss_or_translation",
@@ -2225,7 +2118,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=inventory|review=True|source=fish",
-      "review_id": "srs-food-023",
+      "review_id": "srs-food-021",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2286,7 +2179,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=alcoholic_beverages",
-      "review_id": "srs-food-024",
+      "review_id": "srs-food-022",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2407,7 +2300,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=beverages",
-      "review_id": "srs-food-025",
+      "review_id": "srs-food-023",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -2468,7 +2361,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=breads",
-      "review_id": "srs-food-026",
+      "review_id": "srs-food-024",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2529,7 +2422,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=cheeses",
-      "review_id": "srs-food-027",
+      "review_id": "srs-food-025",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2590,7 +2483,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=dairy_products",
-      "review_id": "srs-food-028",
+      "review_id": "srs-food-026",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -2651,7 +2544,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=desserts",
-      "review_id": "srs-food-029",
+      "review_id": "srs-food-027",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2712,7 +2605,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=fish",
-      "review_id": "srs-food-030",
+      "review_id": "srs-food-028",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -2773,7 +2666,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=foods",
-      "review_id": "srs-food-031",
+      "review_id": "srs-food-029",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2849,7 +2742,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=fruits",
-      "review_id": "srs-food-032",
+      "review_id": "srs-food-030",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -2895,7 +2788,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=grains",
-      "review_id": "srs-food-033",
+      "review_id": "srs-food-031",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2941,7 +2834,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=herbs",
-      "review_id": "srs-food-034",
+      "review_id": "srs-food-032",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -2958,7 +2851,7 @@
           "confidence_band": "medium",
           "evidence_type": "allowlisted_category_or_tag",
           "family": "food_cooking",
-          "lemma": "cocobolo",
+          "lemma": "maní forrajero",
           "review_required": true,
           "score": 0.741,
           "snippet": "",
@@ -2970,7 +2863,7 @@
       ],
       "evidence_type": "allowlisted_category_or_tag",
       "family": "food_cooking",
-      "lemma": "cocobolo",
+      "lemma": "maní forrajero",
       "manual_review": {
         "allowed_decisions": [
           "accept_strong_topic",
@@ -2981,13 +2874,13 @@
         ],
         "decision": "reject_wrong_topic",
         "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "Legume category is misleading here; dominant meaning is a tree/wood, not food.",
+        "notes": "Pinto peanut/forage crop is botanical or fodder vocabulary here, not learner-facing food/cooking vocabulary.",
         "reviewed_at": "2026-05-19",
         "reviewer": "codex_agent",
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=legumes",
-      "review_id": "srs-food-035",
+      "review_id": "srs-food-033",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -3033,7 +2926,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=meats",
-      "review_id": "srs-food-036",
+      "review_id": "srs-food-034",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -3094,7 +2987,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=nuts",
-      "review_id": "srs-food-037",
+      "review_id": "srs-food-035",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -3155,7 +3048,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=sauces",
-      "review_id": "srs-food-038",
+      "review_id": "srs-food-036",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -3216,7 +3109,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=seafood",
-      "review_id": "srs-food-039",
+      "review_id": "srs-food-037",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -3307,7 +3200,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=soups",
-      "review_id": "srs-food-040",
+      "review_id": "srs-food-038",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -3428,7 +3321,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=spices",
-      "review_id": "srs-food-041",
+      "review_id": "srs-food-039",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -3489,7 +3382,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=spices_and_herbs",
-      "review_id": "srs-food-042",
+      "review_id": "srs-food-040",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -3535,7 +3428,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=vegetables",
-      "review_id": "srs-food-043",
+      "review_id": "srs-food-041",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -3626,7 +3519,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=high|review=True|source=cooking",
-      "review_id": "srs-food-044",
+      "review_id": "srs-food-042",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -3717,7 +3610,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=medium|review=False|source=cooking",
-      "review_id": "srs-food-045",
+      "review_id": "srs-food-043",
       "review_required_by_policy": false,
       "snippet": "",
       "source_channel": "sense_topics",
@@ -3763,7 +3656,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=medium|review=False|source=food",
-      "review_id": "srs-food-046",
+      "review_id": "srs-food-044",
       "review_required_by_policy": false,
       "snippet": "",
       "source_channel": "sense_topics",
@@ -3854,7 +3747,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:apple",
-      "review_id": "srs-food-047",
+      "review_id": "srs-food-045",
       "review_required_by_policy": false,
       "snippet": "apple",
       "source_channel": "translation",
@@ -3960,7 +3853,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:banana",
-      "review_id": "srs-food-048",
+      "review_id": "srs-food-046",
       "review_required_by_policy": false,
       "snippet": "banana (fruit)",
       "source_channel": "translation",
@@ -4036,7 +3929,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:bean",
-      "review_id": "srs-food-049",
+      "review_id": "srs-food-047",
       "review_required_by_policy": false,
       "snippet": "bean",
       "source_channel": "translation",
@@ -4097,7 +3990,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:beef",
-      "review_id": "srs-food-050",
+      "review_id": "srs-food-048",
       "review_required_by_policy": false,
       "snippet": "beef",
       "source_channel": "translation",
@@ -4143,7 +4036,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:beer",
-      "review_id": "srs-food-051",
+      "review_id": "srs-food-049",
       "review_required_by_policy": false,
       "snippet": "beer",
       "source_channel": "translation",
@@ -4264,7 +4157,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:bread",
-      "review_id": "srs-food-052",
+      "review_id": "srs-food-050",
       "review_required_by_policy": false,
       "snippet": "bread (food made by baking cereal dough)",
       "source_channel": "translation",
@@ -4325,7 +4218,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:butter",
-      "review_id": "srs-food-053",
+      "review_id": "srs-food-051",
       "review_required_by_policy": false,
       "snippet": "butter",
       "source_channel": "translation",
@@ -4371,7 +4264,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:cheese",
-      "review_id": "srs-food-054",
+      "review_id": "srs-food-052",
       "review_required_by_policy": false,
       "snippet": "cheese",
       "source_channel": "translation",
@@ -4492,7 +4385,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:chicken",
-      "review_id": "srs-food-055",
+      "review_id": "srs-food-053",
       "review_required_by_policy": false,
       "snippet": "chicken (meat)",
       "source_channel": "translation",
@@ -4538,7 +4431,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:coffee",
-      "review_id": "srs-food-056",
+      "review_id": "srs-food-054",
       "review_required_by_policy": false,
       "snippet": "coffee",
       "source_channel": "translation",
@@ -4599,7 +4492,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:corn",
-      "review_id": "srs-food-057",
+      "review_id": "srs-food-055",
       "review_required_by_policy": false,
       "snippet": "corn, maize",
       "source_channel": "translation",
@@ -4645,7 +4538,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:dessert",
-      "review_id": "srs-food-058",
+      "review_id": "srs-food-056",
       "review_required_by_policy": false,
       "snippet": "dessert; sweet",
       "source_channel": "translation",
@@ -4691,7 +4584,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:dish",
-      "review_id": "srs-food-059",
+      "review_id": "srs-food-057",
       "review_required_by_policy": false,
       "snippet": "a dish, often of crystal, for storing or serving syrupy sweets, honey, etc.",
       "source_channel": "translation",
@@ -4737,7 +4630,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:drink",
-      "review_id": "srs-food-060",
+      "review_id": "srs-food-058",
       "review_required_by_policy": false,
       "snippet": "drink, beverage; liquid that is drunk",
       "source_channel": "translation",
@@ -4798,7 +4691,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:egg",
-      "review_id": "srs-food-061",
+      "review_id": "srs-food-059",
       "review_required_by_policy": false,
       "snippet": "egg",
       "source_channel": "translation",
@@ -4889,7 +4782,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:fish",
-      "review_id": "srs-food-062",
+      "review_id": "srs-food-060",
       "review_required_by_policy": false,
       "snippet": "fish (especially while alive)",
       "source_channel": "translation",
@@ -4965,7 +4858,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:food",
-      "review_id": "srs-food-063",
+      "review_id": "srs-food-061",
       "review_required_by_policy": false,
       "snippet": "food, viands (items of food served as a meal)",
       "source_channel": "translation",
@@ -5086,7 +4979,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:fruit",
-      "review_id": "srs-food-064",
+      "review_id": "srs-food-062",
       "review_required_by_policy": false,
       "snippet": "fruit (the seed-bearing part of a plant)",
       "source_channel": "translation",
@@ -5192,7 +5085,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:garlic",
-      "review_id": "srs-food-065",
+      "review_id": "srs-food-063",
       "review_required_by_policy": false,
       "snippet": "garlic",
       "source_channel": "translation",
@@ -5253,7 +5146,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:grape",
-      "review_id": "srs-food-066",
+      "review_id": "srs-food-064",
       "review_required_by_policy": false,
       "snippet": "grape",
       "source_channel": "translation",
@@ -5270,19 +5163,64 @@
           "confidence_band": "high",
           "evidence_type": "primary_exact_translation",
           "family": "food_cooking",
-          "lemma": "limonero",
+          "lemma": "limón",
           "review_required": false,
           "score": 0.855,
-          "snippet": "lemon, lemon tree",
+          "snippet": "lemon (fruit)",
           "source_channel": "translation",
           "source_label": "primary_translation:lemon",
           "specificity": 0.95,
           "tier": "B"
+        },
+        {
+          "ambiguity_penalty": 1.0,
+          "base_confidence": 0.76,
+          "confidence_band": "medium",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "limón",
+          "review_required": true,
+          "score": 0.722,
+          "snippet": "",
+          "source_channel": "entry_categories",
+          "source_label": "fruits",
+          "specificity": 0.95,
+          "tier": "C"
+        },
+        {
+          "ambiguity_penalty": 0.7,
+          "base_confidence": 0.76,
+          "confidence_band": "review",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "limón",
+          "review_required": true,
+          "score": 0.5054,
+          "snippet": "",
+          "source_channel": "entry_categories",
+          "source_label": "fruits",
+          "specificity": 0.95,
+          "tier": "C"
+        },
+        {
+          "ambiguity_penalty": 0.7,
+          "base_confidence": 0.62,
+          "confidence_band": "inventory",
+          "evidence_type": "narrow_gloss_pattern",
+          "family": "food_cooking",
+          "lemma": "limón",
+          "review_required": true,
+          "score": 0.3689,
+          "snippet": "lime (fruit) (north america) lime (fruit)",
+          "source_channel": "gloss_or_translation",
+          "source_label": "food_gloss_pattern",
+          "specificity": 0.85,
+          "tier": "D"
         }
       ],
       "evidence_type": "primary_exact_translation",
       "family": "food_cooking",
-      "lemma": "limonero",
+      "lemma": "limón",
       "manual_review": {
         "allowed_decisions": [
           "accept_strong_topic",
@@ -5291,17 +5229,17 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "reject_wrong_topic",
+        "decision": "accept_strong_topic",
         "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "Matched lemon via tree/seller senses; dominant meaning is not food.",
+        "notes": "Direct lemon fruit vocabulary.",
         "reviewed_at": "2026-05-19",
         "reviewer": "codex_agent",
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:lemon",
-      "review_id": "srs-food-067",
+      "review_id": "srs-food-065",
       "review_required_by_policy": false,
-      "snippet": "lemon, lemon tree",
+      "snippet": "lemon (fruit)",
       "source_channel": "translation",
       "source_label": "primary_translation:lemon"
     },
@@ -5345,7 +5283,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:maize",
-      "review_id": "srs-food-068",
+      "review_id": "srs-food-066",
       "review_required_by_policy": false,
       "snippet": "maize, corn (also the plant)",
       "source_channel": "translation",
@@ -5466,7 +5404,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:meat",
-      "review_id": "srs-food-069",
+      "review_id": "srs-food-067",
       "review_required_by_policy": false,
       "snippet": "meat; flesh (culinary term)",
       "source_channel": "translation",
@@ -5542,7 +5480,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:oil",
-      "review_id": "srs-food-070",
+      "review_id": "srs-food-068",
       "review_required_by_policy": false,
       "snippet": "oil",
       "source_channel": "translation",
@@ -5603,7 +5541,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:onion",
-      "review_id": "srs-food-071",
+      "review_id": "srs-food-069",
       "review_required_by_policy": false,
       "snippet": "onion",
       "source_channel": "translation",
@@ -5679,7 +5617,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:pepper",
-      "review_id": "srs-food-072",
+      "review_id": "srs-food-070",
       "review_required_by_policy": false,
       "snippet": "pepper (fruit of the capsicum)",
       "source_channel": "translation",
@@ -5785,7 +5723,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:potato",
-      "review_id": "srs-food-073",
+      "review_id": "srs-food-071",
       "review_required_by_policy": false,
       "snippet": "potato",
       "source_channel": "translation",
@@ -5831,7 +5769,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:salt",
-      "review_id": "srs-food-074",
+      "review_id": "srs-food-072",
       "review_required_by_policy": false,
       "snippet": "salt; table salt",
       "source_channel": "translation",
@@ -5877,7 +5815,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:sauce",
-      "review_id": "srs-food-075",
+      "review_id": "srs-food-073",
       "review_required_by_policy": false,
       "snippet": "sauce",
       "source_channel": "translation",
@@ -5923,7 +5861,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:soup",
-      "review_id": "srs-food-076",
+      "review_id": "srs-food-074",
       "review_required_by_policy": false,
       "snippet": "a soup, commonly found in costa rica, made with black beans and other ingredients",
       "source_channel": "translation",
@@ -5969,57 +5907,11 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:sugar",
-      "review_id": "srs-food-077",
+      "review_id": "srs-food-075",
       "review_required_by_policy": false,
       "snippet": "sugar",
       "source_channel": "translation",
       "source_label": "primary_translation:sugar"
-    },
-    {
-      "best_tier": "B",
-      "confidence": 0.855,
-      "confidence_band": "high",
-      "evidence": [
-        {
-          "ambiguity_penalty": 1.0,
-          "base_confidence": 0.9,
-          "confidence_band": "high",
-          "evidence_type": "primary_exact_translation",
-          "family": "food_cooking",
-          "lemma": "cha",
-          "review_required": false,
-          "score": 0.855,
-          "snippet": "tea",
-          "source_channel": "translation",
-          "source_label": "primary_translation:tea",
-          "specificity": 0.95,
-          "tier": "B"
-        }
-      ],
-      "evidence_type": "primary_exact_translation",
-      "family": "food_cooking",
-      "lemma": "cha",
-      "manual_review": {
-        "allowed_decisions": [
-          "accept_strong_topic",
-          "accept_light_topic",
-          "reject_wrong_topic",
-          "reject_secondary_or_obscure_sense",
-          "uncertain_needs_source_check"
-        ],
-        "decision": "reject_secondary_or_obscure_sense",
-        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "Tea sense is historical/Philippine Spanish and too obscure for product lift.",
-        "reviewed_at": "2026-05-19",
-        "reviewer": "codex_agent",
-        "state": "agent_labeled_pending_user_approval"
-      },
-      "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:tea",
-      "review_id": "srs-food-078",
-      "review_required_by_policy": false,
-      "snippet": "tea",
-      "source_channel": "translation",
-      "source_label": "primary_translation:tea"
     },
     {
       "best_tier": "B",
@@ -6136,7 +6028,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:tomato",
-      "review_id": "srs-food-079",
+      "review_id": "srs-food-076",
       "review_required_by_policy": false,
       "snippet": "tomato (plant)",
       "source_channel": "translation",
@@ -6182,7 +6074,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:vegetable",
-      "review_id": "srs-food-080",
+      "review_id": "srs-food-077",
       "review_required_by_policy": false,
       "snippet": "vegetable",
       "source_channel": "translation",
@@ -6243,7 +6135,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:wheat",
-      "review_id": "srs-food-081",
+      "review_id": "srs-food-078",
       "review_required_by_policy": false,
       "snippet": "wheat",
       "source_channel": "translation",
@@ -6334,7 +6226,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=high|review=False|source=cooking",
-      "review_id": "srs-food-082",
+      "review_id": "srs-food-079",
       "review_required_by_policy": false,
       "snippet": "",
       "source_channel": "sense_topics",
@@ -6380,7 +6272,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=high|review=False|source=food",
-      "review_id": "srs-food-083",
+      "review_id": "srs-food-080",
       "review_required_by_policy": false,
       "snippet": "",
       "source_channel": "sense_topics",
@@ -6426,7 +6318,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=review|review=True|source=food_gloss_pattern",
-      "review_id": "srs-food-084",
+      "review_id": "srs-food-081",
       "review_required_by_policy": true,
       "snippet": "to dine; to have supper; to have a lavish meal",
       "source_channel": "gloss_or_translation",
@@ -6472,7 +6364,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=review|review=True|source=food_translation_pattern",
-      "review_id": "srs-food-085",
+      "review_id": "srs-food-082",
       "review_required_by_policy": true,
       "snippet": "fruit salad",
       "source_channel": "translation",
@@ -6578,7 +6470,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=beverages",
-      "review_id": "srs-food-086",
+      "review_id": "srs-food-083",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -6699,7 +6591,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=desserts",
-      "review_id": "srs-food-087",
+      "review_id": "srs-food-084",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -6716,7 +6608,7 @@
           "confidence_band": "review",
           "evidence_type": "allowlisted_category_or_tag",
           "family": "food_cooking",
-          "lemma": "morena",
+          "lemma": "artrodiro",
           "review_required": true,
           "score": 0.4921,
           "snippet": "",
@@ -6724,26 +6616,11 @@
           "source_label": "fish",
           "specificity": 0.95,
           "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.7,
-          "base_confidence": 0.74,
-          "confidence_band": "review",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "morena",
-          "review_required": true,
-          "score": 0.4921,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "fish",
-          "specificity": 0.95,
-          "tier": "C"
         }
       ],
       "evidence_type": "allowlisted_category_or_tag",
       "family": "food_cooking",
-      "lemma": "morena",
+      "lemma": "artrodiro",
       "manual_review": {
         "allowed_decisions": [
           "accept_strong_topic",
@@ -6752,15 +6629,15 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "reject_secondary_or_obscure_sense",
+        "decision": "reject_wrong_topic",
         "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "Moray/fish sense is not enough for food lift against dominant person/name senses.",
+        "notes": "Extinct zoological fish term, not food/cooking vocabulary.",
         "reviewed_at": "2026-05-19",
         "reviewer": "codex_agent",
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=fish",
-      "review_id": "srs-food-088",
+      "review_id": "srs-food-085",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -6851,7 +6728,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=foods",
-      "review_id": "srs-food-089",
+      "review_id": "srs-food-086",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -6868,86 +6745,11 @@
           "confidence_band": "review",
           "evidence_type": "allowlisted_category_or_tag",
           "family": "food_cooking",
-          "lemma": "chocho",
+          "lemma": "pavía",
           "review_required": true,
           "score": 0.5054,
           "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "fruits",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.7,
-          "base_confidence": 0.62,
-          "confidence_band": "inventory",
-          "evidence_type": "narrow_gloss_pattern",
-          "family": "food_cooking",
-          "lemma": "chocho",
-          "review_required": true,
-          "score": 0.3689,
-          "snippet": "lupin beans, lupin fruit",
-          "source_channel": "gloss_or_translation",
-          "source_label": "food_gloss_pattern",
-          "specificity": 0.85,
-          "tier": "D"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.76,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "chocho",
-          "review_required": true,
-          "score": 0.35378,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "fruits",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.76,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "chocho",
-          "review_required": true,
-          "score": 0.35378,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "fruits",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.76,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "chocho",
-          "review_required": true,
-          "score": 0.35378,
-          "snippet": "",
-          "source_channel": "entry_categories",
-          "source_label": "fruits",
-          "specificity": 0.95,
-          "tier": "C"
-        },
-        {
-          "ambiguity_penalty": 0.49,
-          "base_confidence": 0.76,
-          "confidence_band": "inventory",
-          "evidence_type": "allowlisted_category_or_tag",
-          "family": "food_cooking",
-          "lemma": "chocho",
-          "review_required": true,
-          "score": 0.35378,
-          "snippet": "",
-          "source_channel": "entry_categories",
+          "source_channel": "sense_categories",
           "source_label": "fruits",
           "specificity": 0.95,
           "tier": "C"
@@ -6955,7 +6757,7 @@
       ],
       "evidence_type": "allowlisted_category_or_tag",
       "family": "food_cooking",
-      "lemma": "chocho",
+      "lemma": "pavía",
       "manual_review": {
         "allowed_decisions": [
           "accept_strong_topic",
@@ -6964,18 +6766,18 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "accept_light_topic",
+        "decision": "reject_secondary_or_obscure_sense",
         "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
-        "notes": "Lupin bean/sweet senses are food-related, but slang/person senses compete.",
+        "notes": "Fruit-variety sense exists, but dominant entries are Italian place names and the food sense is too secondary.",
         "reviewed_at": "2026-05-19",
         "reviewer": "codex_agent",
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=fruits",
-      "review_id": "srs-food-090",
+      "review_id": "srs-food-087",
       "review_required_by_policy": true,
       "snippet": "",
-      "source_channel": "entry_categories",
+      "source_channel": "sense_categories",
       "source_label": "fruits"
     },
     {
@@ -7033,7 +6835,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=herbs",
-      "review_id": "srs-food-091",
+      "review_id": "srs-food-088",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -7079,7 +6881,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=legumes",
-      "review_id": "srs-food-092",
+      "review_id": "srs-food-089",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
@@ -7170,7 +6972,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=meats",
-      "review_id": "srs-food-093",
+      "review_id": "srs-food-090",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -7291,7 +7093,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices",
-      "review_id": "srs-food-094",
+      "review_id": "srs-food-091",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -7352,7 +7154,7 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices_and_herbs",
-      "review_id": "srs-food-095",
+      "review_id": "srs-food-092",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "entry_categories",
@@ -7398,32 +7200,185 @@
         "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=vegetables",
-      "review_id": "srs-food-096",
+      "review_id": "srs-food-093",
       "review_required_by_policy": true,
       "snippet": "",
       "source_channel": "sense_categories",
       "source_label": "vegetables"
+    },
+    {
+      "best_tier": "B",
+      "confidence": 0.5985,
+      "confidence_band": "review",
+      "evidence": [
+        {
+          "ambiguity_penalty": 0.7,
+          "base_confidence": 0.9,
+          "confidence_band": "review",
+          "evidence_type": "primary_exact_translation",
+          "family": "food_cooking",
+          "lemma": "chela",
+          "review_required": false,
+          "score": 0.5985,
+          "snippet": "beer",
+          "source_channel": "translation",
+          "source_label": "primary_translation:beer",
+          "specificity": 0.95,
+          "tier": "B"
+        },
+        {
+          "ambiguity_penalty": 0.7,
+          "base_confidence": 0.84,
+          "confidence_band": "review",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "chela",
+          "review_required": true,
+          "score": 0.5586,
+          "snippet": "",
+          "source_channel": "entry_categories",
+          "source_label": "alcoholic_beverages",
+          "specificity": 0.95,
+          "tier": "C"
+        }
+      ],
+      "evidence_type": "primary_exact_translation",
+      "family": "food_cooking",
+      "lemma": "chela",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Beer sense is real food/drink vocabulary, but regional slang keeps it light.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:beer",
+      "review_id": "srs-food-094",
+      "review_required_by_policy": true,
+      "snippet": "beer",
+      "source_channel": "translation",
+      "source_label": "primary_translation:beer"
+    },
+    {
+      "best_tier": "D",
+      "confidence": 0.3689,
+      "confidence_band": "inventory",
+      "evidence": [
+        {
+          "ambiguity_penalty": 0.7,
+          "base_confidence": 0.62,
+          "confidence_band": "inventory",
+          "evidence_type": "narrow_gloss_pattern",
+          "family": "food_cooking",
+          "lemma": "carnívoro",
+          "review_required": true,
+          "score": 0.3689,
+          "snippet": "carnivore (meat-eating animal)",
+          "source_channel": "gloss_or_translation",
+          "source_label": "food_gloss_pattern",
+          "specificity": 0.85,
+          "tier": "D"
+        }
+      ],
+      "evidence_type": "narrow_gloss_pattern",
+      "family": "food_cooking",
+      "lemma": "carnívoro",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_wrong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Meat-eating animal/person vocabulary, not food or cooking vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "review_cell": "food_cooking|tier=D|band=inventory|review=True|source=food_gloss_pattern",
+      "review_id": "srs-food-095",
+      "review_required_by_policy": true,
+      "snippet": "carnivore (meat-eating animal)",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern"
+    },
+    {
+      "best_tier": "C",
+      "confidence": 0.34447,
+      "confidence_band": "inventory",
+      "evidence": [
+        {
+          "ambiguity_penalty": 0.49,
+          "base_confidence": 0.74,
+          "confidence_band": "inventory",
+          "evidence_type": "allowlisted_category_or_tag",
+          "family": "food_cooking",
+          "lemma": "reo",
+          "review_required": true,
+          "score": 0.34447,
+          "snippet": "",
+          "source_channel": "sense_categories",
+          "source_label": "fish",
+          "specificity": 0.95,
+          "tier": "C"
+        }
+      ],
+      "evidence_type": "allowlisted_category_or_tag",
+      "family": "food_cooking",
+      "lemma": "reo",
+      "manual_review": {
+        "allowed_decisions": [
+          "accept_strong_topic",
+          "accept_light_topic",
+          "reject_wrong_topic",
+          "reject_secondary_or_obscure_sense",
+          "uncertain_needs_source_check"
+        ],
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Sea-trout sense exists, but legal/criminal senses dominate and the fish sense is too secondary for food lift.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
+      },
+      "review_cell": "food_cooking|tier=C|band=inventory|review=True|source=fish",
+      "review_id": "srs-food-096",
+      "review_required_by_policy": true,
+      "snippet": "",
+      "source_channel": "sense_categories",
+      "source_label": "fish"
     }
   ],
   "schema_version": 1,
   "status": "ok",
   "summary": {
-    "candidate_count": 2083,
+    "candidate_count": 2076,
     "candidate_counts_by_band": {
-      "high": 152,
+      "high": 150,
       "inventory": 169,
-      "medium": 1118,
-      "review": 644
+      "medium": 1117,
+      "review": 640
     },
     "candidate_counts_by_tier": {
       "A": 78,
-      "B": 77,
-      "C": 1188,
+      "B": 74,
+      "C": 1184,
       "D": 740
     },
-    "cell_count": 83,
+    "cell_count": 80,
     "excluded_current_frontier_candidate_count": 46,
-    "expansion_candidate_count": 2083,
+    "expansion_candidate_count": 2076,
     "finding_counts": {
       "PASS": 6
     },
@@ -7432,9 +7387,9 @@
     "label_missing_count": 0,
     "labeled_row_count": 96,
     "manual_decision_counts": {
-      "accept_light_topic": 36,
-      "accept_strong_topic": 53,
-      "reject_secondary_or_obscure_sense": 4,
+      "accept_light_topic": 37,
+      "accept_strong_topic": 54,
+      "reject_secondary_or_obscure_sense": 2,
       "reject_wrong_topic": 3
     },
     "manual_state_counts": {
@@ -7442,19 +7397,19 @@
     },
     "review_queue_count": 96,
     "review_rows_by_band": {
-      "high": 38,
-      "inventory": 2,
+      "high": 37,
+      "inventory": 4,
       "medium": 22,
-      "review": 34
+      "review": 33
     },
     "review_rows_by_tier": {
       "A": 4,
-      "B": 39,
+      "B": 38,
       "C": 48,
-      "D": 5
+      "D": 6
     },
-    "selected_cell_count": 83,
-    "source_candidate_count": 2129,
+    "selected_cell_count": 80,
+    "source_candidate_count": 2122,
     "warnings": []
   }
 }

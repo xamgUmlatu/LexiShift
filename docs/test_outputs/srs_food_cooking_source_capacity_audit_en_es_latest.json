@@ -426,7 +426,7 @@
       }
     ],
     "frequency_lemma_count": 1984,
-    "outside_current_candidate_count": 2083,
+    "outside_current_candidate_count": 2076,
     "outside_current_examples": [
       {
         "best_tier": "A",
@@ -688,7 +688,7 @@
       "message": "Common food probes missing from the current frontier: comida, cocinar, cocina, agua, vino, pan, arroz, pollo, carne, huevo, leche, queso."
     }
   ],
-  "generated_at": "2026-05-19T01:00:38+00:00",
+  "generated_at": "2026-05-19T02:39:09+00:00",
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -698,17 +698,17 @@
   "limitations": [
     "This audit uses installed local Kaikki/Wiktionary rows and the current food/cooking policy only.",
     "It does not download sources, mutate packs, write overlays, or change admission behavior.",
-    "Full-source capacity is not precision-reviewed; review labels currently apply only to the current CDE packet.",
+    "Source-capacity totals are not precision-reviewed; use the full-source review packet for sampled precision.",
     "The common probe list is diagnostic and intentionally small."
   ],
   "schema_version": 1,
   "source_capacity": {
-    "candidate_count": 2129,
+    "candidate_count": 2122,
     "confidence_band_counts": {
-      "high": 154,
+      "high": 152,
       "inventory": 179,
-      "medium": 1143,
-      "review": 653
+      "medium": 1142,
+      "review": 649
     },
     "examples": [
       {
@@ -894,8 +894,8 @@
     ],
     "tier_counts": {
       "A": 80,
-      "B": 79,
-      "C": 1213,
+      "B": 76,
+      "C": 1209,
       "D": 757
     },
     "top_source_labels": [
@@ -912,11 +912,11 @@
         "label": "food_translation_pattern"
       },
       {
-        "count": 135,
+        "count": 134,
         "label": "fruits"
       },
       {
-        "count": 111,
+        "count": 110,
         "label": "fish"
       },
       {
@@ -936,7 +936,7 @@
         "label": "sauces"
       },
       {
-        "count": 70,
+        "count": 69,
         "label": "legumes"
       },
       {
@@ -949,11 +949,11 @@
       },
       {
         "count": 42,
-        "label": "seafood"
+        "label": "desserts"
       },
       {
-        "count": 42,
-        "label": "desserts"
+        "count": 41,
+        "label": "seafood"
       },
       {
         "count": 33,
