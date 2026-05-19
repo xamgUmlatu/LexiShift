@@ -209,6 +209,12 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
 - Current CDE food/cooking review packet:
   `docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
+- Current CDE food/cooking review labels:
+  `docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json`
+- Food/cooking source-capacity audit:
+  `docs/test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
+- Food/cooking review and coverage plan:
+  `docs/srs/srs_food_cooking_signal_review_and_coverage_plan_en_es.md`
 - SPALEX 10k audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:
@@ -228,3 +234,10 @@ candidate universe (`46 / 46`) because the set is small. Future LPs should use
 that pattern when candidate count is reviewable, then switch to stratified
 sampling only after broader source discovery makes the universe too large for
 complete inspection.
+
+The first food/cooking labels accepted `37 / 46` rows (`19` strong and `18`
+light), which supports the audit policy as a precision screen. The source
+capacity audit found `2,129` local Kaikki/Wiktionary food-signal lemmas but
+only `46` inside the current CDE frequency frontier. For future LPs, this is a
+general warning: topic recall may be bottlenecked by the admitted frequency
+frontier even when the lexical source has enough topic candidates.

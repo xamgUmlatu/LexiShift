@@ -19,6 +19,8 @@ Related docs:
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
+- `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
+- `srs_food_cooking_signal_review_and_coverage_plan_en_es.md`
 
 ## Decision Frame
 
@@ -138,6 +140,14 @@ coverage-complete food vocabulary target; recall expansion still needs broader
 food lexicons, legally usable recipe/food sources, or embedding-assisted
 candidate discovery.
 
+The first labels are stored in
+`../test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json`: `19`
+strong accepts, `18` light accepts, `6` secondary/obscure rejects, and `3`
+wrong-topic rejects. The source-capacity audit reports `2,129` local
+Kaikki/Wiktionary food-signal lemmas under the same policy, with only `46`
+inside the current frequency frontier. That makes the current frontier the
+primary recall bottleneck for food/cooking.
+
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal
 candidates (`1.7%`) and `138 / 10,000` plants/nature candidates (`1.4%`). This
@@ -252,7 +262,9 @@ audit is conservative rather than exhaustive: existing local categories,
 primary translations, and narrow gloss/translation patterns produce `46`
 current-CDE food/cooking candidates, with `42` intentionally review-required
 before any overlay or admission lift.
-The companion review packet includes all `46` rows for pending review.
+The companion review packet includes all `46` rows; labels accept `37` rows as
+real food/cooking signals. A source-capacity audit shows `2,083` additional
+local food-signal lemmas outside the current frequency frontier.
 
 The prior SPALEX 10k research SQLite path is not currently present locally, so
 the audit reports that optional frontier as unavailable and does not download

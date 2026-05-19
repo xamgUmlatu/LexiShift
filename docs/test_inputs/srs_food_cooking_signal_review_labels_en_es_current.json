@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "review_id": "srs_food_cooking_signal_review_en_es_current_v1",
+  "reviewer": "codex_agent",
+  "reviewed_at": "2026-05-19",
+  "state": "agent_labeled_pending_user_approval",
+  "labels": [
+    {
+      "review_id": "srs-food-001",
+      "family": "food_cooking",
+      "lemma": "frutar",
+      "decision": "reject_wrong_topic",
+      "notes": "Fruit-bearing verb; more botany/agriculture than food/cooking vocabulary."
+    },
+    {
+      "review_id": "srs-food-002",
+      "family": "food_cooking",
+      "lemma": "panadero",
+      "decision": "accept_light_topic",
+      "notes": "Baker is cooking/food-profession vocabulary, but not a food item."
+    },
+    {
+      "review_id": "srs-food-003",
+      "family": "food_cooking",
+      "lemma": "piltrafa",
+      "decision": "accept_light_topic",
+      "notes": "Scrap of meat is food-related, but low-value and somewhat obscure."
+    },
+    {
+      "review_id": "srs-food-004",
+      "family": "food_cooking",
+      "lemma": "ronda",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Round of drinks is a secondary collocational sense; dominant meaning is not food/cooking."
+    },
+    {
+      "review_id": "srs-food-005",
+      "family": "food_cooking",
+      "lemma": "pelotazo",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Drink sense is slang/secondary; dominant topic is not food/cooking."
+    },
+    {
+      "review_id": "srs-food-006",
+      "family": "food_cooking",
+      "lemma": "chica",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Spice sense is highly obscure; dominant meaning is not food/cooking."
+    },
+    {
+      "review_id": "srs-food-007",
+      "family": "food_cooking",
+      "lemma": "pote",
+      "decision": "accept_light_topic",
+      "notes": "Stew/pot culinary sense is real, but the word is polysemous."
+    },
+    {
+      "review_id": "srs-food-008",
+      "family": "food_cooking",
+      "lemma": "tamal",
+      "decision": "accept_strong_topic",
+      "notes": "Direct prepared food item."
+    },
+    {
+      "review_id": "srs-food-009",
+      "family": "food_cooking",
+      "lemma": "lomo",
+      "decision": "accept_light_topic",
+      "notes": "Loin/tenderloin culinary sense is real, but body/back senses compete."
+    },
+    {
+      "review_id": "srs-food-010",
+      "family": "food_cooking",
+      "lemma": "farsa",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Gastronomy forcemeat sense is too obscure against the dominant farce/fiction meaning."
+    },
+    {
+      "review_id": "srs-food-011",
+      "family": "food_cooking",
+      "lemma": "morocho",
+      "decision": "accept_light_topic",
+      "notes": "Regional corn-grain sense is food-related, but regionally narrow and polysemous."
+    },
+    {
+      "review_id": "srs-food-012",
+      "family": "food_cooking",
+      "lemma": "picante",
+      "decision": "accept_strong_topic",
+      "notes": "Spicy/hot-sauce/condiment vocabulary is directly food-relevant."
+    },
+    {
+      "review_id": "srs-food-013",
+      "family": "food_cooking",
+      "lemma": "sacar",
+      "decision": "reject_wrong_topic",
+      "notes": "Food appears only as example objects for a general verb."
+    },
+    {
+      "review_id": "srs-food-014",
+      "family": "food_cooking",
+      "lemma": "corazón",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Fruit core sense is secondary; dominant meaning is heart/core generally."
+    },
+    {
+      "review_id": "srs-food-015",
+      "family": "food_cooking",
+      "lemma": "puerco",
+      "decision": "accept_light_topic",
+      "notes": "Pork sense is food-related, but animal/adjectival senses compete."
+    },
+    {
+      "review_id": "srs-food-016",
+      "family": "food_cooking",
+      "lemma": "acompañamiento",
+      "decision": "accept_light_topic",
+      "notes": "Side-dish sense is useful but competes with broader accompaniment meanings."
+    },
+    {
+      "review_id": "srs-food-017",
+      "family": "food_cooking",
+      "lemma": "dulce",
+      "decision": "accept_strong_topic",
+      "notes": "Sweet/candy/dessert vocabulary is directly food-relevant."
+    },
+    {
+      "review_id": "srs-food-018",
+      "family": "food_cooking",
+      "lemma": "falda",
+      "decision": "accept_light_topic",
+      "notes": "Brisket/cut-of-meat sense is real, but skirt/hillside senses compete."
+    },
+    {
+      "review_id": "srs-food-019",
+      "family": "food_cooking",
+      "lemma": "fonda",
+      "decision": "accept_light_topic",
+      "notes": "Food-service venue sense is food-adjacent, not a direct food item."
+    },
+    {
+      "review_id": "srs-food-020",
+      "family": "food_cooking",
+      "lemma": "empanada",
+      "decision": "accept_strong_topic",
+      "notes": "Direct prepared food item."
+    },
+    {
+      "review_id": "srs-food-021",
+      "family": "food_cooking",
+      "lemma": "jalea",
+      "decision": "accept_strong_topic",
+      "notes": "Jelly/gelatin/dessert vocabulary is directly food-relevant."
+    },
+    {
+      "review_id": "srs-food-022",
+      "family": "food_cooking",
+      "lemma": "ensalada",
+      "decision": "accept_strong_topic",
+      "notes": "Direct prepared food item."
+    },
+    {
+      "review_id": "srs-food-023",
+      "family": "food_cooking",
+      "lemma": "pincho",
+      "decision": "accept_light_topic",
+      "notes": "Skewer/tapa sense is useful, but spike/piercing senses compete."
+    },
+    {
+      "review_id": "srs-food-024",
+      "family": "food_cooking",
+      "lemma": "tortilla",
+      "decision": "accept_strong_topic",
+      "notes": "Direct prepared food item."
+    },
+    {
+      "review_id": "srs-food-025",
+      "family": "food_cooking",
+      "lemma": "chipa",
+      "decision": "accept_strong_topic",
+      "notes": "Direct prepared food item."
+    },
+    {
+      "review_id": "srs-food-026",
+      "family": "food_cooking",
+      "lemma": "papaya",
+      "decision": "accept_strong_topic",
+      "notes": "Direct fruit/food item; vulgar secondary sense should not erase food membership."
+    },
+    {
+      "review_id": "srs-food-027",
+      "family": "food_cooking",
+      "lemma": "naranja",
+      "decision": "accept_strong_topic",
+      "notes": "Direct fruit/food item, despite color and political senses."
+    },
+    {
+      "review_id": "srs-food-028",
+      "family": "food_cooking",
+      "lemma": "damasco",
+      "decision": "accept_light_topic",
+      "notes": "Apricot sense is food-related, but damask/Damascus senses compete."
+    },
+    {
+      "review_id": "srs-food-029",
+      "family": "food_cooking",
+      "lemma": "mariposa",
+      "decision": "reject_wrong_topic",
+      "notes": "Legume category appears incidental; dominant meaning is butterfly, not food/cooking."
+    },
+    {
+      "review_id": "srs-food-030",
+      "family": "food_cooking",
+      "lemma": "ave",
+      "decision": "accept_light_topic",
+      "notes": "Poultry/meat overlap is real, but the dominant word is animal/bird."
+    },
+    {
+      "review_id": "srs-food-031",
+      "family": "food_cooking",
+      "lemma": "chancho",
+      "decision": "accept_light_topic",
+      "notes": "Pig/pork overlap is real, but animal and adjectival senses compete."
+    },
+    {
+      "review_id": "srs-food-032",
+      "family": "food_cooking",
+      "lemma": "picadillo",
+      "decision": "accept_strong_topic",
+      "notes": "Minced meat or prepared dish vocabulary is directly food-relevant."
+    },
+    {
+      "review_id": "srs-food-033",
+      "family": "food_cooking",
+      "lemma": "pichón",
+      "decision": "accept_light_topic",
+      "notes": "Squab/young pigeon food sense is real, but animal/person senses compete."
+    },
+    {
+      "review_id": "srs-food-034",
+      "family": "food_cooking",
+      "lemma": "magro",
+      "decision": "accept_light_topic",
+      "notes": "Lean meat sense is real, but adjective/general senses compete."
+    },
+    {
+      "review_id": "srs-food-035",
+      "family": "food_cooking",
+      "lemma": "erizo",
+      "decision": "accept_light_topic",
+      "notes": "Seafood/sea-urchin culinary sense is real, but hedgehog/animal senses compete."
+    },
+    {
+      "review_id": "srs-food-036",
+      "family": "food_cooking",
+      "lemma": "mejillón",
+      "decision": "accept_strong_topic",
+      "notes": "Direct seafood item."
+    },
+    {
+      "review_id": "srs-food-037",
+      "family": "food_cooking",
+      "lemma": "langostino",
+      "decision": "accept_strong_topic",
+      "notes": "Direct seafood item."
+    },
+    {
+      "review_id": "srs-food-038",
+      "family": "food_cooking",
+      "lemma": "caldo",
+      "decision": "accept_strong_topic",
+      "notes": "Broth/soup vocabulary is directly food-relevant."
+    },
+    {
+      "review_id": "srs-food-039",
+      "family": "food_cooking",
+      "lemma": "puchero",
+      "decision": "accept_strong_topic",
+      "notes": "Stew/cooking-pot food sense is strong enough for food/cooking."
+    },
+    {
+      "review_id": "srs-food-040",
+      "family": "food_cooking",
+      "lemma": "pimienta",
+      "decision": "accept_strong_topic",
+      "notes": "Direct spice/food ingredient."
+    },
+    {
+      "review_id": "srs-food-041",
+      "family": "food_cooking",
+      "lemma": "cogollo",
+      "decision": "accept_light_topic",
+      "notes": "Vegetable heart/lettuce sense is food-related, but plant/anatomy senses compete."
+    },
+    {
+      "review_id": "srs-food-042",
+      "family": "food_cooking",
+      "lemma": "canónigo",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Corn-salad/vegetable sense is too secondary against the dominant clerical/person sense."
+    },
+    {
+      "review_id": "srs-food-043",
+      "family": "food_cooking",
+      "lemma": "careta",
+      "decision": "accept_light_topic",
+      "notes": "Pork-cheek cooking sense is real but secondary to face/mask senses."
+    },
+    {
+      "review_id": "srs-food-044",
+      "family": "food_cooking",
+      "lemma": "batido",
+      "decision": "accept_strong_topic",
+      "notes": "Batter/smoothie/milkshake cooking and drink senses are directly food/cooking."
+    },
+    {
+      "review_id": "srs-food-045",
+      "family": "food_cooking",
+      "lemma": "cereal",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food/grain/cereal vocabulary."
+    },
+    {
+      "review_id": "srs-food-046",
+      "family": "food_cooking",
+      "lemma": "té",
+      "decision": "accept_strong_topic",
+      "notes": "Direct drink vocabulary."
+    }
+  ]
+}

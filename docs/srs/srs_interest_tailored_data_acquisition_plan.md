@@ -270,6 +270,13 @@ Current product-owned taxonomy artifact:
   current candidate universe is small, the packet covers all `46 / 46`
   candidates and all `16 / 16` review cells. This validates precision before
   overlay promotion; it is not a claim that food/cooking recall is sufficient.
+- `docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json`
+  labels that full packet: `19` strong accepts, `18` light accepts, `6`
+  secondary/obscure rejects, and `3` wrong-topic rejects. The companion
+  source-capacity audit finds `2,129` installed local Kaikki/Wiktionary
+  food-signal lemmas, but only `46` are in the current frequency frontier, so
+  better food/cooking coverage primarily requires a larger allowed target-lemma
+  frontier plus reviewed policy expansion.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger
