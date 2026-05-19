@@ -322,7 +322,7 @@
           <input id="pair" type="text" value="en-es">
         </label>
         <label>Pool top N
-          <input id="setTopN" type="number" min="1" max="50000" value="5000">
+          <input id="setTopN" type="number" min="1" max="50000" value="10000">
         </label>
         <label>Initial active count
           <input id="initialActiveCount" type="number" min="1" max="10000" value="120">
@@ -338,7 +338,13 @@
           <button type="button" data-preset="plants">Plants</button>
           <button type="button" data-preset="food">Food</button>
           <button type="button" data-preset="medicine">Medicine</button>
+          <button type="button" data-preset="finance">Finance</button>
+          <button type="button" data-preset="sports">Sports</button>
+          <button type="button" data-preset="games">Games</button>
+          <button type="button" data-preset="music">Music</button>
+          <button type="button" data-preset="law">Law</button>
           <button type="button" data-preset="science">Science</button>
+          <button type="button" data-preset="travel">Travel</button>
           <button type="button" data-preset="mixed">Mixed</button>
         </div>
         <div id="topicWeightSummary" class="status">Effective topic weights: none</div>
@@ -592,8 +598,20 @@
         setTopic("food_cooking", 0, true);
       } else if (name === "medicine") {
         setTopic("medicine_health", 0, true);
+      } else if (name === "finance") {
+        setTopic("finance_business", 0, true);
+      } else if (name === "sports") {
+        setTopic("sports_fitness", 0, true);
+      } else if (name === "games") {
+        setTopic("games", 0, true);
+      } else if (name === "music") {
+        setTopic("music_media_entertainment", 0, true);
+      } else if (name === "law") {
+        setTopic("law_politics_civics", 0, true);
       } else if (name === "science") {
         setTopic("science_technology", 0, true);
+      } else if (name === "travel") {
+        setTopic("travel_places_transport", 0, true);
       } else if (name === "mixed") {
         setTopic("animals", 0.35);
         setTopic("plants_nature", 0.35);

@@ -16,7 +16,8 @@ from srs_admission_preference_preview_en_es import build_report  # noqa: E402
 
 
 def _create_frequency_db(path: Path) -> Path:
-    with sqlite3.connect(path) as conn:
+    conn = sqlite3.connect(path)
+    try:
         conn.execute(
             """
             CREATE TABLE frequency (
@@ -44,6 +45,9 @@ def _create_frequency_db(path: Path) -> Path:
                 ("gamma", 3.0, 96.0, "n", None),
             ),
         )
+        conn.commit()
+    finally:
+        conn.close()
     return path
 
 
@@ -97,6 +101,7 @@ class TestSrsAdmissionPreferencePreviewEnEs(unittest.TestCase):
                 set_top_n=3,
                 initial_active_count=3,
                 preview_count=3,
+                augment_with_zipf_bridge=False,
             )
 
         self.assertEqual(report["summary"]["fail_count"], 0)

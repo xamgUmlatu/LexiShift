@@ -27,7 +27,7 @@ from srs_admission_lab_source_support import (  # noqa: E402
 DEFAULT_PAIR = "en-es"
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
-DEFAULT_SET_TOP_N = 5000
+DEFAULT_SET_TOP_N = 10000
 TEST_OUTPUTS_ROOT = PROJECT_ROOT / "docs" / "test_outputs"
 DEFAULT_TOPIC_TAXONOMY_PATH = (
     PROJECT_ROOT / "docs" / "test_inputs" / "srs_topic_preference_taxonomy_en_es.json"

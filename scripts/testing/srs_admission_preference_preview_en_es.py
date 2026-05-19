@@ -16,6 +16,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CORE_ROOT = PROJECT_ROOT / "core"
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
+DEV_ROOT = PROJECT_ROOT / "scripts" / "dev"
+if str(DEV_ROOT) not in sys.path:
+    sys.path.insert(0, str(DEV_ROOT))
 
 from lexishift_core.helper.engine import (  # noqa: E402
     SetAdmissionPreviewJobConfig,
@@ -24,52 +27,28 @@ from lexishift_core.helper.engine import (  # noqa: E402
 from lexishift_core.helper.pair_resources import resolve_pair_resources  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.srs.topic_overlay import ANIMALS_PLANTS_OVERLAY_FILENAME  # noqa: E402
+from srs_admission_lab_server import (  # noqa: E402
+    DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS,
+    DEFAULT_ZIPF_BRIDGE_PATH,
+    prepare_overlay_source_for_lab,
+)
+from srs_admission_lab_source_support import (  # noqa: E402
+    prepare_lab_frequency_db,
+    resolve_kaikki_forward_db,
+)
+from srs_admission_preference_scenarios_en_es import (  # noqa: E402
+    EXPECTED_TOPIC_SCENARIOS,
+    SCENARIOS,
+)
 
 REPORT_SCHEMA_VERSION = 1
 DEFAULT_PAIR = "en-es"
+DEFAULT_SET_TOP_N = 10000
 DEFAULT_JSON_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "srs_admission_preference_preview_en_es_latest.json"
 )
 DEFAULT_MARKDOWN_OUT = (
     PROJECT_ROOT / "docs" / "test_outputs" / "srs_admission_preference_preview_en_es_latest.md"
-)
-
-SCENARIOS: tuple[dict[str, object], ...] = (
-    {
-        "name": "neutral",
-        "description": "No user preference signals.",
-        "profile_context": {},
-    },
-    {
-        "name": "animals_interest",
-        "description": "Strong explicit animals interest from the UX chip.",
-        "profile_context": {"interests": ["animals"]},
-    },
-    {
-        "name": "animals_light_weight",
-        "description": "Scalar animals preference below the full chip weight.",
-        "profile_context": {"topic_weights": {"animals": 0.35}},
-    },
-    {
-        "name": "plants_nature_interest",
-        "description": "Strong explicit plants/nature interest from the UX chip.",
-        "profile_context": {"interests": ["plants_nature"]},
-    },
-    {
-        "name": "animals_plants_interest",
-        "description": "Combined animals plus plants/nature interests.",
-        "profile_context": {"interests": ["animals", "plants_nature"]},
-    },
-    {
-        "name": "weighted_plants_over_animals",
-        "description": "Scalar topic weights preferring plants/nature over animals.",
-        "profile_context": {"topic_weights": {"plants_nature": 1.0, "animals": 0.25}},
-    },
-    {
-        "name": "finance_control",
-        "description": "Control preference for an unsupported topic in the current metadata.",
-        "profile_context": {"interests": ["finance"]},
-    },
 )
 
 
@@ -98,28 +77,53 @@ def build_report(
     pair: str = DEFAULT_PAIR,
     frequency_db: Path | None = None,
     overlay_source_path: Path | None = None,
-    set_top_n: int = 2000,
+    overlay_source_paths: Sequence[Path] | None = None,
+    set_top_n: int = DEFAULT_SET_TOP_N,
     initial_active_count: int = 120,
     preview_count: int = 20,
     preview_sampling_mode: str = "ranked",
     preview_seed: int | None = None,
+    augment_with_zipf_bridge: bool = True,
+    zipf_bridge_path: Path | None = DEFAULT_ZIPF_BRIDGE_PATH,
+    kaikki_forward_db: Path | None = None,
 ) -> dict[str, Any]:
     resolved_frequency_db = resolve_frequency_db(pair, frequency_db)
     if not resolved_frequency_db.exists():
         raise FileNotFoundError(resolved_frequency_db)
-    source_summary = inspect_frequency_db(resolved_frequency_db)
+    base_source_summary = inspect_frequency_db(resolved_frequency_db)
+    configured_overlay_paths = configured_overlay_source_paths(
+        overlay_source_path=overlay_source_path,
+        overlay_source_paths=overlay_source_paths,
+    )
+    resolved_kaikki_forward_db = resolve_kaikki_forward_db(pair, kaikki_forward_db)
 
     with tempfile.TemporaryDirectory(prefix="lexishift-srs-pref-preview-") as tmp:
-        paths = build_helper_paths(Path(tmp))
+        tmp_root = Path(tmp)
+        paths = build_helper_paths(tmp_root)
+        merged_overlay_source_path = prepare_overlay_source_for_lab(
+            work_dir=tmp_root,
+            pair=pair,
+            overlay_source_paths=configured_overlay_paths,
+        )
+        preview_frequency_db, source_augmentation = prepare_lab_frequency_db(
+            base_frequency_db=resolved_frequency_db,
+            pair=pair,
+            work_dir=tmp_root,
+            overlay_source_path=merged_overlay_source_path,
+            augment_with_zipf_bridge=augment_with_zipf_bridge,
+            zipf_bridge_path=zipf_bridge_path,
+            kaikki_forward_db=resolved_kaikki_forward_db,
+        )
+        preview_source_summary = inspect_frequency_db(preview_frequency_db)
         copied_overlay_path = copy_overlay_fixture(
             paths.srs_dir,
-            overlay_source_path=overlay_source_path,
+            overlay_source_path=merged_overlay_source_path,
         )
         scenario_reports = [
             run_scenario(
                 paths=paths,
                 pair=pair,
-                frequency_db=resolved_frequency_db,
+                frequency_db=preview_frequency_db,
                 scenario=scenario,
                 set_top_n=set_top_n,
                 initial_active_count=initial_active_count,
@@ -137,7 +141,8 @@ def build_report(
     )
     findings = build_findings(
         scenarios=scenario_by_name,
-        source_summary=source_summary,
+        source_summary=preview_source_summary,
+        source_augmentation=source_augmentation,
     )
     summary = summarize_findings(findings)
     summary.update(
@@ -148,7 +153,18 @@ def build_report(
                 for scenario in scenario_reports
                 if scenario["name"] != "neutral" and scenario["topic_mover_count"] > 0
             ),
-            "frequency_db_row_count": source_summary.get("row_count"),
+            "frequency_db_row_count": preview_source_summary.get("row_count"),
+            "base_frequency_db_row_count": base_source_summary.get("row_count"),
+            "source_topic_scenarios_with_movers": sum(
+                1
+                for scenario_name, topic, _code in EXPECTED_TOPIC_SCENARIOS
+                if int(
+                    dict(
+                        scenario_by_name.get(scenario_name, {}).get("topic_mover_counts") or {}
+                    ).get(topic, 0)
+                )
+                > 0
+            ),
         }
     )
 
@@ -167,15 +183,39 @@ def build_report(
         "inputs": {
             "frequency_db": str(resolved_frequency_db),
             "frequency_db_exists": resolved_frequency_db.exists(),
+            "preview_frequency_db": str(preview_frequency_db),
             "overlay_source_path": str(overlay_source_path) if overlay_source_path else None,
+            "overlay_source_paths": [str(path) for path in configured_overlay_paths],
+            "merged_overlay_source_path": (
+                str(merged_overlay_source_path) if merged_overlay_source_path else None
+            ),
             "copied_overlay_path": str(copied_overlay_path) if copied_overlay_path else None,
+            "augment_with_zipf_bridge": bool(augment_with_zipf_bridge),
+            "zipf_bridge_path": str(zipf_bridge_path) if zipf_bridge_path else None,
+            "kaikki_forward_db": str(resolved_kaikki_forward_db)
+            if resolved_kaikki_forward_db
+            else None,
         },
-        "source_summary": source_summary,
+        "source_summary": preview_source_summary,
+        "base_source_summary": base_source_summary,
+        "source_augmentation": source_augmentation,
         "summary": summary,
         "findings": findings,
         "comparisons": comparisons,
         "scenarios": scenario_reports,
     }
+
+
+def configured_overlay_source_paths(
+    *,
+    overlay_source_path: Path | None,
+    overlay_source_paths: Sequence[Path] | None,
+) -> tuple[Path, ...]:
+    if overlay_source_path is not None:
+        return (overlay_source_path,)
+    if overlay_source_paths is not None:
+        return tuple(Path(path) for path in overlay_source_paths)
+    return tuple(DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS)
 
 
 def copy_overlay_fixture(
@@ -283,6 +323,20 @@ def simplify_admitted_word(entry: Mapping[str, object]) -> dict[str, Any]:
         "rank_delta": entry.get("rank_delta"),
         "profile_score": entry.get("profile_score"),
         "admission_weight": entry.get("admission_weight"),
+        "difficulty_estimate": signals.get("difficulty_estimate")
+        if isinstance(signals, Mapping)
+        else None,
+        "proficiency_fit": signals.get("proficiency_fit") if isinstance(signals, Mapping) else None,
+        "challenge_fit": signals.get("challenge_fit") if isinstance(signals, Mapping) else None,
+        "readiness_multiplier": signals.get("readiness_multiplier")
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_lower_bound": signals.get("readiness_lower_bound")
+        if isinstance(signals, Mapping)
+        else None,
+        "readiness_upper_bound": signals.get("readiness_upper_bound")
+        if isinstance(signals, Mapping)
+        else None,
         "topic_affinity_source": (
             signals.get("topic_affinity_source") if isinstance(signals, Mapping) else None
         ),
@@ -365,6 +419,7 @@ def build_findings(
     *,
     scenarios: Mapping[str, Mapping[str, object]],
     source_summary: Mapping[str, object],
+    source_augmentation: Mapping[str, object],
 ) -> list[dict[str, Any]]:
     findings = [
         finding(
@@ -373,24 +428,47 @@ def build_findings(
             f"Frequency DB has {source_summary.get('row_count')} rows.",
         )
     ]
-    animals = scenarios["animals_interest"]
-    plants = scenarios["plants_nature_interest"]
+    findings.append(
+        finding(
+            "PASS" if source_augmentation.get("status") == "applied" else "WARN",
+            "ZIPF_AUGMENTED_LAB_SOURCE_AVAILABLE",
+            "Dev-only Zipf bridge source was applied for the preference preview."
+            if source_augmentation.get("status") == "applied"
+            else "Dev-only Zipf bridge source was not applied for the preference preview.",
+            source_augmentation,
+        )
+    )
+    for scenario_name, topic, code in EXPECTED_TOPIC_SCENARIOS:
+        scenario = scenarios.get(scenario_name)
+        if not scenario:
+            findings.append(finding("WARN", code, f"{scenario_name} scenario was not available."))
+            continue
+        findings.append(
+            finding_for_movers(
+                scenario=scenario,
+                code=code,
+                topic=topic,
+            )
+        )
+    travel = scenarios.get("travel_places_transport_interest", {})
+    travel_counts = dict(travel.get("topic_mover_counts") or {})
+    travel_overlay = dict(travel.get("profile_topic_overlay") or {})
+    findings.append(
+        finding(
+            "PASS" if travel_overlay.get("application_status") == "applied" else "WARN",
+            "TRAVEL_BETA_TOPIC_EXPOSES_LIMIT",
+            "Travel/place/transport preference produced runtime movers."
+            if int(travel_counts.get("travel_places_transport", 0)) > 0
+            else "Travel/place/transport remains beta-limited in the lab preview.",
+            {
+                "topic_movers": int(travel_counts.get("travel_places_transport", 0)),
+                "application_status": travel_overlay.get("application_status"),
+                "eligible_row_count": travel_overlay.get("eligible_row_count"),
+                "applied_seed_count": travel_overlay.get("applied_seed_count"),
+            },
+        )
+    )
     weighted = scenarios["weighted_plants_over_animals"]
-    finance = scenarios["finance_control"]
-    findings.append(
-        finding_for_movers(
-            scenario=animals,
-            code="ANIMALS_INTEREST_MOVES_ADMISSION",
-            topic="animals",
-        )
-    )
-    findings.append(
-        finding_for_movers(
-            scenario=plants,
-            code="PLANTS_NATURE_INTEREST_MOVES_ADMISSION",
-            topic="plants_nature",
-        )
-    )
     weighted_counts = dict(weighted.get("topic_mover_counts") or {})
     findings.append(
         finding(
@@ -401,16 +479,54 @@ def build_findings(
             else "Weighted plants-over-animals profile did not surface plants/nature movers.",
         )
     )
+    light = scenarios.get("animals_light_weight", {})
+    strong = scenarios.get("animals_interest", {})
     findings.append(
         finding(
-            "PASS" if int(finance.get("topic_mover_count") or 0) == 0 else "WARN",
-            "UNSUPPORTED_TOPIC_CONTROL_STAYS_NEUTRAL",
-            "Finance control remains neutral because current tested metadata has no finance support."
-            if int(finance.get("topic_mover_count") or 0) == 0
-            else "Finance control moved admission; inspect whether finance metadata is now available.",
+            "PASS"
+            if int(strong.get("topic_mover_count") or 0) >= int(light.get("topic_mover_count") or 0)
+            else "WARN",
+            "TOPIC_STRENGTH_IS_MONOTONIC_IN_SMOKE",
+            "Full animals preference produced at least as many topic movers as light animals weight."
+            if int(strong.get("topic_mover_count") or 0) >= int(light.get("topic_mover_count") or 0)
+            else "Light animals weight produced more topic movers than full animals preference.",
+            {
+                "animals_light_weight_movers": int(light.get("topic_mover_count") or 0),
+                "animals_interest_movers": int(strong.get("topic_mover_count") or 0),
+            },
         )
     )
+    findings.append(high_proficiency_finding(scenarios.get("animals_high_proficiency", {})))
     return findings
+
+
+def high_proficiency_finding(scenario: Mapping[str, object]) -> dict[str, Any]:
+    animal_movers = [
+        row
+        for row in scenario.get("admitted_words", ())
+        if isinstance(row, Mapping)
+        and str(row.get("topic_affinity_source") or "").startswith("topic_hint:animals")
+    ]
+    too_easy = [
+        str(row.get("lemma") or "")
+        for row in animal_movers
+        if _safe_float(row.get("readiness_multiplier")) is not None
+        and (_safe_float(row.get("readiness_multiplier")) or 0.0) < 0.5
+    ]
+    return finding(
+        "PASS" if not too_easy else "WARN",
+        "HIGH_PROFICIENCY_SUPPRESSES_TOO_EASY_TOPIC_ITEMS",
+        "High-proficiency animals scenario selected ready animal movers."
+        if animal_movers and not too_easy
+        else "High-proficiency animals scenario suppressed too-easy animal movers."
+        if not too_easy
+        else "High-proficiency animals scenario needs inspection for topic readiness.",
+        {
+            "animal_mover_count": len(animal_movers),
+            "too_easy_animal_movers": too_easy,
+            "top_lemmas": list(scenario.get("top_lemmas") or [])[:10],
+        },
+    )
 
 
 def finding_for_movers(
@@ -457,6 +573,14 @@ def summarize_findings(findings: Sequence[Mapping[str, object]]) -> dict[str, An
     }
 
 
+def _safe_float(value: object) -> float | None:
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return None
+    return parsed if parsed == parsed else None
+
+
 def inspect_frequency_db(path: Path) -> dict[str, Any]:
     with sqlite3.connect(path) as conn:
         row_count = int(conn.execute("select count(*) from frequency").fetchone()[0])
@@ -482,20 +606,40 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"- Status: {summary.get('status')}",
         f"- Findings: pass={summary.get('pass_count')} warn={summary.get('warn_count')} fail={summary.get('fail_count')}",
         f"- Frequency DB rows: {summary.get('frequency_db_row_count')}",
+        f"- Base frequency DB rows: {summary.get('base_frequency_db_row_count')}",
         f"- Runtime scope: {report.get('runtime_scope')}",
         "",
         "## Inputs",
         "",
         f"- frequency_db: `{dict(report.get('inputs') or {}).get('frequency_db')}`",
+        f"- preview_frequency_db: `{dict(report.get('inputs') or {}).get('preview_frequency_db')}`",
+        f"- merged_overlay_source_path: `{dict(report.get('inputs') or {}).get('merged_overlay_source_path')}`",
         f"- set_top_n: {dict(report.get('parameters') or {}).get('set_top_n')}",
         f"- initial_active_count: {dict(report.get('parameters') or {}).get('initial_active_count')}",
         f"- preview_count: {dict(report.get('parameters') or {}).get('preview_count')}",
         "",
-        "## Scenario Summary",
+        "## Source Augmentation",
         "",
-        "| Scenario | Topic movers | Overlay application | Top lemmas |",
-        "| --- | ---: | --- | --- |",
     ]
+    augmentation = dict(report.get("source_augmentation") or {})
+    lines.extend(
+        [
+            f"- status: `{augmentation.get('status')}`",
+            f"- output_row_count: {augmentation.get('output_row_count')}",
+            f"- added_row_count: {augmentation.get('added_row_count')}",
+            f"- overlay_topic_lemma_count: {augmentation.get('overlay_topic_lemma_count')}",
+            f"- overlay_missing_without_bridge_count: {augmentation.get('overlay_missing_without_bridge_count')}",
+            "",
+        ]
+    )
+    lines.extend(
+        [
+            "## Scenario Summary",
+            "",
+            "| Scenario | Topic movers | Overlay application | Top lemmas |",
+            "| --- | ---: | --- | --- |",
+        ]
+    )
     for scenario in report.get("scenarios", ()):
         if not isinstance(scenario, Mapping):
             continue
@@ -546,7 +690,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pair", default=DEFAULT_PAIR)
     parser.add_argument("--frequency-db", type=Path)
     parser.add_argument("--overlay-source-path", type=Path)
-    parser.add_argument("--set-top-n", type=int, default=2000)
+    parser.add_argument(
+        "--overlay-source-paths",
+        type=Path,
+        nargs="*",
+        help="Optional overlay artifact paths. Defaults to the admission lab overlay stack.",
+    )
+    parser.add_argument("--set-top-n", type=int, default=DEFAULT_SET_TOP_N)
     parser.add_argument("--initial-active-count", type=int, default=120)
     parser.add_argument("--preview-count", type=int, default=20)
     parser.add_argument(
@@ -555,6 +705,14 @@ def parse_args() -> argparse.Namespace:
         default="ranked",
     )
     parser.add_argument("--preview-seed", type=int)
+    parser.add_argument(
+        "--augment-with-zipf-bridge",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Use the dev-only Zipf bridge augmentation to smoke the expanded 10k source path.",
+    )
+    parser.add_argument("--zipf-bridge-path", type=Path, default=DEFAULT_ZIPF_BRIDGE_PATH)
+    parser.add_argument("--kaikki-forward-db", type=Path)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     return parser.parse_args()
@@ -566,11 +724,15 @@ def main() -> int:
         pair=args.pair,
         frequency_db=args.frequency_db,
         overlay_source_path=args.overlay_source_path,
+        overlay_source_paths=args.overlay_source_paths,
         set_top_n=args.set_top_n,
         initial_active_count=args.initial_active_count,
         preview_count=args.preview_count,
         preview_sampling_mode=args.preview_sampling_mode,
         preview_seed=args.preview_seed,
+        augment_with_zipf_bridge=args.augment_with_zipf_bridge,
+        zipf_bridge_path=args.zipf_bridge_path,
+        kaikki_forward_db=args.kaikki_forward_db,
     )
     write_report(report, json_out=args.json_out, markdown_out=args.markdown_out)
     summary = report["summary"]
