@@ -147,10 +147,10 @@ candidate discovery.
 The first labels are stored in
 `../test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json`: `19`
 strong accepts, `18` light accepts, `6` secondary/obscure rejects, and `3`
-wrong-topic rejects. The source-capacity audit reports `2,129` local
+wrong-topic rejects. The current-CDE source-capacity audit reports `2,122` local
 Kaikki/Wiktionary food-signal lemmas under the same policy, with only `46`
 inside the current frequency frontier. That makes the current frontier the
-primary recall bottleneck for food/cooking.
+first recall bottleneck for food/cooking.
 
 The first food/cooking overlay PoC is
 `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`.
@@ -162,11 +162,10 @@ without mutating helper state or enabling default runtime admission.
 
 The first full-source food/cooking expansion packet is
 `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`.
-It samples `96` pending-review rows from `2,083` installed local Kaikki
-food/cooking candidates outside the already-reviewed current frontier, covering
-`83 / 83` review cells. Labels in
+It samples `96` review rows from the installed local Kaikki food/cooking
+candidates outside the already-reviewed current frontier. Labels in
 `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json` accept
-`89 / 96` rows (`53` strong, `36` light) and reject `7`. This gives the next
+`91 / 96` guarded rows (`54` strong, `37` light) and reject `5`. This gives a
 precision-calibration surface for deciding whether the broader policy can
 support a 10k-style frontier.
 
@@ -174,8 +173,21 @@ The full-source precision summary is
 `../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`.
 It records the current flow assessment as positive: discovery, review labels,
 diagnostic overlay behavior, and runtime admission are separated correctly. The
-next risk-reduction step is policy guards for the `7` caught false-positive
+next risk-reduction step is policy guards for the caught false-positive
 classes before any broad overlay promotion.
+
+The current product-facing food/cooking checkpoint is the SPALEX 10k audit and
+review packet:
+
+- `../test_outputs/srs_food_cooking_existing_signal_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_food_cooking_signal_review_packet_en_es_spalex_10k_latest.md`
+
+This finds `265 / 10,000` food/cooking candidates, with `219` review-required
+rows and a deterministic `96`-row packet covering `62 / 62` evidence cells.
+Prior labels match `42 / 96` packet lemmas by lemma, but the packet remains
+pending review before any precision or overlay claim. For UX/admission
+decisions, this 10k surface should take priority over the 2k/current baseline.
 
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal
@@ -296,20 +308,22 @@ real food/cooking signals and reject `9` secondary, obscure, or wrong-topic
 rows. The overlay PoC proves those accepted labels can lift a `food_cooking`
 profile preview, while the rejects show that Tier D gloss/example patterns and
 noisy overlap categories should stay review-gated. A source-capacity audit
-shows `2,083` additional local food-signal lemmas outside the current frequency
+shows `2,076` additional local food-signal lemmas outside the current frequency
 frontier.
 
 The latest food/cooking checkpoint is the labeled full-source review packet
 over those outside-frontier candidates. It does not promote any row; the
 purpose is to find whether the broad source policy remains precise when it sees
 the much larger local candidate pool. The initial label result is promising
-(`89 / 96` accepted), but it still exposes wrong-topic translation matches,
-name/person/adjective collisions, botanical overlap, and historical/regional
-variants that need policy handling before product lift.
+(`91 / 96` accepted after the guard pass), but it still exposes botanical or
+fodder overlap, zoological fish terms, proper-name-first entries, and eater
+glosses that need policy handling before product lift.
 
-The prior SPALEX 10k research SQLite path is not currently present locally, so
-the audit reports that optional frontier as unavailable and does not download
-or rebuild it.
+The latest product-facing food/cooking checkpoint is the SPALEX 10k packet. It
+finds `265 / 10,000` food/cooking candidates and samples `96` rows across
+`62 / 62` evidence cells. It is intentionally unlabeled for now; the next food
+work should review that 10k packet rather than continuing to reason only from
+the 2k/current baseline.
 
 This is the acceptance boundary for moving on from admission: the admission
 algorithm can remain as-is unless a structural bug appears. The next quality

@@ -3,8 +3,8 @@
 Status: active diagnostic
 Role: SRS topic enrichment evidence
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from food/cooking signal audit, current and full-source review labels, source-capacity audit, topic-overlay PoC, and focused tests
-Purpose: record which current food/cooking candidates are real, what the failure modes are, and how to get product-level coverage beyond the current conservative 46-row set
+Last verified: 2026-05-19 from food/cooking signal audits, current and full-source review labels, SPALEX 10k review packet, source-capacity audits, topic-overlay PoC, and focused tests
+Purpose: record which food/cooking candidates are real, what the failure modes are, and how to get product-level coverage beyond the current conservative 2k baseline
 
 Related artifacts:
 
@@ -18,6 +18,9 @@ Related artifacts:
 - `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 - `../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`
+- `../test_outputs/srs_food_cooking_existing_signal_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_food_cooking_signal_review_packet_en_es_spalex_10k_latest.md`
 
 ## Review Result
 
@@ -77,12 +80,13 @@ Best source-label patterns:
 - `food_gloss_pattern`: `9 / 14` accepted, but mostly light; keep review-gated.
 - `food_translation_pattern`: `1 / 3` accepted; too broad without better primary-sense controls.
 
-## Coverage Diagnosis
+## Baseline Coverage Diagnosis
 
-The current 46-row count is not the product ceiling. It is the intersection of
-the conservative food/cooking policy with the current CDE frequency frontier.
+The current 46-row count is not the product ceiling. It is the 2k/current-CDE
+calibration baseline: the intersection of the conservative food/cooking policy
+with the current CDE frequency frontier.
 
-The source-capacity audit shows:
+The current-CDE source-capacity audit shows:
 
 - full installed local Kaikki/Wiktionary food-signal lemmas: `2,122`;
 - current frequency-frontier food-signal lemmas: `46`;
@@ -95,9 +99,47 @@ Common food probes missing from the current frequency frontier include:
 `carne`, `huevo`, `leche`, `queso`, `tomate`, `patata`, `azucar`, `sal`,
 `sopa`, `fruta`, `verdura`, `pescado`, and `cerveza`.
 
-That means the primary recall bottleneck is not the food detector alone. The
-current SRS frequency frontier is too narrow or mismatched for a satisfying
+That means the first recall bottleneck was not the food detector alone. The
+current SRS frequency frontier was too narrow or mismatched for a satisfying
 food/cooking user journey.
+
+## SPALEX 10k Food/Cooking Frontier
+
+The product-facing expansion question should be evaluated on the real 10k
+frontier, not only the 2k/current baseline. A provisional SPALEX research pack
+was rebuilt outside the repo and outside the installed app data root, then used
+only for read-only audit artifacts. No raw source CSV or runtime frequency pack
+was committed or installed.
+
+The SPALEX 10k food/cooking audit reports:
+
+- candidate lemmas measured: `10,000`;
+- food/cooking candidates: `265` (`2.65%`);
+- review-required candidates: `219`;
+- tier counts: `A=15`, `B=31`, `C=122`, `D=97`;
+- confidence bands: `high=39`, `medium=117`, `review=51`, `inventory=58`;
+- strongest source-label counts: `food_gloss_pattern=78`, `foods=24`,
+  `food_translation_pattern=19`, `cooking=16`, `meats=14`, `fish=11`,
+  `vegetables=10`, `fruits=9`, `seafood=8`.
+
+The SPALEX 10k source-capacity audit reports:
+
+- full installed local Kaikki/Wiktionary food-signal lemmas: `2,122`;
+- food-signal lemmas inside the SPALEX 10k frontier: `265`;
+- food-signal lemmas outside the SPALEX 10k frontier: `1,857`.
+
+The SPALEX 10k review packet is now the correct next manual-review surface:
+
+- candidate universe: `265`;
+- review rows: `96`;
+- review cells covered: `62 / 62`;
+- labeled rows: `0`;
+- prior reviewed labels match `42 / 96` packet lemmas by lemma;
+- `54 / 96` packet rows are fresh and need review before precision claims.
+
+The practical correction is: use the current 46-row review to understand
+baseline failure modes, but make product-scale food/cooking decisions from the
+SPALEX 10k packet and any later promoted 10k overlay.
 
 ## Better Coverage Path
 
@@ -107,11 +149,12 @@ food/cooking user journey.
    enough to test the food preference path, but not enough to claim broad food
    coverage.
 
-2. Move food/cooking discovery onto a larger allowed frequency frontier.
-   The installed Kaikki source already has much more food signal supply. The
-   missing piece is a legally usable 10k-style target-lemma frontier that
-   includes common food lemmas. Once that frontier is selected, rerun the
-   food/cooking signal audit against it and generate a stratified review packet.
+2. Review the SPALEX 10k packet before product claims.
+   The installed Kaikki source already has much more food signal supply, and
+   the rebuilt SPALEX 10k frontier includes common food lemmas that the current
+   2k baseline missed. The next product-relevant step is to review the SPALEX
+   10k packet, then derive precision by tier/source label before building a
+   larger overlay.
 
 3. Expand high-precision Tier B translation coverage.
    Primary-sense noun translations were clean in the current review. Add a
@@ -132,10 +175,10 @@ food/cooking user journey.
    product lift. Promote only after review labels prove a specific pattern or
    subpattern is safe.
 
-6. Add a curated food seed overlay if the frequency source still under-covers
-   basic words.
-   If the chosen 10k frequency source still misses obvious staples, add a
-   small provenance-bearing curated overlay for core food/drink/dining/cooking
+6. Add a curated food seed overlay only if the 10k frontier still under-covers
+   basics.
+   If the reviewed 10k source still misses obvious staples, add a small
+   provenance-bearing curated overlay for core food/drink/dining/cooking
    vocabulary. This should be explicit data, not hidden heuristics.
 
 7. Validate through the existing admission lab.
@@ -229,7 +272,9 @@ It reports:
 
 ## Immediate Next Slice
 
-Decide whether to add one more narrow guard pass for the remaining broad-source
-rejects or move to the larger-frontier overlay/admission validation while
-keeping the residual classes review-gated. Do not promote a broad food/cooking
-overlay directly from unreviewed source labels.
+Review the SPALEX 10k food/cooking packet. Prior labels can be reused as
+evidence for the `42` matching lemmas, but the packet should remain pending
+until the full 10k sample is reviewed or explicitly accepted. After that, derive
+the 10k precision summary and only then decide whether to build a diagnostic
+10k overlay/admission preview. Do not promote a broad food/cooking overlay
+directly from unreviewed source labels.

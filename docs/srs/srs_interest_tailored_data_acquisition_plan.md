@@ -247,8 +247,9 @@ Current product-owned taxonomy artifact:
   families, thin trusted coverage for `plants_nature`, `food_cooking`, and
   `animals`, no trusted coverage for `anime_manga_pop_culture` or
   `hobbies_crafts`, and review-only register signals for casual/slang and
-  formal/professional. The optional SPALEX 10k research frontier was not
-  present locally in that run, and the script did not download or rebuild it.
+  formal/professional. That broad family-depth run is still a current-CDE
+  baseline; separate SPALEX 10k artifacts now cover animals/plants and
+  food/cooking on the larger research frontier.
 - `scripts/testing/srs_animals_plants_existing_signal_audit_en_es.py` adds a
   focused read-only confidence audit over existing local Kaikki/Wiktionary
   topics, allowlisted categories/tags, and narrow gloss/translation patterns.
@@ -277,7 +278,7 @@ Current product-owned taxonomy artifact:
 - `docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json`
   labels that full packet: `19` strong accepts, `18` light accepts, `6`
   secondary/obscure rejects, and `3` wrong-topic rejects. The companion
-  source-capacity audit finds `2,129` installed local Kaikki/Wiktionary
+  source-capacity audit finds `2,122` installed local Kaikki/Wiktionary
   food-signal lemmas, but only `46` are in the current frequency frontier, so
   better food/cooking coverage primarily requires a larger allowed target-lemma
   frontier plus reviewed policy expansion.
@@ -288,16 +289,24 @@ Current product-owned taxonomy artifact:
   pack, mutating helper state, or changing runtime admission defaults.
 - `scripts/testing/srs_food_cooking_full_source_review_packet_en_es.py` samples
   the broader installed local source supply outside the already-reviewed current
-  frontier. The first packet covers `96` pending-review rows from `2,083`
-  outside-frontier food/cooking candidates across `83 / 83` review cells. The
-  first label pass accepts `89 / 96` rows (`53` strong, `36` light) and rejects
-  `7`, making it a useful precision-calibration surface before claiming that
-  the policy can support product-scale food/cooking admission.
+  frontier. The guarded label pass accepts `91 / 96` rows (`54` strong, `37`
+  light) and rejects `5`, making it a useful precision-calibration surface
+  before claiming that the policy can support product-scale food/cooking
+  admission.
 - `scripts/testing/srs_food_cooking_full_source_review_precision_summary_en_es.py`
   turns that label pass into policy guidance. The current flow is assessed as
   directionally correct because source discovery, review labels, diagnostic
   overlay behavior, and runtime admission remain separated. The next step is
   narrow policy guards, not broad promotion.
+- The SPALEX 10k food/cooking audit and review packet are now the active
+  product-facing food/cooking surface:
+  `docs/test_outputs/srs_food_cooking_existing_signal_audit_en_es_spalex_10k_latest.md`,
+  `docs/test_outputs/srs_food_cooking_source_capacity_audit_en_es_spalex_10k_latest.md`,
+  and
+  `docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_spalex_10k_latest.md`.
+  They find `265 / 10,000` food/cooking candidates, `219` review-required rows,
+  and a `96`-row packet across `62 / 62` evidence cells. Prior labels match
+  `42 / 96` packet lemmas, but the 10k packet remains pending until reviewed.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger

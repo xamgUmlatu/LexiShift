@@ -3,7 +3,7 @@
 Status: active planning runbook
 Role: Cross-LP operating guide
 Last updated: 2026-05-19
-Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audit, food/cooking overlay PoC, food/cooking full-source labels, focused tests, SRS quality harness, changed-file gate
+Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audits, food/cooking overlay PoC, food/cooking full-source labels, SPALEX 10k food/cooking packet, focused tests, SRS quality harness, changed-file gate
 Purpose: preserve reusable lessons from the en-es interest-topic source work so future language pairs do not repeat avoidable source, policy, and review mistakes
 Source-of-truth: process guide only; pair-specific truth remains in the pair's source-readiness audits, policy files, generated review packets, tests, and current LP capability/resource code.
 
@@ -71,10 +71,11 @@ of this flow that still creates evidence before product lift.
    later decision, not a consequence of a good audit.
 
 This is the right current direction. The food/cooking pass is the strongest
-evidence so far: the broad full-source sample accepted `89 / 96` rows, but the
-`7` rejects exposed wrong-topic translation matches, name/person/adjective
-collisions, botanical overlap, and historical/regional variants before they
-could reach product admission.
+evidence so far: the guarded broad full-source sample accepted `91 / 96` rows,
+but the `5` rejects still exposed botanical/fodder overlap, zoological fish
+terms, proper-name-first entries, and eater-not-food gloss matches before they
+could reach product admission. The next product-scale check is the SPALEX 10k
+food/cooking packet, not the 2k/current baseline alone.
 
 ## Topic Flow Variants
 
@@ -297,6 +298,12 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - Full-source food/cooking precision summary:
   `docs/test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`
+- SPALEX 10k food/cooking audit:
+  `docs/test_outputs/srs_food_cooking_existing_signal_audit_en_es_spalex_10k_latest.md`
+- SPALEX 10k food/cooking source-capacity audit:
+  `docs/test_outputs/srs_food_cooking_source_capacity_audit_en_es_spalex_10k_latest.md`
+- SPALEX 10k food/cooking review packet:
+  `docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_spalex_10k_latest.md`
 - SPALEX 10k audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:
@@ -318,11 +325,11 @@ sampling only after broader source discovery makes the universe too large for
 complete inspection.
 
 The first food/cooking labels accepted `37 / 46` rows (`19` strong and `18`
-light), which supports the audit policy as a precision screen. The source
-capacity audit found `2,129` local Kaikki/Wiktionary food-signal lemmas but
-only `46` inside the current CDE frequency frontier. For future LPs, this is a
-general warning: topic recall may be bottlenecked by the admitted frequency
-frontier even when the lexical source has enough topic candidates.
+light), which supports the audit policy as a precision screen. The current-CDE
+source-capacity audit found `2,122` local Kaikki/Wiktionary food-signal lemmas
+but only `46` inside the current CDE frequency frontier. For future LPs, this
+is a general warning: topic recall may be bottlenecked by the admitted
+frequency frontier even when the lexical source has enough topic candidates.
 
 The food/cooking overlay PoC converts those `37` accepted labels into an
 overlay candidate and excludes all `9` rejected labels. It moves reviewed
@@ -330,13 +337,21 @@ food/cooking hits in the existing profile-bootstrap preview by `+7`, proving
 the reviewed-label-to-admission-preview path while keeping runtime admission
 unchanged.
 
-The full-source food/cooking review packet then samples the broader installed
-local candidate pool: `96` rows from `2,083` outside-frontier food/cooking
-candidates, covering `83 / 83` review cells. The first label pass accepts
-`89 / 96` rows (`53` strong, `36` light) and rejects `7`. Future LPs should use
-this pattern when the current frontier is too small: exclude already-reviewed
-frontier rows, sample the broader installed source supply, and calibrate
-precision before promoting a larger overlay or source policy.
+The guarded full-source food/cooking review packet then samples the broader
+installed local candidate pool: `96` rows from `2,076` outside-current-frontier
+food/cooking candidates. The guarded label pass accepts `91 / 96` rows (`54`
+strong, `37` light) and rejects `5`. Future LPs should use this pattern when
+the current frontier is too small: exclude already-reviewed frontier rows,
+sample the broader installed source supply, and calibrate precision before
+promoting a larger overlay or source policy.
+
+The SPALEX 10k food/cooking audit is the current product-facing frontier check.
+It finds `265 / 10,000` food/cooking candidates and a deterministic review
+packet of `96` rows covering `62 / 62` evidence cells. Prior food/cooking labels
+match `42 / 96` packet lemmas by lemma, but the packet is still pending review
+and should not be treated as approved overlay data. This corrects the earlier
+tendency to reason from the 2k/current baseline when evaluating product-scale
+food/cooking behavior.
 
 The precision summary adds the current decision point: the flow is directionally
 right, and the next action should be narrow policy guards for the observed

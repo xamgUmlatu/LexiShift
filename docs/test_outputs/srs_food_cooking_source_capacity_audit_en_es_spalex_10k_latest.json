@@ -1,0 +1,1010 @@
+{
+  "common_food_probe_rows": [
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "comida",
+      "snippet": "food",
+      "source_label": "primary_translation:food"
+    },
+    {
+      "best_tier": "",
+      "confidence_band": "",
+      "has_current_policy_signal": false,
+      "in_current_frequency_frontier": true,
+      "lemma": "comer",
+      "snippet": "",
+      "source_label": ""
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "cocinar",
+      "snippet": "",
+      "source_label": "cooking"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "cocina",
+      "snippet": "",
+      "source_label": "cooking"
+    },
+    {
+      "best_tier": "",
+      "confidence_band": "",
+      "has_current_policy_signal": false,
+      "in_current_frequency_frontier": true,
+      "lemma": "restaurante",
+      "snippet": "",
+      "source_label": ""
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "medium",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "agua",
+      "snippet": "",
+      "source_label": "beverages"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "medium",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "vino",
+      "snippet": "",
+      "source_label": "alcoholic_beverages"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "pan",
+      "snippet": "bread (food made by baking cereal dough)",
+      "source_label": "primary_translation:bread"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "review",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "arroz",
+      "snippet": "",
+      "source_label": "foods"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "pollo",
+      "snippet": "chicken (meat)",
+      "source_label": "primary_translation:chicken"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "medium",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "carne",
+      "snippet": "",
+      "source_label": "meats"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "huevo",
+      "snippet": "egg",
+      "source_label": "primary_translation:egg"
+    },
+    {
+      "best_tier": "A",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "leche",
+      "snippet": "",
+      "source_label": "food"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "queso",
+      "snippet": "cheese",
+      "source_label": "primary_translation:cheese"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "tomate",
+      "snippet": "tomato (plant)",
+      "source_label": "primary_translation:tomato"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "patata",
+      "snippet": "potato",
+      "source_label": "primary_translation:potato"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "medium",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "papa",
+      "snippet": "",
+      "source_label": "vegetables"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "azúcar",
+      "snippet": "sugar",
+      "source_label": "primary_translation:sugar"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "sal",
+      "snippet": "salt; table salt",
+      "source_label": "primary_translation:salt"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "medium",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "sopa",
+      "snippet": "",
+      "source_label": "soups"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "fruta",
+      "snippet": "fruit (the seed-bearing part of a plant)",
+      "source_label": "primary_translation:fruit"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "verdura",
+      "snippet": "vegetable",
+      "source_label": "primary_translation:vegetable"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "medium",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "pescado",
+      "snippet": "",
+      "source_label": "seafood"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "cerveza",
+      "snippet": "beer",
+      "source_label": "primary_translation:beer"
+    },
+    {
+      "best_tier": "",
+      "confidence_band": "",
+      "has_current_policy_signal": false,
+      "in_current_frequency_frontier": true,
+      "lemma": "café",
+      "snippet": "",
+      "source_label": ""
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "has_current_policy_signal": true,
+      "in_current_frequency_frontier": true,
+      "lemma": "té",
+      "snippet": "tea",
+      "source_label": "primary_translation:tea"
+    }
+  ],
+  "current_frontier": {
+    "candidate_count": 265,
+    "confidence_band_counts": {
+      "high": 39,
+      "inventory": 58,
+      "medium": 117,
+      "review": 51
+    },
+    "examples": [
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "cepa",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "leche",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "masa",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "aceite",
+        "snippet": "oil",
+        "source_channel": "translation",
+        "source_label": "primary_translation:oil"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "ajo",
+        "snippet": "garlic",
+        "source_channel": "translation",
+        "source_label": "primary_translation:garlic"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "alimento",
+        "snippet": "food (solid substance that can be consumed)",
+        "source_channel": "translation",
+        "source_label": "primary_translation:food"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "azúcar",
+        "snippet": "sugar",
+        "source_channel": "translation",
+        "source_label": "primary_translation:sugar"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "bebida",
+        "snippet": "drink, beverage",
+        "source_channel": "translation",
+        "source_label": "primary_translation:drink"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "cebolla",
+        "snippet": "onion",
+        "source_channel": "translation",
+        "source_label": "primary_translation:onion"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "cereal",
+        "snippet": "cereal (type of grass cultivated for edible grains)",
+        "source_channel": "translation",
+        "source_label": "primary_translation:cereal"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "cerveza",
+        "snippet": "beer",
+        "source_channel": "translation",
+        "source_label": "primary_translation:beer"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "comida",
+        "snippet": "food",
+        "source_channel": "translation",
+        "source_label": "primary_translation:food"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "fruta",
+        "snippet": "fruit (the seed-bearing part of a plant)",
+        "source_channel": "translation",
+        "source_label": "primary_translation:fruit"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "fría",
+        "snippet": "(cold) beer",
+        "source_channel": "translation",
+        "source_label": "primary_translation:beer"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "huevo",
+        "snippet": "egg",
+        "source_channel": "translation",
+        "source_label": "primary_translation:egg"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "limón",
+        "snippet": "lemon (fruit)",
+        "source_channel": "translation",
+        "source_label": "primary_translation:lemon"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "mantequilla",
+        "snippet": "butter",
+        "source_channel": "translation",
+        "source_label": "primary_translation:butter"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "manzana",
+        "snippet": "apple",
+        "source_channel": "translation",
+        "source_label": "primary_translation:apple"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "maíz",
+        "snippet": "corn, maize",
+        "source_channel": "translation",
+        "source_label": "primary_translation:corn"
+      },
+      {
+        "best_tier": "B",
+        "confidence": 0.855,
+        "confidence_band": "high",
+        "lemma": "pan",
+        "snippet": "bread (food made by baking cereal dough)",
+        "source_channel": "translation",
+        "source_label": "primary_translation:bread"
+      }
+    ],
+    "frequency_lemma_count": 10000,
+    "outside_current_candidate_count": 1857,
+    "outside_current_examples": [
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "a fuego lento",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "a la romana",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "achara",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "ahumado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "al gusto",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "al vapor",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "amasado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "brasear",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "cebiche",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "criadilla",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "cuajado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "dar un hervor",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "desglasar",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "desmechado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "en juliana",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "encocado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "enmolada",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "entibiar",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "entrecot",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "estofar",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      }
+    ],
+    "tier_counts": {
+      "A": 15,
+      "B": 31,
+      "C": 122,
+      "D": 97
+    },
+    "top_source_labels": [
+      {
+        "count": 78,
+        "label": "food_gloss_pattern"
+      },
+      {
+        "count": 24,
+        "label": "foods"
+      },
+      {
+        "count": 19,
+        "label": "food_translation_pattern"
+      },
+      {
+        "count": 16,
+        "label": "cooking"
+      },
+      {
+        "count": 14,
+        "label": "meats"
+      },
+      {
+        "count": 11,
+        "label": "fish"
+      },
+      {
+        "count": 10,
+        "label": "vegetables"
+      },
+      {
+        "count": 9,
+        "label": "fruits"
+      },
+      {
+        "count": 8,
+        "label": "seafood"
+      },
+      {
+        "count": 6,
+        "label": "spices_and_herbs"
+      },
+      {
+        "count": 5,
+        "label": "beverages"
+      },
+      {
+        "count": 5,
+        "label": "alcoholic_beverages"
+      },
+      {
+        "count": 4,
+        "label": "food"
+      },
+      {
+        "count": 4,
+        "label": "soups"
+      },
+      {
+        "count": 3,
+        "label": "breads"
+      },
+      {
+        "count": 3,
+        "label": "grains"
+      },
+      {
+        "count": 3,
+        "label": "spices"
+      },
+      {
+        "count": 3,
+        "label": "desserts"
+      },
+      {
+        "count": 3,
+        "label": "sauces"
+      },
+      {
+        "count": 2,
+        "label": "primary_translation:oil"
+      }
+    ]
+  },
+  "decision": "food_cooking_source_capacity_audit_completed",
+  "findings": [
+    {
+      "code": "full_source_food_signals_present",
+      "level": "PASS",
+      "message": "Local Kaikki has food/cooking signal supply."
+    }
+  ],
+  "generated_at": "2026-05-19T02:52:43+00:00",
+  "inputs": {
+    "frequency_db": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "signal_policy_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_inputs/srs_food_cooking_signal_policy_en_es.json",
+    "top_n": 10000
+  },
+  "limitations": [
+    "This audit uses installed local Kaikki/Wiktionary rows and the current food/cooking policy only.",
+    "It does not download sources, mutate packs, write overlays, or change admission behavior.",
+    "Source-capacity totals are not precision-reviewed; use the full-source review packet for sampled precision.",
+    "The common probe list is diagnostic and intentionally small."
+  ],
+  "schema_version": 1,
+  "source_capacity": {
+    "candidate_count": 2122,
+    "confidence_band_counts": {
+      "high": 152,
+      "inventory": 179,
+      "medium": 1142,
+      "review": 649
+    },
+    "examples": [
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "a fuego lento",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "a la romana",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "achara",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "ahumado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "al gusto",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "al vapor",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "amasado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "brasear",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "cebiche",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "cepa",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "criadilla",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "cuajado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "dar un hervor",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "desglasar",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "desmechado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "en juliana",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "encocado",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "food"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "enmolada",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "entibiar",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      },
+      {
+        "best_tier": "A",
+        "confidence": 0.95,
+        "confidence_band": "high",
+        "lemma": "entrecot",
+        "snippet": "",
+        "source_channel": "sense_topics",
+        "source_label": "cooking"
+      }
+    ],
+    "tier_counts": {
+      "A": 80,
+      "B": 76,
+      "C": 1209,
+      "D": 757
+    },
+    "top_source_labels": [
+      {
+        "count": 610,
+        "label": "food_gloss_pattern"
+      },
+      {
+        "count": 264,
+        "label": "foods"
+      },
+      {
+        "count": 147,
+        "label": "food_translation_pattern"
+      },
+      {
+        "count": 134,
+        "label": "fruits"
+      },
+      {
+        "count": 110,
+        "label": "fish"
+      },
+      {
+        "count": 101,
+        "label": "cooking"
+      },
+      {
+        "count": 86,
+        "label": "vegetables"
+      },
+      {
+        "count": 72,
+        "label": "meats"
+      },
+      {
+        "count": 72,
+        "label": "sauces"
+      },
+      {
+        "count": 69,
+        "label": "legumes"
+      },
+      {
+        "count": 51,
+        "label": "beverages"
+      },
+      {
+        "count": 42,
+        "label": "spices_and_herbs"
+      },
+      {
+        "count": 42,
+        "label": "desserts"
+      },
+      {
+        "count": 41,
+        "label": "seafood"
+      },
+      {
+        "count": 33,
+        "label": "alcoholic_beverages"
+      },
+      {
+        "count": 31,
+        "label": "herbs"
+      },
+      {
+        "count": 29,
+        "label": "breads"
+      },
+      {
+        "count": 26,
+        "label": "soups"
+      },
+      {
+        "count": 21,
+        "label": "grains"
+      },
+      {
+        "count": 18,
+        "label": "cheeses"
+      }
+    ]
+  },
+  "status": "ok",
+  "summary": {
+    "finding_counts": {
+      "PASS": 1
+    },
+    "issues": [],
+    "warnings": []
+  }
+}
