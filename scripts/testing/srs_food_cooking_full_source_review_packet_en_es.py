@@ -35,6 +35,9 @@ DEFAULT_JSON_OUT = (
 DEFAULT_MARKDOWN_OUT = (
     TEST_OUTPUTS_ROOT / "srs_food_cooking_full_source_review_packet_en_es_latest.md"
 )
+DEFAULT_LABELS_JSON = (
+    PROJECT_ROOT / "docs" / "test_inputs" / "srs_food_cooking_full_source_review_labels_en_es.json"
+)
 DEFAULT_SAMPLE_PER_CELL = 4
 DEFAULT_MAX_ROWS = 96
 DEFAULT_TOP_N = 10000
@@ -55,6 +58,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--sample-per-cell", type=int, default=DEFAULT_SAMPLE_PER_CELL)
     parser.add_argument("--max-rows", type=int, default=DEFAULT_MAX_ROWS)
     parser.add_argument("--include-current-frontier", action="store_true")
+    parser.add_argument("--labels-json", type=Path, default=DEFAULT_LABELS_JSON)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     parser.add_argument("--fail-on-review", action="store_true")
@@ -71,6 +75,7 @@ def main() -> int:
         sample_per_cell=max(1, int(args.sample_per_cell)),
         max_rows=max(1, int(args.max_rows)),
         exclude_current_frontier=not bool(args.include_current_frontier),
+        labels_path=args.labels_json,
     )
     json_out = _resolve_path(args.json_out)
     markdown_out = _resolve_path(args.markdown_out)
@@ -97,6 +102,7 @@ def build_report(
     sample_per_cell: int = DEFAULT_SAMPLE_PER_CELL,
     max_rows: int = DEFAULT_MAX_ROWS,
     exclude_current_frontier: bool = True,
+    labels_path: Path | None = DEFAULT_LABELS_JSON,
     generated_at: str | None = None,
 ) -> dict[str, object]:
     generated_at = generated_at or _utc_now()
@@ -130,14 +136,18 @@ def build_report(
         kaikki_forward_db=kaikki_path,
         policy=policy,
     )
+    resolved_labels_path = _resolve_path(labels_path) if labels_path else None
     report = build_review_packet_from_candidates(
         candidate_inventory=candidate_inventory,
         current_frontier_lemmas=current_frontier_lemmas,
         exclude_current_frontier=exclude_current_frontier,
         sample_per_cell=sample_per_cell,
         max_rows=max_rows,
+        labels_payload=_load_optional_json(resolved_labels_path),
+        labels_path=resolved_labels_path,
         generated_at=generated_at,
     )
+    base_findings = _mapping_rows(report.get("findings"))
     report["inputs"].update(
         {
             "signal_policy_json": _repo_path(policy_path),
@@ -147,7 +157,7 @@ def build_report(
             "top_n": int(top_n),
         }
     )
-    report["findings"] = [*findings, *_source_findings(report)]
+    report["findings"] = [*findings, *base_findings, *_source_findings(report)]
     report["summary"]["finding_counts"] = dict(
         Counter(str(row.get("level") or "") for row in report["findings"])
     )
@@ -175,6 +185,8 @@ def build_review_packet_from_candidates(
     exclude_current_frontier: bool = True,
     sample_per_cell: int = DEFAULT_SAMPLE_PER_CELL,
     max_rows: int = DEFAULT_MAX_ROWS,
+    labels_payload: Mapping[str, object] | None = None,
+    labels_path: Path | None = None,
     generated_at: str | None = None,
 ) -> dict[str, object]:
     filtered_candidates = [
@@ -194,8 +206,8 @@ def build_review_packet_from_candidates(
     report = build_frontier_review_packet(
         audit_payload=audit_payload,
         audit_path=None,
-        labels_payload=None,
-        labels_path=None,
+        labels_payload=labels_payload,
+        labels_path=labels_path,
         sample_per_cell=sample_per_cell,
         max_rows=max_rows,
         generated_at=generated_at,
@@ -238,6 +250,15 @@ def render_markdown(report: Mapping[str, object]) -> str:
         1,
     )
     summary = _as_mapping(report.get("summary"))
+    decision_counts = _as_mapping(summary.get("manual_decision_counts"))
+    accepted_count = int(decision_counts.get("accept_strong_topic") or 0) + int(
+        decision_counts.get("accept_light_topic") or 0
+    )
+    rejected_rows = [
+        row
+        for row in _mapping_rows(report.get("review_queue"))
+        if str(_as_mapping(row.get("manual_review")).get("decision") or "").startswith("reject")
+    ]
     scope_lines = [
         "",
         "## Source Scope",
@@ -247,7 +268,24 @@ def render_markdown(report: Mapping[str, object]) -> str:
         f"- Excluded current-frontier candidates: "
         f"`{summary.get('excluded_current_frontier_candidate_count', 0)}`",
         f"- Expansion candidates sampled from: `{summary.get('expansion_candidate_count', 0)}`",
+        "",
+        "## Review Interpretation",
+        "",
+        f"- Accepted rows: `{accepted_count}` / `{summary.get('review_queue_count', 0)}`",
+        f"- Strong accepts: `{decision_counts.get('accept_strong_topic', 0)}`",
+        f"- Light accepts: `{decision_counts.get('accept_light_topic', 0)}`",
+        f"- Rejected rows: `{len(rejected_rows)}`",
     ]
+    if rejected_rows:
+        scope_lines.extend(["", "Rejected rows:"])
+        scope_lines.extend(
+            (
+                f"- `{row.get('lemma', '')}`: "
+                f"`{_as_mapping(row.get('manual_review')).get('decision', '')}` "
+                f"({row.get('best_tier', '')}/{row.get('source_label', '')})"
+            )
+            for row in rejected_rows
+        )
     return text.replace(
         "\n## Manual Decisions\n", "\n".join(scope_lines) + "\n\n## Manual Decisions\n", 1
     )
@@ -345,6 +383,13 @@ def _mapping_rows(value: object) -> list[Mapping[str, object]]:
     if not isinstance(value, list):
         return []
     return [row for row in value if isinstance(row, Mapping)]
+
+
+def _load_optional_json(path: Path | None) -> Mapping[str, object] | None:
+    if not path or not path.exists():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return payload if isinstance(payload, Mapping) else None
 
 
 def _as_mapping(value: object) -> Mapping[str, object]:

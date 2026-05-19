@@ -67,6 +67,44 @@ class SrsFoodCookingFullSourceReviewPacketTests(unittest.TestCase):
         self.assertEqual(report["summary"]["expansion_candidate_count"], 2)
         self.assertIn("te", {row["lemma"] for row in report["review_queue"]})
 
+    def test_full_source_packet_applies_review_labels(self) -> None:
+        labels = {
+            "review_id": "unit_food_full_source_labels",
+            "reviewer": "unit",
+            "reviewed_at": "2026-05-19",
+            "state": "agent_labeled_pending_user_approval",
+            "labels": [
+                {
+                    "review_id": "srs-food-001",
+                    "family": "food_cooking",
+                    "lemma": "arroz",
+                    "decision": "accept_strong_topic",
+                    "notes": "Direct staple food.",
+                }
+            ],
+        }
+
+        report = build_review_packet_from_candidates(
+            candidate_inventory=[
+                _candidate("arroz", "C", "medium", True, "sense_categories", "foods"),
+            ],
+            current_frontier_lemmas=set(),
+            labels_payload=labels,
+            sample_per_cell=4,
+            max_rows=8,
+            generated_at="2026-05-19T00:00:00+00:00",
+        )
+
+        self.assertEqual(report["summary"]["labeled_row_count"], 1)
+        self.assertEqual(
+            report["summary"]["manual_decision_counts"]["accept_strong_topic"],
+            1,
+        )
+        self.assertIn("manual_labels_applied", {row["code"] for row in report["findings"]})
+        markdown = render_markdown(report)
+        self.assertIn("Accepted rows", markdown)
+        self.assertIn("Direct staple food.", markdown)
+
 
 def _candidate(
     lemma: str,

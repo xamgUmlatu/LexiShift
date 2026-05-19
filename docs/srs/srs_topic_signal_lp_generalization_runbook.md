@@ -3,7 +3,7 @@
 Status: active planning runbook
 Role: Cross-LP operating guide
 Last updated: 2026-05-19
-Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audit, food/cooking overlay PoC, food/cooking full-source packet, focused tests, SRS quality harness, changed-file gate
+Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audit, food/cooking overlay PoC, food/cooking full-source labels, focused tests, SRS quality harness, changed-file gate
 Purpose: preserve reusable lessons from the en-es interest-topic source work so future language pairs do not repeat avoidable source, policy, and review mistakes
 Source-of-truth: process guide only; pair-specific truth remains in the pair's source-readiness audits, policy files, generated review packets, tests, and current LP capability/resource code.
 
@@ -225,6 +225,8 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 - Full-source food/cooking review packet:
   `docs/test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
+- Full-source food/cooking review labels:
+  `docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - SPALEX 10k audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:
@@ -259,8 +261,9 @@ the reviewed-label-to-admission-preview path while keeping runtime admission
 unchanged.
 
 The full-source food/cooking review packet then samples the broader installed
-local candidate pool: `96` pending-review rows from `2,083` outside-frontier
-food/cooking candidates, covering `83 / 83` review cells. Future LPs should use
+local candidate pool: `96` rows from `2,083` outside-frontier food/cooking
+candidates, covering `83 / 83` review cells. The first label pass accepts
+`89 / 96` rows (`53` strong, `36` light) and rejects `7`. Future LPs should use
 this pattern when the current frontier is too small: exclude already-reviewed
 frontier rows, sample the broader installed source supply, and calibrate
 precision before promoting a larger overlay or source policy.

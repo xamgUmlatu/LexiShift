@@ -3,7 +3,7 @@
 Status: active diagnostic
 Role: SRS topic enrichment evidence
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from food/cooking signal audit, review packet labels, source-capacity audit, topic-overlay PoC, full-source review packet, and focused tests
+Last verified: 2026-05-19 from food/cooking signal audit, current and full-source review labels, source-capacity audit, topic-overlay PoC, and focused tests
 Purpose: record which current food/cooking candidates are real, what the failure modes are, and how to get product-level coverage beyond the current conservative 46-row set
 
 Related artifacts:
@@ -15,6 +15,7 @@ Related artifacts:
 - `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
 - `../test_outputs/srs_food_cooking_topic_overlay_en_es_current_latest.json`
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
+- `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 
 ## Review Result
@@ -188,17 +189,30 @@ Current result:
 - expansion candidates sampled from: `2,083`;
 - review rows: `96`;
 - review cells covered: `83 / 83`;
-- labeled rows: `0`.
+- labeled rows: `96`;
+- strong accepts: `53`;
+- light accepts: `36`;
+- rejects: `7`.
 
 This packet answers the immediate coverage question more directly than more
 admission tuning: the installed source has enough food/cooking supply for a
 larger vocabulary surface, but broader source-label quality still needs review
-before product lift. The packet is pending-review evidence, not an overlay.
+before product lift. The reviewed sample accepted `89 / 96` rows, which is
+promising enough to keep the broad local-source path alive, but still not an
+automatic product overlay.
+
+Rejects in this broader packet mostly reinforce the existing safety rules:
+
+- color/tree matches from primary translations can be wrong-topic
+  (`anaranjado`, `limonero`);
+- name/person/adjective collisions can make category hits too secondary
+  (`claudia`, `loco`, `morena`);
+- broad botanical category overlap can still misfire (`cocobolo`);
+- historical/regional variants can be too obscure for product lift (`cha`).
 
 ## Immediate Next Slice
 
-Review the full-source expansion packet enough to calibrate broad-source
-precision. Focus first on high/medium Tier B and Tier C rows, then inspect Tier
-D and low-confidence cells for recurring reject patterns. After that, decide
-whether the existing food policy can support a larger 10k-style frontier or
-whether food/cooking needs a curated source overlay before admission lift.
+Turn the full-source review into policy guidance. The likely next diagnostic is
+a compact precision summary by tier, confidence band, and source label, followed
+by a small policy adjustment pass for wrong-topic translation matches and noisy
+category overlaps.

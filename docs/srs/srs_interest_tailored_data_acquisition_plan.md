@@ -29,6 +29,7 @@ Related docs:
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
+- `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 
 ## Data-First Goal
@@ -287,9 +288,10 @@ Current product-owned taxonomy artifact:
 - `scripts/testing/srs_food_cooking_full_source_review_packet_en_es.py` samples
   the broader installed local source supply outside the already-reviewed current
   frontier. The first packet covers `96` pending-review rows from `2,083`
-  outside-frontier food/cooking candidates across `83 / 83` review cells. This
-  is the next precision-calibration surface before claiming that the policy can
-  support product-scale food/cooking admission.
+  outside-frontier food/cooking candidates across `83 / 83` review cells. The
+  first label pass accepts `89 / 96` rows (`53` strong, `36` light) and rejects
+  `7`, making it a useful precision-calibration surface before claiming that
+  the policy can support product-scale food/cooking admission.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger

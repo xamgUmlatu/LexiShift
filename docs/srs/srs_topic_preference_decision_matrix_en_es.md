@@ -21,6 +21,7 @@ Related docs:
 - `../test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
 - `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
+- `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 - `srs_food_cooking_signal_review_and_coverage_plan_en_es.md`
 
@@ -162,8 +163,11 @@ The first full-source food/cooking expansion packet is
 `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`.
 It samples `96` pending-review rows from `2,083` installed local Kaikki
 food/cooking candidates outside the already-reviewed current frontier, covering
-`83 / 83` review cells. This gives the next precision-calibration surface for
-deciding whether the broader policy can support a 10k-style frontier.
+`83 / 83` review cells. Labels in
+`../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json` accept
+`89 / 96` rows (`53` strong, `36` light) and reject `7`. This gives the next
+precision-calibration surface for deciding whether the broader policy can
+support a 10k-style frontier.
 
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal
@@ -287,10 +291,13 @@ noisy overlap categories should stay review-gated. A source-capacity audit
 shows `2,083` additional local food-signal lemmas outside the current frequency
 frontier.
 
-The next food/cooking checkpoint is the full-source review packet over those
-outside-frontier candidates. It is intentionally unlabeled and does not promote
-any row; the purpose is to find whether the broad source policy remains precise
-when it sees the much larger local candidate pool.
+The latest food/cooking checkpoint is the labeled full-source review packet
+over those outside-frontier candidates. It does not promote any row; the
+purpose is to find whether the broad source policy remains precise when it sees
+the much larger local candidate pool. The initial label result is promising
+(`89 / 96` accepted), but it still exposes wrong-topic translation matches,
+name/person/adjective collisions, botanical overlap, and historical/regional
+variants that need policy handling before product lift.
 
 The prior SPALEX 10k research SQLite path is not currently present locally, so
 the audit reports that optional frontier as unavailable and does not download

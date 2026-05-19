@@ -419,6 +419,21 @@
   "decision": "srs_food_cooking_full_source_review_packet_ready",
   "findings": [
     {
+      "code": "candidate_universe_present",
+      "level": "PASS",
+      "message": "Audit candidates loaded."
+    },
+    {
+      "code": "review_queue_present",
+      "level": "PASS",
+      "message": "Manual review queue generated."
+    },
+    {
+      "code": "manual_labels_applied",
+      "level": "PASS",
+      "message": "Labels were applied to review rows."
+    },
+    {
       "code": "full_source_candidates_present",
       "level": "PASS",
       "message": "Full local food/cooking candidates loaded."
@@ -434,17 +449,17 @@
       "message": "Already reviewed current-frontier candidates were excluded from this packet."
     }
   ],
-  "generated_at": "2026-05-19T01:17:01+00:00",
+  "generated_at": "2026-05-19T01:37:29+00:00",
   "inputs": {
     "audit_decision": "food_cooking_full_source_candidate_inventory_ready",
-    "audit_generated_at": "2026-05-19T01:17:01+00:00",
+    "audit_generated_at": "2026-05-19T01:37:29+00:00",
     "audit_json": "",
     "excluded_current_frontier_lemma_count": 1984,
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
-    "labels_json": "",
-    "labels_review_id": "",
-    "labels_state": "",
+    "labels_json": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+    "labels_review_id": "srs_food_cooking_full_source_review_en_es_v1",
+    "labels_state": "agent_labeled_pending_user_approval",
     "max_rows": 96,
     "sample_per_cell": 4,
     "signal_policy_id": "srs_food_cooking_existing_signal_policy_en_es_v1",
@@ -453,16 +468,16 @@
     "top_n": 10000
   },
   "label_result": {
-    "applied_label_count": 0,
+    "applied_label_count": 96,
     "duplicate_review_ids": [],
     "invalid_decision_review_ids": [],
-    "labels_json": "",
-    "labels_provided": false,
-    "labels_review_id": "",
-    "labels_state": "",
+    "labels_json": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+    "labels_provided": true,
+    "labels_review_id": "srs_food_cooking_full_source_review_en_es_v1",
+    "labels_state": "agent_labeled_pending_user_approval",
     "mismatched_review_ids": [],
     "missing_review_ids": [],
-    "provided_label_count": 0,
+    "provided_label_count": 96,
     "unknown_review_ids": []
   },
   "limitations": [
@@ -480,7 +495,7 @@
       "uncertain_needs_source_check"
     ],
     "promotion_rule": "Labels calibrate source-signal quality only. No food/cooking candidate is product-ready until it is promoted through a reviewed overlay/policy artifact.",
-    "state": "pending_user_review"
+    "state": "agent_labeled_pending_user_approval"
   },
   "review_queue": [
     {
@@ -545,9 +560,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Dish/plate is dining vocabulary, but this row is crockery rather than a food item.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=review|review=True|source=food_gloss_pattern",
       "review_id": "srs-food-001",
@@ -588,9 +606,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Edible fruit/vegetable sense is real, but the term is specialized and uncommon.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=review|review=True|source=food_translation_pattern",
       "review_id": "srs-food-002",
@@ -691,9 +712,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct alcoholic drink vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=alcoholic_beverages",
       "review_id": "srs-food-003",
@@ -809,9 +833,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Soft-drink sense is real, but tail, glue, and queue senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=beverages",
       "review_id": "srs-food-004",
@@ -882,9 +909,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct spice/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=cooking",
       "review_id": "srs-food-005",
@@ -970,9 +1000,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct candy/sweet vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=desserts",
       "review_id": "srs-food-006",
@@ -1013,9 +1046,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Catfish can be culinary vocabulary, but the animal sense dominates.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=fish",
       "review_id": "srs-food-007",
@@ -1086,9 +1122,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Edible squash/pumpkin sense is food-related, but regionally narrow.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=foods",
       "review_id": "srs-food-008",
@@ -1129,9 +1168,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Greengage sense exists, but the dominant entry is a given name.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=fruits",
       "review_id": "srs-food-009",
@@ -1202,9 +1244,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Herb sense is relevant, but tool/religious senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=herbs",
       "review_id": "srs-food-010",
@@ -1275,9 +1320,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct food/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=legumes",
       "review_id": "srs-food-011",
@@ -1363,9 +1411,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Tripe/meat sense is real, but callus and other senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=meats",
       "review_id": "srs-food-012",
@@ -1481,9 +1532,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct sauce/dish vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=sauces",
       "review_id": "srs-food-013",
@@ -1599,9 +1653,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Seafood sense is buried under dominant adjective/person senses.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=seafood",
       "review_id": "srs-food-014",
@@ -1702,9 +1759,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct spice/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices",
       "review_id": "srs-food-015",
@@ -1820,9 +1880,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct vegetable/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices_and_herbs",
       "review_id": "srs-food-016",
@@ -1863,9 +1926,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct food/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=vegetables",
       "review_id": "srs-food-017",
@@ -1906,9 +1972,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct beer/drink vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:beer",
       "review_id": "srs-food-018",
@@ -1949,9 +2018,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Food sense is direct but slang/register-specific.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:food",
       "review_id": "srs-food-019",
@@ -1992,9 +2064,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_wrong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "The matched sense is orange color, not orange fruit or food.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:orange",
       "review_id": "srs-food-020",
@@ -2050,9 +2125,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct tomato/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=review|review=True|source=primary_translation:tomato",
       "review_id": "srs-food-021",
@@ -2093,9 +2171,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Slice of meat or fish is food-related, but the word is polysemous and regional.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=inventory|review=True|source=food_gloss_pattern",
       "review_id": "srs-food-022",
@@ -2136,9 +2217,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Fish sense can be culinary, but boat and animal senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=inventory|review=True|source=fish",
       "review_id": "srs-food-023",
@@ -2194,9 +2278,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct alcoholic drink vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=alcoholic_beverages",
       "review_id": "srs-food-024",
@@ -2312,9 +2399,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct drink vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=beverages",
       "review_id": "srs-food-025",
@@ -2370,9 +2460,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct bread/food item.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=breads",
       "review_id": "srs-food-026",
@@ -2428,9 +2521,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Cheese-aging adjective is food-related, but not itself a food item.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=cheeses",
       "review_id": "srs-food-027",
@@ -2486,9 +2582,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct custard/dessert vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=dairy_products",
       "review_id": "srs-food-028",
@@ -2544,9 +2643,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct dessert/dish vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=desserts",
       "review_id": "srs-food-029",
@@ -2602,9 +2704,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Fish sense exists, but threshing and other senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=fish",
       "review_id": "srs-food-030",
@@ -2660,9 +2765,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct food/dish phrase.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=foods",
       "review_id": "srs-food-031",
@@ -2733,9 +2841,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct fruit vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=fruits",
       "review_id": "srs-food-032",
@@ -2776,9 +2887,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Grain/chaff food-adjacent sense is real, but agricultural/non-food senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=grains",
       "review_id": "srs-food-033",
@@ -2819,9 +2933,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Herb/tea use is food-related, but regionally narrow.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=herbs",
       "review_id": "srs-food-034",
@@ -2862,9 +2979,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_wrong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Legume category is misleading here; dominant meaning is a tree/wood, not food.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=legumes",
       "review_id": "srs-food-035",
@@ -2905,9 +3025,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct prepared food item.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=meats",
       "review_id": "srs-food-036",
@@ -2963,9 +3086,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct nut/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=nuts",
       "review_id": "srs-food-037",
@@ -3021,9 +3147,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct sauce vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=sauces",
       "review_id": "srs-food-038",
@@ -3079,9 +3208,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Seafood sense is real, but animal and regional specificity keep it light.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=seafood",
       "review_id": "srs-food-039",
@@ -3167,9 +3299,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct stew/soup/dish vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=soups",
       "review_id": "srs-food-040",
@@ -3285,9 +3420,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct spice/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=spices",
       "review_id": "srs-food-041",
@@ -3343,9 +3481,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Herb/tea sense is food-related, but plant sense and regionality keep it light.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=spices_and_herbs",
       "review_id": "srs-food-042",
@@ -3386,9 +3527,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct ingredient phrase.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=medium|review=True|source=vegetables",
       "review_id": "srs-food-043",
@@ -3474,9 +3618,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct cooking-preparation verb.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=high|review=True|source=cooking",
       "review_id": "srs-food-044",
@@ -3562,9 +3709,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Frozen-dessert sense is real, but canoe is the dominant non-food sense.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=medium|review=False|source=cooking",
       "review_id": "srs-food-045",
@@ -3605,9 +3755,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Spread/spreadable food sense is real, but adjectival usage keeps it light.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=medium|review=False|source=food",
       "review_id": "srs-food-046",
@@ -3693,9 +3846,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct fruit/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:apple",
       "review_id": "srs-food-047",
@@ -3796,9 +3952,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct fruit/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:banana",
       "review_id": "srs-food-048",
@@ -3869,9 +4028,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct bean/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:bean",
       "review_id": "srs-food-049",
@@ -3927,9 +4089,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct meat phrase.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:beef",
       "review_id": "srs-food-050",
@@ -3970,9 +4135,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Beer clipping is direct drink vocabulary, but slang/informal.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:beer",
       "review_id": "srs-food-051",
@@ -4088,9 +4256,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct bread/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:bread",
       "review_id": "srs-food-052",
@@ -4146,9 +4317,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct dairy/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:butter",
       "review_id": "srs-food-053",
@@ -4189,9 +4363,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Cheese sense is direct, but dated/rare.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:cheese",
       "review_id": "srs-food-054",
@@ -4307,9 +4484,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Chicken meat sense is food-related, but animal/person senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:chicken",
       "review_id": "srs-food-055",
@@ -4350,9 +4530,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Coffee sense is direct, but regionally narrow.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:coffee",
       "review_id": "srs-food-056",
@@ -4408,9 +4591,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct grain/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:corn",
       "review_id": "srs-food-057",
@@ -4451,9 +4637,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct dessert vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:dessert",
       "review_id": "srs-food-058",
@@ -4494,9 +4683,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Sweet-serving dish/container is food-adjacent, not a food item.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:dish",
       "review_id": "srs-food-059",
@@ -4537,9 +4729,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Drink sense is direct, but the form is uncommon/nonstandard.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:drink",
       "review_id": "srs-food-060",
@@ -4595,9 +4790,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct food/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:egg",
       "review_id": "srs-food-061",
@@ -4683,9 +4881,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Fish can be food vocabulary, but this row is primarily animal vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:fish",
       "review_id": "srs-food-062",
@@ -4756,9 +4957,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct food/meal vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:food",
       "review_id": "srs-food-063",
@@ -4874,9 +5078,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct fruit/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:fruit",
       "review_id": "srs-food-064",
@@ -4977,9 +5184,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:garlic",
       "review_id": "srs-food-065",
@@ -5035,9 +5245,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct fruit/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:grape",
       "review_id": "srs-food-066",
@@ -5078,9 +5291,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_wrong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Matched lemon via tree/seller senses; dominant meaning is not food.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:lemon",
       "review_id": "srs-food-067",
@@ -5121,9 +5337,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Maize/corn sense is food-related, but regional and plant-overlapping.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:maize",
       "review_id": "srs-food-068",
@@ -5239,9 +5458,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Drink/meat senses are food-related, but regional, colloquial, and polysemous.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:meat",
       "review_id": "srs-food-069",
@@ -5312,9 +5534,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct cooking oil/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:oil",
       "review_id": "srs-food-070",
@@ -5370,9 +5595,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct vegetable/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:onion",
       "review_id": "srs-food-071",
@@ -5443,9 +5671,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct pepper/vegetable vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:pepper",
       "review_id": "srs-food-072",
@@ -5546,9 +5777,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct vegetable/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:potato",
       "review_id": "srs-food-073",
@@ -5589,9 +5823,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct seasoning/ingredient vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:salt",
       "review_id": "srs-food-074",
@@ -5632,9 +5869,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct sauce/cooking-preparation vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:sauce",
       "review_id": "srs-food-075",
@@ -5675,9 +5915,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct soup/dish phrase.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:soup",
       "review_id": "srs-food-076",
@@ -5718,9 +5961,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Sugar sense is direct, but the term appears regional/rare.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:sugar",
       "review_id": "srs-food-077",
@@ -5761,9 +6007,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Tea sense is historical/Philippine Spanish and too obscure for product lift.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:tea",
       "review_id": "srs-food-078",
@@ -5879,9 +6128,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct tomato/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:tomato",
       "review_id": "srs-food-079",
@@ -5922,9 +6174,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct vegetable/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:vegetable",
       "review_id": "srs-food-080",
@@ -5980,9 +6235,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct grain/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=B|band=high|review=False|source=primary_translation:wheat",
       "review_id": "srs-food-081",
@@ -6068,9 +6326,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct prepared grain/flour food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=high|review=False|source=cooking",
       "review_id": "srs-food-082",
@@ -6111,9 +6372,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Food-specific shredded/pulled adjective is useful, but adjectival and preparation-specific.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=A|band=high|review=False|source=food",
       "review_id": "srs-food-083",
@@ -6154,9 +6418,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct dining/eating verb.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=review|review=True|source=food_gloss_pattern",
       "review_id": "srs-food-084",
@@ -6197,9 +6464,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Fruit-salad sense is real, but proper-name/geographic senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=D|band=review|review=True|source=food_translation_pattern",
       "review_id": "srs-food-085",
@@ -6300,9 +6570,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Coke/soft-drink and coca-leaf beverage senses are real, but plant/drug senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=beverages",
       "review_id": "srs-food-086",
@@ -6418,9 +6691,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Dessert sense is real, but the word is regional/polysemous.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=desserts",
       "review_id": "srs-food-087",
@@ -6476,9 +6752,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "reject_secondary_or_obscure_sense",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Moray/fish sense is not enough for food lift against dominant person/name senses.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=fish",
       "review_id": "srs-food-088",
@@ -6564,9 +6843,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct staple food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=foods",
       "review_id": "srs-food-089",
@@ -6682,9 +6964,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Lupin bean/sweet senses are food-related, but slang/person senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=fruits",
       "review_id": "srs-food-090",
@@ -6740,9 +7025,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct tea/herb/drink vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=herbs",
       "review_id": "srs-food-091",
@@ -6783,9 +7071,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct peanut/food vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=legumes",
       "review_id": "srs-food-092",
@@ -6871,9 +7162,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Jowl/meat sense is real, but jaw/anatomy and instrument senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=meats",
       "review_id": "srs-food-093",
@@ -6989,9 +7283,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_strong_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Direct pepper/spice vocabulary.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices",
       "review_id": "srs-food-094",
@@ -7047,9 +7344,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Herb sense is food-related, but name/plant senses compete.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=spices_and_herbs",
       "review_id": "srs-food-095",
@@ -7090,9 +7390,12 @@
           "reject_secondary_or_obscure_sense",
           "uncertain_needs_source_check"
         ],
-        "decision": "",
-        "notes": "",
-        "state": "pending_user_review"
+        "decision": "accept_light_topic",
+        "label_source": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+        "notes": "Rare watermelon/vegetable sense is food-related, but too rare for strong lift.",
+        "reviewed_at": "2026-05-19",
+        "reviewer": "codex_agent",
+        "state": "agent_labeled_pending_user_approval"
       },
       "review_cell": "food_cooking|tier=C|band=review|review=True|source=vegetables",
       "review_id": "srs-food-096",
@@ -7122,17 +7425,20 @@
     "excluded_current_frontier_candidate_count": 46,
     "expansion_candidate_count": 2083,
     "finding_counts": {
-      "PASS": 3
+      "PASS": 6
     },
     "full_candidate_inventory_used": true,
     "issues": [],
     "label_missing_count": 0,
-    "labeled_row_count": 0,
+    "labeled_row_count": 96,
     "manual_decision_counts": {
-      "": 96
+      "accept_light_topic": 36,
+      "accept_strong_topic": 53,
+      "reject_secondary_or_obscure_sense": 4,
+      "reject_wrong_topic": 3
     },
     "manual_state_counts": {
-      "pending_user_review": 96
+      "agent_labeled_pending_user_approval": 96
     },
     "review_queue_count": 96,
     "review_rows_by_band": {
