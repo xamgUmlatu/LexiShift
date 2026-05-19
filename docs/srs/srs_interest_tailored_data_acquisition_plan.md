@@ -28,6 +28,7 @@ Related docs:
 - `../test_outputs/srs_topic_family_depth_audit_en_es_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
+- `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 
 ## Data-First Goal
 
@@ -277,6 +278,11 @@ Current product-owned taxonomy artifact:
   food-signal lemmas, but only `46` are in the current frequency frontier, so
   better food/cooking coverage primarily requires a larger allowed target-lemma
   frontier plus reviewed policy expansion.
+- `scripts/testing/srs_food_cooking_topic_overlay_poc_en_es.py` converts those
+  labels into the first diagnostic food/cooking overlay candidate. It emits
+  `37` overlay rows, excludes all `9` rejected rows, and moves reviewed
+  food/cooking hits in the profile preview from `0` to `7` without installing a
+  pack, mutating helper state, or changing runtime admission defaults.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger

@@ -3,7 +3,7 @@
 Status: active diagnostic
 Role: SRS topic enrichment evidence
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from food/cooking signal audit, review packet labels, source-capacity audit, and focused tests
+Last verified: 2026-05-19 from food/cooking signal audit, review packet labels, source-capacity audit, topic-overlay PoC, and focused tests
 Purpose: record which current food/cooking candidates are real, what the failure modes are, and how to get product-level coverage beyond the current conservative 46-row set
 
 Related artifacts:
@@ -13,6 +13,8 @@ Related artifacts:
 - `../test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
 - `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
+- `../test_outputs/srs_food_cooking_topic_overlay_en_es_current_latest.json`
+- `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 
 ## Review Result
 
@@ -30,6 +32,28 @@ Manual labels:
 
 So `37 / 46` rows are true food/cooking signals, but only `19 / 46` are strong
 enough to treat as direct topic members without a light-weight caveat.
+
+## Reject Lessons
+
+The `9 / 46` rejected rows are useful policy evidence, not random noise.
+
+Rejects cluster into four avoidable failure modes:
+
+- secondary or obscure culinary senses, such as a dominant non-food word with a
+  rare food/cooking meaning;
+- generic verbs where food appears only as an example object;
+- category overlap where the dominant lemma belongs to animals, plants, people,
+  or another topic rather than food/cooking;
+- broad Tier D gloss/translation patterns that capture incidental examples
+  instead of primary learner-facing senses.
+
+The natural avoidance rule is to keep Tier D and noisy overlap signals as
+candidate-discovery channels only. They can enter review packets, but they
+should not automatically become product topic evidence. For this current
+overlay PoC, the rule is stricter: only reviewed `accept_strong_topic` and
+`accept_light_topic` rows become overlay rows, while
+`reject_secondary_or_obscure_sense` and `reject_wrong_topic` rows are excluded
+and counted in the overlay policy.
 
 ## Precision By Evidence Type
 
@@ -118,15 +142,37 @@ food/cooking user journey.
    with enough easy, mid, and hard food terms to avoid disappearing above one
    proficiency band.
 
+## Overlay PoC Result
+
+`scripts/testing/srs_food_cooking_topic_overlay_poc_en_es.py` builds the first
+diagnostic food/cooking overlay candidate from the reviewed current labels.
+
+The generated artifacts are:
+
+- `../test_outputs/srs_food_cooking_topic_overlay_en_es_current_latest.json`
+- `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.json`
+- `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
+
+Current result:
+
+- overlay rows: `37`;
+- strong rows: `19`, with membership `1.0`;
+- light rows: `18`, with membership `0.65`;
+- excluded rejects: `6` secondary/obscure and `3` wrong-topic rows;
+- baseline food/cooking overlay hits in the profile preview: `0`;
+- with-overlay food/cooking hits in the profile preview: `7`;
+- runtime policy changes: none;
+- helper state mutation: none.
+
+Only strong accepted rows are injected into `profile_topics` for the runnable
+preview because the current profile-bootstrap scorer consumes topic presence
+rather than scalar topic membership. Light rows remain in the overlay artifact
+for future scalar-aware scoring or review decisions.
+
 ## Immediate Next Slice
 
-Build the food/cooking overlay PoC from the reviewed current labels. It should
-be diagnostic-only, provenance-bearing, and parallel to the animals/plants
-overlay PoC:
-
-- read `srs_food_cooking_signal_review_packet_en_es_current_latest.json`;
-- accept strong/light decisions into overlay rows;
-- assign membership `1.0` for strong and `0.65` for light;
-- preserve review ids, label source, evidence tier, source label, and notes;
-- run the profile-bootstrap reranker with a `food_cooking` interest;
-- report how many reviewed rows enter the top preview.
+Move food/cooking back to coverage expansion rather than further PoC plumbing.
+The current overlay proves the reviewed-label-to-admission-preview path, but it
+does not solve recall. The next useful step is to rerun or extend this food
+signal policy over a larger legally usable target-lemma frontier, then review a
+stratified packet from that broader candidate universe.

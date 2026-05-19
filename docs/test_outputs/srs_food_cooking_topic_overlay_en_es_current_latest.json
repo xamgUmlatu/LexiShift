@@ -1,0 +1,862 @@
+{
+  "decision": "topic_overlay_candidate_ready",
+  "findings": [
+    {
+      "code": "overlay_rows_present",
+      "level": "PASS",
+      "message": "Accepted food/cooking review labels produced overlay rows."
+    },
+    {
+      "code": "review_rows_labeled",
+      "level": "PASS",
+      "message": "All review rows have decision labels."
+    }
+  ],
+  "generated_at": "2026-05-19T01:09:56+00:00",
+  "inputs": {
+    "review_packet_decision": "srs_food_cooking_signal_review_packet_ready",
+    "review_packet_json": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+  },
+  "overlay_id": "srs_food_cooking_topic_overlay_en_es_current_poc_v1",
+  "overlay_policy": {
+    "membership_from_decision": {
+      "accept_light_topic": 0.65,
+      "accept_strong_topic": 1.0
+    },
+    "promotion_state": "poc_candidate_not_product_overlay",
+    "rejected_decisions_excluded": {
+      "reject_secondary_or_obscure_sense": 6,
+      "reject_wrong_topic": 3
+    },
+    "runtime_policy_change": "none"
+  },
+  "rows": [
+    {
+      "confidence_label": "light",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "acompañamiento",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Side-dish sense is useful but competes with broader accompaniment meanings.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-016",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "ave",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Poultry/meat overlap is real, but the dominant word is animal/bird.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-030",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "meats",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.665,
+      "evidence_tier": "A",
+      "language_pair": "en-es",
+      "lemma": "batido",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Batter/smoothie/milkshake cooking and drink senses are directly food/cooking.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-044",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_topics",
+      "source_label": "cooking",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "caldo",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Broth/soup vocabulary is directly food-relevant.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-038",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "soups",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.665,
+      "evidence_tier": "A",
+      "language_pair": "en-es",
+      "lemma": "careta",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Pork-cheek cooking sense is real but secondary to face/mask senses.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-043",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_topics",
+      "source_label": "cooking",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "cereal",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct food/grain/cereal vocabulary.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-045",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:cereal",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "chancho",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Pig/pork overlap is real, but animal and adjectival senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-031",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "meats",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.817,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "chipa",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct prepared food item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-025",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "foods",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "cogollo",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Vegetable heart/lettuce sense is food-related, but plant/anatomy senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-041",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "vegetables",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "damasco",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Apricot sense is food-related, but damask/Damascus senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-028",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "fruits",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "dulce",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Sweet/candy/dessert vocabulary is directly food-relevant.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-017",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.817,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "empanada",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct prepared food item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-020",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "foods",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.817,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "ensalada",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct prepared food item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-022",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "foods",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "erizo",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Seafood/sea-urchin culinary sense is real, but hedgehog/animal senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-035",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "seafood",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "falda",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Brisket/cut-of-meat sense is real, but skirt/hillside senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-018",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "fonda",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Food-service venue sense is food-adjacent, not a direct food item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-019",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.817,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "jalea",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Jelly/gelatin/dessert vocabulary is directly food-relevant.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-021",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "foods",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "langostino",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct seafood item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-037",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_categories",
+      "source_label": "seafood",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.5054,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "lomo",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Loin/tenderloin culinary sense is real, but body/back senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-009",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "meats",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "magro",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Lean meat sense is real, but adjective/general senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-034",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "meats",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "mejillón",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct seafood item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-036",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "seafood",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "morocho",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Regional corn-grain sense is food-related, but regionally narrow and polysemous.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-011",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "naranja",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct fruit/food item, despite color and political senses.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-027",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "fruits",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.527,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "panadero",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Baker is cooking/food-profession vocabulary, but not a food item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-002",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "papaya",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct fruit/food item; vulgar secondary sense should not erase food membership.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-026",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "fruits",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "picadillo",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Minced meat or prepared dish vocabulary is directly food-relevant.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-032",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "meats",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "picante",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Spicy/hot-sauce/condiment vocabulary is directly food-relevant.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-012",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.722,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "pichón",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Squab/young pigeon food sense is real, but animal/person senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-033",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "meats",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.527,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "piltrafa",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Scrap of meat is food-related, but low-value and somewhat obscure.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-003",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "pimienta",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct spice/food ingredient.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-040",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_categories",
+      "source_label": "spices",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.817,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "pincho",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Skewer/tapa sense is useful, but spike/piercing senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-023",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "foods",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.4536,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "pote",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Stew/pot culinary sense is real, but the word is polysemous.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-007",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "food_translation_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "puchero",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Stew/cooking-pot food sense is strong enough for food/cooking.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-039",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "soups",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "puerco",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Pork sense is food-related, but animal/adjectival senses compete.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-food-015",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "food_gloss_pattern",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "review",
+      "evidence_score": 0.5719,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "tamal",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct prepared food item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-008",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "foods",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.817,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "tortilla",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct prepared food item.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-024",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "foods",
+      "topic": "food_cooking"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "té",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_food_cooking_signal_review_labels_en_es_current.json",
+        "notes": "Direct drink vocabulary.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-food-046",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:tea",
+      "topic": "food_cooking"
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "counts_by_confidence": {
+      "light": 18,
+      "strong": 19
+    },
+    "counts_by_topic": {
+      "food_cooking": 37
+    },
+    "row_count": 37,
+    "unlabeled_review_row_count": 0
+  }
+}

@@ -20,6 +20,7 @@ Related docs:
 - `../test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
 - `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
+- `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 - `srs_food_cooking_signal_review_and_coverage_plan_en_es.md`
 
 ## Decision Frame
@@ -75,7 +76,7 @@ current trusted source labels are not enough by themselves.
 | `anime_manga_pop_culture` | adjacent labels only: `entertainment` 20, `media` 9, `film` 1, `television` 2, `gaming` 1 | weak/adjacent | P0 enrichment | High UX value. Needs public sources, curated seed lists, or embedding/gloss inference; do not pretend broad media tags mean anime. |
 | `hobbies_crafts` | `hobbies` 41, plus narrow labels such as `sewing` 1, `textiles` 2, `arts` 5, `games` 24 | medium but ambiguous | P0 enrichment | Users care about hobbies, but `hobbies` is too broad/polysemous to use directly without review. |
 | `education_academic` | `education` 2, `higher_education` 1, plus possible academic aliases from `grammar`, `linguistics`, `mathematics`, and `sciences` | weak | Defer or parent-only | Needs a clearer taxonomy before becoming user-facing. |
-| `food_cooking` | `food` 2, `cooking` 2 | weak | P0 enrichment | Strong user-delight topic. Current trusted support is small, so use overlays, public recipe/food lexicons, or embedding inference before strong admission lift. |
+| `food_cooking` | `food` 2, `cooking` 2 | weak direct support; reviewed overlay PoC has 37 rows | P0 enrichment | Strong user-delight topic. Current trusted support is small, but reviewed labels now prove a narrow overlay path. Broader coverage still needs public recipe/food lexicons, a larger allowed frontier, or embedding inference before strong product claims. |
 | `psychology_emotions` | `psychology` 1, `human_sciences` 17 | weak | Defer until overlay | Emotions are product-aligned but not directly present in trusted current-CDE topics. |
 | `animals` | `animals` 1, `zoology` 1, plus allowlisted animal categories/glosses in review-only channels | weak direct support | P0 enrichment | Strong user-delight topic. Keep separate from botany/plants; broad science labels should not substitute for it. |
 | `plants_nature` | `botany` 5, plus allowlisted plant categories/glosses in review-only channels | weak direct support | P0 enrichment | Keep plants/botany distinct from animals. Useful for gardening/nature interests, but broad natural-science labels are too broad for strong lift. |
@@ -147,6 +148,14 @@ wrong-topic rejects. The source-capacity audit reports `2,129` local
 Kaikki/Wiktionary food-signal lemmas under the same policy, with only `46`
 inside the current frequency frontier. That makes the current frontier the
 primary recall bottleneck for food/cooking.
+
+The first food/cooking overlay PoC is
+`../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`.
+It converts the `37` accepted review labels into a provenance-bearing candidate
+overlay (`19` strong, `18` light), excludes all `9` rejected labels, and runs
+the existing profile-bootstrap reranker with a `food_cooking` interest. The
+preview moves reviewed food/cooking rows into the top profile preview by `+7`
+without mutating helper state or enabling default runtime admission.
 
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal
@@ -263,8 +272,12 @@ primary translations, and narrow gloss/translation patterns produce `46`
 current-CDE food/cooking candidates, with `42` intentionally review-required
 before any overlay or admission lift.
 The companion review packet includes all `46` rows; labels accept `37` rows as
-real food/cooking signals. A source-capacity audit shows `2,083` additional
-local food-signal lemmas outside the current frequency frontier.
+real food/cooking signals and reject `9` secondary, obscure, or wrong-topic
+rows. The overlay PoC proves those accepted labels can lift a `food_cooking`
+profile preview, while the rejects show that Tier D gloss/example patterns and
+noisy overlap categories should stay review-gated. A source-capacity audit
+shows `2,083` additional local food-signal lemmas outside the current frequency
+frontier.
 
 The prior SPALEX 10k research SQLite path is not currently present locally, so
 the audit reports that optional frontier as unavailable and does not download

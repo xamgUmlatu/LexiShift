@@ -3,7 +3,7 @@
 Status: active planning runbook
 Role: Cross-LP operating guide
 Last updated: 2026-05-19
-Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audit, focused tests, SRS quality harness, changed-file gate
+Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audit, food/cooking overlay PoC, focused tests, SRS quality harness, changed-file gate
 Purpose: preserve reusable lessons from the en-es interest-topic source work so future language pairs do not repeat avoidable source, policy, and review mistakes
 Source-of-truth: process guide only; pair-specific truth remains in the pair's source-readiness audits, policy files, generated review packets, tests, and current LP capability/resource code.
 
@@ -76,25 +76,31 @@ reviewable topic candidates.
    imply food by default. Treat overlap as multiple source-backed memberships,
    and keep noisy category/gloss overlap review-required until sampled.
 
-10. Audits must retain the full candidate inventory.
+10. Rejected review labels are reusable policy evidence.
+    The en-es food/cooking packet rejected `6` secondary/obscure senses and `3`
+    wrong-topic rows. Those rejects showed that generic verbs, incidental gloss
+    examples, and noisy overlap categories should stay discovery-only until a
+    review label or stronger primary-sense evidence promotes them.
+
+11. Audits must retain the full candidate inventory.
    Top previews are not enough for review or precision estimates. The audit
    artifact should keep all candidates plus small human-readable previews, so a
    review packet can sample the actual candidate universe.
 
-11. Review packets are QA surfaces, not promotion artifacts.
+12. Review packets are QA surfaces, not promotion artifacts.
     Every selected row should remain `pending_user_review` until explicitly
     labeled. Manual decisions should be structured and limited, for example
     `accept_strong_topic`, `accept_light_topic`, `reject_wrong_topic`,
     `reject_secondary_or_obscure_sense`, or
     `uncertain_needs_source_check`.
 
-12. Sampling should be deterministic and stratified.
+13. Sampling should be deterministic and stratified.
     Stable-hash selection by family, tier, band, review flag, and evidence
     source makes packets reproducible. Balance families before spending the
     review budget on large high-cardinality families, otherwise one family can
     crowd out another.
 
-13. No raw-source download belongs in the repo by accident.
+14. No raw-source download belongs in the repo by accident.
     If a license or size constraint requires local/manual source handling, keep
     raw source and rebuilt research packs outside tracked files unless the
     distribution policy explicitly allows committing them. Generated audit
@@ -215,6 +221,8 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
 - Food/cooking review and coverage plan:
   `docs/srs/srs_food_cooking_signal_review_and_coverage_plan_en_es.md`
+- Current CDE food/cooking topic-overlay PoC:
+  `docs/test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 - SPALEX 10k audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:
@@ -241,3 +249,9 @@ capacity audit found `2,129` local Kaikki/Wiktionary food-signal lemmas but
 only `46` inside the current CDE frequency frontier. For future LPs, this is a
 general warning: topic recall may be bottlenecked by the admitted frequency
 frontier even when the lexical source has enough topic candidates.
+
+The food/cooking overlay PoC converts those `37` accepted labels into an
+overlay candidate and excludes all `9` rejected labels. It moves reviewed
+food/cooking hits in the existing profile-bootstrap preview by `+7`, proving
+the reviewed-label-to-admission-preview path while keeping runtime admission
+unchanged.
