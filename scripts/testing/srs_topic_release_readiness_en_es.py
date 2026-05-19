@@ -19,6 +19,9 @@ DEFAULT_OVERLAYS = (
     TEST_OUTPUTS_ROOT / "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
     TEST_OUTPUTS_ROOT / "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
 )
+DEFAULT_SOURCE_PRECISION_REVIEW = (
+    TEST_OUTPUTS_ROOT / "srs_source_topic_precision_review_en_es_spalex_10k_latest.json"
+)
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "srs_topic_release_readiness_en_es_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "srs_topic_release_readiness_en_es_latest.md"
 DEFAULT_FRONTIER_LABEL = "spalex_10k_research"
@@ -52,6 +55,15 @@ def _parse_args() -> argparse.Namespace:
             "animals/plants and food/cooking SPALEX 10k overlays."
         ),
     )
+    parser.add_argument(
+        "--source-precision-review-json",
+        type=Path,
+        default=DEFAULT_SOURCE_PRECISION_REVIEW,
+        help=(
+            "Optional sampled precision review for source-backed release candidates. "
+            "Missing file leaves the readiness matrix unchanged."
+        ),
+    )
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     parser.add_argument("--fail-on-review", action="store_true")
@@ -69,9 +81,11 @@ def main() -> int:
             for payload in (_load_json_if_exists(path) for path in overlay_paths)
             if payload is not None
         ],
+        source_precision_payload=_load_json_if_exists(args.source_precision_review_json),
         taxonomy_path=args.taxonomy_json,
         depth_audit_path=args.depth_audit_json,
         overlay_paths=overlay_paths,
+        source_precision_path=args.source_precision_review_json,
         frontier_label=str(args.frontier_label),
     )
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
@@ -93,9 +107,11 @@ def build_report(
     taxonomy_payload: Mapping[str, object],
     depth_audit_payload: Mapping[str, object],
     overlay_payloads: Sequence[Mapping[str, object]] = (),
+    source_precision_payload: Mapping[str, object] | None = None,
     taxonomy_path: Path | None = None,
     depth_audit_path: Path | None = None,
     overlay_paths: Sequence[Path] = (),
+    source_precision_path: Path | None = None,
     frontier_label: str = DEFAULT_FRONTIER_LABEL,
     generated_at: str | None = None,
 ) -> dict[str, object]:
@@ -109,7 +125,14 @@ def build_report(
         _readiness_row(family, depth_by_family.get(str(family.get("id") or ""), {}), overlays)
         for family in families
     ]
-    findings = _findings(topic_rows, frontier=frontier, overlays=overlays)
+    source_precision = _source_precision_summary(source_precision_payload)
+    topic_rows = [_with_source_precision(row, source_precision) for row in topic_rows]
+    findings = _findings(
+        topic_rows,
+        frontier=frontier,
+        overlays=overlays,
+        source_precision=source_precision,
+    )
     status = "ok" if not any(row["level"] == "FAIL" for row in findings) else "review"
     return {
         "schema_version": 1,
@@ -126,6 +149,9 @@ def build_report(
             "depth_audit_json": _repo_path(depth_audit_path),
             "frontier_label": str(frontier.get("label") or frontier_label),
             "overlay_json": [_repo_path(path) for path in overlay_paths],
+            "source_precision_review_json": (
+                _repo_path(source_precision_path) if source_precision.get("exists") else ""
+            ),
         },
         "release_gate": _release_gate(),
         "frontier": {
@@ -135,6 +161,7 @@ def build_report(
             "unique_lemma_count": int(frontier.get("unique_lemma_count") or 0),
         },
         "overlay_summary": overlays,
+        "source_precision_review": source_precision,
         "topics": topic_rows,
         "summary": _summary(topic_rows, findings),
         "findings": findings,
@@ -143,6 +170,7 @@ def build_report(
             "Reviewed overlay rows are counted separately from source-derived trusted rows.",
             "Effective rows use the larger of source-trusted and reviewed-overlay counts to avoid optimistic double counting.",
             "Difficulty bands currently come from the source-depth audit; overlay rows do not yet carry a calibrated difficulty-band distribution.",
+            "Source precision review is sampled compact evidence, not a full-universe precision estimate.",
             "Register rows are policy-review candidates, not ordinary interest topics.",
         ],
     }
@@ -175,6 +203,23 @@ def render_markdown(report: Mapping[str, object]) -> str:
         "blocked",
     ):
         lines.append(f"- `{key}`: {gate.get(key, '')}")
+    lines.extend(["", "## Source Precision Review", ""])
+    precision = _as_mapping(report.get("source_precision_review"))
+    if precision.get("exists"):
+        lines.extend(
+            [
+                f"- Review state: `{precision.get('labels_state', '')}`",
+                f"- Reviewed rows: `{precision.get('reviewed_count', 0)}`",
+                f"- Accepted rows: `{precision.get('accepted_count', 0)}` "
+                f"({_format_percent(precision.get('accepted_rate'))})",
+                f"- Rejected rows: `{precision.get('rejected_count', 0)}` "
+                f"({_format_percent(precision.get('rejected_rate'))})",
+                "- Families needing guard review: "
+                f"`{', '.join(_string_list(precision.get('noisy_families'))) or 'none'}`",
+            ]
+        )
+    else:
+        lines.append("- _No sampled source precision review was available._")
     lines.extend(
         [
             "",
@@ -299,6 +344,74 @@ def _readiness_row(
         "review_only_candidate_count": review_only_count,
         "next_work": next_work,
     }
+
+
+def _source_precision_summary(
+    source_precision_payload: Mapping[str, object] | None,
+) -> dict[str, object]:
+    if not source_precision_payload:
+        return {"exists": False, "by_family": {}}
+    summary = _as_mapping(source_precision_payload.get("summary"))
+    by_family = {
+        str(row.get("label") or ""): row
+        for row in _mapping_rows(source_precision_payload.get("precision_by_family"))
+    }
+    noisy_families = [
+        family
+        for family, row in sorted(by_family.items())
+        if float(row.get("rejected_rate") or 0) >= 0.4
+    ]
+    label_result = _as_mapping(source_precision_payload.get("label_result"))
+    return {
+        "exists": True,
+        "decision": str(source_precision_payload.get("decision") or ""),
+        "labels_state": str(label_result.get("labels_state") or ""),
+        "reviewed_count": int(summary.get("count") or 0),
+        "accepted_count": int(summary.get("accepted_count") or 0),
+        "accepted_rate": float(summary.get("accepted_rate") or 0),
+        "rejected_count": int(summary.get("rejected_count") or 0),
+        "rejected_rate": float(summary.get("rejected_rate") or 0),
+        "pending_count": int(summary.get("pending_count") or 0),
+        "noisy_families": noisy_families,
+        "by_family": by_family,
+    }
+
+
+def _with_source_precision(
+    row: Mapping[str, object],
+    source_precision: Mapping[str, object],
+) -> dict[str, object]:
+    next_row = dict(row)
+    family = str(next_row.get("family") or "")
+    by_family = _as_mapping(source_precision.get("by_family"))
+    family_precision = _as_mapping(by_family.get(family))
+    if not family_precision:
+        next_row["source_precision_review"] = {}
+        return next_row
+
+    precision = {
+        "reviewed_count": int(family_precision.get("count") or 0),
+        "accepted_count": int(family_precision.get("accepted_count") or 0),
+        "accepted_rate": float(family_precision.get("accepted_rate") or 0),
+        "rejected_count": int(family_precision.get("rejected_count") or 0),
+        "rejected_rate": float(family_precision.get("rejected_rate") or 0),
+        "strong_count": int(family_precision.get("strong_count") or 0),
+        "light_count": int(family_precision.get("light_count") or 0),
+    }
+    next_row["source_precision_review"] = precision
+    release_status = str(next_row.get("release_status") or "")
+    next_work = [
+        item
+        for item in _string_list(next_row.get("next_work"))
+        if item != "run sampled precision review"
+    ]
+    if release_status == "release_candidate":
+        if precision["rejected_rate"] >= 0.4:
+            next_work.insert(0, "tighten source-label guards before default promotion")
+        else:
+            next_work.insert(0, "review light-topic scalar handling before default promotion")
+    next_row["next_work"] = next_work
+    return next_row
 
 
 def _classify(
@@ -497,6 +610,7 @@ def _findings(
     *,
     frontier: Mapping[str, object],
     overlays: Mapping[str, object],
+    source_precision: Mapping[str, object],
 ) -> list[dict[str, object]]:
     findings: list[dict[str, object]] = []
     if frontier.get("exists"):
@@ -549,6 +663,22 @@ def _findings(
                 "At least one topic family meets the default release-candidate floor.",
             )
         )
+    if source_precision.get("exists"):
+        findings.append(
+            _finding(
+                "PASS",
+                "source_precision_review_available",
+                "Sampled source precision review is available.",
+            )
+        )
+        if _string_list(source_precision.get("noisy_families")):
+            findings.append(
+                _finding(
+                    "WARN",
+                    "source_precision_guards_needed",
+                    "Some default-visible source topics need guard review before promotion.",
+                )
+            )
     return findings
 
 
@@ -629,6 +759,13 @@ def _string_list(value: object) -> list[str]:
     if isinstance(value, (list, tuple)):
         return [str(item) for item in value if str(item).strip()]
     return []
+
+
+def _format_percent(value: object) -> str:
+    try:
+        return f"{float(value) * 100:.1f}%"
+    except (TypeError, ValueError):
+        return "0.0%"
 
 
 if __name__ == "__main__":

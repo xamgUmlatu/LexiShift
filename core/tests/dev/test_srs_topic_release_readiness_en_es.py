@@ -71,6 +71,30 @@ class SrsTopicReleaseReadinessTests(unittest.TestCase):
         self.assertIn("limited_release_candidate", markdown)
         self.assertIn("blocked_legal_source_required", markdown)
 
+    def test_source_precision_review_updates_release_candidate_next_work(self) -> None:
+        report = build_report(
+            taxonomy_payload=_taxonomy_payload(),
+            depth_audit_payload=_depth_audit_payload(),
+            overlay_payloads=[_overlay_payload()],
+            source_precision_payload=_source_precision_payload(),
+            frontier_label="unit_10k",
+            generated_at="2026-05-19T00:00:00+00:00",
+        )
+
+        rows = {row["family"]: row for row in report["topics"]}
+        science = rows["science_technology"]
+
+        self.assertEqual(science["source_precision_review"]["reviewed_count"], 4)
+        self.assertEqual(
+            science["next_work"][0],
+            "tighten source-label guards before default promotion",
+        )
+        self.assertIn("source_precision_guards_needed", report["summary"]["warnings"])
+
+        markdown = render_markdown(report)
+        self.assertIn("Source Precision Review", markdown)
+        self.assertIn("Families needing guard review", markdown)
+
 
 def _taxonomy_payload() -> dict[str, object]:
     return {
@@ -169,6 +193,35 @@ def _overlay_payload() -> dict[str, object]:
                 "confidence_label": "strong",
             }
             for index in range(91)
+        ],
+    }
+
+
+def _source_precision_payload() -> dict[str, object]:
+    return {
+        "decision": "srs_source_topic_precision_review_ready",
+        "label_result": {
+            "labels_state": "agent_labeled_pending_user_approval",
+        },
+        "summary": {
+            "count": 4,
+            "accepted_count": 2,
+            "accepted_rate": 0.5,
+            "rejected_count": 2,
+            "rejected_rate": 0.5,
+            "pending_count": 0,
+        },
+        "precision_by_family": [
+            {
+                "label": "science_technology",
+                "count": 4,
+                "accepted_count": 2,
+                "accepted_rate": 0.5,
+                "strong_count": 1,
+                "light_count": 1,
+                "rejected_count": 2,
+                "rejected_rate": 0.5,
+            }
         ],
     }
 

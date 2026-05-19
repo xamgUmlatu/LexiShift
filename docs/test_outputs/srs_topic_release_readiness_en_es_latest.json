@@ -20,6 +20,16 @@
       "code": "release_candidates_present",
       "level": "PASS",
       "message": "At least one topic family meets the default release-candidate floor."
+    },
+    {
+      "code": "source_precision_review_available",
+      "level": "PASS",
+      "message": "Sampled source precision review is available."
+    },
+    {
+      "code": "source_precision_guards_needed",
+      "level": "WARN",
+      "message": "Some default-visible source topics need guard review before promotion."
     }
   ],
   "frontier": {
@@ -28,7 +38,7 @@
     "seed_count": 10000,
     "unique_lemma_count": 10000
   },
-  "generated_at": "2026-05-19T04:08:10.005485+00:00",
+  "generated_at": "2026-05-19T04:54:43.675056+00:00",
   "inputs": {
     "depth_audit_json": "docs/test_outputs/srs_topic_family_depth_audit_en_es_latest.json",
     "frontier_label": "spalex_10k_research",
@@ -36,6 +46,7 @@
       "docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
       "docs/test_outputs/srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json"
     ],
+    "source_precision_review_json": "docs/test_outputs/srs_source_topic_precision_review_en_es_spalex_10k_latest.json",
     "taxonomy_json": "docs/test_inputs/srs_topic_preference_taxonomy_en_es.json"
   },
   "language_pair": "en-es",
@@ -44,6 +55,7 @@
     "Reviewed overlay rows are counted separately from source-derived trusted rows.",
     "Effective rows use the larger of source-trusted and reviewed-overlay counts to avoid optimistic double counting.",
     "Difficulty bands currently come from the source-depth audit; overlay rows do not yet carry a calibrated difficulty-band distribution.",
+    "Source precision review is sampled compact evidence, not a full-universe precision estimate.",
     "Register rows are policy-review candidates, not ordinary interest topics."
   ],
   "overlay_summary": {
@@ -93,13 +105,122 @@
     "release_ready": ">= 100 effective rows and >= 3 source difficulty bands"
   },
   "schema_version": 1,
+  "source_precision_review": {
+    "accepted_count": 32,
+    "accepted_rate": 0.592593,
+    "by_family": {
+      "arts_literature_humanities": {
+        "accepted_count": 5,
+        "accepted_rate": 0.416667,
+        "count": 12,
+        "decision_counts": {
+          "accept_light_topic": 4,
+          "accept_strong_topic": 1,
+          "reject_secondary_or_obscure_sense": 7
+        },
+        "label": "arts_literature_humanities",
+        "light_count": 4,
+        "rejected_count": 7,
+        "rejected_rate": 0.583333,
+        "secondary_or_obscure_count": 7,
+        "strong_count": 1,
+        "uncertain_count": 0,
+        "wrong_topic_count": 0
+      },
+      "games": {
+        "accepted_count": 5,
+        "accepted_rate": 0.5,
+        "count": 10,
+        "decision_counts": {
+          "accept_light_topic": 5,
+          "reject_secondary_or_obscure_sense": 4,
+          "reject_wrong_topic": 1
+        },
+        "label": "games",
+        "light_count": 5,
+        "rejected_count": 5,
+        "rejected_rate": 0.5,
+        "secondary_or_obscure_count": 4,
+        "strong_count": 0,
+        "uncertain_count": 0,
+        "wrong_topic_count": 1
+      },
+      "law_politics_civics": {
+        "accepted_count": 8,
+        "accepted_rate": 0.8,
+        "count": 10,
+        "decision_counts": {
+          "accept_light_topic": 6,
+          "accept_strong_topic": 2,
+          "reject_secondary_or_obscure_sense": 1,
+          "reject_wrong_topic": 1
+        },
+        "label": "law_politics_civics",
+        "light_count": 6,
+        "rejected_count": 2,
+        "rejected_rate": 0.2,
+        "secondary_or_obscure_count": 1,
+        "strong_count": 2,
+        "uncertain_count": 0,
+        "wrong_topic_count": 1
+      },
+      "science_technology": {
+        "accepted_count": 6,
+        "accepted_rate": 0.5,
+        "count": 12,
+        "decision_counts": {
+          "accept_light_topic": 3,
+          "accept_strong_topic": 3,
+          "reject_secondary_or_obscure_sense": 6
+        },
+        "label": "science_technology",
+        "light_count": 3,
+        "rejected_count": 6,
+        "rejected_rate": 0.5,
+        "secondary_or_obscure_count": 6,
+        "strong_count": 3,
+        "uncertain_count": 0,
+        "wrong_topic_count": 0
+      },
+      "sports_fitness": {
+        "accepted_count": 8,
+        "accepted_rate": 0.8,
+        "count": 10,
+        "decision_counts": {
+          "accept_light_topic": 8,
+          "reject_secondary_or_obscure_sense": 1,
+          "reject_wrong_topic": 1
+        },
+        "label": "sports_fitness",
+        "light_count": 8,
+        "rejected_count": 2,
+        "rejected_rate": 0.2,
+        "secondary_or_obscure_count": 1,
+        "strong_count": 0,
+        "uncertain_count": 0,
+        "wrong_topic_count": 1
+      }
+    },
+    "decision": "srs_source_topic_precision_review_ready",
+    "exists": true,
+    "labels_state": "agent_labeled_pending_user_approval",
+    "noisy_families": [
+      "arts_literature_humanities",
+      "games",
+      "science_technology"
+    ],
+    "pending_count": 0,
+    "rejected_count": 22,
+    "rejected_rate": 0.407407,
+    "reviewed_count": 54
+  },
   "status": "ok",
   "summary": {
     "beta_visible_count": 1,
     "default_visible_count": 5,
     "finding_counts": {
-      "PASS": 3,
-      "WARN": 1
+      "PASS": 4,
+      "WARN": 2
     },
     "hidden_count": 3,
     "issues": [],
@@ -124,7 +245,8 @@
       "visible_with_limited_depth_note": 7
     },
     "warnings": [
-      "some_topics_blocked"
+      "some_topics_blocked",
+      "source_precision_guards_needed"
     ]
   },
   "topics": [
@@ -150,6 +272,7 @@
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.307503,
       "source_nonempty_band_count": 2,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 172
     },
     {
@@ -174,6 +297,7 @@
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.314492,
       "source_nonempty_band_count": 2,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 102
     },
     {
@@ -184,7 +308,7 @@
       "effective_candidate_source": "source_depth",
       "family": "sports_fitness",
       "next_work": [
-        "run sampled precision review",
+        "review light-topic scalar handling before default promotion",
         "freeze release evidence in the readiness artifact",
         "lab-smoke preference strength across proficiency values"
       ],
@@ -198,6 +322,15 @@
       "source_coverage_posture": "measurable_trusted_coverage",
       "source_max_difficulty": 0.600677,
       "source_nonempty_band_count": 3,
+      "source_precision_review": {
+        "accepted_count": 8,
+        "accepted_rate": 0.8,
+        "light_count": 8,
+        "rejected_count": 2,
+        "rejected_rate": 0.2,
+        "reviewed_count": 10,
+        "strong_count": 0
+      },
       "source_trusted_candidate_count": 208
     },
     {
@@ -208,7 +341,7 @@
       "effective_candidate_source": "source_depth",
       "family": "games",
       "next_work": [
-        "run sampled precision review",
+        "tighten source-label guards before default promotion",
         "freeze release evidence in the readiness artifact",
         "lab-smoke preference strength across proficiency values"
       ],
@@ -222,6 +355,15 @@
       "source_coverage_posture": "measurable_trusted_coverage",
       "source_max_difficulty": 0.600677,
       "source_nonempty_band_count": 3,
+      "source_precision_review": {
+        "accepted_count": 5,
+        "accepted_rate": 0.5,
+        "light_count": 5,
+        "rejected_count": 5,
+        "rejected_rate": 0.5,
+        "reviewed_count": 10,
+        "strong_count": 0
+      },
       "source_trusted_candidate_count": 109
     },
     {
@@ -246,6 +388,7 @@
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.315177,
       "source_nonempty_band_count": 2,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 194
     },
     {
@@ -256,7 +399,7 @@
       "effective_candidate_source": "source_depth",
       "family": "law_politics_civics",
       "next_work": [
-        "run sampled precision review",
+        "review light-topic scalar handling before default promotion",
         "freeze release evidence in the readiness artifact",
         "lab-smoke preference strength across proficiency values"
       ],
@@ -270,6 +413,15 @@
       "source_coverage_posture": "measurable_trusted_coverage",
       "source_max_difficulty": 0.600822,
       "source_nonempty_band_count": 3,
+      "source_precision_review": {
+        "accepted_count": 8,
+        "accepted_rate": 0.8,
+        "light_count": 6,
+        "rejected_count": 2,
+        "rejected_rate": 0.2,
+        "reviewed_count": 10,
+        "strong_count": 2
+      },
       "source_trusted_candidate_count": 256
     },
     {
@@ -280,7 +432,7 @@
       "effective_candidate_source": "source_depth",
       "family": "science_technology",
       "next_work": [
-        "run sampled precision review",
+        "tighten source-label guards before default promotion",
         "freeze release evidence in the readiness artifact",
         "lab-smoke preference strength across proficiency values"
       ],
@@ -294,6 +446,15 @@
       "source_coverage_posture": "measurable_trusted_coverage",
       "source_max_difficulty": 0.608917,
       "source_nonempty_band_count": 4,
+      "source_precision_review": {
+        "accepted_count": 6,
+        "accepted_rate": 0.5,
+        "light_count": 3,
+        "rejected_count": 6,
+        "rejected_rate": 0.5,
+        "reviewed_count": 12,
+        "strong_count": 3
+      },
       "source_trusted_candidate_count": 629
     },
     {
@@ -318,6 +479,7 @@
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.30812,
       "source_nonempty_band_count": 2,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 139
     },
     {
@@ -328,7 +490,7 @@
       "effective_candidate_source": "source_depth",
       "family": "arts_literature_humanities",
       "next_work": [
-        "run sampled precision review",
+        "tighten source-label guards before default promotion",
         "freeze release evidence in the readiness artifact",
         "lab-smoke preference strength across proficiency values"
       ],
@@ -342,6 +504,15 @@
       "source_coverage_posture": "measurable_trusted_coverage",
       "source_max_difficulty": 0.608917,
       "source_nonempty_band_count": 4,
+      "source_precision_review": {
+        "accepted_count": 5,
+        "accepted_rate": 0.416667,
+        "light_count": 4,
+        "rejected_count": 7,
+        "rejected_rate": 0.583333,
+        "reviewed_count": 12,
+        "strong_count": 1
+      },
       "source_trusted_candidate_count": 168
     },
     {
@@ -369,6 +540,7 @@
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.30637,
       "source_nonempty_band_count": 2,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 17
     },
     {
@@ -396,6 +568,7 @@
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.151442,
       "source_nonempty_band_count": 1,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 29
     },
     {
@@ -423,6 +596,7 @@
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.312346,
       "source_nonempty_band_count": 2,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 17
     },
     {
@@ -447,6 +621,7 @@
       "source_coverage_posture": "no_trusted_coverage",
       "source_max_difficulty": null,
       "source_nonempty_band_count": 0,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 0
     },
     {
@@ -471,6 +646,7 @@
       "source_coverage_posture": "no_trusted_coverage",
       "source_max_difficulty": null,
       "source_nonempty_band_count": 0,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 0
     },
     {
@@ -495,6 +671,7 @@
       "source_coverage_posture": "review_only_signal_available",
       "source_max_difficulty": null,
       "source_nonempty_band_count": 0,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 0
     },
     {
@@ -519,6 +696,7 @@
       "source_coverage_posture": "review_only_signal_available",
       "source_max_difficulty": null,
       "source_nonempty_band_count": 0,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 0
     },
     {
@@ -543,6 +721,7 @@
       "source_coverage_posture": "no_trusted_coverage",
       "source_max_difficulty": null,
       "source_nonempty_band_count": 0,
+      "source_precision_review": {},
       "source_trusted_candidate_count": 0
     }
   ]

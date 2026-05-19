@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_release_readiness_classified`
-- Generated: `2026-05-19T04:08:10.005485+00:00`
+- Generated: `2026-05-19T04:54:43.675056+00:00`
 - Frontier: `spalex_10k_research` (`10000` seeds)
 - Default-visible candidates: `5`
 - Limited-visible candidates: `8`
@@ -17,19 +17,27 @@
 - `register_policy_review`: >= 100 review-only rows can be release candidates after register/style UX policy review
 - `blocked`: 0 effective rows, legal-source gated rows, or topics without a reviewed/source-backed candidate path stay hidden
 
+## Source Precision Review
+
+- Review state: `agent_labeled_pending_user_approval`
+- Reviewed rows: `54`
+- Accepted rows: `32` (59.3%)
+- Rejected rows: `22` (40.7%)
+- Families needing guard review: `arts_literature_humanities, games, science_technology`
+
 ## Topic Matrix
 
 | Family | Axis | Status | Visibility | Effective Rows | Source Rows | Overlay Rows | Bands | Next Work |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `medicine_health` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 172 | 172 | 0 | 2 | run sampled precision review; add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
 | `finance_business` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 102 | 102 | 0 | 2 | run sampled precision review; add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `sports_fitness` | `topic` | `release_candidate` | `default_visible` | 208 | 208 | 0 | 3 | run sampled precision review; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
-| `games` | `topic` | `release_candidate` | `default_visible` | 109 | 109 | 0 | 3 | run sampled precision review; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
+| `sports_fitness` | `topic` | `release_candidate` | `default_visible` | 208 | 208 | 0 | 3 | review light-topic scalar handling before default promotion; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
+| `games` | `topic` | `release_candidate` | `default_visible` | 109 | 109 | 0 | 3 | tighten source-label guards before default promotion; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
 | `music_media_entertainment` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 194 | 194 | 0 | 2 | run sampled precision review; add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `law_politics_civics` | `topic` | `release_candidate` | `default_visible` | 256 | 256 | 0 | 3 | run sampled precision review; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
-| `science_technology` | `topic` | `release_candidate` | `default_visible` | 629 | 629 | 0 | 4 | run sampled precision review; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
+| `law_politics_civics` | `topic` | `release_candidate` | `default_visible` | 256 | 256 | 0 | 3 | review light-topic scalar handling before default promotion; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
+| `science_technology` | `topic` | `release_candidate` | `default_visible` | 629 | 629 | 0 | 4 | tighten source-label guards before default promotion; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
 | `travel_places_transport` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 139 | 139 | 0 | 2 | run sampled precision review; add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `arts_literature_humanities` | `topic` | `release_candidate` | `default_visible` | 168 | 168 | 0 | 4 | run sampled precision review; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
+| `arts_literature_humanities` | `topic` | `release_candidate` | `default_visible` | 168 | 168 | 0 | 4 | tighten source-label guards before default promotion; freeze release evidence in the readiness artifact; lab-smoke preference strength across proficiency values |
 | `animals` | `topic` | `limited_release_candidate` | `visible_with_limited_depth_note` | 96 | 17 | 96 | 2 | run sampled precision review; add more reviewed rows if the lab still feels clumpy; lab-smoke preference strength across proficiency values |
 | `plants_nature` | `topic` | `limited_release_candidate_overlay_only` | `visible_with_limited_depth_note` | 53 | 29 | 53 | 1 | derive difficulty-band coverage for reviewed overlay rows; run sampled precision review on the broader overlay; lab-smoke preference strength across proficiency values |
 | `food_cooking` | `topic` | `limited_release_candidate` | `visible_with_limited_depth_note` | 91 | 17 | 91 | 2 | run sampled precision review; add more reviewed rows if the lab still feels clumpy; lab-smoke preference strength across proficiency values |
@@ -45,6 +53,8 @@
 - `PASS` `reviewed_overlays_available`: Reviewed topic overlay artifacts are available.
 - `WARN` `some_topics_blocked`: Some topic families should stay hidden until source or legal blockers clear.
 - `PASS` `release_candidates_present`: At least one topic family meets the default release-candidate floor.
+- `PASS` `source_precision_review_available`: Sampled source precision review is available.
+- `WARN` `source_precision_guards_needed`: Some default-visible source topics need guard review before promotion.
 
 ## Limitations
 
@@ -52,4 +62,5 @@
 - Reviewed overlay rows are counted separately from source-derived trusted rows.
 - Effective rows use the larger of source-trusted and reviewed-overlay counts to avoid optimistic double counting.
 - Difficulty bands currently come from the source-depth audit; overlay rows do not yet carry a calibrated difficulty-band distribution.
+- Source precision review is sampled compact evidence, not a full-universe precision estimate.
 - Register rows are policy-review candidates, not ordinary interest topics.

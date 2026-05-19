@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "review_id": "srs_source_topic_precision_review_en_es_spalex_10k_v1",
+  "reviewer": "codex_agent",
+  "reviewed_at": "2026-05-19",
+  "state": "agent_labeled_pending_user_approval",
+  "labeling_policy": {
+    "accept_strong_topic": "Direct, user-useful vocabulary for the topic family.",
+    "accept_light_topic": "Real topic sense exists, but the lemma is broad, polysemous, or lower-membership.",
+    "reject_wrong_topic": "The source label does not support the topic for a Spanish learner-facing preference.",
+    "reject_secondary_or_obscure_sense": "The topic sense is too indirect, obscure, or source-fragile for release evidence."
+  },
+  "labels": [
+    {
+      "review_id": "srs-src-topic-001",
+      "family": "sports_fitness",
+      "lemma": "reunión",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Meeting is too broad; sports relevance is not learner-facing topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-002",
+      "family": "sports_fitness",
+      "lemma": "entrada",
+      "decision": "accept_light_topic",
+      "notes": "Tackle/ticket/entry sports senses exist, but the lemma is highly polysemous."
+    },
+    {
+      "review_id": "srs-src-topic-003",
+      "family": "sports_fitness",
+      "lemma": "pista",
+      "decision": "accept_light_topic",
+      "notes": "Track/court sense is useful for sports, but clue/trail senses compete."
+    },
+    {
+      "review_id": "srs-src-topic-004",
+      "family": "sports_fitness",
+      "lemma": "palo",
+      "decision": "accept_light_topic",
+      "notes": "Stick/post sports senses are real, but the word is broad."
+    },
+    {
+      "review_id": "srs-src-topic-005",
+      "family": "sports_fitness",
+      "lemma": "sacar",
+      "decision": "accept_light_topic",
+      "notes": "Serve/kick-off use is real, but the general verb is very broad."
+    },
+    {
+      "review_id": "srs-src-topic-006",
+      "family": "sports_fitness",
+      "lemma": "marcar",
+      "decision": "accept_light_topic",
+      "notes": "Score/mark is common sports vocabulary, but the non-sports senses are broad."
+    },
+    {
+      "review_id": "srs-src-topic-007",
+      "family": "sports_fitness",
+      "lemma": "center",
+      "decision": "reject_wrong_topic",
+      "notes": "English artifact, not a Spanish learner-facing sports lemma."
+    },
+    {
+      "review_id": "srs-src-topic-008",
+      "family": "sports_fitness",
+      "lemma": "remontar",
+      "decision": "accept_light_topic",
+      "notes": "Comeback sense is common in sports, but the verb also has general senses."
+    },
+    {
+      "review_id": "srs-src-topic-009",
+      "family": "sports_fitness",
+      "lemma": "fichar",
+      "decision": "accept_light_topic",
+      "notes": "Player-signing sense is useful, but hiring/registering senses compete."
+    },
+    {
+      "review_id": "srs-src-topic-010",
+      "family": "sports_fitness",
+      "lemma": "despejar",
+      "decision": "accept_light_topic",
+      "notes": "Clear-the-ball sense is real, but the verb is not sports-exclusive."
+    },
+    {
+      "review_id": "srs-src-topic-011",
+      "family": "games",
+      "lemma": "jefe",
+      "decision": "accept_light_topic",
+      "notes": "Boss-enemy sense is real in games, but chief/boss senses dominate generally."
+    },
+    {
+      "review_id": "srs-src-topic-012",
+      "family": "games",
+      "lemma": "corazón",
+      "decision": "accept_light_topic",
+      "notes": "Card-suit and game-life senses are useful, but heart/body senses compete."
+    },
+    {
+      "review_id": "srs-src-topic-013",
+      "family": "games",
+      "lemma": "entrada",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Game relevance is too generic without a stronger source label."
+    },
+    {
+      "review_id": "srs-src-topic-014",
+      "family": "games",
+      "lemma": "pista",
+      "decision": "accept_light_topic",
+      "notes": "Clue/hint sense is useful for games, but non-game senses compete."
+    },
+    {
+      "review_id": "srs-src-topic-015",
+      "family": "games",
+      "lemma": "sacar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Game-card draw or play sense is too weak for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-016",
+      "family": "games",
+      "lemma": "cargar",
+      "decision": "accept_light_topic",
+      "notes": "Load-game sense is real, but charge/load senses are broad."
+    },
+    {
+      "review_id": "srs-src-topic-017",
+      "family": "games",
+      "lemma": "center",
+      "decision": "reject_wrong_topic",
+      "notes": "English artifact, not a Spanish learner-facing games lemma."
+    },
+    {
+      "review_id": "srs-src-topic-018",
+      "family": "games",
+      "lemma": "recortar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "No clear game-topic sense for user-facing preference evidence."
+    },
+    {
+      "review_id": "srs-src-topic-019",
+      "family": "games",
+      "lemma": "encerrar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Possible gameplay action is too generic to count as topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-020",
+      "family": "games",
+      "lemma": "despejar",
+      "decision": "accept_light_topic",
+      "notes": "Clear-board or clear-area gameplay sense is real, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-021",
+      "family": "law_politics_civics",
+      "lemma": "jefe",
+      "decision": "accept_light_topic",
+      "notes": "Leader/chief is civics-adjacent, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-022",
+      "family": "law_politics_civics",
+      "lemma": "demanda",
+      "decision": "accept_strong_topic",
+      "notes": "Direct legal vocabulary for claim/lawsuit."
+    },
+    {
+      "review_id": "srs-src-topic-023",
+      "family": "law_politics_civics",
+      "lemma": "tropa",
+      "decision": "accept_light_topic",
+      "notes": "Military/government vocabulary is relevant, but not strictly civics."
+    },
+    {
+      "review_id": "srs-src-topic-024",
+      "family": "law_politics_civics",
+      "lemma": "órgano",
+      "decision": "accept_light_topic",
+      "notes": "Institutional body sense is relevant, but body-organ sense competes."
+    },
+    {
+      "review_id": "srs-src-topic-025",
+      "family": "law_politics_civics",
+      "lemma": "presentar",
+      "decision": "accept_light_topic",
+      "notes": "File/submit a legal or government document is relevant, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-026",
+      "family": "law_politics_civics",
+      "lemma": "recurrir",
+      "decision": "accept_strong_topic",
+      "notes": "Appeal/legal recourse sense is direct legal vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-027",
+      "family": "law_politics_civics",
+      "lemma": "apartar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Legal removal/disqualification sense is too narrow without corroboration."
+    },
+    {
+      "review_id": "srs-src-topic-028",
+      "family": "law_politics_civics",
+      "lemma": "fallar",
+      "decision": "accept_light_topic",
+      "notes": "Rule/decide in court is relevant, but fail/misfire senses compete."
+    },
+    {
+      "review_id": "srs-src-topic-029",
+      "family": "law_politics_civics",
+      "lemma": "reivindicar",
+      "decision": "accept_light_topic",
+      "notes": "Claim/assert-rights sense is relevant, but not exclusively legal."
+    },
+    {
+      "review_id": "srs-src-topic-030",
+      "family": "law_politics_civics",
+      "lemma": "duplicar",
+      "decision": "reject_wrong_topic",
+      "notes": "Duplicate/double does not provide clear law or civics topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-031",
+      "family": "science_technology",
+      "lemma": "entrada",
+      "decision": "accept_light_topic",
+      "notes": "Input/entry sense is useful in computing, but the lemma is broad."
+    },
+    {
+      "review_id": "srs-src-topic-032",
+      "family": "science_technology",
+      "lemma": "defecto",
+      "decision": "accept_light_topic",
+      "notes": "Defect/fault is useful in engineering and technology, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-033",
+      "family": "science_technology",
+      "lemma": "controlador",
+      "decision": "accept_strong_topic",
+      "notes": "Direct controller/driver technical vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-034",
+      "family": "science_technology",
+      "lemma": "pincho",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Possible technical accessory sense is too regional/polysemous for release evidence."
+    },
+    {
+      "review_id": "srs-src-topic-035",
+      "family": "science_technology",
+      "lemma": "luz",
+      "decision": "accept_strong_topic",
+      "notes": "Direct physics/science vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-036",
+      "family": "science_technology",
+      "lemma": "área",
+      "decision": "accept_strong_topic",
+      "notes": "Direct mathematics/science vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-037",
+      "family": "science_technology",
+      "lemma": "poner",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "General verb is too broad for topic evidence despite source labels."
+    },
+    {
+      "review_id": "srs-src-topic-038",
+      "family": "science_technology",
+      "lemma": "trasladar",
+      "decision": "accept_light_topic",
+      "notes": "Translate/transfer sense is relevant in math or engineering, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-039",
+      "family": "science_technology",
+      "lemma": "más",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Function word/math operator sense is not useful topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-040",
+      "family": "science_technology",
+      "lemma": "activamente",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Adverbial scientific-context use is too indirect."
+    },
+    {
+      "review_id": "srs-src-topic-041",
+      "family": "science_technology",
+      "lemma": "por",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Function word/math operator sense is not useful topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-042",
+      "family": "science_technology",
+      "lemma": "venus",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Proper-noun planet sense is too source-fragile under generic science labels."
+    },
+    {
+      "review_id": "srs-src-topic-043",
+      "family": "arts_literature_humanities",
+      "lemma": "auto",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Literary auto sense is narrow and car/auto senses dominate."
+    },
+    {
+      "review_id": "srs-src-topic-044",
+      "family": "arts_literature_humanities",
+      "lemma": "pie",
+      "decision": "accept_light_topic",
+      "notes": "Verse/footnote/text sense is relevant, but body-part sense dominates."
+    },
+    {
+      "review_id": "srs-src-topic-045",
+      "family": "arts_literature_humanities",
+      "lemma": "género",
+      "decision": "accept_strong_topic",
+      "notes": "Direct genre/linguistics/literature vocabulary."
+    },
+    {
+      "review_id": "srs-src-topic-046",
+      "family": "arts_literature_humanities",
+      "lemma": "concepto",
+      "decision": "accept_light_topic",
+      "notes": "Useful humanities vocabulary, but broad."
+    },
+    {
+      "review_id": "srs-src-topic-047",
+      "family": "arts_literature_humanities",
+      "lemma": "luz",
+      "decision": "accept_light_topic",
+      "notes": "Light is relevant to architecture/arts, but the word is broad."
+    },
+    {
+      "review_id": "srs-src-topic-048",
+      "family": "arts_literature_humanities",
+      "lemma": "falta",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Linguistic use is too indirect for learner-facing humanities evidence."
+    },
+    {
+      "review_id": "srs-src-topic-049",
+      "family": "arts_literature_humanities",
+      "lemma": "cerrar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Linguistic close-vowel sense is too technical and broad."
+    },
+    {
+      "review_id": "srs-src-topic-050",
+      "family": "arts_literature_humanities",
+      "lemma": "situar",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Architecture or composition sense is too broad for topic evidence."
+    },
+    {
+      "review_id": "srs-src-topic-051",
+      "family": "arts_literature_humanities",
+      "lemma": "activamente",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Possible grammar relation is too indirect."
+    },
+    {
+      "review_id": "srs-src-topic-052",
+      "family": "arts_literature_humanities",
+      "lemma": "venus",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Proper-noun mythology/art relevance is too source-fragile under philosophy."
+    },
+    {
+      "review_id": "srs-src-topic-053",
+      "family": "arts_literature_humanities",
+      "lemma": "rea",
+      "decision": "reject_secondary_or_obscure_sense",
+      "notes": "Proper-noun mythology relevance is too source-fragile under philosophy."
+    },
+    {
+      "review_id": "srs-src-topic-054",
+      "family": "arts_literature_humanities",
+      "lemma": "afrodita",
+      "decision": "accept_light_topic",
+      "notes": "Mythology/culture relevance is real, but proper-noun policy should stay light."
+    }
+  ]
+}
