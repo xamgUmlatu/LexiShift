@@ -3,7 +3,7 @@
 Status: active decision aid
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, animals/plants overlay artifacts, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
+Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, `srs_topic_family_depth_audit_en_es_latest`, animals/plants overlay artifacts, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
 Purpose: lay out the current trusted source-topic surface so product preferences can be selected deliberately
 Source-of-truth: decision aid; executable inventory lives in `scripts/testing/srs_topic_signal_inventory_en_es.py` and the latest generated artifacts.
 
@@ -14,6 +14,7 @@ Related docs:
 - `../test_inputs/srs_topic_preference_taxonomy_en_es.json`
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
+- `../test_outputs/srs_topic_family_depth_audit_en_es_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 
@@ -209,6 +210,25 @@ Current posture:
 | P0 enrichment topics | `animals`, `plants_nature`, `food_cooking`, `anime_manga_pop_culture`, `hobbies_crafts` | Product-important but not sufficiently covered by trusted labels alone. | Build or source overlays/inference, then rerun depth/precision checks. |
 | Register/style preferences | `casual_slang_register`, `formal_professional_register` | UX-relevant but should start review-only because current trusted coverage comes from topic labels, not register-safe signals. | Inventory allowlisted register signals separately, sample precision, then decide whether to enable. |
 | Legal/source gated | `sat_toefl_exam_prep` | Product-aligned but unavailable until allowed data is identified. | Resolve legal source path before surfacing as a preference. |
+
+The first broad family-depth audit is
+`../test_outputs/srs_topic_family_depth_audit_en_es_latest.md`. Against the
+installed current CDE frontier it reports:
+
+- measurable trusted coverage for `9` topic families:
+  `science_technology`, `medicine_health`, `law_politics_civics`,
+  `sports_fitness`, `music_media_entertainment`, `travel_places_transport`,
+  `finance_business`, `games`, and `arts_literature_humanities`;
+- thin trusted coverage for `plants_nature` (`5` rows), `food_cooking` (`2`
+  rows after adding direct `food`/`cooking` mappings), and `animals` (`1` row);
+- no trusted current-CDE coverage for `anime_manga_pop_culture`,
+  `hobbies_crafts`, or `sat_toefl_exam_prep`;
+- review-only register signals for `casual_slang_register` (`85` candidates)
+  and `formal_professional_register` (`5` candidates).
+
+The prior SPALEX 10k research SQLite path is not currently present locally, so
+the audit reports that optional frontier as unavailable and does not download
+or rebuild it.
 
 This is the acceptance boundary for moving on from admission: the admission
 algorithm can remain as-is unless a structural bug appears. The next quality

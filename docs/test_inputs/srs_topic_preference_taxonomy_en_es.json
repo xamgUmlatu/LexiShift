@@ -696,6 +696,22 @@
     },
     {
       "source_channel": "sense_topics",
+      "source_label": "food",
+      "target_family": "food_cooking",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_food_label"
+    },
+    {
+      "source_channel": "sense_topics",
+      "source_label": "cooking",
+      "target_family": "food_cooking",
+      "weight": 0.9,
+      "confidence": 0.9,
+      "policy": "trusted_exact_food_label"
+    },
+    {
+      "source_channel": "sense_topics",
       "source_label": "animals",
       "target_family": "animals",
       "weight": 0.95,

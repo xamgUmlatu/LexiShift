@@ -39,16 +39,20 @@ def validate_frequency_sqlite_db(path: Path, *, table: str = "frequency") -> Non
     if not header.startswith(b"SQLite format 3"):
         raise ValueError(f"Invalid SQLite frequency DB file: {candidate}")
     uri = f"{candidate.resolve().as_uri()}?mode=ro"
+    conn = None
     try:
-        with sqlite3.connect(uri, uri=True) as conn:
-            row = conn.execute(
-                "SELECT 1 FROM sqlite_master WHERE type='table' AND lower(name)=lower(?) LIMIT 1;",
-                (table,),
-            ).fetchone()
-            if row is None:
-                raise ValueError(f"Missing table '{table}' in frequency DB: {candidate}")
+        conn = sqlite3.connect(uri, uri=True)
+        row = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND lower(name)=lower(?) LIMIT 1;",
+            (table,),
+        ).fetchone()
+        if row is None:
+            raise ValueError(f"Missing table '{table}' in frequency DB: {candidate}")
     except sqlite3.Error as exc:
         raise ValueError(f"Failed to open frequency DB '{candidate}': {exc}") from exc
+    finally:
+        if conn is not None:
+            conn.close()
 
 
 class SqliteFrequencyStore:

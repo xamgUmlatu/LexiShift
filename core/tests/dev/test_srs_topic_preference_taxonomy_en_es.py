@@ -127,6 +127,13 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
             family_by_id["sat_toefl_exam_prep"]["pair_scope"],
             "target_language:en",
         )
+        mapped_pairs = {
+            (row["source_label"], row["target_family"])
+            for row in taxonomy["source_label_mappings"]
+            if row["source_channel"] == "sense_topics"
+        }
+        self.assertIn(("food", "food_cooking"), mapped_pairs)
+        self.assertIn(("cooking", "food_cooking"), mapped_pairs)
 
 
 def _write_frequency_db(path: Path) -> None:

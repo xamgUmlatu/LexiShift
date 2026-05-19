@@ -156,6 +156,8 @@ Use pair-specific names rather than reusing `en_es` artifacts for other LPs:
 | --- | --- |
 | source-readiness audit | `scripts/testing/srs_<topic>_source_audit_<pair>.py` |
 | product taxonomy | `docs/test_inputs/srs_topic_preference_taxonomy_<pair>.json` |
+| broad family-depth audit | `scripts/testing/srs_topic_family_depth_audit_<pair>.py` |
+| broad family-depth output | `docs/test_outputs/srs_topic_family_depth_audit_<pair>_latest.{json,md}` |
 | topic-signal policy | `docs/test_inputs/srs_<topic>_signal_policy_<pair>.json` |
 | confidence audit output | `docs/test_outputs/srs_<topic>_signal_audit_<pair>_<source>_latest.{json,md}` |
 | review packet script | `scripts/testing/srs_<topic>_signal_review_packet_<pair>.py` |
@@ -188,6 +190,8 @@ A topic family is not ready for product admission lift in an LP until:
 
 - Product taxonomy:
   `docs/test_inputs/srs_topic_preference_taxonomy_en_es.json`
+- Broad family-depth audit:
+  `docs/test_outputs/srs_topic_family_depth_audit_en_es_latest.md`
 - Editable animals/plants policy:
   `docs/test_inputs/srs_animals_plants_signal_policy_en_es.json`
 - Current CDE audit:

@@ -341,7 +341,8 @@ def load_kaikki_topic_signal_index(path: Path) -> dict[str, object]:
     if not resolved.exists():
         return base
     by_channel = _as_mapping(base["_by_channel"])
-    with sqlite3.connect(resolved) as conn:
+    conn = sqlite3.connect(resolved)
+    try:
         for lemma, tags_json, categories_json in conn.execute(
             "SELECT headword_lc, tags_json, categories_json FROM entry_meta"
         ):
@@ -367,6 +368,8 @@ def load_kaikki_topic_signal_index(path: Path) -> dict[str, object]:
                 normalized,
                 _json_string_list(categories_json),
             )
+    finally:
+        conn.close()
     channel_row_counts: dict[str, int] = {}
     channel_lemma_counts: dict[str, int] = {}
     channel_top_raw: dict[str, list[dict[str, object]]] = {}

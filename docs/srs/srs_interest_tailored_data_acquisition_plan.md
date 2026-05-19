@@ -3,7 +3,7 @@
 Status: active data planning reference
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, interest-tailored admission algorithm review, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
+Last verified: 2026-05-19 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, interest-tailored admission algorithm review, local SRS admission lab topic-depth diagnostics, preference taxonomy lifecycle review, and broad family-depth audit
 Purpose: enumerate the data needed to make interest-tailored SRS admission real, identify what is missing now, and define a practical acquisition strategy
 Source-of-truth: data acquisition plan; current executable truth lives in SRS seed/admission code, installed pack manifests, generated source-readiness audits, and promoted source packs.
 
@@ -25,6 +25,7 @@ Related docs:
 - `../test_outputs/srs_admission_expansion_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
+- `../test_outputs/srs_topic_family_depth_audit_en_es_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 
@@ -235,6 +236,15 @@ Current product-owned taxonomy artifact:
 - `scripts/testing/srs_topic_preference_taxonomy_en_es.py` validates that
   mapping file and measures current installed-source coverage without mutating
   packs or writing overlays.
+- `scripts/testing/srs_topic_family_depth_audit_en_es.py` measures all
+  product-owned topic/register families through the current SRS seed frontier,
+  with difficulty-band depth, examples, and register review-only counts. The
+  latest current-CDE run found measurable trusted coverage for `9` topic
+  families, thin trusted coverage for `plants_nature`, `food_cooking`, and
+  `animals`, no trusted coverage for `anime_manga_pop_culture` or
+  `hobbies_crafts`, and review-only register signals for casual/slang and
+  formal/professional. The optional SPALEX 10k research frontier was not
+  present locally in that run, and the script did not download or rebuild it.
 - `scripts/testing/srs_animals_plants_existing_signal_audit_en_es.py` adds a
   focused read-only confidence audit over existing local Kaikki/Wiktionary
   topics, allowlisted categories/tags, and narrow gloss/translation patterns.

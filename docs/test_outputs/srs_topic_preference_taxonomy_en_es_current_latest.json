@@ -1212,6 +1212,39 @@
         ]
       },
       {
+        "family": "food_cooking",
+        "row_count": 2,
+        "row_share": 0.001008,
+        "sample_rows": [
+          {
+            "lemma": "careta",
+            "score": 0.81,
+            "source_labels": [
+              "cooking",
+              "food"
+            ]
+          },
+          {
+            "lemma": "batido",
+            "score": 0.81,
+            "source_labels": [
+              "cooking",
+              "food"
+            ]
+          }
+        ],
+        "top_source_labels": [
+          {
+            "count": 2,
+            "label": "cooking"
+          },
+          {
+            "count": 2,
+            "label": "food"
+          }
+        ]
+      },
+      {
         "family": "animals",
         "row_count": 1,
         "row_share": 0.000504,
@@ -1240,13 +1273,6 @@
       },
       {
         "family": "casual_slang_register",
-        "row_count": 0,
-        "row_share": 0.0,
-        "sample_rows": [],
-        "top_source_labels": []
-      },
-      {
-        "family": "food_cooking",
         "row_count": 0,
         "row_share": 0.0,
         "sample_rows": [],
@@ -1345,7 +1371,7 @@
       "message": "Current installed sources provide some plants/nature seed coverage."
     }
   ],
-  "generated_at": "2026-05-19T00:21:25+00:00",
+  "generated_at": "2026-05-19T00:30:21+00:00",
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -1508,7 +1534,7 @@
     ],
     "family_count": 17,
     "language_pair": "en-es",
-    "mapping_count": 74,
+    "mapping_count": 76,
     "taxonomy_id": "srs_topic_preference_taxonomy_en_es_v1"
   }
 }

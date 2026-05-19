@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_preference_taxonomy_validated`
-- Generated: `2026-05-19T00:21:25+00:00`
+- Generated: `2026-05-19T00:30:21+00:00`
 - Rows measured: `1984`
 - Unique lemmas measured: `1984`
 
@@ -35,10 +35,10 @@
 | `arts_literature_humanities` | 23 | 1.2% | linguistics=7, philosophy=7, arts=5, architecture=4, art=3 |
 | `games` | 23 | 1.2% | games=21, card_games=5, video_games=2, gaming=1 |
 | `plants_nature` | 5 | 0.3% | botany=5 |
+| `food_cooking` | 2 | 0.1% | cooking=2, food=2 |
 | `animals` | 1 | 0.1% | zoology=1 |
 | `anime_manga_pop_culture` | 0 | 0.0% | none |
 | `casual_slang_register` | 0 | 0.0% | none |
-| `food_cooking` | 0 | 0.0% | none |
 | `formal_professional_register` | 0 | 0.0% | none |
 | `hobbies_crafts` | 0 | 0.0% | none |
 | `sat_toefl_exam_prep` | 0 | 0.0% | none |
