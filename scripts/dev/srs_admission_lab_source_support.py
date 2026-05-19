@@ -228,7 +228,7 @@ def _write_augmented_frequency_db(
                         "rank_column": "id",
                         "pmw_column": "pmw",
                         "pos_policy": "kaikki_compact_else_cde_compact",
-                        "topic_policy": "animals_plants_overlay_topics",
+                        "topic_policy": "merged_topic_overlay_topics",
                     },
                     ensure_ascii=False,
                     sort_keys=True,

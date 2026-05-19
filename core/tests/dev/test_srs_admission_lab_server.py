@@ -16,6 +16,7 @@ from srs_admission_lab_server import (  # noqa: E402
     LabConfig,
     build_lab_response,
     build_profile_context,
+    load_topic_options,
 )
 
 
@@ -146,6 +147,18 @@ def _create_kaikki_forward_db(path: Path) -> Path:
 
 
 class TestSrsAdmissionLabServer(unittest.TestCase):
+    def test_load_topic_options_exposes_product_taxonomy(self) -> None:
+        topics = load_topic_options()
+        topic_by_id = {str(topic["id"]): topic for topic in topics}
+
+        self.assertIn("animals", topic_by_id)
+        self.assertIn("plants_nature", topic_by_id)
+        self.assertIn("food_cooking", topic_by_id)
+        self.assertIn("medicine_health", topic_by_id)
+        self.assertIn("sat_toefl_exam_prep", topic_by_id)
+        self.assertEqual(topic_by_id["food_cooking"]["display_name"], "Food & Cooking")
+        self.assertIn("medicine", topic_by_id["medicine_health"]["runtime_aliases"])
+
     def test_build_profile_context_from_lab_controls(self) -> None:
         context = build_profile_context(
             {

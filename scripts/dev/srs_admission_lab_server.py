@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
@@ -10,7 +10,7 @@ from pathlib import Path
 import shutil
 import sys
 import tempfile
-from typing import Mapping
+from typing import Mapping, Sequence
 from urllib.parse import urlparse
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -28,11 +28,24 @@ DEFAULT_PAIR = "en-es"
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 8765
 DEFAULT_SET_TOP_N = 5000
-DEFAULT_TOPIC_OVERLAY_SOURCE_PATH = (
+DEFAULT_ANIMALS_PLANTS_TOPIC_OVERLAY_SOURCE_PATH = (
     PROJECT_ROOT
     / "docs"
     / "test_outputs"
     / "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json"
+)
+DEFAULT_FOOD_COOKING_TOPIC_OVERLAY_SOURCE_PATH = (
+    PROJECT_ROOT
+    / "docs"
+    / "test_outputs"
+    / "srs_food_cooking_topic_overlay_en_es_current_latest.json"
+)
+DEFAULT_TOPIC_TAXONOMY_PATH = (
+    PROJECT_ROOT / "docs" / "test_inputs" / "srs_topic_preference_taxonomy_en_es.json"
+)
+DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS = (
+    DEFAULT_ANIMALS_PLANTS_TOPIC_OVERLAY_SOURCE_PATH,
+    DEFAULT_FOOD_COOKING_TOPIC_OVERLAY_SOURCE_PATH,
 )
 DEFAULT_ZIPF_BRIDGE_PATH = (
     PROJECT_ROOT
@@ -52,7 +65,11 @@ class LabConfig:
     preview_sampling_mode: str = "ranked"
     preview_seed: int | None = 424242
     frequency_db: Path | None = None
-    overlay_source_path: Path | None = DEFAULT_TOPIC_OVERLAY_SOURCE_PATH
+    overlay_source_path: Path | None = None
+    overlay_source_paths: Sequence[Path] = field(
+        default_factory=lambda: DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS
+    )
+    topic_taxonomy_path: Path | None = DEFAULT_TOPIC_TAXONOMY_PATH
     augment_with_zipf_bridge: bool = True
     zipf_bridge_path: Path | None = DEFAULT_ZIPF_BRIDGE_PATH
     kaikki_forward_db: Path | None = None
@@ -119,6 +136,48 @@ def weight_map(value: object) -> dict[str, float]:
             continue
         normalized[topic] = min(1.0, max(0.0, weight))
     return {key: value for key, value in normalized.items() if value > 0.0}
+
+
+def load_topic_options(path: Path | None = DEFAULT_TOPIC_TAXONOMY_PATH) -> list[dict[str, object]]:
+    source = path_if_exists(path)
+    if source is None:
+        return []
+    try:
+        payload = json.loads(source.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    if not isinstance(payload, Mapping):
+        return []
+
+    aliases_by_family: dict[str, set[str]] = {}
+    for row in payload.get("source_label_mappings", ()):
+        if not isinstance(row, Mapping):
+            continue
+        family_id = str(row.get("target_family") or "").strip()
+        label = str(row.get("source_label") or "").strip()
+        if not family_id or not label:
+            continue
+        aliases_by_family.setdefault(family_id, set()).add(label)
+
+    options: list[dict[str, object]] = []
+    for family in payload.get("families", ()):
+        if not isinstance(family, Mapping):
+            continue
+        family_id = str(family.get("id") or "").strip()
+        if not family_id:
+            continue
+        options.append(
+            {
+                "id": family_id,
+                "display_name": str(family.get("display_name") or family_id),
+                "axis": str(family.get("axis") or "topic"),
+                "readiness_state": str(family.get("readiness_state") or "unknown"),
+                "product_priority": str(family.get("product_priority") or ""),
+                "pair_scope": str(family.get("pair_scope") or ""),
+                "runtime_aliases": sorted(aliases_by_family.get(family_id, set())),
+            }
+        )
+    return options
 
 
 def truthy(value: object) -> bool:
@@ -208,6 +267,97 @@ def display_topic_source(source: object) -> str:
         if value.startswith(prefix):
             return value[len(prefix) :]
     return value
+
+
+def configured_overlay_source_paths(config: LabConfig) -> list[Path]:
+    if config.overlay_source_path is not None:
+        return [config.overlay_source_path]
+    return [Path(path) for path in config.overlay_source_paths if path is not None]
+
+
+def prepare_overlay_source_for_lab(
+    *,
+    work_dir: Path,
+    pair: str,
+    overlay_source_paths: Sequence[Path],
+) -> Path | None:
+    existing_paths = [
+        path for path in (path_if_exists(path) for path in overlay_source_paths) if path
+    ]
+    if not existing_paths:
+        return None
+    if len(existing_paths) == 1:
+        return existing_paths[0]
+
+    rows: list[Mapping[str, object]] = []
+    input_ids: list[str] = []
+    input_paths: list[str] = []
+    policies: list[Mapping[str, object]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for path in existing_paths:
+        payload = _load_overlay_payload(path)
+        if payload is None:
+            continue
+        input_ids.append(str(payload.get("overlay_id") or path.stem))
+        input_paths.append(str(path))
+        policy = payload.get("overlay_policy")
+        if isinstance(policy, Mapping):
+            policies.append(policy)
+        for row in payload.get("rows", ()):
+            if not isinstance(row, Mapping):
+                continue
+            if str(row.get("language_pair") or "").strip() != pair:
+                continue
+            lemma = str(row.get("lemma") or "").strip()
+            topic = str(row.get("topic") or "").strip()
+            if not lemma or not topic:
+                continue
+            key = (lemma, topic, str(row.get("review_id") or ""))
+            if key in seen:
+                continue
+            seen.add(key)
+            rows.append(row)
+
+    if not rows:
+        return None
+    rows.sort(
+        key=lambda row: (
+            str(row.get("topic") or ""),
+            str(row.get("lemma") or ""),
+            str(row.get("review_id") or ""),
+        )
+    )
+    merged = {
+        "schema_version": 1,
+        "status": "ok",
+        "decision": "srs_admission_lab_merged_topic_overlay_ready",
+        "overlay_id": "srs_admission_lab_merged_topic_overlay_en_es_latest",
+        "overlay_policy": {
+            "promotion_state": "poc_candidate_not_product_overlay",
+            "runtime_policy_change": "none",
+            "input_overlay_ids": input_ids,
+            "input_overlay_policies": policies,
+        },
+        "inputs": {"overlay_source_paths": input_paths},
+        "summary": {
+            "row_count": len(rows),
+            "topics": sorted({str(row.get("topic") or "") for row in rows if row.get("topic")}),
+        },
+        "rows": rows,
+    }
+    output = work_dir / "srs-admission-lab-merged-topic-overlay.json"
+    output.write_text(json.dumps(merged, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
+    return output
+
+
+def _load_overlay_payload(path: Path) -> Mapping[str, object] | None:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(payload, Mapping) or str(payload.get("status") or "").strip() != "ok":
+        return None
+    return payload
 
 
 def rounded(value: object, digits: int = 3) -> float | None:
@@ -430,7 +580,7 @@ def build_lab_response(
     frequency_db = resolve_frequency_db(pair, resolved_config.frequency_db)
     if not frequency_db.exists():
         raise FileNotFoundError(frequency_db)
-    overlay_source_path = path_if_exists(resolved_config.overlay_source_path)
+    configured_overlay_paths = configured_overlay_source_paths(resolved_config)
     kaikki_forward_db = resolve_kaikki_forward_db(pair, resolved_config.kaikki_forward_db)
 
     with tempfile.TemporaryDirectory(prefix="lexishift-srs-admission-lab-") as tmp:
@@ -438,6 +588,11 @@ def build_lab_response(
 
         tmp_root = Path(tmp)
         paths = build_helper_paths(tmp_root)
+        overlay_source_path = prepare_overlay_source_for_lab(
+            work_dir=tmp_root,
+            pair=pair,
+            overlay_source_paths=configured_overlay_paths,
+        )
         preview_frequency_db, source_augmentation = prepare_lab_frequency_db(
             base_frequency_db=frequency_db,
             pair=pair,
@@ -492,6 +647,9 @@ def build_lab_response(
             "preview_frequency_db": str(preview_frequency_db),
             "source_augmentation": source_augmentation,
             "overlay_source_path": str(overlay_source_path) if overlay_source_path else None,
+            "configured_overlay_source_paths": [
+                str(path) for path in configured_overlay_paths if path_if_exists(path)
+            ],
             "copied_overlay_path": str(copied_overlay_path) if copied_overlay_path else None,
             "zipf_bridge_path": str(resolved_config.zipf_bridge_path)
             if resolved_config.zipf_bridge_path
@@ -552,6 +710,7 @@ def make_handler(config: LabConfig) -> type[BaseHTTPRequestHandler]:
                             "preview_sampling_mode": config.preview_sampling_mode,
                             "preview_seed": config.preview_seed,
                         },
+                        "topics": load_topic_options(config.topic_taxonomy_path),
                     },
                 )
                 return
@@ -596,6 +755,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pair", default=DEFAULT_PAIR)
     parser.add_argument("--frequency-db", type=Path)
     parser.add_argument("--overlay-source-path", type=Path)
+    parser.add_argument("--topic-taxonomy-path", type=Path, default=DEFAULT_TOPIC_TAXONOMY_PATH)
     parser.add_argument("--set-top-n", type=int, default=DEFAULT_SET_TOP_N)
     parser.add_argument("--initial-active-count", type=int, default=120)
     parser.add_argument("--preview-count", type=int, default=10)
@@ -626,7 +786,8 @@ def main() -> int:
         preview_sampling_mode=args.preview_sampling_mode,
         preview_seed=args.preview_seed,
         frequency_db=args.frequency_db,
-        overlay_source_path=args.overlay_source_path or DEFAULT_TOPIC_OVERLAY_SOURCE_PATH,
+        overlay_source_path=args.overlay_source_path,
+        topic_taxonomy_path=args.topic_taxonomy_path,
         augment_with_zipf_bridge=args.augment_with_zipf_bridge,
         zipf_bridge_path=args.zipf_bridge_path,
         kaikki_forward_db=args.kaikki_forward_db,

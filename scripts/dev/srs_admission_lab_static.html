@@ -111,6 +111,60 @@
       width: 16px;
       height: 16px;
     }
+    .topic-control-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-height: 440px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+    .topic-control {
+      border: 1px solid #d9e1ea;
+      border-radius: 8px;
+      padding: 9px;
+      background: #fbfcfd;
+    }
+    .topic-control-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: start;
+    }
+    .topic-control-title {
+      min-width: 0;
+      margin: 0;
+      font-size: 13px;
+      font-weight: 720;
+    }
+    .topic-control-title input {
+      width: 16px;
+      height: 16px;
+      margin: 0 7px 0 0;
+      vertical-align: -2px;
+    }
+    .topic-control-meta {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .topic-control .row {
+      margin-top: 7px;
+    }
+    .topic-control .row label {
+      margin: 0;
+    }
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 2px 6px;
+      background: #edf1f5;
+      color: #485466;
+      font-size: 11px;
+      font-weight: 720;
+      white-space: nowrap;
+    }
     .button-row {
       display: flex;
       flex-wrap: wrap;
@@ -277,39 +331,15 @@
 
       <fieldset>
         <legend>Topic Signals</legend>
-        <label class="check-row">
-          <input type="checkbox" data-interest="animals"> Animals interest chip
-        </label>
-        <div class="row">
-          <label>Animals scalar
-            <input id="animalsWeight" type="range" min="0" max="1" step="0.05" value="0">
-          </label>
-          <output id="animalsOut">0.00</output>
-        </div>
-        <label class="check-row">
-          <input type="checkbox" data-interest="plants_nature"> Plants/nature interest chip
-        </label>
-        <div class="row">
-          <label>Plants scalar
-            <input id="plantsWeight" type="range" min="0" max="1" step="0.05" value="0">
-          </label>
-          <output id="plantsOut">0.00</output>
-        </div>
-        <label class="check-row">
-          <input type="checkbox" data-interest="finance"> Finance control chip
-        </label>
-        <div class="row">
-          <label>Finance scalar
-            <input id="financeWeight" type="range" min="0" max="1" step="0.05" value="0">
-          </label>
-          <output id="financeOut">0.00</output>
-        </div>
+        <div id="topicControls" class="topic-control-grid"></div>
         <div class="button-row">
           <button type="button" data-preset="neutral">Neutral</button>
           <button type="button" data-preset="animals">Animals</button>
           <button type="button" data-preset="plants">Plants</button>
+          <button type="button" data-preset="food">Food</button>
+          <button type="button" data-preset="medicine">Medicine</button>
+          <button type="button" data-preset="science">Science</button>
           <button type="button" data-preset="mixed">Mixed</button>
-          <button type="button" data-preset="finance">Finance control</button>
         </div>
         <div id="topicWeightSummary" class="status">Effective topic weights: none</div>
       </fieldset>
@@ -415,38 +445,65 @@
   <script>
     const $ = (selector) => document.querySelector(selector);
     const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-    const rangeIds = [
-      ["animalsWeight", "animalsOut"],
-      ["plantsWeight", "plantsOut"],
-      ["financeWeight", "financeOut"],
+    const difficultyRangeIds = [
       ["proficiency", "proficiencyOut"],
       ["challengeTarget", "challengeTargetOut"],
       ["challengeSpread", "challengeSpreadOut"]
     ];
+    const fallbackTopicOptions = [
+      { id: "medicine_health", display_name: "Medicine & Health", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["medicine", "anatomy", "healthcare"] },
+      { id: "finance_business", display_name: "Finance & Business", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["finance", "business", "economics"] },
+      { id: "sports_fitness", display_name: "Sports & Fitness", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["sports", "athletics"] },
+      { id: "games", display_name: "Games", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["games", "gaming"] },
+      { id: "music_media_entertainment", display_name: "Music, Media & Entertainment", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["music", "entertainment"] },
+      { id: "law_politics_civics", display_name: "Law, Politics & Civics", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["law", "politics", "government"] },
+      { id: "science_technology", display_name: "Science & Technology", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["science", "technology"] },
+      { id: "travel_places_transport", display_name: "Travel, Places & Transport", readiness_state: "partial", axis: "topic", runtime_aliases: ["travel", "transport", "geography"] },
+      { id: "arts_literature_humanities", display_name: "Arts, Literature & Humanities", readiness_state: "partial", axis: "topic", runtime_aliases: ["art", "literature", "humanities"] },
+      { id: "animals", display_name: "Animals", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["zoology", "wildlife", "pets"] },
+      { id: "plants_nature", display_name: "Plants & Nature", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["botany", "plants", "nature"] },
+      { id: "food_cooking", display_name: "Food & Cooking", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["food", "cooking"] },
+      { id: "anime_manga_pop_culture", display_name: "Anime, Manga & Pop Culture", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["anime", "manga"] },
+      { id: "hobbies_crafts", display_name: "Hobbies & Crafts", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["hobbies", "crafts"] },
+      { id: "casual_slang_register", display_name: "Casual & Slang", readiness_state: "review_only", axis: "register", runtime_aliases: ["slang", "colloquial"] },
+      { id: "formal_professional_register", display_name: "Formal & Professional", readiness_state: "review_only", axis: "register", runtime_aliases: ["formal", "professional"] },
+      { id: "sat_toefl_exam_prep", display_name: "SAT & TOEFL Prep", readiness_state: "legal_source_gated", axis: "topic", runtime_aliases: ["sat", "toefl"] }
+    ];
+    let topicOptions = fallbackTopicOptions;
 
     function numberValue(id, fallback) {
-      const parsed = Number($(id).value);
+      const element = $(id);
+      const parsed = Number(element ? element.value : fallback);
       return Number.isFinite(parsed) ? parsed : fallback;
     }
 
     function updateOutputs() {
-      for (const [inputId, outputId] of rangeIds) {
+      for (const [inputId, outputId] of difficultyRangeIds) {
         $("#" + outputId).textContent = numberValue("#" + inputId, 0).toFixed(2);
       }
+      $$("[data-topic-weight]").forEach((input) => {
+        const output = $('[data-topic-output="' + input.dataset.topicWeight + '"]');
+        if (output) {
+          output.textContent = Number(input.value || 0).toFixed(2);
+        }
+      });
       $("#sampleButton").textContent = "Sample " + numberValue("#previewCount", 10);
       updateTopicWeightSummary();
     }
 
     function selectedInterests() {
-      return $$("[data-interest]:checked").map((input) => input.dataset.interest);
+      return $$("[data-topic-interest]:checked").map((input) => input.dataset.topicInterest);
     }
 
     function sliderTopicWeights() {
-      return {
-        animals: numberValue("#animalsWeight", 0),
-        plants_nature: numberValue("#plantsWeight", 0),
-        finance: numberValue("#financeWeight", 0)
-      };
+      const weights = {};
+      $$("[data-topic-weight]").forEach((input) => {
+        const value = Number(input.value || 0);
+        if (Number.isFinite(value)) {
+          weights[input.dataset.topicWeight] = value;
+        }
+      });
+      return weights;
     }
 
     function effectiveTopicWeights() {
@@ -466,6 +523,28 @@
       return effective;
     }
 
+    function topicOptionById(topicId) {
+      return topicOptions.find((topic) => topic.id === topicId) || { id: topicId, display_name: topicId, runtime_aliases: [] };
+    }
+
+    function expandedTopicWeights() {
+      const expanded = {};
+      for (const [topicId, entry] of Object.entries(effectiveTopicWeights())) {
+        const option = topicOptionById(topicId);
+        const aliases = [topicId, ...(Array.isArray(option.runtime_aliases) ? option.runtime_aliases : [])];
+        for (const alias of aliases) {
+          const key = String(alias || "").trim();
+          if (!key) {
+            continue;
+          }
+          if (!expanded[key] || entry.value > expanded[key]) {
+            expanded[key] = entry.value;
+          }
+        }
+      }
+      return expanded;
+    }
+
     function updateTopicWeightSummary() {
       const summary = $("#topicWeightSummary");
       if ($("#useRawProfile").checked) {
@@ -474,17 +553,31 @@
       }
       const entries = Object.entries(effectiveTopicWeights())
         .sort(([left], [right]) => left.localeCompare(right))
-        .map(([topic, entry]) => topic + "=" + entry.value.toFixed(2) + " (" + entry.source + ")");
+        .map(([topic, entry]) => {
+          const option = topicOptionById(topic);
+          return option.display_name + "=" + entry.value.toFixed(2) + " (" + entry.source + ")";
+        });
       summary.textContent = "Effective topic weights: " + (entries.length ? entries.join(", ") : "none");
     }
 
     function clearTopics() {
-      $$("[data-interest]").forEach((input) => {
+      $$("[data-topic-interest]").forEach((input) => {
         input.checked = false;
       });
-      $("#animalsWeight").value = "0";
-      $("#plantsWeight").value = "0";
-      $("#financeWeight").value = "0";
+      $$("[data-topic-weight]").forEach((input) => {
+        input.value = "0";
+      });
+    }
+
+    function setTopic(topicId, value, checked = false) {
+      const checkbox = $('[data-topic-interest="' + topicId + '"]');
+      const slider = $('[data-topic-weight="' + topicId + '"]');
+      if (checkbox) {
+        checkbox.checked = Boolean(checked);
+      }
+      if (slider) {
+        slider.value = String(value);
+      }
     }
 
     function applyPreset(name) {
@@ -492,16 +585,57 @@
       $("#useRawProfile").checked = false;
       $("#rawProfile").value = "{}";
       if (name === "animals") {
-        $('[data-interest="animals"]').checked = true;
+        setTopic("animals", 0, true);
       } else if (name === "plants") {
-        $('[data-interest="plants_nature"]').checked = true;
+        setTopic("plants_nature", 0, true);
+      } else if (name === "food") {
+        setTopic("food_cooking", 0, true);
+      } else if (name === "medicine") {
+        setTopic("medicine_health", 0, true);
+      } else if (name === "science") {
+        setTopic("science_technology", 0, true);
       } else if (name === "mixed") {
-        $("#animalsWeight").value = "0.25";
-        $("#plantsWeight").value = "1";
-      } else if (name === "finance") {
-        $('[data-interest="finance"]').checked = true;
+        setTopic("animals", 0.35);
+        setTopic("plants_nature", 0.35);
+        setTopic("food_cooking", 0.35);
       }
       updateOutputs();
+    }
+
+    function renderTopicControls() {
+      const container = $("#topicControls");
+      container.innerHTML = topicOptions.map((topic) => {
+        const id = escapeHtml(topic.id);
+        const display = escapeHtml(topic.display_name || topic.id);
+        const axis = escapeHtml(topic.axis || "topic");
+        const readiness = escapeHtml((topic.readiness_state || "unknown").replaceAll("_", " "));
+        const aliases = Array.isArray(topic.runtime_aliases) && topic.runtime_aliases.length
+          ? "aliases: " + topic.runtime_aliases.slice(0, 6).join(", ")
+          : "direct topic id only";
+        return '<div class="topic-control" data-topic-control="' + id + '">'
+          + '<div class="topic-control-header">'
+          + '<label class="topic-control-title">'
+          + '<input type="checkbox" data-topic-interest="' + id + '">'
+          + display
+          + '</label>'
+          + '<span class="badge">' + readiness + '</span>'
+          + '</div>'
+          + '<div class="topic-control-meta">' + axis + " · " + escapeHtml(aliases) + '</div>'
+          + '<div class="row">'
+          + '<label>Preference strength'
+          + '<input data-topic-weight="' + id + '" type="range" min="0" max="1" step="0.05" value="0">'
+          + '</label>'
+          + '<output data-topic-output="' + id + '">0.00</output>'
+          + '</div>'
+          + '</div>';
+      }).join("");
+      $$("[data-topic-interest]").forEach((input) => {
+        input.addEventListener("change", updateOutputs);
+      });
+      $$("[data-topic-weight]").forEach((input) => {
+        input.addEventListener("input", updateOutputs);
+        input.addEventListener("change", updateOutputs);
+      });
     }
 
     function readProfilePayload() {
@@ -512,15 +646,9 @@
         };
       }
       const interests = selectedInterests();
-      const topicWeights = {};
-      for (const [topic, value] of Object.entries(sliderTopicWeights())) {
-        if (value > 0) {
-          topicWeights[topic] = value;
-        }
-      }
       return {
         interests,
-        topic_weights: topicWeights,
+        topic_weights: expandedTopicWeights(),
         proficiency_estimate: numberValue("#proficiency", 0.45),
         challenge_target: numberValue("#challengeTarget", 0.45),
         challenge_spread: numberValue("#challengeSpread", 0.2)
@@ -776,7 +904,42 @@
       }
     }
 
-    for (const [inputId] of rangeIds) {
+    async function loadConfig() {
+      renderTopicControls();
+      try {
+        const response = await fetch("/api/config");
+        const data = await response.json();
+        if (response.ok && data.ok !== false && Array.isArray(data.topics) && data.topics.length) {
+          topicOptions = data.topics;
+          renderTopicControls();
+        }
+        if (data.defaults) {
+          if (data.defaults.pair) {
+            $("#pair").value = data.defaults.pair;
+          }
+          if (data.defaults.set_top_n) {
+            $("#setTopN").value = data.defaults.set_top_n;
+          }
+          if (data.defaults.initial_active_count) {
+            $("#initialActiveCount").value = data.defaults.initial_active_count;
+          }
+          if (data.defaults.preview_count) {
+            $("#previewCount").value = data.defaults.preview_count;
+          }
+          if (data.defaults.preview_sampling_mode) {
+            $("#samplingMode").value = data.defaults.preview_sampling_mode;
+          }
+          if (data.defaults.preview_seed !== null && data.defaults.preview_seed !== undefined) {
+            $("#seed").value = data.defaults.preview_seed;
+          }
+        }
+      } catch (_error) {
+        renderTopicControls();
+      }
+      updateOutputs();
+    }
+
+    for (const [inputId] of difficultyRangeIds) {
       $("#" + inputId).addEventListener("input", updateOutputs);
       $("#" + inputId).addEventListener("change", updateOutputs);
     }
@@ -784,14 +947,11 @@
     $("#previewCount").addEventListener("change", updateOutputs);
     $("#useRawProfile").addEventListener("change", updateOutputs);
     $("#rawProfile").addEventListener("input", updateOutputs);
-    $$("[data-interest]").forEach((input) => {
-      input.addEventListener("change", updateOutputs);
-    });
     $("#sampleButton").addEventListener("click", sample);
     $$("[data-preset]").forEach((button) => {
       button.addEventListener("click", () => applyPreset(button.dataset.preset));
     });
-    updateOutputs();
+    loadConfig();
   </script>
 </body>
 </html>
