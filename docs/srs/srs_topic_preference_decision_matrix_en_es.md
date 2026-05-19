@@ -3,7 +3,7 @@
 Status: active decision aid
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, `srs_topic_family_depth_audit_en_es_latest`, animals/plants overlay artifacts, the food/cooking existing-signal audit, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
+Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, `srs_topic_family_depth_audit_en_es_latest`, animals/plants overlay artifacts, food/cooking audit/review/overlay/full-source packet artifacts, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
 Purpose: lay out the current trusted source-topic surface so product preferences can be selected deliberately
 Source-of-truth: decision aid; executable inventory lives in `scripts/testing/srs_topic_signal_inventory_en_es.py` and the latest generated artifacts.
 
@@ -21,6 +21,7 @@ Related docs:
 - `../test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
 - `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
+- `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 - `srs_food_cooking_signal_review_and_coverage_plan_en_es.md`
 
 ## Decision Frame
@@ -157,6 +158,13 @@ the existing profile-bootstrap reranker with a `food_cooking` interest. The
 preview moves reviewed food/cooking rows into the top profile preview by `+7`
 without mutating helper state or enabling default runtime admission.
 
+The first full-source food/cooking expansion packet is
+`../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`.
+It samples `96` pending-review rows from `2,083` installed local Kaikki
+food/cooking candidates outside the already-reviewed current frontier, covering
+`83 / 83` review cells. This gives the next precision-calibration surface for
+deciding whether the broader policy can support a 10k-style frontier.
+
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal
 candidates (`1.7%`) and `138 / 10,000` plants/nature candidates (`1.4%`). This
@@ -278,6 +286,11 @@ profile preview, while the rejects show that Tier D gloss/example patterns and
 noisy overlap categories should stay review-gated. A source-capacity audit
 shows `2,083` additional local food-signal lemmas outside the current frequency
 frontier.
+
+The next food/cooking checkpoint is the full-source review packet over those
+outside-frontier candidates. It is intentionally unlabeled and does not promote
+any row; the purpose is to find whether the broad source policy remains precise
+when it sees the much larger local candidate pool.
 
 The prior SPALEX 10k research SQLite path is not currently present locally, so
 the audit reports that optional frontier as unavailable and does not download

@@ -3,7 +3,7 @@
 Status: active data planning reference
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, interest-tailored admission algorithm review, local SRS admission lab topic-depth diagnostics, preference taxonomy lifecycle review, and broad family-depth audit
+Last verified: 2026-05-19 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, interest-tailored admission algorithm review, local SRS admission lab topic-depth diagnostics, preference taxonomy lifecycle review, broad family-depth audit, and food/cooking full-source review packet
 Purpose: enumerate the data needed to make interest-tailored SRS admission real, identify what is missing now, and define a practical acquisition strategy
 Source-of-truth: data acquisition plan; current executable truth lives in SRS seed/admission code, installed pack manifests, generated source-readiness audits, and promoted source packs.
 
@@ -29,6 +29,7 @@ Related docs:
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
+- `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 
 ## Data-First Goal
 
@@ -283,6 +284,12 @@ Current product-owned taxonomy artifact:
   `37` overlay rows, excludes all `9` rejected rows, and moves reviewed
   food/cooking hits in the profile preview from `0` to `7` without installing a
   pack, mutating helper state, or changing runtime admission defaults.
+- `scripts/testing/srs_food_cooking_full_source_review_packet_en_es.py` samples
+  the broader installed local source supply outside the already-reviewed current
+  frontier. The first packet covers `96` pending-review rows from `2,083`
+  outside-frontier food/cooking candidates across `83 / 83` review cells. This
+  is the next precision-calibration surface before claiming that the policy can
+  support product-scale food/cooking admission.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger

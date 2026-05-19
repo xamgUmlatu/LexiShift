@@ -3,7 +3,7 @@
 Status: active diagnostic
 Role: SRS topic enrichment evidence
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from food/cooking signal audit, review packet labels, source-capacity audit, topic-overlay PoC, and focused tests
+Last verified: 2026-05-19 from food/cooking signal audit, review packet labels, source-capacity audit, topic-overlay PoC, full-source review packet, and focused tests
 Purpose: record which current food/cooking candidates are real, what the failure modes are, and how to get product-level coverage beyond the current conservative 46-row set
 
 Related artifacts:
@@ -15,6 +15,7 @@ Related artifacts:
 - `../test_outputs/srs_food_cooking_source_capacity_audit_en_es_latest.md`
 - `../test_outputs/srs_food_cooking_topic_overlay_en_es_current_latest.json`
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
+- `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 
 ## Review Result
 
@@ -169,10 +170,35 @@ preview because the current profile-bootstrap scorer consumes topic presence
 rather than scalar topic membership. Light rows remain in the overlay artifact
 for future scalar-aware scoring or review decisions.
 
+## Full-Source Expansion Packet
+
+`scripts/testing/srs_food_cooking_full_source_review_packet_en_es.py` builds
+the first broader review packet from installed local Kaikki/Wiktionary
+food/cooking candidates, without downloading sources or touching runtime packs.
+
+The generated artifacts are:
+
+- `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.json`
+- `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
+
+Current result:
+
+- full local source candidates: `2,129`;
+- current-frontier candidates excluded as already reviewed: `46`;
+- expansion candidates sampled from: `2,083`;
+- review rows: `96`;
+- review cells covered: `83 / 83`;
+- labeled rows: `0`.
+
+This packet answers the immediate coverage question more directly than more
+admission tuning: the installed source has enough food/cooking supply for a
+larger vocabulary surface, but broader source-label quality still needs review
+before product lift. The packet is pending-review evidence, not an overlay.
+
 ## Immediate Next Slice
 
-Move food/cooking back to coverage expansion rather than further PoC plumbing.
-The current overlay proves the reviewed-label-to-admission-preview path, but it
-does not solve recall. The next useful step is to rerun or extend this food
-signal policy over a larger legally usable target-lemma frontier, then review a
-stratified packet from that broader candidate universe.
+Review the full-source expansion packet enough to calibrate broad-source
+precision. Focus first on high/medium Tier B and Tier C rows, then inspect Tier
+D and low-confidence cells for recurring reject patterns. After that, decide
+whether the existing food policy can support a larger 10k-style frontier or
+whether food/cooking needs a curated source overlay before admission lift.
