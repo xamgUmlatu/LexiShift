@@ -17,6 +17,7 @@ Related artifacts:
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 - `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
+- `../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`
 
 ## Review Result
 
@@ -210,9 +211,21 @@ Rejects in this broader packet mostly reinforce the existing safety rules:
 - broad botanical category overlap can still misfire (`cocobolo`);
 - historical/regional variants can be too obscure for product lift (`cha`).
 
+The precision summary is
+`../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`.
+It reports:
+
+- accepted rows: `89 / 96` (`92.7%`);
+- Tier C accepted `44 / 48`;
+- Tier B accepted `36 / 39`;
+- high-confidence rows accepted `36 / 38`;
+- review-band rows accepted `30 / 34`;
+- flow assessment: the current source -> review -> precision -> overlay path is
+  the right direction, but policy guards are still required before product lift.
+
 ## Immediate Next Slice
 
-Turn the full-source review into policy guidance. The likely next diagnostic is
-a compact precision summary by tier, confidence band, and source label, followed
-by a small policy adjustment pass for wrong-topic translation matches and noisy
-category overlaps.
+Apply a small policy adjustment pass for wrong-topic translation matches and
+noisy category overlaps, then rerun the audit, full-source packet, and precision
+summary to verify the guards reduce rejects without erasing useful food/cooking
+coverage.

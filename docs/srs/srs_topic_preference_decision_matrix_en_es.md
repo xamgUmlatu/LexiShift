@@ -23,6 +23,7 @@ Related docs:
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 - `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
+- `../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`
 - `srs_food_cooking_signal_review_and_coverage_plan_en_es.md`
 
 ## Decision Frame
@@ -168,6 +169,13 @@ food/cooking candidates outside the already-reviewed current frontier, covering
 `89 / 96` rows (`53` strong, `36` light) and reject `7`. This gives the next
 precision-calibration surface for deciding whether the broader policy can
 support a 10k-style frontier.
+
+The full-source precision summary is
+`../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`.
+It records the current flow assessment as positive: discovery, review labels,
+diagnostic overlay behavior, and runtime admission are separated correctly. The
+next risk-reduction step is policy guards for the `7` caught false-positive
+classes before any broad overlay promotion.
 
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal

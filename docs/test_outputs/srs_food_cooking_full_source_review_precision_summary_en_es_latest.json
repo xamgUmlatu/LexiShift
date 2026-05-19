@@ -1,0 +1,1464 @@
+{
+  "decision": "srs_food_cooking_full_source_review_precision_summary_ready",
+  "findings": [
+    {
+      "code": "review_rows_loaded",
+      "level": "PASS",
+      "message": "Review rows were loaded."
+    },
+    {
+      "code": "review_rows_labeled",
+      "level": "PASS",
+      "message": "All review rows are labeled."
+    },
+    {
+      "code": "accepted_majority",
+      "level": "PASS",
+      "message": "Accepted rows outnumber rejects in the reviewed sample."
+    },
+    {
+      "code": "policy_guards_still_needed",
+      "level": "WARN",
+      "message": "Rejected rows identify false-positive classes that should be policy-guarded before promotion."
+    },
+    {
+      "code": "label_merge_clean",
+      "level": "PASS",
+      "message": "Labels merged cleanly."
+    }
+  ],
+  "flow_assessment": {
+    "doing_the_right_thing": true,
+    "next_best_step": "Convert review results into small policy guards, then rerun the audit/review summary before promoting any broader food/cooking overlay.",
+    "reason": "The current method separated source discovery, review labels, diagnostic overlay behavior, and runtime admission. The broad source sample accepted most rows while surfacing specific false-positive classes before product lift."
+  },
+  "generated_at": "2026-05-19T02:26:49+00:00",
+  "inputs": {
+    "labels_json": "docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json",
+    "labels_state": "agent_labeled_pending_user_approval",
+    "packet_decision": "srs_food_cooking_full_source_review_packet_ready",
+    "packet_json": "docs/test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.json"
+  },
+  "limitations": [
+    "This summary describes one deterministic 96-row review packet, not the full 2,083-row precision.",
+    "Agent labels remain pending user approval and are not product-overlay approval by themselves.",
+    "High acceptance supports continuing the source path, but false-positive classes still need policy guards."
+  ],
+  "policy_guidance": [
+    "Continue using review packets before promotion; the high accepted share is meaningful because rejects were caught before overlay lift.",
+    "Treat strong accepted rows as overlay candidates only after provenance and rollback fields are generated.",
+    "Keep light accepted rows as lower-membership or scalar-ready evidence, not binary strong topic evidence.",
+    "Keep Tier D as review-gated discovery even when this sample was mostly acceptable; its broad population is still large and phrase-driven.",
+    "Add guards for fruit-word translation matches that are actually colors, trees, sellers, or plants.",
+    "Penalize name/person/adjective collisions before trusting category-derived food labels.",
+    "Keep botanical category overlap review-gated unless primary translation or food gloss corroborates it.",
+    "Penalize historical, archaic, or region-only terms unless the product explicitly supports that register."
+  ],
+  "precision_by_confidence_band": [
+    {
+      "accepted_count": 36,
+      "accepted_rate": 0.947368,
+      "count": 38,
+      "decision_counts": {
+        "accept_light_topic": 11,
+        "accept_strong_topic": 25,
+        "reject_secondary_or_obscure_sense": 1,
+        "reject_wrong_topic": 1
+      },
+      "label": "high",
+      "light_count": 11,
+      "rejected_count": 2,
+      "rejected_rate": 0.052632,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 25,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 30,
+      "accepted_rate": 0.882353,
+      "count": 34,
+      "decision_counts": {
+        "accept_light_topic": 15,
+        "accept_strong_topic": 15,
+        "reject_secondary_or_obscure_sense": 3,
+        "reject_wrong_topic": 1
+      },
+      "label": "review",
+      "light_count": 15,
+      "rejected_count": 4,
+      "rejected_rate": 0.117647,
+      "secondary_or_obscure_count": 3,
+      "strong_count": 15,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 21,
+      "accepted_rate": 0.954545,
+      "count": 22,
+      "decision_counts": {
+        "accept_light_topic": 8,
+        "accept_strong_topic": 13,
+        "reject_wrong_topic": 1
+      },
+      "label": "medium",
+      "light_count": 8,
+      "rejected_count": 1,
+      "rejected_rate": 0.045455,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 13,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 2
+      },
+      "label": "inventory",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    }
+  ],
+  "precision_by_source_label": [
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 3
+      },
+      "label": "cooking",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 0.75,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "reject_secondary_or_obscure_sense": 1
+      },
+      "label": "fish",
+      "light_count": 3,
+      "rejected_count": 1,
+      "rejected_rate": 0.25,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 2,
+        "accept_strong_topic": 1
+      },
+      "label": "beverages",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 2
+      },
+      "label": "desserts",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 2,
+        "accept_strong_topic": 1
+      },
+      "label": "food_gloss_pattern",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 2
+      },
+      "label": "foods",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 0.666667,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 1,
+        "reject_secondary_or_obscure_sense": 1
+      },
+      "label": "fruits",
+      "light_count": 1,
+      "rejected_count": 1,
+      "rejected_rate": 0.333333,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 2,
+        "accept_strong_topic": 1
+      },
+      "label": "herbs",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 0.666667,
+      "count": 3,
+      "decision_counts": {
+        "accept_strong_topic": 2,
+        "reject_wrong_topic": 1
+      },
+      "label": "legumes",
+      "light_count": 0,
+      "rejected_count": 1,
+      "rejected_rate": 0.333333,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 2,
+        "accept_strong_topic": 1
+      },
+      "label": "meats",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_strong_topic": 3
+      },
+      "label": "spices",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 3,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 2,
+        "accept_strong_topic": 1
+      },
+      "label": "spices_and_herbs",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 1.0,
+      "count": 3,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 2
+      },
+      "label": "vegetables",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_strong_topic": 2
+      },
+      "label": "alcoholic_beverages",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 2
+      },
+      "label": "food",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 2
+      },
+      "label": "food_translation_pattern",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:beer",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:food",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_strong_topic": 2
+      },
+      "label": "primary_translation:tomato",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_strong_topic": 2
+      },
+      "label": "sauces",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 0.5,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "reject_secondary_or_obscure_sense": 1
+      },
+      "label": "seafood",
+      "light_count": 1,
+      "rejected_count": 1,
+      "rejected_rate": 0.5,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "breads",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "cheeses",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "dairy_products",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "grains",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "nuts",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:apple",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:banana",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:bean",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:beef",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:bread",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:butter",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:cheese",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:chicken",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:coffee",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:corn",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:dessert",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:dish",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:drink",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:egg",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:fish",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:fruit",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:garlic",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:grape",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 0,
+      "accepted_rate": 0.0,
+      "count": 1,
+      "decision_counts": {
+        "reject_wrong_topic": 1
+      },
+      "label": "primary_translation:lemon",
+      "light_count": 0,
+      "rejected_count": 1,
+      "rejected_rate": 1.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:maize",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:meat",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:oil",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:onion",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 0,
+      "accepted_rate": 0.0,
+      "count": 1,
+      "decision_counts": {
+        "reject_wrong_topic": 1
+      },
+      "label": "primary_translation:orange",
+      "light_count": 0,
+      "rejected_count": 1,
+      "rejected_rate": 1.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:pepper",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:potato",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:salt",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:sauce",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:soup",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "primary_translation:sugar",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 0,
+      "accepted_rate": 0.0,
+      "count": 1,
+      "decision_counts": {
+        "reject_secondary_or_obscure_sense": 1
+      },
+      "label": "primary_translation:tea",
+      "light_count": 0,
+      "rejected_count": 1,
+      "rejected_rate": 1.0,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:vegetable",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "primary_translation:wheat",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "soups",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    }
+  ],
+  "precision_by_tier": [
+    {
+      "accepted_count": 44,
+      "accepted_rate": 0.916667,
+      "count": 48,
+      "decision_counts": {
+        "accept_light_topic": 18,
+        "accept_strong_topic": 26,
+        "reject_secondary_or_obscure_sense": 3,
+        "reject_wrong_topic": 1
+      },
+      "label": "C",
+      "light_count": 18,
+      "rejected_count": 4,
+      "rejected_rate": 0.083333,
+      "secondary_or_obscure_count": 3,
+      "strong_count": 26,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 36,
+      "accepted_rate": 0.923077,
+      "count": 39,
+      "decision_counts": {
+        "accept_light_topic": 11,
+        "accept_strong_topic": 25,
+        "reject_secondary_or_obscure_sense": 1,
+        "reject_wrong_topic": 2
+      },
+      "label": "B",
+      "light_count": 11,
+      "rejected_count": 3,
+      "rejected_rate": 0.076923,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 25,
+      "uncertain_count": 0,
+      "wrong_topic_count": 2
+    },
+    {
+      "accepted_count": 5,
+      "accepted_rate": 1.0,
+      "count": 5,
+      "decision_counts": {
+        "accept_light_topic": 4,
+        "accept_strong_topic": 1
+      },
+      "label": "D",
+      "light_count": 4,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 1
+      },
+      "label": "A",
+      "light_count": 3,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    }
+  ],
+  "precision_by_tier_and_band": [
+    {
+      "accepted_count": 33,
+      "accepted_rate": 0.942857,
+      "count": 35,
+      "decision_counts": {
+        "accept_light_topic": 10,
+        "accept_strong_topic": 23,
+        "reject_secondary_or_obscure_sense": 1,
+        "reject_wrong_topic": 1
+      },
+      "label": "B:high",
+      "light_count": 10,
+      "rejected_count": 2,
+      "rejected_rate": 0.057143,
+      "secondary_or_obscure_count": 1,
+      "strong_count": 23,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 23,
+      "accepted_rate": 0.884615,
+      "count": 26,
+      "decision_counts": {
+        "accept_light_topic": 11,
+        "accept_strong_topic": 12,
+        "reject_secondary_or_obscure_sense": 3
+      },
+      "label": "C:review",
+      "light_count": 11,
+      "rejected_count": 3,
+      "rejected_rate": 0.115385,
+      "secondary_or_obscure_count": 3,
+      "strong_count": 12,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 19,
+      "accepted_rate": 0.95,
+      "count": 20,
+      "decision_counts": {
+        "accept_light_topic": 6,
+        "accept_strong_topic": 13,
+        "reject_wrong_topic": 1
+      },
+      "label": "C:medium",
+      "light_count": 6,
+      "rejected_count": 1,
+      "rejected_rate": 0.05,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 13,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 3,
+      "accepted_rate": 0.75,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 2,
+        "reject_wrong_topic": 1
+      },
+      "label": "B:review",
+      "light_count": 1,
+      "rejected_count": 1,
+      "rejected_rate": 0.25,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 2,
+      "uncertain_count": 0,
+      "wrong_topic_count": 1
+    },
+    {
+      "accepted_count": 4,
+      "accepted_rate": 1.0,
+      "count": 4,
+      "decision_counts": {
+        "accept_light_topic": 3,
+        "accept_strong_topic": 1
+      },
+      "label": "D:review",
+      "light_count": 3,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 1,
+        "accept_strong_topic": 1
+      },
+      "label": "A:high",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 2,
+      "accepted_rate": 1.0,
+      "count": 2,
+      "decision_counts": {
+        "accept_light_topic": 2
+      },
+      "label": "A:medium",
+      "light_count": 2,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_strong_topic": 1
+      },
+      "label": "C:high",
+      "light_count": 0,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 1,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "C:inventory",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    },
+    {
+      "accepted_count": 1,
+      "accepted_rate": 1.0,
+      "count": 1,
+      "decision_counts": {
+        "accept_light_topic": 1
+      },
+      "label": "D:inventory",
+      "light_count": 1,
+      "rejected_count": 0,
+      "rejected_rate": 0.0,
+      "secondary_or_obscure_count": 0,
+      "strong_count": 0,
+      "uncertain_count": 0,
+      "wrong_topic_count": 0
+    }
+  ],
+  "rejected_rows": [
+    {
+      "best_tier": "C",
+      "confidence_band": "review",
+      "decision": "reject_secondary_or_obscure_sense",
+      "lemma": "claudia",
+      "notes": "Greengage sense exists, but the dominant entry is a given name.",
+      "review_id": "srs-food-009",
+      "source_channel": "sense_categories",
+      "source_label": "fruits",
+      "tier_band": "C:review"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "review",
+      "decision": "reject_secondary_or_obscure_sense",
+      "lemma": "loco",
+      "notes": "Seafood sense is buried under dominant adjective/person senses.",
+      "review_id": "srs-food-014",
+      "source_channel": "entry_categories",
+      "source_label": "seafood",
+      "tier_band": "C:review"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "review",
+      "decision": "reject_wrong_topic",
+      "lemma": "anaranjado",
+      "notes": "The matched sense is orange color, not orange fruit or food.",
+      "review_id": "srs-food-020",
+      "source_channel": "translation",
+      "source_label": "primary_translation:orange",
+      "tier_band": "B:review"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "medium",
+      "decision": "reject_wrong_topic",
+      "lemma": "cocobolo",
+      "notes": "Legume category is misleading here; dominant meaning is a tree/wood, not food.",
+      "review_id": "srs-food-035",
+      "source_channel": "sense_categories",
+      "source_label": "legumes",
+      "tier_band": "C:medium"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "decision": "reject_wrong_topic",
+      "lemma": "limonero",
+      "notes": "Matched lemon via tree/seller senses; dominant meaning is not food.",
+      "review_id": "srs-food-067",
+      "source_channel": "translation",
+      "source_label": "primary_translation:lemon",
+      "tier_band": "B:high"
+    },
+    {
+      "best_tier": "B",
+      "confidence_band": "high",
+      "decision": "reject_secondary_or_obscure_sense",
+      "lemma": "cha",
+      "notes": "Tea sense is historical/Philippine Spanish and too obscure for product lift.",
+      "review_id": "srs-food-078",
+      "source_channel": "translation",
+      "source_label": "primary_translation:tea",
+      "tier_band": "B:high"
+    },
+    {
+      "best_tier": "C",
+      "confidence_band": "review",
+      "decision": "reject_secondary_or_obscure_sense",
+      "lemma": "morena",
+      "notes": "Moray/fish sense is not enough for food lift against dominant person/name senses.",
+      "review_id": "srs-food-088",
+      "source_channel": "sense_categories",
+      "source_label": "fish",
+      "tier_band": "C:review"
+    }
+  ],
+  "schema_version": 1,
+  "status": "ok",
+  "summary": {
+    "accepted_count": 89,
+    "accepted_rate": 0.927083,
+    "count": 96,
+    "decision_counts": {
+      "accept_light_topic": 36,
+      "accept_strong_topic": 53,
+      "reject_secondary_or_obscure_sense": 4,
+      "reject_wrong_topic": 3
+    },
+    "finding_counts": {
+      "PASS": 4,
+      "WARN": 1
+    },
+    "issues": [],
+    "label": "overall",
+    "light_count": 36,
+    "rejected_count": 7,
+    "rejected_rate": 0.072917,
+    "secondary_or_obscure_count": 4,
+    "strong_count": 53,
+    "uncertain_count": 0,
+    "warnings": [
+      "policy_guards_still_needed"
+    ],
+    "wrong_topic_count": 3
+  }
+}

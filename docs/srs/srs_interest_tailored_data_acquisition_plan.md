@@ -31,6 +31,7 @@ Related docs:
 - `../test_outputs/srs_food_cooking_topic_overlay_poc_en_es_current_latest.md`
 - `../test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
 - `../test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
+- `../test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`
 
 ## Data-First Goal
 
@@ -292,6 +293,11 @@ Current product-owned taxonomy artifact:
   first label pass accepts `89 / 96` rows (`53` strong, `36` light) and rejects
   `7`, making it a useful precision-calibration surface before claiming that
   the policy can support product-scale food/cooking admission.
+- `scripts/testing/srs_food_cooking_full_source_review_precision_summary_en_es.py`
+  turns that label pass into policy guidance. The current flow is assessed as
+  directionally correct because source discovery, review labels, diagnostic
+  overlay behavior, and runtime admission remain separated. The next step is
+  narrow policy guards, not broad promotion.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger

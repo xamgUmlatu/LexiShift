@@ -18,6 +18,74 @@ Do not use this file to claim that a topic family is implemented, default-on, or
 verified for an LP. It describes the safe method for getting from source data to
 reviewable topic candidates.
 
+## Best Current Topic-Addition Flow
+
+For each new user-facing topic or register preference, use the lightest version
+of this flow that still creates evidence before product lift.
+
+1. Define the product family first.
+   Start from the user-facing intent, such as `food_cooking`, `animals`, or
+   `medicine_health`. Do not let source labels become UX labels directly. If the
+   topic is really a register/style preference, keep it on a separate internal
+   axis even if UX shows it beside interests.
+
+2. Confirm source and license posture.
+   Record which target-language lemma frontier and lexical sources can be used.
+   If a license requires manual external selection, keep the picker narrow and
+   require the exact expected pack shape.
+
+3. Audit coverage before promotion.
+   Generate a read-only inventory with full candidate rows, tier/band counts,
+   top source labels, and limitations. This is where we find whether the topic
+   is source-ready, source-thin, or legally blocked.
+
+4. Sample review packets from the real candidate universe.
+   If the current frontier is small enough, review all candidates. If the topic
+   has broader local source supply outside the current frontier, exclude already
+   reviewed rows and sample a stratified full-source packet. Do not promote rows
+   directly from the audit.
+
+5. Store labels separately.
+   Labels belong in `docs/test_inputs/`, not hand-edited generated outputs.
+   Keep decisions structured as strong accept, light accept, wrong-topic reject,
+   secondary/obscure reject, or uncertain.
+
+6. Summarize precision and policy risk.
+   Generate a compact precision summary by tier, confidence band, and source
+   label. Use rejects as policy evidence: they show which source labels need
+   guards before broad promotion.
+
+7. Build a diagnostic overlay only after review.
+   Strong accepted rows can become prototype overlay rows. Light accepted rows
+   should carry lower membership or remain scalar-ready. Rejected rows must be
+   excluded and counted.
+
+8. Validate admission behavior separately.
+   Run profile/admission preview checks to see whether the topic actually moves
+   samples at useful proficiency bands. If it fails, distinguish scorer issues
+   from source-depth issues.
+
+9. Promote only with an explicit product contract.
+   Runtime admission lift needs a versioned, provenance-bearing overlay or pack,
+   rollback path, focused tests, and SRS quality gates. Default-on behavior is a
+   later decision, not a consequence of a good audit.
+
+This is the right current direction. The food/cooking pass is the strongest
+evidence so far: the broad full-source sample accepted `89 / 96` rows, but the
+`7` rejects exposed wrong-topic translation matches, name/person/adjective
+collisions, botanical overlap, and historical/regional variants before they
+could reach product admission.
+
+## Topic Flow Variants
+
+| Topic Type | Best Flow | Promotion Posture |
+| --- | --- | --- |
+| Source-ready utility topics | Taxonomy mapping -> broad depth audit -> small precision sample -> diagnostic profile lift. | Can move faster, but still needs review before default lift. |
+| P0 enrichment topics | Custom signal policy -> full inventory -> stratified review packet -> precision summary -> diagnostic overlay. | Usually needs overlay or extra source data before product claims. |
+| Register/style preferences | Separate register signal policy -> conservative review packet -> no default lift until precision is clear. | Start review-only; source tags are often noisy. |
+| Legal/source-gated topics | Resolve allowed source/license first, then run the normal flow. | Do not surface as selectable until source path is legal. |
+| New LP parity work | Source-readiness audit -> pair-local taxonomy/policy -> current-frontier packet -> full-source packet if needed. | Pair-specific evidence required; do not copy en-es status. |
+
 ## Reusable Lessons From en-es
 
 1. Product taxonomy and source labels are separate layers.
@@ -227,6 +295,8 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_outputs/srs_food_cooking_full_source_review_packet_en_es_latest.md`
 - Full-source food/cooking review labels:
   `docs/test_inputs/srs_food_cooking_full_source_review_labels_en_es.json`
+- Full-source food/cooking precision summary:
+  `docs/test_outputs/srs_food_cooking_full_source_review_precision_summary_en_es_latest.md`
 - SPALEX 10k audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:
@@ -267,3 +337,7 @@ candidates, covering `83 / 83` review cells. The first label pass accepts
 this pattern when the current frontier is too small: exclude already-reviewed
 frontier rows, sample the broader installed source supply, and calibrate
 precision before promoting a larger overlay or source policy.
+
+The precision summary adds the current decision point: the flow is directionally
+right, and the next action should be narrow policy guards for the observed
+false-positive classes rather than immediate broad promotion.
