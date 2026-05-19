@@ -265,6 +265,11 @@ Current product-owned taxonomy artifact:
   `42` rows remain review-required because food labels often attach to
   secondary culinary senses or overlap animals/plants. The policy lives at
   `docs/test_inputs/srs_food_cooking_signal_policy_en_es.json`.
+- `scripts/testing/srs_food_cooking_signal_review_packet_en_es.py` turns that
+  conservative inventory into a deterministic pending-review packet. Since the
+  current candidate universe is small, the packet covers all `46 / 46`
+  candidates and all `16 / 16` review cells. This validates precision before
+  overlay promotion; it is not a claim that food/cooking recall is sufficient.
 - Rebuilding the provisional SPALEX research pack and running the same
   read-only confidence audit over the top 10k frontier finds `172` animal
   candidates (`1.7%`) and `138` plants/nature candidates (`1.4%`). The larger

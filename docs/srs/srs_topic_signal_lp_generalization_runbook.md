@@ -207,6 +207,8 @@ A topic family is not ready for product admission lift in an LP until:
   `docs/test_inputs/srs_food_cooking_signal_policy_en_es.json`
 - Current CDE food/cooking audit:
   `docs/test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
+- Current CDE food/cooking review packet:
+  `docs/test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
 - SPALEX 10k audit:
   `docs/test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - SPALEX 10k review packet:
@@ -220,3 +222,9 @@ The topic-overlay PoC turns accepted review labels into a provenance-bearing
 candidate overlay, injects strong accepted rows into `profile_topics`, and runs
 the existing profile-bootstrap reranker. This is still diagnostic-only: it does
 not install a pack, mutate helper state, or enable default runtime admission.
+
+The food/cooking review packet currently covers the full conservative
+candidate universe (`46 / 46`) because the set is small. Future LPs should use
+that pattern when candidate count is reviewable, then switch to stratified
+sampling only after broader source discovery makes the universe too large for
+complete inspection.

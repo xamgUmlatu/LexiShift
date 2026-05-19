@@ -18,6 +18,7 @@ Related docs:
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_current_latest.md`
 - `../test_outputs/srs_animals_plants_existing_signal_audit_en_es_spalex_10k_latest.md`
 - `../test_outputs/srs_food_cooking_existing_signal_audit_en_es_current_latest.md`
+- `../test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`
 
 ## Decision Frame
 
@@ -127,6 +128,15 @@ rows remain review-required because food categories and glosses are often
 sense-specific. Food/cooking is allowed to overlap animals or plants/nature
 when the evidence supports a culinary sense, but that overlap is not automatic
 product lift.
+
+The first food/cooking review packet is
+`../test_outputs/srs_food_cooking_signal_review_packet_en_es_current_latest.md`.
+Because the current conservative candidate universe is only `46` rows, the
+packet includes all `46 / 46` candidates across `16 / 16` review cells instead
+of sampling a subset. This packet is a precision-calibration surface, not a
+coverage-complete food vocabulary target; recall expansion still needs broader
+food lexicons, legally usable recipe/food sources, or embedding-assisted
+candidate discovery.
 
 The same read-only confidence audit over the rebuilt SPALEX 10k frontier finds
 more absolute candidates but still sparse coverage: `172 / 10,000` animal
@@ -242,6 +252,7 @@ audit is conservative rather than exhaustive: existing local categories,
 primary translations, and narrow gloss/translation patterns produce `46`
 current-CDE food/cooking candidates, with `42` intentionally review-required
 before any overlay or admission lift.
+The companion review packet includes all `46` rows for pending review.
 
 The prior SPALEX 10k research SQLite path is not currently present locally, so
 the audit reports that optional frontier as unavailable and does not download
