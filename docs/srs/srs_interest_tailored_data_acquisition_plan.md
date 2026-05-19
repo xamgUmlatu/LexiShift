@@ -2,8 +2,8 @@
 
 Status: active data planning reference
 Role: Planning / WIP
-Last updated: 2026-05-17
-Last verified: 2026-05-17 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, and interest-tailored admission algorithm review
+Last updated: 2026-05-19
+Last verified: 2026-05-19 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, interest-tailored admission algorithm review, and local SRS admission lab topic-depth diagnostics
 Purpose: enumerate the data needed to make interest-tailored SRS admission real, identify what is missing now, and define a practical acquisition strategy
 Source-of-truth: data acquisition plan; current executable truth lives in SRS seed/admission code, installed pack manifests, generated source-readiness audits, and promoted source packs.
 
@@ -256,6 +256,28 @@ Current product-owned taxonomy artifact:
   found the low-confidence band mostly useful, with `tac` (`CAT scan`) as the
   clearest mechanical false positive and several true but secondary or
   animal-adjacent terms that should remain review-only.
+
+Current admission-lab topic-depth checkpoint:
+
+- The local admission lab now reports preferred-topic share and topic-depth by
+  difficulty band for active interests.
+- This diagnostic confirms that the current animal issue is coverage depth, not
+  primarily scalar/readiness tuning: in the dev-only Zipf-bridge augmented
+  EN-ES lab frontier, animals had `33 / 4,123` topic candidates, with `30` in
+  difficulty band `0.00-0.20`, `3` in `0.20-0.40`, and `0` above `0.40`.
+- The observed animal sample share moved from `10 / 10` around proficiency
+  `0.25` to `3 / 10` around `0.55`, then `0 / 10` around `0.65` and `0.80`.
+- Therefore the next improvement is better animal source coverage, especially
+  mid/high-difficulty animal vocabulary, not further admission-math tuning.
+
+Coverage-first handoff:
+
+- Treat profile-bootstrap admission mechanics as acceptable for now.
+- Do not claim broad interest-tailored quality until each main product topic
+  family has a coverage/depth/precision record.
+- The next data pass should measure all main families across current baseline
+  and the 10k expansion frontier, including row counts, difficulty-band depth,
+  top examples, precision samples, and source/license posture.
 
 ### 2. POS And Function-Word Controls
 

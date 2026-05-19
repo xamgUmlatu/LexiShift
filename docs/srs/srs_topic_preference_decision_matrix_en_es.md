@@ -2,8 +2,8 @@
 
 Status: active decision aid
 Role: Planning / WIP
-Last updated: 2026-05-17
-Last verified: 2026-05-17 from `srs_topic_signal_inventory_en_es_current_latest`
+Last updated: 2026-05-19
+Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, animals/plants overlay artifacts, and local SRS admission lab topic-depth diagnostics
 Purpose: lay out the current trusted source-topic surface so product preferences can be selected deliberately
 Source-of-truth: decision aid; executable inventory lives in `scripts/testing/srs_topic_signal_inventory_en_es.py` and the latest generated artifacts.
 
@@ -139,6 +139,67 @@ A focused animal low-confidence spot check is recorded at
 `docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The review supports
 the current conservative posture: low-confidence rows preserve useful recall for
 manual QA, but should not be automatically promoted.
+
+## Admission Lab Exit Checkpoint
+
+The current admission mechanics are acceptable enough to pause admission tuning
+and move the workstream back to source coverage. The tested behavior is:
+
+- topic preference strength moves matching candidates when usable topic rows
+  exist;
+- the readiness gate suppresses words that are far too easy or too hard for the
+  profile;
+- topic relevance widens the readiness band, but does not override source
+  depth;
+- the lab now reports realized preferred-topic share and topic depth by
+  difficulty band, so coverage failures are visible instead of being mistaken
+  for scorer failures.
+
+The strongest current example is `animals`. In the dev-only Zipf-bridge
+augmented EN-ES lab frontier, the active animal support surface had `33 / 4,123`
+topic candidates. Its difficulty depth was shallow: `30` animal candidates in
+`0.00-0.20`, `3` in `0.20-0.40`, and `0` above `0.40`; max animal difficulty
+was about `0.282`. As a result, animal preference produced `10 / 10` animal
+sample rows around proficiency `0.25`, `3 / 10` around `0.55`, and no animal
+sample rows around `0.65` or `0.80`.
+
+Decision:
+
+- do not keep micro-tuning the admission scalar/readiness math for this issue;
+- treat high-proficiency animal dropoff as a topic-depth/source-coverage gap;
+- improve animal coverage through reviewed overlays, additional legal source
+  data, or validated inference before expecting strong animal behavior across
+  all proficiency bands;
+- use the same topic-depth lens for every main product topic before claiming
+  broad interest-tailored SRS quality.
+
+## Main-Topic Coverage Focus
+
+The next coverage pass should evaluate all main product families with the same
+questions, not only raw row counts:
+
+1. How many trusted or reviewed candidates does the family have in the current
+   baseline and the 10k expansion frontier?
+2. Are candidates distributed across difficulty bands, or concentrated only in
+   beginner/common vocabulary?
+3. Are top examples actually good user-facing examples, or noisy/polysemous
+   source labels?
+4. Is source/license/provenance clean enough for product use?
+5. Should the family be enabled normally, enabled with limited-support UX,
+   treated as enrichment-only, or kept unavailable?
+
+Current posture:
+
+| Family Group | Families | Coverage Posture | Next Work |
+| --- | --- | --- | --- |
+| Source-ready utility topics | `medicine_health`, `finance_business`, `sports_fitness`, `games`, `law_politics_civics`, `music_media_entertainment`, `science_technology` | Enough trusted/source-topic support to keep validating profile lift. | Add per-family depth/precision diagnostics over the 10k frontier before product claims. |
+| Partial parent topics | `travel_places_transport`, `arts_literature_humanities` | Plausible parent coverage, but likely needs aliases/overlays for satisfying UX. | Audit examples and decide whether to expose parent-only or wait for enrichment. |
+| P0 enrichment topics | `animals`, `plants_nature`, `food_cooking`, `anime_manga_pop_culture`, `hobbies_crafts` | Product-important but not sufficiently covered by trusted labels alone. | Build or source overlays/inference, then rerun depth/precision checks. |
+| Legal/source gated | `sat_toefl_exam_prep` | Product-aligned but unavailable until allowed data is identified. | Resolve legal source path before surfacing as a preference. |
+
+This is the acceptance boundary for moving on from admission: the admission
+algorithm can remain as-is unless a structural bug appears. The next quality
+bar is topic coverage and topic precision across the product taxonomy.
 
 ## Labels That Should Not Become User Preferences Directly
 
