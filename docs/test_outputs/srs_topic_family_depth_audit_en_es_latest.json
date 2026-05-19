@@ -17,9 +17,14 @@
       "message": "Register/style has review-only candidate signals."
     },
     {
-      "code": "frontier_missing:spalex_10k_research",
-      "level": "WARN",
-      "message": "Candidate frontier SQLite is missing."
+      "code": "trusted_topic_families_available:spalex_10k_research",
+      "level": "PASS",
+      "message": "At least one topic family has trusted candidate coverage."
+    },
+    {
+      "code": "register_review_signals_available:spalex_10k_research",
+      "level": "PASS",
+      "message": "Register/style has review-only candidate signals."
     }
   ],
   "frontiers": [
@@ -4945,587 +4950,11 @@
       "unique_lemma_count": 1984
     },
     {
-      "exists": false,
+      "exists": true,
       "families": [
         {
           "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "sense_topics_then_domain_overlay",
-          "display_name": "Medicine & Health",
-          "family": "medicine_health",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "sense_topics_then_alias_overlay",
-          "display_name": "Finance & Business",
-          "family": "finance_business",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "sense_topics_then_alias_overlay",
-          "display_name": "Sports & Fitness",
-          "family": "sports_fitness",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "sense_topics_then_alias_overlay",
-          "display_name": "Games",
-          "family": "games",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "sense_topics_then_media_overlay",
-          "display_name": "Music, Media & Entertainment",
-          "family": "music_media_entertainment",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "sense_topics_then_civics_overlay",
-          "display_name": "Law, Politics & Civics",
-          "family": "law_politics_civics",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "source_ready",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
+          "coverage_posture": "measurable_trusted_coverage",
           "data_strategy": "sense_topics_then_stem_overlay",
           "display_name": "Science & Technology",
           "family": "science_technology",
@@ -5576,29 +5005,113 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
+              "count": 593,
+              "examples": [
+                {
+                  "difficulty": 6.4e-05,
+                  "lemma": "luz",
+                  "source_label": "engineering,natural_sciences,physical_sciences,physics,sciences"
+                },
+                {
+                  "difficulty": 9.3e-05,
+                  "lemma": "área",
+                  "source_label": "mathematics,sciences"
+                },
+                {
+                  "difficulty": 9.9e-05,
+                  "lemma": "estilo",
+                  "source_label": "biology,natural_sciences"
+                },
+                {
+                  "difficulty": 0.000101,
+                  "lemma": "resto",
+                  "source_label": "mathematics,sciences"
+                },
+                {
+                  "difficulty": 0.000103,
+                  "lemma": "sol",
+                  "source_label": "chemistry,natural_sciences,physical_sciences"
+                }
+              ],
               "lower": 0.0,
               "upper": 0.2
             },
             {
               "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
+              "count": 30,
+              "examples": [
+                {
+                  "difficulty": 0.300013,
+                  "lemma": "poner",
+                  "source_label": "engineering,natural_sciences,physical_sciences,physics"
+                },
+                {
+                  "difficulty": 0.300196,
+                  "lemma": "trasladar",
+                  "source_label": "mathematics,sciences"
+                },
+                {
+                  "difficulty": 0.30027,
+                  "lemma": "cargar",
+                  "source_label": "computing,engineering,mathematics,natural_sciences,physical_sciences,sciences"
+                },
+                {
+                  "difficulty": 0.300273,
+                  "lemma": "quemar",
+                  "source_label": "computing,engineering,mathematics,natural_sciences,physical_sciences,sciences"
+                },
+                {
+                  "difficulty": 0.300306,
+                  "lemma": "conectar",
+                  "source_label": "engineering,natural_sciences,physical_sciences,physics"
+                }
+              ],
               "lower": 0.2,
               "upper": 0.4
             },
             {
               "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
+              "count": 2,
+              "examples": [
+                {
+                  "difficulty": 0.450002,
+                  "lemma": "más",
+                  "source_label": "mathematics,sciences"
+                },
+                {
+                  "difficulty": 0.455584,
+                  "lemma": "activamente",
+                  "source_label": "sciences"
+                }
+              ],
               "lower": 0.4,
               "upper": 0.6
             },
             {
               "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
+              "count": 4,
+              "examples": [
+                {
+                  "difficulty": 0.601681,
+                  "lemma": "por",
+                  "source_label": "mathematics,sciences"
+                },
+                {
+                  "difficulty": 0.604191,
+                  "lemma": "venus",
+                  "source_label": "sciences"
+                },
+                {
+                  "difficulty": 0.604397,
+                  "lemma": "rea",
+                  "source_label": "sciences"
+                },
+                {
+                  "difficulty": 0.608917,
+                  "lemma": "afrodita",
+                  "source_label": "sciences"
+                }
+              ],
               "lower": 0.6,
               "upper": 0.8
             },
@@ -5610,24 +5123,291 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
+          "trusted_candidate_count": 629,
+          "trusted_candidate_share": 0.0629,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.391083,
+              "difficulty": 0.608917,
+              "lemma": "afrodita",
+              "pos_bucket": "other",
+              "score": 0.2625,
+              "seed_rank": 9957,
+              "source_labels": [
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.395603,
+              "difficulty": 0.604397,
+              "lemma": "rea",
+              "pos_bucket": "other",
+              "score": 0.2625,
+              "seed_rank": 9581,
+              "source_labels": [
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.395809,
+              "difficulty": 0.604191,
+              "lemma": "venus",
+              "pos_bucket": "other",
+              "score": 0.2625,
+              "seed_rank": 9563,
+              "source_labels": [
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.398319,
+              "difficulty": 0.601681,
+              "lemma": "por",
+              "pos_bucket": "other",
+              "score": 0.595,
+              "seed_rank": 9388,
+              "source_labels": [
+                "mathematics",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.544416,
+              "difficulty": 0.455584,
+              "lemma": "activamente",
+              "pos_bucket": "adverb",
+              "score": 0.2625,
+              "seed_rank": 9276,
+              "source_labels": [
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.549998,
+              "difficulty": 0.450002,
+              "lemma": "más",
+              "pos_bucket": "adverb",
+              "score": 0.595,
+              "seed_rank": 9136,
+              "source_labels": [
+                "mathematics",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.683746,
+              "difficulty": 0.316254,
+              "lemma": "programar",
+              "pos_bucket": "verb",
+              "score": 0.765,
+              "seed_rank": 9126,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.684429,
+              "difficulty": 0.315571,
+              "lemma": "colgar",
+              "pos_bucket": "verb",
+              "score": 0.765,
+              "seed_rank": 9084,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.608917,
+          "trusted_nonempty_band_count": 4,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999791,
+              "difficulty": 0.000209,
+              "lemma": "entrada",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 48,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.999359,
+              "difficulty": 0.000641,
+              "lemma": "defecto",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 150,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.997264,
+              "difficulty": 0.002736,
+              "lemma": "controlador",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 717,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.996297,
+              "difficulty": 0.003703,
+              "lemma": "pincho",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 963,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.995717,
+              "difficulty": 0.004283,
+              "lemma": "vida",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1108,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.995587,
+              "difficulty": 0.004413,
+              "lemma": "cuenta",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1147,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.995409,
+              "difficulty": 0.004591,
+              "lemma": "programa",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1210,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            },
+            {
+              "admission_weight": 0.994869,
+              "difficulty": 0.005131,
+              "lemma": "aplicación",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1412,
+              "source_labels": [
+                "computing",
+                "engineering",
+                "mathematics",
+                "natural_sciences",
+                "physical_sciences",
+                "sciences"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 422,
+              "label": "sciences"
+            },
+            {
+              "count": 335,
+              "label": "natural_sciences"
+            },
+            {
+              "count": 187,
+              "label": "physical_sciences"
+            },
+            {
+              "count": 152,
+              "label": "mathematics"
+            },
+            {
+              "count": 112,
+              "label": "engineering"
+            },
+            {
+              "count": 83,
+              "label": "biology"
+            },
+            {
+              "count": 75,
+              "label": "computing"
+            },
+            {
+              "count": 48,
+              "label": "chemistry"
+            },
+            {
+              "count": 47,
+              "label": "physics"
+            }
+          ],
           "ux_group": "interests_style"
         },
         {
           "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "geography_transport_labels_then_travel_overlay",
-          "display_name": "Travel, Places & Transport",
-          "family": "travel_places_transport",
+          "coverage_posture": "measurable_trusted_coverage",
+          "data_strategy": "sense_topics_then_civics_overlay",
+          "display_name": "Law, Politics & Civics",
+          "family": "law_politics_civics",
           "pair_scope": "all_supported_pairs",
           "product_priority": "p0",
-          "readiness_state": "partial",
+          "readiness_state": "source_ready",
           "review_only_bands": [
             {
               "band": "0.00-0.20",
@@ -5672,6 +5452,313 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
+              "count": 231,
+              "examples": [
+                {
+                  "difficulty": 0.000122,
+                  "lemma": "jefe",
+                  "source_label": "government,politics"
+                },
+                {
+                  "difficulty": 0.000228,
+                  "lemma": "demanda",
+                  "source_label": "law"
+                },
+                {
+                  "difficulty": 0.000255,
+                  "lemma": "tropa",
+                  "source_label": "government,politics"
+                },
+                {
+                  "difficulty": 0.000273,
+                  "lemma": "órgano",
+                  "source_label": "law"
+                },
+                {
+                  "difficulty": 0.000275,
+                  "lemma": "competencia",
+                  "source_label": "law"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 24,
+              "examples": [
+                {
+                  "difficulty": 0.30003,
+                  "lemma": "presentar",
+                  "source_label": "government,law"
+                },
+                {
+                  "difficulty": 0.30034,
+                  "lemma": "recurrir",
+                  "source_label": "law"
+                },
+                {
+                  "difficulty": 0.300503,
+                  "lemma": "demandar",
+                  "source_label": "law"
+                },
+                {
+                  "difficulty": 0.300665,
+                  "lemma": "secuestrar",
+                  "source_label": "law"
+                },
+                {
+                  "difficulty": 0.301984,
+                  "lemma": "interpelar",
+                  "source_label": "government,politics"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.600822,
+                  "lemma": "apartar",
+                  "source_label": "law"
+                }
+              ],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 256,
+          "trusted_candidate_share": 0.0256,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.399178,
+              "difficulty": 0.600822,
+              "lemma": "apartar",
+              "pos_bucket": "other",
+              "score": 0.81,
+              "seed_rank": 9382,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.684912,
+              "difficulty": 0.315088,
+              "lemma": "duplicar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9061,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.68516,
+              "difficulty": 0.31484,
+              "lemma": "reivindicar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9051,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.685886,
+              "difficulty": 0.314114,
+              "lemma": "fallar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9010,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.686703,
+              "difficulty": 0.313297,
+              "lemma": "alzar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8961,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.687204,
+              "difficulty": 0.312796,
+              "lemma": "comparecer",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8939,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.688569,
+              "difficulty": 0.311431,
+              "lemma": "implantar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8849,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.688649,
+              "difficulty": 0.311351,
+              "lemma": "dictar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8844,
+              "source_labels": [
+                "law"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.600822,
+          "trusted_nonempty_band_count": 3,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999878,
+              "difficulty": 0.000122,
+              "lemma": "jefe",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 25,
+              "source_labels": [
+                "government",
+                "politics"
+              ]
+            },
+            {
+              "admission_weight": 0.999772,
+              "difficulty": 0.000228,
+              "lemma": "demanda",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 54,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.999745,
+              "difficulty": 0.000255,
+              "lemma": "tropa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 61,
+              "source_labels": [
+                "government",
+                "politics"
+              ]
+            },
+            {
+              "admission_weight": 0.999727,
+              "difficulty": 0.000273,
+              "lemma": "órgano",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 65,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.999725,
+              "difficulty": 0.000275,
+              "lemma": "competencia",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 66,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.999633,
+              "difficulty": 0.000367,
+              "lemma": "auto",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 87,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.999608,
+              "difficulty": 0.000392,
+              "lemma": "protesta",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 91,
+              "source_labels": [
+                "law"
+              ]
+            },
+            {
+              "admission_weight": 0.999315,
+              "difficulty": 0.000685,
+              "lemma": "naranja",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 165,
+              "source_labels": [
+                "government",
+                "politics"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 164,
+              "label": "government"
+            },
+            {
+              "count": 158,
+              "label": "politics"
+            },
+            {
+              "count": 94,
+              "label": "law"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "measurable_trusted_coverage",
+          "data_strategy": "sense_topics_then_alias_overlay",
+          "display_name": "Sports & Fitness",
+          "family": "sports_fitness",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "source_ready",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
               "count": 0,
               "examples": [],
               "lower": 0.0,
@@ -5706,18 +5793,1090 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 179,
+              "examples": [
+                {
+                  "difficulty": 0.000141,
+                  "lemma": "reunión",
+                  "source_label": "sports"
+                },
+                {
+                  "difficulty": 0.000209,
+                  "lemma": "entrada",
+                  "source_label": "ball_games,soccer,sports"
+                },
+                {
+                  "difficulty": 0.000441,
+                  "lemma": "pista",
+                  "source_label": "sports"
+                },
+                {
+                  "difficulty": 0.000475,
+                  "lemma": "palo",
+                  "source_label": "sports"
+                },
+                {
+                  "difficulty": 0.000504,
+                  "lemma": "titular",
+                  "source_label": "sports"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 28,
+              "examples": [
+                {
+                  "difficulty": 0.300049,
+                  "lemma": "sacar",
+                  "source_label": "ball_games,soccer,sports"
+                },
+                {
+                  "difficulty": 0.300149,
+                  "lemma": "marcar",
+                  "source_label": "sports"
+                },
+                {
+                  "difficulty": 0.30018,
+                  "lemma": "luchar",
+                  "source_label": "sports"
+                },
+                {
+                  "difficulty": 0.30027,
+                  "lemma": "cargar",
+                  "source_label": "ball_games,sports"
+                },
+                {
+                  "difficulty": 0.300367,
+                  "lemma": "calentar",
+                  "source_label": "exercise,sports"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.600677,
+                  "lemma": "center",
+                  "source_label": "ball_games,baseball,sports"
+                }
+              ],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 208,
+          "trusted_candidate_share": 0.0208,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.399323,
+              "difficulty": 0.600677,
+              "lemma": "center",
+              "pos_bucket": "other",
+              "score": 0.81,
+              "seed_rank": 9380,
+              "source_labels": [
+                "ball_games",
+                "baseball",
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.684847,
+              "difficulty": 0.315153,
+              "lemma": "despejar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9064,
+              "source_labels": [
+                "ball_games",
+                "soccer",
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.685283,
+              "difficulty": 0.314717,
+              "lemma": "fichar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9043,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.686085,
+              "difficulty": 0.313915,
+              "lemma": "remontar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8999,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.686794,
+              "difficulty": 0.313206,
+              "lemma": "doblar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8957,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.686895,
+              "difficulty": 0.313105,
+              "lemma": "recortar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8953,
+              "source_labels": [
+                "ball_games",
+                "soccer",
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.688343,
+              "difficulty": 0.311657,
+              "lemma": "anotar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8868,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.689271,
+              "difficulty": 0.310729,
+              "lemma": "expulsar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8814,
+              "source_labels": [
+                "ball_games",
+                "soccer",
+                "sports"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.600677,
+          "trusted_nonempty_band_count": 3,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999859,
+              "difficulty": 0.000141,
+              "lemma": "reunión",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 30,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.999791,
+              "difficulty": 0.000209,
+              "lemma": "entrada",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 48,
+              "source_labels": [
+                "ball_games",
+                "soccer",
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.999559,
+              "difficulty": 0.000441,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 98,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.999525,
+              "difficulty": 0.000475,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 109,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.999496,
+              "difficulty": 0.000504,
+              "lemma": "titular",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 114,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.999378,
+              "difficulty": 0.000622,
+              "lemma": "barrera",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 145,
+              "source_labels": [
+                "ball_games",
+                "soccer",
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.999217,
+              "difficulty": 0.000783,
+              "lemma": "narrador",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 189,
+              "source_labels": [
+                "sports"
+              ]
+            },
+            {
+              "admission_weight": 0.998879,
+              "difficulty": 0.001121,
+              "lemma": "remate",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 282,
+              "source_labels": [
+                "sports"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 208,
+              "label": "sports"
+            },
+            {
+              "count": 61,
+              "label": "ball_games"
+            },
+            {
+              "count": 37,
+              "label": "soccer"
+            },
+            {
+              "count": 20,
+              "label": "martial_arts"
+            },
+            {
+              "count": 15,
+              "label": "baseball"
+            },
+            {
+              "count": 10,
+              "label": "exercise"
+            },
+            {
+              "count": 7,
+              "label": "boxing"
+            },
+            {
+              "count": 6,
+              "label": "basketball"
+            },
+            {
+              "count": 2,
+              "label": "swimming"
+            }
+          ],
           "ux_group": "interests_style"
         },
         {
           "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
+          "coverage_posture": "shallow_difficulty_depth",
+          "data_strategy": "sense_topics_then_media_overlay",
+          "display_name": "Music, Media & Entertainment",
+          "family": "music_media_entertainment",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "source_ready",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 186,
+              "examples": [
+                {
+                  "difficulty": 6.2e-05,
+                  "lemma": "movimiento",
+                  "source_label": "entertainment,music"
+                },
+                {
+                  "difficulty": 0.000105,
+                  "lemma": "espacio",
+                  "source_label": "media,publishing"
+                },
+                {
+                  "difficulty": 0.000168,
+                  "lemma": "orquesta",
+                  "source_label": "entertainment,music"
+                },
+                {
+                  "difficulty": 0.000273,
+                  "lemma": "órgano",
+                  "source_label": "entertainment,music"
+                },
+                {
+                  "difficulty": 0.000367,
+                  "lemma": "auto",
+                  "source_label": "media,publishing"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 8,
+              "examples": [
+                {
+                  "difficulty": 0.300284,
+                  "lemma": "transportar",
+                  "source_label": "entertainment,music"
+                },
+                {
+                  "difficulty": 0.301313,
+                  "lemma": "pinchar",
+                  "source_label": "entertainment,music"
+                },
+                {
+                  "difficulty": 0.306597,
+                  "lemma": "interpretar",
+                  "source_label": "entertainment,music,theater"
+                },
+                {
+                  "difficulty": 0.309862,
+                  "lemma": "acordar",
+                  "source_label": "entertainment,music"
+                },
+                {
+                  "difficulty": 0.310931,
+                  "lemma": "brindar",
+                  "source_label": "entertainment"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 194,
+          "trusted_candidate_share": 0.0194,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.684823,
+              "difficulty": 0.315177,
+              "lemma": "lidiar",
+              "pos_bucket": "verb",
+              "score": 0.45,
+              "seed_rank": 9065,
+              "source_labels": [
+                "entertainment"
+              ]
+            },
+            {
+              "admission_weight": 0.685746,
+              "difficulty": 0.314254,
+              "lemma": "encerrar",
+              "pos_bucket": "verb",
+              "score": 0.6,
+              "seed_rank": 9019,
+              "source_labels": [
+                "media",
+                "publishing"
+              ]
+            },
+            {
+              "admission_weight": 0.688198,
+              "difficulty": 0.311802,
+              "lemma": "apuntar",
+              "pos_bucket": "verb",
+              "score": 0.68,
+              "seed_rank": 8880,
+              "source_labels": [
+                "entertainment",
+                "theater"
+              ]
+            },
+            {
+              "admission_weight": 0.689069,
+              "difficulty": 0.310931,
+              "lemma": "brindar",
+              "pos_bucket": "verb",
+              "score": 0.45,
+              "seed_rank": 8824,
+              "source_labels": [
+                "entertainment"
+              ]
+            },
+            {
+              "admission_weight": 0.690138,
+              "difficulty": 0.309862,
+              "lemma": "acordar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8767,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.693403,
+              "difficulty": 0.306597,
+              "lemma": "interpretar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8556,
+              "source_labels": [
+                "entertainment",
+                "music",
+                "theater"
+              ]
+            },
+            {
+              "admission_weight": 0.698687,
+              "difficulty": 0.301313,
+              "lemma": "pinchar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8207,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.699716,
+              "difficulty": 0.300284,
+              "lemma": "transportar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8083,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.315177,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999938,
+              "difficulty": 6.2e-05,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.999832,
+              "difficulty": 0.000168,
+              "lemma": "orquesta",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 38,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.999727,
+              "difficulty": 0.000273,
+              "lemma": "órgano",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 65,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.999559,
+              "difficulty": 0.000441,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 98,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.999525,
+              "difficulty": 0.000475,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 109,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.999313,
+              "difficulty": 0.000687,
+              "lemma": "ronda",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 166,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.998682,
+              "difficulty": 0.001318,
+              "lemma": "acompañamiento",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 333,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            },
+            {
+              "admission_weight": 0.998369,
+              "difficulty": 0.001631,
+              "lemma": "blues",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 419,
+              "source_labels": [
+                "entertainment",
+                "music"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 136,
+              "label": "entertainment"
+            },
+            {
+              "count": 88,
+              "label": "music"
+            },
+            {
+              "count": 74,
+              "label": "media"
+            },
+            {
+              "count": 40,
+              "label": "publishing"
+            },
+            {
+              "count": 25,
+              "label": "broadcasting"
+            },
+            {
+              "count": 20,
+              "label": "television"
+            },
+            {
+              "count": 19,
+              "label": "theater"
+            },
+            {
+              "count": 14,
+              "label": "film"
+            },
+            {
+              "count": 3,
+              "label": "radio"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "shallow_difficulty_depth",
+          "data_strategy": "sense_topics_then_domain_overlay",
+          "display_name": "Medicine & Health",
+          "family": "medicine_health",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "source_ready",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 167,
+              "examples": [
+                {
+                  "difficulty": 6.4e-05,
+                  "lemma": "luz",
+                  "source_label": "anatomy,medicine"
+                },
+                {
+                  "difficulty": 0.000149,
+                  "lemma": "corazón",
+                  "source_label": "anatomy,medicine"
+                },
+                {
+                  "difficulty": 0.000163,
+                  "lemma": "rostro",
+                  "source_label": "anatomy,medicine"
+                },
+                {
+                  "difficulty": 0.000273,
+                  "lemma": "órgano",
+                  "source_label": "anatomy,medicine"
+                },
+                {
+                  "difficulty": 0.000421,
+                  "lemma": "estadio",
+                  "source_label": "medicine"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 5,
+              "examples": [
+                {
+                  "difficulty": 0.302479,
+                  "lemma": "enconar",
+                  "source_label": "medicine"
+                },
+                {
+                  "difficulty": 0.304614,
+                  "lemma": "responder",
+                  "source_label": "medicine"
+                },
+                {
+                  "difficulty": 0.305559,
+                  "lemma": "dormir",
+                  "source_label": "medicine"
+                },
+                {
+                  "difficulty": 0.306076,
+                  "lemma": "indicar",
+                  "source_label": "medicine"
+                },
+                {
+                  "difficulty": 0.307503,
+                  "lemma": "liberar",
+                  "source_label": "medicine,physiology"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 172,
+          "trusted_candidate_share": 0.0172,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.692497,
+              "difficulty": 0.307503,
+              "lemma": "liberar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8621,
+              "source_labels": [
+                "medicine",
+                "physiology"
+              ]
+            },
+            {
+              "admission_weight": 0.693924,
+              "difficulty": 0.306076,
+              "lemma": "indicar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8503,
+              "source_labels": [
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.694441,
+              "difficulty": 0.305559,
+              "lemma": "dormir",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8473,
+              "source_labels": [
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.695386,
+              "difficulty": 0.304614,
+              "lemma": "responder",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8417,
+              "source_labels": [
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.697521,
+              "difficulty": 0.302479,
+              "lemma": "enconar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8313,
+              "source_labels": [
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.831783,
+              "difficulty": 0.168217,
+              "lemma": "inmune",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7933,
+              "source_labels": [
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.832944,
+              "difficulty": 0.167056,
+              "lemma": "renal",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7849,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.834277,
+              "difficulty": 0.165723,
+              "lemma": "impotente",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7755,
+              "source_labels": [
+                "medicine"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.307503,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999936,
+              "difficulty": 6.4e-05,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 7,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.999851,
+              "difficulty": 0.000149,
+              "lemma": "corazón",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 32,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.999837,
+              "difficulty": 0.000163,
+              "lemma": "rostro",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 37,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.999727,
+              "difficulty": 0.000273,
+              "lemma": "órgano",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 65,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.999579,
+              "difficulty": 0.000421,
+              "lemma": "estadio",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 95,
+              "source_labels": [
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.999492,
+              "difficulty": 0.000508,
+              "lemma": "oreja",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 116,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.999478,
+              "difficulty": 0.000522,
+              "lemma": "placa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 120,
+              "source_labels": [
+                "dentistry",
+                "medicine"
+              ]
+            },
+            {
+              "admission_weight": 0.999419,
+              "difficulty": 0.000581,
+              "lemma": "garganta",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 136,
+              "source_labels": [
+                "anatomy",
+                "medicine"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 170,
+              "label": "medicine"
+            },
+            {
+              "count": 97,
+              "label": "anatomy"
+            },
+            {
+              "count": 20,
+              "label": "pathology"
+            },
+            {
+              "count": 5,
+              "label": "physiology"
+            },
+            {
+              "count": 3,
+              "label": "dentistry"
+            },
+            {
+              "count": 2,
+              "label": "healthcare"
+            },
+            {
+              "count": 2,
+              "label": "pharmacology"
+            },
+            {
+              "count": 1,
+              "label": "oncology"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "measurable_trusted_coverage",
           "data_strategy": "sense_topics_then_literature_art_overlay",
           "display_name": "Arts, Literature & Humanities",
           "family": "arts_literature_humanities",
@@ -5768,29 +6927,93 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
+              "count": 161,
+              "examples": [
+                {
+                  "difficulty": 6.4e-05,
+                  "lemma": "luz",
+                  "source_label": "architecture"
+                },
+                {
+                  "difficulty": 0.000112,
+                  "lemma": "falta",
+                  "source_label": "linguistics"
+                },
+                {
+                  "difficulty": 0.000207,
+                  "lemma": "sombra",
+                  "source_label": "art,arts"
+                },
+                {
+                  "difficulty": 0.000367,
+                  "lemma": "auto",
+                  "source_label": "literature"
+                },
+                {
+                  "difficulty": 0.000568,
+                  "lemma": "realización",
+                  "source_label": "linguistics"
+                }
+              ],
               "lower": 0.0,
               "upper": 0.2
             },
             {
               "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
+              "count": 3,
+              "examples": [
+                {
+                  "difficulty": 0.305356,
+                  "lemma": "cerrar",
+                  "source_label": "linguistics"
+                },
+                {
+                  "difficulty": 0.309134,
+                  "lemma": "situar",
+                  "source_label": "architecture"
+                },
+                {
+                  "difficulty": 0.315195,
+                  "lemma": "regir",
+                  "source_label": "linguistics"
+                }
+              ],
               "lower": 0.2,
               "upper": 0.4
             },
             {
               "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.455584,
+                  "lemma": "activamente",
+                  "source_label": "linguistics"
+                }
+              ],
               "lower": 0.4,
               "upper": 0.6
             },
             {
               "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
+              "count": 3,
+              "examples": [
+                {
+                  "difficulty": 0.604191,
+                  "lemma": "venus",
+                  "source_label": "philosophy"
+                },
+                {
+                  "difficulty": 0.604397,
+                  "lemma": "rea",
+                  "source_label": "philosophy"
+                },
+                {
+                  "difficulty": 0.608917,
+                  "lemma": "afrodita",
+                  "source_label": "philosophy"
+                }
+              ],
               "lower": 0.6,
               "upper": 0.8
             },
@@ -5802,24 +7025,237 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
+          "trusted_candidate_count": 168,
+          "trusted_candidate_share": 0.0168,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.391083,
+              "difficulty": 0.608917,
+              "lemma": "afrodita",
+              "pos_bucket": "other",
+              "score": 0.6375,
+              "seed_rank": 9957,
+              "source_labels": [
+                "philosophy"
+              ]
+            },
+            {
+              "admission_weight": 0.395603,
+              "difficulty": 0.604397,
+              "lemma": "rea",
+              "pos_bucket": "other",
+              "score": 0.6375,
+              "seed_rank": 9581,
+              "source_labels": [
+                "philosophy"
+              ]
+            },
+            {
+              "admission_weight": 0.395809,
+              "difficulty": 0.604191,
+              "lemma": "venus",
+              "pos_bucket": "other",
+              "score": 0.6375,
+              "seed_rank": 9563,
+              "source_labels": [
+                "philosophy"
+              ]
+            },
+            {
+              "admission_weight": 0.544416,
+              "difficulty": 0.455584,
+              "lemma": "activamente",
+              "pos_bucket": "adverb",
+              "score": 0.385,
+              "seed_rank": 9276,
+              "source_labels": [
+                "linguistics"
+              ]
+            },
+            {
+              "admission_weight": 0.684805,
+              "difficulty": 0.315195,
+              "lemma": "regir",
+              "pos_bucket": "verb",
+              "score": 0.385,
+              "seed_rank": 9066,
+              "source_labels": [
+                "linguistics"
+              ]
+            },
+            {
+              "admission_weight": 0.690866,
+              "difficulty": 0.309134,
+              "lemma": "situar",
+              "pos_bucket": "verb",
+              "score": 0.4875,
+              "seed_rank": 8719,
+              "source_labels": [
+                "architecture"
+              ]
+            },
+            {
+              "admission_weight": 0.694644,
+              "difficulty": 0.305356,
+              "lemma": "cerrar",
+              "pos_bucket": "verb",
+              "score": 0.385,
+              "seed_rank": 8462,
+              "source_labels": [
+                "linguistics"
+              ]
+            },
+            {
+              "admission_weight": 0.830486,
+              "difficulty": 0.169514,
+              "lemma": "reflexivo",
+              "pos_bucket": "adjective",
+              "score": 0.385,
+              "seed_rank": 8013,
+              "source_labels": [
+                "linguistics"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.608917,
+          "trusted_nonempty_band_count": 4,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999633,
+              "difficulty": 0.000367,
+              "lemma": "auto",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 87,
+              "source_labels": [
+                "literature"
+              ]
+            },
+            {
+              "admission_weight": 0.994709,
+              "difficulty": 0.005291,
+              "lemma": "pie",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1469,
+              "source_labels": [
+                "arts",
+                "literature"
+              ]
+            },
+            {
+              "admission_weight": 0.994659,
+              "difficulty": 0.005341,
+              "lemma": "género",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1489,
+              "source_labels": [
+                "linguistics",
+                "literature"
+              ]
+            },
+            {
+              "admission_weight": 0.994562,
+              "difficulty": 0.005438,
+              "lemma": "concepto",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1523,
+              "source_labels": [
+                "literature"
+              ]
+            },
+            {
+              "admission_weight": 0.993518,
+              "difficulty": 0.006482,
+              "lemma": "metro",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 1881,
+              "source_labels": [
+                "literature"
+              ]
+            },
+            {
+              "admission_weight": 0.992708,
+              "difficulty": 0.007292,
+              "lemma": "arco",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 2143,
+              "source_labels": [
+                "architecture",
+                "literature"
+              ]
+            },
+            {
+              "admission_weight": 0.991655,
+              "difficulty": 0.008345,
+              "lemma": "genio",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 2489,
+              "source_labels": [
+                "arts",
+                "history",
+                "literature",
+                "philosophy"
+              ]
+            },
+            {
+              "admission_weight": 0.991651,
+              "difficulty": 0.008349,
+              "lemma": "manga",
+              "pos_bucket": "noun",
+              "score": 0.765,
+              "seed_rank": 2490,
+              "source_labels": [
+                "literature"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 70,
+              "label": "linguistics"
+            },
+            {
+              "count": 40,
+              "label": "philosophy"
+            },
+            {
+              "count": 29,
+              "label": "architecture"
+            },
+            {
+              "count": 23,
+              "label": "arts"
+            },
+            {
+              "count": 20,
+              "label": "literature"
+            },
+            {
+              "count": 13,
+              "label": "history"
+            },
+            {
+              "count": 9,
+              "label": "art"
+            }
+          ],
           "ux_group": "interests_style"
         },
         {
           "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
-          "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay",
-          "display_name": "Animals",
-          "family": "animals",
+          "coverage_posture": "shallow_difficulty_depth",
+          "data_strategy": "geography_transport_labels_then_travel_overlay",
+          "display_name": "Travel, Places & Transport",
+          "family": "travel_places_transport",
           "pair_scope": "all_supported_pairs",
           "product_priority": "p0",
-          "readiness_state": "p0_enrichment",
+          "readiness_state": "partial",
           "review_only_bands": [
             {
               "band": "0.00-0.20",
@@ -5864,6 +7300,320 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
+              "count": 138,
+              "examples": [
+                {
+                  "difficulty": 0.000217,
+                  "lemma": "etapa",
+                  "source_label": "geography"
+                },
+                {
+                  "difficulty": 0.000333,
+                  "lemma": "tren",
+                  "source_label": "transport"
+                },
+                {
+                  "difficulty": 0.000363,
+                  "lemma": "derrota",
+                  "source_label": "nautical,transport"
+                },
+                {
+                  "difficulty": 0.000441,
+                  "lemma": "pista",
+                  "source_label": "aeronautics,aerospace,aviation"
+                },
+                {
+                  "difficulty": 0.000456,
+                  "lemma": "llanura",
+                  "source_label": "geography"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.30812,
+                  "lemma": "reclamar",
+                  "source_label": "nautical,transport"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 139,
+          "trusted_candidate_share": 0.0139,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.69188,
+              "difficulty": 0.30812,
+              "lemma": "reclamar",
+              "pos_bucket": "verb",
+              "score": 0.68,
+              "seed_rank": 8654,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.832044,
+              "difficulty": 0.167956,
+              "lemma": "antártico",
+              "pos_bucket": "adjective",
+              "score": 0.525,
+              "seed_rank": 7915,
+              "source_labels": [
+                "geography"
+              ]
+            },
+            {
+              "admission_weight": 0.833654,
+              "difficulty": 0.166346,
+              "lemma": "paleolítico",
+              "pos_bucket": "adjective",
+              "score": 0.525,
+              "seed_rank": 7800,
+              "source_labels": [
+                "geography"
+              ]
+            },
+            {
+              "admission_weight": 0.848587,
+              "difficulty": 0.151413,
+              "lemma": "sísmico",
+              "pos_bucket": "adjective",
+              "score": 0.525,
+              "seed_rank": 6708,
+              "source_labels": [
+                "geography"
+              ]
+            },
+            {
+              "admission_weight": 0.849485,
+              "difficulty": 0.150515,
+              "lemma": "naval",
+              "pos_bucket": "adjective",
+              "score": 0.68,
+              "seed_rank": 6587,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.849979,
+              "difficulty": 0.150021,
+              "lemma": "mayor",
+              "pos_bucket": "adjective",
+              "score": 0.68,
+              "seed_rank": 6543,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.976698,
+              "difficulty": 0.023302,
+              "lemma": "vigía",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 6525,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.9767,
+              "difficulty": 0.0233,
+              "lemma": "bonanza",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 6524,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.30812,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999667,
+              "difficulty": 0.000333,
+              "lemma": "tren",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 81,
+              "source_labels": [
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.999637,
+              "difficulty": 0.000363,
+              "lemma": "derrota",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 86,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.999525,
+              "difficulty": 0.000475,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 109,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.999205,
+              "difficulty": 0.000795,
+              "lemma": "bordo",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 194,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.998247,
+              "difficulty": 0.001753,
+              "lemma": "propulsión",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 449,
+              "source_labels": [
+                "aeronautics",
+                "aerospace",
+                "aviation",
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.997685,
+              "difficulty": 0.002315,
+              "lemma": "escarabajo",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 600,
+              "source_labels": [
+                "automotive",
+                "transport",
+                "vehicles"
+              ]
+            },
+            {
+              "admission_weight": 0.997403,
+              "difficulty": 0.002597,
+              "lemma": "quilla",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 677,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            },
+            {
+              "admission_weight": 0.996043,
+              "difficulty": 0.003957,
+              "lemma": "pescante",
+              "pos_bucket": "noun",
+              "score": 0.68,
+              "seed_rank": 1031,
+              "source_labels": [
+                "nautical",
+                "transport"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 70,
+              "label": "transport"
+            },
+            {
+              "count": 67,
+              "label": "geography"
+            },
+            {
+              "count": 50,
+              "label": "nautical"
+            },
+            {
+              "count": 11,
+              "label": "vehicles"
+            },
+            {
+              "count": 10,
+              "label": "automotive"
+            },
+            {
+              "count": 6,
+              "label": "aerospace"
+            },
+            {
+              "count": 5,
+              "label": "aeronautics"
+            },
+            {
+              "count": 4,
+              "label": "aviation"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "measurable_trusted_coverage",
+          "data_strategy": "sense_topics_then_alias_overlay",
+          "display_name": "Games",
+          "family": "games",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "source_ready",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
               "count": 0,
               "examples": [],
               "lower": 0.0,
@@ -5898,18 +7648,684 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 89,
+              "examples": [
+                {
+                  "difficulty": 0.000122,
+                  "lemma": "jefe",
+                  "source_label": "games,video_games"
+                },
+                {
+                  "difficulty": 0.000149,
+                  "lemma": "corazón",
+                  "source_label": "card_games,games"
+                },
+                {
+                  "difficulty": 0.000209,
+                  "lemma": "entrada",
+                  "source_label": "games"
+                },
+                {
+                  "difficulty": 0.000441,
+                  "lemma": "pista",
+                  "source_label": "games"
+                },
+                {
+                  "difficulty": 0.000475,
+                  "lemma": "palo",
+                  "source_label": "card_games,games"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 19,
+              "examples": [
+                {
+                  "difficulty": 0.300049,
+                  "lemma": "sacar",
+                  "source_label": "games"
+                },
+                {
+                  "difficulty": 0.30027,
+                  "lemma": "cargar",
+                  "source_label": "games"
+                },
+                {
+                  "difficulty": 0.30042,
+                  "lemma": "descartar",
+                  "source_label": "card_games,games"
+                },
+                {
+                  "difficulty": 0.300587,
+                  "lemma": "rematar",
+                  "source_label": "games"
+                },
+                {
+                  "difficulty": 0.300611,
+                  "lemma": "cazar",
+                  "source_label": "games"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.600677,
+                  "lemma": "center",
+                  "source_label": "games"
+                }
+              ],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 109,
+          "trusted_candidate_share": 0.0109,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.399323,
+              "difficulty": 0.600677,
+              "lemma": "center",
+              "pos_bucket": "other",
+              "score": 0.81,
+              "seed_rank": 9380,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.684847,
+              "difficulty": 0.315153,
+              "lemma": "despejar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9064,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.685746,
+              "difficulty": 0.314254,
+              "lemma": "encerrar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9019,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.686895,
+              "difficulty": 0.313105,
+              "lemma": "recortar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8953,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.688198,
+              "difficulty": 0.311802,
+              "lemma": "apuntar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8880,
+              "source_labels": [
+                "card_games",
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.689271,
+              "difficulty": 0.310729,
+              "lemma": "expulsar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8814,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.689706,
+              "difficulty": 0.310294,
+              "lemma": "centrar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8794,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.691466,
+              "difficulty": 0.308534,
+              "lemma": "bailar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8685,
+              "source_labels": [
+                "games"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.600677,
+          "trusted_nonempty_band_count": 3,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999878,
+              "difficulty": 0.000122,
+              "lemma": "jefe",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 25,
+              "source_labels": [
+                "games",
+                "video_games"
+              ]
+            },
+            {
+              "admission_weight": 0.999851,
+              "difficulty": 0.000149,
+              "lemma": "corazón",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 32,
+              "source_labels": [
+                "card_games",
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.999791,
+              "difficulty": 0.000209,
+              "lemma": "entrada",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 48,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.999559,
+              "difficulty": 0.000441,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 98,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.999525,
+              "difficulty": 0.000475,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 109,
+              "source_labels": [
+                "card_games",
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.999378,
+              "difficulty": 0.000622,
+              "lemma": "barrera",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 145,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.998766,
+              "difficulty": 0.001234,
+              "lemma": "penal",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 314,
+              "source_labels": [
+                "games"
+              ]
+            },
+            {
+              "admission_weight": 0.998602,
+              "difficulty": 0.001398,
+              "lemma": "lanzador",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 357,
+              "source_labels": [
+                "games"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 109,
+              "label": "games"
+            },
+            {
+              "count": 18,
+              "label": "card_games"
+            },
+            {
+              "count": 10,
+              "label": "video_games"
+            },
+            {
+              "count": 1,
+              "label": "gaming"
+            }
+          ],
           "ux_group": "interests_style"
         },
         {
           "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
+          "coverage_posture": "shallow_difficulty_depth",
+          "data_strategy": "sense_topics_then_alias_overlay",
+          "display_name": "Finance & Business",
+          "family": "finance_business",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "source_ready",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 96,
+              "examples": [
+                {
+                  "difficulty": 6.2e-05,
+                  "lemma": "movimiento",
+                  "source_label": "banking,business,finance"
+                },
+                {
+                  "difficulty": 6.4e-05,
+                  "lemma": "luz",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 9.7e-05,
+                  "lemma": "capital",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.000219,
+                  "lemma": "par",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.000441,
+                  "lemma": "pista",
+                  "source_label": "business,finance"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 6,
+              "examples": [
+                {
+                  "difficulty": 0.300013,
+                  "lemma": "poner",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.300306,
+                  "lemma": "conectar",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.302028,
+                  "lemma": "campear",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.302302,
+                  "lemma": "zurcir",
+                  "source_label": "business,finance"
+                },
+                {
+                  "difficulty": 0.310088,
+                  "lemma": "ascender",
+                  "source_label": "business,finance"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 102,
+          "trusted_candidate_share": 0.0102,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.685508,
+              "difficulty": 0.314492,
+              "lemma": "cancelar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 9032,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.689912,
+              "difficulty": 0.310088,
+              "lemma": "ascender",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8782,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.697698,
+              "difficulty": 0.302302,
+              "lemma": "zurcir",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8292,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.697972,
+              "difficulty": 0.302028,
+              "lemma": "campear",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8267,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.699694,
+              "difficulty": 0.300306,
+              "lemma": "conectar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8089,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.699987,
+              "difficulty": 0.300013,
+              "lemma": "poner",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8031,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.835992,
+              "difficulty": 0.164008,
+              "lemma": "orgánico",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7630,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.837125,
+              "difficulty": 0.162875,
+              "lemma": "biológico",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7562,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.314492,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999938,
+              "difficulty": 6.2e-05,
+              "lemma": "movimiento",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6,
+              "source_labels": [
+                "banking",
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999936,
+              "difficulty": 6.4e-05,
+              "lemma": "luz",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 7,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999903,
+              "difficulty": 9.7e-05,
+              "lemma": "capital",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 15,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999781,
+              "difficulty": 0.000219,
+              "lemma": "par",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 51,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999559,
+              "difficulty": 0.000441,
+              "lemma": "pista",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 98,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999478,
+              "difficulty": 0.000522,
+              "lemma": "placa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 120,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.999405,
+              "difficulty": 0.000595,
+              "lemma": "fusión",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 140,
+              "source_labels": [
+                "economics",
+                "finance"
+              ]
+            },
+            {
+              "admission_weight": 0.998541,
+              "difficulty": 0.001459,
+              "lemma": "silicio",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 371,
+              "source_labels": [
+                "business",
+                "finance"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 100,
+              "label": "finance"
+            },
+            {
+              "count": 91,
+              "label": "business"
+            },
+            {
+              "count": 11,
+              "label": "economics"
+            },
+            {
+              "count": 6,
+              "label": "accounting"
+            },
+            {
+              "count": 2,
+              "label": "banking"
+            },
+            {
+              "count": 2,
+              "label": "management"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "shallow_difficulty_depth",
           "data_strategy": "trusted_botany_topics_plus_categories_glosses_then_curated_plant_overlay",
           "display_name": "Plants & Nature",
           "family": "plants_nature",
@@ -5960,6 +8376,270 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
+              "count": 29,
+              "examples": [
+                {
+                  "difficulty": 9.9e-05,
+                  "lemma": "estilo",
+                  "source_label": "botany"
+                },
+                {
+                  "difficulty": 0.001228,
+                  "lemma": "coral",
+                  "source_label": "botany"
+                },
+                {
+                  "difficulty": 0.001547,
+                  "lemma": "vaina",
+                  "source_label": "botany"
+                },
+                {
+                  "difficulty": 0.004054,
+                  "lemma": "cogollo",
+                  "source_label": "botany"
+                },
+                {
+                  "difficulty": 0.00573,
+                  "lemma": "planta",
+                  "source_label": "botany"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 29,
+          "trusted_candidate_share": 0.0029,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.848558,
+              "difficulty": 0.151442,
+              "lemma": "viudo",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 6715,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.976719,
+              "difficulty": 0.023281,
+              "lemma": "epitelio",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6520,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.976724,
+              "difficulty": 0.023276,
+              "lemma": "espino",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6518,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.977171,
+              "difficulty": 0.022829,
+              "lemma": "pulpa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6409,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.977853,
+              "difficulty": 0.022147,
+              "lemma": "limbo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6244,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.977984,
+              "difficulty": 0.022016,
+              "lemma": "campanilla",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6219,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.97882,
+              "difficulty": 0.02118,
+              "lemma": "ápice",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6005,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.980057,
+              "difficulty": 0.019943,
+              "lemma": "polen",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 5690,
+              "source_labels": [
+                "botany"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.151442,
+          "trusted_nonempty_band_count": 1,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999901,
+              "difficulty": 9.9e-05,
+              "lemma": "estilo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 16,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.998772,
+              "difficulty": 0.001228,
+              "lemma": "coral",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 311,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.998453,
+              "difficulty": 0.001547,
+              "lemma": "vaina",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 395,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.995946,
+              "difficulty": 0.004054,
+              "lemma": "cogollo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 1052,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.99427,
+              "difficulty": 0.00573,
+              "lemma": "planta",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 1632,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.992703,
+              "difficulty": 0.007297,
+              "lemma": "fruto",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 2144,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.991016,
+              "difficulty": 0.008984,
+              "lemma": "cima",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 2678,
+              "source_labels": [
+                "botany"
+              ]
+            },
+            {
+              "admission_weight": 0.989242,
+              "difficulty": 0.010758,
+              "lemma": "hueso",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 3195,
+              "source_labels": [
+                "botany"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 29,
+              "label": "botany"
+            }
+          ],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "topic",
+          "coverage_posture": "shallow_difficulty_depth",
+          "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay",
+          "display_name": "Animals",
+          "family": "animals",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "p0_enrichment",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
               "count": 0,
               "examples": [],
               "lower": 0.0,
@@ -5994,18 +8674,291 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
+          "review_only_candidate_count": 0,
+          "review_only_candidate_share": 0.0,
+          "review_only_examples": [],
+          "review_only_top_labels": [],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 16,
+              "examples": [
+                {
+                  "difficulty": 0.001228,
+                  "lemma": "coral",
+                  "source_label": "animals,zoology"
+                },
+                {
+                  "difficulty": 0.004918,
+                  "lemma": "artículo",
+                  "source_label": "animals,zoology"
+                },
+                {
+                  "difficulty": 0.00772,
+                  "lemma": "pico",
+                  "source_label": "animals,zoology"
+                },
+                {
+                  "difficulty": 0.010406,
+                  "lemma": "reo",
+                  "source_label": "animals,zoology"
+                },
+                {
+                  "difficulty": 0.011618,
+                  "lemma": "bonito",
+                  "source_label": "animals,zoology"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 1,
+              "examples": [
+                {
+                  "difficulty": 0.30637,
+                  "lemma": "cubrir",
+                  "source_label": "animals,zoology"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 17,
+          "trusted_candidate_share": 0.0017,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.69363,
+              "difficulty": 0.30637,
+              "lemma": "cubrir",
+              "pos_bucket": "verb",
+              "score": 0.855,
+              "seed_rank": 8532,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.978258,
+              "difficulty": 0.021742,
+              "lemma": "tapado",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 6149,
+              "source_labels": [
+                "animals"
+              ]
+            },
+            {
+              "admission_weight": 0.979565,
+              "difficulty": 0.020435,
+              "lemma": "manada",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 5812,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.981331,
+              "difficulty": 0.018669,
+              "lemma": "acompañante",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 5377,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.98176,
+              "difficulty": 0.01824,
+              "lemma": "estafa",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 5272,
+              "source_labels": [
+                "animals"
+              ]
+            },
+            {
+              "admission_weight": 0.982201,
+              "difficulty": 0.017799,
+              "lemma": "dinosaurio",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 5170,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.982311,
+              "difficulty": 0.017689,
+              "lemma": "potro",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 5139,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.984233,
+              "difficulty": 0.015767,
+              "lemma": "manta",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 4613,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.30637,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.998772,
+              "difficulty": 0.001228,
+              "lemma": "coral",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 311,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.995082,
+              "difficulty": 0.004918,
+              "lemma": "artículo",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 1333,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.99228,
+              "difficulty": 0.00772,
+              "lemma": "pico",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 2289,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.989594,
+              "difficulty": 0.010406,
+              "lemma": "reo",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 3096,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.988382,
+              "difficulty": 0.011618,
+              "lemma": "bonito",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 3443,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.988239,
+              "difficulty": 0.011761,
+              "lemma": "broma",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 3484,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.986818,
+              "difficulty": 0.013182,
+              "lemma": "listado",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 3909,
+              "source_labels": [
+                "animals",
+                "zoology"
+              ]
+            },
+            {
+              "admission_weight": 0.985936,
+              "difficulty": 0.014064,
+              "lemma": "suelta",
+              "pos_bucket": "noun",
+              "score": 0.855,
+              "seed_rank": 4142,
+              "source_labels": [
+                "animals"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 17,
+              "label": "animals"
+            },
+            {
+              "count": 14,
+              "label": "zoology"
+            }
+          ],
           "ux_group": "interests_style"
         },
         {
           "axis": "topic",
-          "coverage_posture": "no_trusted_coverage",
+          "coverage_posture": "shallow_difficulty_depth",
           "data_strategy": "curated_food_overlay_then_embedding_inference",
           "display_name": "Food & Cooking",
           "family": "food_cooking",
@@ -6056,15 +9009,62 @@
           "trusted_bands": [
             {
               "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
+              "count": 13,
+              "examples": [
+                {
+                  "difficulty": 0.000962,
+                  "lemma": "careta",
+                  "source_label": "cooking,food"
+                },
+                {
+                  "difficulty": 0.005528,
+                  "lemma": "menudo",
+                  "source_label": "cooking,food"
+                },
+                {
+                  "difficulty": 0.006372,
+                  "lemma": "masa",
+                  "source_label": "food"
+                },
+                {
+                  "difficulty": 0.006955,
+                  "lemma": "duro",
+                  "source_label": "cooking,food"
+                },
+                {
+                  "difficulty": 0.007319,
+                  "lemma": "leche",
+                  "source_label": "food"
+                }
+              ],
               "lower": 0.0,
               "upper": 0.2
             },
             {
               "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
+              "count": 4,
+              "examples": [
+                {
+                  "difficulty": 0.307416,
+                  "lemma": "incorporar",
+                  "source_label": "cooking,food"
+                },
+                {
+                  "difficulty": 0.307646,
+                  "lemma": "saltar",
+                  "source_label": "cooking,food"
+                },
+                {
+                  "difficulty": 0.309139,
+                  "lemma": "montar",
+                  "source_label": "cooking,food"
+                },
+                {
+                  "difficulty": 0.312346,
+                  "lemma": "batir",
+                  "source_label": "cooking,food"
+                }
+              ],
               "lower": 0.2,
               "upper": 0.4
             },
@@ -6090,13 +9090,212 @@
               "upper": 1.0
             }
           ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
+          "trusted_candidate_count": 17,
+          "trusted_candidate_share": 0.0017,
+          "trusted_hardest_examples": [
+            {
+              "admission_weight": 0.687654,
+              "difficulty": 0.312346,
+              "lemma": "batir",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8912,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.690861,
+              "difficulty": 0.309139,
+              "lemma": "montar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8721,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.692354,
+              "difficulty": 0.307646,
+              "lemma": "saltar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8628,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.692584,
+              "difficulty": 0.307416,
+              "lemma": "incorporar",
+              "pos_bucket": "verb",
+              "score": 0.81,
+              "seed_rank": 8613,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.846572,
+              "difficulty": 0.153428,
+              "lemma": "batido",
+              "pos_bucket": "adjective",
+              "score": 0.81,
+              "seed_rank": 7005,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.976899,
+              "difficulty": 0.023101,
+              "lemma": "cepa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6475,
+              "source_labels": [
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.977171,
+              "difficulty": 0.022829,
+              "lemma": "pulpa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6409,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.978553,
+              "difficulty": 0.021447,
+              "lemma": "mortero",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 6071,
+              "source_labels": [
+                "food"
+              ]
+            }
+          ],
+          "trusted_max_difficulty": 0.312346,
+          "trusted_nonempty_band_count": 2,
+          "trusted_top_examples": [
+            {
+              "admission_weight": 0.999038,
+              "difficulty": 0.000962,
+              "lemma": "careta",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 236,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.994472,
+              "difficulty": 0.005528,
+              "lemma": "menudo",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 1558,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.993628,
+              "difficulty": 0.006372,
+              "lemma": "masa",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 1846,
+              "source_labels": [
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.993045,
+              "difficulty": 0.006955,
+              "lemma": "duro",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 2037,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.992681,
+              "difficulty": 0.007319,
+              "lemma": "leche",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 2152,
+              "source_labels": [
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.990988,
+              "difficulty": 0.009012,
+              "lemma": "baño",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 2687,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.984682,
+              "difficulty": 0.015318,
+              "lemma": "casamiento",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 4484,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            },
+            {
+              "admission_weight": 0.981452,
+              "difficulty": 0.018548,
+              "lemma": "pala",
+              "pos_bucket": "noun",
+              "score": 0.81,
+              "seed_rank": 5347,
+              "source_labels": [
+                "cooking",
+                "food"
+              ]
+            }
+          ],
+          "trusted_top_source_labels": [
+            {
+              "count": 17,
+              "label": "food"
+            },
+            {
+              "count": 13,
+              "label": "cooking"
+            }
+          ],
           "ux_group": "interests_style"
         },
         {
@@ -6292,198 +9491,6 @@
           "ux_group": "interests_style"
         },
         {
-          "axis": "register",
-          "coverage_posture": "review_only_signal_absent",
-          "data_strategy": "allowlisted_register_tags_then_reviewed_overlay",
-          "display_name": "Casual & Slang",
-          "family": "casual_slang_register",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "review_only",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
-          "axis": "register",
-          "coverage_posture": "review_only_signal_absent",
-          "data_strategy": "allowlisted_formal_register_tags_then_reviewed_overlay",
-          "display_name": "Formal & Professional",
-          "family": "formal_professional_register",
-          "pair_scope": "all_supported_pairs",
-          "product_priority": "p0",
-          "readiness_state": "review_only",
-          "review_only_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "review_only_candidate_count": 0,
-          "review_only_candidate_share": 0.0,
-          "review_only_examples": [],
-          "review_only_top_labels": [],
-          "trusted_bands": [
-            {
-              "band": "0.00-0.20",
-              "count": 0,
-              "examples": [],
-              "lower": 0.0,
-              "upper": 0.2
-            },
-            {
-              "band": "0.20-0.40",
-              "count": 0,
-              "examples": [],
-              "lower": 0.2,
-              "upper": 0.4
-            },
-            {
-              "band": "0.40-0.60",
-              "count": 0,
-              "examples": [],
-              "lower": 0.4,
-              "upper": 0.6
-            },
-            {
-              "band": "0.60-0.80",
-              "count": 0,
-              "examples": [],
-              "lower": 0.6,
-              "upper": 0.8
-            },
-            {
-              "band": "0.80-1.00",
-              "count": 0,
-              "examples": [],
-              "lower": 0.8,
-              "upper": 1.0
-            }
-          ],
-          "trusted_candidate_count": 0,
-          "trusted_candidate_share": 0.0,
-          "trusted_hardest_examples": [],
-          "trusted_max_difficulty": null,
-          "trusted_nonempty_band_count": 0,
-          "trusted_top_examples": [],
-          "trusted_top_source_labels": [],
-          "ux_group": "interests_style"
-        },
-        {
           "axis": "topic",
           "coverage_posture": "no_trusted_coverage",
           "data_strategy": "allowed_exam_prep_vocabulary_or_internal_skill_taxonomy",
@@ -6578,17 +9585,670 @@
           "trusted_top_examples": [],
           "trusted_top_source_labels": [],
           "ux_group": "interests_style"
+        },
+        {
+          "axis": "register",
+          "coverage_posture": "review_only_signal_available",
+          "data_strategy": "allowlisted_register_tags_then_reviewed_overlay",
+          "display_name": "Casual & Slang",
+          "family": "casual_slang_register",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "review_only",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 967,
+              "examples": [
+                {
+                  "difficulty": 3.5e-05,
+                  "lemma": "hora",
+                  "source_label": "sense_categories:spanish_colloquialisms"
+                },
+                {
+                  "difficulty": 3.5e-05,
+                  "lemma": "hora",
+                  "source_label": "sense_tags:colloquial"
+                },
+                {
+                  "difficulty": 7.7e-05,
+                  "lemma": "hermano",
+                  "source_label": "sense_categories:spanish_informal_terms"
+                },
+                {
+                  "difficulty": 7.7e-05,
+                  "lemma": "hermano",
+                  "source_label": "sense_tags:informal"
+                },
+                {
+                  "difficulty": 0.000122,
+                  "lemma": "jefe",
+                  "source_label": "sense_categories:spanish_colloquialisms"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 162,
+              "examples": [
+                {
+                  "difficulty": 0.300013,
+                  "lemma": "poner",
+                  "source_label": "sense_categories:spanish_colloquialisms"
+                },
+                {
+                  "difficulty": 0.300013,
+                  "lemma": "poner",
+                  "source_label": "sense_categories:spanish_slang"
+                },
+                {
+                  "difficulty": 0.300013,
+                  "lemma": "poner",
+                  "source_label": "sense_tags:colloquial"
+                },
+                {
+                  "difficulty": 0.300013,
+                  "lemma": "poner",
+                  "source_label": "sense_tags:slang"
+                },
+                {
+                  "difficulty": 0.300201,
+                  "lemma": "acusar",
+                  "source_label": "sense_categories:spanish_colloquialisms"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 2,
+              "examples": [
+                {
+                  "difficulty": 0.452332,
+                  "lemma": "donde",
+                  "source_label": "sense_categories:spanish_colloquialisms"
+                },
+                {
+                  "difficulty": 0.452332,
+                  "lemma": "donde",
+                  "source_label": "sense_tags:colloquial"
+                }
+              ],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 8,
+              "examples": [
+                {
+                  "difficulty": 0.600002,
+                  "lemma": "ese",
+                  "source_label": "sense_categories:spanish_informal_terms"
+                },
+                {
+                  "difficulty": 0.600002,
+                  "lemma": "ese",
+                  "source_label": "sense_tags:informal"
+                },
+                {
+                  "difficulty": 0.600023,
+                  "lemma": "sobre",
+                  "source_label": "sense_categories:spanish_colloquialisms"
+                },
+                {
+                  "difficulty": 0.600023,
+                  "lemma": "sobre",
+                  "source_label": "sense_tags:colloquial"
+                },
+                {
+                  "difficulty": 0.600055,
+                  "lemma": "ocho",
+                  "source_label": "sense_categories:spanish_colloquialisms"
+                }
+              ],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "review_only_candidate_count": 488,
+          "review_only_candidate_share": 0.0488,
+          "review_only_examples": [
+            {
+              "admission_weight": 0.999965,
+              "difficulty": 3.5e-05,
+              "lemma": "hora",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 3,
+              "source_labels": [
+                "sense_categories:spanish_colloquialisms",
+                "sense_tags:colloquial"
+              ]
+            },
+            {
+              "admission_weight": 0.999923,
+              "difficulty": 7.7e-05,
+              "lemma": "hermano",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 10,
+              "source_labels": [
+                "sense_categories:spanish_informal_terms",
+                "sense_tags:informal"
+              ]
+            },
+            {
+              "admission_weight": 0.999878,
+              "difficulty": 0.000122,
+              "lemma": "jefe",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 25,
+              "source_labels": [
+                "sense_categories:spanish_colloquialisms",
+                "sense_tags:colloquial"
+              ]
+            },
+            {
+              "admission_weight": 0.999874,
+              "difficulty": 0.000126,
+              "lemma": "cuestión",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 27,
+              "source_labels": [
+                "sense_categories:spanish_colloquialisms",
+                "sense_tags:colloquial"
+              ]
+            },
+            {
+              "admission_weight": 0.999801,
+              "difficulty": 0.000199,
+              "lemma": "cuento",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 46,
+              "source_labels": [
+                "sense_categories:spanish_colloquialisms",
+                "sense_tags:colloquial"
+              ]
+            },
+            {
+              "admission_weight": 0.999737,
+              "difficulty": 0.000263,
+              "lemma": "regla",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 62,
+              "source_labels": [
+                "sense_categories:spanish_colloquialisms",
+                "sense_tags:colloquial"
+              ]
+            },
+            {
+              "admission_weight": 0.999658,
+              "difficulty": 0.000342,
+              "lemma": "chica",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 83,
+              "source_labels": [
+                "sense_categories:spanish_colloquialisms",
+                "sense_tags:colloquial"
+              ]
+            },
+            {
+              "admission_weight": 0.999525,
+              "difficulty": 0.000475,
+              "lemma": "palo",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 109,
+              "source_labels": [
+                "sense_categories:spanish_colloquialisms",
+                "sense_categories:spanish_slang",
+                "sense_categories:spanish_vulgarities",
+                "sense_tags:colloquial",
+                "sense_tags:slang",
+                "sense_tags:vulgar"
+              ]
+            }
+          ],
+          "review_only_top_labels": [
+            {
+              "count": 339,
+              "label": "sense_tags:colloquial"
+            },
+            {
+              "count": 335,
+              "label": "sense_categories:spanish_colloquialisms"
+            },
+            {
+              "count": 123,
+              "label": "sense_tags:slang"
+            },
+            {
+              "count": 119,
+              "label": "sense_categories:spanish_slang"
+            },
+            {
+              "count": 56,
+              "label": "sense_categories:spanish_informal_terms"
+            },
+            {
+              "count": 56,
+              "label": "sense_tags:informal"
+            },
+            {
+              "count": 51,
+              "label": "sense_categories:spanish_vulgarities"
+            },
+            {
+              "count": 50,
+              "label": "sense_tags:vulgar"
+            },
+            {
+              "count": 5,
+              "label": "entry_categories:spanish_colloquialisms"
+            },
+            {
+              "count": 4,
+              "label": "entry_categories:spanish_vulgarities"
+            },
+            {
+              "count": 1,
+              "label": "entry_categories:spanish_slang"
+            }
+          ],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 0,
+          "trusted_candidate_share": 0.0,
+          "trusted_hardest_examples": [],
+          "trusted_max_difficulty": null,
+          "trusted_nonempty_band_count": 0,
+          "trusted_top_examples": [],
+          "trusted_top_source_labels": [],
+          "ux_group": "interests_style"
+        },
+        {
+          "axis": "register",
+          "coverage_posture": "review_only_signal_available",
+          "data_strategy": "allowlisted_formal_register_tags_then_reviewed_overlay",
+          "display_name": "Formal & Professional",
+          "family": "formal_professional_register",
+          "pair_scope": "all_supported_pairs",
+          "product_priority": "p0",
+          "readiness_state": "review_only",
+          "review_only_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 49,
+              "examples": [
+                {
+                  "difficulty": 0.000367,
+                  "lemma": "auto",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                },
+                {
+                  "difficulty": 0.000367,
+                  "lemma": "auto",
+                  "source_label": "sense_tags:formal"
+                },
+                {
+                  "difficulty": 0.004446,
+                  "lemma": "haber",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                },
+                {
+                  "difficulty": 0.004446,
+                  "lemma": "haber",
+                  "source_label": "sense_tags:formal"
+                },
+                {
+                  "difficulty": 0.004989,
+                  "lemma": "presente",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                }
+              ],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 14,
+              "examples": [
+                {
+                  "difficulty": 0.300821,
+                  "lemma": "acontecer",
+                  "source_label": "sense_categories:spanish_literary_terms"
+                },
+                {
+                  "difficulty": 0.300821,
+                  "lemma": "acontecer",
+                  "source_label": "sense_tags:literary"
+                },
+                {
+                  "difficulty": 0.30102,
+                  "lemma": "revestir",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                },
+                {
+                  "difficulty": 0.30102,
+                  "lemma": "revestir",
+                  "source_label": "sense_tags:formal"
+                },
+                {
+                  "difficulty": 0.304145,
+                  "lemma": "cambiar",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                }
+              ],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 10,
+              "examples": [
+                {
+                  "difficulty": 0.452371,
+                  "lemma": "ahora",
+                  "source_label": "sense_categories:spanish_literary_terms"
+                },
+                {
+                  "difficulty": 0.452371,
+                  "lemma": "ahora",
+                  "source_label": "sense_tags:literary"
+                },
+                {
+                  "difficulty": 0.452384,
+                  "lemma": "cual",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                },
+                {
+                  "difficulty": 0.452384,
+                  "lemma": "cual",
+                  "source_label": "sense_categories:spanish_literary_terms"
+                },
+                {
+                  "difficulty": 0.452384,
+                  "lemma": "cual",
+                  "source_label": "sense_tags:formal"
+                }
+              ],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 8,
+              "examples": [
+                {
+                  "difficulty": 0.600588,
+                  "lemma": "empero",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                },
+                {
+                  "difficulty": 0.600588,
+                  "lemma": "empero",
+                  "source_label": "sense_tags:formal"
+                },
+                {
+                  "difficulty": 0.601686,
+                  "lemma": "sus",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                },
+                {
+                  "difficulty": 0.601686,
+                  "lemma": "sus",
+                  "source_label": "sense_tags:formal"
+                },
+                {
+                  "difficulty": 0.601708,
+                  "lemma": "nos",
+                  "source_label": "sense_categories:spanish_formal_terms"
+                }
+              ],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "review_only_candidate_count": 41,
+          "review_only_candidate_share": 0.0041,
+          "review_only_examples": [
+            {
+              "admission_weight": 0.999633,
+              "difficulty": 0.000367,
+              "lemma": "auto",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 87,
+              "source_labels": [
+                "sense_categories:spanish_formal_terms",
+                "sense_tags:formal"
+              ]
+            },
+            {
+              "admission_weight": 0.995554,
+              "difficulty": 0.004446,
+              "lemma": "haber",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 1156,
+              "source_labels": [
+                "sense_categories:spanish_formal_terms",
+                "sense_tags:formal"
+              ]
+            },
+            {
+              "admission_weight": 0.995011,
+              "difficulty": 0.004989,
+              "lemma": "presente",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 1360,
+              "source_labels": [
+                "sense_categories:spanish_formal_terms",
+                "sense_tags:formal"
+              ]
+            },
+            {
+              "admission_weight": 0.994816,
+              "difficulty": 0.005184,
+              "lemma": "acceso",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 1431,
+              "source_labels": [
+                "sense_categories:spanish_formal_terms",
+                "sense_tags:formal"
+              ]
+            },
+            {
+              "admission_weight": 0.994218,
+              "difficulty": 0.005782,
+              "lemma": "matrimonio",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 1647,
+              "source_labels": [
+                "sense_categories:spanish_formal_terms",
+                "sense_tags:formal"
+              ]
+            },
+            {
+              "admission_weight": 0.993969,
+              "difficulty": 0.006031,
+              "lemma": "alianza",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 1731,
+              "source_labels": [
+                "sense_categories:spanish_literary_terms",
+                "sense_tags:literary"
+              ]
+            },
+            {
+              "admission_weight": 0.993615,
+              "difficulty": 0.006385,
+              "lemma": "fenómeno",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 1851,
+              "source_labels": [
+                "sense_categories:spanish_literary_terms",
+                "sense_tags:literary"
+              ]
+            },
+            {
+              "admission_weight": 0.993422,
+              "difficulty": 0.006578,
+              "lemma": "reserva",
+              "pos_bucket": "noun",
+              "score": 0.0,
+              "seed_rank": 1912,
+              "source_labels": [
+                "sense_categories:spanish_formal_terms",
+                "sense_tags:formal"
+              ]
+            }
+          ],
+          "review_only_top_labels": [
+            {
+              "count": 29,
+              "label": "sense_categories:spanish_formal_terms"
+            },
+            {
+              "count": 27,
+              "label": "sense_tags:formal"
+            },
+            {
+              "count": 12,
+              "label": "sense_tags:literary"
+            },
+            {
+              "count": 11,
+              "label": "sense_categories:spanish_literary_terms"
+            },
+            {
+              "count": 1,
+              "label": "entry_categories:spanish_formal_terms"
+            },
+            {
+              "count": 1,
+              "label": "entry_categories:spanish_literary_terms"
+            }
+          ],
+          "trusted_bands": [
+            {
+              "band": "0.00-0.20",
+              "count": 0,
+              "examples": [],
+              "lower": 0.0,
+              "upper": 0.2
+            },
+            {
+              "band": "0.20-0.40",
+              "count": 0,
+              "examples": [],
+              "lower": 0.2,
+              "upper": 0.4
+            },
+            {
+              "band": "0.40-0.60",
+              "count": 0,
+              "examples": [],
+              "lower": 0.4,
+              "upper": 0.6
+            },
+            {
+              "band": "0.60-0.80",
+              "count": 0,
+              "examples": [],
+              "lower": 0.6,
+              "upper": 0.8
+            },
+            {
+              "band": "0.80-1.00",
+              "count": 0,
+              "examples": [],
+              "lower": 0.8,
+              "upper": 1.0
+            }
+          ],
+          "trusted_candidate_count": 0,
+          "trusted_candidate_share": 0.0,
+          "trusted_hardest_examples": [],
+          "trusted_max_difficulty": null,
+          "trusted_nonempty_band_count": 0,
+          "trusted_top_examples": [],
+          "trusted_top_source_labels": [],
+          "ux_group": "interests_style"
         }
       ],
       "frequency_db": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
       "label": "spalex_10k_research",
       "required": false,
-      "seed_count": 0,
-      "status": "missing_optional",
-      "unique_lemma_count": 0
+      "seed_count": 10000,
+      "status": "ok",
+      "unique_lemma_count": 10000
     }
   ],
-  "generated_at": "2026-05-19T00:36:42+00:00",
+  "generated_at": "2026-05-19T03:41:52+00:00",
   "inputs": {
     "frontiers": [
       {
@@ -6628,23 +10288,21 @@
   },
   "status": "ok",
   "summary": {
-    "available_frontier_count": 1,
+    "available_frontier_count": 2,
     "family_posture_counts": {
-      "measurable_trusted_coverage": 9,
-      "no_trusted_coverage": 3,
-      "review_only_signal_available": 2,
+      "measurable_trusted_coverage": 14,
+      "no_trusted_coverage": 6,
+      "review_only_signal_available": 4,
+      "shallow_difficulty_depth": 7,
       "thin_trusted_coverage": 3
     },
     "finding_counts": {
-      "PASS": 3,
-      "WARN": 1
+      "PASS": 5
     },
     "frontier_count": 2,
     "issues": [],
-    "missing_optional_frontier_count": 1,
-    "warnings": [
-      "frontier_missing:spalex_10k_research"
-    ]
+    "missing_optional_frontier_count": 0,
+    "warnings": []
   },
   "taxonomy": {
     "families": [

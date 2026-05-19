@@ -38,7 +38,7 @@ DEFAULT_FOOD_COOKING_TOPIC_OVERLAY_SOURCE_PATH = (
     PROJECT_ROOT
     / "docs"
     / "test_outputs"
-    / "srs_food_cooking_topic_overlay_en_es_current_latest.json"
+    / "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json"
 )
 DEFAULT_TOPIC_TAXONOMY_PATH = (
     PROJECT_ROOT / "docs" / "test_inputs" / "srs_topic_preference_taxonomy_en_es.json"
