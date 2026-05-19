@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_preference_taxonomy_validated`
-- Generated: `2026-05-16T21:24:39+00:00`
+- Generated: `2026-05-19T00:21:25+00:00`
 - Rows measured: `1984`
 - Unique lemmas measured: `1984`
 
@@ -10,11 +10,14 @@
 
 - `PASS` `schema_version_present`: Taxonomy schema is present.
 - `PASS` `family_ids_unique`: Product topic family ids are unique.
+- `PASS` `preference_ids_append_only`: Preference ids are explicitly append-only after release.
+- `PASS` `family_axis_metadata_valid`: Every family declares an internal axis, UX group, and pair scope.
 - `PASS` `source_label_mappings_valid`: Source-label mappings reference known families and valid weights.
 - `PASS` `excluded_labels_not_mapped_positive`: Excluded broad labels are not positively mapped.
 - `PASS` `animals_seed_labels_present`: Animals includes the current trusted CDE seed labels.
 - `PASS` `plants_nature_seed_labels_present`: Plants/nature includes the current trusted CDE seed labels.
 - `PASS` `exam_prep_legal_gated`: SAT/TOEFL remains legal/source gated.
+- `PASS` `exam_prep_target_english_scoped`: SAT/TOEFL is scoped to English-target pairs.
 - `PASS` `animals_current_signal_available`: Current installed sources provide some animal seed coverage.
 - `PASS` `plants_nature_current_signal_available`: Current installed sources provide some plants/nature seed coverage.
 
@@ -34,7 +37,9 @@
 | `plants_nature` | 5 | 0.3% | botany=5 |
 | `animals` | 1 | 0.1% | zoology=1 |
 | `anime_manga_pop_culture` | 0 | 0.0% | none |
+| `casual_slang_register` | 0 | 0.0% | none |
 | `food_cooking` | 0 | 0.0% | none |
+| `formal_professional_register` | 0 | 0.0% | none |
 | `hobbies_crafts` | 0 | 0.0% | none |
 | `sat_toefl_exam_prep` | 0 | 0.0% | none |
 

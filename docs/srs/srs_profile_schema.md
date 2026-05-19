@@ -10,6 +10,7 @@ Source-of-truth: mixed schema reference; executable truth lives in extension SRS
 Related design:
 - `docs/srs/srs_hybrid_model_technical.md`
 - `docs/srs/srs_set_planning_technical.md`
+- `docs/srs/srs_preference_taxonomy_lifecycle.md`
 
 ## Purpose
 Define profile context used for planning admission/growth of set `S`.
@@ -106,6 +107,21 @@ Notes:
   - `proficiency.estimated_value`
   - `difficultyPreferences.target_challenge_center`
 - other stored signal families are data-ready and persisted, but not all are first-class UI controls yet
+
+### Preference Taxonomy Expansion
+
+Post-release topic/register expansion is intended to be additive. New
+preference IDs should be added under existing profile signal families, usually
+`interests` or nested topic-bias data, unless a schema migration updates the
+top-level allowlist and tests first.
+
+Adding a new topic/register preference must not mutate the SRS store scheduler
+state. The new preference can affect future admission and diagnostics, and
+source metadata can optionally enrich existing items, but it must not delete,
+reset, or reschedule already-admitted cards.
+
+Use `srs_preference_taxonomy_lifecycle.md` for the append-only ID policy,
+axis/UX grouping rules, pair-scoped availability, and migration requirements.
 
 ### 2. Normalized Helper `profile_context`
 

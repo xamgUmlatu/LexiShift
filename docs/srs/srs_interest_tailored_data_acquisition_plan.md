@@ -3,13 +3,14 @@
 Status: active data planning reference
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, interest-tailored admission algorithm review, and local SRS admission lab topic-depth diagnostics
+Last verified: 2026-05-19 by current en-es source-readiness findings, SPALEX + Kaikki source-stack audit, provisional SPALEX pack build/audits, SRS profile/admission docs, interest-tailored admission algorithm review, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
 Purpose: enumerate the data needed to make interest-tailored SRS admission real, identify what is missing now, and define a practical acquisition strategy
 Source-of-truth: data acquisition plan; current executable truth lives in SRS seed/admission code, installed pack manifests, generated source-readiness audits, and promoted source packs.
 
 Related docs:
 - `srs_interest_tailored_admission_algorithm.md`
 - `srs_topic_preference_decision_matrix_en_es.md`
+- `srs_preference_taxonomy_lifecycle.md`
 - `srs_profile_schema.md`
 - `srs_set_planning_technical.md`
 - `../test_inputs/srs_topic_preference_taxonomy_en_es.json`
@@ -44,12 +45,21 @@ auditable `en-es` candidate corpus that supports:
 6. feedback-ready user profile signals,
 7. user-delight topics that make preference selection feel worth using, such as
    animals, plants/nature, food/cooking, anime/manga/pop culture, games, music,
-   travel, and hobbies/crafts.
+   travel, and hobbies/crafts,
+8. one or two register/style preferences, currently casual/slang and
+   formal/professional, shown beside topics in UX but reviewed as a separate
+   internal axis.
 
 Exam-prep preferences such as SAT and TOEFL are product-aligned, but they are
 not source-aligned yet. They should become preference families only after legal
 review identifies allowed vocabulary, skill, or exam-prep source data. They
-should not be inferred from current Wiktionary topic labels.
+should not be inferred from current Wiktionary topic labels. In current product
+planning, they should use explicit SAT/TOEFL wording only for English-target
+language pairs.
+
+Region preferences are deferred. They may become useful later, but the current
+pass should avoid sparse or misleading region UX until source coverage is better
+understood.
 
 ## Missing Data Summary
 
@@ -63,6 +73,7 @@ Current `en-es` state is useful but not enough for the target model.
 | Topic/domain metadata | Current baseline has `0%` native topic columns. Installed Kaikki can enrich current CDE with explicit sense-topic rows for `234 / 1,984` lemmas and the SPALEX 10k frontier with explicit topic rows for `1,353 / 10,000` combined candidates. The provisional full pack has topic rows for `4,114 / 45,131`. | Topic taxonomy, topic/domain tags, scalar memberships, confidence, and source provenance. |
 | Medical/health domain support | Installed Kaikki gives an initial `medicine` signal for `42 / 1,984` current CDE lemmas and a medicine/health-like signal for `248 / 10,000` combined candidates. | Health/medicine/dentistry topic family, aliases, domain lexicon, and validation set. |
 | User-delight topic support | Current trusted labels have sparse direct support for animals, plants/nature, food/cooking, and anime/manga/pop culture. Some adjacent labels exist, such as `hobbies`, `games`, `entertainment`, `media`, `food`, `cooking`, `animals`, `zoology`, and `botany`. | P0 overlays or inference for animals, plants/nature, food/cooking, anime/manga/pop culture, and hobbies/crafts. Current sparse labels should not demote these product goals. |
+| Register/style support | Current register-like signals live mainly in tag/category channels that are review-only. | Allowlisted register labels, precision samples, and pair-specific support policy before casual/slang or formal/professional admission lift. |
 | Difficulty/readiness | Frequency rank can proxy difficulty. Profile schema supports proficiency/challenge fields. | CEFR/learner-level overlay or calibrated difficulty model for non-beginner users. |
 | Rulegen coverage | Current denominator evidence exists for current baseline; expanded candidate full-rulegen coverage was not promoted. | Per-candidate rulegen coverage cache for expanded corpus. |
 | Semantic-veto coverage | Current semantic-veto coverage is measured for current admitted families. | Expanded denominator and uncovered-family audit after candidate source selection. |
@@ -208,7 +219,16 @@ Current installed-source topic signal inventory:
 Current product-owned taxonomy artifact:
 
 - `docs/test_inputs/srs_topic_preference_taxonomy_en_es.json` defines the first
-  product-owned topic families and source-label mappings.
+  product-owned topic/register families and source-label mappings.
+- The taxonomy declares preference IDs append-only after release and keeps each
+  family on an explicit internal axis. Topics and registers can share the
+  user-facing `Interests & Style` section, but source policy and tests keep the
+  distinction visible.
+- The first register-style families are `casual_slang_register` and
+  `formal_professional_register`. They are review-only until allowlisted source
+  signals and precision samples support admission lift.
+- `sat_toefl_exam_prep` remains legal/source gated and scoped to
+  English-target pairs.
 - Cross-LP reusable lessons from this pass are tracked in
   `docs/srs/srs_topic_signal_lp_generalization_runbook.md`; future LPs should
   use that runbook before cloning en-es-specific scripts or policy files.

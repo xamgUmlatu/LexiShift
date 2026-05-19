@@ -28,6 +28,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Persisted SRS settings/store/signal shape | `docs/srs/srs_schema.md` | Mixed schema reference separating implemented fields from planned extensions. | Assuming planned schema sections are already written by runtime. |
 | Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming profile strategies are default execution paths. |
 | Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Treating `profile_growth` as broad admission execution. |
+| Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
 | Selector, personalization, and required data | `docs/srs/srs_selector_technical.md`, `docs/srs/srs_interest_tailored_admission_algorithm.md`, `docs/srs/srs_interest_tailored_data_acquisition_plan.md`, `docs/srs/srs_topic_signal_lp_generalization_runbook.md`, `docs/srs/srs_curriculum_notes.md` | Planning/WIP surfaces for future ranking, data acquisition, personalization, and reusable topic-signal onboarding lessons. | Current product or runtime behavior claims. |
 | SRS journey and synthetic quality harness work | `docs/srs/srs_journey_harness_workstream.md`, `scripts/testing/srs_quality_harness.py` | Harness planning plus executable quality-harness entrypoints. | Broad LP coverage claims beyond the harness-supported scenarios. |
 
@@ -46,7 +47,8 @@ Current disposition:
   `srs_set_planning_technical.md` remain mixed current-plus-target references.
 - `srs_selector_technical.md`, `srs_interest_tailored_admission_algorithm.md`,
   `srs_interest_tailored_data_acquisition_plan.md`,
-  `srs_topic_signal_lp_generalization_runbook.md`, and `srs_curriculum_notes.md`
+  `srs_topic_signal_lp_generalization_runbook.md`,
+  `srs_preference_taxonomy_lifecycle.md`, and `srs_curriculum_notes.md`
   remain planning surfaces only.
 - `srs_journey_harness_workstream.md` remains a harness workstream, not the
   required default SRS quality gate.

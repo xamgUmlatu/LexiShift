@@ -3,7 +3,7 @@
   "taxonomy_id": "srs_topic_preference_taxonomy_en_es_v1",
   "language_pair": "en-es",
   "status": "planning",
-  "purpose": "Product-owned SRS topic preference families and source-label mappings for en-es.",
+  "purpose": "Product-owned SRS topic/register preference families and source-label mappings for en-es.",
   "channel_policy": {
     "trusted_mapping_channels": [
       "sense_topics",
@@ -23,105 +23,170 @@
       "display_name": "Medicine & Health",
       "product_priority": "p0",
       "readiness_state": "source_ready",
-      "data_strategy": "sense_topics_then_domain_overlay"
+      "data_strategy": "sense_topics_then_domain_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "finance_business",
       "display_name": "Finance & Business",
       "product_priority": "p0",
       "readiness_state": "source_ready",
-      "data_strategy": "sense_topics_then_alias_overlay"
+      "data_strategy": "sense_topics_then_alias_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "sports_fitness",
       "display_name": "Sports & Fitness",
       "product_priority": "p0",
       "readiness_state": "source_ready",
-      "data_strategy": "sense_topics_then_alias_overlay"
+      "data_strategy": "sense_topics_then_alias_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "games",
       "display_name": "Games",
       "product_priority": "p0",
       "readiness_state": "source_ready",
-      "data_strategy": "sense_topics_then_alias_overlay"
+      "data_strategy": "sense_topics_then_alias_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "music_media_entertainment",
       "display_name": "Music, Media & Entertainment",
       "product_priority": "p0",
       "readiness_state": "source_ready",
-      "data_strategy": "sense_topics_then_media_overlay"
+      "data_strategy": "sense_topics_then_media_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "law_politics_civics",
       "display_name": "Law, Politics & Civics",
       "product_priority": "p0",
       "readiness_state": "source_ready",
-      "data_strategy": "sense_topics_then_civics_overlay"
+      "data_strategy": "sense_topics_then_civics_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "science_technology",
       "display_name": "Science & Technology",
       "product_priority": "p0",
       "readiness_state": "source_ready",
-      "data_strategy": "sense_topics_then_stem_overlay"
+      "data_strategy": "sense_topics_then_stem_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "travel_places_transport",
       "display_name": "Travel, Places & Transport",
       "product_priority": "p0",
       "readiness_state": "partial",
-      "data_strategy": "geography_transport_labels_then_travel_overlay"
+      "data_strategy": "geography_transport_labels_then_travel_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "arts_literature_humanities",
       "display_name": "Arts, Literature & Humanities",
       "product_priority": "p0",
       "readiness_state": "partial",
-      "data_strategy": "sense_topics_then_literature_art_overlay"
+      "data_strategy": "sense_topics_then_literature_art_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "animals",
       "display_name": "Animals",
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay"
+      "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "plants_nature",
       "display_name": "Plants & Nature",
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "data_strategy": "trusted_botany_topics_plus_categories_glosses_then_curated_plant_overlay"
+      "data_strategy": "trusted_botany_topics_plus_categories_glosses_then_curated_plant_overlay",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "food_cooking",
       "display_name": "Food & Cooking",
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "data_strategy": "curated_food_overlay_then_embedding_inference"
+      "data_strategy": "curated_food_overlay_then_embedding_inference",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "anime_manga_pop_culture",
       "display_name": "Anime, Manga & Pop Culture",
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "data_strategy": "legally_usable_seed_lists_then_embedding_inference"
+      "data_strategy": "legally_usable_seed_lists_then_embedding_inference",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
     },
     {
       "id": "hobbies_crafts",
       "display_name": "Hobbies & Crafts",
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "data_strategy": "curated_activity_overlay_then_reviewed_broad_labels"
+      "data_strategy": "curated_activity_overlay_then_reviewed_broad_labels",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs"
+    },
+    {
+      "id": "casual_slang_register",
+      "display_name": "Casual & Slang",
+      "product_priority": "p0",
+      "axis": "register",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "readiness_state": "review_only",
+      "data_strategy": "allowlisted_register_tags_then_reviewed_overlay"
+    },
+    {
+      "id": "formal_professional_register",
+      "display_name": "Formal & Professional",
+      "product_priority": "p0",
+      "axis": "register",
+      "ux_group": "interests_style",
+      "pair_scope": "all_supported_pairs",
+      "readiness_state": "review_only",
+      "data_strategy": "allowlisted_formal_register_tags_then_reviewed_overlay"
     },
     {
       "id": "sat_toefl_exam_prep",
       "display_name": "SAT & TOEFL Prep",
       "product_priority": "p0",
       "readiness_state": "legal_source_gated",
-      "data_strategy": "allowed_exam_prep_vocabulary_or_internal_skill_taxonomy"
+      "data_strategy": "allowed_exam_prep_vocabulary_or_internal_skill_taxonomy",
+      "axis": "topic",
+      "ux_group": "interests_style",
+      "pair_scope": "target_language:en"
     }
   ],
   "source_label_mappings": [
@@ -764,6 +829,22 @@
     "This taxonomy is product-owned; source labels are evidence, not the taxonomy itself.",
     "The animals mapping intentionally avoids broad science and botany labels so animal preferences do not become generic science or plant preferences.",
     "Plants and botany evidence maps to plants_nature, not animals.",
-    "SAT and TOEFL are included as product goals but remain legal/source gated."
-  ]
+    "SAT and TOEFL are included as product goals but remain legal/source gated.",
+    "Preference ids are append-only after release; rename or semantic reinterpretation requires an explicit alias or migration.",
+    "Register preferences share the user-facing Interests & Style section with topics, but remain a separate internal axis for source review and policy.",
+    "Region remains deferred until source coverage is clear enough to avoid sparse or misleading UX."
+  ],
+  "lifecycle_policy": {
+    "preference_ids_are_append_only": true,
+    "rename_policy": "Renaming or semantically reinterpreting an existing preference id requires an alias or migration before release.",
+    "existing_srs_items_policy": "New topic/register metadata may enrich future admission and diagnostics, but must not delete, reset, or reschedule existing SRS items.",
+    "availability_policy": "Preference families may be hidden or disabled per language pair until source coverage, provenance, and license posture are acceptable.",
+    "ux_group_policy": "Topic and register preferences may share one user-facing Interests & Style section, while the internal family axis remains explicit."
+  },
+  "ux_policy": {
+    "primary_section": "interests_style",
+    "region_axis": "defer_until_source_coverage_is_clear",
+    "exam_prep_label_policy": "Use explicit SAT and TOEFL wording only for English-target pairs after legal/source review.",
+    "register_policy": "Expose register choices beside topics when they are source-reviewed; keep register ids distinct from topic ids internally."
+  }
 }

@@ -38,6 +38,7 @@ FREQUENCY_VALUE_COLUMNS = (
     "ipm",
 )
 TRUSTED_SOURCE_CHANNELS = ("sense_topics",)
+ALLOWED_FAMILY_AXES = {"topic", "register"}
 
 
 def _parse_args() -> argparse.Namespace:
@@ -151,6 +152,52 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
             )
         )
     family_set = {family for family in family_ids if family}
+    lifecycle_policy = _as_mapping(taxonomy.get("lifecycle_policy"))
+    if lifecycle_policy.get("preference_ids_are_append_only") is True:
+        findings.append(
+            _finding(
+                "PASS",
+                "preference_ids_append_only",
+                "Preference ids are explicitly append-only after release.",
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "FAIL",
+                "preference_ids_not_append_only",
+                "Taxonomy must declare preference ids append-only after release.",
+            )
+        )
+    metadata_failures: list[str] = []
+    for index, row in enumerate(families):
+        family_id = _normalize_token(row.get("id"))
+        axis = _normalize_token(row.get("axis"))
+        ux_group = _normalize_token(row.get("ux_group"))
+        pair_scope = str(row.get("pair_scope") or "").strip()
+        if axis not in ALLOWED_FAMILY_AXES:
+            metadata_failures.append(f"families[{index}].axis:{family_id}")
+        if not ux_group:
+            metadata_failures.append(f"families[{index}].ux_group:{family_id}")
+        if not pair_scope:
+            metadata_failures.append(f"families[{index}].pair_scope:{family_id}")
+    if metadata_failures:
+        findings.append(
+            _finding(
+                "FAIL",
+                "family_axis_metadata_invalid",
+                "Family axis/UX/scope metadata is missing or invalid.",
+                details=", ".join(metadata_failures),
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "PASS",
+                "family_axis_metadata_valid",
+                "Every family declares an internal axis, UX group, and pair scope.",
+            )
+        )
     mappings = _mapping_rows(taxonomy.get("source_label_mappings"))
     mapping_failures: list[str] = []
     positive_labels_by_family: dict[str, set[str]] = defaultdict(set)
@@ -272,6 +319,22 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
                 "FAIL",
                 "exam_prep_not_legal_gated",
                 "SAT/TOEFL must stay legal/source gated until allowed data exists.",
+            )
+        )
+    if str(_as_mapping(exam_family).get("pair_scope") or "") == "target_language:en":
+        findings.append(
+            _finding(
+                "PASS",
+                "exam_prep_target_english_scoped",
+                "SAT/TOEFL is scoped to English-target pairs.",
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "FAIL",
+                "exam_prep_pair_scope_invalid",
+                "SAT/TOEFL must be scoped to English-target pairs until another source path exists.",
             )
         )
     return findings
@@ -480,6 +543,9 @@ def _public_taxonomy_summary(taxonomy: Mapping[str, object]) -> dict[str, object
                 "id": _normalize_token(row.get("id")),
                 "product_priority": str(row.get("product_priority") or ""),
                 "readiness_state": str(row.get("readiness_state") or ""),
+                "axis": _normalize_token(row.get("axis")),
+                "ux_group": _normalize_token(row.get("ux_group")),
+                "pair_scope": str(row.get("pair_scope") or ""),
             }
             for row in families
         ],

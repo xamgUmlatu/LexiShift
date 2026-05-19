@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import sqlite3
 import sys
@@ -15,6 +16,7 @@ if str(SCRIPT_DIR) not in sys.path:
 from srs_topic_preference_taxonomy_en_es import (  # noqa: E402
     build_report,
     render_markdown,
+    validate_taxonomy,
 )
 
 
@@ -39,9 +41,12 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
 
             self.assertEqual(report["status"], "ok")
             findings = {row["code"]: row for row in report["findings"]}
+            self.assertIn("preference_ids_append_only", findings)
+            self.assertIn("family_axis_metadata_valid", findings)
             self.assertIn("animals_seed_labels_present", findings)
             self.assertIn("plants_nature_seed_labels_present", findings)
             self.assertIn("excluded_labels_not_mapped_positive", findings)
+            self.assertIn("exam_prep_target_english_scoped", findings)
             family_by_id = {row["family"]: row for row in report["coverage"]["families"]}
             animals = family_by_id["animals"]
             self.assertEqual(animals["row_count"], 2)
@@ -94,6 +99,34 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
                 "excluded_labels_mapped_positive",
                 report["summary"]["issues"],
             )
+
+    def test_repo_taxonomy_declares_registers_and_safe_expansion_contract(self) -> None:
+        taxonomy_path = (
+            REPO_ROOT / "docs" / "test_inputs" / "srs_topic_preference_taxonomy_en_es.json"
+        )
+        taxonomy = json.loads(taxonomy_path.read_text(encoding="utf-8"))
+
+        findings = {row["code"]: row for row in validate_taxonomy(taxonomy)}
+        self.assertEqual(findings["preference_ids_append_only"]["level"], "PASS")
+        self.assertEqual(findings["family_axis_metadata_valid"]["level"], "PASS")
+        self.assertEqual(findings["exam_prep_legal_gated"]["level"], "PASS")
+        self.assertEqual(findings["exam_prep_target_english_scoped"]["level"], "PASS")
+
+        family_by_id = {row["id"]: row for row in taxonomy["families"]}
+        self.assertEqual(family_by_id["casual_slang_register"]["axis"], "register")
+        self.assertEqual(family_by_id["formal_professional_register"]["axis"], "register")
+        self.assertEqual(
+            family_by_id["casual_slang_register"]["readiness_state"],
+            "review_only",
+        )
+        self.assertEqual(
+            family_by_id["formal_professional_register"]["ux_group"],
+            "interests_style",
+        )
+        self.assertEqual(
+            family_by_id["sat_toefl_exam_prep"]["pair_scope"],
+            "target_language:en",
+        )
 
 
 def _write_frequency_db(path: Path) -> None:
@@ -170,10 +203,31 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
     return json.dumps(
         {
             "schema_version": 1,
+            "lifecycle_policy": {
+                "preference_ids_are_append_only": True,
+            },
             "families": [
-                {"id": "animals", "readiness_state": "p0_enrichment"},
-                {"id": "plants_nature", "readiness_state": "p0_enrichment"},
-                {"id": "sat_toefl_exam_prep", "readiness_state": "legal_source_gated"},
+                {
+                    "id": "animals",
+                    "readiness_state": "p0_enrichment",
+                    "axis": "topic",
+                    "ux_group": "interests_style",
+                    "pair_scope": "all_supported_pairs",
+                },
+                {
+                    "id": "plants_nature",
+                    "readiness_state": "p0_enrichment",
+                    "axis": "topic",
+                    "ux_group": "interests_style",
+                    "pair_scope": "all_supported_pairs",
+                },
+                {
+                    "id": "sat_toefl_exam_prep",
+                    "readiness_state": "legal_source_gated",
+                    "axis": "topic",
+                    "ux_group": "interests_style",
+                    "pair_scope": "target_language:en",
+                },
             ],
             "source_label_mappings": mappings,
             "excluded_source_labels": [

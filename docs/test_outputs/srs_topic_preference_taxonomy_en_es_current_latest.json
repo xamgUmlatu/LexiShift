@@ -1239,7 +1239,21 @@
         "top_source_labels": []
       },
       {
+        "family": "casual_slang_register",
+        "row_count": 0,
+        "row_share": 0.0,
+        "sample_rows": [],
+        "top_source_labels": []
+      },
+      {
         "family": "food_cooking",
+        "row_count": 0,
+        "row_share": 0.0,
+        "sample_rows": [],
+        "top_source_labels": []
+      },
+      {
+        "family": "formal_professional_register",
         "row_count": 0,
         "row_share": 0.0,
         "sample_rows": [],
@@ -1281,6 +1295,16 @@
       "message": "Product topic family ids are unique."
     },
     {
+      "code": "preference_ids_append_only",
+      "level": "PASS",
+      "message": "Preference ids are explicitly append-only after release."
+    },
+    {
+      "code": "family_axis_metadata_valid",
+      "level": "PASS",
+      "message": "Every family declares an internal axis, UX group, and pair scope."
+    },
+    {
       "code": "source_label_mappings_valid",
       "level": "PASS",
       "message": "Source-label mappings reference known families and valid weights."
@@ -1306,6 +1330,11 @@
       "message": "SAT/TOEFL remains legal/source gated."
     },
     {
+      "code": "exam_prep_target_english_scoped",
+      "level": "PASS",
+      "message": "SAT/TOEFL is scoped to English-target pairs."
+    },
+    {
       "code": "animals_current_signal_available",
       "level": "PASS",
       "message": "Current installed sources provide some animal seed coverage."
@@ -1316,7 +1345,7 @@
       "message": "Current installed sources provide some plants/nature seed coverage."
     }
   ],
-  "generated_at": "2026-05-16T21:24:39+00:00",
+  "generated_at": "2026-05-19T00:21:25+00:00",
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -1333,7 +1362,7 @@
   "status": "ok",
   "summary": {
     "finding_counts": {
-      "PASS": 9
+      "PASS": 12
     },
     "issues": [],
     "warnings": []
@@ -1341,82 +1370,143 @@
   "taxonomy": {
     "families": [
       {
+        "axis": "topic",
         "id": "medicine_health",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "source_ready"
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "finance_business",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "source_ready"
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "sports_fitness",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "source_ready"
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "games",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "source_ready"
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "music_media_entertainment",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "source_ready"
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "law_politics_civics",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "source_ready"
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "science_technology",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "source_ready"
+        "readiness_state": "source_ready",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "travel_places_transport",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "partial"
+        "readiness_state": "partial",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "arts_literature_humanities",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "partial"
+        "readiness_state": "partial",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "animals",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "p0_enrichment"
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "plants_nature",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "p0_enrichment"
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "food_cooking",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "p0_enrichment"
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "anime_manga_pop_culture",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "p0_enrichment"
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
       },
       {
+        "axis": "topic",
         "id": "hobbies_crafts",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "p0_enrichment"
+        "readiness_state": "p0_enrichment",
+        "ux_group": "interests_style"
       },
       {
-        "id": "sat_toefl_exam_prep",
+        "axis": "register",
+        "id": "casual_slang_register",
+        "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
-        "readiness_state": "legal_source_gated"
+        "readiness_state": "review_only",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "register",
+        "id": "formal_professional_register",
+        "pair_scope": "all_supported_pairs",
+        "product_priority": "p0",
+        "readiness_state": "review_only",
+        "ux_group": "interests_style"
+      },
+      {
+        "axis": "topic",
+        "id": "sat_toefl_exam_prep",
+        "pair_scope": "target_language:en",
+        "product_priority": "p0",
+        "readiness_state": "legal_source_gated",
+        "ux_group": "interests_style"
       }
     ],
-    "family_count": 15,
+    "family_count": 17,
     "language_pair": "en-es",
     "mapping_count": 74,
     "taxonomy_id": "srs_topic_preference_taxonomy_en_es_v1"

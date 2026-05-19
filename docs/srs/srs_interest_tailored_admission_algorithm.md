@@ -3,12 +3,13 @@
 Status: active design reference
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 by SRS profile-bootstrap readiness-gate code read, focused SRS admission tests, SRS quality harness, and local admission-lab browser smoke
+Last verified: 2026-05-19 by SRS profile-bootstrap readiness-gate code read, focused SRS admission tests, SRS quality harness, local admission-lab browser smoke, and preference taxonomy lifecycle review
 Purpose: define the product algorithm for tailoring SRS admission probabilities to user interests, readiness, source quality, and LP resource coverage
 Source-of-truth: target algorithm reference; current executable truth lives in `core/lexishift_core/srs/seed.py`, `core/lexishift_core/srs/profile_bootstrap.py`, `core/lexishift_core/srs/selector.py`, helper admission use cases, SRS tests, and `docs/developer/feature_state_matrix.md`.
 
 Related docs:
 - `srs_interest_tailored_data_acquisition_plan.md`
+- `srs_preference_taxonomy_lifecycle.md`
 - `srs_profile_schema.md`
 - `srs_selector_technical.md`
 - `srs_set_planning_technical.md`
@@ -95,6 +96,11 @@ Current SPALEX 10k candidate evidence:
 User interests should be stored internally as scalar weights, not binary flags.
 The UI may expose simple categories, but the ranking layer should consume
 weighted topic signals.
+
+Preference IDs are intended to be stable and append-only after release. Adding
+a new topic/register preference changes future admission scoring and
+diagnostics; it must not delete, reset, or reschedule already-admitted SRS
+items. Use `srs_preference_taxonomy_lifecycle.md` for migration rules.
 
 Example helper-facing shape:
 

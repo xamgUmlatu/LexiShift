@@ -3,13 +3,14 @@
 Status: active decision aid
 Role: Planning / WIP
 Last updated: 2026-05-19
-Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, animals/plants overlay artifacts, and local SRS admission lab topic-depth diagnostics
+Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, animals/plants overlay artifacts, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
 Purpose: lay out the current trusted source-topic surface so product preferences can be selected deliberately
 Source-of-truth: decision aid; executable inventory lives in `scripts/testing/srs_topic_signal_inventory_en_es.py` and the latest generated artifacts.
 
 Related docs:
 - `srs_interest_tailored_data_acquisition_plan.md`
 - `srs_interest_tailored_admission_algorithm.md`
+- `srs_preference_taxonomy_lifecycle.md`
 - `../test_inputs/srs_topic_preference_taxonomy_en_es.json`
 - `../test_outputs/srs_topic_signal_inventory_en_es_current_latest.md`
 - `../test_outputs/srs_topic_preference_taxonomy_en_es_current_latest.md`
@@ -41,6 +42,13 @@ Use these source channels differently:
 | `sense_tags`, `sense_categories`, `entry_tags`, `entry_categories` | Review-only inventory | These channels are broad and noisy: grammar, register, maintenance categories, and Wiktionary housekeeping dominate. |
 | SAT/TOEFL source data | Not present yet | These are product-aligned only after legal/source review identifies allowed data. |
 
+Current UX policy: topics and register/style preferences can share one
+user-facing `Interests & Style` section, but the internal taxonomy keeps an
+explicit `axis` so source policy can treat topics and registers differently.
+Region is deferred for now because source coverage is likely sparse and
+misleading. SAT/TOEFL should use explicit SAT/TOEFL wording only for
+English-target pairs after legal/source review.
+
 ## Recommended Product Preference Families
 
 This is the practical v0 shortlist. "Adopt" means the topic family is plausible
@@ -66,6 +74,8 @@ current trusted source labels are not enough by themselves.
 | `psychology_emotions` | `psychology` 1, `human_sciences` 17 | weak | Defer until overlay | Emotions are product-aligned but not directly present in trusted current-CDE topics. |
 | `animals` | `animals` 1, `zoology` 1, plus allowlisted animal categories/glosses in review-only channels | weak direct support | P0 enrichment | Strong user-delight topic. Keep separate from botany/plants; broad science labels should not substitute for it. |
 | `plants_nature` | `botany` 5, plus allowlisted plant categories/glosses in review-only channels | weak direct support | P0 enrichment | Keep plants/botany distinct from animals. Useful for gardening/nature interests, but broad natural-science labels are too broad for strong lift. |
+| `casual_slang_register` | register/tag channels only; not trusted for automatic lift yet | review-only | Add as register axis | Strong UX value, but source tags need allowlisting and sampling before admission lift. |
+| `formal_professional_register` | register/tag channels only; not trusted for automatic lift yet | review-only | Add as register axis | Useful for workplace/professional goals. Treat beside topics in UX, but keep separate internally. |
 | `sat_toefl_exam_prep` | none in current trusted source data | none | Legal/source gated | Add only after allowed vocabulary, skill, or exam-prep data is identified. Do not infer from current Wiktionary labels. |
 
 ## Product-First P0 Set
@@ -87,6 +97,8 @@ current trusted labels are sparse.
 | `food_cooking` | P0 enrichment | food/cooking lexicons, recipe-domain sources, embeddings over glosses |
 | `anime_manga_pop_culture` | P0 enrichment | legally usable fandom/pop-culture sources, curated seed lists, embeddings |
 | `hobbies_crafts` | P0 enrichment | curated hobby taxonomy, craft/activity lexicons, reviewed broad `hobbies` labels |
+| `casual_slang_register` | review-only | allowlisted register tags, corpus/register sources, and manual precision checks |
+| `formal_professional_register` | review-only | allowlisted formal/professional labels, workplace-domain overlays, and manual precision checks |
 | `travel_places_transport` | partial | travel overlay plus existing geography/transport labels |
 | `arts_literature_humanities` | partial | literature/art overlays plus existing humanities labels |
 | `sat_toefl_exam_prep` | legal/source gated | allowed exam-prep vocabulary or internal skill taxonomy |
@@ -195,6 +207,7 @@ Current posture:
 | Source-ready utility topics | `medicine_health`, `finance_business`, `sports_fitness`, `games`, `law_politics_civics`, `music_media_entertainment`, `science_technology` | Enough trusted/source-topic support to keep validating profile lift. | Add per-family depth/precision diagnostics over the 10k frontier before product claims. |
 | Partial parent topics | `travel_places_transport`, `arts_literature_humanities` | Plausible parent coverage, but likely needs aliases/overlays for satisfying UX. | Audit examples and decide whether to expose parent-only or wait for enrichment. |
 | P0 enrichment topics | `animals`, `plants_nature`, `food_cooking`, `anime_manga_pop_culture`, `hobbies_crafts` | Product-important but not sufficiently covered by trusted labels alone. | Build or source overlays/inference, then rerun depth/precision checks. |
+| Register/style preferences | `casual_slang_register`, `formal_professional_register` | UX-relevant but should start review-only because current trusted coverage comes from topic labels, not register-safe signals. | Inventory allowlisted register signals separately, sample precision, then decide whether to enable. |
 | Legal/source gated | `sat_toefl_exam_prep` | Product-aligned but unavailable until allowed data is identified. | Resolve legal source path before surfacing as a preference. |
 
 This is the acceptance boundary for moving on from admission: the admission
@@ -276,6 +289,14 @@ Keep these as planned but not current-CDE-ready:
 - `education_academic`
 - `psychology_emotions`
 - `sat_toefl_exam_prep`
+
+Add these as register/style preferences in the same UX section, but keep them
+review-only until source precision is proven:
+
+- `casual_slang_register`
+- `formal_professional_register`
+
+Do not start region preferences in this pass.
 
 ## Complete Trusted Current-CDE Source Topic List
 
