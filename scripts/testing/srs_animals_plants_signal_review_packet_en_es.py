@@ -28,7 +28,7 @@ DEFAULT_LABELS_JSON = (
     / "srs_animals_plants_signal_review_labels_en_es_spalex_10k.json"
 )
 DEFAULT_SAMPLE_PER_CELL = 4
-DEFAULT_MAX_ROWS = 96
+DEFAULT_MAX_ROWS = 168
 REVIEW_DECISIONS = (
     "accept_strong_topic",
     "accept_light_topic",

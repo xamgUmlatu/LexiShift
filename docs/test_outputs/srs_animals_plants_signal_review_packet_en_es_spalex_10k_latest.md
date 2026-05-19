@@ -2,18 +2,18 @@
 
 - Status: `ok`
 - Decision: `srs_animals_plants_signal_review_packet_ready`
-- Generated: `2026-05-16T23:45:35+00:00`
+- Generated: `2026-05-19T04:07:55+00:00`
 - Candidate universe: `310`
-- Review rows: `96`
-- Review cells covered: `96` / `125`
-- Labeled rows: `96`
+- Review rows: `168`
+- Review cells covered: `125` / `125`
+- Labeled rows: `168`
 
 ## Manual Decisions
 
-- `accept_strong_topic`: `57`
-- `accept_light_topic`: `27`
+- `accept_strong_topic`: `104`
+- `accept_light_topic`: `45`
 - `reject_wrong_topic`: `2`
-- `reject_secondary_or_obscure_sense`: `10`
+- `reject_secondary_or_obscure_sense`: `17`
 - `uncertain_needs_source_check`: `0`
 
 ## Cell Coverage
@@ -21,9 +21,9 @@
 | Cell | Candidates | Selected |
 | --- | ---: | ---: |
 | `animals|tier=D|band=review|review=True|source=animal_gloss_pattern` | 1 | 1 |
-| `animals|tier=D|band=review|review=True|source=animal_translation_pattern` | 14 | 1 |
+| `animals|tier=D|band=review|review=True|source=animal_translation_pattern` | 14 | 3 |
 | `animals|tier=C|band=review|review=True|source=amphibians` | 1 | 1 |
-| `animals|tier=C|band=review|review=True|source=birds` | 4 | 1 |
+| `animals|tier=C|band=review|review=True|source=birds` | 4 | 3 |
 | `animals|tier=C|band=review|review=True|source=cattle` | 1 | 1 |
 | `animals|tier=C|band=review|review=True|source=dogs` | 1 | 1 |
 | `animals|tier=C|band=review|review=True|source=goats` | 1 | 1 |
@@ -40,31 +40,31 @@
 | `animals|tier=B|band=review|review=True|source=primary_translation:rooster` | 1 | 1 |
 | `animals|tier=B|band=review|review=True|source=primary_translation:snake` | 1 | 1 |
 | `animals|tier=B|band=review|review=True|source=primary_translation:tiger` | 1 | 1 |
-| `animals|tier=A|band=review|review=True|source=zoology` | 9 | 1 |
-| `animals|tier=D|band=inventory|review=True|source=animal_gloss_pattern` | 6 | 1 |
+| `animals|tier=A|band=review|review=True|source=zoology` | 9 | 2 |
+| `animals|tier=D|band=inventory|review=True|source=animal_gloss_pattern` | 6 | 2 |
 | `animals|tier=D|band=inventory|review=True|source=animal_translation_pattern` | 1 | 1 |
 | `animals|tier=C|band=inventory|review=False|source=insects` | 1 | 1 |
 | `animals|tier=A|band=inventory|review=False|source=zoology` | 1 | 1 |
-| `animals|tier=C|band=medium|review=False|source=animals` | 2 | 1 |
+| `animals|tier=C|band=medium|review=False|source=animals` | 2 | 2 |
 | `animals|tier=C|band=medium|review=False|source=baby_animals` | 1 | 1 |
-| `animals|tier=C|band=medium|review=False|source=birds` | 20 | 1 |
+| `animals|tier=C|band=medium|review=False|source=birds` | 20 | 2 |
 | `animals|tier=C|band=medium|review=False|source=birds_of_prey` | 1 | 1 |
-| `animals|tier=C|band=medium|review=False|source=bovines` | 2 | 1 |
-| `animals|tier=C|band=medium|review=False|source=canids` | 2 | 1 |
-| `animals|tier=C|band=medium|review=False|source=cattle` | 4 | 1 |
+| `animals|tier=C|band=medium|review=False|source=bovines` | 2 | 2 |
+| `animals|tier=C|band=medium|review=False|source=canids` | 2 | 2 |
+| `animals|tier=C|band=medium|review=False|source=cattle` | 4 | 2 |
 | `animals|tier=C|band=medium|review=False|source=cervids` | 1 | 1 |
-| `animals|tier=C|band=medium|review=False|source=dogs` | 3 | 1 |
-| `animals|tier=C|band=medium|review=False|source=fish` | 9 | 1 |
+| `animals|tier=C|band=medium|review=False|source=dogs` | 3 | 2 |
+| `animals|tier=C|band=medium|review=False|source=fish` | 9 | 2 |
 | `animals|tier=C|band=medium|review=False|source=goats` | 1 | 1 |
-| `animals|tier=C|band=medium|review=False|source=horses` | 4 | 1 |
-| `animals|tier=C|band=medium|review=False|source=insects` | 9 | 1 |
+| `animals|tier=C|band=medium|review=False|source=horses` | 4 | 2 |
+| `animals|tier=C|band=medium|review=False|source=insects` | 9 | 2 |
 | `animals|tier=C|band=medium|review=False|source=lizards` | 1 | 1 |
-| `animals|tier=C|band=medium|review=False|source=mammals` | 4 | 1 |
+| `animals|tier=C|band=medium|review=False|source=mammals` | 4 | 2 |
 | `animals|tier=C|band=medium|review=False|source=marsupials` | 1 | 1 |
 | `animals|tier=C|band=medium|review=False|source=new_world_monkeys` | 1 | 1 |
 | `animals|tier=C|band=medium|review=False|source=pikes_fish` | 1 | 1 |
-| `animals|tier=C|band=medium|review=False|source=poultry` | 2 | 1 |
-| `animals|tier=C|band=medium|review=False|source=primates` | 2 | 1 |
+| `animals|tier=C|band=medium|review=False|source=poultry` | 2 | 2 |
+| `animals|tier=C|band=medium|review=False|source=primates` | 2 | 2 |
 | `animals|tier=C|band=medium|review=False|source=reptiles` | 1 | 1 |
 | `animals|tier=C|band=medium|review=False|source=sharks` | 1 | 1 |
 | `animals|tier=C|band=medium|review=False|source=sheep` | 1 | 1 |
@@ -76,61 +76,61 @@
 | `animals|tier=B|band=high|review=False|source=primary_translation:bird` | 1 | 1 |
 | `animals|tier=B|band=high|review=False|source=primary_translation:chicken` | 1 | 1 |
 | `animals|tier=B|band=high|review=False|source=primary_translation:condor` | 1 | 1 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:cow` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:crow` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:deer` | 2 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:dog` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:donkey` | 2 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:duck` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:eagle` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:falcon` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:fish` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:fox` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:frog` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:goose` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:hen` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:insect` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:lizard` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:mare` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:mosquito` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:mouse` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:owl` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:parrot` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:pig` | 2 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:shark` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:sheep` | 2 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:snake` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:spider` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:turtle` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:whale` | 1 | 0 |
-| `animals|tier=B|band=high|review=False|source=primary_translation:wolf` | 1 | 0 |
-| `animals|tier=A|band=high|review=False|source=zoology` | 4 | 0 |
-| `plants_nature|tier=D|band=review|review=True|source=plant_translation_pattern` | 6 | 1 |
-| `plants_nature|tier=C|band=review|review=True|source=fruits` | 2 | 1 |
-| `plants_nature|tier=C|band=review|review=True|source=herbs` | 2 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:cow` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:crow` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:deer` | 2 | 2 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:dog` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:donkey` | 2 | 2 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:duck` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:eagle` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:falcon` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:fish` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:fox` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:frog` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:goose` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:hen` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:insect` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:lizard` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:mare` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:mosquito` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:mouse` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:owl` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:parrot` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:pig` | 2 | 2 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:shark` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:sheep` | 2 | 2 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:snake` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:spider` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:turtle` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:whale` | 1 | 1 |
+| `animals|tier=B|band=high|review=False|source=primary_translation:wolf` | 1 | 1 |
+| `animals|tier=A|band=high|review=False|source=zoology` | 4 | 2 |
+| `plants_nature|tier=D|band=review|review=True|source=plant_translation_pattern` | 6 | 3 |
+| `plants_nature|tier=C|band=review|review=True|source=fruits` | 2 | 2 |
+| `plants_nature|tier=C|band=review|review=True|source=herbs` | 2 | 2 |
 | `plants_nature|tier=C|band=review|review=True|source=plants` | 1 | 1 |
 | `plants_nature|tier=C|band=review|review=True|source=spices_and_herbs` | 1 | 1 |
-| `plants_nature|tier=C|band=review|review=True|source=trees` | 2 | 1 |
-| `plants_nature|tier=A|band=review|review=True|source=botany` | 14 | 1 |
+| `plants_nature|tier=C|band=review|review=True|source=trees` | 2 | 2 |
+| `plants_nature|tier=A|band=review|review=True|source=botany` | 14 | 2 |
 | `plants_nature|tier=D|band=inventory|review=True|source=plant_gloss_pattern` | 1 | 1 |
 | `plants_nature|tier=D|band=inventory|review=True|source=plant_translation_pattern` | 1 | 1 |
 | `plants_nature|tier=A|band=inventory|review=False|source=botany` | 1 | 1 |
 | `plants_nature|tier=C|band=medium|review=False|source=asparagus_family_plants` | 1 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=botany` | 5 | 1 |
+| `plants_nature|tier=C|band=medium|review=False|source=botany` | 5 | 2 |
 | `plants_nature|tier=C|band=medium|review=False|source=buckwheat_family_plants` | 1 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=flowers` | 9 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=fruits` | 11 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=grains` | 2 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=grapevines` | 2 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=herbs` | 5 | 1 |
+| `plants_nature|tier=C|band=medium|review=False|source=flowers` | 9 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=fruits` | 11 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=grains` | 2 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=grapevines` | 2 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=herbs` | 5 | 2 |
 | `plants_nature|tier=C|band=medium|review=False|source=oaks` | 1 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=palm_trees` | 2 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=plant_anatomy` | 3 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=plants` | 11 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=pome_fruits` | 2 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=spices_and_herbs` | 2 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=trees` | 17 | 1 |
-| `plants_nature|tier=C|band=medium|review=False|source=vegetables` | 11 | 1 |
+| `plants_nature|tier=C|band=medium|review=False|source=palm_trees` | 2 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=plant_anatomy` | 3 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=plants` | 11 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=pome_fruits` | 2 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=spices_and_herbs` | 2 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=trees` | 17 | 2 |
+| `plants_nature|tier=C|band=medium|review=False|source=vegetables` | 11 | 2 |
 | `plants_nature|tier=B|band=high|review=False|source=primary_translation:barley` | 1 | 1 |
 | `plants_nature|tier=B|band=high|review=False|source=primary_translation:corn` | 1 | 1 |
 | `plants_nature|tier=B|band=high|review=False|source=primary_translation:flower` | 1 | 1 |
@@ -144,7 +144,7 @@
 | `plants_nature|tier=B|band=high|review=False|source=primary_translation:vine` | 1 | 1 |
 | `plants_nature|tier=B|band=high|review=False|source=primary_translation:wheat` | 1 | 1 |
 | `plants_nature|tier=B|band=high|review=False|source=primary_translation:willow` | 1 | 1 |
-| `plants_nature|tier=A|band=high|review=False|source=botany` | 9 | 1 |
+| `plants_nature|tier=A|band=high|review=False|source=botany` | 9 | 2 |
 
 ## Manual Review Queue
 
@@ -246,6 +246,78 @@
 | `srs-anpl-094` | `animals` | `ave` | `B` | `high` | `translation:primary_translation:bird` | 0.855 | `False` | `bird` | accept_strong_topic | Clear animal class sense: bird. |
 | `srs-anpl-095` | `animals` | `pollo` | `B` | `high` | `translation:primary_translation:chicken` | 0.855 | `False` | `chicken (meat)` | accept_light_topic | Chicken animal sense is real, but meat/food use is strong. |
 | `srs-anpl-096` | `animals` | `cóndor` | `B` | `high` | `translation:primary_translation:condor` | 0.855 | `False` | `condor` | accept_strong_topic | Clear animal sense: condor. |
+| `srs-anpl-097` | `animals` | `vaca` | `B` | `high` | `translation:primary_translation:cow` | 0.855 | `False` | `cow (adult female of the species bos taurus)` | accept_strong_topic | Clear animal sense: cow. |
+| `srs-anpl-098` | `animals` | `cuervo` | `B` | `high` | `translation:primary_translation:crow` | 0.855 | `False` | `crow (bird)` | accept_strong_topic | Clear animal sense: crow. |
+| `srs-anpl-099` | `animals` | `ciervo` | `B` | `high` | `translation:primary_translation:deer` | 0.855 | `False` | `deer, stag` | accept_strong_topic | Clear animal sense: deer or stag. |
+| `srs-anpl-100` | `animals` | `can` | `B` | `high` | `translation:primary_translation:dog` | 0.855 | `False` | `dog, hound` | accept_strong_topic | Clear animal sense: dog or hound. |
+| `srs-anpl-101` | `animals` | `burro` | `B` | `high` | `translation:primary_translation:donkey` | 0.855 | `False` | `donkey, especially one used as a pack animal` | accept_strong_topic | Clear animal sense: donkey. |
+| `srs-anpl-102` | `animals` | `pato` | `B` | `high` | `translation:primary_translation:duck` | 0.855 | `False` | `duck, drake` | accept_strong_topic | Clear animal sense: duck. |
+| `srs-anpl-103` | `animals` | `águila` | `B` | `high` | `translation:primary_translation:eagle` | 0.855 | `False` | `eagle` | accept_strong_topic | Clear animal sense: eagle. |
+| `srs-anpl-104` | `animals` | `halcón` | `B` | `high` | `translation:primary_translation:falcon` | 0.855 | `False` | `falcon (diurnal bird of prey in falconidae and especially in falco)` | accept_strong_topic | Clear animal sense: falcon. |
+| `srs-anpl-105` | `animals` | `pez` | `B` | `high` | `translation:primary_translation:fish` | 0.855 | `False` | `fish (especially while alive)` | accept_strong_topic | Clear animal sense: fish. |
+| `srs-anpl-106` | `animals` | `zorro` | `B` | `high` | `translation:primary_translation:fox` | 0.855 | `False` | `fox (carnivore)` | accept_strong_topic | Clear animal sense: fox. |
+| `srs-anpl-107` | `animals` | `rana` | `B` | `high` | `translation:primary_translation:frog` | 0.855 | `False` | `frog` | accept_strong_topic | Clear animal sense: frog. |
+| `srs-anpl-108` | `animals` | `oca` | `B` | `high` | `translation:primary_translation:goose` | 0.855 | `False` | `goose, especially of the domestic european variety and with a white or grey p...` | accept_strong_topic | Clear animal sense: goose. |
+| `srs-anpl-109` | `animals` | `gallina` | `B` | `high` | `translation:primary_translation:hen` | 0.855 | `False` | `hen` | accept_strong_topic | Clear animal sense: hen. |
+| `srs-anpl-110` | `animals` | `insecto` | `B` | `high` | `translation:primary_translation:insect` | 0.855 | `False` | `insect` | accept_strong_topic | Clear animal class sense: insect. |
+| `srs-anpl-111` | `animals` | `lagarto` | `B` | `high` | `translation:primary_translation:lizard` | 0.855 | `False` | `lizard` | accept_strong_topic | Clear animal sense: lizard. |
+| `srs-anpl-112` | `animals` | `yegua` | `B` | `high` | `translation:primary_translation:mare` | 0.855 | `False` | `mare (female horse)` | accept_strong_topic | Clear animal sense: mare. |
+| `srs-anpl-113` | `animals` | `mosquito` | `B` | `high` | `translation:primary_translation:mosquito` | 0.855 | `False` | `mosquito` | accept_strong_topic | Clear animal sense: mosquito. |
+| `srs-anpl-114` | `animals` | `ratón` | `B` | `high` | `translation:primary_translation:mouse` | 0.855 | `False` | `mouse (small rodent)` | accept_strong_topic | Clear animal sense: mouse. |
+| `srs-anpl-115` | `animals` | `lechuza` | `B` | `high` | `translation:primary_translation:owl` | 0.855 | `False` | `owl` | accept_strong_topic | Clear animal sense: owl. |
+| `srs-anpl-116` | `animals` | `loro` | `B` | `high` | `translation:primary_translation:parrot` | 0.855 | `False` | `parrot, parakeet` | accept_strong_topic | Clear animal sense: parrot. |
+| `srs-anpl-117` | `animals` | `chancho` | `B` | `high` | `translation:primary_translation:pig` | 0.855 | `False` | `pig` | accept_strong_topic | Clear animal sense: pig. |
+| `srs-anpl-118` | `animals` | `tiburón` | `B` | `high` | `translation:primary_translation:shark` | 0.855 | `False` | `shark` | accept_strong_topic | Clear animal sense: shark. |
+| `srs-anpl-119` | `animals` | `oveja` | `B` | `high` | `translation:primary_translation:sheep` | 0.855 | `False` | `sheep` | accept_strong_topic | Clear animal sense: sheep. |
+| `srs-anpl-120` | `animals` | `culebra` | `B` | `high` | `translation:primary_translation:snake` | 0.855 | `False` | `snake, serpent (legless reptile of the sub-order serpentes)` | accept_strong_topic | Clear animal sense: snake. |
+| `srs-anpl-121` | `animals` | `araña` | `B` | `high` | `translation:primary_translation:spider` | 0.855 | `False` | `spider` | accept_strong_topic | Clear animal sense: spider. |
+| `srs-anpl-122` | `animals` | `tortuga` | `B` | `high` | `translation:primary_translation:turtle` | 0.855 | `False` | `turtle` | accept_strong_topic | Clear animal sense: turtle. |
+| `srs-anpl-123` | `animals` | `ballena` | `B` | `high` | `translation:primary_translation:whale` | 0.855 | `False` | `whale` | accept_strong_topic | Clear animal sense: whale. |
+| `srs-anpl-124` | `animals` | `lobo` | `B` | `high` | `translation:primary_translation:wolf` | 0.855 | `False` | `wolf` | accept_strong_topic | Clear animal sense: wolf. |
+| `srs-anpl-125` | `animals` | `manada` | `A` | `high` | `sense_topics:zoology` | 0.9 | `False` | explicit_sense_topic | accept_light_topic | Animal-group sense is real, but this is a collective/group word rather than an animal noun. |
+| `srs-anpl-126` | `animals` | `manco` | `D` | `review` | `translation:animal_translation_pattern` | 0.4536 | `True` | `horse` | reject_secondary_or_obscure_sense | Animal-related horse evidence is too secondary against the dominant injured/one-handed sense. |
+| `srs-anpl-127` | `plants_nature` | `carolina` | `D` | `review` | `translation:plant_translation_pattern` | 0.4536 | `True` | `a tree of species sideroxylon salicifolium (willow bully, white bully, willow...` | accept_light_topic | Tree-species sense is real, but proper-name ambiguity keeps this light. |
+| `srs-anpl-128` | `animals` | `solitario` | `C` | `review` | `entry_categories:birds` | 0.5586 | `True` | allowlisted_category_or_tag | reject_secondary_or_obscure_sense | Bird sense is too secondary against solitary/person/game senses. |
+| `srs-anpl-129` | `plants_nature` | `claudia` | `C` | `review` | `sense_categories:fruits` | 0.5187 | `True` | allowlisted_category_or_tag | accept_light_topic | Fruit/cultivar sense is real, but proper-name ambiguity keeps this light. |
+| `srs-anpl-130` | `animals` | `cubrir` | `A` | `review` | `sense_topics:zoology` | 0.63 | `True` | explicit_sense_topic | reject_secondary_or_obscure_sense | Zoology mating sense is too secondary for a topic-admission label. |
+| `srs-anpl-131` | `plants_nature` | `angélica` | `C` | `review` | `entry_categories:herbs` | 0.532 | `True` | allowlisted_category_or_tag | accept_light_topic | Herb/plant sense is real, but proper-name ambiguity keeps this light. |
+| `srs-anpl-132` | `animals` | `marta` | `D` | `inventory` | `gloss_or_translation:animal_gloss_pattern` | 0.3689 | `True` | `marten (mammal of the martes genus)` | accept_light_topic | Marten sense is real, but proper-name ambiguity keeps this light. |
+| `srs-anpl-133` | `plants_nature` | `cola` | `C` | `review` | `entry_categories:trees` | 0.5453 | `True` | allowlisted_category_or_tag | accept_light_topic | Tree sense is real, but queue/tail/drink senses keep this light. |
+| `srs-anpl-134` | `animals` | `animal` | `C` | `medium` | `entry_categories:animals` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Direct animal topic word. |
+| `srs-anpl-135` | `plants_nature` | `pulpa` | `A` | `review` | `sense_topics:botany` | 0.63 | `True` | explicit_sense_topic | accept_light_topic | Botany/fruit pulp sense is plant-relevant but broad. |
+| `srs-anpl-136` | `animals` | `hornero` | `C` | `medium` | `entry_categories:birds` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal sense: bird species. |
+| `srs-anpl-137` | `plants_nature` | `raíz` | `C` | `medium` | `entry_categories:botany` | 0.779 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear plant-anatomy sense: root. |
+| `srs-anpl-138` | `animals` | `bovino` | `C` | `medium` | `entry_categories:bovines` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal/cattle sense. |
+| `srs-anpl-139` | `plants_nature` | `aro` | `C` | `medium` | `entry_categories:flowers` | 0.779 | `False` | allowlisted_category_or_tag | reject_secondary_or_obscure_sense | Flower sense is too secondary against ring/hoop senses. |
+| `srs-anpl-140` | `animals` | `chacal` | `C` | `medium` | `entry_categories:canids` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal sense: jackal. |
+| `srs-anpl-141` | `plants_nature` | `naranja` | `C` | `medium` | `entry_categories:fruits` | 0.741 | `False` | allowlisted_category_or_tag | accept_light_topic | Fruit/tree sense is real, but food/color/political senses keep this light. |
+| `srs-anpl-142` | `animals` | `rebaño` | `C` | `medium` | `entry_categories:cattle` | 0.798 | `False` | allowlisted_category_or_tag | accept_light_topic | Animal-herd sense is real, but this is a group word rather than an animal noun. |
+| `srs-anpl-143` | `plants_nature` | `mote` | `C` | `medium` | `entry_categories:grains` | 0.76 | `False` | allowlisted_category_or_tag | accept_light_topic | Grain/plant-derived sense is real, but food and nickname senses keep this light. |
+| `srs-anpl-144` | `animals` | `galgo` | `C` | `medium` | `entry_categories:dogs` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal sense: dog breed. |
+| `srs-anpl-145` | `plants_nature` | `uva` | `C` | `medium` | `sense_categories:grapevines` | 0.779 | `False` | allowlisted_category_or_tag | accept_light_topic | Fruit/grapevine sense is plant-relevant but overlaps food. |
+| `srs-anpl-146` | `animals` | `rubio` | `C` | `medium` | `entry_categories:fish` | 0.779 | `False` | allowlisted_category_or_tag | reject_secondary_or_obscure_sense | Fish sense is too secondary against color/person senses. |
+| `srs-anpl-147` | `plants_nature` | `ruda` | `C` | `medium` | `entry_categories:herbs` | 0.76 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear herb/plant sense: rue. |
+| `srs-anpl-148` | `animals` | `jinete` | `C` | `medium` | `entry_categories:horses` | 0.798 | `False` | allowlisted_category_or_tag | reject_secondary_or_obscure_sense | Horse-rider association is animal-adjacent, not an animal topic label. |
+| `srs-anpl-149` | `plants_nature` | `palmera` | `C` | `medium` | `entry_categories:palm_trees` | 0.779 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear plant sense: palm tree. |
+| `srs-anpl-150` | `animals` | `gusano` | `C` | `medium` | `entry_categories:insects` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal sense: worm. |
+| `srs-anpl-151` | `plants_nature` | `cono` | `C` | `medium` | `entry_categories:plant_anatomy` | 0.76 | `False` | allowlisted_category_or_tag | accept_light_topic | Plant-cone sense is real, but geometry/object senses keep this light. |
+| `srs-anpl-152` | `animals` | `anta` | `C` | `medium` | `entry_categories:mammals` | 0.779 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal sense: tapir. |
+| `srs-anpl-153` | `plants_nature` | `arbusto` | `C` | `medium` | `sense_categories:plants` | 0.779 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear plant sense: shrub. |
+| `srs-anpl-154` | `animals` | `paloma` | `C` | `medium` | `entry_categories:poultry` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal sense: dove. |
+| `srs-anpl-155` | `plants_nature` | `pera` | `C` | `medium` | `entry_categories:pome_fruits` | 0.741 | `False` | allowlisted_category_or_tag | accept_light_topic | Fruit/tree sense is plant-relevant but overlaps food. |
+| `srs-anpl-156` | `animals` | `mico` | `C` | `medium` | `entry_categories:primates` | 0.798 | `False` | allowlisted_category_or_tag | accept_strong_topic | Clear animal sense: monkey. |
+| `srs-anpl-157` | `plants_nature` | `clavo` | `C` | `medium` | `entry_categories:spices_and_herbs` | 0.741 | `False` | allowlisted_category_or_tag | accept_light_topic | Spice/herb sense is plant-relevant but competes with nail/object senses. |
+| `srs-anpl-158` | `animals` | `venado` | `B` | `high` | `translation:primary_translation:deer` | 0.855 | `False` | `deer, stag` | accept_strong_topic | Clear animal sense: deer. |
+| `srs-anpl-159` | `plants_nature` | `incienso` | `C` | `medium` | `entry_categories:trees` | 0.779 | `False` | allowlisted_category_or_tag | accept_light_topic | Tree/resin sense is plant-relevant but broad and product-like. |
+| `srs-anpl-160` | `animals` | `asno` | `B` | `high` | `translation:primary_translation:donkey` | 0.855 | `False` | `donkey, ass` | accept_strong_topic | Clear animal sense: donkey. |
+| `srs-anpl-161` | `plants_nature` | `papa` | `C` | `medium` | `entry_categories:vegetables` | 0.741 | `False` | allowlisted_category_or_tag | accept_light_topic | Vegetable/plant sense is real, but food and title senses keep this light. |
+| `srs-anpl-162` | `animals` | `puerco` | `B` | `high` | `translation:primary_translation:pig` | 0.855 | `False` | `pig` | accept_strong_topic | Clear animal sense: pig. |
+| `srs-anpl-163` | `plants_nature` | `brote` | `A` | `high` | `sense_topics:botany` | 0.9 | `False` | explicit_sense_topic | accept_strong_topic | Clear plant-growth sense: sprout. |
+| `srs-anpl-164` | `animals` | `carnero` | `B` | `high` | `translation:primary_translation:sheep` | 0.855 | `False` | `a sheep, a ram (woolly ruminant of the genus ovis, especially a male)` | accept_strong_topic | Clear animal sense: ram. |
+| `srs-anpl-165` | `animals` | `dinosaurio` | `A` | `high` | `sense_topics:zoology` | 0.9 | `False` | explicit_sense_topic | accept_strong_topic | Clear animal sense: dinosaur. |
+| `srs-anpl-166` | `animals` | `aviar` | `D` | `review` | `translation:animal_translation_pattern` | 0.648 | `True` | `bird; avian (of or relating to birds)` | accept_light_topic | Bird-related adjective is animal-topic relevant, but it is not an animal noun. |
+| `srs-anpl-167` | `plants_nature` | `rambla` | `D` | `review` | `translation:plant_translation_pattern` | 0.4536 | `True` | `tree-lined avenue` | reject_secondary_or_obscure_sense | Tree-lined avenue sense is too secondary for a plants/nature label. |
+| `srs-anpl-168` | `animals` | `martín` | `C` | `review` | `sense_categories:birds` | 0.5586 | `True` | allowlisted_category_or_tag | accept_light_topic | Bird sense is real, but proper-name ambiguity keeps this light. |
 
 ## Limitations
 

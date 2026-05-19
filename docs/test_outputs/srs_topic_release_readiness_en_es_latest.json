@@ -28,7 +28,7 @@
     "seed_count": 10000,
     "unique_lemma_count": 10000
   },
-  "generated_at": "2026-05-19T04:02:49.139193+00:00",
+  "generated_at": "2026-05-19T04:08:10.005485+00:00",
   "inputs": {
     "depth_audit_json": "docs/test_outputs/srs_topic_family_depth_audit_en_es_latest.json",
     "frontier_label": "spalex_10k_research",
@@ -50,11 +50,11 @@
     "by_topic": {
       "animals": {
         "counts_by_confidence": {
-          "light": 11,
-          "strong": 38
+          "light": 16,
+          "strong": 80
         },
-        "lemma_count": 49,
-        "row_count": 49
+        "lemma_count": 96,
+        "row_count": 96
       },
       "food_cooking": {
         "counts_by_confidence": {
@@ -66,11 +66,11 @@
       },
       "plants_nature": {
         "counts_by_confidence": {
-          "light": 16,
-          "strong": 19
+          "light": 29,
+          "strong": 24
         },
-        "lemma_count": 35,
-        "row_count": 35
+        "lemma_count": 53,
+        "row_count": 53
       }
     },
     "overlay_count": 2,
@@ -95,7 +95,7 @@
   "schema_version": 1,
   "status": "ok",
   "summary": {
-    "beta_visible_count": 3,
+    "beta_visible_count": 1,
     "default_visible_count": 5,
     "finding_counts": {
       "PASS": 3,
@@ -103,12 +103,12 @@
     },
     "hidden_count": 3,
     "issues": [],
-    "limited_visible_count": 6,
+    "limited_visible_count": 8,
     "release_status_counts": {
-      "beta_limited_candidate": 2,
       "blocked_legal_source_required": 1,
       "blocked_source_required": 2,
-      "limited_release_candidate": 1,
+      "limited_release_candidate": 2,
+      "limited_release_candidate_overlay_only": 1,
       "register_beta_candidate_policy_review": 1,
       "register_release_candidate_policy_review": 1,
       "release_candidate": 5,
@@ -117,12 +117,11 @@
     "topic_count": 17,
     "visibility_counts": {
       "beta_after_policy_review": 1,
-      "beta_visible_or_hidden": 2,
       "default_visible": 5,
       "hidden_until_licensed_source": 1,
       "hidden_until_source_backed": 2,
       "visible_after_policy_review": 1,
-      "visible_with_limited_depth_note": 5
+      "visible_with_limited_depth_note": 7
     },
     "warnings": [
       "some_topics_blocked"
@@ -349,23 +348,23 @@
       "axis": "topic",
       "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay",
       "display_name": "Animals",
-      "effective_candidate_count": 49,
+      "effective_candidate_count": 96,
       "effective_candidate_source": "reviewed_overlay",
       "family": "animals",
       "next_work": [
-        "add enough reviewed rows to reach the limited-release floor",
-        "improve difficulty spread beyond one or two bands",
-        "label the topic as limited/beta if exposed"
+        "run sampled precision review",
+        "add more reviewed rows if the lab still feels clumpy",
+        "lab-smoke preference strength across proficiency values"
       ],
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "recommended_visibility": "beta_visible_or_hidden",
-      "release_status": "beta_limited_candidate",
+      "recommended_visibility": "visible_with_limited_depth_note",
+      "release_status": "limited_release_candidate",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 49,
+      "reviewed_overlay_candidate_count": 96,
       "reviewed_overlay_confidence_counts": {
-        "light": 11,
-        "strong": 38
+        "light": 16,
+        "strong": 80
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.30637,
@@ -376,23 +375,23 @@
       "axis": "topic",
       "data_strategy": "trusted_botany_topics_plus_categories_glosses_then_curated_plant_overlay",
       "display_name": "Plants & Nature",
-      "effective_candidate_count": 35,
+      "effective_candidate_count": 53,
       "effective_candidate_source": "reviewed_overlay",
       "family": "plants_nature",
       "next_work": [
-        "add enough reviewed rows to reach the limited-release floor",
-        "improve difficulty spread beyond one or two bands",
-        "label the topic as limited/beta if exposed"
+        "derive difficulty-band coverage for reviewed overlay rows",
+        "run sampled precision review on the broader overlay",
+        "lab-smoke preference strength across proficiency values"
       ],
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "recommended_visibility": "beta_visible_or_hidden",
-      "release_status": "beta_limited_candidate",
+      "recommended_visibility": "visible_with_limited_depth_note",
+      "release_status": "limited_release_candidate_overlay_only",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 35,
+      "reviewed_overlay_candidate_count": 53,
       "reviewed_overlay_confidence_counts": {
-        "light": 16,
-        "strong": 19
+        "light": 29,
+        "strong": 24
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.151442,

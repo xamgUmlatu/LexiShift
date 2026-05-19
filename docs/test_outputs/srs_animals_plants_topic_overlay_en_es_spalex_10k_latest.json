@@ -12,7 +12,7 @@
       "message": "All review rows have decision labels."
     }
   ],
-  "generated_at": "2026-05-17T00:03:20+00:00",
+  "generated_at": "2026-05-19T04:08:00+00:00",
   "inputs": {
     "review_packet_decision": "srs_animals_plants_signal_review_packet_ready",
     "review_packet_json": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
@@ -25,12 +25,100 @@
     },
     "promotion_state": "poc_candidate_not_product_overlay",
     "rejected_decisions_excluded": {
-      "reject_secondary_or_obscure_sense": 10,
+      "reject_secondary_or_obscure_sense": 17,
       "reject_wrong_topic": 2
     },
     "runtime_policy_change": "none"
   },
   "rows": [
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "animal",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Direct animal topic word.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-134",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "animals",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "anta",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: tapir.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-152",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "mammals",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "araña",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: spider.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-121",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:spider",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "asno",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: donkey.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-160",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:donkey",
+      "topic": "animals"
+    },
     {
       "confidence_label": "strong",
       "evidence_band": "high",
@@ -51,6 +139,50 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:bird",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.648,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "aviar",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Bird-related adjective is animal-topic relevant, but it is not an animal noun.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-166",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "animal_translation_pattern",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "ballena",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: whale.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-123",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:whale",
       "topic": "animals"
     },
     {
@@ -77,6 +209,28 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "bovino",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal/cattle sense.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-138",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "bovines",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "review",
       "evidence_score": 0.5586,
       "evidence_tier": "C",
@@ -95,6 +249,28 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "cattle",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "burro",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: donkey.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-101",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:donkey",
       "topic": "animals"
     },
     {
@@ -187,6 +363,50 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "can",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: dog or hound.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-100",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:dog",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "carnero",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: ram.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-164",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:sheep",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "review",
       "evidence_score": 0.5586,
       "evidence_tier": "C",
@@ -205,6 +425,50 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "pigs",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "chacal",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: jackal.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-140",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "canids",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "chancho",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: pig.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-117",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:pig",
       "topic": "animals"
     },
     {
@@ -249,6 +513,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:goat",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "ciervo",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: deer or stag.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-099",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:deer",
       "topic": "animals"
     },
     {
@@ -411,6 +697,50 @@
       "evidence_score": 0.855,
       "evidence_tier": "B",
       "language_pair": "en-es",
+      "lemma": "cuervo",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: crow.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-098",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:crow",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "culebra",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: snake.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-120",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:snake",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
       "lemma": "cóndor",
       "membership": 1.0,
       "provenance": {
@@ -447,6 +777,28 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "animals",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.9,
+      "evidence_tier": "A",
+      "language_pair": "en-es",
+      "lemma": "dinosaurio",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: dinosaur.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-165",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_topics",
+      "source_label": "zoology",
       "topic": "animals"
     },
     {
@@ -517,6 +869,50 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "galgo",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: dog breed.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-144",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "dogs",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "gallina",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: hen.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-109",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:hen",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "review",
       "evidence_score": 0.5985,
       "evidence_tier": "B",
@@ -557,6 +953,94 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:cat",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "gusano",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: worm.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-150",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "insects",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "halcón",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: falcon.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-104",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:falcon",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "hornero",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: bird species.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-136",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "birds",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "insecto",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal class sense: insect.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-110",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:insect",
       "topic": "animals"
     },
     {
@@ -649,6 +1133,50 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "lagarto",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: lizard.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-111",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:lizard",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "lechuza",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: owl.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-115",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:owl",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "inventory",
       "evidence_score": 0.39102,
       "evidence_tier": "C",
@@ -671,6 +1199,50 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "lobo",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: wolf.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-124",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:wolf",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "loro",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: parrot.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-116",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:parrot",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "medium",
       "evidence_score": 0.779,
       "evidence_tier": "C",
@@ -689,6 +1261,94 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "pikes_fish",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "high",
+      "evidence_score": 0.9,
+      "evidence_tier": "A",
+      "language_pair": "en-es",
+      "lemma": "manada",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Animal-group sense is real, but this is a collective/group word rather than an animal noun.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-125",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_topics",
+      "source_label": "zoology",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "inventory",
+      "evidence_score": 0.3689,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "marta",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Marten sense is real, but proper-name ambiguity keeps this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-132",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "gloss_or_translation",
+      "source_label": "animal_gloss_pattern",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.5586,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "martín",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Bird sense is real, but proper-name ambiguity keeps this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-168",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_categories",
+      "source_label": "birds",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "mico",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: monkey.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-156",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "primates",
       "topic": "animals"
     },
     {
@@ -758,6 +1418,28 @@
       "topic": "animals"
     },
     {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "mosquito",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: mosquito.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-113",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:mosquito",
+      "topic": "animals"
+    },
+    {
       "confidence_label": "light",
       "evidence_band": "review",
       "evidence_score": 0.4536,
@@ -777,6 +1459,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "animal_translation_pattern",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "oca",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: goose.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-108",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:goose",
       "topic": "animals"
     },
     {
@@ -825,6 +1529,72 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "oveja",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: sheep.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-119",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:sheep",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "paloma",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: dove.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-154",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "poultry",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "pato",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: duck.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-102",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:duck",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "review",
       "evidence_score": 0.5985,
       "evidence_tier": "B",
@@ -843,6 +1613,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:dog",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "pez",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: fish.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-105",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:fish",
       "topic": "animals"
     },
     {
@@ -869,6 +1661,28 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "puerco",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: pig.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-162",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:pig",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "review",
       "evidence_score": 0.5985,
       "evidence_tier": "B",
@@ -887,6 +1701,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:bird",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "rana",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: frog.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-107",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:frog",
       "topic": "animals"
     },
     {
@@ -912,6 +1748,28 @@
       "topic": "animals"
     },
     {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "ratón",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: mouse.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-114",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:mouse",
+      "topic": "animals"
+    },
+    {
       "confidence_label": "light",
       "evidence_band": "medium",
       "evidence_score": 0.779,
@@ -931,6 +1789,28 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "fish",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.798,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "rebaño",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Animal-herd sense is real, but this is a group word rather than an animal noun.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-142",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "cattle",
       "topic": "animals"
     },
     {
@@ -1023,6 +1903,28 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "tiburón",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: shark.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-118",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:shark",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "review",
       "evidence_score": 0.5985,
       "evidence_tier": "B",
@@ -1041,6 +1943,50 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:tiger",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "tortuga",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: turtle.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-122",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:turtle",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "vaca",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: cow.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-097",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:cow",
       "topic": "animals"
     },
     {
@@ -1063,6 +2009,28 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "bovines",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "venado",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: deer.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-158",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:deer",
       "topic": "animals"
     },
     {
@@ -1110,6 +2078,72 @@
       "topic": "animals"
     },
     {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "yegua",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: mare.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-112",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:mare",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "zorro",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: fox.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-106",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:fox",
+      "topic": "animals"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.855,
+      "evidence_tier": "B",
+      "language_pair": "en-es",
+      "lemma": "águila",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear animal sense: eagle.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-103",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "primary_translation:eagle",
+      "topic": "animals"
+    },
+    {
       "confidence_label": "light",
       "evidence_band": "medium",
       "evidence_score": 0.76,
@@ -1132,6 +2166,72 @@
       "topic": "plants_nature"
     },
     {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.532,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "angélica",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Herb/plant sense is real, but proper-name ambiguity keeps this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-131",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "herbs",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "arbusto",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: shrub.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-153",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_categories",
+      "source_label": "plants",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "high",
+      "evidence_score": 0.9,
+      "evidence_tier": "A",
+      "language_pair": "en-es",
+      "lemma": "brote",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant-growth sense: sprout.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-163",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_topics",
+      "source_label": "botany",
+      "topic": "plants_nature"
+    },
+    {
       "confidence_label": "strong",
       "evidence_band": "medium",
       "evidence_score": 0.741,
@@ -1151,6 +2251,28 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "vegetables",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.4536,
+      "evidence_tier": "D",
+      "language_pair": "en-es",
+      "lemma": "carolina",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Tree-species sense is real, but proper-name ambiguity keeps this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-127",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "translation",
+      "source_label": "plant_translation_pattern",
       "topic": "plants_nature"
     },
     {
@@ -1239,6 +2361,94 @@
       "reviewer": "codex_agent",
       "source_channel": "entry_categories",
       "source_label": "spices_and_herbs",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.5187,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "claudia",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Fruit/cultivar sense is real, but proper-name ambiguity keeps this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-129",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_categories",
+      "source_label": "fruits",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.741,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "clavo",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Spice/herb sense is plant-relevant but competes with nail/object senses.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-157",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "spices_and_herbs",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.5453,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "cola",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Tree sense is real, but queue/tail/drink senses keep this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-133",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "trees",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.76,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "cono",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Plant-cone sense is real, but geometry/object senses keep this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-151",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "plant_anatomy",
       "topic": "plants_nature"
     },
     {
@@ -1371,6 +2581,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:grass",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "incienso",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Tree/resin sense is plant-relevant but broad and product-like.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-159",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "trees",
       "topic": "plants_nature"
     },
     {
@@ -1508,6 +2740,50 @@
     {
       "confidence_label": "light",
       "evidence_band": "medium",
+      "evidence_score": 0.76,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "mote",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Grain/plant-derived sense is real, but food and nickname senses keep this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-143",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "grains",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.741,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "naranja",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Fruit/tree sense is real, but food/color/political senses keep this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-141",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "fruits",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
       "evidence_score": 0.741,
       "evidence_tier": "C",
       "language_pair": "en-es",
@@ -1573,6 +2849,50 @@
     },
     {
       "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "palmera",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant sense: palm tree.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-149",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "palm_trees",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.741,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "papa",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Vegetable/plant sense is real, but food and title senses keep this light.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-161",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "vegetables",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "strong",
       "evidence_band": "high",
       "evidence_score": 0.855,
       "evidence_tier": "B",
@@ -1591,6 +2911,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:grapevine",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.741,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "pera",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Fruit/tree sense is plant-relevant but overlaps food.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-155",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "pome_fruits",
       "topic": "plants_nature"
     },
     {
@@ -1638,6 +2980,50 @@
       "topic": "plants_nature"
     },
     {
+      "confidence_label": "light",
+      "evidence_band": "review",
+      "evidence_score": 0.63,
+      "evidence_tier": "A",
+      "language_pair": "en-es",
+      "lemma": "pulpa",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Botany/fruit pulp sense is plant-relevant but broad.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-135",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_topics",
+      "source_label": "botany",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "raíz",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear plant-anatomy sense: root.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-137",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "botany",
+      "topic": "plants_nature"
+    },
+    {
       "confidence_label": "strong",
       "evidence_band": "high",
       "evidence_score": 0.855,
@@ -1679,6 +3065,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:rose",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "strong",
+      "evidence_band": "medium",
+      "evidence_score": 0.76,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "ruda",
+      "membership": 1.0,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Clear herb/plant sense: rue.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_strong_topic",
+      "review_id": "srs-anpl-147",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "entry_categories",
+      "source_label": "herbs",
       "topic": "plants_nature"
     },
     {
@@ -1767,6 +3175,28 @@
       "reviewer": "codex_agent",
       "source_channel": "translation",
       "source_label": "primary_translation:wheat",
+      "topic": "plants_nature"
+    },
+    {
+      "confidence_label": "light",
+      "evidence_band": "medium",
+      "evidence_score": 0.779,
+      "evidence_tier": "C",
+      "language_pair": "en-es",
+      "lemma": "uva",
+      "membership": 0.65,
+      "provenance": {
+        "label_source": "docs/test_inputs/srs_animals_plants_signal_review_labels_en_es_spalex_10k.json",
+        "notes": "Fruit/grapevine sense is plant-relevant but overlaps food.",
+        "promotion_state": "poc_candidate_not_product_overlay",
+        "review_packet": "docs/test_outputs/srs_animals_plants_signal_review_packet_en_es_spalex_10k_latest.json"
+      },
+      "review_decision": "accept_light_topic",
+      "review_id": "srs-anpl-145",
+      "review_state": "agent_labeled_pending_user_approval",
+      "reviewer": "codex_agent",
+      "source_channel": "sense_categories",
+      "source_label": "grapevines",
       "topic": "plants_nature"
     },
     {
@@ -1884,14 +3314,14 @@
   "status": "ok",
   "summary": {
     "counts_by_confidence": {
-      "light": 27,
-      "strong": 57
+      "light": 45,
+      "strong": 104
     },
     "counts_by_topic": {
-      "animals": 49,
-      "plants_nature": 35
+      "animals": 96,
+      "plants_nature": 53
     },
-    "row_count": 84,
+    "row_count": 149,
     "unlabeled_review_row_count": 0
   }
 }
