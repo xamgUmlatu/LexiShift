@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_release_readiness_classified`
-- Generated: `2026-05-19T22:11:42.851103+00:00`
+- Generated: `2026-05-19T22:22:14.395184+00:00`
 - Frontier: `spalex_10k_research` (`10000` seeds)
 - Default-visible candidates: `0`
 - Limited-visible candidates: `12`

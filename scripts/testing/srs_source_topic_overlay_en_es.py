@@ -151,8 +151,7 @@ def build_topic_overlay(
         if str(family.get("axis") or "") == "topic"
         and str(family.get("readiness_state") or "") in SOURCE_READY_STATES
     }
-    if precision_families:
-        include_families = include_families & precision_families
+    include_families = include_families & precision_families
     rows_by_key: dict[tuple[str, str], dict[str, object]] = {}
     excluded_counts: Counter[str] = Counter()
     for seed_info in seed_infos:
@@ -339,6 +338,7 @@ def _precision_summary(payload: Mapping[str, object] | None) -> dict[str, object
         "accepted_rate": float(summary.get("accepted_rate") or 0.0),
         "rejected_count": int(summary.get("rejected_count") or 0),
         "rejected_rate": float(summary.get("rejected_rate") or 0.0),
+        "pending_count": int(summary.get("pending_count") or 0),
     }
 
 
@@ -349,10 +349,25 @@ def _precision_reviewed_families(payload: Mapping[str, object] | None) -> set[st
     for row in _mapping_rows(payload.get("precision_by_family")):
         family = str(row.get("label") or "").strip()
         accepted_count = int(row.get("accepted_count") or 0)
+        pending_count = _precision_pending_count(row)
+        uncertain_count = int(row.get("uncertain_count") or 0)
         rejected_rate = float(row.get("rejected_rate") or 0.0)
-        if family and accepted_count > 0 and rejected_rate < 0.4:
+        if (
+            family
+            and accepted_count > 0
+            and pending_count == 0
+            and uncertain_count == 0
+            and rejected_rate < 0.4
+        ):
             families.add(family)
     return families
+
+
+def _precision_pending_count(row: Mapping[str, object]) -> int:
+    if "pending_count" in row:
+        return int(row.get("pending_count") or 0)
+    decisions = _as_mapping(row.get("decision_counts"))
+    return int(decisions.get("") or 0)
 
 
 def _difficulty_band(value: object) -> str:

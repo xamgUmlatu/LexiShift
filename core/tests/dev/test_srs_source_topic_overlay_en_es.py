@@ -42,6 +42,7 @@ class SrsSourceTopicOverlayEnEsTests(unittest.TestCase):
                         "label": "science_technology",
                         "count": 8,
                         "accepted_count": 7,
+                        "pending_count": 0,
                         "rejected_rate": 0.125,
                     }
                 ],
@@ -68,12 +69,58 @@ class SrsSourceTopicOverlayEnEsTests(unittest.TestCase):
                 "accepted_rate": 0.875,
                 "rejected_count": 1,
                 "rejected_rate": 0.125,
+                "pending_count": 0,
             },
         )
 
         markdown = render_markdown(overlay)
         self.assertIn("Source Topic Overlay", markdown)
         self.assertIn("science_technology", markdown)
+
+    def test_missing_precision_review_blocks_overlay_rows(self) -> None:
+        overlay = build_topic_overlay(
+            taxonomy_payload=_taxonomy_payload(),
+            source_labels_by_lemma={"controlador": ["computing"]},
+            seed_infos=[_seed_info("controlador", 10, 0.32)],
+            precision_review_payload=None,
+            generated_at="2026-05-20T00:00:00+00:00",
+        )
+
+        self.assertEqual(overlay["status"], "review")
+        self.assertEqual(overlay["summary"]["row_count"], 0)
+        self.assertEqual(overlay["overlay_policy"]["precision_family_filter"], [])
+        self.assertEqual(overlay["precision_review_summary"], {"exists": False})
+
+    def test_pending_precision_family_does_not_promote_to_overlay(self) -> None:
+        overlay = build_topic_overlay(
+            taxonomy_payload=_taxonomy_payload(),
+            source_labels_by_lemma={"controlador": ["computing"]},
+            seed_infos=[_seed_info("controlador", 10, 0.32)],
+            precision_review_payload={
+                "summary": {
+                    "count": 2,
+                    "accepted_count": 1,
+                    "accepted_rate": 0.5,
+                    "rejected_count": 0,
+                    "rejected_rate": 0.0,
+                    "pending_count": 1,
+                },
+                "precision_by_family": [
+                    {
+                        "label": "science_technology",
+                        "count": 2,
+                        "accepted_count": 1,
+                        "pending_count": 1,
+                        "rejected_rate": 0.0,
+                    }
+                ],
+            },
+            generated_at="2026-05-20T00:00:00+00:00",
+        )
+
+        self.assertEqual(overlay["status"], "review")
+        self.assertEqual(overlay["summary"]["row_count"], 0)
+        self.assertEqual(overlay["overlay_policy"]["precision_family_filter"], [])
 
 
 def _taxonomy_payload() -> dict[str, object]:

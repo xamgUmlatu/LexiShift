@@ -1,6 +1,6 @@
 {
   "decision": "srs_source_topic_overlay_ready",
-  "generated_at": "2026-05-19T22:11:39+00:00",
+  "generated_at": "2026-05-19T22:22:10+00:00",
   "inputs": {
     "frequency_db": "/private/tmp/lexishift-spalex-audit/data-root/frequency_packs/freq-es-spalex-expanded-v1/main.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -86,6 +86,7 @@
     "accepted_count": 49,
     "accepted_rate": 0.538462,
     "exists": true,
+    "pending_count": 39,
     "rejected_count": 3,
     "rejected_rate": 0.032967,
     "reviewed_count": 91

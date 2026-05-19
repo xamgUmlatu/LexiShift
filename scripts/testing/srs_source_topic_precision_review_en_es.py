@@ -494,12 +494,14 @@ def _precision_row(label: str, rows: Sequence[Mapping[str, object]]) -> dict[str
     )
     accepted = sum(decisions.get(decision, 0) for decision in ACCEPT_DECISIONS)
     rejected = sum(decisions.get(decision, 0) for decision in REJECT_DECISIONS)
+    pending = decisions.get("", 0)
     count = len(rows)
     return {
         "label": label,
         "count": count,
         "accepted_count": accepted,
         "accepted_rate": _ratio(accepted, count),
+        "pending_count": pending,
         "strong_count": decisions.get("accept_strong_topic", 0),
         "light_count": decisions.get("accept_light_topic", 0),
         "rejected_count": rejected,
