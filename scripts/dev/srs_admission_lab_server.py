@@ -38,6 +38,7 @@ DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS = tuple(
         "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
         "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
         "srs_source_topic_overlay_en_es_spalex_10k_latest.json",
+        "srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json",
     )
 )
 DEFAULT_ZIPF_BRIDGE_PATH = TEST_OUTPUTS_ROOT / (

@@ -28,14 +28,15 @@
     "seed_count": 10000,
     "unique_lemma_count": 10000
   },
-  "generated_at": "2026-05-19T22:40:03.524709+00:00",
+  "generated_at": "2026-05-21T00:00:42.934003+00:00",
   "inputs": {
     "depth_audit_json": "docs/test_outputs/srs_topic_family_depth_audit_en_es_latest.json",
     "frontier_label": "spalex_10k_research",
     "overlay_json": [
       "docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
       "docs/test_outputs/srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
-      "docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json"
+      "docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json"
     ],
     "source_precision_review_json": "docs/test_outputs/srs_source_topic_precision_review_en_es_spalex_10k_latest.json",
     "taxonomy_json": "docs/test_inputs/srs_topic_preference_taxonomy_en_es.json"
@@ -92,28 +93,28 @@
       },
       "food_cooking": {
         "counts_by_confidence": {
-          "strong": 54
+          "strong": 73
         },
-        "lemma_count": 54,
+        "lemma_count": 73,
         "raw_counts_by_confidence": {
           "light": 37,
-          "strong": 54
+          "strong": 73
         },
-        "raw_lemma_count": 91,
-        "raw_row_count": 91,
-        "row_count": 54
+        "raw_lemma_count": 110,
+        "raw_row_count": 110,
+        "row_count": 73
       },
       "games": {
         "counts_by_confidence": {
-          "strong": 100
+          "strong": 103
         },
-        "lemma_count": 100,
+        "lemma_count": 103,
         "raw_counts_by_confidence": {
-          "strong": 100
+          "strong": 103
         },
-        "raw_lemma_count": 100,
-        "raw_row_count": 100,
-        "row_count": 100
+        "raw_lemma_count": 103,
+        "raw_row_count": 103,
+        "row_count": 103
       },
       "law_politics_civics": {
         "counts_by_confidence": {
@@ -143,16 +144,16 @@
       },
       "music_media_entertainment": {
         "counts_by_confidence": {
-          "strong": 85
+          "strong": 97
         },
-        "lemma_count": 85,
+        "lemma_count": 97,
         "raw_counts_by_confidence": {
           "light": 72,
-          "strong": 85
+          "strong": 97
         },
-        "raw_lemma_count": 157,
-        "raw_row_count": 157,
-        "row_count": 85
+        "raw_lemma_count": 169,
+        "raw_row_count": 169,
+        "row_count": 97
       },
       "plants_nature": {
         "counts_by_confidence": {
@@ -182,32 +183,36 @@
       },
       "sports_fitness": {
         "counts_by_confidence": {
-          "strong": 205
+          "strong": 210
         },
-        "lemma_count": 205,
+        "lemma_count": 210,
         "raw_counts_by_confidence": {
-          "strong": 205
+          "strong": 210
         },
-        "raw_lemma_count": 205,
-        "raw_row_count": 205,
-        "row_count": 205
+        "raw_lemma_count": 210,
+        "raw_row_count": 210,
+        "row_count": 210
       },
       "travel_places_transport": {
-        "counts_by_confidence": {},
-        "lemma_count": 0,
-        "raw_counts_by_confidence": {
-          "light": 130
+        "counts_by_confidence": {
+          "strong": 30
         },
-        "raw_lemma_count": 130,
-        "raw_row_count": 130,
-        "row_count": 0
+        "lemma_count": 30,
+        "raw_counts_by_confidence": {
+          "light": 130,
+          "strong": 30
+        },
+        "raw_lemma_count": 160,
+        "raw_row_count": 160,
+        "row_count": 30
       }
     },
-    "overlay_count": 3,
+    "overlay_count": 4,
     "ready_overlay_ids": [
       "srs_animals_plants_topic_overlay_en_es_spalex_10k_poc_v1",
       "srs_food_cooking_topic_overlay_en_es_current_poc_v1",
-      "srs_source_topic_overlay_en_es_spalex_10k_v1"
+      "srs_source_topic_overlay_en_es_spalex_10k_v1",
+      "srs_obvious_topic_miss_overlay_en_es_spalex_10k_v1"
     ],
     "topics_with_reviewed_overlay": [
       "animals",
@@ -517,7 +522,7 @@
       "axis": "topic",
       "data_strategy": "sense_topics_then_alias_overlay",
       "display_name": "Sports & Fitness",
-      "effective_candidate_count": 205,
+      "effective_candidate_count": 210,
       "effective_candidate_source": "reviewed_overlay",
       "family": "sports_fitness",
       "next_work": [
@@ -529,9 +534,9 @@
       "recommended_visibility": "visible_with_limited_depth_note",
       "release_status": "release_candidate_limited_depth",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 205,
+      "reviewed_overlay_candidate_count": 210,
       "reviewed_overlay_confidence_counts": {
-        "strong": 205
+        "strong": 210
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.315153,
@@ -551,7 +556,7 @@
       "axis": "topic",
       "data_strategy": "sense_topics_then_alias_overlay",
       "display_name": "Games",
-      "effective_candidate_count": 100,
+      "effective_candidate_count": 103,
       "effective_candidate_source": "reviewed_overlay",
       "family": "games",
       "next_work": [
@@ -563,9 +568,9 @@
       "recommended_visibility": "visible_with_limited_depth_note",
       "release_status": "release_candidate_limited_depth",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 100,
+      "reviewed_overlay_candidate_count": 103,
       "reviewed_overlay_confidence_counts": {
-        "strong": 100
+        "strong": 103
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.315153,
@@ -597,9 +602,9 @@
       "recommended_visibility": "visible_with_limited_depth_note",
       "release_status": "release_candidate_limited_depth",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 85,
+      "reviewed_overlay_candidate_count": 97,
       "reviewed_overlay_confidence_counts": {
-        "strong": 85
+        "strong": 97
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.306597,
@@ -700,8 +705,10 @@
       "recommended_visibility": "beta_visible_or_hidden",
       "release_status": "beta_limited_candidate",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 0,
-      "reviewed_overlay_confidence_counts": {},
+      "reviewed_overlay_candidate_count": 30,
+      "reviewed_overlay_confidence_counts": {
+        "strong": 30
+      },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.167956,
       "source_nonempty_band_count": 1,
@@ -808,7 +815,7 @@
       "axis": "topic",
       "data_strategy": "curated_food_overlay_then_embedding_inference",
       "display_name": "Food & Cooking",
-      "effective_candidate_count": 54,
+      "effective_candidate_count": 73,
       "effective_candidate_source": "reviewed_overlay",
       "family": "food_cooking",
       "next_work": [
@@ -821,9 +828,9 @@
       "recommended_visibility": "visible_with_limited_depth_note",
       "release_status": "limited_release_candidate",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 54,
+      "reviewed_overlay_candidate_count": 73,
       "reviewed_overlay_confidence_counts": {
-        "strong": 54
+        "strong": 73
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.312346,

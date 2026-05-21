@@ -1,7 +1,7 @@
 # SRS Admission Preference Preview - en-es
 
-- Status: WARN
-- Findings: pass=15 warn=1 fail=0
+- Status: PASS
+- Findings: pass=16 warn=0 fail=0
 - Frequency DB rows: 4123
 - Base frequency DB rows: 2000
 - Runtime scope: admission_preview_only
@@ -9,8 +9,8 @@
 ## Inputs
 
 - frequency_db: `/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite`
-- preview_frequency_db: `/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-ycaqzv1e/srs-admission-lab-zipf-augmented.sqlite`
-- merged_overlay_source_path: `/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-ycaqzv1e/srs-admission-lab-merged-topic-overlay.json`
+- preview_frequency_db: `/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-jwajd3w0/srs-admission-lab-zipf-augmented.sqlite`
+- merged_overlay_source_path: `/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-jwajd3w0/srs-admission-lab-merged-topic-overlay.json`
 - set_top_n: 10000
 - initial_active_count: 120
 - preview_count: 20
@@ -20,7 +20,7 @@
 - status: `applied`
 - output_row_count: 4123
 - added_row_count: 2139
-- overlay_topic_lemma_count: 953
+- overlay_topic_lemma_count: 1012
 - overlay_missing_without_bridge_count: 489
 
 ## Scenario Summary
@@ -31,15 +31,15 @@
 | animals_interest | 20 | applied | perro, animal, gato, lobo, pez, vaca, tigre, mono |
 | animals_light_weight | 3 | applied | perro, animal, gato, como, este, sobre, dos, bien |
 | plants_nature_interest | 17 | applied | árbol, flor, hierba, pino, parra, roble, cebada, planta |
-| food_cooking_interest | 16 | applied | agua, pan, huevo, aceite, arroz, fruta, manzana, limón |
+| food_cooking_interest | 20 | applied | agua, comida, carne, pan, leche, cerveza, huevo, aceite |
 | medicine_health_interest | 20 | applied | mano, cabeza, cara, media, boca, vía, simple, miembro |
 | finance_business_interest | 20 | applied | punto, derecho, seguro, tierra, capital, plaza, valor, interés |
 | sports_fitness_interest | 20 | applied | final, largo, escuela, serie, campo, resultado, puerta, defensa |
-| games_interest | 20 | applied | rey, comer, color, muerto, copa, reina, torre, columna |
-| music_media_entertainment_interest | 20 | applied | bajo, grupo, natural, accidente, escala, toque, prima, continuo |
+| games_interest | 20 | applied | juego, rey, comer, color, muerto, copa, reina, torre |
+| music_media_entertainment_interest | 20 | applied | bajo, grupo, música, película, canción, natural, televisión, accidente |
 | law_politics_civics_interest | 20 | applied | parte, general, ley, sistema, número, cuerpo, proceso, orden |
-| science_technology_interest | 20 | applied | vida, puerto, salida, función, cadena, ruta, plataforma, cliente |
-| travel_places_transport_interest | 0 | no_eligible_rows_applied | como, este, sobre, dos, bien, hacer, nada, parte |
+| science_technology_interest | 20 | applied | vida, salida, función, cadena, plataforma, cliente, motor, ventana |
+| travel_places_transport_interest | 20 | applied | país, ciudad, camino, calle, viaje, hotel, aeropuerto, frontera |
 | animals_high_proficiency | 0 | applied | oh, hola, ésa, nabab, vos, debacle, según, pues |
 | animals_plants_interest | 20 | applied | perro, animal, gato, árbol, flor, lobo, pez, vaca |
 | weighted_plants_over_animals | 20 | applied | árbol, flor, hierba, pino, parra, roble, cebada, planta |
@@ -50,7 +50,7 @@
 - PASS: `ZIPF_AUGMENTED_LAB_SOURCE_AVAILABLE` - Dev-only Zipf bridge source was applied for the preference preview.
 - PASS: `ANIMALS_INTEREST_MOVES_ADMISSION` - animals preference produced 20 topic movers in the admission preview.
 - PASS: `PLANTS_NATURE_INTEREST_MOVES_ADMISSION` - plants_nature preference produced 17 topic movers in the admission preview.
-- PASS: `FOOD_COOKING_INTEREST_MOVES_ADMISSION` - food_cooking preference produced 16 topic movers in the admission preview.
+- PASS: `FOOD_COOKING_INTEREST_MOVES_ADMISSION` - food_cooking preference produced 20 topic movers in the admission preview.
 - PASS: `MEDICINE_HEALTH_INTEREST_MOVES_ADMISSION` - medicine_health preference produced 20 topic movers in the admission preview.
 - PASS: `FINANCE_BUSINESS_INTEREST_MOVES_ADMISSION` - finance_business preference produced 20 topic movers in the admission preview.
 - PASS: `SPORTS_FITNESS_INTEREST_MOVES_ADMISSION` - sports_fitness preference produced 20 topic movers in the admission preview.
@@ -58,7 +58,7 @@
 - PASS: `MUSIC_MEDIA_ENTERTAINMENT_INTEREST_MOVES_ADMISSION` - music_media_entertainment preference produced 20 topic movers in the admission preview.
 - PASS: `LAW_POLITICS_CIVICS_INTEREST_MOVES_ADMISSION` - law_politics_civics preference produced 20 topic movers in the admission preview.
 - PASS: `SCIENCE_TECHNOLOGY_INTEREST_MOVES_ADMISSION` - science_technology preference produced 20 topic movers in the admission preview.
-- WARN: `TRAVEL_BETA_TOPIC_EXPOSES_LIMIT` - Travel/place/transport remains beta-limited in the lab preview.
+- PASS: `TRAVEL_BETA_TOPIC_EXPOSES_LIMIT` - Travel/place/transport preference produced runtime movers.
 - PASS: `SCALAR_TOPIC_WEIGHTS_AFFECT_PRIORITY` - Weighted plants-over-animals profile surfaces plants/nature movers.
 - PASS: `TOPIC_STRENGTH_IS_MONOTONIC_IN_SMOKE` - Full animals preference produced at least as many topic movers as light animals weight.
 - PASS: `HIGH_PROFICIENCY_SUPPRESSES_TOO_EASY_TOPIC_ITEMS` - High-proficiency animals scenario suppressed too-easy animal movers.
@@ -92,13 +92,13 @@
 
 ### food_cooking_interest
 - agua: base_rank=61, reranked_rank=1, delta=60, source=topic_hint:food_cooking
-- pan: base_rank=401, reranked_rank=2, delta=399, source=topic_hint:food_cooking
-- huevo: base_rank=676, reranked_rank=3, delta=673, source=topic_hint:food_cooking
-- aceite: base_rank=707, reranked_rank=4, delta=703, source=topic_hint:food_cooking
-- arroz: base_rank=769, reranked_rank=5, delta=764, source=topic_hint:food_cooking
-- fruta: base_rank=964, reranked_rank=6, delta=958, source=topic_hint:food_cooking
-- manzana: base_rank=1013, reranked_rank=7, delta=1006, source=topic_hint:food_cooking
-- limón: base_rank=1062, reranked_rank=8, delta=1054, source=topic_hint:food_cooking
+- comida: base_rank=188, reranked_rank=2, delta=186, source=topic_hint:food_cooking
+- carne: base_rank=390, reranked_rank=3, delta=387, source=topic_hint:food_cooking
+- pan: base_rank=401, reranked_rank=4, delta=397, source=topic_hint:food_cooking
+- leche: base_rank=457, reranked_rank=5, delta=452, source=topic_hint:food_cooking
+- cerveza: base_rank=662, reranked_rank=6, delta=656, source=topic_hint:food_cooking
+- huevo: base_rank=676, reranked_rank=7, delta=669, source=topic_hint:food_cooking
+- aceite: base_rank=707, reranked_rank=8, delta=699, source=topic_hint:food_cooking
 
 ### medicine_health_interest
 - mano: base_rank=91, reranked_rank=1, delta=90, source=topic_hint:medicine_health
@@ -131,24 +131,24 @@
 - defensa: base_rank=242, reranked_rank=8, delta=234, source=topic_hint:sports_fitness
 
 ### games_interest
-- rey: base_rank=149, reranked_rank=1, delta=148, source=topic_hint:games
-- comer: base_rank=226, reranked_rank=2, delta=224, source=topic_hint:games
-- color: base_rank=241, reranked_rank=3, delta=238, source=topic_hint:games
-- muerto: base_rank=319, reranked_rank=4, delta=315, source=topic_hint:games
-- copa: base_rank=381, reranked_rank=5, delta=376, source=topic_hint:games
-- reina: base_rank=423, reranked_rank=6, delta=417, source=topic_hint:games
-- torre: base_rank=666, reranked_rank=7, delta=659, source=topic_hint:games
-- columna: base_rank=712, reranked_rank=8, delta=704, source=topic_hint:games
+- juego: base_rank=90, reranked_rank=1, delta=89, source=topic_hint:games
+- rey: base_rank=149, reranked_rank=2, delta=147, source=topic_hint:games
+- comer: base_rank=226, reranked_rank=3, delta=223, source=topic_hint:games
+- color: base_rank=241, reranked_rank=4, delta=237, source=topic_hint:games
+- muerto: base_rank=319, reranked_rank=5, delta=314, source=topic_hint:games
+- copa: base_rank=381, reranked_rank=6, delta=375, source=topic_hint:games
+- reina: base_rank=423, reranked_rank=7, delta=416, source=topic_hint:games
+- torre: base_rank=666, reranked_rank=8, delta=658, source=topic_hint:games
 
 ### music_media_entertainment_interest
 - bajo: base_rank=44, reranked_rank=1, delta=43, source=topic_hint:music_media_entertainment
 - grupo: base_rank=45, reranked_rank=2, delta=43, source=topic_hint:music_media_entertainment
-- natural: base_rank=261, reranked_rank=3, delta=258, source=topic_hint:music_media_entertainment
-- accidente: base_rank=497, reranked_rank=4, delta=493, source=topic_hint:music_media_entertainment
-- escala: base_rank=554, reranked_rank=5, delta=549, source=topic_hint:music_media_entertainment
-- toque: base_rank=602, reranked_rank=6, delta=596, source=topic_hint:music_media_entertainment
-- prima: base_rank=767, reranked_rank=7, delta=760, source=topic_hint:music_media_entertainment
-- continuo: base_rank=1050, reranked_rank=8, delta=1042, source=topic_hint:music_media_entertainment
+- música: base_rank=147, reranked_rank=3, delta=144, source=topic_hint:music_media_entertainment
+- película: base_rank=178, reranked_rank=4, delta=174, source=topic_hint:music_media_entertainment
+- canción: base_rank=240, reranked_rank=5, delta=235, source=topic_hint:music_media_entertainment
+- natural: base_rank=261, reranked_rank=6, delta=255, source=topic_hint:music_media_entertainment
+- televisión: base_rank=284, reranked_rank=7, delta=277, source=topic_hint:music_media_entertainment
+- accidente: base_rank=497, reranked_rank=8, delta=489, source=topic_hint:music_media_entertainment
 
 ### law_politics_civics_interest
 - parte: base_rank=8, reranked_rank=1, delta=7, source=topic_hint:law_politics_civics
@@ -162,13 +162,23 @@
 
 ### science_technology_interest
 - vida: base_rank=11, reranked_rank=1, delta=10, source=topic_hint:science_technology
-- puerto: base_rank=246, reranked_rank=2, delta=244, source=topic_hint:science_technology
-- salida: base_rank=367, reranked_rank=3, delta=364, source=topic_hint:science_technology
-- función: base_rank=369, reranked_rank=4, delta=365, source=topic_hint:science_technology
-- cadena: base_rank=449, reranked_rank=5, delta=444, source=topic_hint:science_technology
-- ruta: base_rank=505, reranked_rank=6, delta=499, source=topic_hint:science_technology
-- plataforma: base_rank=524, reranked_rank=7, delta=517, source=topic_hint:science_technology
-- cliente: base_rank=589, reranked_rank=8, delta=581, source=topic_hint:science_technology
+- salida: base_rank=367, reranked_rank=2, delta=365, source=topic_hint:science_technology
+- función: base_rank=369, reranked_rank=3, delta=366, source=topic_hint:science_technology
+- cadena: base_rank=449, reranked_rank=4, delta=445, source=topic_hint:science_technology
+- plataforma: base_rank=524, reranked_rank=5, delta=519, source=topic_hint:science_technology
+- cliente: base_rank=589, reranked_rank=6, delta=583, source=topic_hint:science_technology
+- motor: base_rank=594, reranked_rank=7, delta=587, source=topic_hint:science_technology
+- ventana: base_rank=649, reranked_rank=8, delta=641, source=topic_hint:science_technology
+
+### travel_places_transport_interest
+- país: base_rank=27, reranked_rank=1, delta=26, source=topic_hint:travel_places_transport
+- ciudad: base_rank=33, reranked_rank=2, delta=31, source=topic_hint:travel_places_transport
+- camino: base_rank=123, reranked_rank=3, delta=120, source=topic_hint:travel_places_transport
+- calle: base_rank=131, reranked_rank=4, delta=127, source=topic_hint:travel_places_transport
+- viaje: base_rank=214, reranked_rank=5, delta=209, source=topic_hint:travel_places_transport
+- hotel: base_rank=414, reranked_rank=6, delta=408, source=topic_hint:travel_places_transport
+- aeropuerto: base_rank=447, reranked_rank=7, delta=440, source=topic_hint:travel_places_transport
+- frontera: base_rank=456, reranked_rank=8, delta=448, source=topic_hint:travel_places_transport
 
 ### animals_plants_interest
 - perro: base_rank=347, reranked_rank=1, delta=346, source=topic_hint:animals

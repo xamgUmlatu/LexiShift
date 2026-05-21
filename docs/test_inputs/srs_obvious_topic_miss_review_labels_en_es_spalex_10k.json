@@ -1,0 +1,550 @@
+{
+  "schema_version": 1,
+  "review_id": "srs_obvious_topic_miss_review_en_es_spalex_10k_v1",
+  "reviewer": "codex_agent",
+  "reviewed_at": "2026-05-21",
+  "state": "agent_labeled_pending_user_approval",
+  "labeling_policy": {
+    "accept_strong_topic": "Direct, high-confidence learner-facing vocabulary for the requested preference topic.",
+    "exclude_if_already_tagged": "Generator omits a row when the same lemma/topic is already present in the current overlay stack.",
+    "scope": "Small obvious-miss patch for MVP lab coverage; not a broad taxonomy expansion."
+  },
+  "labels": [
+    {
+      "review_id": "srs-obvious-topic-001",
+      "topic": "games",
+      "lemma": "juego",
+      "decision": "accept_strong_topic",
+      "notes": "Direct Games vocabulary: game/play as a noun."
+    },
+    {
+      "review_id": "srs-obvious-topic-002",
+      "topic": "games",
+      "lemma": "jugar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct Games vocabulary: to play a game."
+    },
+    {
+      "review_id": "srs-obvious-topic-003",
+      "topic": "games",
+      "lemma": "juguete",
+      "decision": "accept_strong_topic",
+      "notes": "Direct play/game-adjacent vocabulary; useful for learner interest matching."
+    },
+    {
+      "review_id": "srs-obvious-topic-004",
+      "topic": "sports_fitness",
+      "lemma": "deporte",
+      "decision": "accept_strong_topic",
+      "notes": "Direct sports vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-005",
+      "topic": "sports_fitness",
+      "lemma": "ejercicio",
+      "decision": "accept_strong_topic",
+      "notes": "Direct exercise/fitness vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-006",
+      "topic": "sports_fitness",
+      "lemma": "correr",
+      "decision": "accept_strong_topic",
+      "bridge_source": "run",
+      "notes": "Direct exercise/sport activity vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-007",
+      "topic": "sports_fitness",
+      "lemma": "nadar",
+      "decision": "accept_strong_topic",
+      "bridge_source": "swim",
+      "notes": "Direct exercise/sport activity vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-008",
+      "topic": "sports_fitness",
+      "lemma": "jugar",
+      "decision": "accept_strong_topic",
+      "notes": "Common sports collocation: jugar al futbol/tenis/baloncesto."
+    },
+    {
+      "review_id": "srs-obvious-topic-009",
+      "topic": "music_media_entertainment",
+      "lemma": "música",
+      "decision": "accept_strong_topic",
+      "notes": "Direct music vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-010",
+      "topic": "music_media_entertainment",
+      "lemma": "canción",
+      "decision": "accept_strong_topic",
+      "notes": "Direct music vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-011",
+      "topic": "music_media_entertainment",
+      "lemma": "cantar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct music/performance vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-012",
+      "topic": "music_media_entertainment",
+      "lemma": "bailar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct entertainment/performance vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-013",
+      "topic": "music_media_entertainment",
+      "lemma": "baile",
+      "decision": "accept_strong_topic",
+      "bridge_source": "dance",
+      "notes": "Direct entertainment/performance vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-014",
+      "topic": "music_media_entertainment",
+      "lemma": "concierto",
+      "decision": "accept_strong_topic",
+      "notes": "Direct music event vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-015",
+      "topic": "music_media_entertainment",
+      "lemma": "película",
+      "decision": "accept_strong_topic",
+      "notes": "Direct film/media vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-016",
+      "topic": "music_media_entertainment",
+      "lemma": "televisión",
+      "decision": "accept_strong_topic",
+      "notes": "Direct media vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-017",
+      "topic": "music_media_entertainment",
+      "lemma": "actor",
+      "decision": "accept_strong_topic",
+      "notes": "Direct film/theater vocabulary, despite other domain senses."
+    },
+    {
+      "review_id": "srs-obvious-topic-018",
+      "topic": "music_media_entertainment",
+      "lemma": "actriz",
+      "decision": "accept_strong_topic",
+      "notes": "Direct film/theater vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-019",
+      "topic": "music_media_entertainment",
+      "lemma": "tocar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct music vocabulary: to play an instrument."
+    },
+    {
+      "review_id": "srs-obvious-topic-020",
+      "topic": "music_media_entertainment",
+      "lemma": "radio",
+      "decision": "accept_strong_topic",
+      "notes": "Direct media vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-021",
+      "topic": "travel_places_transport",
+      "lemma": "viajar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-022",
+      "topic": "travel_places_transport",
+      "lemma": "viaje",
+      "decision": "accept_strong_topic",
+      "bridge_source": "trip",
+      "notes": "Direct travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-023",
+      "topic": "travel_places_transport",
+      "lemma": "hotel",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel accommodation vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-024",
+      "topic": "travel_places_transport",
+      "lemma": "aeropuerto",
+      "decision": "accept_strong_topic",
+      "notes": "Direct transport/travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-025",
+      "topic": "travel_places_transport",
+      "lemma": "tren",
+      "decision": "accept_strong_topic",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-026",
+      "topic": "travel_places_transport",
+      "lemma": "avión",
+      "decision": "accept_strong_topic",
+      "bridge_source": "plane",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-027",
+      "topic": "travel_places_transport",
+      "lemma": "autobús",
+      "decision": "accept_strong_topic",
+      "bridge_source": "bus",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-028",
+      "topic": "travel_places_transport",
+      "lemma": "taxi",
+      "decision": "accept_strong_topic",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-029",
+      "topic": "travel_places_transport",
+      "lemma": "ciudad",
+      "decision": "accept_strong_topic",
+      "notes": "Direct place/travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-030",
+      "topic": "travel_places_transport",
+      "lemma": "país",
+      "decision": "accept_strong_topic",
+      "notes": "Direct place/travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-031",
+      "topic": "travel_places_transport",
+      "lemma": "mapa",
+      "decision": "accept_strong_topic",
+      "notes": "Direct navigation/travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-032",
+      "topic": "travel_places_transport",
+      "lemma": "pasaporte",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel document vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-033",
+      "topic": "travel_places_transport",
+      "lemma": "vuelo",
+      "decision": "accept_strong_topic",
+      "notes": "Direct flight/travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-034",
+      "topic": "travel_places_transport",
+      "lemma": "estación",
+      "decision": "accept_strong_topic",
+      "notes": "Common transport-place vocabulary: station."
+    },
+    {
+      "review_id": "srs-obvious-topic-035",
+      "topic": "travel_places_transport",
+      "lemma": "calle",
+      "decision": "accept_strong_topic",
+      "notes": "Direct place/navigation vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-036",
+      "topic": "travel_places_transport",
+      "lemma": "camino",
+      "decision": "accept_strong_topic",
+      "notes": "Direct route/travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-037",
+      "topic": "travel_places_transport",
+      "lemma": "coche",
+      "decision": "accept_strong_topic",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-038",
+      "topic": "travel_places_transport",
+      "lemma": "automóvil",
+      "decision": "accept_strong_topic",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-039",
+      "topic": "travel_places_transport",
+      "lemma": "billete",
+      "decision": "accept_strong_topic",
+      "bridge_source": "ticket",
+      "notes": "Common travel/transport ticket vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-040",
+      "topic": "food_cooking",
+      "lemma": "comida",
+      "decision": "accept_strong_topic",
+      "bridge_source": "meal",
+      "notes": "Direct food vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-041",
+      "topic": "food_cooking",
+      "lemma": "cocinar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct cooking vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-042",
+      "topic": "food_cooking",
+      "lemma": "beber",
+      "decision": "accept_strong_topic",
+      "notes": "Direct drinking/food-context vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-043",
+      "topic": "food_cooking",
+      "lemma": "bebida",
+      "decision": "accept_strong_topic",
+      "notes": "Direct drink vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-044",
+      "topic": "food_cooking",
+      "lemma": "carne",
+      "decision": "accept_strong_topic",
+      "bridge_source": "meat",
+      "notes": "Direct food vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-045",
+      "topic": "food_cooking",
+      "lemma": "cerveza",
+      "decision": "accept_strong_topic",
+      "bridge_source": "beer",
+      "notes": "Direct drink vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-046",
+      "topic": "food_cooking",
+      "lemma": "sopa",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-047",
+      "topic": "food_cooking",
+      "lemma": "alimento",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-048",
+      "topic": "travel_places_transport",
+      "lemma": "equipaje",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel baggage vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-049",
+      "topic": "travel_places_transport",
+      "lemma": "alojamiento",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel accommodation vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-050",
+      "topic": "travel_places_transport",
+      "lemma": "destino",
+      "decision": "defer_source_evidence_mismatch",
+      "bridge_source": "destination",
+      "notes": "Semantically direct travel vocabulary, but the current Zipf bridge only exposes destiny/fate evidence for this lemma."
+    },
+    {
+      "review_id": "srs-obvious-topic-051",
+      "topic": "travel_places_transport",
+      "lemma": "turista",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel/person vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-052",
+      "topic": "travel_places_transport",
+      "lemma": "frontera",
+      "decision": "accept_strong_topic",
+      "bridge_source": "frontier",
+      "notes": "Direct travel/border vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-053",
+      "topic": "travel_places_transport",
+      "lemma": "extranjero",
+      "decision": "accept_strong_topic",
+      "bridge_source": "foreign",
+      "notes": "Direct travel/abroad vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-054",
+      "topic": "travel_places_transport",
+      "lemma": "maleta",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel luggage vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-055",
+      "topic": "travel_places_transport",
+      "lemma": "albergue",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel lodging vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-056",
+      "topic": "travel_places_transport",
+      "lemma": "carretera",
+      "decision": "accept_strong_topic",
+      "bridge_source": "motorway",
+      "notes": "Direct road/transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-057",
+      "topic": "travel_places_transport",
+      "lemma": "tranvía",
+      "decision": "accept_strong_topic",
+      "notes": "Direct public transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-058",
+      "topic": "travel_places_transport",
+      "lemma": "barco",
+      "decision": "accept_strong_topic",
+      "bridge_source": "boat",
+      "notes": "Direct transport vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-059",
+      "topic": "travel_places_transport",
+      "lemma": "puerto",
+      "decision": "accept_strong_topic",
+      "bridge_source": "harbor",
+      "notes": "Direct transport/place vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-060",
+      "topic": "travel_places_transport",
+      "lemma": "ruta",
+      "decision": "accept_strong_topic",
+      "notes": "Direct route/travel vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-061",
+      "topic": "travel_places_transport",
+      "lemma": "excursión",
+      "decision": "accept_strong_topic",
+      "notes": "Direct trip/excursion vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-062",
+      "topic": "travel_places_transport",
+      "lemma": "visado",
+      "decision": "accept_strong_topic",
+      "notes": "Direct travel document vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-063",
+      "topic": "food_cooking",
+      "lemma": "restaurante",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food/dining vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-064",
+      "topic": "food_cooking",
+      "lemma": "cena",
+      "decision": "accept_strong_topic",
+      "notes": "Direct meal vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-065",
+      "topic": "food_cooking",
+      "lemma": "almuerzo",
+      "decision": "accept_strong_topic",
+      "notes": "Direct meal vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-066",
+      "topic": "food_cooking",
+      "lemma": "desayuno",
+      "decision": "accept_strong_topic",
+      "notes": "Direct meal vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-067",
+      "topic": "food_cooking",
+      "lemma": "leche",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food/drink vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-068",
+      "topic": "food_cooking",
+      "lemma": "queso",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-069",
+      "topic": "food_cooking",
+      "lemma": "pollo",
+      "decision": "accept_strong_topic",
+      "bridge_source": "chicken",
+      "notes": "Direct food vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-070",
+      "topic": "food_cooking",
+      "lemma": "ensalada",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-071",
+      "topic": "food_cooking",
+      "lemma": "azúcar",
+      "decision": "accept_strong_topic",
+      "notes": "Direct food/cooking ingredient vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-072",
+      "topic": "food_cooking",
+      "lemma": "té",
+      "decision": "accept_strong_topic",
+      "notes": "Direct drink vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-073",
+      "topic": "food_cooking",
+      "lemma": "menú",
+      "decision": "accept_strong_topic",
+      "notes": "Direct dining vocabulary."
+    },
+    {
+      "review_id": "srs-obvious-topic-074",
+      "topic": "food_cooking",
+      "lemma": "sed",
+      "decision": "accept_strong_topic",
+      "bridge_source": "thirst",
+      "notes": "Direct drink-context vocabulary."
+    }
+  ]
+}

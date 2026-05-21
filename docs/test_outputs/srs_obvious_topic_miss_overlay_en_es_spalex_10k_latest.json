@@ -1,0 +1,1513 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "srs_obvious_topic_miss_overlay_ready",
+  "generated_at": "2026-05-21T00:00:30+00:00",
+  "overlay_id": "srs_obvious_topic_miss_overlay_en_es_spalex_10k_v1",
+  "language_pair": "en-es",
+  "inputs": {
+    "review_labels_json": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+    "zipf_bridge_json": "docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
+    "existing_overlay_json": [
+      "docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json"
+    ]
+  },
+  "overlay_policy": {
+    "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+    "runtime_policy_change": "none",
+    "source_download": "none",
+    "source": "manual obvious-miss review checked against local Zipf bridge target lemmas",
+    "membership": 1.0,
+    "duplicate_policy": "omit if same lemma/topic exists in current overlay stack"
+  },
+  "summary": {
+    "row_count": 69,
+    "topic_count": 5,
+    "counts_by_topic": {
+      "food_cooking": 19,
+      "games": 3,
+      "music_media_entertainment": 12,
+      "sports_fitness": 5,
+      "travel_places_transport": 30
+    },
+    "skipped_existing_count": 4,
+    "skipped_missing_count": 0
+  },
+  "skipped_existing": [
+    {
+      "lemma": "tren",
+      "topic": "travel_places_transport"
+    },
+    {
+      "lemma": "estación",
+      "topic": "travel_places_transport"
+    },
+    {
+      "lemma": "coche",
+      "topic": "travel_places_transport"
+    },
+    {
+      "lemma": "pollo",
+      "topic": "food_cooking"
+    }
+  ],
+  "skipped_missing_from_zipf_bridge": [],
+  "rows": [
+    {
+      "language_pair": "en-es",
+      "lemma": "alimento",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-047",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.18,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food vocabulary.",
+        "bridge_source": "food",
+        "bridge_source_zipf": 5.4,
+        "bridge_target_zipf": 4.18
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "almuerzo",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-065",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.16,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct meal vocabulary.",
+        "bridge_source": "lunch",
+        "bridge_source_zipf": 4.66,
+        "bridge_target_zipf": 4.16
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "azúcar",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-071",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.46,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food/cooking ingredient vocabulary.",
+        "bridge_source": "sugar",
+        "bridge_source_zipf": 4.68,
+        "bridge_target_zipf": 4.46
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "beber",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-042",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.3,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct drinking/food-context vocabulary.",
+        "bridge_source": "drink",
+        "bridge_source_zipf": 4.9,
+        "bridge_target_zipf": 4.3
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "bebida",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-043",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.16,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct drink vocabulary.",
+        "bridge_source": "beverage",
+        "bridge_source_zipf": 3.69,
+        "bridge_target_zipf": 4.16
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "carne",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-044",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.83,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food vocabulary.",
+        "bridge_source": "meat",
+        "bridge_source_zipf": 4.63,
+        "bridge_target_zipf": 4.83
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "cena",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-064",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.42,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct meal vocabulary.",
+        "bridge_source": "dinner",
+        "bridge_source_zipf": 4.78,
+        "bridge_target_zipf": 4.42
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "cerveza",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-045",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.52,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct drink vocabulary.",
+        "bridge_source": "beer",
+        "bridge_source_zipf": 4.7,
+        "bridge_target_zipf": 4.52
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "cocinar",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-041",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.21,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct cooking vocabulary.",
+        "bridge_source": "cook",
+        "bridge_source_zipf": 4.65,
+        "bridge_target_zipf": 4.21
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "comida",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-040",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.15,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food vocabulary.",
+        "bridge_source": "meal",
+        "bridge_source_zipf": 4.48,
+        "bridge_target_zipf": 5.15
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "desayuno",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-066",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.38,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct meal vocabulary.",
+        "bridge_source": "breakfast",
+        "bridge_source_zipf": 4.61,
+        "bridge_target_zipf": 4.38
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "ensalada",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-070",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.91,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food vocabulary.",
+        "bridge_source": "salad",
+        "bridge_source_zipf": 4.15,
+        "bridge_target_zipf": 3.91
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "leche",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-067",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.74,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food/drink vocabulary.",
+        "bridge_source": "milk",
+        "bridge_source_zipf": 4.66,
+        "bridge_target_zipf": 4.74
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "menú",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-073",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.85,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct dining vocabulary.",
+        "bridge_source": "menu",
+        "bridge_source_zipf": 4.26,
+        "bridge_target_zipf": 3.85
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "queso",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-068",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.45,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food vocabulary.",
+        "bridge_source": "cheese",
+        "bridge_source_zipf": 4.57,
+        "bridge_target_zipf": 4.45
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "restaurante",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-063",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.45,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food/dining vocabulary.",
+        "bridge_source": "restaurant",
+        "bridge_source_zipf": 4.68,
+        "bridge_target_zipf": 4.45
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "sed",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-074",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.14,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct drink-context vocabulary.",
+        "bridge_source": "thirst",
+        "bridge_source_zipf": 3.64,
+        "bridge_target_zipf": 4.14
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "sopa",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-046",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.13,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct food vocabulary.",
+        "bridge_source": "soup",
+        "bridge_source_zipf": 4.15,
+        "bridge_target_zipf": 4.13
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "té",
+      "topic": "food_cooking",
+      "review_id": "srs-obvious-topic-072",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.29,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct drink vocabulary.",
+        "bridge_source": "tea",
+        "bridge_source_zipf": 4.73,
+        "bridge_target_zipf": 4.29
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "juego",
+      "topic": "games",
+      "review_id": "srs-obvious-topic-001",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.38,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct Games vocabulary: game/play as a noun.",
+        "bridge_source": "game",
+        "bridge_source_zipf": 5.72,
+        "bridge_target_zipf": 5.38
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "jugar",
+      "topic": "games",
+      "review_id": "srs-obvious-topic-002",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.05,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct Games vocabulary: to play a game.",
+        "bridge_source": "play",
+        "bridge_source_zipf": 5.61,
+        "bridge_target_zipf": 5.05
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "juguete",
+      "topic": "games",
+      "review_id": "srs-obvious-topic-003",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.9,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct play/game-adjacent vocabulary; useful for learner interest matching.",
+        "bridge_source": "toy",
+        "bridge_source_zipf": 4.3,
+        "bridge_target_zipf": 3.9
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "actor",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-017",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.53,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct film/theater vocabulary, despite other domain senses.",
+        "bridge_source": "actor",
+        "bridge_source_zipf": 4.65,
+        "bridge_target_zipf": 4.53
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "actriz",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-018",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.33,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct film/theater vocabulary.",
+        "bridge_source": "actress",
+        "bridge_source_zipf": 4.45,
+        "bridge_target_zipf": 4.33
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "bailar",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-012",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.44,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct entertainment/performance vocabulary.",
+        "bridge_source": "dance",
+        "bridge_source_zipf": 4.93,
+        "bridge_target_zipf": 4.44
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "baile",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-013",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.5,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct entertainment/performance vocabulary.",
+        "bridge_source": "dance",
+        "bridge_source_zipf": 4.93,
+        "bridge_target_zipf": 4.5
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "canción",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-010",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.06,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct music vocabulary.",
+        "bridge_source": "song",
+        "bridge_source_zipf": 5.26,
+        "bridge_target_zipf": 5.06
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "cantar",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-011",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.43,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct music/performance vocabulary.",
+        "bridge_source": "sing",
+        "bridge_source_zipf": 4.54,
+        "bridge_target_zipf": 4.43
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "concierto",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-014",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.6,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct music event vocabulary.",
+        "bridge_source": "concert",
+        "bridge_source_zipf": 4.55,
+        "bridge_target_zipf": 4.6
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "música",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-009",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.24,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct music vocabulary.",
+        "bridge_source": "music",
+        "bridge_source_zipf": 5.52,
+        "bridge_target_zipf": 5.24
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "película",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-015",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.17,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct film/media vocabulary.",
+        "bridge_source": "film",
+        "bridge_source_zipf": 5.2,
+        "bridge_target_zipf": 5.17
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "radio",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-020",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.03,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct media vocabulary.",
+        "bridge_source": "radio",
+        "bridge_source_zipf": 5.01,
+        "bridge_target_zipf": 5.03
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "televisión",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-016",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.99,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct media vocabulary.",
+        "bridge_source": "television",
+        "bridge_source_zipf": 4.79,
+        "bridge_target_zipf": 4.99
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "tocar",
+      "topic": "music_media_entertainment",
+      "review_id": "srs-obvious-topic-019",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.61,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct music vocabulary: to play an instrument.",
+        "bridge_source": "play",
+        "bridge_source_zipf": 5.61,
+        "bridge_target_zipf": 4.61
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "correr",
+      "topic": "sports_fitness",
+      "review_id": "srs-obvious-topic-006",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.6,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct exercise/sport activity vocabulary.",
+        "bridge_source": "run",
+        "bridge_source_zipf": 5.49,
+        "bridge_target_zipf": 4.6
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "deporte",
+      "topic": "sports_fitness",
+      "review_id": "srs-obvious-topic-004",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.69,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct sports vocabulary.",
+        "bridge_source": "sport",
+        "bridge_source_zipf": 4.73,
+        "bridge_target_zipf": 4.69
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "ejercicio",
+      "topic": "sports_fitness",
+      "review_id": "srs-obvious-topic-005",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.77,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct exercise/fitness vocabulary.",
+        "bridge_source": "exercise",
+        "bridge_source_zipf": 4.68,
+        "bridge_target_zipf": 4.77
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "jugar",
+      "topic": "sports_fitness",
+      "review_id": "srs-obvious-topic-008",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.05,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Common sports collocation: jugar al futbol/tenis/baloncesto.",
+        "bridge_source": "play",
+        "bridge_source_zipf": 5.61,
+        "bridge_target_zipf": 5.05
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "nadar",
+      "topic": "sports_fitness",
+      "review_id": "srs-obvious-topic-007",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.8,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct exercise/sport activity vocabulary.",
+        "bridge_source": "swim",
+        "bridge_source_zipf": 4.21,
+        "bridge_target_zipf": 3.8
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "aeropuerto",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-024",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.75,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct transport/travel vocabulary.",
+        "bridge_source": "aerodrome",
+        "bridge_source_zipf": 2.54,
+        "bridge_target_zipf": 4.75
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "albergue",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-055",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.55,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel lodging vocabulary.",
+        "bridge_source": "hostel",
+        "bridge_source_zipf": 3.43,
+        "bridge_target_zipf": 3.55
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "alojamiento",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-049",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.95,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel accommodation vocabulary.",
+        "bridge_source": "accommodation",
+        "bridge_source_zipf": 4.06,
+        "bridge_target_zipf": 3.95
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "autobús",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-027",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.31,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct transport vocabulary.",
+        "bridge_source": "bus",
+        "bridge_source_zipf": 4.83,
+        "bridge_target_zipf": 4.31
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "automóvil",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-038",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.02,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct transport vocabulary.",
+        "bridge_source": "car",
+        "bridge_source_zipf": 5.45,
+        "bridge_target_zipf": 4.02
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "avión",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-026",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.69,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct transport vocabulary.",
+        "bridge_source": "plane",
+        "bridge_source_zipf": 4.72,
+        "bridge_target_zipf": 4.69
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "barco",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-058",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.52,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct transport vocabulary.",
+        "bridge_source": "boat",
+        "bridge_source_zipf": 4.71,
+        "bridge_target_zipf": 4.52
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "billete",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-039",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.04,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Common travel/transport ticket vocabulary.",
+        "bridge_source": "ticket",
+        "bridge_source_zipf": 4.61,
+        "bridge_target_zipf": 4.04
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "calle",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-035",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.27,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct place/navigation vocabulary.",
+        "bridge_source": "street",
+        "bridge_source_zipf": 5.28,
+        "bridge_target_zipf": 5.27
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "camino",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-036",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.28,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct route/travel vocabulary.",
+        "bridge_source": "path",
+        "bridge_source_zipf": 4.71,
+        "bridge_target_zipf": 5.28
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "carretera",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-056",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.61,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct road/transport vocabulary.",
+        "bridge_source": "motorway",
+        "bridge_source_zipf": 3.46,
+        "bridge_target_zipf": 4.61
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "ciudad",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-029",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.7,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct place/travel vocabulary.",
+        "bridge_source": "city",
+        "bridge_source_zipf": 5.61,
+        "bridge_target_zipf": 5.7
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "equipaje",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-048",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.79,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel baggage vocabulary.",
+        "bridge_source": "baggage",
+        "bridge_source_zipf": 3.74,
+        "bridge_target_zipf": 3.79
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "excursión",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-061",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.63,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct trip/excursion vocabulary.",
+        "bridge_source": "excursion",
+        "bridge_source_zipf": 3.33,
+        "bridge_target_zipf": 3.63
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "extranjero",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-053",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.68,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel/abroad vocabulary.",
+        "bridge_source": "foreign",
+        "bridge_source_zipf": 5.08,
+        "bridge_target_zipf": 4.68
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "frontera",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-052",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.74,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel/border vocabulary.",
+        "bridge_source": "frontier",
+        "bridge_source_zipf": 3.97,
+        "bridge_target_zipf": 4.74
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "hotel",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-023",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.8,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel accommodation vocabulary.",
+        "bridge_source": "hotel",
+        "bridge_source_zipf": 4.95,
+        "bridge_target_zipf": 4.8
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "maleta",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-054",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.8,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel luggage vocabulary.",
+        "bridge_source": "suitcase",
+        "bridge_source_zipf": 3.55,
+        "bridge_target_zipf": 3.8
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "mapa",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-031",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.63,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct navigation/travel vocabulary.",
+        "bridge_source": "map",
+        "bridge_source_zipf": 4.76,
+        "bridge_target_zipf": 4.63
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "pasaporte",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-032",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.18,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel document vocabulary.",
+        "bridge_source": "passport",
+        "bridge_source_zipf": 4.05,
+        "bridge_target_zipf": 4.18
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "país",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-030",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.78,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct place/travel vocabulary.",
+        "bridge_source": "country",
+        "bridge_source_zipf": 5.48,
+        "bridge_target_zipf": 5.78
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "puerto",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-059",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.06,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct transport/place vocabulary.",
+        "bridge_source": "harbor",
+        "bridge_source_zipf": 4.15,
+        "bridge_target_zipf": 5.06
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "ruta",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-060",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.69,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct route/travel vocabulary.",
+        "bridge_source": "route",
+        "bridge_source_zipf": 4.67,
+        "bridge_target_zipf": 4.69
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "taxi",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-028",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.31,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct transport vocabulary.",
+        "bridge_source": "taxi",
+        "bridge_source_zipf": 4.19,
+        "bridge_target_zipf": 4.31
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "tranvía",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-057",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.49,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct public transport vocabulary.",
+        "bridge_source": "streetcar",
+        "bridge_source_zipf": 3.04,
+        "bridge_target_zipf": 3.49
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "turista",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-051",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.78,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel/person vocabulary.",
+        "bridge_source": "tourist",
+        "bridge_source_zipf": 4.2,
+        "bridge_target_zipf": 3.78
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "viajar",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-021",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.63,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel vocabulary.",
+        "bridge_source": "travel",
+        "bridge_source_zipf": 5.0,
+        "bridge_target_zipf": 4.63
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "viaje",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-022",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 5.11,
+      "evidence_band": "zipf_5_plus_very_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel vocabulary.",
+        "bridge_source": "trip",
+        "bridge_source_zipf": 4.9,
+        "bridge_target_zipf": 5.11
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "visado",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-062",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 3.37,
+      "evidence_band": "zipf_3_to_4_mid",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct travel document vocabulary.",
+        "bridge_source": "visa",
+        "bridge_source_zipf": 4.13,
+        "bridge_target_zipf": 3.37
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "vuelo",
+      "topic": "travel_places_transport",
+      "review_id": "srs-obvious-topic-033",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "evidence_score": 4.63,
+      "evidence_band": "zipf_4_to_5_common",
+      "source_channel": "curated_overlay",
+      "source_label": "obvious_topic_miss_review",
+      "review_state": "agent_labeled_pending_user_approval",
+      "provenance": {
+        "promotion_state": "reviewed_obvious_miss_poc_candidate_not_product_overlay",
+        "review_labels": "docs/test_inputs/srs_obvious_topic_miss_review_labels_en_es_spalex_10k.json",
+        "review_notes": "Direct flight/travel vocabulary.",
+        "bridge_source": "flight",
+        "bridge_source_zipf": 4.86,
+        "bridge_target_zipf": 4.63
+      }
+    }
+  ],
+  "limitations": [
+    "This is a deliberately small reviewed patch for high-confidence obvious misses.",
+    "It does not attempt broad taxonomy expansion or embeddings-based inference.",
+    "Rows remain admission-preview overlay candidates until product overlay promotion."
+  ]
+}
