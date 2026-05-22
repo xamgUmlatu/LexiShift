@@ -1,0 +1,426 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import json
+from pathlib import Path
+import sys
+from typing import Mapping
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CORE_ROOT = PROJECT_ROOT / "core"
+if str(CORE_ROOT) not in sys.path:
+    sys.path.insert(0, str(CORE_ROOT))
+
+from lexishift_core.srs.browsing_admission import (  # noqa: E402
+    BROWSING_SIGNAL_SOURCE,
+    BROWSING_SIGNAL_TARGET,
+    BrowsingAdmissionCandidate,
+    BrowsingSignalAggregate,
+    BrowsingSignalIngestPolicy,
+    BrowsingSignalPacket,
+    BrowsingSignalPacketEntry,
+    BrowsingSignalStore,
+    browsing_raw_value,
+    browsing_signal_value,
+    ingest_browsing_signal_packet,
+    simulate_browsing_admission_presets,
+)
+
+TEST_OUTPUTS_ROOT = PROJECT_ROOT / "docs" / "test_outputs"
+DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_backend_simulation_latest.json"
+DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_backend_simulation_latest.md"
+DEFAULT_PAIR = "en-es"
+DEFAULT_PROFILE_ID = "default"
+DEFAULT_NOW = datetime(2026, 5, 23, tzinfo=timezone.utc)
+
+
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Run a synthetic read-only backend simulation for browsing-based "
+            "SRS admission aggregate storage and strength presets."
+        )
+    )
+    parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
+    parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
+    parser.add_argument("--admission-budget", type=int, default=6)
+    return parser.parse_args()
+
+
+def main() -> int:
+    args = _parse_args()
+    report = build_report(admission_budget=max(1, int(args.admission_budget)))
+    args.json_out.parent.mkdir(parents=True, exist_ok=True)
+    args.markdown_out.parent.mkdir(parents=True, exist_ok=True)
+    args.json_out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    args.markdown_out.write_text(render_markdown(report), encoding="utf-8")
+    print(f"Wrote JSON artifact to {args.json_out}")
+    print(f"Wrote Markdown artifact to {args.markdown_out}")
+    return 0
+
+
+def build_report(*, admission_budget: int = 6) -> dict[str, object]:
+    policy = BrowsingSignalIngestPolicy(
+        max_signals_per_packet=12,
+        max_count_per_signal=5.0,
+        max_items_per_store=8,
+        prune_signal_below=0.02,
+        half_life_days=14.0,
+    )
+    initial_store = BrowsingSignalStore(
+        pair=DEFAULT_PAIR,
+        profile_id=DEFAULT_PROFILE_ID,
+        items={
+            "arcaico": BrowsingSignalAggregate(
+                target_lemma="arcaico",
+                source_hit_count=0.04,
+                last_seen_at="2026-01-01T00:00:00Z",
+                decayed_at="2026-01-01T00:00:00Z",
+            )
+        },
+        updated_at="2026-01-01T00:00:00Z",
+        policy_version=policy.version,
+    )
+    packet = BrowsingSignalPacket(
+        pair=DEFAULT_PAIR,
+        profile_id=DEFAULT_PROFILE_ID,
+        captured_at="2026-05-23T00:00:00Z",
+        signals=(
+            BrowsingSignalPacketEntry(
+                target_lemma="hipoteca",
+                side=BROWSING_SIGNAL_SOURCE,
+                count=9.0,
+                source_mapping_confidence=0.90,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="préstamo",
+                side=BROWSING_SIGNAL_SOURCE,
+                count=7.0,
+                source_mapping_confidence=0.80,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="salud",
+                side=BROWSING_SIGNAL_TARGET,
+                count=4.0,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="diagnóstico",
+                side=BROWSING_SIGNAL_SOURCE,
+                count=4.0,
+                source_mapping_confidence=0.75,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="banco",
+                side=BROWSING_SIGNAL_SOURCE,
+                count=2.0,
+                source_mapping_confidence=0.45,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="interés",
+                side=BROWSING_SIGNAL_SOURCE,
+                count=2.0,
+                source_mapping_confidence=0.70,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="tratamiento",
+                side=BROWSING_SIGNAL_TARGET,
+                count=2.0,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="clínica",
+                side=BROWSING_SIGNAL_TARGET,
+                count=1.0,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="perro",
+                side=BROWSING_SIGNAL_TARGET,
+                count=1.0,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="gato",
+                side=BROWSING_SIGNAL_TARGET,
+                count=1.0,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="cocina",
+                side=BROWSING_SIGNAL_TARGET,
+                count=1.0,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="viaje",
+                side=BROWSING_SIGNAL_TARGET,
+                count=1.0,
+            ),
+            BrowsingSignalPacketEntry(
+                target_lemma="descartado_por_cap",
+                side=BROWSING_SIGNAL_TARGET,
+                count=1.0,
+            ),
+        ),
+    )
+    ingest_result = ingest_browsing_signal_packet(
+        initial_store,
+        packet,
+        policy=policy,
+        now=DEFAULT_NOW,
+    )
+    candidates = build_candidates()
+    simulations = simulate_browsing_admission_presets(
+        candidates,
+        store=ingest_result.store,
+        admission_budget=admission_budget,
+        policy=policy,
+    )
+    return {
+        "schema_version": 1,
+        "status": "ok",
+        "decision": "srs_browsing_admission_backend_simulation_ready",
+        "generated_at": "2026-05-23T00:00:00Z",
+        "language_pair": DEFAULT_PAIR,
+        "profile_id": DEFAULT_PROFILE_ID,
+        "privacy": {
+            "raw_text_stored": False,
+            "url_stored": False,
+            "runtime_srs_mutation": False,
+            "synthetic_fixture_only": True,
+        },
+        "policy": {
+            "version": policy.version,
+            "max_signals_per_packet": policy.max_signals_per_packet,
+            "max_count_per_signal": policy.max_count_per_signal,
+            "max_items_per_store": policy.max_items_per_store,
+            "prune_signal_below": policy.prune_signal_below,
+            "half_life_days": policy.half_life_days,
+            "browsing_signal_cap": policy.browsing_signal_cap,
+            "replacement_exposure_weight": policy.replacement_exposure_weight,
+        },
+        "ingest_result": ingest_result.to_dict(),
+        "aggregate_store": summarize_store(ingest_result.store, policy=policy),
+        "admission_budget": admission_budget,
+        "simulations": {name: result.to_dict() for name, result in simulations.items()},
+        "findings": build_findings(
+            ingest_result=ingest_result.to_dict(),
+            simulations={name: result.to_dict() for name, result in simulations.items()},
+        ),
+    }
+
+
+def build_candidates() -> tuple[BrowsingAdmissionCandidate, ...]:
+    return (
+        BrowsingAdmissionCandidate(lemma="casa", neutral_score=1.00),
+        BrowsingAdmissionCandidate(lemma="ser", neutral_score=0.96),
+        BrowsingAdmissionCandidate(lemma="banco", neutral_score=0.90),
+        BrowsingAdmissionCandidate(lemma="perro", neutral_score=0.84),
+        BrowsingAdmissionCandidate(lemma="gato", neutral_score=0.82),
+        BrowsingAdmissionCandidate(lemma="comida", neutral_score=0.80),
+        BrowsingAdmissionCandidate(
+            lemma="hipoteca",
+            neutral_score=0.64,
+            readiness_multiplier=0.92,
+            explicit_preference_fit=0.65,
+            source_confidence=0.90,
+        ),
+        BrowsingAdmissionCandidate(
+            lemma="préstamo",
+            neutral_score=0.62,
+            readiness_multiplier=0.88,
+            explicit_preference_fit=0.60,
+            source_confidence=0.85,
+        ),
+        BrowsingAdmissionCandidate(
+            lemma="salud",
+            neutral_score=0.60,
+            readiness_multiplier=0.86,
+            explicit_preference_fit=0.55,
+            source_confidence=0.90,
+        ),
+        BrowsingAdmissionCandidate(
+            lemma="diagnóstico",
+            neutral_score=0.58,
+            readiness_multiplier=0.74,
+            explicit_preference_fit=0.50,
+            source_confidence=0.80,
+        ),
+        BrowsingAdmissionCandidate(
+            lemma="tratamiento",
+            neutral_score=0.56,
+            readiness_multiplier=0.72,
+            explicit_preference_fit=0.50,
+            source_confidence=0.82,
+        ),
+        BrowsingAdmissionCandidate(lemma="viaje", neutral_score=0.54),
+    )
+
+
+def summarize_store(
+    store: BrowsingSignalStore,
+    *,
+    policy: BrowsingSignalIngestPolicy,
+) -> dict[str, object]:
+    rows = []
+    for aggregate in store.items.values():
+        rows.append(
+            {
+                "target_lemma": aggregate.target_lemma,
+                "source_hit_count": round(aggregate.source_hit_count, 4),
+                "target_hit_count": round(aggregate.target_hit_count, 4),
+                "replacement_exposure_count": round(
+                    aggregate.replacement_exposure_count,
+                    4,
+                ),
+                "source_mapping_confidence": round(
+                    aggregate.source_mapping_confidence,
+                    4,
+                ),
+                "raw_browsing": round(browsing_raw_value(aggregate, policy=policy), 4),
+                "browsing_signal": round(browsing_signal_value(aggregate, policy=policy), 4),
+                "last_seen_at": aggregate.last_seen_at,
+            }
+        )
+    rows.sort(key=lambda row: (-float(row["browsing_signal"]), str(row["target_lemma"])))
+    return {
+        "pair": store.pair,
+        "profile_id": store.profile_id,
+        "updated_at": store.updated_at,
+        "item_count": len(rows),
+        "items": rows,
+    }
+
+
+def build_findings(
+    *,
+    ingest_result: Mapping[str, object],
+    simulations: Mapping[str, Mapping[str, object]],
+) -> list[dict[str, object]]:
+    findings: list[dict[str, object]] = []
+    if int(ingest_result.get("dropped_signal_count", 0)) > 0:
+        findings.append(
+            {
+                "severity": "info",
+                "finding": "packet_cap_applied",
+                "detail": "Signals beyond the per-packet cap were dropped.",
+            }
+        )
+    if int(ingest_result.get("capped_signal_count", 0)) > 0:
+        findings.append(
+            {
+                "severity": "info",
+                "finding": "per_signal_count_cap_applied",
+                "detail": "Large repeated counts were capped before aggregation.",
+            }
+        )
+    off = simulations.get("off", {})
+    balanced = simulations.get("balanced", {})
+    strong = simulations.get("strong", {})
+    if (
+        float(off.get("browsing_lane_share", 0.0))
+        <= float(balanced.get("browsing_lane_share", 0.0))
+        <= float(strong.get("browsing_lane_share", 0.0))
+    ):
+        findings.append(
+            {
+                "severity": "info",
+                "finding": "preset_browsing_share_is_monotonic",
+                "detail": "Off, Balanced, and Strong increase browsing-lane share as intended.",
+            }
+        )
+    return findings
+
+
+def render_markdown(report: Mapping[str, object]) -> str:
+    aggregate = _as_mapping(report.get("aggregate_store"))
+    simulations = _as_mapping(report.get("simulations"))
+    lines = [
+        "# SRS Browsing Admission Backend Simulation",
+        "",
+        f"- Status: `{report.get('status', '')}`",
+        f"- Decision: `{report.get('decision', '')}`",
+        f"- Pair: `{report.get('language_pair', '')}`",
+        f"- Aggregate items retained: `{aggregate.get('item_count', 0)}`",
+        f"- Admission budget: `{report.get('admission_budget', 0)}`",
+        "- Runtime SRS mutation: `False`",
+        "- Raw text stored: `False`",
+        "- URL stored: `False`",
+        "",
+        "## Ingest",
+        "",
+    ]
+    ingest = _as_mapping(report.get("ingest_result"))
+    for key in (
+        "input_signal_count",
+        "accepted_signal_count",
+        "dropped_signal_count",
+        "capped_signal_count",
+        "pruned_item_count",
+        "retained_item_count",
+    ):
+        lines.append(f"- `{key}`: `{ingest.get(key, '')}`")
+
+    lines.extend(
+        [
+            "",
+            "## Aggregate Store Preview",
+            "",
+            "| Lemma | Signal | Raw | Source | Target | Confidence |",
+            "| --- | ---: | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for row in _rows(aggregate.get("items")):
+        lines.append(
+            f"| `{row.get('target_lemma', '')}` | {row.get('browsing_signal', '')} | "
+            f"{row.get('raw_browsing', '')} | {row.get('source_hit_count', '')} | "
+            f"{row.get('target_hit_count', '')} | "
+            f"{row.get('source_mapping_confidence', '')} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Strength Simulation",
+            "",
+            "| Strength | Browsing Budget | Browsing Lane Share | Relevant Share | Driven Share | Selected |",
+            "| --- | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for name in ("off", "balanced", "strong"):
+        result = _as_mapping(simulations.get(name))
+        lines.append(
+            f"| `{name}` | {result.get('browsing_budget', '')} | "
+            f"{result.get('browsing_lane_share', '')} | "
+            f"{result.get('browsing_relevant_share', '')} | "
+            f"{result.get('browsing_driven_share', '')} | "
+            f"{', '.join(str(item) for item in result.get('selected_lemmas', []))} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Findings",
+            "",
+            "| Severity | Finding | Detail |",
+            "| --- | --- | --- |",
+        ]
+    )
+    for finding in _rows(report.get("findings")):
+        lines.append(
+            f"| `{finding.get('severity', '')}` | `{finding.get('finding', '')}` | "
+            f"{finding.get('detail', '')} |"
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _as_mapping(value: object) -> Mapping[str, object]:
+    return value if isinstance(value, Mapping) else {}
+
+
+def _rows(value: object) -> list[Mapping[str, object]]:
+    if not isinstance(value, list):
+        return []
+    return [row for row in value if isinstance(row, Mapping)]
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

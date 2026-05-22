@@ -3,7 +3,7 @@
 Status: active planning workstream
 Role: Planning / WIP
 Last updated: 2026-05-23
-Last verified: 2026-05-23 by SRS hybrid model, interest-tailored admission algorithm, helper exposure path, signal queue, profile-context code reads, and browsing-admission research harness
+Last verified: 2026-05-23 by SRS hybrid model, interest-tailored admission algorithm, helper exposure path, signal queue, profile-context code reads, browsing-admission research harness, and read-only backend simulation prototype
 Purpose: define the planned opt-in browsing word-signal layer for SRS admission without treating passive browsing as review feedback
 Source-of-truth: planning reference only; current executable truth lives in SRS/helper code, extension signal code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -356,6 +356,17 @@ Storage posture:
   required just to age out signals;
 - clearing browsing admission signals must not delete normal SRS review
   history.
+
+Current prototype evidence:
+
+- `core/lexishift_core/srs/browsing_admission.py` defines the decayed,
+  bounded aggregate store, ingest result diagnostics, strength presets, and
+  read-only admission-share simulation.
+- `scripts/testing/srs_browsing_admission_backend_simulation.py` renders a
+  synthetic report without browser capture or runtime SRS mutation.
+- `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
+  records the current synthetic fixture: packet caps apply, stale/low-signal
+  rows prune, and `Off < Balanced < Strong` browsing-lane share is monotonic.
 
 ## Probability Model
 

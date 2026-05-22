@@ -135,9 +135,9 @@ Status key:
 - `[~]` Event aggregation design for refresh decisions.
 - `[~]` Feedback-window aggregation for admission updates (separate from due scheduling).
 - `[ ]` Persist aggregated admission feedback state (per pair, versioned).
-- `[ ]` Persist browsing admission aggregate state (per profile/pair, decayed and bounded).
+- `[~]` Persist browsing admission aggregate state (core decayed/bounded store prototype exists; helper persistence is not wired).
 - `[ ]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics.
-- `[ ]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
+- `[x]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
 - `[ ]` Lifecycle audit for admission triggers, mastered/released state, and discard/suspend re-admission cooldowns.
 - `[ ]` Opt-in gated browsing relevance boost for actual admission refresh.
 - `[ ]` Automatic `adaptive_refresh` trigger policy.
