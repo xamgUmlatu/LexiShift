@@ -137,6 +137,8 @@ Status key:
 - `[ ]` Persist aggregated admission feedback state (per pair, versioned).
 - `[ ]` Persist browsing admission aggregate state (per profile/pair, decayed and bounded).
 - `[ ]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics.
+- `[ ]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
+- `[ ]` Lifecycle audit for admission triggers, mastered/released state, and discard/suspend re-admission cooldowns.
 - `[ ]` Opt-in gated browsing relevance boost for actual admission refresh.
 - `[ ]` Automatic `adaptive_refresh` trigger policy.
 - `[ ]` Explicit policy gate for any non-feedback signals.

@@ -616,6 +616,22 @@ probabilities unless that review also triggers a growth or refresh workflow.
 Feedback from reviews may update profile signals, but admission probability is
 used when admitting new items into `S`.
 
+Admission is durable. Once a word is selected into `S`, it normally remains part
+of the learner's review path until scheduler maturity, suspension/discard, or a
+future lifecycle policy changes that state. Therefore every personalization
+signal, including the planned browsing-based signal, must pass through the same
+budget and lifecycle gates as ordinary admission:
+
+- daily/session new-word budget;
+- active-set budget;
+- blocked/discarded/suspended item policy;
+- source/rulegen/readiness eligibility;
+- no duplicate admission for already admitted or mastered target lemmas.
+
+Browsing-based admission should be treated as an extra score component plus a
+share-calibrated admission policy, not as an automatic route from page exposure
+to durable SRS obligation.
+
 ## Caching Policy
 
 The topic dot product is cheap for a normal SRS frontier. Even `50,000`
