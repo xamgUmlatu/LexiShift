@@ -1,0 +1,2439 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "srs_browsing_admission_research_ready",
+  "generated_at": "2026-05-22T18:18:48+00:00",
+  "language_pair": "en-es",
+  "policy": {
+    "version": "browsing_admission_research_v1",
+    "max_unique_tokens_per_document": 160,
+    "max_count_per_token_per_document": 3,
+    "browsing_signal_cap": 16.0,
+    "browsing_alpha": 0.25,
+    "max_browsing_boost": 1.35,
+    "replacement_exposure_weight": 0.35,
+    "ambiguity_confidence_exponent": 0.5,
+    "min_token_length": 3,
+    "normalization": [
+      "lowercase",
+      "unicode_nfkc",
+      "accent_folded_lookup_aliases",
+      "simple_english_suffix_variants",
+      "simple_spanish_plural_variants"
+    ],
+    "privacy_posture": [
+      "read_only_research_harness",
+      "no_raw_text_in_artifact",
+      "no_url_input_or_storage",
+      "no_runtime_mutation"
+    ]
+  },
+  "profile_context": {
+    "proficiency": {
+      "estimated_value": 0.45
+    }
+  },
+  "inputs": {
+    "zipf_bridge_json": "docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
+    "overlay_json": [
+      "docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_wikidata_natural_taxonomy_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json"
+    ],
+    "text_documents": [
+      {
+        "document_id": "finance_mortgage",
+        "source_path": "",
+        "text_sha256": "f889fe582ca1819463d50a9d8a04bf2699a97d5f1dbbef46416fcff7fda7b154",
+        "raw_text_stored": false,
+        "side": "source"
+      },
+      {
+        "document_id": "medical_treatment",
+        "source_path": "",
+        "text_sha256": "de89755fbfdf31a01a3a779b8ab84048bf5c05a2759c34eb1ad54afc8ee05f5d",
+        "raw_text_stored": false,
+        "side": "source"
+      }
+    ]
+  },
+  "privacy": {
+    "raw_text_stored": false,
+    "url_stored": false,
+    "runtime_mutation": false,
+    "scope": "local_read_only_research"
+  },
+  "source_target_bridge": {
+    "raw_pair_count": 4260,
+    "source_lookup_key_count": 3339,
+    "target_lookup_key_count": 2956,
+    "ambiguous_source_lookup_key_count": 741,
+    "max_targets_per_source_lookup_key": 8,
+    "ambiguity_policy": "1 / target_count ** ambiguity_confidence_exponent"
+  },
+  "seed_source": {
+    "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "preview_frequency_db": "<temporary>/srs-admission-lab-zipf-augmented.sqlite",
+    "overlay_source_path": "<temporary>/srs-admission-lab-merged-topic-overlay.json",
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "seed_count": 4123,
+    "augmentation": {
+      "status": "applied",
+      "runtime_scope": "dev_lab_only",
+      "output_frequency_db": "<temporary>/srs-admission-lab-zipf-augmented.sqlite",
+      "base_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+      "zipf_bridge_path": "docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
+      "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+      "base_row_count": 1984,
+      "bridge_target_count": 2481,
+      "output_row_count": 4123,
+      "added_row_count": 2139,
+      "added_lemma_sample": [
+        "que",
+        "por",
+        "una",
+        "para",
+        "como",
+        "este",
+        "todo",
+        "sin",
+        "muy",
+        "también",
+        "porque",
+        "así",
+        "dos",
+        "bien",
+        "hacer",
+        "ahora",
+        "nada",
+        "donde",
+        "parte",
+        "solo"
+      ],
+      "overlay_topic_lemma_count": 1034,
+      "overlay_missing_without_bridge_count": 489,
+      "overlay_missing_without_bridge_sample": [
+        "anta",
+        "asno",
+        "bovino",
+        "can",
+        "chihuahua",
+        "cobra",
+        "comadreja",
+        "coyote",
+        "culebra",
+        "cóndor",
+        "dinosaurio",
+        "efímera",
+        "hornero",
+        "jaca",
+        "lechuza",
+        "reno",
+        "tortuga",
+        "venado",
+        "vicuña",
+        "yegua"
+      ],
+      "kaikki_pos_lemma_count": 4008,
+      "example_zipf_ranks": {
+        "perro": {
+          "rank": 456,
+          "zipf": 4.9
+        },
+        "gato": {
+          "rank": 740,
+          "zipf": 4.62
+        },
+        "caballo": {
+          "rank": 804,
+          "zipf": 4.56
+        },
+        "ave": {
+          "rank": 1387,
+          "zipf": 4.12
+        },
+        "pájaro": {
+          "rank": 1617,
+          "zipf": 3.95
+        },
+        "león": {
+          "rank": 601,
+          "zipf": 4.73
+        },
+        "vaca": {
+          "rank": 1347,
+          "zipf": 4.15
+        },
+        "pez": {
+          "rank": 1288,
+          "zipf": 4.19
+        }
+      }
+    }
+  },
+  "extraction": {
+    "document_count": 2,
+    "source_lookup_hit_count": 18,
+    "target_lookup_hit_count": 0,
+    "source_lookup_unique_count": 18,
+    "target_lookup_unique_count": 0,
+    "unmapped_token_count": 12,
+    "unmapped_unique_count": 11,
+    "top_source_lookup_hits": [
+      {
+        "token": "bank",
+        "count": 1
+      },
+      {
+        "token": "buyer",
+        "count": 1
+      },
+      {
+        "token": "change",
+        "count": 1
+      },
+      {
+        "token": "credit",
+        "count": 1
+      },
+      {
+        "token": "doctor",
+        "count": 1
+      },
+      {
+        "token": "document",
+        "count": 1
+      },
+      {
+        "token": "infection",
+        "count": 1
+      },
+      {
+        "token": "interest",
+        "count": 1
+      },
+      {
+        "token": "loan",
+        "count": 1
+      },
+      {
+        "token": "medicine",
+        "count": 1
+      },
+      {
+        "token": "pain",
+        "count": 1
+      },
+      {
+        "token": "payment",
+        "count": 1
+      },
+      {
+        "token": "property",
+        "count": 1
+      },
+      {
+        "token": "rate",
+        "count": 1
+      },
+      {
+        "token": "sign",
+        "count": 1
+      },
+      {
+        "token": "treatment",
+        "count": 1
+      },
+      {
+        "token": "value",
+        "count": 1
+      },
+      {
+        "token": "visit",
+        "count": 1
+      }
+    ],
+    "top_target_lookup_hits": [],
+    "top_unmapped_tokens": [
+      {
+        "token": "mortgage",
+        "count": 2
+      },
+      {
+        "token": "approved",
+        "count": 1
+      },
+      {
+        "token": "clinic",
+        "count": 1
+      },
+      {
+        "token": "diagnosis",
+        "count": 1
+      },
+      {
+        "token": "discussed",
+        "count": 1
+      },
+      {
+        "token": "income",
+        "count": 1
+      },
+      {
+        "token": "monthly",
+        "count": 1
+      },
+      {
+        "token": "patient",
+        "count": 1
+      },
+      {
+        "token": "recovery",
+        "count": 1
+      },
+      {
+        "token": "reviewing",
+        "count": 1
+      },
+      {
+        "token": "symptoms",
+        "count": 1
+      }
+    ],
+    "documents": [
+      {
+        "document_id": "finance_mortgage",
+        "side": "source",
+        "raw_token_count": 26,
+        "usable_token_count": 18,
+        "capped_unique_token_count": 17,
+        "source_lookup_hit_count": 12,
+        "target_lookup_hit_count": 0,
+        "unmapped_token_count": 6,
+        "top_source_lookup_hits": [
+          {
+            "token": "bank",
+            "count": 1
+          },
+          {
+            "token": "buyer",
+            "count": 1
+          },
+          {
+            "token": "change",
+            "count": 1
+          },
+          {
+            "token": "credit",
+            "count": 1
+          },
+          {
+            "token": "document",
+            "count": 1
+          },
+          {
+            "token": "interest",
+            "count": 1
+          },
+          {
+            "token": "loan",
+            "count": 1
+          },
+          {
+            "token": "payment",
+            "count": 1
+          },
+          {
+            "token": "property",
+            "count": 1
+          },
+          {
+            "token": "rate",
+            "count": 1
+          },
+          {
+            "token": "sign",
+            "count": 1
+          },
+          {
+            "token": "value",
+            "count": 1
+          }
+        ],
+        "top_target_lookup_hits": [],
+        "top_unmapped_tokens": [
+          {
+            "token": "mortgage",
+            "count": 2
+          },
+          {
+            "token": "approved",
+            "count": 1
+          },
+          {
+            "token": "income",
+            "count": 1
+          },
+          {
+            "token": "monthly",
+            "count": 1
+          },
+          {
+            "token": "reviewing",
+            "count": 1
+          }
+        ],
+        "raw_text_stored": false
+      },
+      {
+        "document_id": "medical_treatment",
+        "side": "source",
+        "raw_token_count": 17,
+        "usable_token_count": 12,
+        "capped_unique_token_count": 12,
+        "source_lookup_hit_count": 6,
+        "target_lookup_hit_count": 0,
+        "unmapped_token_count": 6,
+        "top_source_lookup_hits": [
+          {
+            "token": "doctor",
+            "count": 1
+          },
+          {
+            "token": "infection",
+            "count": 1
+          },
+          {
+            "token": "medicine",
+            "count": 1
+          },
+          {
+            "token": "pain",
+            "count": 1
+          },
+          {
+            "token": "treatment",
+            "count": 1
+          },
+          {
+            "token": "visit",
+            "count": 1
+          }
+        ],
+        "top_target_lookup_hits": [],
+        "top_unmapped_tokens": [
+          {
+            "token": "clinic",
+            "count": 1
+          },
+          {
+            "token": "diagnosis",
+            "count": 1
+          },
+          {
+            "token": "discussed",
+            "count": 1
+          },
+          {
+            "token": "patient",
+            "count": 1
+          },
+          {
+            "token": "recovery",
+            "count": 1
+          },
+          {
+            "token": "symptoms",
+            "count": 1
+          }
+        ],
+        "raw_text_stored": false
+      }
+    ]
+  },
+  "browsing_signal_summary": {
+    "boosted_lemma_count": 32,
+    "ambiguous_boosted_lemma_count": 24,
+    "top_boosted_lemmas": [
+      {
+        "lemma": "documento",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "document"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "dolor",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "pain"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "fila",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "rate"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "haber",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "credit"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "infección",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "infection"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "pago",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "payment"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "prestar",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "loan"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "valor",
+        "source_weighted_count": 1.0,
+        "target_hit_count": 0.0,
+        "raw_browsing": 1.0,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "source_terms": [
+          "value"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [],
+        "mapping_confidence_max": 1.0
+      },
+      {
+        "lemma": "banco",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "bank"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "bank"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "cliente",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "buyer"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "buyer"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "comprador",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "buyer"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "buyer"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "doctor",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "doctor"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "doctor"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "escaño",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "bank"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "bank"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "interesar",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "interest"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "interest"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "interés",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "interest"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "interest"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "medicamento",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "medicine"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "medicine"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "medicina",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "medicine"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "medicine"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "médico",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "doctor"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "doctor"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "visita",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "visit"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "visit"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "visitar",
+        "source_weighted_count": 0.7071,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.7071,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "source_terms": [
+          "visit"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "visit"
+        ],
+        "mapping_confidence_max": 0.7071
+      },
+      {
+        "lemma": "calidad",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "property"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "property"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "cambiar",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "cambio",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "cura",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "treatment"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "treatment"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "finca",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "property"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "property"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "firmar",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "granja",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "property"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "property"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "mudar",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "seña",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ],
+        "mapping_confidence_max": 0.5774
+      },
+      {
+        "lemma": "señal",
+        "source_weighted_count": 0.5774,
+        "target_hit_count": 0.0,
+        "raw_browsing": 0.5774,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ],
+        "mapping_confidence_max": 0.5774
+      }
+    ]
+  },
+  "admission_delta": {
+    "neutral_top": [
+      {
+        "lemma": "turquesa",
+        "neutral_rank": 1,
+        "browsing_rank": 5,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9947,
+        "difficulty_estimate": 0.2906,
+        "admission_weight": 0.7094,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "bambalina",
+        "neutral_rank": 2,
+        "browsing_rank": 6,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9951,
+        "difficulty_estimate": 0.2909,
+        "admission_weight": 0.7091,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "jalea",
+        "neutral_rank": 3,
+        "browsing_rank": 7,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9944,
+        "difficulty_estimate": 0.2903,
+        "admission_weight": 0.7097,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "apreciable",
+        "neutral_rank": 4,
+        "browsing_rank": 8,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9942,
+        "difficulty_estimate": 0.2902,
+        "admission_weight": 0.7098,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "alineado",
+        "neutral_rank": 5,
+        "browsing_rank": 9,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9941,
+        "difficulty_estimate": 0.2901,
+        "admission_weight": 0.7099,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "laringe",
+        "neutral_rank": 6,
+        "browsing_rank": 10,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9954,
+        "difficulty_estimate": 0.2913,
+        "admission_weight": 0.7087,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "veleidad",
+        "neutral_rank": 7,
+        "browsing_rank": 11,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.994,
+        "difficulty_estimate": 0.29,
+        "admission_weight": 0.71,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "promulgado",
+        "neutral_rank": 8,
+        "browsing_rank": 12,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9938,
+        "difficulty_estimate": 0.2898,
+        "admission_weight": 0.7102,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "simétrico",
+        "neutral_rank": 9,
+        "browsing_rank": 13,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9957,
+        "difficulty_estimate": 0.2916,
+        "admission_weight": 0.7084,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "concienciación",
+        "neutral_rank": 10,
+        "browsing_rank": 14,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9936,
+        "difficulty_estimate": 0.2896,
+        "admission_weight": 0.7104,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "interestelar",
+        "neutral_rank": 11,
+        "browsing_rank": 15,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9959,
+        "difficulty_estimate": 0.2917,
+        "admission_weight": 0.7083,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "inorgánico",
+        "neutral_rank": 12,
+        "browsing_rank": 16,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.993,
+        "difficulty_estimate": 0.2892,
+        "admission_weight": 0.7108,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "expansivo",
+        "neutral_rank": 13,
+        "browsing_rank": 17,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9964,
+        "difficulty_estimate": 0.2922,
+        "admission_weight": 0.7078,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "experimentado",
+        "neutral_rank": 14,
+        "browsing_rank": 18,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9926,
+        "difficulty_estimate": 0.2889,
+        "admission_weight": 0.7111,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "reluciente",
+        "neutral_rank": 15,
+        "browsing_rank": 19,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9925,
+        "difficulty_estimate": 0.2888,
+        "admission_weight": 0.7112,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "nodo",
+        "neutral_rank": 16,
+        "browsing_rank": 20,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9967,
+        "difficulty_estimate": 0.2926,
+        "admission_weight": 0.7074,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "scherzo",
+        "neutral_rank": 17,
+        "browsing_rank": 21,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9923,
+        "difficulty_estimate": 0.2887,
+        "admission_weight": 0.7113,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "ecuménico",
+        "neutral_rank": 18,
+        "browsing_rank": 22,
+        "rank_delta": -4,
+        "neutral_score": 0.4874,
+        "browsing_score": 0.4874,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9969,
+        "difficulty_estimate": 0.2928,
+        "admission_weight": 0.7072,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "comprensivo",
+        "neutral_rank": 19,
+        "browsing_rank": 23,
+        "rank_delta": -4,
+        "neutral_score": 0.4874,
+        "browsing_score": 0.4874,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9972,
+        "difficulty_estimate": 0.2931,
+        "admission_weight": 0.7069,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "emirato",
+        "neutral_rank": 20,
+        "browsing_rank": 24,
+        "rank_delta": -4,
+        "neutral_score": 0.4874,
+        "browsing_score": 0.4874,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9914,
+        "difficulty_estimate": 0.288,
+        "admission_weight": 0.712,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      }
+    ],
+    "browsing_top": [
+      {
+        "lemma": "cambiar",
+        "neutral_rank": 144,
+        "browsing_rank": 1,
+        "rank_delta": 143,
+        "neutral_score": 0.4817,
+        "browsing_score": 0.5011,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.306,
+        "admission_weight": 0.694,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ]
+      },
+      {
+        "lemma": "visitar",
+        "neutral_rank": 290,
+        "browsing_rank": 2,
+        "rank_delta": 288,
+        "neutral_score": 0.4742,
+        "browsing_score": 0.4965,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3197,
+        "admission_weight": 0.6803,
+        "source_terms": [
+          "visit"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "visit"
+        ]
+      },
+      {
+        "lemma": "prestar",
+        "neutral_rank": 457,
+        "browsing_rank": 3,
+        "rank_delta": 454,
+        "neutral_score": 0.4664,
+        "browsing_score": 0.495,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3338,
+        "admission_weight": 0.6662,
+        "source_terms": [
+          "loan"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "firmar",
+        "neutral_rank": 373,
+        "browsing_rank": 4,
+        "rank_delta": 369,
+        "neutral_score": 0.4701,
+        "browsing_score": 0.4891,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.327,
+        "admission_weight": 0.673,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ]
+      },
+      {
+        "lemma": "turquesa",
+        "neutral_rank": 1,
+        "browsing_rank": 5,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9947,
+        "difficulty_estimate": 0.2906,
+        "admission_weight": 0.7094,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "bambalina",
+        "neutral_rank": 2,
+        "browsing_rank": 6,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9951,
+        "difficulty_estimate": 0.2909,
+        "admission_weight": 0.7091,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "jalea",
+        "neutral_rank": 3,
+        "browsing_rank": 7,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9944,
+        "difficulty_estimate": 0.2903,
+        "admission_weight": 0.7097,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "apreciable",
+        "neutral_rank": 4,
+        "browsing_rank": 8,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9942,
+        "difficulty_estimate": 0.2902,
+        "admission_weight": 0.7098,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "alineado",
+        "neutral_rank": 5,
+        "browsing_rank": 9,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9941,
+        "difficulty_estimate": 0.2901,
+        "admission_weight": 0.7099,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "laringe",
+        "neutral_rank": 6,
+        "browsing_rank": 10,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9954,
+        "difficulty_estimate": 0.2913,
+        "admission_weight": 0.7087,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "veleidad",
+        "neutral_rank": 7,
+        "browsing_rank": 11,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.994,
+        "difficulty_estimate": 0.29,
+        "admission_weight": 0.71,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "promulgado",
+        "neutral_rank": 8,
+        "browsing_rank": 12,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9938,
+        "difficulty_estimate": 0.2898,
+        "admission_weight": 0.7102,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "simétrico",
+        "neutral_rank": 9,
+        "browsing_rank": 13,
+        "rank_delta": -4,
+        "neutral_score": 0.4876,
+        "browsing_score": 0.4876,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9957,
+        "difficulty_estimate": 0.2916,
+        "admission_weight": 0.7084,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "concienciación",
+        "neutral_rank": 10,
+        "browsing_rank": 14,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9936,
+        "difficulty_estimate": 0.2896,
+        "admission_weight": 0.7104,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "interestelar",
+        "neutral_rank": 11,
+        "browsing_rank": 15,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9959,
+        "difficulty_estimate": 0.2917,
+        "admission_weight": 0.7083,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "inorgánico",
+        "neutral_rank": 12,
+        "browsing_rank": 16,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.993,
+        "difficulty_estimate": 0.2892,
+        "admission_weight": 0.7108,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "expansivo",
+        "neutral_rank": 13,
+        "browsing_rank": 17,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9964,
+        "difficulty_estimate": 0.2922,
+        "admission_weight": 0.7078,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "experimentado",
+        "neutral_rank": 14,
+        "browsing_rank": 18,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9926,
+        "difficulty_estimate": 0.2889,
+        "admission_weight": 0.7111,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "reluciente",
+        "neutral_rank": 15,
+        "browsing_rank": 19,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9925,
+        "difficulty_estimate": 0.2888,
+        "admission_weight": 0.7112,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "nodo",
+        "neutral_rank": 16,
+        "browsing_rank": 20,
+        "rank_delta": -4,
+        "neutral_score": 0.4875,
+        "browsing_score": 0.4875,
+        "browsing_signal": 0.0,
+        "browsing_boost": 1.0,
+        "readiness_multiplier": 0.9967,
+        "difficulty_estimate": 0.2926,
+        "admission_weight": 0.7074,
+        "source_terms": [],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      }
+    ],
+    "moved_up": [
+      {
+        "lemma": "cambiar",
+        "neutral_rank": 144,
+        "browsing_rank": 1,
+        "rank_delta": 143,
+        "neutral_score": 0.4817,
+        "browsing_score": 0.5011,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.306,
+        "admission_weight": 0.694,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ]
+      },
+      {
+        "lemma": "visitar",
+        "neutral_rank": 290,
+        "browsing_rank": 2,
+        "rank_delta": 288,
+        "neutral_score": 0.4742,
+        "browsing_score": 0.4965,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3197,
+        "admission_weight": 0.6803,
+        "source_terms": [
+          "visit"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "visit"
+        ]
+      },
+      {
+        "lemma": "prestar",
+        "neutral_rank": 457,
+        "browsing_rank": 3,
+        "rank_delta": 454,
+        "neutral_score": 0.4664,
+        "browsing_score": 0.495,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3338,
+        "admission_weight": 0.6662,
+        "source_terms": [
+          "loan"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "firmar",
+        "neutral_rank": 373,
+        "browsing_rank": 4,
+        "rank_delta": 369,
+        "neutral_score": 0.4701,
+        "browsing_score": 0.4891,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.327,
+        "admission_weight": 0.673,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ]
+      },
+      {
+        "lemma": "interesar",
+        "neutral_rank": 746,
+        "browsing_rank": 313,
+        "rank_delta": 433,
+        "neutral_score": 0.4517,
+        "browsing_score": 0.473,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3606,
+        "admission_weight": 0.6394,
+        "source_terms": [
+          "interest"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "interest"
+        ]
+      },
+      {
+        "lemma": "seña",
+        "neutral_rank": 2430,
+        "browsing_rank": 2411,
+        "rank_delta": 19,
+        "neutral_score": 0.0533,
+        "browsing_score": 0.0554,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0895,
+        "difficulty_estimate": 0.0995,
+        "admission_weight": 0.9005,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ]
+      },
+      {
+        "lemma": "escaño",
+        "neutral_rank": 2541,
+        "browsing_rank": 2518,
+        "rank_delta": 23,
+        "neutral_score": 0.0421,
+        "browsing_score": 0.044,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.07,
+        "difficulty_estimate": 0.0895,
+        "admission_weight": 0.9105,
+        "source_terms": [
+          "bank"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "bank"
+        ]
+      },
+      {
+        "lemma": "mudar",
+        "neutral_rank": 2550,
+        "browsing_rank": 2532,
+        "rank_delta": 18,
+        "neutral_score": 0.0414,
+        "browsing_score": 0.043,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0688,
+        "difficulty_estimate": 0.0888,
+        "admission_weight": 0.9112,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ]
+      },
+      {
+        "lemma": "medicamento",
+        "neutral_rank": 2809,
+        "browsing_rank": 2786,
+        "rank_delta": 23,
+        "neutral_score": 0.0246,
+        "browsing_score": 0.0258,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.0402,
+        "difficulty_estimate": 0.0685,
+        "admission_weight": 0.9315,
+        "source_terms": [
+          "medicine"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "medicine"
+        ]
+      },
+      {
+        "lemma": "comprador",
+        "neutral_rank": 2888,
+        "browsing_rank": 2865,
+        "rank_delta": 23,
+        "neutral_score": 0.0212,
+        "browsing_score": 0.0222,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.0344,
+        "difficulty_estimate": 0.063,
+        "admission_weight": 0.937,
+        "source_terms": [
+          "buyer"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "buyer"
+        ]
+      },
+      {
+        "lemma": "finca",
+        "neutral_rank": 2985,
+        "browsing_rank": 2965,
+        "rank_delta": 20,
+        "neutral_score": 0.0172,
+        "browsing_score": 0.0179,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0278,
+        "difficulty_estimate": 0.0556,
+        "admission_weight": 0.9444,
+        "source_terms": [
+          "property"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "property"
+        ]
+      },
+      {
+        "lemma": "infección",
+        "neutral_rank": 3017,
+        "browsing_rank": 2989,
+        "rank_delta": 28,
+        "neutral_score": 0.0161,
+        "browsing_score": 0.0171,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 0.0259,
+        "difficulty_estimate": 0.0533,
+        "admission_weight": 0.9467,
+        "source_terms": [
+          "infection"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "granja",
+        "neutral_rank": 3033,
+        "browsing_rank": 3017,
+        "rank_delta": 16,
+        "neutral_score": 0.0155,
+        "browsing_score": 0.0162,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.025,
+        "difficulty_estimate": 0.052,
+        "admission_weight": 0.948,
+        "source_terms": [
+          "property"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "property"
+        ]
+      },
+      {
+        "lemma": "fila",
+        "neutral_rank": 3250,
+        "browsing_rank": 3220,
+        "rank_delta": 30,
+        "neutral_score": 0.0104,
+        "browsing_score": 0.011,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 0.0165,
+        "difficulty_estimate": 0.0385,
+        "admission_weight": 0.9615,
+        "source_terms": [
+          "rate"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "cura",
+        "neutral_rank": 3410,
+        "browsing_rank": 3384,
+        "rank_delta": 26,
+        "neutral_score": 0.0081,
+        "browsing_score": 0.0084,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0127,
+        "difficulty_estimate": 0.0304,
+        "admission_weight": 0.9696,
+        "source_terms": [
+          "treatment"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "treatment"
+        ]
+      },
+      {
+        "lemma": "cliente",
+        "neutral_rank": 3534,
+        "browsing_rank": 3504,
+        "rank_delta": 30,
+        "neutral_score": 0.0067,
+        "browsing_score": 0.007,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.0105,
+        "difficulty_estimate": 0.0244,
+        "admission_weight": 0.9756,
+        "source_terms": [
+          "buyer"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "buyer"
+        ]
+      },
+      {
+        "lemma": "señal",
+        "neutral_rank": 3587,
+        "browsing_rank": 3558,
+        "rank_delta": 29,
+        "neutral_score": 0.0062,
+        "browsing_score": 0.0064,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0097,
+        "difficulty_estimate": 0.022,
+        "admission_weight": 0.978,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ]
+      },
+      {
+        "lemma": "trato",
+        "neutral_rank": 3610,
+        "browsing_rank": 3584,
+        "rank_delta": 26,
+        "neutral_score": 0.006,
+        "browsing_score": 0.0062,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0094,
+        "difficulty_estimate": 0.021,
+        "admission_weight": 0.979,
+        "source_terms": [
+          "treatment"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "treatment"
+        ]
+      },
+      {
+        "lemma": "medicina",
+        "neutral_rank": 3641,
+        "browsing_rank": 3610,
+        "rank_delta": 31,
+        "neutral_score": 0.0057,
+        "browsing_score": 0.006,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.009,
+        "difficulty_estimate": 0.0197,
+        "admission_weight": 0.9803,
+        "source_terms": [
+          "medicine"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "medicine"
+        ]
+      },
+      {
+        "lemma": "documento",
+        "neutral_rank": 3669,
+        "browsing_rank": 3628,
+        "rank_delta": 41,
+        "neutral_score": 0.0055,
+        "browsing_score": 0.0059,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 0.0086,
+        "difficulty_estimate": 0.0185,
+        "admission_weight": 0.9815,
+        "source_terms": [
+          "document"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      }
+    ],
+    "boosted_candidates": [
+      {
+        "lemma": "cambiar",
+        "neutral_rank": 144,
+        "browsing_rank": 1,
+        "rank_delta": 143,
+        "neutral_score": 0.4817,
+        "browsing_score": 0.5011,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.306,
+        "admission_weight": 0.694,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ]
+      },
+      {
+        "lemma": "visitar",
+        "neutral_rank": 290,
+        "browsing_rank": 2,
+        "rank_delta": 288,
+        "neutral_score": 0.4742,
+        "browsing_score": 0.4965,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3197,
+        "admission_weight": 0.6803,
+        "source_terms": [
+          "visit"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "visit"
+        ]
+      },
+      {
+        "lemma": "prestar",
+        "neutral_rank": 457,
+        "browsing_rank": 3,
+        "rank_delta": 454,
+        "neutral_score": 0.4664,
+        "browsing_score": 0.495,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3338,
+        "admission_weight": 0.6662,
+        "source_terms": [
+          "loan"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "firmar",
+        "neutral_rank": 373,
+        "browsing_rank": 4,
+        "rank_delta": 369,
+        "neutral_score": 0.4701,
+        "browsing_score": 0.4891,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.327,
+        "admission_weight": 0.673,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ]
+      },
+      {
+        "lemma": "interesar",
+        "neutral_rank": 746,
+        "browsing_rank": 313,
+        "rank_delta": 433,
+        "neutral_score": 0.4517,
+        "browsing_score": 0.473,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 1.0,
+        "difficulty_estimate": 0.3606,
+        "admission_weight": 0.6394,
+        "source_terms": [
+          "interest"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "interest"
+        ]
+      },
+      {
+        "lemma": "seña",
+        "neutral_rank": 2430,
+        "browsing_rank": 2411,
+        "rank_delta": 19,
+        "neutral_score": 0.0533,
+        "browsing_score": 0.0554,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0895,
+        "difficulty_estimate": 0.0995,
+        "admission_weight": 0.9005,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ]
+      },
+      {
+        "lemma": "escaño",
+        "neutral_rank": 2541,
+        "browsing_rank": 2518,
+        "rank_delta": 23,
+        "neutral_score": 0.0421,
+        "browsing_score": 0.044,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.07,
+        "difficulty_estimate": 0.0895,
+        "admission_weight": 0.9105,
+        "source_terms": [
+          "bank"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "bank"
+        ]
+      },
+      {
+        "lemma": "mudar",
+        "neutral_rank": 2550,
+        "browsing_rank": 2532,
+        "rank_delta": 18,
+        "neutral_score": 0.0414,
+        "browsing_score": 0.043,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0688,
+        "difficulty_estimate": 0.0888,
+        "admission_weight": 0.9112,
+        "source_terms": [
+          "change"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "change"
+        ]
+      },
+      {
+        "lemma": "medicamento",
+        "neutral_rank": 2809,
+        "browsing_rank": 2786,
+        "rank_delta": 23,
+        "neutral_score": 0.0246,
+        "browsing_score": 0.0258,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.0402,
+        "difficulty_estimate": 0.0685,
+        "admission_weight": 0.9315,
+        "source_terms": [
+          "medicine"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "medicine"
+        ]
+      },
+      {
+        "lemma": "comprador",
+        "neutral_rank": 2888,
+        "browsing_rank": 2865,
+        "rank_delta": 23,
+        "neutral_score": 0.0212,
+        "browsing_score": 0.0222,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.0344,
+        "difficulty_estimate": 0.063,
+        "admission_weight": 0.937,
+        "source_terms": [
+          "buyer"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "buyer"
+        ]
+      },
+      {
+        "lemma": "finca",
+        "neutral_rank": 2985,
+        "browsing_rank": 2965,
+        "rank_delta": 20,
+        "neutral_score": 0.0172,
+        "browsing_score": 0.0179,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0278,
+        "difficulty_estimate": 0.0556,
+        "admission_weight": 0.9444,
+        "source_terms": [
+          "property"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "property"
+        ]
+      },
+      {
+        "lemma": "infección",
+        "neutral_rank": 3017,
+        "browsing_rank": 2989,
+        "rank_delta": 28,
+        "neutral_score": 0.0161,
+        "browsing_score": 0.0171,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 0.0259,
+        "difficulty_estimate": 0.0533,
+        "admission_weight": 0.9467,
+        "source_terms": [
+          "infection"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "granja",
+        "neutral_rank": 3033,
+        "browsing_rank": 3017,
+        "rank_delta": 16,
+        "neutral_score": 0.0155,
+        "browsing_score": 0.0162,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.025,
+        "difficulty_estimate": 0.052,
+        "admission_weight": 0.948,
+        "source_terms": [
+          "property"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "property"
+        ]
+      },
+      {
+        "lemma": "fila",
+        "neutral_rank": 3250,
+        "browsing_rank": 3220,
+        "rank_delta": 30,
+        "neutral_score": 0.0104,
+        "browsing_score": 0.011,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 0.0165,
+        "difficulty_estimate": 0.0385,
+        "admission_weight": 0.9615,
+        "source_terms": [
+          "rate"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      },
+      {
+        "lemma": "cura",
+        "neutral_rank": 3410,
+        "browsing_rank": 3384,
+        "rank_delta": 26,
+        "neutral_score": 0.0081,
+        "browsing_score": 0.0084,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0127,
+        "difficulty_estimate": 0.0304,
+        "admission_weight": 0.9696,
+        "source_terms": [
+          "treatment"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "treatment"
+        ]
+      },
+      {
+        "lemma": "cliente",
+        "neutral_rank": 3534,
+        "browsing_rank": 3504,
+        "rank_delta": 30,
+        "neutral_score": 0.0067,
+        "browsing_score": 0.007,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.0105,
+        "difficulty_estimate": 0.0244,
+        "admission_weight": 0.9756,
+        "source_terms": [
+          "buyer"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "buyer"
+        ]
+      },
+      {
+        "lemma": "señal",
+        "neutral_rank": 3587,
+        "browsing_rank": 3558,
+        "rank_delta": 29,
+        "neutral_score": 0.0062,
+        "browsing_score": 0.0064,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0097,
+        "difficulty_estimate": 0.022,
+        "admission_weight": 0.978,
+        "source_terms": [
+          "sign"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "sign"
+        ]
+      },
+      {
+        "lemma": "trato",
+        "neutral_rank": 3610,
+        "browsing_rank": 3584,
+        "rank_delta": 26,
+        "neutral_score": 0.006,
+        "browsing_score": 0.0062,
+        "browsing_signal": 0.1609,
+        "browsing_boost": 1.0402,
+        "readiness_multiplier": 0.0094,
+        "difficulty_estimate": 0.021,
+        "admission_weight": 0.979,
+        "source_terms": [
+          "treatment"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "treatment"
+        ]
+      },
+      {
+        "lemma": "medicina",
+        "neutral_rank": 3641,
+        "browsing_rank": 3610,
+        "rank_delta": 31,
+        "neutral_score": 0.0057,
+        "browsing_score": 0.006,
+        "browsing_signal": 0.1888,
+        "browsing_boost": 1.0472,
+        "readiness_multiplier": 0.009,
+        "difficulty_estimate": 0.0197,
+        "admission_weight": 0.9803,
+        "source_terms": [
+          "medicine"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": [
+          "medicine"
+        ]
+      },
+      {
+        "lemma": "documento",
+        "neutral_rank": 3669,
+        "browsing_rank": 3628,
+        "rank_delta": 41,
+        "neutral_score": 0.0055,
+        "browsing_score": 0.0059,
+        "browsing_signal": 0.2447,
+        "browsing_boost": 1.0612,
+        "readiness_multiplier": 0.0086,
+        "difficulty_estimate": 0.0185,
+        "admission_weight": 0.9815,
+        "source_terms": [
+          "document"
+        ],
+        "target_terms": [],
+        "ambiguous_source_terms": []
+      }
+    ],
+    "profile_diagnostics": {
+      "selector_version": "profile_bootstrap_v4",
+      "selector_policy_version": "profile_bootstrap_policy_v3",
+      "profile_context": {
+        "version": "admission_profile_features_v1",
+        "topic_normalization_version": "topic_family_v1",
+        "raw_profile_keys": [
+          "proficiency"
+        ],
+        "interests": [],
+        "explicit_topic_weights": {},
+        "implicit_topic_weights": {},
+        "topic_weights": {},
+        "topic_weight_sources": {},
+        "proficiency_estimate": 0.45,
+        "challenge_target": null,
+        "challenge_spread": null,
+        "goal_mode": null,
+        "active_signals": [
+          "proficiency"
+        ],
+        "missing_signals": [
+          "interests",
+          "challenge_preference"
+        ],
+        "signal_sources": {
+          "proficiency": "proficiency.estimated_value"
+        }
+      },
+      "selection_weights": {
+        "base_freq": 0.55,
+        "topic_bias": 0.15,
+        "scarcity_bonus": 0.05,
+        "user_pref": 0.1,
+        "confidence": 0.0,
+        "difficulty_target": 0.1
+      }
+    }
+  },
+  "research_findings": [
+    {
+      "severity": "info",
+      "finding": "unmapped_browsing_tokens_present",
+      "detail": "Some usable page tokens had no source/target lookup hit; inspect top_unmapped_tokens before treating source coverage as complete.",
+      "count": 12
+    },
+    {
+      "severity": "review",
+      "finding": "source_target_ambiguity_is_material",
+      "detail": "At least half of boosted lemmas came from ambiguous source mappings; production scoring should keep confidence damping and review LP-specific minimum confidence thresholds.",
+      "ambiguous_boosted_share": 0.75
+    },
+    {
+      "severity": "review",
+      "finding": "ranked_preview_is_sensitive_to_small_boosts",
+      "detail": "The ranked top-N preview can move clustered candidates sharply; production admission should validate realized sampling share, not only rank movement.",
+      "largest_rank_delta": 454
+    }
+  ],
+  "limitations": [
+    "This is a read-only research harness; it does not capture live browser pages.",
+    "Topic inference from browsing is intentionally out of scope for P0.",
+    "Source-target ambiguity is dampened, not solved semantically.",
+    "Visible-text extraction is approximated from supplied plain text fixtures.",
+    "Browsing boosts admission scores only in this diagnostic report; scheduling is untouched."
+  ]
+}

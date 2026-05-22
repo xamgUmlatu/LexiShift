@@ -55,6 +55,9 @@ In scope:
 
 - exact normalized source-word hits from visible browsing text;
 - exact normalized target-word hits when the user browses target-language text;
+- explicit or conservatively inferred page language side, so source-language
+  pages do not accidentally count same-spelling target lemmas as direct target
+  hits;
 - LexiShift replacement exposure counts as a low-to-medium relevance signal;
 - decayed, capped local counters;
 - admission preview diagnostics comparing neutral and browsing-influenced
@@ -199,6 +202,9 @@ Implementation hint:
 - build a compact lookup index for normalized source terms to target candidates;
 - build a compact target lemma set for direct target-side hits;
 - cap each page to a small unique-token budget before helper submission.
+- disable direct target lookup unless the packet says `side=target` or
+  `side=mixed`; source-side same-spelling words should only flow through the
+  source-target bridge.
 
 ## Probability Model
 
@@ -229,11 +235,15 @@ browsing_signal_i = clamp(browsing_signal_i, 0, 1)
 Recommended initial constants:
 
 ```text
-browsing_signal_cap = 8.0
+browsing_signal_cap = 16.0
 replacement_exposure_weight = 0.35
-browsing_alpha = 0.50
-max_browsing_boost = 1.50
+browsing_alpha = 0.25
+max_browsing_boost = 1.35
 ```
+
+These are intentionally conservative for ranked top-N admission. Early
+research should treat large one-page rank jumps as a sign that
+`browsing_alpha` or the saturation curve is too aggressive.
 
 Boost:
 
@@ -413,7 +423,9 @@ Harness checks:
    separate input that gets fused at scoring time.
 3. Initial per-page and per-day caps.
 4. Whether source-side mappings need minimum confidence thresholds by LP.
-5. How much diagnostic detail should be user-facing versus developer-only.
+5. Whether page language side should be user-selected, inferred locally, or
+   derived from language-pair context for P0.
+6. How much diagnostic detail should be user-facing versus developer-only.
 
 ## Non-Goals
 
