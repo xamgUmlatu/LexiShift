@@ -2,8 +2,8 @@
 
 Status: active SRS routing
 Role: Canonical current
-Last updated: 2026-05-17
-Last verified: 2026-05-17 topic-signal LP generalization runbook routing update plus doc-reference check
+Last updated: 2026-05-23
+Last verified: 2026-05-23 topic-coverage pause snapshot routing update plus doc-reference check
 Purpose: route SRS cleanup work to the right current, mixed, planning, schema, or harness document without treating roadmap text as implementation truth
 Source-of-truth: SRS documentation routing only; implementation truth lives in SRS/helper/extension code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -29,6 +29,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming profile strategies are default execution paths. |
 | Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Treating `profile_growth` as broad admission execution. |
 | Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
+| en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |
 | Selector, personalization, and required data | `docs/srs/srs_selector_technical.md`, `docs/srs/srs_interest_tailored_admission_algorithm.md`, `docs/srs/srs_interest_tailored_data_acquisition_plan.md`, `docs/srs/srs_topic_signal_lp_generalization_runbook.md`, `docs/srs/srs_curriculum_notes.md` | Planning/WIP surfaces for future ranking, data acquisition, personalization, and reusable topic-signal onboarding lessons. | Current product or runtime behavior claims. |
 | SRS journey and synthetic quality harness work | `docs/srs/srs_journey_harness_workstream.md`, `scripts/testing/srs_quality_harness.py` | Harness planning plus executable quality-harness entrypoints. | Broad LP coverage claims beyond the harness-supported scenarios. |
 
@@ -50,6 +51,9 @@ Current disposition:
   `srs_topic_signal_lp_generalization_runbook.md`,
   `srs_preference_taxonomy_lifecycle.md`, and `srs_curriculum_notes.md`
   remain planning surfaces only.
+- `srs_topic_coverage_pause_state_en_es.md` is the current closeout snapshot
+  for the paused en-es topic coverage work; it records the accepted incomplete
+  state but does not make topic coverage comprehensive or default-on.
 - `srs_journey_harness_workstream.md` remains a harness workstream, not the
   required default SRS quality gate.
 

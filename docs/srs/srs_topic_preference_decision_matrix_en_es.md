@@ -2,12 +2,13 @@
 
 Status: active decision aid
 Role: Planning / WIP
-Last updated: 2026-05-19
-Last verified: 2026-05-19 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, `srs_topic_family_depth_audit_en_es_latest`, animals/plants overlay artifacts, food/cooking audit/review/overlay/full-source packet artifacts, local SRS admission lab topic-depth diagnostics, and preference taxonomy lifecycle review
+Last updated: 2026-05-23
+Last verified: 2026-05-23 from `srs_topic_signal_inventory_en_es_current_latest`, `srs_admission_expansion_audit_en_es_spalex_10k_latest`, `srs_topic_family_depth_audit_en_es_latest`, animals/plants overlay artifacts, food/cooking audit/review/overlay/full-source packet artifacts, Wikidata natural-taxonomy candidate and overlay artifacts, local SRS admission lab topic-depth diagnostics, topic coverage pause snapshot, and preference taxonomy lifecycle review
 Purpose: lay out the current trusted source-topic surface so product preferences can be selected deliberately
 Source-of-truth: decision aid; executable inventory lives in `scripts/testing/srs_topic_signal_inventory_en_es.py` and the latest generated artifacts.
 
 Related docs:
+- `srs_topic_coverage_pause_state_en_es.md`
 - `srs_interest_tailored_data_acquisition_plan.md`
 - `srs_interest_tailored_admission_algorithm.md`
 - `srs_preference_taxonomy_lifecycle.md`
@@ -219,6 +220,14 @@ frontier, the overlay preview increases topic-labeled rows in the top profile
 preview by `+24` for `animals` and `+19` for `plants_nature`. This proves the
 review-label-to-profile-admission path works, but it is not a default runtime
 admission change.
+
+The current paused topic-coverage state is recorded in
+`srs_topic_coverage_pause_state_en_es.md`. It adds the Wikidata
+natural-taxonomy overlay to the standard lab/readiness overlay stack, promotes
+`39` reviewed source-prep rows (`20` animals, `19` plants/nature), keeps
+Wikidata out of runtime, and treats Animals, Plants/Nature, and Food/Cooking as
+MVP/lab acceptable but intentionally incomplete. Use that pause snapshot before
+resuming any further topic-coverage work.
 
 A focused animal low-confidence spot check is recorded at
 `docs/srs/srs_animals_low_confidence_spot_check_en_es.md`. The review supports
