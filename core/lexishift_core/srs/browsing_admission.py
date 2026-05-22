@@ -155,9 +155,14 @@ class BrowsingAdmissionSimulationRow:
     selected: bool
     selected_lane: str = "not_selected"
     neutral_selected: bool = False
+    suppressed_reason: Optional[str] = None
+    deterministic_selection_probability: float = 0.0
+    browsing_lane_probability: float = 0.0
+    general_lane_probability: float = 0.0
+    approximate_selection_probability: float = 0.0
 
     def to_dict(self) -> dict[str, object]:
-        return {
+        payload = {
             "lemma": self.lemma,
             "neutral_rank": self.neutral_rank,
             "final_rank": self.final_rank,
@@ -168,7 +173,16 @@ class BrowsingAdmissionSimulationRow:
             "selected": self.selected,
             "selected_lane": self.selected_lane,
             "neutral_selected": self.neutral_selected,
+            "deterministic_selection_probability": round(
+                self.deterministic_selection_probability, 6
+            ),
+            "browsing_lane_probability": round(self.browsing_lane_probability, 6),
+            "general_lane_probability": round(self.general_lane_probability, 6),
+            "approximate_selection_probability": round(self.approximate_selection_probability, 6),
         }
+        if self.suppressed_reason:
+            payload["suppressed_reason"] = self.suppressed_reason
+        return payload
 
 
 @dataclass(frozen=True)
@@ -184,6 +198,7 @@ class BrowsingAdmissionSimulationResult:
     browsing_lane_count: int
     browsing_relevant_selected_count: int
     browsing_driven_count: int
+    suppressed_count: int
     rows: Sequence[BrowsingAdmissionSimulationRow]
 
     def to_dict(self) -> dict[str, object]:
@@ -200,12 +215,30 @@ class BrowsingAdmissionSimulationResult:
             "browsing_lane_count": self.browsing_lane_count,
             "browsing_relevant_selected_count": self.browsing_relevant_selected_count,
             "browsing_driven_count": self.browsing_driven_count,
+            "suppressed_count": self.suppressed_count,
             "browsing_lane_share": _safe_share(self.browsing_lane_count, selected_count),
             "browsing_relevant_share": _safe_share(
                 self.browsing_relevant_selected_count,
                 selected_count,
             ),
             "browsing_driven_share": _safe_share(self.browsing_driven_count, selected_count),
+            "probability_semantics": {
+                "deterministic_selection_probability": (
+                    "Exact for the current deterministic two-lane simulation."
+                ),
+                "browsing_lane_probability": (
+                    "Approximate inclusion probability if the browsing lane "
+                    "uses weighted sampling without replacement."
+                ),
+                "general_lane_probability": (
+                    "Approximate inclusion probability if the general lane "
+                    "uses weighted sampling without replacement."
+                ),
+                "approximate_selection_probability": (
+                    "Approximate combined inclusion probability under the "
+                    "planned smoother weighted selection model."
+                ),
+            },
             "rows": [row.to_dict() for row in self.rows],
         }
 
@@ -431,9 +464,15 @@ def simulate_browsing_admission(
     admission_budget: int,
     strength: BrowsingAdmissionStrength,
     policy: Optional[BrowsingSignalIngestPolicy] = None,
+    suppressed_lemmas: Optional[Mapping[str, str]] = None,
 ) -> BrowsingAdmissionSimulationResult:
     policy = policy or BrowsingSignalIngestPolicy()
     budget = max(0, int(admission_budget))
+    suppressed = {
+        str(lemma or "").strip(): str(reason or "").strip() or "suppressed"
+        for lemma, reason in dict(suppressed_lemmas or {}).items()
+        if str(lemma or "").strip()
+    }
     neutral_ranked = sorted(
         candidates,
         key=lambda item: (-float(item.neutral_score), item.lemma),
@@ -441,7 +480,10 @@ def simulate_browsing_admission(
     neutral_rank_by_lemma = {
         candidate.lemma: index + 1 for index, candidate in enumerate(neutral_ranked)
     }
-    neutral_selected_lemmas = tuple(candidate.lemma for candidate in neutral_ranked[:budget])
+    active_neutral_ranked = [
+        candidate for candidate in neutral_ranked if candidate.lemma not in suppressed
+    ]
+    neutral_selected_lemmas = tuple(candidate.lemma for candidate in active_neutral_ranked[:budget])
     neutral_selected = set(neutral_selected_lemmas)
 
     scored_rows: list[dict[str, object]] = []
@@ -449,6 +491,8 @@ def simulate_browsing_admission(
         aggregate = store.items.get(candidate.lemma)
         signal = browsing_signal_value(aggregate, policy=policy)
         boost = browsing_boost_value(signal, candidate=candidate, strength=strength)
+        suppressed_reason = suppressed.get(candidate.lemma)
+        final_score = 0.0 if suppressed_reason else float(candidate.neutral_score) * boost
         scored_rows.append(
             {
                 "candidate": candidate,
@@ -457,11 +501,13 @@ def simulate_browsing_admission(
                 "neutral_score": float(candidate.neutral_score),
                 "browsing_signal": signal,
                 "browsing_boost": boost,
-                "final_score": float(candidate.neutral_score) * boost,
+                "final_score": final_score,
+                "suppressed_reason": suppressed_reason,
             }
         )
 
-    signal_volume = sum(float(row["browsing_signal"]) for row in scored_rows)
+    active_rows = [row for row in scored_rows if not row.get("suppressed_reason")]
+    signal_volume = sum(float(row["browsing_signal"]) for row in active_rows)
     volume_factor = 0.0
     if signal_volume > 0.0 and strength.volume_tau > 0.0:
         volume_factor = 1.0 - math.exp(-signal_volume / strength.volume_tau)
@@ -470,7 +516,7 @@ def simulate_browsing_admission(
     )
     browsing_pool = [
         row
-        for row in scored_rows
+        for row in active_rows
         if float(row["browsing_signal"]) >= max(0.0, strength.min_browsing_signal)
     ]
     browsing_budget = min(browsing_budget, budget, len(browsing_pool))
@@ -499,6 +545,16 @@ def simulate_browsing_admission(
     selected_lemmas.update(str(row["lemma"]) for row in selected_general)
     lane_by_lemma = {str(row["lemma"]): "browsing" for row in selected_browsing}
     lane_by_lemma.update({str(row["lemma"]): "general" for row in selected_general})
+    browsing_probability_by_lemma = _lane_probability_by_lemma(
+        browsing_pool,
+        budget=browsing_budget,
+        mass_key="final_score",
+    )
+    general_probability_by_lemma = _lane_probability_by_lemma(
+        active_rows,
+        budget=general_budget,
+        mass_key="neutral_score",
+    )
 
     final_ranked = sorted(
         scored_rows,
@@ -521,6 +577,18 @@ def simulate_browsing_admission(
             selected=str(row["lemma"]) in selected_lemmas,
             selected_lane=lane_by_lemma.get(str(row["lemma"]), "not_selected"),
             neutral_selected=str(row["lemma"]) in neutral_selected,
+            suppressed_reason=(
+                str(row["suppressed_reason"]) if row.get("suppressed_reason") else None
+            ),
+            deterministic_selection_probability=(
+                1.0 if str(row["lemma"]) in selected_lemmas else 0.0
+            ),
+            browsing_lane_probability=browsing_probability_by_lemma.get(str(row["lemma"]), 0.0),
+            general_lane_probability=general_probability_by_lemma.get(str(row["lemma"]), 0.0),
+            approximate_selection_probability=_combined_probability(
+                browsing_probability_by_lemma.get(str(row["lemma"]), 0.0),
+                general_probability_by_lemma.get(str(row["lemma"]), 0.0),
+            ),
         )
         for row in final_ranked
     ]
@@ -545,6 +613,7 @@ def simulate_browsing_admission(
         browsing_lane_count=len(selected_browsing),
         browsing_relevant_selected_count=browsing_relevant_selected_count,
         browsing_driven_count=browsing_driven_count,
+        suppressed_count=len(suppressed),
         rows=tuple(rows),
     )
 
@@ -555,6 +624,7 @@ def simulate_browsing_admission_presets(
     store: BrowsingSignalStore,
     admission_budget: int,
     policy: Optional[BrowsingSignalIngestPolicy] = None,
+    suppressed_lemmas: Optional[Mapping[str, str]] = None,
 ) -> dict[str, BrowsingAdmissionSimulationResult]:
     return {
         name: simulate_browsing_admission(
@@ -563,6 +633,7 @@ def simulate_browsing_admission_presets(
             admission_budget=admission_budget,
             strength=strength,
             policy=policy,
+            suppressed_lemmas=suppressed_lemmas,
         )
         for name, strength in browsing_strength_presets().items()
     }
@@ -647,3 +718,46 @@ def _safe_share(count: int, total: int) -> float:
     if total <= 0:
         return 0.0
     return round(count / total, 6)
+
+
+def _lane_probability_by_lemma(
+    rows: Sequence[Mapping[str, object]],
+    *,
+    budget: int,
+    mass_key: str,
+) -> dict[str, float]:
+    if budget <= 0 or not rows:
+        return {}
+    masses = {
+        str(row.get("lemma") or ""): max(0.0, _safe_float(row.get(mass_key)) or 0.0)
+        for row in rows
+        if str(row.get("lemma") or "")
+    }
+    total_mass = sum(masses.values())
+    if total_mass <= 0.0:
+        return {}
+    return {
+        lemma: _approx_without_replacement_inclusion_probability(
+            mass=mass,
+            total_mass=total_mass,
+            budget=budget,
+        )
+        for lemma, mass in masses.items()
+    }
+
+
+def _approx_without_replacement_inclusion_probability(
+    *,
+    mass: float,
+    total_mass: float,
+    budget: int,
+) -> float:
+    if mass <= 0.0 or total_mass <= 0.0 or budget <= 0:
+        return 0.0
+    return _clamp01(1.0 - math.exp(-(max(0, int(budget)) * mass / total_mass)))
+
+
+def _combined_probability(browsing_probability: float, general_probability: float) -> float:
+    browsing = _clamp01(browsing_probability)
+    general = _clamp01(general_probability)
+    return _clamp01(browsing + ((1.0 - browsing) * general))

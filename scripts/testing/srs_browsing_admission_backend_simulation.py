@@ -28,6 +28,14 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     ingest_browsing_signal_packet,
     simulate_browsing_admission_presets,
 )
+from lexishift_core.srs.admission_suppression import (  # noqa: E402
+    SUPPRESSION_REASON_SUSPENDED,
+    SrsAdmissionSuppressionPolicy,
+    SrsAdmissionSuppressionStore,
+    active_suppressed_lemmas,
+    create_admission_suppression,
+    upsert_admission_suppression,
+)
 
 TEST_OUTPUTS_ROOT = PROJECT_ROOT / "docs" / "test_outputs"
 DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_backend_simulation_latest.json"
@@ -168,11 +176,18 @@ def build_report(*, admission_budget: int = 6) -> dict[str, object]:
         now=DEFAULT_NOW,
     )
     candidates = build_candidates()
+    suppression_store = build_suppression_store()
+    suppressed_lemmas = active_suppressed_lemmas(
+        suppression_store,
+        pair=DEFAULT_PAIR,
+        now=DEFAULT_NOW,
+    )
     simulations = simulate_browsing_admission_presets(
         candidates,
         store=ingest_result.store,
         admission_budget=admission_budget,
         policy=policy,
+        suppressed_lemmas=suppressed_lemmas,
     )
     return {
         "schema_version": 1,
@@ -198,6 +213,11 @@ def build_report(*, admission_budget: int = 6) -> dict[str, object]:
             "replacement_exposure_weight": policy.replacement_exposure_weight,
         },
         "ingest_result": ingest_result.to_dict(),
+        "suppression": {
+            "active_suppressed_lemmas": suppressed_lemmas,
+            "entry_count": len(suppression_store.entries),
+            "runtime_srs_mutation": False,
+        },
         "aggregate_store": summarize_store(ingest_result.store, policy=policy),
         "admission_budget": admission_budget,
         "simulations": {name: result.to_dict() for name, result in simulations.items()},
@@ -253,6 +273,20 @@ def build_candidates() -> tuple[BrowsingAdmissionCandidate, ...]:
         ),
         BrowsingAdmissionCandidate(lemma="viaje", neutral_score=0.54),
     )
+
+
+def build_suppression_store() -> SrsAdmissionSuppressionStore:
+    policy = SrsAdmissionSuppressionPolicy(suspended_cooldown_days=365)
+    store = SrsAdmissionSuppressionStore(profile_id=DEFAULT_PROFILE_ID)
+    entry = create_admission_suppression(
+        pair=DEFAULT_PAIR,
+        lemma="viaje",
+        reason=SUPPRESSION_REASON_SUSPENDED,
+        policy=policy,
+        now=DEFAULT_NOW,
+        note="Synthetic cooldown fixture; not runtime user data.",
+    )
+    return upsert_admission_suppression(store, entry, now=DEFAULT_NOW)
 
 
 def summarize_store(
@@ -359,6 +393,17 @@ def render_markdown(report: Mapping[str, object]) -> str:
     ):
         lines.append(f"- `{key}`: `{ingest.get(key, '')}`")
 
+    suppression = _as_mapping(report.get("suppression"))
+    suppressed_lemmas = _as_mapping(suppression.get("active_suppressed_lemmas"))
+    lines.extend(["", "## Suppression Guard", ""])
+    lines.append(f"- Active suppressed lemmas: `{len(suppressed_lemmas)}`")
+    lines.append(f"- Runtime SRS mutation: `{suppression.get('runtime_srs_mutation', False)}`")
+    if suppressed_lemmas:
+        lines.append(
+            "- Suppressed fixture rows: "
+            + ", ".join(f"`{lemma}` ({reason})" for lemma, reason in suppressed_lemmas.items())
+        )
+
     lines.extend(
         [
             "",
@@ -394,6 +439,30 @@ def render_markdown(report: Mapping[str, object]) -> str:
             f"{result.get('browsing_driven_share', '')} | "
             f"{', '.join(str(item) for item in result.get('selected_lemmas', []))} |"
         )
+
+    lines.extend(
+        [
+            "",
+            "## Probability Preview",
+            "",
+            "The deterministic column is exact for this read-only simulation. The approximate column estimates inclusion probability if the lane uses weighted sampling without replacement.",
+            "",
+            "| Strength | Lemma | Selected | Suppressed | Deterministic P | Approx P | Browsing P | General P |",
+            "| --- | --- | --- | --- | ---: | ---: | ---: | ---: |",
+        ]
+    )
+    for name in ("off", "balanced", "strong"):
+        result = _as_mapping(simulations.get(name))
+        for row in _rows(result.get("rows"))[:8]:
+            lines.append(
+                f"| `{name}` | `{row.get('lemma', '')}` | "
+                f"{row.get('selected', False)} | "
+                f"{row.get('suppressed_reason', '') or '-'} | "
+                f"{row.get('deterministic_selection_probability', '')} | "
+                f"{row.get('approximate_selection_probability', '')} | "
+                f"{row.get('browsing_lane_probability', '')} | "
+                f"{row.get('general_lane_probability', '')} |"
+            )
 
     lines.extend(
         [

@@ -29,6 +29,17 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     ingest_browsing_signal_packet,
     simulate_browsing_admission_presets,
 )
+from lexishift_core.srs.admission_suppression import (  # noqa: E402
+    SUPPRESSION_REASON_DISCARDED,
+    SUPPRESSION_REASON_SUSPENDED,
+    SUPPRESSION_REASON_USER_BLOCKED,
+    SrsAdmissionSuppressionPolicy,
+    SrsAdmissionSuppressionStore,
+    active_suppressed_lemmas,
+    create_admission_suppression,
+    prune_expired_suppression_entries,
+    upsert_admission_suppression,
+)
 
 
 NOW = datetime(2026, 5, 23, tzinfo=timezone.utc)
@@ -212,6 +223,107 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
         )
         self.assertGreater(strong["browsing_lane_count"], 0)
         self.assertEqual(store.to_dict(), before)
+
+    def test_probability_preview_reports_weighted_and_deterministic_shapes(self) -> None:
+        policy = BrowsingSignalIngestPolicy()
+        store = BrowsingSignalStore(
+            pair="en-es",
+            profile_id="default",
+            items={
+                "hipoteca": BrowsingSignalAggregate(
+                    target_lemma="hipoteca",
+                    source_hit_count=5.0,
+                    source_mapping_confidence=0.9,
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="casa", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="ser", neutral_score=0.96),
+            BrowsingAdmissionCandidate(
+                lemma="hipoteca",
+                neutral_score=0.64,
+                readiness_multiplier=0.92,
+                explicit_preference_fit=0.65,
+                source_confidence=0.90,
+            ),
+        )
+
+        results = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=10,
+            policy=policy,
+        )
+        strong_rows = {
+            row["lemma"]: row for row in results[BROWSING_STRENGTH_STRONG].to_dict()["rows"]
+        }
+
+        self.assertGreater(strong_rows["hipoteca"]["approximate_selection_probability"], 0.0)
+        self.assertGreater(strong_rows["hipoteca"]["browsing_lane_probability"], 0.0)
+        self.assertIn(
+            strong_rows["hipoteca"]["deterministic_selection_probability"],
+            (0.0, 1.0),
+        )
+
+    def test_suppressed_lemma_has_zero_admission_probability(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-es",
+            profile_id="default",
+            items={
+                "viaje": BrowsingSignalAggregate(target_lemma="viaje", target_hit_count=10.0),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="casa", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="viaje", neutral_score=0.99),
+        )
+
+        results = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=1,
+            suppressed_lemmas={"viaje": SUPPRESSION_REASON_SUSPENDED},
+        )
+        rows = {row["lemma"]: row for row in results[BROWSING_STRENGTH_STRONG].to_dict()["rows"]}
+
+        self.assertEqual(rows["viaje"]["suppressed_reason"], SUPPRESSION_REASON_SUSPENDED)
+        self.assertFalse(rows["viaje"]["selected"])
+        self.assertEqual(rows["viaje"]["deterministic_selection_probability"], 0.0)
+        self.assertEqual(rows["viaje"]["approximate_selection_probability"], 0.0)
+
+    def test_admission_suppression_cooldown_store(self) -> None:
+        policy = SrsAdmissionSuppressionPolicy(
+            discarded_cooldown_days=10,
+            suspended_cooldown_days=20,
+        )
+        store = SrsAdmissionSuppressionStore(profile_id="default")
+        discarded = create_admission_suppression(
+            pair="en-es",
+            lemma="gato",
+            reason=SUPPRESSION_REASON_DISCARDED,
+            policy=policy,
+            now=NOW,
+        )
+        blocked = create_admission_suppression(
+            pair="en-es",
+            lemma="perro",
+            reason=SUPPRESSION_REASON_USER_BLOCKED,
+            policy=policy,
+            now=NOW,
+        )
+        store = upsert_admission_suppression(store, discarded, now=NOW)
+        store = upsert_admission_suppression(store, blocked, now=NOW)
+
+        active = active_suppressed_lemmas(store, pair="en-es", now=NOW)
+        self.assertEqual(active["gato"], SUPPRESSION_REASON_DISCARDED)
+        self.assertEqual(active["perro"], SUPPRESSION_REASON_USER_BLOCKED)
+
+        future = datetime(2026, 6, 15, tzinfo=timezone.utc)
+        pruned = prune_expired_suppression_entries(store, now=future)
+        active_future = active_suppressed_lemmas(pruned, pair="en-es", now=future)
+        self.assertNotIn("gato", active_future)
+        self.assertEqual(active_future["perro"], SUPPRESSION_REASON_USER_BLOCKED)
 
     def test_browsing_signal_is_saturating(self) -> None:
         policy = BrowsingSignalIngestPolicy(browsing_signal_cap=4.0)

@@ -29,6 +29,13 @@
     "pruned_item_count": 5,
     "retained_item_count": 8
   },
+  "suppression": {
+    "active_suppressed_lemmas": {
+      "viaje": "suspended"
+    },
+    "entry_count": 1,
+    "runtime_srs_mutation": false
+  },
   "aggregate_store": {
     "pair": "en-es",
     "profile_id": "default",
@@ -145,9 +152,16 @@
       "browsing_lane_count": 0,
       "browsing_relevant_selected_count": 0,
       "browsing_driven_count": 0,
+      "suppressed_count": 1,
       "browsing_lane_share": 0.0,
       "browsing_relevant_share": 0.0,
       "browsing_driven_share": 0.0,
+      "probability_semantics": {
+        "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+        "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+        "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+        "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+      },
       "rows": [
         {
           "lemma": "casa",
@@ -159,7 +173,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.513809,
+          "approximate_selection_probability": 0.513809
         },
         {
           "lemma": "ser",
@@ -171,7 +189,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.49958,
+          "approximate_selection_probability": 0.49958
         },
         {
           "lemma": "banco",
@@ -183,7 +205,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.477452,
+          "approximate_selection_probability": 0.477452
         },
         {
           "lemma": "perro",
@@ -195,7 +221,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.454345,
+          "approximate_selection_probability": 0.454345
         },
         {
           "lemma": "gato",
@@ -207,7 +237,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.446418,
+          "approximate_selection_probability": 0.446418
         },
         {
           "lemma": "comida",
@@ -219,7 +253,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.438376,
+          "approximate_selection_probability": 0.438376
         },
         {
           "lemma": "hipoteca",
@@ -231,7 +269,11 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.369687,
+          "approximate_selection_probability": 0.369687
         },
         {
           "lemma": "préstamo",
@@ -243,7 +285,11 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.36053,
+          "approximate_selection_probability": 0.36053
         },
         {
           "lemma": "salud",
@@ -255,7 +301,11 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.35124,
+          "approximate_selection_probability": 0.35124
         },
         {
           "lemma": "diagnóstico",
@@ -267,7 +317,11 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.341815,
+          "approximate_selection_probability": 0.341815
         },
         {
           "lemma": "tratamiento",
@@ -279,19 +333,28 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.332253,
+          "approximate_selection_probability": 0.332253
         },
         {
           "lemma": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
-          "final_score": 0.54,
+          "final_score": 0.0,
           "browsing_signal": 0.0,
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.0,
+          "approximate_selection_probability": 0.0,
+          "suppressed_reason": "suspended"
         }
       ]
     },
@@ -321,9 +384,16 @@
       "browsing_lane_count": 1,
       "browsing_relevant_selected_count": 1,
       "browsing_driven_count": 1,
+      "suppressed_count": 1,
       "browsing_lane_share": 0.166667,
       "browsing_relevant_share": 0.166667,
       "browsing_driven_share": 0.166667,
+      "probability_semantics": {
+        "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+        "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+        "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+        "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+      },
       "rows": [
         {
           "lemma": "casa",
@@ -335,7 +405,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.451716,
+          "approximate_selection_probability": 0.451716
         },
         {
           "lemma": "ser",
@@ -347,7 +421,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.438376,
+          "approximate_selection_probability": 0.438376
         },
         {
           "lemma": "banco",
@@ -359,7 +437,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.417756,
+          "approximate_selection_probability": 0.417756
         },
         {
           "lemma": "perro",
@@ -371,7 +453,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.396378,
+          "approximate_selection_probability": 0.396378
         },
         {
           "lemma": "gato",
@@ -383,7 +469,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.38908,
+          "approximate_selection_probability": 0.38908
         },
         {
           "lemma": "comida",
@@ -395,7 +485,11 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.381692,
+          "approximate_selection_probability": 0.381692
         },
         {
           "lemma": "hipoteca",
@@ -407,7 +501,11 @@
           "browsing_boost": 1.127417,
           "selected": true,
           "selected_lane": "browsing",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.197064,
+          "general_lane_probability": 0.319288,
+          "approximate_selection_probability": 0.453431
         },
         {
           "lemma": "préstamo",
@@ -419,7 +517,11 @@
           "browsing_boost": 1.107502,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.188496,
+          "general_lane_probability": 0.311057,
+          "approximate_selection_probability": 0.440919
         },
         {
           "lemma": "salud",
@@ -431,7 +533,11 @@
           "browsing_boost": 1.11003,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.183386,
+          "general_lane_probability": 0.302726,
+          "approximate_selection_probability": 0.430597
         },
         {
           "lemma": "diagnóstico",
@@ -443,7 +549,11 @@
           "browsing_boost": 1.071692,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.172274,
+          "general_lane_probability": 0.294295,
+          "approximate_selection_probability": 0.415869
         },
         {
           "lemma": "tratamiento",
@@ -455,19 +565,28 @@
           "browsing_boost": 1.056661,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.164724,
+          "general_lane_probability": 0.285762,
+          "approximate_selection_probability": 0.403413
         },
         {
           "lemma": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
-          "final_score": 0.54,
+          "final_score": 0.0,
           "browsing_signal": 0.0,
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.0,
+          "approximate_selection_probability": 0.0,
+          "suppressed_reason": "suspended"
         }
       ]
     },
@@ -497,9 +616,16 @@
       "browsing_lane_count": 2,
       "browsing_relevant_selected_count": 2,
       "browsing_driven_count": 2,
+      "suppressed_count": 1,
       "browsing_lane_share": 0.333333,
       "browsing_relevant_share": 0.333333,
       "browsing_driven_share": 0.333333,
+      "probability_semantics": {
+        "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+        "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+        "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+        "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+      },
       "rows": [
         {
           "lemma": "casa",
@@ -511,7 +637,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.381692,
+          "approximate_selection_probability": 0.381692
         },
         {
           "lemma": "ser",
@@ -523,7 +653,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.369687,
+          "approximate_selection_probability": 0.369687
         },
         {
           "lemma": "banco",
@@ -535,7 +669,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.35124,
+          "approximate_selection_probability": 0.35124
         },
         {
           "lemma": "perro",
@@ -547,7 +685,11 @@
           "browsing_boost": 1.0,
           "selected": true,
           "selected_lane": "general",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.332253,
+          "approximate_selection_probability": 0.332253
         },
         {
           "lemma": "gato",
@@ -559,7 +701,11 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.325802,
+          "approximate_selection_probability": 0.325802
         },
         {
           "lemma": "hipoteca",
@@ -571,7 +717,11 @@
           "browsing_boost": 1.260625,
           "selected": true,
           "selected_lane": "browsing",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.362184,
+          "general_lane_probability": 0.264859,
+          "approximate_selection_probability": 0.531115
         },
         {
           "lemma": "comida",
@@ -583,7 +733,11 @@
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": true
+          "neutral_selected": true,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.319288,
+          "approximate_selection_probability": 0.319288
         },
         {
           "lemma": "préstamo",
@@ -595,7 +749,11 @@
           "browsing_boost": 1.219891,
           "selected": true,
           "selected_lane": "browsing",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 1.0,
+          "browsing_lane_probability": 0.343987,
+          "general_lane_probability": 0.257756,
+          "approximate_selection_probability": 0.513078
         },
         {
           "lemma": "salud",
@@ -607,7 +765,11 @@
           "browsing_boost": 1.225061,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.336154,
+          "general_lane_probability": 0.250584,
+          "approximate_selection_probability": 0.502503
         },
         {
           "lemma": "diagnóstico",
@@ -619,7 +781,11 @@
           "browsing_boost": 1.146644,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.309747,
+          "general_lane_probability": 0.243344,
+          "approximate_selection_probability": 0.477716
         },
         {
           "lemma": "tratamiento",
@@ -631,19 +797,28 @@
           "browsing_boost": 1.115898,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.294125,
+          "general_lane_probability": 0.236033,
+          "approximate_selection_probability": 0.460735
         },
         {
           "lemma": "viaje",
           "neutral_rank": 12,
           "final_rank": 12,
           "neutral_score": 0.54,
-          "final_score": 0.54,
+          "final_score": 0.0,
           "browsing_signal": 0.0,
           "browsing_boost": 1.0,
           "selected": false,
           "selected_lane": "not_selected",
-          "neutral_selected": false
+          "neutral_selected": false,
+          "deterministic_selection_probability": 0.0,
+          "browsing_lane_probability": 0.0,
+          "general_lane_probability": 0.0,
+          "approximate_selection_probability": 0.0,
+          "suppressed_reason": "suspended"
         }
       ]
     }

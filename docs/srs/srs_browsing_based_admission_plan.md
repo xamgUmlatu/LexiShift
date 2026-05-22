@@ -361,12 +361,17 @@ Current prototype evidence:
 
 - `core/lexishift_core/srs/browsing_admission.py` defines the decayed,
   bounded aggregate store, ingest result diagnostics, strength presets, and
-  read-only admission-share simulation.
+  read-only admission-share/probability simulation.
+- `core/lexishift_core/srs/admission_suppression.py` defines a generic
+  suppression/cooldown store for discarded, suspended, user-blocked, and manual
+  cooldown lemmas. This is a guard surface only; no UI or runtime mutation path
+  is wired yet.
 - `scripts/testing/srs_browsing_admission_backend_simulation.py` renders a
   synthetic report without browser capture or runtime SRS mutation.
 - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
   records the current synthetic fixture: packet caps apply, stale/low-signal
-  rows prune, and `Off < Balanced < Strong` browsing-lane share is monotonic.
+  rows prune, suppressed lemmas receive zero admission probability, and
+  `Off < Balanced < Strong` browsing-lane share is monotonic.
 
 ## Probability Model
 
@@ -558,6 +563,24 @@ Expected group share is best computed by simulation or by running the exact
 selector repeatedly with fixed fixtures. There is no honest one-line formula
 that maps a user-facing strength value to final share because the remaining
 pool changes after every draw.
+
+Current diagnostic convention:
+
+- `deterministic_selection_probability` is exact for the current two-lane
+  prototype: selected rows are `1.0`, unselected rows are `0.0`.
+- `browsing_lane_probability`, `general_lane_probability`, and
+  `approximate_selection_probability` estimate how likely each word would be
+  under the planned smoother weighted lane model.
+- The approximation uses:
+
+```text
+P(included in lane) ~= 1 - exp(-lane_budget * word_mass / total_lane_mass)
+P(combined) = P(browsing) + (1 - P(browsing)) * P(general)
+```
+
+This is a calibration diagnostic, not a user-facing promise. It is useful
+because it lets us inspect all candidate words at a given profile/signal state
+before actual admission mutation is enabled.
 
 Benefits:
 
