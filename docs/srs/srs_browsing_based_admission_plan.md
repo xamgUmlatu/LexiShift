@@ -286,6 +286,77 @@ Implementation hint:
   `side=mixed`; source-side same-spelling words should only flow through the
   source-target bridge.
 
+## Resource, Timing, And Latency Budget
+
+The feature should be shaped as a low-priority signal path. It must not make
+normal browsing, replacement, or review feel slower.
+
+Recommended E2E timing:
+
+1. **Page-time capture**
+   - collect visible tokens from already-scanned text where possible;
+   - debounce capture until the page is idle or after a short delay;
+   - cap unique normalized tokens per page before any helper call;
+   - cap per-token contribution from one page;
+   - drop the packet rather than blocking the page when the extension is busy.
+
+2. **Local packet buffer**
+   - keep only compact normalized counts in memory or extension storage;
+   - flush in small batches, for example on idle, on tab hidden, and on a
+     periodic timer;
+   - coalesce repeated page packets before helper submission;
+   - tolerate packet loss because browsing signals are relevance hints, not
+     authoritative progress records.
+
+3. **Helper ingest**
+   - update a bounded aggregate store with decayed counts;
+   - use source/target lookup indexes keyed by pair and source-pack version;
+   - avoid scanning the full dictionary or full candidate corpus for every
+     page packet;
+   - prune low-signal and stale rows during ingest or read.
+
+4. **Admission-time scoring**
+   - read browsing aggregates only during preview, simulation, initialize, or
+     refresh workflows;
+   - never rescore admission probabilities during ordinary review display;
+   - recompute user-specific probabilities on demand instead of caching stale
+     final probabilities;
+   - persist selected decisions and explanations, not every transient score.
+
+Initial budgets to validate in tests and local profiling:
+
+| Budget | Suggested starting point | Rationale |
+| --- | ---: | --- |
+| Per-page unique normalized tokens | `100-200` | Enough to capture topic-relevant repetition without storing a page-sized vocabulary dump. |
+| Per-token page contribution cap | `3-5` | Prevents one repetitive page from dominating. |
+| Packet flush interval | `30-60s` | Keeps writes batched without making the signal feel stale. |
+| Helper aggregate rows per profile/pair | `2,000-5,000` | Bounded storage while leaving room for varied reading. |
+| Aggregate prune threshold | near-zero decayed signal | Lets stale interests disappear naturally. |
+| Admission-time candidate frontier | current LP frontier, e.g. `10k` | Cheap dictionary lookup per candidate; no page-time corpus scan. |
+
+Latency posture:
+
+- page capture and helper submission should be async and best-effort;
+- the user should never wait for browsing-signal ingest before replacements,
+  reviews, or page interaction continue;
+- if the helper is offline, packets can be dropped or retained within a small
+  bounded queue;
+- if the queue is full, oldest or weakest browsing packets should be discarded
+  before raw text or unbounded history is ever stored;
+- diagnostics should report signal freshness and dropped-packet counts only at
+  a high level.
+
+Storage posture:
+
+- store target-lemma aggregates, not raw page text;
+- do not store URL by default;
+- avoid storing long-lived unmapped source tokens. If unmapped-token diagnostics
+  are needed, keep them developer-only, count-only, and aggressively bounded;
+- decay can be applied lazily at ingest/read time, so no background cron is
+  required just to age out signals;
+- clearing browsing admission signals must not delete normal SRS review
+  history.
+
 ## Probability Model
 
 Browsing should create a smooth, saturating, bounded boost.
