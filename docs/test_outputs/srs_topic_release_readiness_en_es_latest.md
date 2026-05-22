@@ -2,12 +2,12 @@
 
 - Status: `ok`
 - Decision: `srs_topic_release_readiness_classified`
-- Generated: `2026-05-21T00:00:42.934003+00:00`
+- Generated: `2026-05-22T15:41:44.140218+00:00`
 - Frontier: `spalex_10k_research` (`10000` seeds)
 - Default-visible candidates: `0`
 - Limited-visible candidates: `11`
-- Beta-visible candidates: `2`
-- Hidden/source-blocked candidates: `4`
+- Beta-visible candidates: `3`
+- Hidden/source-blocked candidates: `3`
 
 ## Release Gate
 
@@ -39,8 +39,8 @@
 | `science_technology` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 620 | 620 | 74 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
 | `travel_places_transport` | `topic` | `beta_limited_candidate` | `beta_visible_or_hidden` | 132 | 132 | 30 | 1 | add enough reviewed rows to reach the limited-release floor; improve difficulty spread beyond one or two bands; label the topic as limited/beta if exposed |
 | `arts_literature_humanities` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 160 | 160 | 19 | 2 | add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
-| `animals` | `topic` | `limited_release_candidate` | `visible_with_limited_depth_note` | 80 | 17 | 80 | 2 | run sampled precision review; add more reviewed rows if the lab still feels clumpy; lab-smoke preference strength across proficiency values |
-| `plants_nature` | `topic` | `enrichment_required` | `hidden_until_enriched` | 29 | 29 | 24 | 1 | add reviewed source or curated overlay rows; target at least two difficulty bands; rerun the release-readiness classifier |
+| `animals` | `topic` | `release_candidate_limited_depth` | `visible_with_limited_depth_note` | 100 | 17 | 100 | 2 | run sampled precision review; add mid/hard-band enrichment if release UX needs smoother progression; lab-smoke preference strength across proficiency values |
+| `plants_nature` | `topic` | `beta_limited_candidate` | `beta_visible_or_hidden` | 34 | 29 | 34 | 1 | add enough reviewed rows to reach the limited-release floor; improve difficulty spread beyond one or two bands; label the topic as limited/beta if exposed |
 | `food_cooking` | `topic` | `limited_release_candidate` | `visible_with_limited_depth_note` | 73 | 17 | 73 | 2 | run sampled precision review; add more reviewed rows if the lab still feels clumpy; lab-smoke preference strength across proficiency values |
 | `anime_manga_pop_culture` | `topic` | `blocked_source_required` | `hidden_until_source_backed` | 0 | 0 | 0 | 0 | identify a source or curated seed list; build a sampled review packet; generate a reviewed overlay and rerun the lab |
 | `hobbies_crafts` | `topic` | `blocked_source_required` | `hidden_until_source_backed` | 0 | 0 | 0 | 0 | identify a source or curated seed list; build a sampled review packet; generate a reviewed overlay and rerun the lab |

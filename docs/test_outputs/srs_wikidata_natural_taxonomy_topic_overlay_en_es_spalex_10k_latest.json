@@ -1,0 +1,1131 @@
+{
+  "schema_version": 1,
+  "status": "ok",
+  "decision": "srs_wikidata_natural_taxonomy_topic_overlay_ready",
+  "generated_at": "2026-05-22T15:41:39+00:00",
+  "overlay_id": "srs_wikidata_natural_taxonomy_topic_overlay_en_es_spalex_10k_v1",
+  "language_pair": "en-es",
+  "inputs": {
+    "candidates_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+    "candidate_decision": "srs_wikidata_natural_taxonomy_candidates_ready"
+  },
+  "overlay_policy": {
+    "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+    "runtime_policy_change": "none",
+    "source_download": "none",
+    "source": "Wikidata structured data label/alias intersection promoted from local candidate packet",
+    "source_license": "Wikidata structured data CC0",
+    "runtime_dependency": "none",
+    "duplicate_policy": "dedupe by lemma/topic within this overlay"
+  },
+  "summary": {
+    "row_count": 39,
+    "topic_count": 2,
+    "counts_by_topic": {
+      "animals": 20,
+      "plants_nature": 19
+    },
+    "counts_by_confidence": {
+      "light": 9,
+      "strong": 30
+    },
+    "skipped_count": 1
+  },
+  "skipped": [
+    {
+      "lemma": "rubio",
+      "topic": "animals",
+      "reason": "promotion_excluded"
+    }
+  ],
+  "rows": [
+    {
+      "language_pair": "en-es",
+      "lemma": "abeja",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:abeja",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q115131816",
+          "Q7391"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "insect"
+        ],
+        "wikidata_match_kinds": [
+          "label",
+          "alias"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "atún",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:atún",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q2346039"
+        ],
+        "wikidata_roots": [
+          "fish"
+        ],
+        "wikidata_match_kinds": [
+          "alias"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "caracol",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:caracol",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q308841"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "mollusk"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "cerda",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:cerda",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q15942027"
+        ],
+        "wikidata_roots": [
+          "animal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "cucaracha",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:cucaracha",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q1661828"
+        ],
+        "wikidata_roots": [
+          "insect",
+          "animal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "elefante",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:elefante",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q7378"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "mammal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "ganado",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:ganado",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q103459"
+        ],
+        "wikidata_roots": [
+          "animal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "ganso",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:ganso",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q16529344"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "bird"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "gata",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:gata",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q24248440"
+        ],
+        "wikidata_roots": [
+          "animal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "gaviota",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:gaviota",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q3112866"
+        ],
+        "wikidata_roots": [
+          "bird",
+          "animal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "gorrión",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:gorrión",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q28753"
+        ],
+        "wikidata_roots": [
+          "bird"
+        ],
+        "wikidata_match_kinds": [
+          "alias"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "hormiga",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:hormiga",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q7386",
+          "Q115705859"
+        ],
+        "wikidata_roots": [
+          "insect",
+          "animal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "mariposa",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:mariposa",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q28319"
+        ],
+        "wikidata_roots": [
+          "insect"
+        ],
+        "wikidata_match_kinds": [
+          "alias"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "mosca",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:mosca",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q859257"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "insect"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "ostra",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:ostra",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q107411"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "mollusk"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "perdiz",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:perdiz",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q732775"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "bird"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "pollo",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:pollo",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q780",
+          "Q1642639"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "bird"
+        ],
+        "wikidata_match_kinds": [
+          "label",
+          "alias"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "reina",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:reina",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q361578"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "insect"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "salmón",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:salmón",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q2796766"
+        ],
+        "wikidata_roots": [
+          "animal",
+          "fish"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "toro",
+      "topic": "animals",
+      "review_id": "srs-wikidata-natural-taxonomy:animals:toro",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q693690"
+        ],
+        "wikidata_roots": [
+          "animal"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "arroz",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:arroz",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q5090"
+        ],
+        "wikidata_roots": [
+          "grass",
+          "plant"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "calabaza",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:calabaza",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q161180"
+        ],
+        "wikidata_roots": [
+          "plant"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "caña",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:caña",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q2734060"
+        ],
+        "wikidata_roots": [
+          "plant"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "cebolla",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:cebolla",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q3406628"
+        ],
+        "wikidata_roots": [
+          "plant",
+          "vegetable"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "centeno",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:centeno",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q12099"
+        ],
+        "wikidata_roots": [
+          "plant"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "col",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:col",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q14328596"
+        ],
+        "wikidata_roots": [
+          "plant",
+          "vegetable"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "haya",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:haya",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q59779138"
+        ],
+        "wikidata_roots": [
+          "plant",
+          "tree"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "lima",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:lima",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q13195"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "limón",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:limón",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q13195",
+          "Q1093742"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "alias",
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "manzana",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:manzana",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q89"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "marrón",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:marrón",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q3177204"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "naranja",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:naranja",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q13191"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "nuez",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:nuez",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q208021"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "patata",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:patata",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q16587531"
+        ],
+        "wikidata_roots": [
+          "vegetable"
+        ],
+        "wikidata_match_kinds": [
+          "alias"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "pera",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:pera",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q13099586"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "perejil",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:perejil",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q65522500"
+        ],
+        "wikidata_roots": [
+          "plant",
+          "herb"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "plátano",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:plátano",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q18376030",
+          "Q503"
+        ],
+        "wikidata_roots": [
+          "plant",
+          "fruit",
+          "tree"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "tomate",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:tomate",
+      "membership": 1.0,
+      "confidence_label": "strong",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "strong_direct_taxonomy",
+        "wikidata_qids": [
+          "Q20638126"
+        ],
+        "wikidata_roots": [
+          "plant",
+          "vegetable",
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    },
+    {
+      "language_pair": "en-es",
+      "lemma": "uva",
+      "topic": "plants_nature",
+      "review_id": "srs-wikidata-natural-taxonomy:plants_nature:uva",
+      "membership": 0.65,
+      "confidence_label": "light",
+      "source_channel": "wikidata_structured_data",
+      "source_label": "wikidata_natural_taxonomy_reviewed_candidate",
+      "review_state": "agent_reviewed_pending_product_approval",
+      "provenance": {
+        "promotion_state": "reviewed_wikidata_source_candidate_not_product_default",
+        "candidate_json": "docs/test_outputs/srs_wikidata_natural_taxonomy_candidates_en_es_latest.json",
+        "candidate_confidence_label": "light",
+        "wikidata_qids": [
+          "Q10978"
+        ],
+        "wikidata_roots": [
+          "fruit"
+        ],
+        "wikidata_match_kinds": [
+          "label"
+        ],
+        "source_license": "Wikidata structured data CC0",
+        "runtime_dependency": "none"
+      }
+    }
+  ],
+  "limitations": [
+    "This overlay internalizes reviewed source candidates; it does not make Wikidata a runtime dependency.",
+    "Rows are useful for admission-preview/topic preference testing, but natural taxonomy coverage is intentionally incomplete.",
+    "Polysemic labels are retained when the source candidate packet judged them acceptable enough for topic preference use."
+  ]
+}

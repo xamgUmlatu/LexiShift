@@ -28,13 +28,14 @@
     "seed_count": 10000,
     "unique_lemma_count": 10000
   },
-  "generated_at": "2026-05-21T00:00:42.934003+00:00",
+  "generated_at": "2026-05-22T15:41:44.140218+00:00",
   "inputs": {
     "depth_audit_json": "docs/test_outputs/srs_topic_family_depth_audit_en_es_latest.json",
     "frontier_label": "spalex_10k_research",
     "overlay_json": [
       "docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
       "docs/test_outputs/srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+      "docs/test_outputs/srs_wikidata_natural_taxonomy_topic_overlay_en_es_spalex_10k_latest.json",
       "docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json",
       "docs/test_outputs/srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json"
     ],
@@ -54,16 +55,16 @@
     "by_topic": {
       "animals": {
         "counts_by_confidence": {
-          "strong": 80
+          "strong": 100
         },
-        "lemma_count": 80,
+        "lemma_count": 100,
         "raw_counts_by_confidence": {
           "light": 16,
-          "strong": 80
+          "strong": 100
         },
-        "raw_lemma_count": 96,
-        "raw_row_count": 96,
-        "row_count": 80
+        "raw_lemma_count": 115,
+        "raw_row_count": 116,
+        "row_count": 100
       },
       "arts_literature_humanities": {
         "counts_by_confidence": {
@@ -157,16 +158,16 @@
       },
       "plants_nature": {
         "counts_by_confidence": {
-          "strong": 24
+          "strong": 34
         },
-        "lemma_count": 24,
+        "lemma_count": 34,
         "raw_counts_by_confidence": {
-          "light": 29,
-          "strong": 24
+          "light": 38,
+          "strong": 34
         },
-        "raw_lemma_count": 53,
-        "raw_row_count": 53,
-        "row_count": 24
+        "raw_lemma_count": 66,
+        "raw_row_count": 72,
+        "row_count": 34
       },
       "science_technology": {
         "counts_by_confidence": {
@@ -207,10 +208,11 @@
         "row_count": 30
       }
     },
-    "overlay_count": 4,
+    "overlay_count": 5,
     "ready_overlay_ids": [
       "srs_animals_plants_topic_overlay_en_es_spalex_10k_poc_v1",
       "srs_food_cooking_topic_overlay_en_es_current_poc_v1",
+      "srs_wikidata_natural_taxonomy_topic_overlay_en_es_spalex_10k_v1",
       "srs_source_topic_overlay_en_es_spalex_10k_v1",
       "srs_obvious_topic_miss_overlay_en_es_spalex_10k_v1"
     ],
@@ -416,30 +418,28 @@
   },
   "status": "ok",
   "summary": {
-    "beta_visible_count": 2,
+    "beta_visible_count": 3,
     "default_visible_count": 0,
     "finding_counts": {
       "PASS": 3,
       "WARN": 1
     },
-    "hidden_count": 4,
+    "hidden_count": 3,
     "issues": [],
     "limited_visible_count": 11,
     "release_status_counts": {
-      "beta_limited_candidate": 1,
+      "beta_limited_candidate": 2,
       "blocked_legal_source_required": 1,
       "blocked_source_required": 2,
-      "enrichment_required": 1,
-      "limited_release_candidate": 3,
+      "limited_release_candidate": 2,
       "register_beta_candidate_policy_review": 1,
       "register_release_candidate_policy_review": 1,
-      "release_candidate_limited_depth": 7
+      "release_candidate_limited_depth": 8
     },
     "topic_count": 17,
     "visibility_counts": {
       "beta_after_policy_review": 1,
-      "beta_visible_or_hidden": 1,
-      "hidden_until_enriched": 1,
+      "beta_visible_or_hidden": 2,
       "hidden_until_licensed_source": 1,
       "hidden_until_source_backed": 2,
       "visible_after_policy_review": 1,
@@ -761,22 +761,22 @@
       "axis": "topic",
       "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay",
       "display_name": "Animals",
-      "effective_candidate_count": 80,
+      "effective_candidate_count": 100,
       "effective_candidate_source": "reviewed_overlay",
       "family": "animals",
       "next_work": [
         "run sampled precision review",
-        "add more reviewed rows if the lab still feels clumpy",
+        "add mid/hard-band enrichment if release UX needs smoother progression",
         "lab-smoke preference strength across proficiency values"
       ],
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
       "recommended_visibility": "visible_with_limited_depth_note",
-      "release_status": "limited_release_candidate",
+      "release_status": "release_candidate_limited_depth",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 80,
+      "reviewed_overlay_candidate_count": 100,
       "reviewed_overlay_confidence_counts": {
-        "strong": 80
+        "strong": 100
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.30637,
@@ -788,22 +788,22 @@
       "axis": "topic",
       "data_strategy": "trusted_botany_topics_plus_categories_glosses_then_curated_plant_overlay",
       "display_name": "Plants & Nature",
-      "effective_candidate_count": 29,
-      "effective_candidate_source": "source_depth",
+      "effective_candidate_count": 34,
+      "effective_candidate_source": "reviewed_overlay",
       "family": "plants_nature",
       "next_work": [
-        "add reviewed source or curated overlay rows",
-        "target at least two difficulty bands",
-        "rerun the release-readiness classifier"
+        "add enough reviewed rows to reach the limited-release floor",
+        "improve difficulty spread beyond one or two bands",
+        "label the topic as limited/beta if exposed"
       ],
       "product_priority": "p0",
       "readiness_state": "p0_enrichment",
-      "recommended_visibility": "hidden_until_enriched",
-      "release_status": "enrichment_required",
+      "recommended_visibility": "beta_visible_or_hidden",
+      "release_status": "beta_limited_candidate",
       "review_only_candidate_count": 0,
-      "reviewed_overlay_candidate_count": 24,
+      "reviewed_overlay_candidate_count": 34,
       "reviewed_overlay_confidence_counts": {
-        "strong": 24
+        "strong": 34
       },
       "source_coverage_posture": "shallow_difficulty_depth",
       "source_max_difficulty": 0.151442,

@@ -37,6 +37,7 @@ DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS = tuple(
     for filename in (
         "srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
         "srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+        "srs_wikidata_natural_taxonomy_topic_overlay_en_es_spalex_10k_latest.json",
         "srs_source_topic_overlay_en_es_spalex_10k_latest.json",
         "srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json",
     )
