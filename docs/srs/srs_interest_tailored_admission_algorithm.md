@@ -2,12 +2,13 @@
 
 Status: active design reference
 Role: Planning / WIP
-Last updated: 2026-05-19
-Last verified: 2026-05-19 by SRS profile-bootstrap readiness-gate code read, focused SRS admission tests, SRS quality harness, local admission-lab browser smoke, and preference taxonomy lifecycle review
+Last updated: 2026-05-23
+Last verified: 2026-05-23 by SRS profile-bootstrap readiness-gate code read, focused SRS admission tests, SRS quality harness, local admission-lab browser smoke, preference taxonomy lifecycle review, and browsing-based admission plan routing
 Purpose: define the product algorithm for tailoring SRS admission probabilities to user interests, readiness, source quality, and LP resource coverage
 Source-of-truth: target algorithm reference; current executable truth lives in `core/lexishift_core/srs/seed.py`, `core/lexishift_core/srs/profile_bootstrap.py`, `core/lexishift_core/srs/selector.py`, helper admission use cases, SRS tests, and `docs/developer/feature_state_matrix.md`.
 
 Related docs:
+- `srs_browsing_based_admission_plan.md`
 - `srs_interest_tailored_data_acquisition_plan.md`
 - `srs_preference_taxonomy_lifecycle.md`
 - `srs_profile_schema.md`
@@ -55,6 +56,8 @@ Current code already has important pieces of this model:
   much too easy or too hard for the learner's proficiency band;
 - preview tests prove that topic-bearing candidates can move ahead of neutral
   frequency order.
+- browsing-based admission is planned as a separate opt-in word-signal layer;
+  it is not implemented/default-on and must not mutate review scheduling.
 
 The target described here is broader than current default behavior. In
 particular:

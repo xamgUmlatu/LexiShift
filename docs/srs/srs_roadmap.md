@@ -2,14 +2,15 @@
 
 Status: active mixed roadmap
 Role: Mixed
-Last updated: 2026-05-14
-Last verified: 2026-05-15 Lane 1 SRS authority-map routing update; roadmap claims not fully re-audited
+Last updated: 2026-05-23
+Last verified: 2026-05-23 browsing-based admission planning update; roadmap claims not fully re-audited
 Purpose: preserve the SRS current-state snapshot, remaining E2E gaps, and roadmap workstreams
 Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/extension code, SRS harnesses, and `docs/developer/feature_state_matrix.md`.
 
 Related design:
 - `docs/srs/README.md`
 - `docs/srs/srs_hybrid_model_technical.md`
+- `docs/srs/srs_browsing_based_admission_plan.md`
 - `docs/architecture/srs_lp_architecture.md`
 
 Routing note:
@@ -130,9 +131,13 @@ Status key:
 ### Workstream C — Signals and adaptive refresh
 - `[x]` Signal queue format + append/read utilities.
 - `[x]` Feedback event writes from helper path.
+- `[x]` Browsing-based admission planning doc for opt-in, local-only word signals.
 - `[~]` Event aggregation design for refresh decisions.
 - `[~]` Feedback-window aggregation for admission updates (separate from due scheduling).
 - `[ ]` Persist aggregated admission feedback state (per pair, versioned).
+- `[ ]` Persist browsing admission aggregate state (per profile/pair, decayed and bounded).
+- `[ ]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics.
+- `[ ]` Opt-in gated browsing relevance boost for actual admission refresh.
 - `[ ]` Automatic `adaptive_refresh` trigger policy.
 - `[ ]` Explicit policy gate for any non-feedback signals.
 - `[x]` Manual/explicit helper refresh action (`srs_refresh`) for feedback-driven admissions.
