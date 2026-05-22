@@ -57,6 +57,66 @@ SRS-specific constraint:
   admission slots. It must not make accidental one-page exposure create durable
   review debt.
 
+## Current Executable Admission Audit
+
+Current code has three different SRS admission-related surfaces. They should
+not be treated as interchangeable.
+
+1. **Admission preview**
+   - Options uses the admission preview button to call the helper
+     `srs_preview_admission` path.
+   - This path is non-mutating and already supports weighted-without-replacement
+     preview sampling.
+   - This is the best first integration point for browsing-based scoring
+     because it can show neutral vs browsing-influenced results without creating
+     durable review obligations.
+
+2. **Initial set creation**
+   - Options uses the initialize button to call `srs_initialize`.
+   - The helper builds seed candidates, applies profile topic overlays when
+     present, selects the initial active set, persists selected `SrsItem` rows,
+     updates active inventory, and publishes rulegen outputs.
+   - Browsing should not silently affect this path until the user has opted in
+     and preview diagnostics are available.
+
+3. **Refresh / growth admission**
+   - Options uses the refresh button to call `srs_refresh`.
+   - The helper computes a hard admission budget from `max_active_items`,
+     `max_new_items_per_day`, current due pressure, and feedback-window
+     retention.
+   - If budget remains, growth admission filters out existing lemmas and selects
+     new candidates by ranked score.
+   - This is the right eventual runtime mutation point for browsing influence,
+     because it already has review-pressure and feedback-safety gates.
+
+There is also a **rebalance** surface. Rebalance can park swappable active
+items and activate better candidates, but it is not the same as full deletion
+or permanent release. Mature or well-established items are protected by
+history, stability, or future review due date.
+
+Lifecycle caveat:
+
+- `SrsItem` currently stores scheduler fields, exposures, history, and
+  word-package metadata, but it does not expose a canonical persisted
+  `discarded`, `suspended`, `released`, or `mastered` lifecycle flag.
+- Selector code has a `mastered` penalty concept, and rebalance has
+  protected/swappable/parked states, but those are not yet a full user-facing
+  lifecycle contract.
+- Actual browsing-influenced admission should therefore wait for either a
+  lifecycle blocklist/cooldown surface or an explicit decision that
+  re-suggestion after discard/suspend is out of scope.
+
+Existing exposure paths are also not the right browsing-admission substrate:
+
+- extension exposure logging may retain URL and writes to extension-local
+  storage;
+- extension-local exposure recording can create local store rows;
+- the native helper exposure endpoint can create helper SRS items when called
+  with missing lemmas.
+
+Browsing admission should use a stricter separate aggregate signal store:
+bounded counts in, no raw text, no URL by default, no direct SRS item creation.
+
 ## P0 Scope
 
 P0 is word-level browsing relevance only.
@@ -319,6 +379,183 @@ final_score_i =
 
 The readiness gate remains mandatory. Browsing relevance can move a candidate
 up; it cannot make unsupported, too-easy, or too-hard candidates dominate.
+
+## Mathematical Design Space
+
+Let:
+
+```text
+E = eligible candidate set after hard filters
+B = new-admission budget from the SRS refresh policy
+x_i = neutral admission score for candidate i
+r_i = readiness multiplier for candidate i
+p_i = explicit preference affinity for candidate i
+q_i = source/mapping confidence for candidate i
+b_i = normalized browsing signal for candidate i
+```
+
+Hard filters and budget are outside the browsing model:
+
+```text
+E = candidates
+    - malformed rows
+    - wrong pair
+    - blocked lemmas
+    - already admitted lemmas
+    - disallowed POS/source/license rows
+    - rulegen-unsupported rows when rulegen is required
+
+B = min(max_new_items_per_day, max_active_items - due_count)
+```
+
+Then the refresh policy may reduce `B` to zero under high due pressure or low
+retention. Browsing only acts after this point.
+
+### Option A: Score-Only Boost
+
+The simplest model is a bounded multiplier:
+
+```text
+fit_i = r_i * q_i * (1 + preference_alignment_weight * p_i)
+
+browsing_boost_i =
+  1 + min(max_browsing_boost - 1, browsing_alpha * b_i * fit_i)
+
+s_i = x_i * browsing_boost_i
+
+selected = top_B(sort_by(s_i, descending))
+```
+
+Benefits:
+
+- easy to implement on top of existing ranked growth admission;
+- deterministic and explainable;
+- browsing cannot exceed the multiplier cap.
+
+Weakness:
+
+- deterministic top-N can feel all-or-nothing near score thresholds. A small
+  boost may do nothing, while a slightly larger boost may abruptly admit many
+  browsed words.
+
+This is acceptable for preview diagnostics, but probably not ideal as the final
+product feel by itself.
+
+### Option B: Weighted Sampling
+
+The existing selector already supports weighted-without-replacement sampling in
+preview/lab contexts. Browsing can contribute to sampling mass:
+
+```text
+score_mass_i = s_i
+base_mass_i = x_i * r_i
+mass_i = lambda * base_mass_i + (1 - lambda) * score_mass_i
+```
+
+For the first selected word:
+
+```text
+P(i first) = mass_i / sum(mass_j for j in E)
+```
+
+For a preferred or browsed group `A`:
+
+```text
+P(first word in A) =
+  sum(mass_i for i in A) / sum(mass_j for j in E)
+```
+
+For `B > 1`, selection is sequential without replacement:
+
+```text
+P_t(i selected at draw t) =
+  mass_i / sum(mass_j for j in remaining_candidates_t)
+```
+
+Expected group share is best computed by simulation or by running the exact
+selector repeatedly with fixed fixtures. There is no honest one-line formula
+that maps a user-facing strength value to final share because the remaining
+pool changes after every draw.
+
+Benefits:
+
+- smoother than top-N;
+- stronger browsing signals gradually increase probability mass;
+- easy to report realized share in diagnostics.
+
+Weakness:
+
+- share is probabilistic and can vary per run unless seeded;
+- product copy must avoid exact percentage promises.
+
+### Option C: Mixture Budget
+
+The strongest product-control model is a two-lane budget:
+
+```text
+V = sum(b_i for i in E)
+volume_factor = 1 - exp(-V / tau)
+
+B_browsing = floor(B * rho_strength * volume_factor)
+B_general = B - B_browsing
+```
+
+Where `rho_strength` is a preset:
+
+```text
+Off      rho = 0.00
+Balanced rho = 0.20-0.30
+Strong   rho = 0.40-0.55
+```
+
+Then:
+
+```text
+browsing_pool = { i in E where b_i >= browsing_min_signal }
+general_pool = E - selected_browsing
+
+selected_browsing = weighted_sample(browsing_pool, B_browsing)
+selected_general = weighted_sample_or_topN(general_pool, B_general)
+selected = selected_browsing + selected_general
+```
+
+This does not mean the user sees a percentage control. The UX can remain
+`Off / Balanced / Strong`. The percentage is a backend guardrail that prevents
+browsing from creating too much durable SRS debt.
+
+Benefits:
+
+- browsing influence becomes smooth and bounded;
+- Strong can be meaningfully stronger than Balanced without taking over all
+  admissions;
+- diagnostics can report the realized browsing share after each preview or
+  refresh.
+
+Weakness:
+
+- slightly more implementation work;
+- needs careful fallback behavior when there are too few browsed eligible
+  candidates.
+
+Recommended MVP direction: use **Option C** for actual mutation, with the
+bounded score boost from **Option A** inside each lane and weighted sampling
+from **Option B** for preview/simulation. This gives us mathematical smoothness,
+product control, and explainable diagnostics.
+
+### Option D: Adaptive Bandit Later
+
+A later system could tune browsing strength from user outcomes:
+
+```text
+alpha_next =
+  clamp(alpha_current + learning_rate * (observed_success - target_success))
+```
+
+Where observed success could include keep/discard behavior, review retention,
+or explicit "not relevant" feedback for admitted browsing-driven words.
+
+This is not MVP. It needs more lifecycle data and could be hard to explain. It
+is best treated as a future calibration layer after the fixed policy is proven.
 
 ## Admission Budget And Sticky State
 
