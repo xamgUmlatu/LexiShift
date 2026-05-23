@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sys
+import tempfile
 from typing import Mapping
 
 
@@ -20,13 +21,16 @@ from lexishift_core.srs.browsing_admission import (  # noqa: E402
     BrowsingAdmissionCandidate,
     BrowsingSignalAggregate,
     BrowsingSignalIngestPolicy,
-    BrowsingSignalPacket,
-    BrowsingSignalPacketEntry,
     BrowsingSignalStore,
     browsing_raw_value,
     browsing_signal_value,
-    ingest_browsing_signal_packet,
+    load_browsing_signal_store,
+    save_browsing_signal_store,
     simulate_browsing_admission_presets,
+)
+from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.use_cases.browsing_admission import (  # noqa: E402
+    ingest_browsing_admission_signals,
 )
 from lexishift_core.srs.admission_suppression import (  # noqa: E402
     SUPPRESSION_REASON_SUSPENDED,
@@ -78,103 +82,44 @@ def build_report(*, admission_budget: int = 6) -> dict[str, object]:
         prune_signal_below=0.02,
         half_life_days=14.0,
     )
-    initial_store = BrowsingSignalStore(
-        pair=DEFAULT_PAIR,
-        profile_id=DEFAULT_PROFILE_ID,
-        items={
-            "arcaico": BrowsingSignalAggregate(
-                target_lemma="arcaico",
-                source_hit_count=0.04,
-                last_seen_at="2026-01-01T00:00:00Z",
-                decayed_at="2026-01-01T00:00:00Z",
-            )
-        },
-        updated_at="2026-01-01T00:00:00Z",
-        policy_version=policy.version,
-    )
-    packet = BrowsingSignalPacket(
-        pair=DEFAULT_PAIR,
-        profile_id=DEFAULT_PROFILE_ID,
-        captured_at="2026-05-23T00:00:00Z",
-        signals=(
-            BrowsingSignalPacketEntry(
-                target_lemma="hipoteca",
-                side=BROWSING_SIGNAL_SOURCE,
-                count=9.0,
-                source_mapping_confidence=0.90,
+    with tempfile.TemporaryDirectory() as tmp:
+        paths = build_helper_paths(Path(tmp))
+        helper_store_path = paths.srs_browsing_signal_store_path_for(
+            DEFAULT_PROFILE_ID,
+            DEFAULT_PAIR,
+        )
+        save_browsing_signal_store(
+            BrowsingSignalStore(
+                pair=DEFAULT_PAIR,
+                profile_id=DEFAULT_PROFILE_ID,
+                items={
+                    "arcaico": BrowsingSignalAggregate(
+                        target_lemma="arcaico",
+                        source_hit_count=0.04,
+                        last_seen_at="2026-01-01T00:00:00Z",
+                        decayed_at="2026-01-01T00:00:00Z",
+                    )
+                },
+                updated_at="2026-01-01T00:00:00Z",
+                policy_version=policy.version,
             ),
-            BrowsingSignalPacketEntry(
-                target_lemma="préstamo",
-                side=BROWSING_SIGNAL_SOURCE,
-                count=7.0,
-                source_mapping_confidence=0.80,
+            helper_store_path,
+        )
+        helper_ingest = ingest_browsing_admission_signals(
+            paths,
+            pair=DEFAULT_PAIR,
+            profile_id=DEFAULT_PROFILE_ID,
+            captured_at="2026-05-23T00:00:00Z",
+            opt_in=True,
+            signals=build_signal_payloads(),
+            policy=policy,
+            now=DEFAULT_NOW,
+            resolve_profile_id_fn=lambda helper_paths, *, profile_id, **_kwargs: (
+                helper_paths.normalize_profile_id(profile_id)
             ),
-            BrowsingSignalPacketEntry(
-                target_lemma="salud",
-                side=BROWSING_SIGNAL_TARGET,
-                count=4.0,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="diagnóstico",
-                side=BROWSING_SIGNAL_SOURCE,
-                count=4.0,
-                source_mapping_confidence=0.75,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="banco",
-                side=BROWSING_SIGNAL_SOURCE,
-                count=2.0,
-                source_mapping_confidence=0.45,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="interés",
-                side=BROWSING_SIGNAL_SOURCE,
-                count=2.0,
-                source_mapping_confidence=0.70,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="tratamiento",
-                side=BROWSING_SIGNAL_TARGET,
-                count=2.0,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="clínica",
-                side=BROWSING_SIGNAL_TARGET,
-                count=1.0,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="perro",
-                side=BROWSING_SIGNAL_TARGET,
-                count=1.0,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="gato",
-                side=BROWSING_SIGNAL_TARGET,
-                count=1.0,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="cocina",
-                side=BROWSING_SIGNAL_TARGET,
-                count=1.0,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="viaje",
-                side=BROWSING_SIGNAL_TARGET,
-                count=1.0,
-            ),
-            BrowsingSignalPacketEntry(
-                target_lemma="descartado_por_cap",
-                side=BROWSING_SIGNAL_TARGET,
-                count=1.0,
-            ),
-        ),
-    )
-    ingest_result = ingest_browsing_signal_packet(
-        initial_store,
-        packet,
-        policy=policy,
-        now=DEFAULT_NOW,
-    )
+        )
+        persisted_store = load_browsing_signal_store(helper_store_path)
+    ingest_result = _as_mapping(helper_ingest.get("ingest_result"))
     candidates = build_candidates()
     suppression_store = build_suppression_store()
     suppressed_lemmas = active_suppressed_lemmas(
@@ -184,7 +129,7 @@ def build_report(*, admission_budget: int = 6) -> dict[str, object]:
     )
     simulations = simulate_browsing_admission_presets(
         candidates,
-        store=ingest_result.store,
+        store=persisted_store,
         admission_budget=admission_budget,
         policy=policy,
         suppressed_lemmas=suppressed_lemmas,
@@ -201,6 +146,8 @@ def build_report(*, admission_budget: int = 6) -> dict[str, object]:
             "url_stored": False,
             "runtime_srs_mutation": False,
             "synthetic_fixture_only": True,
+            "helper_persisted_fixture": True,
+            "opt_in_required": True,
         },
         "policy": {
             "version": policy.version,
@@ -212,20 +159,103 @@ def build_report(*, admission_budget: int = 6) -> dict[str, object]:
             "browsing_signal_cap": policy.browsing_signal_cap,
             "replacement_exposure_weight": policy.replacement_exposure_weight,
         },
-        "ingest_result": ingest_result.to_dict(),
+        "helper_ingest": {
+            "status": helper_ingest.get("status"),
+            "runtime_srs_mutation": helper_ingest.get("runtime_srs_mutation"),
+            "private_payload_fields_ignored": _as_mapping(helper_ingest.get("privacy")).get(
+                "private_payload_fields_ignored",
+                0,
+            ),
+        },
+        "ingest_result": ingest_result,
         "suppression": {
             "active_suppressed_lemmas": suppressed_lemmas,
             "entry_count": len(suppression_store.entries),
             "runtime_srs_mutation": False,
         },
-        "aggregate_store": summarize_store(ingest_result.store, policy=policy),
+        "aggregate_store": summarize_store(persisted_store, policy=policy),
         "admission_budget": admission_budget,
         "simulations": {name: result.to_dict() for name, result in simulations.items()},
         "findings": build_findings(
-            ingest_result=ingest_result.to_dict(),
+            ingest_result=ingest_result,
             simulations={name: result.to_dict() for name, result in simulations.items()},
         ),
     }
+
+
+def build_signal_payloads() -> tuple[dict[str, object], ...]:
+    return (
+        {
+            "target_lemma": "hipoteca",
+            "side": BROWSING_SIGNAL_SOURCE,
+            "count": 9.0,
+            "source_mapping_confidence": 0.90,
+        },
+        {
+            "target_lemma": "préstamo",
+            "side": BROWSING_SIGNAL_SOURCE,
+            "count": 7.0,
+            "source_mapping_confidence": 0.80,
+        },
+        {
+            "target_lemma": "salud",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 4.0,
+        },
+        {
+            "target_lemma": "diagnóstico",
+            "side": BROWSING_SIGNAL_SOURCE,
+            "count": 4.0,
+            "source_mapping_confidence": 0.75,
+        },
+        {
+            "target_lemma": "banco",
+            "side": BROWSING_SIGNAL_SOURCE,
+            "count": 2.0,
+            "source_mapping_confidence": 0.45,
+        },
+        {
+            "target_lemma": "interés",
+            "side": BROWSING_SIGNAL_SOURCE,
+            "count": 2.0,
+            "source_mapping_confidence": 0.70,
+        },
+        {
+            "target_lemma": "tratamiento",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 2.0,
+        },
+        {
+            "target_lemma": "clínica",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 1.0,
+        },
+        {
+            "target_lemma": "perro",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 1.0,
+        },
+        {
+            "target_lemma": "gato",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 1.0,
+        },
+        {
+            "target_lemma": "cocina",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 1.0,
+        },
+        {
+            "target_lemma": "viaje",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 1.0,
+        },
+        {
+            "target_lemma": "descartado_por_cap",
+            "side": BROWSING_SIGNAL_TARGET,
+            "count": 1.0,
+        },
+    )
 
 
 def build_candidates() -> tuple[BrowsingAdmissionCandidate, ...]:
@@ -378,10 +408,18 @@ def render_markdown(report: Mapping[str, object]) -> str:
         "- Runtime SRS mutation: `False`",
         "- Raw text stored: `False`",
         "- URL stored: `False`",
+        "- Helper-persisted fixture: `True`",
+        "- Opt-in required: `True`",
         "",
         "## Ingest",
         "",
     ]
+    helper_ingest = _as_mapping(report.get("helper_ingest"))
+    lines.append(f"- `helper_status`: `{helper_ingest.get('status', '')}`")
+    lines.append(
+        f"- `private_payload_fields_ignored`: "
+        f"`{helper_ingest.get('private_payload_fields_ignored', 0)}`"
+    )
     ingest = _as_mapping(report.get("ingest_result"))
     for key in (
         "input_signal_count",

@@ -76,6 +76,7 @@ try:
         apply_srs_rebalance,
         apply_exposure,
         apply_feedback,
+        ingest_browsing_admission_signals,
         initialize_srs_set,
         load_semantic_inventory,
         load_ruleset,
@@ -321,6 +322,21 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             profile_id=profile_id or "default",
         )
         return {"ok": True}
+    if msg_type == "srs_browsing_signal_ingest":
+        signals = payload.get("signals")
+        if not isinstance(signals, list):
+            signals = []
+        opt_in = _optional_bool(payload, "opt_in") is True
+        if not opt_in:
+            opt_in = _optional_bool(payload, "browsing_admission_enabled") is True
+        return ingest_browsing_admission_signals(
+            paths,
+            pair=str(payload.get("pair", "")),
+            signals=signals,
+            profile_id=profile_id or "default",
+            captured_at=str(payload.get("captured_at", "")).strip() or None,
+            opt_in=opt_in,
+        )
     if msg_type == "trigger_rulegen":
         pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
         jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(

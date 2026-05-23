@@ -77,6 +77,14 @@
       return this.send("record_exposure", payload);
     }
 
+    ingestBrowsingAdmissionSignals(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
+      return this.send(
+        "srs_browsing_signal_ingest",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
+    }
+
     triggerRulegen(payload, timeoutMs) {
       return this.send("trigger_rulegen", payload, timeoutMs);
     }

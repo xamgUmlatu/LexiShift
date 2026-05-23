@@ -8,9 +8,13 @@
 - Runtime SRS mutation: `False`
 - Raw text stored: `False`
 - URL stored: `False`
+- Helper-persisted fixture: `True`
+- Opt-in required: `True`
 
 ## Ingest
 
+- `helper_status`: `ok`
+- `private_payload_fields_ignored`: `0`
 - `input_signal_count`: `13`
 - `accepted_signal_count`: `12`
 - `dropped_signal_count`: `1`

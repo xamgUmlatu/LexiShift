@@ -362,16 +362,27 @@ Current prototype evidence:
 - `core/lexishift_core/srs/browsing_admission.py` defines the decayed,
   bounded aggregate store, ingest result diagnostics, strength presets, and
   read-only admission-share/probability simulation.
+- `core/lexishift_core/helper/use_cases/browsing_admission.py` persists
+  opt-in browsing signal packets into the profile-scoped helper aggregate store
+  while ignoring private packet fields such as URLs and raw page text.
+- `scripts/helper/lexishift_native_host.py`,
+  `scripts/helper/lexishift_helper.py`, and
+  `apps/chrome-extension/shared/helper/helper_client.js` expose the dev ingest
+  route as `srs_browsing_signal_ingest` /
+  `ingest_browsing_admission_signals`; it requires explicit opt-in and does
+  not create SRS items.
 - `core/lexishift_core/srs/admission_suppression.py` defines a generic
   suppression/cooldown store for discarded, suspended, user-blocked, and manual
   cooldown lemmas. This is a guard surface only; no UI or runtime mutation path
   is wired yet.
 - `scripts/testing/srs_browsing_admission_backend_simulation.py` renders a
-  synthetic report without browser capture or runtime SRS mutation.
+  synthetic helper-persisted report without live browser capture or runtime SRS
+  mutation.
 - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
-  records the current synthetic fixture: packet caps apply, stale/low-signal
-  rows prune, suppressed lemmas receive zero admission probability, and
-  `Off < Balanced < Strong` browsing-lane share is monotonic.
+  records the current fixture: helper ingest succeeds only with opt-in, packet
+  caps apply, stale/low-signal rows prune, suppressed lemmas receive zero
+  admission probability, and `Off < Balanced < Strong` browsing-lane share is
+  monotonic.
 
 ## Probability Model
 

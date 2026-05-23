@@ -1415,6 +1415,42 @@ Use this file when:
   - Pair policy defaults are currently near-identical across active pairs.
   - `core/lexishift_core/srs/profile_bootstrap.py` remains a structural hotspot and should be split in a later health pass rather than folded into admission-contract edits.
 
+## Browsing-Based SRS Admission
+
+- Status: `scaffolded`, `verified`; `default-on` = `no`
+- Last documented checkpoint: `2026-05-23` browsing signal aggregation has an
+  opt-in helper dev ingest path, persisted profile-scoped aggregate store, and
+  read-only probability diagnostics
+- Last verified: `2026-05-23` focused helper/native-host browsing ingest tests
+  plus regenerated backend simulation artifact
+- Default behavior:
+  - No live browser capture is wired by default.
+  - No browsing signal changes actual SRS admission refresh yet.
+  - The helper ingest path requires explicit opt-in and stores bounded target
+    lemma aggregates only; URLs, raw page text, HTML, and context text are
+    ignored.
+  - The current simulation uses a helper-persisted synthetic packet to prove
+    capping, pruning, suppression, and monotonic `Off` / `Balanced` / `Strong`
+    browsing-share behavior without mutating SRS items.
+- Evidence:
+  - `docs/srs/srs_browsing_based_admission_plan.md`
+  - `core/lexishift_core/srs/browsing_admission.py`
+  - `core/lexishift_core/helper/use_cases/browsing_admission.py`
+  - `core/lexishift_core/helper/paths.py`
+  - `scripts/helper/lexishift_native_host.py`
+  - `scripts/helper/lexishift_helper.py`
+  - `apps/chrome-extension/shared/helper/helper_client.js`
+  - `scripts/testing/srs_browsing_admission_backend_simulation.py`
+  - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
+  - `core/tests/srs/test_srs_browsing_admission.py`
+  - `core/tests/helper/test_helper_browsing_admission.py`
+  - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
+- Known gaps:
+  - Live extension page-event capture remains unwired.
+  - Browsing aggregates are not yet consumed by production admission refresh.
+  - User-facing settings and reset/clear controls for browsing admission signals
+    remain planned.
+
 ## Pair-Local Active Inventory
 
 - Status: `implemented`, `default-on`, `verified`

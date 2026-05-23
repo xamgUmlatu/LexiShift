@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 import json
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
@@ -32,6 +33,9 @@ from lexishift_core.helper.use_cases.signals import (
     apply_exposure as _apply_exposure_use_case,
     apply_feedback as _apply_feedback_use_case,
 )
+from lexishift_core.helper.use_cases.browsing_admission import (
+    ingest_browsing_admission_signals as _ingest_browsing_admission_signals_use_case,
+)
 from lexishift_core.srs import (
     SrsSettings,
     SrsStore,
@@ -40,6 +44,7 @@ from lexishift_core.srs import (
     save_srs_settings,
     save_srs_store,
 )
+from lexishift_core.srs.browsing_admission import BrowsingSignalIngestPolicy
 from lexishift_core.srs.pair_policy import resolve_srs_pair_policy
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
@@ -601,6 +606,30 @@ def apply_exposure(
         source_type=source_type,
         resolve_profile_id_fn=_resolve_profile_id,
         ensure_store_fn=_ensure_store,
+    )
+
+
+def ingest_browsing_admission_signals(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    signals: Sequence[Mapping[str, object] | object],
+    profile_id: str = "default",
+    captured_at: str | None = None,
+    opt_in: bool = False,
+    policy: BrowsingSignalIngestPolicy | None = None,
+    now: datetime | None = None,
+) -> dict:
+    return _ingest_browsing_admission_signals_use_case(
+        paths,
+        pair=pair,
+        signals=signals,
+        profile_id=profile_id,
+        captured_at=captured_at,
+        opt_in=opt_in,
+        policy=policy,
+        now=now,
+        resolve_profile_id_fn=_resolve_profile_id,
     )
 
 

@@ -9,7 +9,9 @@
     "raw_text_stored": false,
     "url_stored": false,
     "runtime_srs_mutation": false,
-    "synthetic_fixture_only": true
+    "synthetic_fixture_only": true,
+    "helper_persisted_fixture": true,
+    "opt_in_required": true
   },
   "policy": {
     "version": "browsing_signal_aggregate_v1",
@@ -20,6 +22,11 @@
     "half_life_days": 14.0,
     "browsing_signal_cap": 16.0,
     "replacement_exposure_weight": 0.35
+  },
+  "helper_ingest": {
+    "status": "ok",
+    "runtime_srs_mutation": false,
+    "private_payload_fields_ignored": 0
   },
   "ingest_result": {
     "input_signal_count": 13,

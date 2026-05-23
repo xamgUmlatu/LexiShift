@@ -35,6 +35,7 @@ from lexishift_core.helper.lp_capabilities import (
     default_translation_dictionary_path,
 )
 from lexishift_helper_semantic_pack import register_install_semantic_pack_command
+from srs_browsing_admission_cli_support import register_browsing_admission_ingest_command
 from srs_admission_cli_support import register_srs_preview_and_rebalance_commands
 
 
@@ -731,6 +732,8 @@ def build_parser() -> argparse.ArgumentParser:
     exposure.add_argument("--lemma", required=True)
     exposure.add_argument("--source-type", default="extension")
     exposure.set_defaults(func=cmd_record_exposure)
+
+    register_browsing_admission_ingest_command(sub, print_json_fn=_print_json)
 
     reset = sub.add_parser("reset_srs", help="Reset SRS progress")
     reset.add_argument("--pair", help="Language pair to reset (omit to reset all).")
