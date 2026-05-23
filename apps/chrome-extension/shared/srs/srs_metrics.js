@@ -52,10 +52,24 @@
     });
   }
 
-  function recordExposureBatchWithStore(entries) {
+  function recordExposureBatchWithStore(entries, options) {
+    const opts = options && typeof options === "object" ? options : {};
     return recordExposureBatch(entries).then((payload) => {
       if (payload.length && root.srsStore && typeof root.srsStore.recordExposureBatch === "function") {
         root.srsStore.recordExposureBatch(payload);
+      }
+      if (
+        payload.length
+        && opts.browsingAdmissionSignals
+        && typeof opts.browsingAdmissionSignals.recordExposureBatch === "function"
+        && opts.settings
+        && opts.settings.srsBrowsingAdmissionSignalsEnabled === true
+      ) {
+        opts.browsingAdmissionSignals.recordExposureBatch(payload, opts.settings).catch((error) => {
+          if (opts.settings.debugEnabled && typeof opts.log === "function") {
+            opts.log("Failed to queue browsing-admission signals.", error);
+          }
+        });
       }
       return payload;
     });

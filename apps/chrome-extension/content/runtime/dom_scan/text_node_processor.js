@@ -47,6 +47,7 @@
     const srsMetrics = opts.srsMetrics && typeof opts.srsMetrics === "object"
       ? opts.srsMetrics
       : null;
+    const browsingAdmissionSignals = opts.browsingAdmissionSignals || null;
     const lemmatizer = opts.lemmatizer && typeof opts.lemmatizer === "object"
       ? opts.lemmatizer
       : null;
@@ -306,10 +307,10 @@
                 lemmatizer ? lemmatizer.lemmatize : null
               )
             );
-            srsMetrics.recordExposureBatch(exposures).then((saved) => {
-              if (currentSettings.debugEnabled && saved && saved.length) {
-                log(`Recorded ${saved.length} exposure(s).`);
-              }
+            srsMetrics.recordExposureBatch(exposures, {
+              browsingAdmissionSignals, log, settings: currentSettings
+            }).then((saved) => {
+              if (currentSettings.debugEnabled && saved && saved.length) log(`Recorded ${saved.length} exposure(s).`);
             });
           }
           if (popupModuleHistoryStore

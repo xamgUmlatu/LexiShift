@@ -95,6 +95,10 @@
     const srsMetrics = opts.srsMetrics && typeof opts.srsMetrics === "object"
       ? opts.srsMetrics
       : null;
+    const browsingAdmissionSignals = opts.browsingAdmissionSignals
+      && typeof opts.browsingAdmissionSignals === "object"
+      ? opts.browsingAdmissionSignals
+      : null;
     const lemmatizer = opts.lemmatizer && typeof opts.lemmatizer === "object"
       ? opts.lemmatizer
       : null;
@@ -235,6 +239,7 @@
           describeCodepoints,
           normalizeRuleOrigin,
           srsMetrics,
+          browsingAdmissionSignals,
           lemmatizer,
           popupModuleHistoryStore,
           isPopupModuleEnabled,

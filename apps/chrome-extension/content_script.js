@@ -59,6 +59,7 @@
   const srsFeedback = root.srsFeedback;
   const lemmatizer = root.lemmatizer;
   const srsMetrics = root.srsMetrics;
+  const srsBrowsingAdmissionSignals = root.srsBrowsingAdmissionSignals;
   const HelperClient = root.helperClient;
   const helperFeedbackSyncModule = root.helperFeedbackSync;
   const helperTransport = root.helperTransportExtension;
@@ -205,6 +206,14 @@
   const applyRuntimeActionsFactory = root.contentApplyRuntimeActions.createRunner;
   const applySettingsPipelineFactory = root.contentApplySettingsPipeline.createPipeline;
   const settingsChangeRouterFactory = root.contentSettingsChangeRouter.createRouter;
+  const browsingAdmissionSignalSender = srsBrowsingAdmissionSignals
+    && typeof srsBrowsingAdmissionSignals.createSender === "function"
+      ? srsBrowsingAdmissionSignals.createSender({
+          getHelperClient: () => helperClient,
+          getCurrentSettings: () => currentSettings,
+          log
+        })
+      : null;
 
   const helperRulesRuntime = helperRulesRuntimeFactory({
     getHelperClient: () => helperClient,
@@ -250,6 +259,7 @@
     countOccurrences,
     collectTextNodes,
     srsMetrics,
+    browsingAdmissionSignals: browsingAdmissionSignalSender,
     lemmatizer,
     popupModuleHistoryStore,
     isPopupModuleEnabled,
@@ -374,6 +384,12 @@
       domScanRuntime.rescanDocument("post-load timeout");
     }, 1500);
     window.addEventListener("beforeunload", () => {
+      if (
+        browsingAdmissionSignalSender
+        && typeof browsingAdmissionSignalSender.flush === "function"
+      ) {
+        browsingAdmissionSignalSender.flush().catch(() => {});
+      }
       feedbackRuntime.stop();
       domScanRuntime.disconnect();
     });

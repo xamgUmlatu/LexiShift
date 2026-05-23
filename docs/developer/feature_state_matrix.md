@@ -1418,17 +1418,23 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-23` browsing signal aggregation has an
-  opt-in helper dev ingest path, persisted profile-scoped aggregate store, and
-  read-only probability diagnostics
-- Last verified: `2026-05-23` focused helper/native-host browsing ingest tests
-  plus regenerated backend simulation artifact
+- Last documented checkpoint: `2026-05-23` extension packet builder update:
+  browsing signal aggregation has an opt-in helper dev ingest path, persisted
+  profile-scoped aggregate store, and hidden dev extension packet builder for
+  replacement exposures
+- Last verified: `2026-05-23` extension packet-builder contract tests, focused
+  helper/native-host browsing ingest tests, and regenerated backend simulation
+  artifact
 - Default behavior:
-  - No live browser capture is wired by default.
+  - No live browser capture is wired by default; the extension packet builder
+    only runs when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true.
   - No browsing signal changes actual SRS admission refresh yet.
   - The helper ingest path requires explicit opt-in and stores bounded target
     lemma aggregates only; URLs, raw page text, HTML, and context text are
     ignored.
+  - The extension packet builder currently captures replacement exposures only,
+    not arbitrary page words. It sanitizes observations before queueing helper
+    packets.
   - The current simulation uses a helper-persisted synthetic packet to prove
     capping, pruning, suppression, and monotonic `Off` / `Balanced` / `Strong`
     browsing-share behavior without mutating SRS items.
@@ -1440,13 +1446,17 @@ Use this file when:
   - `scripts/helper/lexishift_native_host.py`
   - `scripts/helper/lexishift_helper.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
+  - `apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js`
+  - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - `scripts/testing/srs_browsing_admission_backend_simulation.py`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
   - `core/tests/srs/test_srs_browsing_admission.py`
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
+  - `core/tests/dev/test_extension_browsing_admission_signals.py`
 - Known gaps:
-  - Live extension page-event capture remains unwired.
+  - Broad live page-word capture remains unwired; only LexiShift replacement
+    exposure batches can currently become dev browsing signals.
   - Browsing aggregates are not yet consumed by production admission refresh.
   - User-facing settings and reset/clear controls for browsing admission signals
     remain planned.

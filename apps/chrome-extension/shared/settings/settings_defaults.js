@@ -57,6 +57,7 @@
     srsFeedbackSrsEnabled: true,
     srsFeedbackRulesEnabled: false,
     srsExposureLoggingEnabled: true,
+    srsBrowsingAdmissionSignalsEnabled: false,
     srsSemanticAdmissionEnabled: true,
     srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
     profileBackgroundEnabled: false,

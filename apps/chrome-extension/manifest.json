@@ -38,6 +38,7 @@
         "shared/srs/srs_feedback.js",
         "shared/srs/srs_gate.js",
         "shared/srs/srs_metrics.js",
+        "shared/srs/srs_browsing_admission_signals.js",
         "content/processing/tokenizer.js",
         "content/processing/matcher.js",
         "content/processing/replacement_selection.js",

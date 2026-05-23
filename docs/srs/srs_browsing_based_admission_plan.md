@@ -371,13 +371,18 @@ Current prototype evidence:
   route as `srs_browsing_signal_ingest` /
   `ingest_browsing_admission_signals`; it requires explicit opt-in and does
   not create SRS items.
+- `apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js` can
+  build and flush dev-only helper packets from replacement exposure batches
+  when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true. The packet
+  builder immediately reduces browser observations to target lemmas, counts,
+  pair, and profile; it does not forward URL, raw text, source phrase, or
+  context text.
 - `core/lexishift_core/srs/admission_suppression.py` defines a generic
   suppression/cooldown store for discarded, suspended, user-blocked, and manual
   cooldown lemmas. This is a guard surface only; no UI or runtime mutation path
   is wired yet.
 - `scripts/testing/srs_browsing_admission_backend_simulation.py` renders a
-  synthetic helper-persisted report without live browser capture or runtime SRS
-  mutation.
+  synthetic helper-persisted report without runtime SRS mutation.
 - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
   records the current fixture: helper ingest succeeds only with opt-in, packet
   caps apply, stale/low-signal rows prune, suppressed lemmas receive zero
