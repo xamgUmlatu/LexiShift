@@ -1418,21 +1418,26 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-23` admission lifecycle guard update:
+- Last documented checkpoint: `2026-05-23` refresh-path browsing preview update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
-  entries before admitting new lemmas
-- Last verified: `2026-05-23` refresh-suppression lifecycle guard tests,
-  extension packet-builder and offline helper/core research probe tests,
-  focused helper/native-host browsing ingest tests, refreshed
-  admission-lifecycle audit, and regenerated backend simulation artifact
+  entries before admitting new lemmas; refresh responses include preview-only
+  browsing diagnostics without changing actual neutral admission selection
+- Last verified: `2026-05-23` refresh-path browsing preview tests,
+  refresh-suppression lifecycle guard tests, extension packet-builder and
+  offline helper/core research probe tests, focused helper/native-host browsing
+  ingest tests, refreshed admission-lifecycle audit, and regenerated backend
+  simulation artifact
 - Default behavior:
   - No live browser capture is wired by default; the extension packet builder
     only runs when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true.
   - No browsing signal changes actual SRS admission refresh yet.
   - Manual refresh admission now filters active admission-suppression entries;
     this guards future browsing boost from re-admitting suppressed lemmas.
+  - Manual refresh responses include preview-only browsing admission diagnostics
+    for the same candidate pool and budget; the diagnostics do not affect the
+    persisted refresh selection.
   - The helper ingest path requires explicit opt-in and stores bounded target
     lemma aggregates only; URLs, raw page text, HTML, and context text are
     ignored.

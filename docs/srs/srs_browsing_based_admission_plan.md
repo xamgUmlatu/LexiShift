@@ -383,6 +383,13 @@ Current prototype evidence:
 - `core/lexishift_core/helper/use_cases/refresh_set.py` now loads active
   suppression entries and passes blocked lemmas into refresh admission, so real
   refresh growth cannot admit suppressed lemmas.
+- `core/lexishift_core/srs/admission_refresh.py` now exposes a preview-only
+  browsing refresh simulation that reuses the actual refresh decision, filters,
+  candidate scoring, and budget before reporting `Off`, `Balanced`, and
+  `Strong` outcomes.
+- `core/lexishift_core/helper/use_cases/refresh_set.py` returns this diagnostic
+  under `browsing_admission_preview`; it does not alter actual refresh
+  selection.
 - `docs/srs/srs_admission_lifecycle_current_state.md` records the current
   code-backed audit for initial admission, refresh growth, rebalance,
   feedback/exposure caveats, and release/discard/suspend gaps.
@@ -908,6 +915,8 @@ Key result:
 - `srs_initialize` remains bootstrap-only.
 - `srs_rebalance_apply` remains active-set rebalance, not browsing-driven
   displacement.
+- `srs_refresh` now includes a preview-only browsing admission diagnostic, but
+  actual refresh selection remains neutral.
 - `record_feedback` and `record_exposure` must not be reused for browsing
   admission because they can create SRS store rows directly.
 - Refresh admission now respects active suppression entries, so discarded,

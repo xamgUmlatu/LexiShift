@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-23 by source audit, focused admission refresh tests, SRS quality harness, changed-file gate, and feature-state audit
+Last verified: 2026-05-23 by source audit, browsing refresh preview tests, focused admission refresh tests, SRS quality harness, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -92,6 +92,18 @@ Current lifecycle guard:
 This makes refresh the safest place to add browsing boost later: browsing can
 change candidate score pressure, but it still cannot exceed refresh budgets or
 override active suppression.
+
+Current browsing preview:
+
+- `preview_browsing_admission_refresh` reuses the same refresh decision,
+  allowed-POS filter, lifecycle blocklist, existing-store filter, and candidate
+  scoring policy.
+- `refresh_srs_set` includes `browsing_admission_preview` in its response.
+- The preview reads the profile/pair browsing aggregate store and simulates
+  `Off`, `Balanced`, and `Strong`.
+- The preview is diagnostic only: `applied_to_actual_admission` is `False`,
+  `runtime_srs_mutation` is `False`, and actual refresh selection remains
+  neutral until a later gated runtime decision.
 
 ## Rebalance
 

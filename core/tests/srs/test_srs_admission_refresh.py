@@ -14,6 +14,11 @@ from lexishift_core.srs.admission_refresh import (  # noqa: E402
     admission_refresh_result_to_dict,
     apply_admission_refresh,
     plan_admission_refresh,
+    preview_browsing_admission_refresh,
+)
+from lexishift_core.srs.browsing_admission import (  # noqa: E402
+    BrowsingSignalAggregate,
+    BrowsingSignalStore,
 )
 from lexishift_core.srs.selector import SelectorCandidate  # noqa: E402
 from lexishift_core.srs.signal_queue import SrsSignalEvent  # noqa: E402
@@ -255,6 +260,103 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
         payload = admission_refresh_result_to_dict(result)
         self.assertEqual(payload["diagnostics"]["blocked_by_lifecycle"], 2)
         self.assertEqual(payload["diagnostics"]["blocked_lemmas"], ["alpha", "gamma"])
+
+    def test_browsing_refresh_preview_does_not_change_actual_selection(self) -> None:
+        store = SrsStore(items=tuple(), version=1)
+        settings = SrsSettings(max_active_items=10, max_new_items_per_day=4)
+        events = [
+            SrsSignalEvent(
+                event_type="feedback",
+                pair="en-ja",
+                lemma=f"lemma{index}",
+                source_type="extension",
+                rating="good",
+            )
+            for index in range(10)
+        ]
+        candidates = [
+            SelectorCandidate(
+                lemma="beta",
+                language_pair="en-ja",
+                base_freq=0.95,
+                confidence=0.95,
+            ),
+            SelectorCandidate(
+                lemma="gamma",
+                language_pair="en-ja",
+                base_freq=0.90,
+                confidence=0.90,
+            ),
+            SelectorCandidate(
+                lemma="delta",
+                language_pair="en-ja",
+                base_freq=0.30,
+                confidence=0.90,
+            ),
+            SelectorCandidate(
+                lemma="epsilon",
+                language_pair="en-ja",
+                base_freq=0.25,
+                confidence=0.90,
+            ),
+            SelectorCandidate(
+                lemma="theta",
+                language_pair="en-ja",
+                base_freq=0.85,
+                confidence=0.90,
+            ),
+            SelectorCandidate(
+                lemma="zeta",
+                language_pair="en-ja",
+                base_freq=0.80,
+                confidence=0.90,
+            ),
+        ]
+        browsing_store = BrowsingSignalStore(
+            pair="en-ja",
+            profile_id="default",
+            items={
+                "delta": BrowsingSignalAggregate(
+                    target_lemma="delta",
+                    target_hit_count=100.0,
+                ),
+                "epsilon": BrowsingSignalAggregate(
+                    target_lemma="epsilon",
+                    target_hit_count=100.0,
+                ),
+            },
+        )
+
+        updated_store, result = apply_admission_refresh(
+            store=store,
+            settings=settings,
+            pair="en-ja",
+            candidates=candidates,
+            events=events,
+            policy=AdmissionRefreshPolicy(feedback_window_size=100),
+        )
+        preview = preview_browsing_admission_refresh(
+            store=store,
+            settings=settings,
+            pair="en-ja",
+            candidates=candidates,
+            events=events,
+            browsing_store=browsing_store,
+            policy=AdmissionRefreshPolicy(feedback_window_size=100),
+        )
+
+        self.assertEqual(result.selected_lemmas, ("beta", "gamma", "theta", "zeta"))
+        self.assertEqual(
+            {item.lemma for item in updated_store.items if item.language_pair == "en-ja"},
+            {"beta", "gamma", "theta", "zeta"},
+        )
+        self.assertFalse(preview["applied_to_actual_admission"])
+        self.assertFalse(preview["runtime_srs_mutation"])
+        self.assertEqual(preview["neutral_selected_lemmas"], ("beta", "gamma", "theta", "zeta"))
+        self.assertIn(
+            "delta",
+            preview["simulations"]["strong"]["selected_lemmas"],
+        )
 
 
 if __name__ == "__main__":

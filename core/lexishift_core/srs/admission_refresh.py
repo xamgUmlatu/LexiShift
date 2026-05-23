@@ -7,7 +7,14 @@ from math import floor
 from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.srs import SrsSettings, SrsStore
-from lexishift_core.srs.growth import SrsGrowthConfig, grow_srs_store
+from lexishift_core.srs.browsing_admission import (
+    BrowsingAdmissionCandidate,
+    BrowsingAdmissionSimulationResult,
+    BrowsingSignalIngestPolicy,
+    BrowsingSignalStore,
+    simulate_browsing_admission_presets,
+)
+from lexishift_core.srs.growth import SrsGrowthConfig, grow_srs_store, plan_srs_growth
 from lexishift_core.srs.scheduler import (
     RATING_AGAIN,
     RATING_EASY,
@@ -103,6 +110,96 @@ class AdmissionRefreshResult:
     selected_lemmas: Sequence[str]
     applied: bool
     diagnostics: AdmissionRefreshDiagnostics = field(default_factory=AdmissionRefreshDiagnostics)
+
+
+def preview_browsing_admission_refresh(
+    *,
+    store: SrsStore,
+    settings: SrsSettings,
+    pair: str,
+    candidates: Sequence[SelectorCandidate],
+    events: Iterable[SrsSignalEvent],
+    browsing_store: BrowsingSignalStore,
+    policy: Optional[AdmissionRefreshPolicy] = None,
+    browsing_policy: Optional[BrowsingSignalIngestPolicy] = None,
+    row_limit: int = 20,
+    now: Optional[datetime] = None,
+) -> dict[str, object]:
+    policy = policy or AdmissionRefreshPolicy()
+    browsing_policy = browsing_policy or BrowsingSignalIngestPolicy()
+    allowed_pos = _normalize_allowed_pos(policy.allowed_pos)
+    blocked_lemmas = _normalize_blocked_lemmas(policy.blocked_lemmas)
+    decision = plan_admission_refresh(
+        store=store,
+        settings=settings,
+        pair=pair,
+        events=events,
+        policy=policy,
+        now=now,
+    )
+    if decision.admission_budget <= 0:
+        return {
+            "status": "skipped",
+            "reason": decision.reason_code,
+            "applied_to_actual_admission": False,
+            "runtime_srs_mutation": False,
+            "admission_budget": decision.admission_budget,
+            "aggregate_item_count": len(browsing_store.items),
+            "simulations": {},
+        }
+
+    effective_candidates = _apply_lifecycle_filter(
+        _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos),
+        blocked_lemmas=blocked_lemmas,
+    )
+    growth_config = SrsGrowthConfig(
+        selector_config=policy.selector_config,
+        coverage_scalar=1.0,
+        max_new_items=decision.admission_budget,
+        allowed_pos=allowed_pos or None,
+        initial_stability=policy.initial_stability,
+        initial_difficulty=policy.initial_difficulty,
+        default_source_type=policy.default_source_type,
+        confidence_min=None,
+    )
+    growth_plan = plan_srs_growth(
+        effective_candidates,
+        store=store,
+        settings=settings,
+        config=growth_config,
+        allowed_pairs=[pair],
+        allowed_pos=allowed_pos or None,
+        blocked_lemmas=blocked_lemmas or None,
+    )
+    simulation_candidates = tuple(
+        _browsing_candidate_from_scored(entry) for entry in growth_plan.scored
+    )
+    matching_signal_count = sum(
+        1 for candidate in simulation_candidates if candidate.lemma in browsing_store.items
+    )
+    simulations = simulate_browsing_admission_presets(
+        simulation_candidates,
+        store=browsing_store,
+        admission_budget=decision.admission_budget,
+        policy=browsing_policy,
+    )
+    return {
+        "status": "ok",
+        "scope": "refresh_candidate_preview_only",
+        "applied_to_actual_admission": False,
+        "runtime_srs_mutation": False,
+        "admission_budget": decision.admission_budget,
+        "candidate_pool_effective": len(simulation_candidates),
+        "aggregate_item_count": len(browsing_store.items),
+        "matching_signal_count": matching_signal_count,
+        "blocked_by_lifecycle": _count_blocked_by_lifecycle(candidates, blocked_lemmas),
+        "blocked_lemmas": tuple(sorted(blocked_lemmas)),
+        "neutral_selected_lemmas": tuple(candidate.lemma for candidate in growth_plan.selected),
+        "simulations": {
+            name: _simulation_preview(result, row_limit=row_limit)
+            for name, result in simulations.items()
+        },
+    }
 
 
 def compute_feedback_window_stats(
@@ -441,6 +538,59 @@ def _count_blocked_by_lifecycle(
     if not blocked_lemmas:
         return 0
     return sum(1 for candidate in candidates if candidate.lemma in blocked_lemmas)
+
+
+def _browsing_candidate_from_scored(entry) -> BrowsingAdmissionCandidate:
+    metadata = entry.candidate.metadata if isinstance(entry.candidate.metadata, Mapping) else {}
+    return BrowsingAdmissionCandidate(
+        lemma=entry.candidate.lemma,
+        neutral_score=max(0.0, float(entry.breakdown.final_score)),
+        readiness_multiplier=_safe_signal_float(metadata.get("readiness_multiplier"), default=1.0),
+        explicit_preference_fit=max(0.0, float(entry.candidate.topic_bias)),
+        source_confidence=max(0.0, float(entry.candidate.confidence or 0.0)) or 1.0,
+    )
+
+
+def _simulation_preview(
+    result: BrowsingAdmissionSimulationResult,
+    *,
+    row_limit: int,
+) -> dict[str, object]:
+    payload = result.to_dict()
+    rows = payload.get("rows")
+    if isinstance(rows, list):
+        selected_rows = [row for row in rows if isinstance(row, Mapping) and row.get("selected")]
+        boosted_rows = [
+            row
+            for row in rows
+            if isinstance(row, Mapping) and float(row.get("browsing_signal", 0.0) or 0.0) > 0.0
+        ]
+        preview_rows: list[Mapping[str, object]] = []
+        seen: set[str] = set()
+        for row in selected_rows + boosted_rows + rows:
+            if not isinstance(row, Mapping):
+                continue
+            lemma = str(row.get("lemma") or "")
+            if lemma in seen:
+                continue
+            seen.add(lemma)
+            preview_rows.append(row)
+            if len(preview_rows) >= max(0, int(row_limit)):
+                break
+        payload["rows"] = preview_rows
+        payload["row_count"] = len(rows)
+        payload["row_preview_count"] = len(preview_rows)
+    return payload
+
+
+def _safe_signal_float(value: object, *, default: float) -> float:
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return default
+    if parsed != parsed:
+        return default
+    return parsed
 
 
 def _count_unknown_pos(candidates: Sequence[SelectorCandidate]) -> int:

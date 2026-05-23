@@ -22,6 +22,7 @@ from lexishift_core.srs.admission_refresh import (
     AdmissionRefreshPolicy,
     admission_refresh_result_to_dict,
     apply_admission_refresh,
+    preview_browsing_admission_refresh,
 )
 from lexishift_core.srs.admission_suppression import (
     active_suppressed_lemmas,
@@ -29,6 +30,7 @@ from lexishift_core.srs.admission_suppression import (
     prune_expired_suppression_entries,
     save_admission_suppression_store,
 )
+from lexishift_core.srs.browsing_admission import load_browsing_signal_store
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord, seed_to_selector_candidates
 from lexishift_core.srs.signal_queue import load_signal_events
@@ -155,6 +157,20 @@ def refresh_srs_set(
         events=signal_events,
         policy=refresh_policy,
     )
+    browsing_store_path = paths.srs_browsing_signal_store_path_for(profile_id, pair)
+    browsing_store = load_browsing_signal_store(browsing_store_path)
+    browsing_preview = preview_browsing_admission_refresh(
+        store=store,
+        settings=settings,
+        pair=pair,
+        candidates=selector_candidates,
+        events=signal_events,
+        browsing_store=browsing_store,
+        policy=refresh_policy,
+        row_limit=10,
+    )
+    browsing_preview["store_path"] = str(browsing_store_path)
+    browsing_preview["store_exists"] = bool(browsing_store_path.exists())
     inventory_updated_at = None
     inventory_payload_source = inventory_source
     inventory_backfilled = False
@@ -286,6 +302,7 @@ def refresh_srs_set(
             "active_suppressed_lemmas": suppressed_lemmas,
             "active_suppressed_count": len(suppressed_lemmas),
         },
+        "browsing_admission_preview": browsing_preview,
         "rulegen": published_rulegen,
         "applied": bool(refresh_result.applied),
         "persisted": bool(config.persist_store),

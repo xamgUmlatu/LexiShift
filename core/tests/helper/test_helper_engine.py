@@ -45,6 +45,11 @@ from lexishift_core.srs.admission_suppression import (  # noqa: E402
     save_admission_suppression_store,
     upsert_admission_suppression,
 )
+from lexishift_core.srs.browsing_admission import (  # noqa: E402
+    BrowsingSignalAggregate,
+    BrowsingSignalStore,
+    save_browsing_signal_store,
+)
 from lexishift_core.srs.signal_queue import SrsSignalEvent, load_signal_events, save_signal_events  # noqa: E402
 from lexishift_core.srs.topic_overlay import ANIMALS_PLANTS_OVERLAY_FILENAME  # noqa: E402
 from lexishift_core.srs import (
@@ -2405,6 +2410,149 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertEqual(
                 result["suppression"]["active_suppressed_lemmas"], {"beta": "discarded"}
             )
+
+    def test_refresh_returns_browsing_preview_without_mutating_selection(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            save_srs_settings(
+                SrsSettings(max_active_items=10, max_new_items_per_day=4),
+                paths.srs_settings_path,
+            )
+            save_srs_store(SrsStore(items=tuple(), version=1), paths.srs_store_path)
+            save_signal_events(
+                paths.srs_signal_queue_path,
+                [
+                    SrsSignalEvent(
+                        event_type="feedback",
+                        pair="en-ja",
+                        lemma=f"lemma{i}",
+                        source_type="extension",
+                        rating="good",
+                    )
+                    for i in range(12)
+                ],
+            )
+            save_browsing_signal_store(
+                BrowsingSignalStore(
+                    pair="en-ja",
+                    profile_id="default",
+                    items={
+                        "delta": BrowsingSignalAggregate(
+                            target_lemma="delta",
+                            target_hit_count=100.0,
+                        ),
+                        "epsilon": BrowsingSignalAggregate(
+                            target_lemma="epsilon",
+                            target_hit_count=100.0,
+                        ),
+                    },
+                ),
+                paths.srs_browsing_signal_store_path_for("default", "en-ja"),
+            )
+
+            selected = [
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=1.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=100.0,
+                    base_weight=0.95,
+                    admission_weight=0.95,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="gamma",
+                    language_pair="en-ja",
+                    core_rank=2.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=95.0,
+                    base_weight=0.90,
+                    admission_weight=0.90,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="delta",
+                    language_pair="en-ja",
+                    core_rank=3.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=90.0,
+                    base_weight=0.30,
+                    admission_weight=0.30,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="epsilon",
+                    language_pair="en-ja",
+                    core_rank=4.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=85.0,
+                    base_weight=0.25,
+                    admission_weight=0.25,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="theta",
+                    language_pair="en-ja",
+                    core_rank=5.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=80.0,
+                    base_weight=0.85,
+                    admission_weight=0.85,
+                    metadata={},
+                ),
+                SimpleNamespace(
+                    lemma="zeta",
+                    language_pair="en-ja",
+                    core_rank=6.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=75.0,
+                    base_weight=0.80,
+                    admission_weight=0.80,
+                    metadata={},
+                ),
+            ]
+            with patch(
+                "lexishift_core.helper.engine.build_seed_candidates",
+                return_value=selected,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            lemmas = {item.lemma for item in persisted.items if item.language_pair == "en-ja"}
+            self.assertEqual(lemmas, {"beta", "gamma", "theta", "zeta"})
+            preview = result["browsing_admission_preview"]
+            self.assertFalse(preview["applied_to_actual_admission"])
+            self.assertFalse(preview["runtime_srs_mutation"])
+            self.assertEqual(preview["neutral_selected_lemmas"], ("beta", "gamma", "theta", "zeta"))
+            self.assertIn("delta", preview["simulations"]["strong"]["selected_lemmas"])
 
     def test_refresh_pauses_admission_for_low_retention(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
