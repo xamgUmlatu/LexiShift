@@ -18,6 +18,20 @@ for path in (CORE_ROOT, DEV_SCRIPT_ROOT):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
+from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.helper.use_cases.browsing_admission import (  # noqa: E402
+    ingest_browsing_admission_signals,
+)
+from lexishift_core.srs.browsing_admission import (  # noqa: E402
+    BROWSING_SIGNAL_REPLACEMENT_EXPOSURE,
+    BROWSING_SIGNAL_SOURCE,
+    BROWSING_SIGNAL_TARGET,
+    BrowsingAdmissionCandidate as CoreBrowsingAdmissionCandidate,
+    BrowsingAdmissionSimulationResult,
+    BrowsingSignalIngestPolicy as CoreBrowsingSignalIngestPolicy,
+    load_browsing_signal_store,
+    simulate_browsing_admission_presets,
+)
 from lexishift_core.srs.profile_bootstrap import score_seed_words_for_profile  # noqa: E402
 from lexishift_core.srs.seed import SeedSelectionConfig, build_seed_candidates  # noqa: E402
 from srs_admission_lab_server import (  # noqa: E402
@@ -55,6 +69,8 @@ DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_research_en_es_la
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / "srs_browsing_admission_research_en_es_latest.md"
 DEFAULT_PAIR = "en-es"
 DEFAULT_SET_TOP_N = 10000
+CANONICAL_PROFILE_ID = "offline_research"
+CANONICAL_ADMISSION_BUDGET_CAP = 10
 
 DEFAULT_FIXTURES: tuple[tuple[str, str], ...] = (
     (
@@ -189,10 +205,12 @@ def build_report(
         )
     admission = compare_neutral_and_browsing_admission(
         seeds,
+        pair=pair,
         browsing_by_lemma=browsing_by_lemma,
         profile_context=profile_context or {},
         preview_count=preview_count,
         policy=policy,
+        generated_at=generated_at,
     )
     status = "ok" if seeds else "review"
     signal_summary = summarize_browsing_signals(browsing_by_lemma, policy=policy)
@@ -346,10 +364,12 @@ def build_research_seed_candidates(
 def compare_neutral_and_browsing_admission(
     seeds: Sequence[object],
     *,
+    pair: str,
     browsing_by_lemma: Mapping[str, BrowsingSignal],
     profile_context: Mapping[str, object],
     preview_count: int,
     policy: BrowsingAdmissionPolicy,
+    generated_at: str | None = None,
 ) -> dict[str, object]:
     scored_entries, diagnostics = score_seed_words_for_profile(
         seeds,
@@ -400,11 +420,19 @@ def compare_neutral_and_browsing_admission(
         if float(row["browsing_signal"]) > 0.0 and int(row["rank_delta"]) > 0
     ]
     boosted_candidates = [row for row in browsing_rows if float(row["browsing_signal"]) > 0.0]
+    canonical_probe = build_canonical_helper_probe(
+        pair=pair,
+        browsing_by_lemma=browsing_by_lemma,
+        neutral_rows=neutral_rows,
+        preview_count=preview_count,
+        generated_at=generated_at,
+    )
     return {
         "neutral_top": public_rows(neutral_rows[:preview_count]),
         "browsing_top": public_rows(browsing_rows[:preview_count]),
         "moved_up": public_rows(moved_up[:preview_count]),
         "boosted_candidates": public_rows(boosted_candidates[:preview_count]),
+        "canonical_helper_probe": canonical_probe,
         "profile_diagnostics": {
             "selector_version": diagnostics.get("selector_version"),
             "selector_policy_version": diagnostics.get("selector_policy_version"),
@@ -414,10 +442,163 @@ def compare_neutral_and_browsing_admission(
     }
 
 
+def build_canonical_helper_probe(
+    *,
+    pair: str,
+    browsing_by_lemma: Mapping[str, BrowsingSignal],
+    neutral_rows: Sequence[Mapping[str, object]],
+    preview_count: int,
+    generated_at: str | None = None,
+    policy: CoreBrowsingSignalIngestPolicy | None = None,
+) -> dict[str, object]:
+    core_policy = policy or CoreBrowsingSignalIngestPolicy()
+    signal_payloads = canonical_signal_payloads(browsing_by_lemma)
+    admission_budget = min(CANONICAL_ADMISSION_BUDGET_CAP, max(1, int(preview_count)))
+    captured_at = generated_at or utc_now()
+    with tempfile.TemporaryDirectory(prefix="lexishift-browsing-admission-canonical-") as tmp:
+        paths = build_helper_paths(Path(tmp))
+        helper_ingest = ingest_browsing_admission_signals(
+            paths,
+            pair=pair,
+            profile_id=CANONICAL_PROFILE_ID,
+            captured_at=captured_at,
+            opt_in=True,
+            signals=signal_payloads,
+            policy=core_policy,
+            resolve_profile_id_fn=lambda helper_paths, *, profile_id, **_kwargs: (
+                helper_paths.normalize_profile_id(profile_id)
+            ),
+        )
+        store = load_browsing_signal_store(
+            paths.srs_browsing_signal_store_path_for(CANONICAL_PROFILE_ID, pair)
+        )
+    candidates = canonical_candidates_from_rows(neutral_rows)
+    simulations = simulate_browsing_admission_presets(
+        candidates,
+        store=store,
+        admission_budget=admission_budget,
+        policy=core_policy,
+    )
+    return {
+        "status": "ok",
+        "scope": "canonical_helper_core_read_only_probe",
+        "profile_id": CANONICAL_PROFILE_ID,
+        "admission_budget": admission_budget,
+        "candidate_count": len(candidates),
+        "signal_payload_count": len(signal_payloads),
+        "privacy": {
+            "raw_text_stored": False,
+            "url_stored": False,
+            "runtime_srs_mutation": False,
+            "helper_temp_store_only": True,
+        },
+        "helper_ingest": {
+            "status": helper_ingest.get("status"),
+            "privacy": helper_ingest.get("privacy"),
+            "ingest_result": helper_ingest.get("ingest_result"),
+            "aggregate_store": helper_ingest.get("aggregate_store"),
+        },
+        "simulations": {
+            name: simulation_preview(result, row_limit=max(10, preview_count))
+            for name, result in simulations.items()
+        },
+    }
+
+
+def canonical_signal_payloads(
+    browsing_by_lemma: Mapping[str, BrowsingSignal],
+) -> tuple[dict[str, object], ...]:
+    payloads: list[dict[str, object]] = []
+    for lemma, signal in sorted(browsing_by_lemma.items()):
+        target_lemma = str(lemma or signal.lemma or "").strip()
+        if not target_lemma:
+            continue
+        if signal.source_weighted_count > 0.0:
+            confidence = clamp01(signal.mapping_confidence_max) or 1.0
+            payloads.append(
+                {
+                    "target_lemma": target_lemma,
+                    "side": BROWSING_SIGNAL_SOURCE,
+                    "count": round(signal.source_weighted_count / confidence, 6),
+                    "source_mapping_confidence": round(confidence, 6),
+                }
+            )
+        if signal.target_hit_count > 0.0:
+            payloads.append(
+                {
+                    "target_lemma": target_lemma,
+                    "side": BROWSING_SIGNAL_TARGET,
+                    "count": round(signal.target_hit_count, 6),
+                }
+            )
+        if signal.replacement_exposure_count > 0.0:
+            payloads.append(
+                {
+                    "target_lemma": target_lemma,
+                    "side": BROWSING_SIGNAL_REPLACEMENT_EXPOSURE,
+                    "count": round(signal.replacement_exposure_count, 6),
+                }
+            )
+    return tuple(payloads)
+
+
+def canonical_candidates_from_rows(
+    neutral_rows: Sequence[Mapping[str, object]],
+) -> tuple[CoreBrowsingAdmissionCandidate, ...]:
+    candidates: list[CoreBrowsingAdmissionCandidate] = []
+    for row in neutral_rows:
+        lemma = str(row.get("lemma") or "").strip()
+        if not lemma:
+            continue
+        candidates.append(
+            CoreBrowsingAdmissionCandidate(
+                lemma=lemma,
+                neutral_score=max(0.0, safe_float(row.get("neutral_score")) or 0.0),
+                readiness_multiplier=clamp01(row.get("readiness_multiplier")),
+                explicit_preference_fit=clamp01(row.get("topic_affinity")),
+                source_confidence=1.0,
+            )
+        )
+    return tuple(candidates)
+
+
+def simulation_preview(
+    result: BrowsingAdmissionSimulationResult,
+    *,
+    row_limit: int,
+) -> dict[str, object]:
+    payload = result.to_dict()
+    rows = payload.get("rows")
+    if isinstance(rows, list):
+        boosted_rows = [
+            row
+            for row in rows
+            if isinstance(row, Mapping) and float(row.get("browsing_signal", 0.0) or 0.0) > 0.0
+        ]
+        selected_rows = [row for row in rows if isinstance(row, Mapping) and row.get("selected")]
+        preview_rows = []
+        seen: set[str] = set()
+        for row in selected_rows + boosted_rows + rows:
+            if not isinstance(row, Mapping):
+                continue
+            lemma = str(row.get("lemma") or "")
+            if lemma in seen:
+                continue
+            seen.add(lemma)
+            preview_rows.append(row)
+            if len(preview_rows) >= max(0, int(row_limit)):
+                break
+        payload["rows"] = preview_rows
+        payload["row_count"] = len(rows)
+        payload["row_preview_count"] = len(preview_rows)
+    return payload
+
+
 def render_markdown(report: Mapping[str, object]) -> str:
     extraction = as_mapping(report.get("extraction"))
     signal_summary = as_mapping(report.get("browsing_signal_summary"))
     delta = as_mapping(report.get("admission_delta"))
+    canonical_probe = as_mapping(delta.get("canonical_helper_probe"))
     research_findings = mapping_rows(report.get("research_findings"))
     lines = [
         "# en-es Browsing-Based SRS Admission Research",
@@ -495,6 +676,59 @@ def render_markdown(report: Mapping[str, object]) -> str:
             f"{row.get('readiness_multiplier', '')} | {row.get('difficulty_estimate', '')} | "
             f"{', '.join(str(item) for item in row.get('source_terms', [])) or '-'} |"
         )
+
+    if canonical_probe:
+        helper_ingest = as_mapping(canonical_probe.get("helper_ingest"))
+        ingest_result = as_mapping(helper_ingest.get("ingest_result"))
+        aggregate = as_mapping(helper_ingest.get("aggregate_store"))
+        simulations = as_mapping(canonical_probe.get("simulations"))
+        lines.extend(
+            [
+                "",
+                "## Canonical Helper/Core Probe",
+                "",
+                f"- Scope: `{canonical_probe.get('scope', '')}`",
+                f"- Helper status: `{helper_ingest.get('status', '')}`",
+                f"- Accepted signals: `{ingest_result.get('accepted_signal_count', 0)}`",
+                f"- Aggregate items retained: `{aggregate.get('item_count', 0)}`",
+                f"- Admission budget: `{canonical_probe.get('admission_budget', 0)}`",
+                "- Raw text stored: `False`",
+                "- URL stored: `False`",
+                "- Runtime SRS mutation: `False`",
+                "",
+                "| Strength | Browsing Budget | Browsing Lane Share | Relevant Share | Driven Share | Selected |",
+                "| --- | ---: | ---: | ---: | ---: | --- |",
+            ]
+        )
+        for name in ("off", "balanced", "strong"):
+            result = as_mapping(simulations.get(name))
+            lines.append(
+                f"| `{name}` | {result.get('browsing_budget', '')} | "
+                f"{result.get('browsing_lane_share', '')} | "
+                f"{result.get('browsing_relevant_share', '')} | "
+                f"{result.get('browsing_driven_share', '')} | "
+                f"{', '.join(str(item) for item in result.get('selected_lemmas', []))} |"
+            )
+
+        lines.extend(
+            [
+                "",
+                "| Strength | Lemma | Selected | Lane | Approx P | Browsing P | General P | Signal |",
+                "| --- | --- | --- | --- | ---: | ---: | ---: | ---: |",
+            ]
+        )
+        for name in ("off", "balanced", "strong"):
+            result = as_mapping(simulations.get(name))
+            for row in mapping_rows(result.get("rows"))[:8]:
+                lines.append(
+                    f"| `{name}` | `{row.get('lemma', '')}` | "
+                    f"{row.get('selected', False)} | "
+                    f"`{row.get('selected_lane', '')}` | "
+                    f"{row.get('approximate_selection_probability', '')} | "
+                    f"{row.get('browsing_lane_probability', '')} | "
+                    f"{row.get('general_lane_probability', '')} | "
+                    f"{row.get('browsing_signal', '')} |"
+                )
 
     if research_findings:
         lines.extend(

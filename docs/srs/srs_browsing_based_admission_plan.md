@@ -829,6 +829,9 @@ Exit criteria:
 - Include per-candidate `browsing_signal`, `browsing_boost`, and explanation.
 - Add realized-share simulation for `Off`, `Balanced`, and `Strong` across a
   fixed new-word budget.
+- Keep offline page/text fixture research connected to the same helper ingest,
+  bounded aggregate store, and strength simulation used by the production-shaped
+  backend path.
 - Keep actual admission unchanged.
 
 Exit criteria:
@@ -884,6 +887,9 @@ Harness checks:
 
 - SRS quality harness for scheduling/admission boundaries;
 - changed-file workflow check;
+- offline page/text fixture probe via
+  `scripts/testing/srs_browsing_admission_research_en_es.py`, including its
+  canonical helper/core probe section;
 - browser smoke for opt-in/off state and clear-data control when UI lands.
 
 ## Next Code Audit Agenda

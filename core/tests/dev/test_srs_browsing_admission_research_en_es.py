@@ -12,6 +12,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 from srs_browsing_admission_research_support import (  # noqa: E402
     BrowsingAdmissionPolicy,
+    BrowsingSignal,
     TextDocument,
     browsing_boost_value,
     browsing_signal_value,
@@ -20,6 +21,10 @@ from srs_browsing_admission_research_support import (  # noqa: E402
     extract_document_signals,
     source_variants,
     target_variants,
+)
+from srs_browsing_admission_research_en_es import (  # noqa: E402
+    build_canonical_helper_probe,
+    canonical_signal_payloads,
 )
 
 
@@ -177,6 +182,82 @@ class TestSrsBrowsingAdmissionResearchEnEs(unittest.TestCase):
         self.assertLessEqual(signal_value, 1.0)
         self.assertLessEqual(boost, 1.25)
         self.assertEqual(extraction["source_token_counts"]["loan"], 3)
+
+    def test_research_signals_convert_to_canonical_helper_payloads(self) -> None:
+        payloads = canonical_signal_payloads(
+            {
+                "hipoteca": BrowsingSignal(
+                    lemma="hipoteca",
+                    source_weighted_count=2.0,
+                    target_hit_count=1.0,
+                    mapping_confidence_max=0.5,
+                )
+            }
+        )
+
+        self.assertEqual(len(payloads), 2)
+        source_payload = next(payload for payload in payloads if payload["side"] == "source")
+        target_payload = next(payload for payload in payloads if payload["side"] == "target")
+        self.assertEqual(source_payload["target_lemma"], "hipoteca")
+        self.assertEqual(source_payload["source_mapping_confidence"], 0.5)
+        self.assertEqual(source_payload["count"], 4.0)
+        self.assertEqual(target_payload["count"], 1.0)
+
+    def test_canonical_helper_probe_is_privacy_safe_and_monotonic(self) -> None:
+        probe = build_canonical_helper_probe(
+            pair="en-es",
+            browsing_by_lemma={
+                "hipoteca": BrowsingSignal(
+                    lemma="hipoteca",
+                    source_weighted_count=3.0,
+                    mapping_confidence_max=0.75,
+                )
+            },
+            neutral_rows=[
+                {
+                    "lemma": "casa",
+                    "neutral_score": 1.0,
+                    "readiness_multiplier": 1.0,
+                    "topic_affinity": 0.0,
+                },
+                {
+                    "lemma": "hipoteca",
+                    "neutral_score": 0.8,
+                    "readiness_multiplier": 1.0,
+                    "topic_affinity": 0.6,
+                },
+                {
+                    "lemma": "préstamo",
+                    "neutral_score": 0.7,
+                    "readiness_multiplier": 1.0,
+                    "topic_affinity": 0.0,
+                },
+            ],
+            preview_count=2,
+            generated_at="2026-05-23T00:00:00Z",
+        )
+
+        self.assertEqual(probe["status"], "ok")
+        self.assertFalse(probe["privacy"]["raw_text_stored"])
+        self.assertFalse(probe["privacy"]["url_stored"])
+        self.assertFalse(probe["privacy"]["runtime_srs_mutation"])
+        helper_ingest = probe["helper_ingest"]
+        self.assertEqual(helper_ingest["status"], "ok")
+        self.assertEqual(helper_ingest["ingest_result"]["accepted_signal_count"], 1)
+        simulations = probe["simulations"]
+        self.assertLessEqual(
+            simulations["off"]["browsing_lane_share"],
+            simulations["balanced"]["browsing_lane_share"],
+        )
+        self.assertLessEqual(
+            simulations["balanced"]["browsing_lane_share"],
+            simulations["strong"]["browsing_lane_share"],
+        )
+        self.assertIn("rows", simulations["balanced"])
+        self.assertLessEqual(
+            len(simulations["balanced"]["rows"]),
+            simulations["balanced"]["row_count"],
+        )
 
 
 if __name__ == "__main__":

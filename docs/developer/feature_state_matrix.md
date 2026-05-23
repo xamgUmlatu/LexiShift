@@ -1422,9 +1422,9 @@ Use this file when:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures
-- Last verified: `2026-05-23` extension packet-builder contract tests, focused
-  helper/native-host browsing ingest tests, and regenerated backend simulation
-  artifact
+- Last verified: `2026-05-23` extension packet-builder and offline
+  helper/core research probe tests, focused helper/native-host browsing ingest
+  tests, and regenerated backend simulation artifact
 - Default behavior:
   - No live browser capture is wired by default; the extension packet builder
     only runs when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true.
@@ -1449,11 +1449,14 @@ Use this file when:
   - `apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js`
   - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - `scripts/testing/srs_browsing_admission_backend_simulation.py`
+  - `scripts/testing/srs_browsing_admission_research_en_es.py`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
+  - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
   - `core/tests/srs/test_srs_browsing_admission.py`
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
+  - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`
 - Known gaps:
   - Broad live page-word capture remains unwired; only LexiShift replacement
     exposure batches can currently become dev browsing signals.
