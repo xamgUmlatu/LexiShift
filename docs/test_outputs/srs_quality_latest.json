@@ -389,6 +389,8 @@
           ],
           "diagnostics": {
             "filtered_by_pos": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
             "admitted_by_pos_bucket": {
               "noun": 8
             },
@@ -409,6 +411,12 @@
           "source": "refreshed",
           "backfilled_from_store": false,
           "updated_at": "<timestamp>"
+        },
+        "suppression": {
+          "path": "<temp_root>/srs/profiles/default/srs_admission_suppression.json",
+          "exists": false,
+          "active_suppressed_lemmas": {},
+          "active_suppressed_count": 0
         },
         "rulegen": {
           "published": true,
@@ -958,6 +966,8 @@
           ],
           "diagnostics": {
             "filtered_by_pos": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
             "admitted_by_pos_bucket": {
               "noun": 8
             },
@@ -978,6 +988,12 @@
           "source": "refreshed",
           "backfilled_from_store": false,
           "updated_at": "<timestamp>"
+        },
+        "suppression": {
+          "path": "<temp_root>/srs/profiles/default/srs_admission_suppression.json",
+          "exists": false,
+          "active_suppressed_lemmas": {},
+          "active_suppressed_count": 0
         },
         "rulegen": {
           "published": true,

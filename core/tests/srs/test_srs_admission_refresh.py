@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore  # noqa: E402
 from lexishift_core.srs.admission_refresh import (  # noqa: E402
     AdmissionRefreshPolicy,
+    admission_refresh_result_to_dict,
     apply_admission_refresh,
     plan_admission_refresh,
 )
@@ -215,6 +216,45 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
         lemmas = {item.lemma for item in updated_store.items if item.language_pair == "en-ja"}
         self.assertIn("alpha", lemmas)
         self.assertNotIn("beta", lemmas)
+
+    def test_apply_refresh_skips_lifecycle_blocked_lemmas(self) -> None:
+        store = SrsStore(items=tuple(), version=1)
+        settings = SrsSettings(max_active_items=10, max_new_items_per_day=2)
+        events = [
+            SrsSignalEvent(
+                event_type="feedback",
+                pair="en-ja",
+                lemma=f"lemma{index}",
+                source_type="extension",
+                rating="good",
+            )
+            for index in range(10)
+        ]
+
+        updated_store, result = apply_admission_refresh(
+            store=store,
+            settings=settings,
+            pair="en-ja",
+            candidates=_build_candidates(),
+            events=events,
+            policy=AdmissionRefreshPolicy(
+                feedback_window_size=100,
+                blocked_lemmas={"alpha", "gamma"},
+            ),
+        )
+
+        self.assertTrue(result.applied)
+        self.assertEqual(result.selected_lemmas, ("beta", "delta"))
+        self.assertEqual(result.diagnostics.blocked_by_lifecycle, 2)
+        self.assertEqual(tuple(result.diagnostics.blocked_lemmas), ("alpha", "gamma"))
+        lemmas = {item.lemma for item in updated_store.items if item.language_pair == "en-ja"}
+        self.assertNotIn("alpha", lemmas)
+        self.assertNotIn("gamma", lemmas)
+        self.assertIn("beta", lemmas)
+        self.assertIn("delta", lemmas)
+        payload = admission_refresh_result_to_dict(result)
+        self.assertEqual(payload["diagnostics"]["blocked_by_lifecycle"], 2)
+        self.assertEqual(payload["diagnostics"]["blocked_lemmas"], ["alpha", "gamma"])
 
 
 if __name__ == "__main__":

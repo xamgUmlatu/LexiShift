@@ -23,6 +23,12 @@ from lexishift_core.srs.admission_refresh import (
     admission_refresh_result_to_dict,
     apply_admission_refresh,
 )
+from lexishift_core.srs.admission_suppression import (
+    active_suppressed_lemmas,
+    load_admission_suppression_store,
+    prune_expired_suppression_entries,
+    save_admission_suppression_store,
+)
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord, seed_to_selector_candidates
 from lexishift_core.srs.signal_queue import load_signal_events
@@ -98,6 +104,20 @@ def refresh_srs_set(
         pair=pair,
         inventory=inventory if inventory_exists else None,
     )
+    suppression_path = paths.srs_admission_suppression_store_path_for(profile_id)
+    suppression_store = load_admission_suppression_store(suppression_path)
+    pruned_suppression_store = (
+        prune_expired_suppression_entries(suppression_store)
+        if suppression_path.exists()
+        else suppression_store
+    )
+    if (
+        suppression_path.exists()
+        and len(pruned_suppression_store.entries) != len(suppression_store.entries)
+        and config.persist_store
+    ):
+        save_admission_suppression_store(pruned_suppression_store, suppression_path)
+    suppressed_lemmas = active_suppressed_lemmas(pruned_suppression_store, pair=pair)
     before_pair_count = count_items_for_pair_fn(store, pair)
     stopwords_path = resolve_stopwords_path_fn(paths, pair=pair)
     selection = build_seed_candidates_fn(
@@ -125,6 +145,7 @@ def refresh_srs_set(
         max_active_items_override=config.max_active_items,
         max_new_items_override=config.max_new_items,
         allowed_pos=allowed_pos or None,
+        blocked_lemmas=set(suppressed_lemmas.keys()) or None,
     )
     updated_store, refresh_result = apply_admission_refresh(
         store=store,
@@ -258,6 +279,12 @@ def refresh_srs_set(
             "source": inventory_payload_source,
             "backfilled_from_store": inventory_backfilled,
             "updated_at": inventory_updated_at,
+        },
+        "suppression": {
+            "path": str(suppression_path),
+            "exists": bool(suppression_path.exists()),
+            "active_suppressed_lemmas": suppressed_lemmas,
+            "active_suppressed_count": len(suppressed_lemmas),
         },
         "rulegen": published_rulegen,
         "applied": bool(refresh_result.applied),

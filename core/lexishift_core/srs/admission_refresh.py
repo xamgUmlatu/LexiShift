@@ -66,6 +66,7 @@ class AdmissionRefreshPolicy:
     default_source_type: str = SOURCE_FREQUENCY_LIST
     initial_stability: float = 1.0
     initial_difficulty: float = 0.5
+    blocked_lemmas: Optional[set[str]] = None
 
 
 @dataclass(frozen=True)
@@ -86,6 +87,8 @@ class AdmissionRefreshDecision:
 @dataclass(frozen=True)
 class AdmissionRefreshDiagnostics:
     filtered_by_pos: int = 0
+    blocked_by_lifecycle: int = 0
+    blocked_lemmas: Sequence[str] = field(default_factory=tuple)
     admitted_by_pos_bucket: Mapping[str, int] = field(default_factory=dict)
     unknown_pos_seen: int = 0
     allowed_pos: Sequence[str] = field(default_factory=tuple)
@@ -240,7 +243,9 @@ def apply_admission_refresh(
 ) -> tuple[SrsStore, AdmissionRefreshResult]:
     policy = policy or AdmissionRefreshPolicy()
     allowed_pos = _normalize_allowed_pos(policy.allowed_pos)
+    blocked_lemmas = _normalize_blocked_lemmas(policy.blocked_lemmas)
     filtered_by_pos = _count_filtered_by_allowed_pos(candidates, allowed_pos=allowed_pos)
+    blocked_by_lifecycle = _count_blocked_by_lifecycle(candidates, blocked_lemmas)
     unknown_pos_seen = _count_unknown_pos(candidates)
     decision = plan_admission_refresh(
         store=store,
@@ -250,10 +255,15 @@ def apply_admission_refresh(
         policy=policy,
         now=now,
     )
-    effective_candidates = _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos)
+    effective_candidates = _apply_lifecycle_filter(
+        _apply_allowed_pos_filter(candidates, allowed_pos=allowed_pos),
+        blocked_lemmas=blocked_lemmas,
+    )
     if decision.admission_budget <= 0:
         diagnostics = AdmissionRefreshDiagnostics(
             filtered_by_pos=filtered_by_pos,
+            blocked_by_lifecycle=blocked_by_lifecycle,
+            blocked_lemmas=tuple(sorted(blocked_lemmas)),
             admitted_by_pos_bucket={},
             unknown_pos_seen=unknown_pos_seen,
             allowed_pos=tuple(sorted(allowed_pos)),
@@ -285,10 +295,13 @@ def apply_admission_refresh(
         config=growth_config,
         allowed_pairs=[pair],
         allowed_pos=allowed_pos or None,
+        blocked_lemmas=blocked_lemmas or None,
     )
     selected_lemmas = tuple(candidate.lemma for candidate in growth_plan.selected)
     diagnostics = AdmissionRefreshDiagnostics(
         filtered_by_pos=filtered_by_pos,
+        blocked_by_lifecycle=blocked_by_lifecycle,
+        blocked_lemmas=tuple(sorted(blocked_lemmas)),
         admitted_by_pos_bucket=_count_admitted_by_pos_bucket(growth_plan.selected),
         unknown_pos_seen=unknown_pos_seen,
         allowed_pos=tuple(sorted(allowed_pos)),
@@ -338,6 +351,8 @@ def admission_refresh_result_to_dict(result: AdmissionRefreshResult) -> dict[str
         "selected_lemmas": list(result.selected_lemmas),
         "diagnostics": {
             "filtered_by_pos": int(result.diagnostics.filtered_by_pos),
+            "blocked_by_lifecycle": int(result.diagnostics.blocked_by_lifecycle),
+            "blocked_lemmas": list(result.diagnostics.blocked_lemmas),
             "admitted_by_pos_bucket": {
                 str(key): int(value)
                 for key, value in dict(result.diagnostics.admitted_by_pos_bucket).items()
@@ -372,6 +387,12 @@ def _normalize_allowed_pos(value: Optional[IterableCollection[str]]) -> set[str]
     return {str(item).strip().lower() for item in value if str(item).strip()}
 
 
+def _normalize_blocked_lemmas(value: Optional[IterableCollection[str]]) -> set[str]:
+    if not value:
+        return set()
+    return {str(item).strip() for item in value if str(item).strip()}
+
+
 def _apply_allowed_pos_filter(
     candidates: Sequence[SelectorCandidate],
     *,
@@ -388,6 +409,16 @@ def _apply_allowed_pos_filter(
     return filtered
 
 
+def _apply_lifecycle_filter(
+    candidates: Sequence[SelectorCandidate],
+    *,
+    blocked_lemmas: set[str],
+) -> list[SelectorCandidate]:
+    if not blocked_lemmas:
+        return list(candidates)
+    return [candidate for candidate in candidates if candidate.lemma not in blocked_lemmas]
+
+
 def _count_filtered_by_allowed_pos(
     candidates: Sequence[SelectorCandidate],
     *,
@@ -401,6 +432,15 @@ def _count_filtered_by_allowed_pos(
         if bucket and bucket not in allowed_pos:
             filtered_count += 1
     return filtered_count
+
+
+def _count_blocked_by_lifecycle(
+    candidates: Sequence[SelectorCandidate],
+    blocked_lemmas: set[str],
+) -> int:
+    if not blocked_lemmas:
+        return 0
+    return sum(1 for candidate in candidates if candidate.lemma in blocked_lemmas)
 
 
 def _count_unknown_pos(candidates: Sequence[SelectorCandidate]) -> int:

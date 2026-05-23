@@ -3,7 +3,7 @@
 Status: active SRS routing
 Role: Canonical current
 Last updated: 2026-05-23
-Last verified: 2026-05-23 browsing-based admission plan routing update plus doc-reference check
+Last verified: 2026-05-23 browsing/admission lifecycle routing update plus doc-reference check
 Purpose: route SRS cleanup work to the right current, mixed, planning, schema, or harness document without treating roadmap text as implementation truth
 Source-of-truth: SRS documentation routing only; implementation truth lives in SRS/helper/extension code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -28,6 +28,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Persisted SRS settings/store/signal shape | `docs/srs/srs_schema.md` | Mixed schema reference separating implemented fields from planned extensions. | Assuming planned schema sections are already written by runtime. |
 | Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming profile strategies are default execution paths. |
 | Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Treating `profile_growth` as broad admission execution. |
+| Admission lifecycle and refresh mutation boundaries | `docs/srs/srs_admission_lifecycle_current_state.md` | Current code-backed audit for initial admission, refresh growth, rebalance, feedback/exposure caveats, and suppression guards. | Claiming discard/suspend UI or full mastered/released lifecycle exists. |
 | Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
 | en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |
 | Browsing-based admission | `docs/srs/srs_browsing_based_admission_plan.md` | Planning workstream for opt-in, local-only browsing word signals that can influence future admission within SRS budget/lifecycle gates. | Claiming passive browsing changes scheduling, review state, or current default behavior. |
@@ -47,6 +48,8 @@ Current disposition:
   fields.
 - `srs_hybrid_model_technical.md`, `srs_practice_layer_design.md`, and
   `srs_set_planning_technical.md` remain mixed current-plus-target references.
+- `srs_admission_lifecycle_current_state.md` is the current code-backed audit
+  for admission mutation and lifecycle guard behavior.
 - `srs_selector_technical.md`, `srs_interest_tailored_admission_algorithm.md`,
   `srs_interest_tailored_data_acquisition_plan.md`,
   `srs_topic_signal_lp_generalization_runbook.md`,

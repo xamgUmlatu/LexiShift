@@ -121,6 +121,9 @@ class HelperPaths:
         safe_pair = str(pair or "unknown").replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_browsing_signals_{safe_pair}.json"
 
+    def srs_admission_suppression_store_path_for(self, profile_id: str | None = None) -> Path:
+        return self.profile_srs_dir(profile_id) / "srs_admission_suppression.json"
+
     def snapshot_path(self, pair: str, profile_id: str | None = None) -> Path:
         safe_pair = pair.replace("/", "-").replace(":", "-")
         return self.profile_srs_dir(profile_id) / f"srs_rulegen_snapshot_{safe_pair}.json"

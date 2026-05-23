@@ -1418,17 +1418,21 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-23` extension packet builder update:
+- Last documented checkpoint: `2026-05-23` admission lifecycle guard update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
-  replacement exposures
-- Last verified: `2026-05-23` extension packet-builder and offline
-  helper/core research probe tests, focused helper/native-host browsing ingest
-  tests, and regenerated backend simulation artifact
+  replacement exposures; refresh admission also respects active suppression
+  entries before admitting new lemmas
+- Last verified: `2026-05-23` refresh-suppression lifecycle guard tests,
+  extension packet-builder and offline helper/core research probe tests,
+  focused helper/native-host browsing ingest tests, refreshed
+  admission-lifecycle audit, and regenerated backend simulation artifact
 - Default behavior:
   - No live browser capture is wired by default; the extension packet builder
     only runs when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true.
   - No browsing signal changes actual SRS admission refresh yet.
+  - Manual refresh admission now filters active admission-suppression entries;
+    this guards future browsing boost from re-admitting suppressed lemmas.
   - The helper ingest path requires explicit opt-in and stores bounded target
     lemma aggregates only; URLs, raw page text, HTML, and context text are
     ignored.
@@ -1439,9 +1443,13 @@ Use this file when:
     capping, pruning, suppression, and monotonic `Off` / `Balanced` / `Strong`
     browsing-share behavior without mutating SRS items.
 - Evidence:
+  - `docs/srs/srs_admission_lifecycle_current_state.md`
   - `docs/srs/srs_browsing_based_admission_plan.md`
   - `core/lexishift_core/srs/browsing_admission.py`
+  - `core/lexishift_core/srs/admission_refresh.py`
+  - `core/lexishift_core/srs/admission_suppression.py`
   - `core/lexishift_core/helper/use_cases/browsing_admission.py`
+  - `core/lexishift_core/helper/use_cases/refresh_set.py`
   - `core/lexishift_core/helper/paths.py`
   - `scripts/helper/lexishift_native_host.py`
   - `scripts/helper/lexishift_helper.py`
@@ -1452,8 +1460,10 @@ Use this file when:
   - `scripts/testing/srs_browsing_admission_research_en_es.py`
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
   - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
+  - `core/tests/srs/test_srs_admission_refresh.py`
   - `core/tests/srs/test_srs_browsing_admission.py`
   - `core/tests/helper/test_helper_browsing_admission.py`
+  - `core/tests/helper/test_helper_engine.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
   - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`

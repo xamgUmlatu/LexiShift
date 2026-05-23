@@ -379,8 +379,13 @@ Current prototype evidence:
   context text.
 - `core/lexishift_core/srs/admission_suppression.py` defines a generic
   suppression/cooldown store for discarded, suspended, user-blocked, and manual
-  cooldown lemmas. This is a guard surface only; no UI or runtime mutation path
-  is wired yet.
+  cooldown lemmas.
+- `core/lexishift_core/helper/use_cases/refresh_set.py` now loads active
+  suppression entries and passes blocked lemmas into refresh admission, so real
+  refresh growth cannot admit suppressed lemmas.
+- `docs/srs/srs_admission_lifecycle_current_state.md` records the current
+  code-backed audit for initial admission, refresh growth, rebalance,
+  feedback/exposure caveats, and release/discard/suspend gaps.
 - `scripts/testing/srs_browsing_admission_backend_simulation.py` renders a
   synthetic helper-persisted report without runtime SRS mutation.
 - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
@@ -892,36 +897,23 @@ Harness checks:
   canonical helper/core probe section;
 - browser smoke for opt-in/off state and clear-data control when UI lands.
 
-## Next Code Audit Agenda
+## Lifecycle Audit Result
 
-Before implementing runtime browsing admission, audit current executable truth
-for two lifecycle questions.
+The lifecycle audit is now captured in
+`docs/srs/srs_admission_lifecycle_current_state.md`.
 
-Admission trigger audit:
+Key result:
 
-- where initial `S` creation admits words;
-- where explicit growth/refresh admits more words;
-- whether any automatic refresh path already exists or is only planned;
-- which limits currently govern `initial_active_count`, `max_active`,
-  `max_new_per_day`, pair readiness, and rulegen availability;
-- whether admission selection is deterministic top-N, weighted sampling, or a
-  mixed policy at each entrypoint;
-- what persisted explanation/audit data exists for admitted words.
-
-Release/mastery/discard audit:
-
-- whether the code has a true "fully release from S" concept;
-- whether maturity/mastery only changes scheduler state while keeping the item
-  in inventory;
-- how `suspended`, `discarded`, blocked, or hidden items are represented;
-- whether a discarded or suspended lemma can be re-admitted today;
-- what user action, if any, permanently removes an item from the active SRS
-  path;
-- which lifecycle statuses are source-of-truth versus planning labels.
-
-The browsing feature should not proceed beyond preview until these paths are
-explicit. Sticky admission means browsing must cooperate with existing lifecycle
-states instead of inventing a parallel route into or out of `S`.
+- Runtime browsing admission should enter only through `srs_refresh`.
+- `srs_initialize` remains bootstrap-only.
+- `srs_rebalance_apply` remains active-set rebalance, not browsing-driven
+  displacement.
+- `record_feedback` and `record_exposure` must not be reused for browsing
+  admission because they can create SRS store rows directly.
+- Refresh admission now respects active suppression entries, so discarded,
+  suspended, user-blocked, or manual-cooldown lemmas cannot be admitted through
+  refresh while suppression is active.
+- A user-facing discard/suspend/block writer remains unimplemented.
 
 ## Open Decisions
 
