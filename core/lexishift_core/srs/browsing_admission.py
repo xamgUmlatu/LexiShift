@@ -46,6 +46,7 @@ class BrowsingAdmissionStrength:
     volume_tau: float = 2.0
     min_browsing_signal: float = 0.05
     preference_alignment_weight: float = 0.25
+    min_fractional_browsing_budget: float = 1.0
 
 
 @dataclass(frozen=True)
@@ -256,12 +257,14 @@ def browsing_strength_presets() -> dict[str, BrowsingAdmissionStrength]:
             browsing_alpha=0.22,
             max_browsing_boost=1.35,
             browsing_budget_share=0.30,
+            min_fractional_browsing_budget=0.50,
         ),
         BROWSING_STRENGTH_STRONG: BrowsingAdmissionStrength(
             name=BROWSING_STRENGTH_STRONG,
             browsing_alpha=0.45,
             max_browsing_boost=1.65,
             browsing_budget_share=0.55,
+            min_fractional_browsing_budget=0.35,
         ),
     }
 
@@ -511,14 +514,23 @@ def simulate_browsing_admission(
     volume_factor = 0.0
     if signal_volume > 0.0 and strength.volume_tau > 0.0:
         volume_factor = 1.0 - math.exp(-signal_volume / strength.volume_tau)
-    browsing_budget = int(
-        math.floor(budget * _clamp01(strength.browsing_budget_share) * _clamp01(volume_factor))
+    raw_browsing_budget = (
+        budget * _clamp01(strength.browsing_budget_share) * _clamp01(volume_factor)
     )
+    browsing_budget = int(math.floor(raw_browsing_budget))
     browsing_pool = [
         row
         for row in active_rows
         if float(row["browsing_signal"]) >= max(0.0, strength.min_browsing_signal)
     ]
+    if (
+        browsing_budget == 0
+        and budget > 0
+        and browsing_pool
+        and _clamp01(strength.browsing_budget_share) > 0.0
+        and raw_browsing_budget >= max(0.0, float(strength.min_fractional_browsing_budget))
+    ):
+        browsing_budget = 1
     browsing_budget = min(browsing_budget, budget, len(browsing_pool))
     selected_browsing = sorted(
         browsing_pool,

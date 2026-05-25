@@ -266,6 +266,86 @@ class TestSrsBrowsingAdmission(unittest.TestCase):
             (0.0, 1.0),
         )
 
+    def test_balanced_realizes_one_slot_for_small_budget_with_clear_signal(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-es",
+            profile_id="default",
+            items={
+                "hipoteca": BrowsingSignalAggregate(
+                    target_lemma="hipoteca",
+                    target_hit_count=80.0,
+                ),
+                "préstamo": BrowsingSignalAggregate(
+                    target_lemma="préstamo",
+                    target_hit_count=30.0,
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="casa", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="ser", neutral_score=0.96),
+            BrowsingAdmissionCandidate(lemma="banco", neutral_score=0.92),
+            BrowsingAdmissionCandidate(lemma="perro", neutral_score=0.88),
+            BrowsingAdmissionCandidate(
+                lemma="hipoteca",
+                neutral_score=0.58,
+                readiness_multiplier=0.95,
+                source_confidence=0.95,
+            ),
+            BrowsingAdmissionCandidate(
+                lemma="préstamo",
+                neutral_score=0.54,
+                readiness_multiplier=0.95,
+                source_confidence=0.95,
+            ),
+        )
+
+        results = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=4,
+        )
+        off = results[BROWSING_STRENGTH_OFF].to_dict()
+        balanced = results[BROWSING_STRENGTH_BALANCED].to_dict()
+
+        self.assertEqual(off["browsing_lane_count"], 0)
+        self.assertEqual(balanced["browsing_lane_count"], 1)
+        self.assertEqual(balanced["browsing_driven_count"], 1)
+        self.assertIn("hipoteca", balanced["selected_lemmas"])
+        self.assertNotIn("perro", balanced["selected_lemmas"])
+
+    def test_balanced_does_not_realize_slot_for_tiny_signal(self) -> None:
+        store = BrowsingSignalStore(
+            pair="en-es",
+            profile_id="default",
+            items={
+                "hipoteca": BrowsingSignalAggregate(
+                    target_lemma="hipoteca",
+                    target_hit_count=1.0,
+                ),
+            },
+        )
+        candidates = (
+            BrowsingAdmissionCandidate(lemma="casa", neutral_score=1.00),
+            BrowsingAdmissionCandidate(lemma="ser", neutral_score=0.96),
+            BrowsingAdmissionCandidate(lemma="banco", neutral_score=0.92),
+            BrowsingAdmissionCandidate(lemma="perro", neutral_score=0.88),
+            BrowsingAdmissionCandidate(lemma="hipoteca", neutral_score=0.58),
+        )
+
+        results = simulate_browsing_admission_presets(
+            candidates,
+            store=store,
+            admission_budget=4,
+        )
+        balanced = results[BROWSING_STRENGTH_BALANCED].to_dict()
+
+        self.assertEqual(balanced["browsing_lane_count"], 0)
+        self.assertEqual(
+            balanced["selected_lemmas"],
+            ["casa", "ser", "banco", "perro"],
+        )
+
     def test_suppressed_lemma_has_zero_admission_probability(self) -> None:
         store = BrowsingSignalStore(
             pair="en-es",

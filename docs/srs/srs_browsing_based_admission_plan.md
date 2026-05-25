@@ -2,8 +2,8 @@
 
 Status: active planning workstream
 Role: Planning / WIP
-Last updated: 2026-05-23
-Last verified: 2026-05-23 by SRS hybrid model, interest-tailored admission algorithm, helper exposure path, signal queue, profile-context code reads, browsing-admission research harness, and read-only backend simulation prototype
+Last updated: 2026-05-26
+Last verified: 2026-05-26 by SRS hybrid model, interest-tailored admission algorithm, helper exposure path, signal queue, profile-context code reads, browsing-admission research harness, read-only backend simulation prototype, fractional browsing-budget tests, and SRS quality harness seeded browsing preview
 Purpose: define the planned opt-in browsing word-signal layer for SRS admission without treating passive browsing as review feedback
 Source-of-truth: planning reference only; current executable truth lives in SRS/helper code, extension signal code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -633,6 +633,31 @@ B_browsing = floor(B * rho_strength * volume_factor)
 B_general = B - B_browsing
 ```
 
+Small admission budgets need one extra rule. A pure floor can make `Balanced`
+look identical to `Off` even when the learner has strong browsing evidence.
+The current preview therefore computes the fractional browsing budget first:
+
+```text
+raw_browsing_budget = B * rho_strength * volume_factor
+B_browsing = floor(raw_browsing_budget)
+
+if B_browsing == 0
+   and raw_browsing_budget >= min_fractional_browsing_budget_strength
+   and browsing_pool is not empty:
+  B_browsing = 1
+```
+
+Current preview thresholds:
+
+```text
+Off      min_fractional_browsing_budget = 1.00
+Balanced min_fractional_browsing_budget = 0.50
+Strong   min_fractional_browsing_budget = 0.35
+```
+
+This makes `Balanced` noticeable when there is real signal, without increasing
+the score boost or allowing browsing to bypass the overall admission budget.
+
 Where `rho_strength` is a preset:
 
 ```text
@@ -733,6 +758,64 @@ Suggested realized-share targets for simulation, not user-facing promises:
 These are calibration targets, not product copy. User-facing UX should avoid
 exact percentage guarantees because realized share depends on the eligible
 frontier, proficiency, explicit preferences, source coverage, and review budget.
+
+## Admission, Review, And Page Replacement
+
+Browsing admission must stay separate from page replacement.
+
+Admission answers:
+
+```text
+Which target lemmas should become durable SRS obligations?
+```
+
+Review scheduling answers:
+
+```text
+Which admitted items are due according to the scheduler?
+```
+
+Runtime page replacement answers:
+
+```text
+Which eligible words should be replaced on this page right now?
+```
+
+These decisions share state, but they should not collapse into one algorithm.
+A word being admitted or learned does not mean it should be replaced everywhere
+forever.
+
+Product rules:
+
+- explicit topic preferences bend admission probabilities, but do not collapse
+  the learner into only that topic;
+- browsing signals bend admission probabilities, but do not bypass budget,
+  readiness, suppression, or source-quality gates;
+- page replacement must have its own visual/cognitive load budget;
+- long-used profiles should see dropoff for old, stable, or mastered words so
+  pages do not become saturated with every word learned since onboarding;
+- due, recently learned, and target-relevant items should usually outrank
+  mature or mastered items for runtime replacement;
+- mastered/released items may remain eligible for rare reinforcement later, but
+  they should not compete equally with active learning items.
+
+Recommended runtime replacement priority:
+
+```text
+new / learning       high eligibility
+young review         medium-high eligibility
+mature review        medium-low eligibility
+mastered / released  rare reinforcement only
+discarded/suspended  not eligible while suppressed
+```
+
+Recommended page-level safeguards:
+
+- hard max replacements per page;
+- density limit per paragraph or viewport;
+- cap repeated replacements of the same lemma;
+- probabilistic or state-based dropoff for mature items;
+- hard suppression for discarded, blocked, or unsafe items.
 
 ## Decay And Caps
 

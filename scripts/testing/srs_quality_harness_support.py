@@ -10,6 +10,11 @@ from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import annotate_rules_with_srs_serving_metadata
 from lexishift_core.replacement.core import VocabRule
 from lexishift_core.srs.time import now_utc, parse_ts
+from lexishift_core.srs.browsing_admission import (
+    BrowsingSignalAggregate,
+    BrowsingSignalStore,
+    save_browsing_signal_store,
+)
 from synthetic_translation_fixture_support import (
     write_jmdict_fixture,
     write_translation_dictionary_sqlite_fixture,
@@ -141,6 +146,87 @@ def build_seed_candidates() -> list[SimpleNamespace]:
             )
         )
     return candidates
+
+
+def seed_browsing_preview_store(paths: HelperPaths, *, pair: str, profile_id: str) -> None:
+    prefix_by_pair = {
+        "en-ja": "ja",
+        "en-de": "de",
+    }
+    prefix = prefix_by_pair.get(pair)
+    if not prefix:
+        return
+    save_browsing_signal_store(
+        BrowsingSignalStore(
+            pair=pair,
+            profile_id=profile_id,
+            items={
+                f"{prefix}abw": BrowsingSignalAggregate(
+                    target_lemma=f"{prefix}abw",
+                    target_hit_count=80.0,
+                ),
+                f"{prefix}abx": BrowsingSignalAggregate(
+                    target_lemma=f"{prefix}abx",
+                    target_hit_count=30.0,
+                ),
+            },
+        ),
+        paths.srs_browsing_signal_store_path_for(profile_id, pair),
+    )
+
+
+def browsing_preview_findings(
+    refresh_payload: Mapping[str, Any], *, pair: str
+) -> list[dict[str, Any]]:
+    browsing_preview = refresh_payload.get("browsing_admission_preview")
+    if not isinstance(browsing_preview, Mapping):
+        return [
+            {
+                "level": "FAIL",
+                "code": "SRS_BROWSING_PREVIEW_MISSING",
+                "pair": pair,
+                "message": "Refresh response did not include browsing preview diagnostics.",
+                "details": None,
+            }
+        ]
+    simulations = browsing_preview.get("simulations")
+    balanced = simulations.get("balanced") if isinstance(simulations, Mapping) else None
+    strong = simulations.get("strong") if isinstance(simulations, Mapping) else None
+    balanced_lane_count = (
+        int(balanced.get("browsing_lane_count") or 0) if isinstance(balanced, Mapping) else 0
+    )
+    strong_lane_count = (
+        int(strong.get("browsing_lane_count") or 0) if isinstance(strong, Mapping) else 0
+    )
+    matching_signal_count = int(browsing_preview.get("matching_signal_count") or 0)
+    aggregate_item_count = int(browsing_preview.get("aggregate_item_count") or 0)
+    if aggregate_item_count > 0 and matching_signal_count > 0 and balanced_lane_count > 0:
+        return [
+            {
+                "level": "PASS",
+                "code": "SRS_BROWSING_PREVIEW_SIGNAL_VISIBLE",
+                "pair": pair,
+                "message": (
+                    "Refresh preview shows non-empty browsing signal without mutating actual "
+                    "SRS admission."
+                ),
+                "details": (
+                    f"aggregate_item_count={aggregate_item_count} "
+                    f"matching_signal_count={matching_signal_count} "
+                    f"balanced_browsing_lane_count={balanced_lane_count} "
+                    f"strong_browsing_lane_count={strong_lane_count}"
+                ),
+            }
+        ]
+    return [
+        {
+            "level": "FAIL",
+            "code": "SRS_BROWSING_PREVIEW_SIGNAL_MISSING",
+            "pair": pair,
+            "message": "Refresh preview did not expose the seeded browsing signal.",
+            "details": json.dumps(browsing_preview, ensure_ascii=False),
+        }
+    ]
 
 
 def create_frequency_db(path: Path) -> Path:

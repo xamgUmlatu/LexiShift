@@ -35,12 +35,14 @@ from lexishift_core.srs import (  # noqa: E402
 )
 from lexishift_core.srs.scheduler import select_active_items  # noqa: E402
 from srs_quality_harness_support import (  # noqa: E402
+    browsing_preview_findings as _browsing_preview_findings,
     build_pair_resources as _build_pair_resources,
     build_seed_candidates as _build_seed_candidates,
     create_frequency_db as _create_frequency_db,
     ruleset_due_active_target_count as _ruleset_due_active_target_count,
     ruleset_srs_due_metadata_count as _ruleset_srs_due_metadata_count,
     ruleset_unique_target_count as _ruleset_unique_target_count,
+    seed_browsing_preview_store as _seed_browsing_preview_store,
     snapshot_target_count as _snapshot_target_count,
     stub_run_rulegen_for_pair as _stub_run_rulegen_for_pair,
 )
@@ -188,6 +190,7 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
                 replace_pair=True,
             ),
         )
+        _seed_browsing_preview_store(paths, pair=pair, profile_id=profile_id)
         refresh_payload = refresh_srs_set(
             paths,
             config=SrsRefreshJobConfig(
@@ -261,6 +264,8 @@ def _run_pair_bootstrap_scenario(pair: str) -> dict[str, Any]:
                     details=json.dumps(refresh_payload, ensure_ascii=False),
                 )
             )
+
+        findings.extend(_browsing_preview_findings(refresh_payload, pair=pair))
 
         artifacts_ok = (
             bool(diagnostics.get("store_exists"))

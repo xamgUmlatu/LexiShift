@@ -1418,17 +1418,20 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-23` refresh-path browsing preview update:
+- Last documented checkpoint: `2026-05-26` fractional browsing-preview budget update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
   entries before admitting new lemmas; refresh responses include preview-only
-  browsing diagnostics without changing actual neutral admission selection
-- Last verified: `2026-05-23` refresh-path browsing preview tests,
-  refresh-suppression lifecycle guard tests, extension packet-builder and
-  offline helper/core research probe tests, focused helper/native-host browsing
-  ingest tests, refreshed admission-lifecycle audit, and regenerated backend
-  simulation artifact
+  browsing diagnostics without changing actual neutral admission selection;
+  `Balanced` preview can now realize one browsing slot for small budgets when
+  fractional signal pressure is high enough
+- Last verified: `2026-05-26` fractional browsing-budget tests, SRS quality
+  harness with seeded non-empty browsing preview, refresh-path browsing preview
+  tests, refresh-suppression lifecycle guard tests, extension packet-builder
+  and offline helper/core research probe tests, focused helper/native-host
+  browsing ingest tests, refreshed admission-lifecycle audit, and regenerated
+  backend simulation artifact
 - Default behavior:
   - No live browser capture is wired by default; the extension packet builder
     only runs when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true.
@@ -1438,6 +1441,9 @@ Use this file when:
   - Manual refresh responses include preview-only browsing admission diagnostics
     for the same candidate pool and budget; the diagnostics do not affect the
     persisted refresh selection.
+  - The preview uses fractional small-budget realization so `Balanced` can show
+    one browsing lane when signal pressure is meaningful, while actual persisted
+    admission remains neutral.
   - The helper ingest path requires explicit opt-in and stores bounded target
     lemma aggregates only; URLs, raw page text, HTML, and context text are
     ignored.
@@ -1447,6 +1453,9 @@ Use this file when:
   - The current simulation uses a helper-persisted synthetic packet to prove
     capping, pruning, suppression, and monotonic `Off` / `Balanced` / `Strong`
     browsing-share behavior without mutating SRS items.
+  - Topic preference, browsing admission, review scheduling, and page
+    replacement are documented as separate product decisions; known/learned
+    words must not become permanent unlimited page replacements by default.
 - Evidence:
   - `docs/srs/srs_admission_lifecycle_current_state.md`
   - `docs/srs/srs_browsing_based_admission_plan.md`

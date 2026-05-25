@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-23 by source audit, browsing refresh preview tests, focused admission refresh tests, SRS quality harness, changed-file gate, and feature-state audit
+Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -101,6 +101,9 @@ Current browsing preview:
 - `refresh_srs_set` includes `browsing_admission_preview` in its response.
 - The preview reads the profile/pair browsing aggregate store and simulates
   `Off`, `Balanced`, and `Strong`.
+- The preview uses fractional small-budget realization, so `Balanced` can earn
+  one browsing lane when the computed fractional lane is meaningful and
+  browsing signal exists.
 - The preview is diagnostic only: `applied_to_actual_admission` is `False`,
   `runtime_srs_mutation` is `False`, and actual refresh selection remains
   neutral until a later gated runtime decision.
