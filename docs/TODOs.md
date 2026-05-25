@@ -125,13 +125,8 @@ Acceptance criteria:
 - Keep exact substring mode as a user-selectable fallback for mixed-language text.
 
 ### Replacement pacing/sensitivity controls
-- Move "Replacement Behavior" settings out of "Manual Rules" scope into global scope for the full experience.
-- Applies to all replacements (ruleset and SRS).
-- Settings to move:
-  - Replace max 1 word per text block.
-  - Allow replacing adjacent words.
-  - Max replacements per page (`0` = unlimited).
-  - Max per word per page (`0` = unlimited).
+- Page replacement density settings now apply to the merged SRS/manual runtime
+  output and use explicit standard defaults.
 - Consider limiting replacements per sentence.
 - Add settings to adjust sensitivity/strictness for the rules above.
 

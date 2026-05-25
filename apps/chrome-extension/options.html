@@ -232,11 +232,11 @@
         <section class="card card-group span-2">
           <h2 data-i18n="section_manual_rules">Manual Rules</h2>
           <p class="hint" data-i18n="hint_manual_rules">
-            Tune replacement behavior and edit/import the manual ruleset.
+            Edit/import manual rulesets for the selected profile.
           </p>
           <div class="group-stack">
             <section class="group-subcard">
-              <h3 data-i18n="section_display">Display</h3>
+              <h3 data-i18n="section_display">Page Display</h3>
               <label class="toggle">
                 <input id="highlight-enabled" type="checkbox" />
                 <span data-i18n="toggle_highlight">Highlight replaced words (click to toggle original)</span>
@@ -246,9 +246,9 @@
                 <input id="highlight-color" type="color" />
                 <input id="highlight-color-text" type="text" class="color-text" />
               </div>
-              <h4 data-i18n="section_replacement_behavior">Replacement Behavior</h4>
+              <h4 data-i18n="section_replacement_behavior">Page Replacement Density</h4>
               <p class="hint" data-i18n="hint_replacement_behavior_scope">
-                Applies to all replacements (ruleset and SRS).
+                Applies after SRS and manual rules are merged for page display.
               </p>
               <label class="toggle">
                 <input id="max-one-per-block" type="checkbox" />
@@ -267,14 +267,14 @@
                 <input id="max-replacements-per-page" type="number" min="0" max="2000" step="1" />
               </div>
               <p class="hint" data-i18n="hint_max_replacements_page">
-                0 means unlimited. Caps total replacements shown on the current page.
+                Standard default is 20. Use 0 only for unlimited replacement.
               </p>
               <div class="field-row">
                 <label for="max-replacements-per-lemma-page" data-i18n="label_max_replacements_lemma_page">Max per word per page</label>
                 <input id="max-replacements-per-lemma-page" type="number" min="0" max="200" step="1" />
               </div>
               <p class="hint" data-i18n="hint_max_replacements_lemma_page">
-                0 means unlimited. Prevents one word from dominating the page.
+                Standard default is 2. Prevents one word from dominating the page.
               </p>
             </section>
             <section class="group-subcard">

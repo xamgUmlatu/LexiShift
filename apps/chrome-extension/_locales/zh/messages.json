@@ -45,7 +45,7 @@
     "message": "尚未导入文件。修改后请重新导入。"
   },
   "section_display": {
-    "message": "显示"
+    "message": "页面显示"
   },
   "toggle_highlight": {
     "message": "高亮替换词（点击切换原词）"
@@ -54,10 +54,10 @@
     "message": "高亮颜色"
   },
   "section_replacement_behavior": {
-    "message": "替换行为"
+    "message": "页面替换密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "这些设置适用于所有替换（规则集和 SRS）。"
+    "message": "在 SRS 和手动规则合并后，应用于页面显示。"
   },
   "toggle_max_one": {
     "message": "每个文本块最多替换 1 个词"
@@ -75,13 +75,13 @@
     "message": "每页最大替换数"
   },
   "hint_max_replacements_page": {
-    "message": "0 表示不限制。限制当前页面显示的替换总数。"
+    "message": "标准默认值为 20。仅在需要无限替换时使用 0。"
   },
   "label_max_replacements_lemma_page": {
     "message": "每个词每页上限"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 表示不限制。防止单个词在页面中过度出现。"
+    "message": "标准默认值为 2。防止单个词在页面中过度出现。"
   },
   "section_srs": {
     "message": "SRS 练习"
@@ -1023,7 +1023,7 @@
     "message": "手动规则"
   },
   "hint_manual_rules": {
-    "message": "调整替换行为，并编辑或导入手动规则集。"
+    "message": "为所选配置编辑或导入手动规则集。"
   },
   "label_profile_id": {
     "message": "配置"

@@ -138,7 +138,7 @@ Status key:
 - `[~]` Persist browsing admission aggregate state (core decayed/bounded store, opt-in helper dev ingest, and hidden dev extension replacement-exposure packet builder exist; broad page capture is not wired).
 - `[~]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics (backend probability diagnostics, offline helper/core text probes, refresh-path browsing preview, and small-budget `Balanced` fractional lane realization exist; helper/options preview is not wired).
 - `[x]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
-- `[~]` Runtime page replacement load model (page-level budgets and SRS metadata-aware budget priority exist; default cap policy plus durable mastered/released dropoff remain open).
+- `[~]` Runtime page replacement load model (page-level budgets, explicit standard density defaults, and SRS metadata-aware budget priority exist; durable mastered/released dropoff remains open).
 - `[~]` Lifecycle audit for admission triggers, mastered/released state, and discard/suspend re-admission cooldowns (code-backed audit exists; refresh admission now respects suppression; no user-facing suppression writer is wired).
 - `[ ]` Opt-in gated browsing relevance boost for actual admission refresh.
 - `[ ]` Automatic `adaptive_refresh` trigger policy.

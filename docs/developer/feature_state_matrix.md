@@ -1517,10 +1517,10 @@ Use this file when:
 ## Due-Aware SRS Serving
 
 - Status: `implemented`, `default-on when capable`, `verified`
-- Last documented checkpoint: `2026-05-26` SRS-aware page replacement load update
-- Last verified: `2026-05-26` helper annotation test, extension runtime gate
-  contract, replacement-selection page-budget contract, SRS quality harness, and
-  regenerated SRS quality artifacts
+- Last documented checkpoint: `2026-05-26` standard page replacement density update
+- Last verified: `2026-05-26` settings-default contract, helper annotation test,
+  extension runtime gate contract, replacement-selection page-budget contract,
+  SRS quality harness, and regenerated SRS quality artifacts
 - Default behavior:
   - Scheduler code builds a due queue from `next_due`.
   - Helper rulegen annotates matching SRS rules with `metadata.rulegen.srs`
@@ -1531,6 +1531,9 @@ Use this file when:
     active, extension replacement selection prefers new, learning, or
     lower-stability due SRS items over mature or future-due SRS rows inside the
     limited replacement slots.
+  - Standard extension page-density defaults are explicit and conservative:
+    `maxReplacementsPerPage = 20`, `maxReplacementsPerLemmaPerPage = 2`,
+    `allowAdjacentReplacements = false`, and `maxOnePerTextBlock = false`.
   - Metadata-free cached helper rules remain active as a legacy compatibility fallback until regenerated.
 - Evidence:
   - `docs/developer/productization_lane5_runtime_seam_inventory.md`
@@ -1542,6 +1545,7 @@ Use this file when:
   - `apps/chrome-extension/shared/srs/srs_gate.js`
   - `scripts/testing/srs_quality_harness.py`
   - `core/tests/helper/test_helper_rulegen.py`
+  - `core/tests/dev/test_extension_settings_defaults_contract.py`
   - `core/tests/dev/test_extension_replacements_contract.py`
   - `core/tests/dev/test_extension_srs_runtime_gate_contract.py`
   - `core/tests/dev/test_srs_quality_harness.py`
@@ -1550,7 +1554,8 @@ Use this file when:
   - No dedicated due-only helper ruleset publication artifact is currently tracked here.
   - Legacy metadata-free cached helper rules are intentionally permissive until the helper ruleset is regenerated.
   - Automatic refresh triggering after feedback remains planned.
-  - Page budget defaults remain user/config driven; `0` still means unlimited.
+  - `0` remains available as an explicit unlimited override for page and
+    per-lemma replacement caps.
   - No durable mastered/released flag is fully implemented yet.
   - Synthetic harness coverage remains pair-limited.
 

@@ -268,8 +268,8 @@ const controller = createController({{
   settingsManager: {{
     defaults: {{
       highlightColor: "#ffcc00",
-      maxReplacementsPerPage: 0,
-      maxReplacementsPerLemmaPerPage: 0
+      maxReplacementsPerPage: 20,
+      maxReplacementsPerLemmaPerPage: 2
     }},
     currentRules: [],
     async load() {{
@@ -278,9 +278,9 @@ const controller = createController({{
         highlightEnabled: true,
         highlightColor: "#ffcc00",
         maxOnePerTextBlock: false,
-        allowAdjacentReplacements: true,
-        maxReplacementsPerPage: 0,
-        maxReplacementsPerLemmaPerPage: 0,
+        allowAdjacentReplacements: false,
+        maxReplacementsPerPage: 20,
+        maxReplacementsPerLemmaPerPage: 2,
         debugEnabled: false,
         debugFocusWord: "",
         uiLanguage: "system",

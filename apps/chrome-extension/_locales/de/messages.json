@@ -45,7 +45,7 @@
     "message": "Noch keine Datei importiert. Nach Änderungen erneut importieren."
   },
   "section_display": {
-    "message": "Anzeige"
+    "message": "Seitenanzeige"
   },
   "toggle_highlight": {
     "message": "Ersetzte Wörter hervorheben (Klick schaltet Original um)"
@@ -54,10 +54,10 @@
     "message": "Hervorhebungsfarbe"
   },
   "section_replacement_behavior": {
-    "message": "Ersetzungsverhalten"
+    "message": "Ersetzungsdichte auf der Seite"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Diese Einstellungen gelten für alle Ersetzungen (Ruleset und SRS)."
+    "message": "Gilt, nachdem SRS- und manuelle Regeln für die Seitenanzeige zusammengeführt wurden."
   },
   "toggle_max_one": {
     "message": "Max. 1 Wort pro Textblock ersetzen"
@@ -75,13 +75,13 @@
     "message": "Max. Ersetzungen pro Seite"
   },
   "hint_max_replacements_page": {
-    "message": "0 bedeutet unbegrenzt. Begrenzt die Gesamtzahl der Ersetzungen auf der aktuellen Seite."
+    "message": "Der Standardwert ist 20. Verwende 0 nur für unbegrenzte Ersetzungen."
   },
   "label_max_replacements_lemma_page": {
     "message": "Max. pro Wort pro Seite"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 bedeutet unbegrenzt. Verhindert, dass ein Wort die Seite dominiert."
+    "message": "Der Standardwert ist 2. Verhindert, dass ein Wort die Seite dominiert."
   },
   "section_srs": {
     "message": "SRS-Training"
@@ -1023,7 +1023,7 @@
     "message": "Manuelle Regeln"
   },
   "hint_manual_rules": {
-    "message": "Passe das Ersetzungsverhalten an und bearbeite oder importiere das manuelle Regelset."
+    "message": "Bearbeite oder importiere manuelle Regelsets für das ausgewählte Profil."
   },
   "label_profile_id": {
     "message": "Profil"

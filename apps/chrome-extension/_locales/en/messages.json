@@ -45,7 +45,7 @@
     "message": "No file imported yet. Re-import after changes."
   },
   "section_display": {
-    "message": "Display"
+    "message": "Page Display"
   },
   "toggle_highlight": {
     "message": "Highlight replaced words (click to toggle original)"
@@ -54,10 +54,10 @@
     "message": "Highlight color"
   },
   "section_replacement_behavior": {
-    "message": "Replacement Behavior"
+    "message": "Page Replacement Density"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Applies to all replacements (ruleset and SRS)."
+    "message": "Applies after SRS and manual rules are merged for page display."
   },
   "toggle_max_one": {
     "message": "Replace max 1 word per text block"
@@ -75,13 +75,13 @@
     "message": "Max replacements per page"
   },
   "hint_max_replacements_page": {
-    "message": "0 means unlimited. Caps total replacements shown on the current page."
+    "message": "Standard default is 20. Use 0 only for unlimited replacement."
   },
   "label_max_replacements_lemma_page": {
     "message": "Max per word per page"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 means unlimited. Prevents one word from dominating the page."
+    "message": "Standard default is 2. Prevents one word from dominating the page."
   },
   "section_srs": {
     "message": "SRS Practice"
@@ -1029,7 +1029,7 @@
     "message": "Manual Rules"
   },
   "hint_manual_rules": {
-    "message": "Tune replacement behavior and edit/import the manual ruleset."
+    "message": "Edit/import manual rulesets for the selected profile."
   },
   "label_profile_id": {
     "message": "Profile"

@@ -45,7 +45,7 @@
     "message": "まだファイルをインポートしていません。変更後に再インポートしてください。"
   },
   "section_display": {
-    "message": "表示"
+    "message": "ページ表示"
   },
   "toggle_highlight": {
     "message": "置換語をハイライト（クリックで元に切替）"
@@ -54,10 +54,10 @@
     "message": "ハイライト色"
   },
   "section_replacement_behavior": {
-    "message": "置換の挙動"
+    "message": "ページ内の置換密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "この設定はすべての置換（ルールセットとSRS）に適用されます。"
+    "message": "SRS と手動ルールを統合した後のページ表示に適用されます。"
   },
   "toggle_max_one": {
     "message": "テキストブロックごとに最大1語を置換"
@@ -75,13 +75,13 @@
     "message": "ページあたりの最大置換数"
   },
   "hint_max_replacements_page": {
-    "message": "0 は無制限です。現在のページで表示する総置換数を制限します。"
+    "message": "標準の既定値は 20 です。無制限にする場合のみ 0 を使用します。"
   },
   "label_max_replacements_lemma_page": {
     "message": "1語あたりの最大置換数（ページ）"
   },
   "hint_max_replacements_lemma_page": {
-    "message": "0 は無制限です。1語だけがページ内で多発するのを防ぎます。"
+    "message": "標準の既定値は 2 です。1語だけがページ内で多発するのを防ぎます。"
   },
   "section_srs": {
     "message": "SRS練習"
@@ -1023,7 +1023,7 @@
     "message": "手動ルール"
   },
   "hint_manual_rules": {
-    "message": "置換動作を調整し、手動ルールセットを編集またはインポートします。"
+    "message": "選択中のプロファイル用の手動ルールセットを編集またはインポートします。"
   },
   "label_profile_id": {
     "message": "プロファイル"

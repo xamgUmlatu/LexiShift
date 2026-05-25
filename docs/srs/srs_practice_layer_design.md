@@ -81,9 +81,13 @@ Set Planner (bootstrap/growth/refresh strategy)
 ## 3.1) Page Replacement Load
 - Page replacement load is enforced by the extension page budget pipeline, not
   by helper admission.
-- `maxReplacementsPerPage` caps total replacement count on the page.
+- The standard MVP page-density policy is explicit in the extension defaults:
+  `maxReplacementsPerPage = 20`, `maxReplacementsPerLemmaPerPage = 2`,
+  `allowAdjacentReplacements = false`, and `maxOnePerTextBlock = false`.
+- `maxReplacementsPerPage` caps total replacement count on the page (`0` remains
+  an explicit unlimited override).
 - `maxReplacementsPerLemmaPerPage` caps repeated display of the same target
-  lemma on the page.
+  lemma on the page (`0` remains an explicit unlimited override).
 - When page budgets, one-per-block, or non-adjacent load constraints are active,
   selection inside the constrained candidate set prefers SRS items in this
   order:
@@ -113,5 +117,3 @@ Set Planner (bootstrap/growth/refresh strategy)
 - Consolidate local extension logs with helper feedback ingestion contract.
 - Add a policy registry for pair-specific bootstrap/growth strategy selection.
 - Decide whether a dedicated due-only publication artifact is still useful now that the runtime gate can filter by helper SRS due metadata.
-- Decide the user-facing defaults for page replacement caps. The code supports
-  hard caps and SRS-aware prioritization, but `0` still means unlimited.
