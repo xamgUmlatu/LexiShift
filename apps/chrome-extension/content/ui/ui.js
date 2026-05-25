@@ -288,6 +288,7 @@
       .lexishift-feedback-option[data-rating="hard"]{background:#E07B39;}
       .lexishift-feedback-option[data-rating="good"]{background:#E0B84B;color:#2c2a26;}
       .lexishift-feedback-option[data-rating="easy"]{background:#2F74D0;}
+      .lexishift-feedback-option[data-action="suppress_admission"]{background:#5f6368;font-size:15px;}
     `;
   }
 

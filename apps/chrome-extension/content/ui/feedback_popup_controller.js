@@ -29,6 +29,7 @@
     let feedbackHandler = null;
     let feedbackPopup = null;
     let feedbackModules = null;
+    let suppressionButton = null;
     let activeFeedbackTarget = null;
     let keyListener = null;
     let closeListener = null;
@@ -77,6 +78,20 @@
         });
         feedbackBar.appendChild(btn);
       }
+      const suppressBtn = document.createElement("button");
+      suppressBtn.type = "button";
+      suppressBtn.className = "lexishift-feedback-option lexishift-feedback-suppress";
+      suppressBtn.dataset.action = "suppress_admission";
+      suppressBtn.dataset.reason = "manual_cooldown";
+      suppressBtn.textContent = "\u00d7";
+      suppressBtn.title = "Hide this word for now";
+      suppressBtn.setAttribute("aria-label", "Hide this word for now");
+      suppressBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        handleSuppressionSelection("manual_cooldown", suppressBtn);
+      });
+      feedbackBar.appendChild(suppressBtn);
+      suppressionButton = suppressBtn;
       popup.appendChild(feedbackBar);
       document.body.appendChild(popup);
       feedbackPopup = popup;
@@ -122,9 +137,20 @@
       });
     }
 
+    function syncSuppressionButton(target) {
+      if (!suppressionButton) {
+        return;
+      }
+      const origin = String(target && target.dataset ? target.dataset.origin || "" : "")
+        .trim()
+        .toLowerCase();
+      suppressionButton.hidden = origin !== "srs";
+    }
+
     function openFeedbackPopup(target) {
       const popup = ensureFeedbackPopup();
       renderFeedbackModules(target);
+      syncSuppressionButton(target);
       activeFeedbackTarget = target;
       popup.classList.remove("lexishift-open");
       const rect = target.getBoundingClientRect();
@@ -178,11 +204,33 @@
       playFeedbackSound(rating);
     }
 
+    function animateAction(action, buttonEl) {
+      const popup = feedbackPopup || ensureFeedbackPopup();
+      const button =
+        buttonEl || (popup ? popup.querySelector(`[data-action="${action}"]`) : null);
+      if (button) {
+        button.classList.add("lexishift-selected");
+        setTimeout(() => button.classList.remove("lexishift-selected"), 220);
+      }
+    }
+
     function handleFeedbackSelection(rating, buttonEl) {
       if (feedbackHandler && activeFeedbackTarget) {
         feedbackHandler({ rating, target: activeFeedbackTarget });
       }
       animateSelection(rating, buttonEl);
+      closeFeedbackPopup();
+    }
+
+    function handleSuppressionSelection(reason, buttonEl) {
+      if (feedbackHandler && activeFeedbackTarget) {
+        feedbackHandler({
+          action: "suppress_admission",
+          reason,
+          target: activeFeedbackTarget
+        });
+      }
+      animateAction("suppress_admission", buttonEl);
       closeFeedbackPopup();
     }
 

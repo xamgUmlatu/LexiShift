@@ -117,7 +117,7 @@ Module layout
   - Central pipeline for settings-apply flow (`normalize settings -> resolve active rules -> diagnostics -> runtime actions`).
   - Handles apply token staleness checks via injected runtime callback.
 - `apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js`
-  - Owns feedback entry persistence and helper feedback-sync queue integration.
+  - Owns feedback entry persistence, helper feedback-sync queue integration, and the SRS admission suppression helper action.
 - `apps/chrome-extension/content/runtime/settings_change_router.js`
   - Routes `chrome.storage.onChanged` keys to targeted runtime actions (rebuild/highlight/debug/feedback updates).
 - `apps/chrome-extension/content/ui/ui.js`
@@ -127,6 +127,7 @@ Module layout
   - Popup module architecture and extension plan: `docs/architecture/popup_modules_pattern.md`.
 - `apps/chrome-extension/content/ui/feedback_popup_controller.js`
   - Owns feedback popup lifecycle, module attachment zone, keyboard shortcuts (Ctrl+1/2/3/4), and sound feedback.
+  - Adds a "Hide this word for now" action for SRS replacements.
   - Renders module blocks from the popup module registry before the feedback bar.
 - `apps/chrome-extension/content/ui/popup_modules/module_registry.js`
   - Registry/composition layer for popup modules (`id + build(target)` descriptors).
@@ -329,6 +330,9 @@ SRS feedback UX (extension)
   - 2 (orange) = Hard
   - 3 (yellow) = Good
   - 4 (blue) = Easy
+- SRS replacements also expose "Hide this word for now", which calls helper
+  `srs_admission_suppress` with `reason=manual_cooldown` and restores the
+  original page text after helper success.
 - Keyboard shortcuts: **Ctrl+1/2/3/4**.
 - Feedback is stored in `chrome.storage.local` (`srsFeedbackLog`, max 500 entries).
 - Feedback updates `srsStore` items (history + scheduling fields).

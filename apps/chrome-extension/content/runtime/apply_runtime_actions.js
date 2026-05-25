@@ -85,7 +85,14 @@
         const feedbackOrigins = currentSettings.srsFeedbackSrsEnabled === false ? [] : [ruleOriginSrs];
         attachFeedbackListener((payload) => {
           if (feedbackRuntime && typeof feedbackRuntime.handleFeedback === "function") {
-            feedbackRuntime.handleFeedback(payload, focusWord);
+            const feedbackResult = feedbackRuntime.handleFeedback(payload, focusWord);
+            if (feedbackResult && typeof feedbackResult.catch === "function") {
+              feedbackResult.catch((error) => {
+                if (currentSettings.debugEnabled) {
+                  log("Feedback handling failed.", error);
+                }
+              });
+            }
           }
         }, {
           allowOrigins: feedbackOrigins

@@ -33,6 +33,9 @@ from lexishift_core.helper.use_cases.signals import (
     apply_exposure as _apply_exposure_use_case,
     apply_feedback as _apply_feedback_use_case,
 )
+from lexishift_core.helper.use_cases.admission_suppression import (
+    suppress_srs_admission as _suppress_srs_admission_use_case,
+)
 from lexishift_core.helper.use_cases.browsing_admission import (
     ingest_browsing_admission_signals as _ingest_browsing_admission_signals_use_case,
 )
@@ -606,6 +609,28 @@ def apply_exposure(
         source_type=source_type,
         resolve_profile_id_fn=_resolve_profile_id,
         ensure_store_fn=_ensure_store,
+    )
+
+
+def suppress_srs_admission(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    reason: str = "manual_cooldown",
+    profile_id: str = "default",
+    note: str | None = None,
+    now: datetime | None = None,
+) -> dict:
+    return _suppress_srs_admission_use_case(
+        paths,
+        pair=pair,
+        lemma=lemma,
+        reason=reason,
+        profile_id=profile_id,
+        note=note,
+        now=now,
+        resolve_profile_id_fn=_resolve_profile_id,
     )
 
 

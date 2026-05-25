@@ -88,6 +88,7 @@ try:
         reset_srs_data,
         run_rulegen_job,
         semantic_admit_batch,
+        suppress_srs_admission,
     )
     from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
     from lexishift_core.helper.os import open_path
@@ -322,6 +323,15 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             profile_id=profile_id or "default",
         )
         return {"ok": True}
+    if msg_type == "srs_admission_suppress":
+        return suppress_srs_admission(
+            paths,
+            pair=str(payload.get("pair", "")),
+            lemma=str(payload.get("lemma", "")),
+            reason=str(payload.get("reason", "manual_cooldown")),
+            note=str(payload.get("note", "")).strip() or None,
+            profile_id=profile_id or "default",
+        )
     if msg_type == "srs_browsing_signal_ingest":
         signals = payload.get("signals")
         if not isinstance(signals, list):

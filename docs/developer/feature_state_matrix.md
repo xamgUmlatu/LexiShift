@@ -1418,15 +1418,17 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-26` fractional browsing-preview budget update:
+- Last documented checkpoint: `2026-05-26` admission suppression writer update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
   entries before admitting new lemmas; refresh responses include preview-only
   browsing diagnostics without changing actual neutral admission selection;
   `Balanced` preview can now realize one browsing slot for small budgets when
-  fractional signal pressure is high enough
-- Last verified: `2026-05-26` fractional browsing-budget tests, SRS quality
+  fractional signal pressure is high enough; the SRS feedback popup can now write
+  a `manual_cooldown` suppression through the helper/native-host path
+- Last verified: `2026-05-26` admission suppression writer tests, extension
+  feedback-runtime suppression tests, fractional browsing-budget tests, SRS quality
   harness with seeded non-empty browsing preview, refresh-path browsing preview
   tests, refresh-suppression lifecycle guard tests, extension packet-builder
   and offline helper/core research probe tests, focused helper/native-host
@@ -1438,6 +1440,9 @@ Use this file when:
   - No browsing signal changes actual SRS admission refresh yet.
   - Manual refresh admission now filters active admission-suppression entries;
     this guards future browsing boost from re-admitting suppressed lemmas.
+  - The SRS feedback popup has a narrow "hide this word for now" action that
+    writes `manual_cooldown` suppression through `srs_admission_suppress` and
+    restores the original page text after helper success.
   - Manual refresh responses include preview-only browsing admission diagnostics
     for the same candidate pool and budget; the diagnostics do not affect the
     persisted refresh selection.
@@ -1462,12 +1467,15 @@ Use this file when:
   - `core/lexishift_core/srs/browsing_admission.py`
   - `core/lexishift_core/srs/admission_refresh.py`
   - `core/lexishift_core/srs/admission_suppression.py`
+  - `core/lexishift_core/helper/use_cases/admission_suppression.py`
   - `core/lexishift_core/helper/use_cases/browsing_admission.py`
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
   - `core/lexishift_core/helper/paths.py`
   - `scripts/helper/lexishift_native_host.py`
   - `scripts/helper/lexishift_helper.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
+  - `apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js`
+  - `apps/chrome-extension/content/ui/feedback_popup_controller.js`
   - `apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js`
   - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - `scripts/testing/srs_browsing_admission_backend_simulation.py`
@@ -1476,9 +1484,11 @@ Use this file when:
   - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
   - `core/tests/srs/test_srs_admission_refresh.py`
   - `core/tests/srs/test_srs_browsing_admission.py`
+  - `core/tests/helper/test_helper_admission_suppression.py`
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/helper/test_helper_engine.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
+  - `core/tests/dev/test_extension_feedback_runtime_contract.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
   - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`
 - Known gaps:
@@ -1487,6 +1497,8 @@ Use this file when:
   - Browsing aggregates are not yet consumed by production admission refresh.
   - User-facing settings and reset/clear controls for browsing admission signals
     remain planned.
+  - Full discard/suspend/block/release/mastered lifecycle controls remain
+    planned; the current user-facing writer is only a manual cooldown hide action.
 
 ## Pair-Local Active Inventory
 

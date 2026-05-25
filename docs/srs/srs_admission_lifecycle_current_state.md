@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
+Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS admission suppression writer tests, extension feedback-runtime suppression tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -14,7 +14,9 @@ publication checks.
 
 This audit found one important gap and closed it for refresh admission:
 lifecycle suppression can now block candidate admission through the production
-refresh path. The suppression writer/user action is still not implemented.
+refresh path. A narrow helper and extension action now writes a `manual_cooldown`
+entry for "hide this word for now"; full discard, suspend, block, mastered, and
+release lifecycle controls remain open product work.
 
 ## Admission Entry Points
 
@@ -26,6 +28,7 @@ refresh path. The suppression writer/user action is still not implemented.
 | `record_feedback` | Yes | No direct inventory write | No | Scheduler feedback; can create missing store rows and should not be reused as browsing admission. |
 | `record_exposure` | Yes | No direct inventory write | No | Passive exposure count; can create missing store rows and should not be reused as browsing admission. |
 | `srs_browsing_signal_ingest` | No SRS item mutation | No | No | Opt-in aggregate signal ingest only. |
+| `srs_admission_suppress` | Suppression store only | No | No | Manual cooldown writer for hiding an SRS replacement from future refresh admission. |
 
 Native-host routing is in `scripts/helper/lexishift_native_host.py`. Helper
 execution lives mainly in:
@@ -148,10 +151,17 @@ Current related mechanisms:
   suspended, user-blocked, and manual-cooldown suppression entries.
 - Discarded defaults to a `90` day cooldown; suspended defaults to `365`; manual
   cooldown defaults to `30`; user-blocked has no expiry.
+- `core/lexishift_core/helper/use_cases/admission_suppression.py` writes the
+  profile suppression store without creating or mutating `SrsItem` rows.
+- The extension feedback popup exposes a narrow "Hide this word for now" action
+  for SRS replacements. It calls native-host `srs_admission_suppress` with
+  `reason=manual_cooldown` and restores the original page text after helper
+  success.
 
-Open gap: no user-facing helper/extension action writes suppression entries yet.
-The guard exists and refresh respects it, but the product still needs an action
-surface for discard/suspend/block.
+Open gap: full user-facing lifecycle management is still not implemented. The
+guard exists, refresh respects it, and "hide for now" can write manual cooldowns,
+but the product still needs explicit surfaces and policy for discard, suspend,
+block, release, and mastered-state management.
 
 ## Feedback And Exposure Caveat
 
@@ -182,4 +192,5 @@ Before browsing signals can affect actual `srs_refresh`, keep these conditions:
 6. Browsing events never create `SrsItem` rows directly.
 7. Diagnostics show neutral score, browsing signal, final score, budget lane,
    and lifecycle suppression counts.
-8. User-facing clear/disable controls exist before default-on behavior.
+8. User-facing clear/disable controls for browsing signals exist before
+   default-on behavior.

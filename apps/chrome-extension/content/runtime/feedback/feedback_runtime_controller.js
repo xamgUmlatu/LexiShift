@@ -52,6 +52,76 @@
       return String(parts[1] || "").trim().toLowerCase();
     }
 
+    function resolvePair(target, settings) {
+      return String(
+        target.dataset.languagePair
+        || (settings && settings.srsPair)
+        || ""
+      ).trim().toLowerCase();
+    }
+
+    function resolveLemma(target, pair) {
+      const rawLemma = String(target.dataset.replacement || target.textContent || "").trim();
+      return rawLemma && lemmatizer && typeof lemmatizer.lemmatize === "function"
+        ? String(lemmatizer.lemmatize(rawLemma, pair) || rawLemma).trim().toLowerCase()
+        : rawLemma.toLowerCase();
+    }
+
+    function restoreOriginalText(target) {
+      if (!target || typeof target.replaceWith !== "function") {
+        return;
+      }
+      const text = String(target.dataset.original || target.textContent || "");
+      if (typeof document !== "undefined" && typeof document.createTextNode === "function") {
+        target.replaceWith(document.createTextNode(text));
+      }
+    }
+
+    async function handleAdmissionSuppression(payload, settings, target) {
+      const pair = resolvePair(target, settings);
+      const lemma = resolveLemma(target, pair);
+      const reason = String(payload.reason || "manual_cooldown").trim().toLowerCase()
+        || "manual_cooldown";
+      const profileId = normalizeProfileId(settings && settings.srsProfileId);
+      if (!pair || !lemma) {
+        if (settings && settings.debugEnabled) {
+          log("Skipping SRS admission suppression; missing pair or lemma.", { pair, lemma });
+        }
+        return;
+      }
+      const helperClient = getHelperClient();
+      if (!helperClient || typeof helperClient.suppressSrsAdmission !== "function") {
+        if (settings && settings.debugEnabled) {
+          log("Skipping SRS admission suppression; helper client unavailable.");
+        }
+        return;
+      }
+      try {
+        const response = await helperClient.suppressSrsAdmission({
+          pair,
+          profile_id: profileId,
+          lemma,
+          reason,
+          source_type: "extension",
+          note: "feedback_popup_hide_for_now"
+        });
+        if (response && response.ok === false) {
+          if (settings && settings.debugEnabled) {
+            log("SRS admission suppression failed.", response.error || response);
+          }
+          return;
+        }
+        restoreOriginalText(target);
+        if (settings && settings.debugEnabled) {
+          log(`SRS admission suppressed: ${lemma} (${pair}, ${reason}).`);
+        }
+      } catch (error) {
+        if (settings && settings.debugEnabled) {
+          log("SRS admission suppression failed.", error);
+        }
+      }
+    }
+
     function ensureSync() {
       if (feedbackSync) {
         return feedbackSync;
@@ -82,7 +152,7 @@
       return feedbackSync;
     }
 
-    function handleFeedback(payload, focusWord) {
+    async function handleFeedback(payload, focusWord) {
       if (!payload || !payload.target) {
         return;
       }
@@ -93,6 +163,10 @@
         if (settings && settings.debugEnabled) {
           log(`Ignoring feedback for non-SRS replacement (${origin}).`);
         }
+        return;
+      }
+      if (String(payload.action || "").trim().toLowerCase() === "suppress_admission") {
+        await handleAdmissionSuppression(payload, settings, target);
         return;
       }
       const entry = srsFeedback && typeof srsFeedback.buildEntryFromSpan === "function"

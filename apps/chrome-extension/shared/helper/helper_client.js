@@ -77,6 +77,13 @@
       return this.send("record_exposure", payload);
     }
 
+    suppressSrsAdmission(payload) {
+      return this.send(
+        "srs_admission_suppress",
+        payload && typeof payload === "object" ? payload : {}
+      );
+    }
+
     ingestBrowsingAdmissionSignals(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
       return this.send(
         "srs_browsing_signal_ingest",

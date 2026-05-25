@@ -80,6 +80,51 @@ const client = new HelperClient({{
 """
         _run_node(script)
 
+    def test_helper_client_routes_srs_admission_suppression(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const clientPath = {json.dumps(str(HELPER_CLIENT_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(clientPath, "utf8"), context, {{ filename: clientPath }});
+
+const HelperClient = context.LexiShift.helperClient;
+const calls = [];
+const client = new HelperClient({{
+  async send(type, payload) {{
+    calls.push({{ type, payload }});
+    return {{ ok: true, data: null }};
+  }}
+}});
+
+(async () => {{
+  await client.suppressSrsAdmission({{
+    pair: "en-es",
+    profile_id: "default",
+    lemma: "perro",
+    reason: "manual_cooldown"
+  }});
+  assert.equal(calls.length, 1);
+  assert.deepEqual(calls[0], {{
+    type: "srs_admission_suppress",
+    payload: {{
+      pair: "en-es",
+      profile_id: "default",
+      lemma: "perro",
+      reason: "manual_cooldown"
+    }}
+  }});
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_helper_client_routes_semantic_pack_install_with_long_timeout(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
