@@ -106,7 +106,7 @@ const client = new HelperClient({{
     pair: "en-es",
     profile_id: "default",
     lemma: "perro",
-    reason: "manual_cooldown"
+    reason: "user_blocked"
   }});
   assert.equal(calls.length, 1);
   assert.deepEqual(calls[0], {{
@@ -115,7 +115,7 @@ const client = new HelperClient({{
       pair: "en-es",
       profile_id: "default",
       lemma: "perro",
-      reason: "manual_cooldown"
+      reason: "user_blocked"
     }}
   }});
 }})().catch((error) => {{

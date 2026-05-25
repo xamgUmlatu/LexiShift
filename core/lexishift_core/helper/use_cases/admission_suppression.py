@@ -20,7 +20,7 @@ def suppress_srs_admission(
     *,
     pair: str,
     lemma: str,
-    reason: str = "manual_cooldown",
+    reason: str = "user_blocked",
     profile_id: str = "default",
     note: str | None = None,
     policy: Optional[SrsAdmissionSuppressionPolicy] = None,

@@ -1425,24 +1425,24 @@ Use this file when:
   entries before admitting new lemmas; refresh responses include preview-only
   browsing diagnostics without changing actual neutral admission selection;
   `Balanced` preview can now realize one browsing slot for small budgets when
-  fractional signal pressure is high enough; the SRS feedback popup can now write
-  a `manual_cooldown` suppression through the helper/native-host path
-- Last verified: `2026-05-26` admission suppression writer tests, extension
-  feedback-runtime suppression tests, fractional browsing-budget tests, SRS quality
-  harness with seeded non-empty browsing preview, refresh-path browsing preview
-  tests, refresh-suppression lifecycle guard tests, extension packet-builder
-  and offline helper/core research probe tests, focused helper/native-host
-  browsing ingest tests, refreshed admission-lifecycle audit, and regenerated
-  backend simulation artifact
+  fractional signal pressure is high enough; helper/native-host can now write
+  durable `user_blocked` suppression entries for future discard/block flows
+- Last verified: `2026-05-26` admission suppression writer tests, fractional
+  browsing-budget tests, SRS quality harness with seeded non-empty browsing
+  preview, refresh-path browsing preview tests, refresh-suppression lifecycle
+  guard tests, extension packet-builder and offline helper/core research probe
+  tests, focused helper/native-host browsing ingest tests, refreshed
+  admission-lifecycle audit, and regenerated backend simulation artifact
 - Default behavior:
   - No live browser capture is wired by default; the extension packet builder
     only runs when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true.
   - No browsing signal changes actual SRS admission refresh yet.
   - Manual refresh admission now filters active admission-suppression entries;
     this guards future browsing boost from re-admitting suppressed lemmas.
-  - The SRS feedback popup has a narrow "hide this word for now" action that
-    writes `manual_cooldown` suppression through `srs_admission_suppress` and
-    restores the original page text after helper success.
+  - The `srs_admission_suppress` helper/native-host route can write durable
+    `user_blocked` suppression without creating or mutating `SrsItem` rows.
+  - The SRS feedback popup remains a review-feedback surface only; it does not
+    expose a cooldown action.
   - Manual refresh responses include preview-only browsing admission diagnostics
     for the same candidate pool and budget; the diagnostics do not affect the
     persisted refresh selection.
@@ -1474,8 +1474,6 @@ Use this file when:
   - `scripts/helper/lexishift_native_host.py`
   - `scripts/helper/lexishift_helper.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
-  - `apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js`
-  - `apps/chrome-extension/content/ui/feedback_popup_controller.js`
   - `apps/chrome-extension/shared/srs/srs_browsing_admission_signals.js`
   - `apps/chrome-extension/content/runtime/dom_scan/text_node_processor.js`
   - `scripts/testing/srs_browsing_admission_backend_simulation.py`
@@ -1488,7 +1486,6 @@ Use this file when:
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/helper/test_helper_engine.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
-  - `core/tests/dev/test_extension_feedback_runtime_contract.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
   - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`
 - Known gaps:
@@ -1497,8 +1494,8 @@ Use this file when:
   - Browsing aggregates are not yet consumed by production admission refresh.
   - User-facing settings and reset/clear controls for browsing admission signals
     remain planned.
-  - Full discard/suspend/block/release/mastered lifecycle controls remain
-    planned; the current user-facing writer is only a manual cooldown hide action.
+  - Full user-facing durable discard/block/release/mastered lifecycle controls
+    remain planned; the current suppression writer is backend-only.
 
 ## Pair-Local Active Inventory
 

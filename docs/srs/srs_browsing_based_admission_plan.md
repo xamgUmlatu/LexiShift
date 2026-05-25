@@ -382,9 +382,9 @@ Current prototype evidence:
   cooldown lemmas.
 - `core/lexishift_core/helper/use_cases/admission_suppression.py`,
   `scripts/helper/lexishift_native_host.py`, and
-  `apps/chrome-extension/content/runtime/feedback/feedback_runtime_controller.js`
-  expose a narrow `manual_cooldown` writer for the feedback-popup "hide this word
-  for now" action; it mutates only the suppression store, not SRS item rows.
+  `apps/chrome-extension/shared/helper/helper_client.js` expose a backend
+  suppression writer that defaults to durable `user_blocked`; it mutates only
+  the suppression store, not SRS item rows.
 - `core/lexishift_core/helper/use_cases/refresh_set.py` now loads active
   suppression entries and passes blocked lemmas into refresh admission, so real
   refresh growth cannot admit suppressed lemmas.
@@ -1010,9 +1010,9 @@ Key result:
 - Refresh admission now respects active suppression entries, so discarded,
   suspended, user-blocked, or manual-cooldown lemmas cannot be admitted through
   refresh while suppression is active.
-- A narrow user-facing "hide this word for now" action can write
-  `manual_cooldown` suppression. Full discard/suspend/block lifecycle controls
-  remain unimplemented.
+- A backend suppression writer exists for future durable discard/block flows, but
+  no user-facing cooldown action is exposed. Full discard/block lifecycle
+  controls remain unimplemented.
 
 ## Open Decisions
 

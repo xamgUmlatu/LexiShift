@@ -22,7 +22,7 @@ NOW = datetime(2026, 5, 26, tzinfo=timezone.utc)
 
 
 class TestHelperAdmissionSuppression(unittest.TestCase):
-    def test_manual_cooldown_persists_without_mutating_srs_store(self) -> None:
+    def test_user_blocked_persists_without_mutating_srs_store(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
 
@@ -31,8 +31,8 @@ class TestHelperAdmissionSuppression(unittest.TestCase):
                 pair="en-es",
                 profile_id="alpha profile",
                 lemma="perro",
-                reason="manual_cooldown",
-                note="feedback_popup_hide_for_now",
+                reason="user_blocked",
+                note="discard_word",
                 now=NOW,
             )
 
@@ -40,19 +40,19 @@ class TestHelperAdmissionSuppression(unittest.TestCase):
             self.assertEqual(result["profile_id"], "alpha_profile")
             self.assertEqual(result["pair"], "en-es")
             self.assertEqual(result["lemma"], "perro")
-            self.assertEqual(result["reason"], "manual_cooldown")
-            self.assertEqual(result["active_reason"], "manual_cooldown")
+            self.assertEqual(result["reason"], "user_blocked")
+            self.assertEqual(result["active_reason"], "user_blocked")
             self.assertFalse(result["runtime_srs_mutation"])
             self.assertTrue(result["suppression_store_mutation"])
             self.assertTrue(result["refresh_admission_blocked"])
-            self.assertEqual(result["suppressed_until"], "2026-06-25T00:00:00Z")
+            self.assertIsNone(result["suppressed_until"])
 
             store_path = paths.srs_admission_suppression_store_path_for("alpha_profile")
             self.assertTrue(store_path.exists())
             store = load_admission_suppression_store(store_path)
             self.assertEqual(store.profile_id, "alpha_profile")
             self.assertEqual(
-                active_suppressed_lemmas(store, pair="en-es", now=NOW), {"perro": "manual_cooldown"}
+                active_suppressed_lemmas(store, pair="en-es", now=NOW), {"perro": "user_blocked"}
             )
             self.assertFalse(paths.srs_store_path_for("alpha_profile").exists())
 

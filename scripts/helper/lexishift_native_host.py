@@ -328,7 +328,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             paths,
             pair=str(payload.get("pair", "")),
             lemma=str(payload.get("lemma", "")),
-            reason=str(payload.get("reason", "manual_cooldown")),
+            reason=str(payload.get("reason", "user_blocked")),
             note=str(payload.get("note", "")).strip() or None,
             profile_id=profile_id or "default",
         )

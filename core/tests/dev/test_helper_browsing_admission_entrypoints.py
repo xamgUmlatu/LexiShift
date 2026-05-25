@@ -49,19 +49,19 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
                         "pair": "en-es",
                         "profile_id": "default",
                         "lemma": "perro",
-                        "reason": "manual_cooldown",
+                        "reason": "user_blocked",
                     },
                 )
 
             self.assertEqual(response["status"], "ok")
-            self.assertEqual(response["reason"], "manual_cooldown")
+            self.assertEqual(response["reason"], "user_blocked")
             self.assertFalse(response["runtime_srs_mutation"])
             store = load_admission_suppression_store(
                 paths.srs_admission_suppression_store_path_for("default")
             )
             self.assertEqual(
                 active_suppressed_lemmas(store, pair="en-es"),
-                {"perro": "manual_cooldown"},
+                {"perro": "user_blocked"},
             )
             self.assertFalse(paths.srs_store_path_for("default").exists())
 

@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS admission suppression writer tests, extension feedback-runtime suppression tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
+Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS admission suppression writer tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -14,9 +14,10 @@ publication checks.
 
 This audit found one important gap and closed it for refresh admission:
 lifecycle suppression can now block candidate admission through the production
-refresh path. A narrow helper and extension action now writes a `manual_cooldown`
-entry for "hide this word for now"; full discard, suspend, block, mastered, and
-release lifecycle controls remain open product work.
+refresh path. A helper/native-host writer can now persist durable suppression
+entries for future discard/block flows, but there is intentionally no cooldown
+UX in the extension feedback popup. Full discard, block, mastered, and release
+lifecycle controls remain open product work.
 
 ## Admission Entry Points
 
@@ -28,7 +29,7 @@ release lifecycle controls remain open product work.
 | `record_feedback` | Yes | No direct inventory write | No | Scheduler feedback; can create missing store rows and should not be reused as browsing admission. |
 | `record_exposure` | Yes | No direct inventory write | No | Passive exposure count; can create missing store rows and should not be reused as browsing admission. |
 | `srs_browsing_signal_ingest` | No SRS item mutation | No | No | Opt-in aggregate signal ingest only. |
-| `srs_admission_suppress` | Suppression store only | No | No | Manual cooldown writer for hiding an SRS replacement from future refresh admission. |
+| `srs_admission_suppress` | Suppression store only | No | No | Backend suppression writer for future durable discard/block flows. |
 
 Native-host routing is in `scripts/helper/lexishift_native_host.py`. Helper
 execution lives mainly in:
@@ -148,20 +149,19 @@ Current related mechanisms:
   `new_seed` planning states, but these are active-inventory states, not full
   lifecycle states.
 - `core/lexishift_core/srs/admission_suppression.py` defines discarded,
-  suspended, user-blocked, and manual-cooldown suppression entries.
-- Discarded defaults to a `90` day cooldown; suspended defaults to `365`; manual
-  cooldown defaults to `30`; user-blocked has no expiry.
+  suspended, user-blocked, and manual-cooldown suppression entries. The current
+  product direction is not to expose cooldown as a regular learner workflow.
+- The helper writer defaults to `user_blocked`, which has no expiry. That better
+  matches a future rare "discard this specific word" action than a temporary
+  reshow policy.
 - `core/lexishift_core/helper/use_cases/admission_suppression.py` writes the
   profile suppression store without creating or mutating `SrsItem` rows.
-- The extension feedback popup exposes a narrow "Hide this word for now" action
-  for SRS replacements. It calls native-host `srs_admission_suppress` with
-  `reason=manual_cooldown` and restores the original page text after helper
-  success.
 
 Open gap: full user-facing lifecycle management is still not implemented. The
-guard exists, refresh respects it, and "hide for now" can write manual cooldowns,
-but the product still needs explicit surfaces and policy for discard, suspend,
-block, release, and mastered-state management.
+guard exists and refresh respects it, but the product still needs explicit
+surfaces and policy for durable discard/block, release, and mastered-state
+management. Known words should primarily advance through normal SRS feedback
+(`easy`), not through a cooldown UX.
 
 ## Feedback And Exposure Caveat
 
