@@ -1,5 +1,8 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const RULE_ORIGIN_SRS = "srs";
+  const SRS_MATURE_STABILITY_DAYS = 14;
+  const SRS_LONG_STABILITY_DAYS = 28;
 
   function getBudgetLemmaKey(match) {
     if (!match || !match.rule) {
@@ -54,6 +57,101 @@
     return mix32(pageSeed ^ textSeed ^ 0x9e3779b9);
   }
 
+  function getRuleMetadata(match) {
+    const rule = match && match.rule && typeof match.rule === "object" ? match.rule : null;
+    return rule && rule.metadata && typeof rule.metadata === "object" ? rule.metadata : null;
+  }
+
+  function getRuleOrigin(match) {
+    const metadata = getRuleMetadata(match);
+    return String(metadata && metadata.lexishift_origin || "").trim().toLowerCase();
+  }
+
+  function getSrsServingMetadata(match) {
+    const metadata = getRuleMetadata(match);
+    if (!metadata) {
+      return null;
+    }
+    const rulegen = metadata.rulegen && typeof metadata.rulegen === "object"
+      ? metadata.rulegen
+      : null;
+    const srs = rulegen && rulegen.srs && typeof rulegen.srs === "object"
+      ? rulegen.srs
+      : null;
+    if (srs) {
+      return srs;
+    }
+    if (
+      Object.prototype.hasOwnProperty.call(metadata, "next_due")
+      || Object.prototype.hasOwnProperty.call(metadata, "in_due")
+    ) {
+      return metadata;
+    }
+    return null;
+  }
+
+  function finiteNumber(value) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  function normalizeSrsState(value) {
+    return String(value || "").trim().toLowerCase().replace(/-/g, "_");
+  }
+
+  function isFutureDue(srs, nowMs) {
+    if (!srs || typeof srs !== "object") {
+      return false;
+    }
+    const nextDue = String(srs.next_due || srs.nextDue || "").trim();
+    if (nextDue) {
+      const parsed = Date.parse(nextDue);
+      if (!Number.isNaN(parsed)) {
+        return parsed > nowMs;
+      }
+    }
+    if (typeof srs.in_due === "boolean") {
+      return !srs.in_due;
+    }
+    if (typeof srs.inDue === "boolean") {
+      return !srs.inDue;
+    }
+    return false;
+  }
+
+  function getReplacementLoadTier(match, nowMs) {
+    if (getRuleOrigin(match) !== RULE_ORIGIN_SRS) {
+      return 40;
+    }
+    const srs = getSrsServingMetadata(match);
+    if (!srs) {
+      return 30;
+    }
+    if (isFutureDue(srs, nowMs)) {
+      return 80;
+    }
+    const state = normalizeSrsState(srs.scheduler_state || srs.schedulerState);
+    if (!state || state === "new" || state === "learning" || state === "relearning") {
+      return 0;
+    }
+    if (state === "review") {
+      const stability = finiteNumber(srs.stability);
+      if (stability !== null && stability >= SRS_LONG_STABILITY_DAYS) {
+        return 24;
+      }
+      if (stability !== null && stability >= SRS_MATURE_STABILITY_DAYS) {
+        return 18;
+      }
+      return 8;
+    }
+    return 12;
+  }
+
+  function getReplacementLoadNowMs(settings) {
+    const injected = finiteNumber(settings && settings.srsReplacementNowMs);
+    return injected === null ? Date.now() : injected;
+  }
+
   function computeMatchScore(match, selectionSeed, ordinal) {
     const rule = match && match.rule && typeof match.rule === "object" ? match.rule : {};
     const metadata = rule.metadata && typeof rule.metadata === "object" ? rule.metadata : {};
@@ -67,14 +165,19 @@
     return mix32(mixed);
   }
 
-  function rankMatchesDeterministically(matches, selectionSeed) {
+  function rankMatchesForReplacementLoad(matches, selectionSeed, settings) {
+    const nowMs = getReplacementLoadNowMs(settings);
     return matches
       .map((match, ordinal) => ({
         match,
         ordinal,
+        loadTier: getReplacementLoadTier(match, nowMs),
         score: computeMatchScore(match, selectionSeed, ordinal)
       }))
       .sort((a, b) => {
+        if (a.loadTier !== b.loadTier) {
+          return a.loadTier - b.loadTier;
+        }
         if (a.score !== b.score) {
           return a.score - b.score;
         }
@@ -93,7 +196,7 @@
     });
   }
 
-  function applyPageBudget(matches, budget, selectionSeed) {
+  function applyPageBudget(matches, budget, selectionSeed, settings) {
     if (!budget || !matches.length) {
       return matches;
     }
@@ -102,7 +205,11 @@
     if (maxTotal <= 0 && maxPerLemma <= 0) {
       return matches;
     }
-    const ranked = rankMatchesDeterministically(matches, mix32(selectionSeed ^ 0x6d2b79f5));
+    const ranked = rankMatchesForReplacementLoad(
+      matches,
+      mix32(selectionSeed ^ 0x6d2b79f5),
+      settings
+    );
     const bounded = [];
     const localByLemma = Object.create(null);
     let usedTotal = Number.isFinite(Number(budget.usedTotal)) ? Number(budget.usedTotal) : 0;
@@ -125,15 +232,19 @@
     return sortMatchesByStart(bounded);
   }
 
-  function chooseSingleMatch(matches, selectionSeed) {
+  function chooseSingleMatch(matches, selectionSeed, settings) {
     if (matches.length <= 1) {
       return matches;
     }
-    const ranked = rankMatchesDeterministically(matches, mix32(selectionSeed ^ 0x27d4eb2d));
+    const ranked = rankMatchesForReplacementLoad(
+      matches,
+      mix32(selectionSeed ^ 0x27d4eb2d),
+      settings
+    );
     return ranked.length ? [ranked[0]] : [];
   }
 
-  function chooseNonAdjacentMatches(matches, gapOk, selectionSeed) {
+  function chooseNonAdjacentMatches(matches, gapOk, selectionSeed, settings) {
     if (matches.length <= 1) {
       return matches;
     }
@@ -152,7 +263,7 @@
         const clusterSeed = mix32(
           selectionSeed ^ Math.imul((clusterIndex + 1) >>> 0, 0x9e3779b1)
         );
-        const rankedCluster = rankMatchesDeterministically(cluster, clusterSeed);
+        const rankedCluster = rankMatchesForReplacementLoad(cluster, clusterSeed, settings);
         if (rankedCluster.length) {
           chosen.push(rankedCluster[0]);
         }
@@ -188,16 +299,17 @@
     }
     let filtered = matches;
     if (settings.maxOnePerTextBlock) {
-      filtered = chooseSingleMatch(filtered, selectionSeed);
+      filtered = chooseSingleMatch(filtered, selectionSeed, settings);
     }
     if (settings.allowAdjacentReplacements === false) {
-      filtered = chooseNonAdjacentMatches(filtered, gapOk, selectionSeed);
+      filtered = chooseNonAdjacentMatches(filtered, gapOk, selectionSeed, settings);
     }
-    return applyPageBudget(filtered, budget, selectionSeed);
+    return applyPageBudget(filtered, budget, selectionSeed, settings);
   }
 
   root.replacementSelection = {
     createSelectionSeed,
+    getReplacementLoadTier,
     filterMatches
   };
 })();

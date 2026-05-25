@@ -307,8 +307,13 @@ class TestHelperRulegenInitialization(unittest.TestCase):
                     lemma="alpha",
                     language_pair="en-ja",
                     source_type="initial_set",
+                    stability=18.0,
+                    difficulty=4.25,
+                    last_seen="1999-12-31T00:00:00+00:00",
+                    last_review="1999-12-31T12:00:00+00:00",
                     next_due="2000-01-01T00:00:00+00:00",
                     scheduler_state="review",
+                    exposures=7,
                 ),
                 SrsItem(
                     item_id="en-ja:beta",
@@ -337,6 +342,12 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         beta_srs = rules[1].metadata.rulegen["srs"]
         self.assertEqual(alpha_srs["item_id"], "en-ja:alpha")
         self.assertTrue(alpha_srs["in_due"])
+        self.assertEqual(alpha_srs["stability"], 18.0)
+        self.assertEqual(alpha_srs["difficulty"], 4.25)
+        self.assertEqual(alpha_srs["last_seen"], "1999-12-31T00:00:00+00:00")
+        self.assertEqual(alpha_srs["last_review"], "1999-12-31T12:00:00+00:00")
+        self.assertEqual(alpha_srs["exposures"], 7)
+        self.assertEqual(alpha_srs["review_count"], 0)
         self.assertEqual(beta_srs["item_id"], "en-ja:beta")
         self.assertFalse(beta_srs["in_due"])
         self.assertIsNone(rules[2].metadata)

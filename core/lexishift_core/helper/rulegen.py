@@ -504,7 +504,12 @@ def _build_srs_serving_metadata(item: SrsItem, *, now) -> dict[str, object]:
         "in_due": bool(in_due),
         "scheduler_state": item.scheduler_state,
         "scheduler_step": item.scheduler_step,
+        "stability": item.stability,
+        "difficulty": item.difficulty,
         "last_review": item.last_review,
+        "last_seen": item.last_seen,
+        "exposures": item.exposures,
+        "review_count": len(item.history),
     }
     return {key: value for key, value in payload.items() if value is not None}
 

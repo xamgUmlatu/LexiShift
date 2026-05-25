@@ -280,6 +280,96 @@ const originResolver = (rule) => String(rule.metadata.lexishift_origin || "");
   console.error(error);
   process.exit(1);
 }});
+        """
+        _run_node(script)
+
+    def test_page_budget_prefers_active_learning_srs_before_mature_or_future_srs(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const selectionPath = {json.dumps(str(REPLACEMENT_SELECTION_JS))};
+const context = vm.createContext({{
+  console,
+  location: {{ origin: "https://example.com", pathname: "/lesson" }}
+}});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(selectionPath, "utf8"), context, {{ filename: selectionPath }});
+
+const selection = context.LexiShift.replacementSelection;
+const nowMs = Date.parse("2026-05-26T00:00:00Z");
+function match(replacement, srs) {{
+  return {{
+    startWordIndex: 0,
+    endWordIndex: 0,
+    rule: {{
+      source_phrase: replacement,
+      replacement,
+      metadata: {{
+        lexishift_origin: "srs",
+        language_pair: "en-es",
+        rulegen: {{ srs }}
+      }}
+    }}
+  }};
+}}
+
+const learning = match("aprendizaje", {{
+  next_due: "2026-05-25T00:00:00Z",
+  in_due: true,
+  scheduler_state: "learning",
+  stability: 1.0
+}});
+const mature = match("maduro", {{
+  next_due: "2026-05-25T00:00:00Z",
+  in_due: true,
+  scheduler_state: "review",
+  stability: 30.0
+}});
+const future = match("futuro", {{
+  next_due: "2099-01-01T00:00:00Z",
+  in_due: false,
+  scheduler_state: "review",
+  stability: 2.0
+}});
+
+assert.equal(selection.getReplacementLoadTier(learning, nowMs), 0);
+assert.equal(selection.getReplacementLoadTier(mature, nowMs), 24);
+assert.equal(selection.getReplacementLoadTier(future, nowMs), 80);
+
+const filtered = selection.filterMatches(
+  [future, mature, learning],
+  {{
+    maxOnePerTextBlock: false,
+    allowAdjacentReplacements: true,
+    srsProfileId: "default",
+    srsReplacementNowMs: nowMs
+  }},
+  [true, true, true],
+  {{ maxTotal: 1, maxPerLemma: 0, usedTotal: 0, usedByLemma: {{}} }},
+  123456
+);
+
+assert.equal(filtered.length, 1);
+assert.equal(filtered[0].rule.replacement, "aprendizaje");
+
+const single = selection.filterMatches(
+  [mature, learning],
+  {{
+    maxOnePerTextBlock: true,
+    allowAdjacentReplacements: true,
+    srsProfileId: "default",
+    srsReplacementNowMs: nowMs
+  }},
+  [true, true],
+  null,
+  789
+);
+
+assert.equal(single.length, 1);
+assert.equal(single[0].rule.replacement, "aprendizaje");
 """
         _run_node(script)
 

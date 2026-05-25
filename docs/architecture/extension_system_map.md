@@ -126,6 +126,9 @@ If you are changing:
   - `content/runtime/dom_scan/*`
   - Full scans prioritize visible and near-viewport text nodes before far-offscreen nodes.
   - When page-level replacement budgets are active, scan order is also deterministically distributed within viewport bands by page/profile so early DOM position does not always consume the entire budget.
+  - When replacement-load constraints are active, match selection prefers
+    active/younger SRS items over mature or future-due SRS items when helper
+    SRS metadata is present.
 - Popup UX/modules:
   - `content/ui/feedback_popup_controller.js`
   - `content/ui/popup_modules/*`
@@ -143,7 +146,7 @@ A word is not replaced:
 2. Check active rules resolution in content debug logs.
 3. Check node-filter skips in DOM scan runtime logs.
 4. Check page/lemma replacement budgets.
-5. Confirm the observed replacement order matches visible-first scan behavior; if budgets are active, also confirm deterministic within-band distribution rather than raw DOM order.
+5. Confirm the observed replacement order matches visible-first scan behavior; if budgets or other replacement-load constraints are active, also confirm deterministic within-band distribution and SRS metadata-aware priority rather than raw DOM order.
 
 Popup module not visible:
 1. Confirm replacement span has expected dataset payload (`data-script-forms`, `data-display-script`, `data-origin`).

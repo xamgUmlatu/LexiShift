@@ -281,6 +281,9 @@ Replacement pipeline (content script)
      - `allowAdjacentReplacements=false`: skip back-to-back word matches.
      - `maxReplacementsPerPage`: stop replacing when page budget is exhausted.
      - `maxReplacementsPerLemmaPerPage`: skip lemmas that reached per-page cap.
+     - When helper SRS metadata is present and replacement-load constraints
+       apply, prefer new/learning/lower-stability due SRS items before mature
+       or future-due SRS items.
    - Replace the node with a fragment containing spans and text nodes.
    - For Japanese targets, replacement display uses selected primary script when rule metadata includes script forms.
    - For morphology-tagged rules, display can use `metadata.morphology.target_surface` while canonical lemma remains `rule.replacement` for gating/feedback keys.
@@ -368,6 +371,8 @@ Settings added for replacement behavior
   - Caps the total number of replacements per page scan/session (`0` means unlimited).
 - `maxReplacementsPerLemmaPerPage` (default: 0)
   - Caps repeated replacements of the same lemma on a page (`0` means unlimited).
+  - When replacement-load constraints are active, SRS candidates are selected
+    with scheduler metadata-aware priority before deterministic tie-breaking.
 
 ## Known Gap To Preserve Explicitly
 
