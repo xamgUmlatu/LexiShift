@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import sys
 import unittest
+from datetime import datetime, timezone
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
@@ -79,7 +80,8 @@ class TestSrsGrowth(unittest.TestCase):
         store = SrsStore(items=tuple(), version=1)
         settings = SrsSettings(coverage_scalar=1.0, max_new_items_per_day=5)
         plan = plan_srs_growth(candidates, store=store, settings=settings, allowed_pairs=["en-ja"])
-        updated = apply_growth_plan(store, plan)
+        now = datetime(2026, 5, 26, 12, 0, tzinfo=timezone.utc)
+        updated = apply_growth_plan(store, plan, now=now)
 
         self.assertEqual(len(updated.items), 2)
         ids = {item.item_id for item in updated.items}
@@ -87,6 +89,7 @@ class TestSrsGrowth(unittest.TestCase):
         self.assertIn("en-ja:beta", ids)
         alpha = next(item for item in updated.items if item.lemma == "alpha")
         self.assertIsNotNone(alpha.word_package)
+        self.assertEqual(alpha.admitted_at, "2026-05-26T12:00:00Z")
 
     def test_plan_growth_respects_allowed_pos(self) -> None:
         candidates = [

@@ -17,8 +17,11 @@ CORE_ROOT = PROJECT_ROOT / "core"
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
+from lexishift_core.helper.use_cases.srs_items import ENCOUNTER_STALE_AGE_DAYS  # noqa: E402
 from lexishift_core.srs.browsing_admission import BrowsingSignalIngestPolicy  # noqa: E402
 from lexishift_core.srs.store import SrsSettings  # noqa: E402
+from srs_resource_budget_audit_render import render_markdown  # noqa: E402
+from srs_resource_budget_audit_time import age_days, parse_datetime  # noqa: E402
 
 
 REPORT_SCHEMA_VERSION = 1
@@ -101,11 +104,13 @@ def build_report(
     normalized_pair = str(pair or DEFAULT_PAIR).strip() or DEFAULT_PAIR
     normalized_profile = _safe_profile_id(profile_id)
     resolved_data_root = (data_root or _default_data_root()).expanduser()
+    resolved_generated_at = generated_at or _utc_now()
     code_budgets = _code_budget_rows()
     helper_artifacts = _helper_artifact_summary(
         data_root=resolved_data_root,
         profile_id=normalized_profile,
         pair=normalized_pair,
+        now=parse_datetime(resolved_generated_at) or datetime.now(timezone.utc),
     )
     findings = _findings(code_budgets, helper_artifacts)
     status = "review" if any(row["level"] == "REVIEW" for row in findings) else "ok"
@@ -117,7 +122,7 @@ def build_report(
             if status == "ok"
             else "srs_resource_budget_needs_review"
         ),
-        "generated_at": generated_at or _utc_now(),
+        "generated_at": resolved_generated_at,
         "scope": {
             "pair": normalized_pair,
             "profile_id": normalized_profile,
@@ -136,116 +141,6 @@ def build_report(
             "Encounter-starvation diagnostics are based on stored exposure/review counters; they cannot prove future page encounter frequency.",
         ],
     }
-
-
-def render_markdown(report: Mapping[str, Any]) -> str:
-    scope = _as_mapping(report.get("scope"))
-    summary = _as_mapping(report.get("summary"))
-    lines = [
-        "# SRS Resource Budget Audit",
-        "",
-        f"- Status: `{report.get('status', '')}`",
-        f"- Decision: `{report.get('decision', '')}`",
-        f"- Generated: `{report.get('generated_at', '')}`",
-        f"- Pair: `{scope.get('pair', '')}`",
-        f"- Profile: `{scope.get('profile_id', '')}`",
-        f"- Data root exists: `{scope.get('data_root_exists', False)}`",
-        "",
-        "## Summary",
-        "",
-        f"- Code budget rows: `{summary.get('code_budget_row_count', 0)}`",
-        f"- Bounded code rows: `{summary.get('bounded_code_row_count', 0)}`",
-        f"- Helper artifact rows: `{summary.get('helper_artifact_row_count', 0)}`",
-        f"- Helper artifact bytes: `{summary.get('helper_artifact_total_bytes', 0)}`",
-        f"- Active SRS items: `{summary.get('active_item_count', 0)}`",
-        f"- Zero-exposure active items: `{summary.get('zero_exposure_active_count', 0)}`",
-        f"- Zero-feedback active items: `{summary.get('zero_feedback_active_count', 0)}`",
-        "",
-        "## Code Budgets",
-        "",
-        "| Surface | Budget | Cap | Current | Status | Notes |",
-        "| --- | --- | ---: | ---: | --- | --- |",
-    ]
-    for row in _mapping_rows(report.get("code_budget_rows")):
-        lines.append(
-            "| "
-            + " | ".join(
-                (
-                    f"`{row.get('surface', '')}`",
-                    f"`{row.get('budget', '')}`",
-                    str(row.get("cap", "")),
-                    str(row.get("current", "")),
-                    f"`{row.get('status', '')}`",
-                    str(row.get("notes", "")),
-                )
-            )
-            + " |"
-        )
-    lines.extend(
-        [
-            "",
-            "## Helper Artifacts",
-            "",
-            "| Artifact | Exists | Bytes | Key Counts | Status |",
-            "| --- | --- | ---: | --- | --- |",
-        ]
-    )
-    for row in _mapping_rows(_as_mapping(report.get("helper_artifacts")).get("artifacts")):
-        counts = ", ".join(
-            f"{key}={value}" for key, value in _as_mapping(row.get("counts")).items()
-        )
-        lines.append(
-            "| "
-            + " | ".join(
-                (
-                    f"`{row.get('id', '')}`",
-                    f"`{row.get('exists', False)}`",
-                    str(row.get("bytes", 0)),
-                    counts,
-                    f"`{row.get('status', '')}`",
-                )
-            )
-            + " |"
-        )
-    stale_rows = _mapping_rows(
-        _as_mapping(report.get("helper_artifacts")).get("stale_active_preview")
-    )
-    lines.extend(["", "## Encounter-Starvation Preview", ""])
-    if stale_rows:
-        lines.extend(
-            [
-                "| Lemma | Exposures | Reviews | Rule Count | Source Phrases |",
-                "| --- | ---: | ---: | ---: | ---: |",
-            ]
-        )
-        for row in stale_rows:
-            lines.append(
-                "| "
-                + " | ".join(
-                    (
-                        f"`{row.get('lemma', '')}`",
-                        str(row.get("exposures", 0)),
-                        str(row.get("review_count", 0)),
-                        str(row.get("rule_count", 0)),
-                        str(row.get("source_phrase_count", 0)),
-                    )
-                )
-                + " |"
-            )
-    else:
-        lines.append(
-            "- No zero-exposure/zero-feedback active items were visible in the audited helper store."
-        )
-    lines.extend(["", "## Findings", ""])
-    for finding in _mapping_rows(report.get("findings")):
-        lines.append(
-            f"- `{finding.get('level', '')}` `{finding.get('code', '')}`: "
-            f"{finding.get('message', '')}"
-        )
-    lines.extend(["", "## Limitations", ""])
-    for limitation in _string_list(report.get("limitations")):
-        lines.append(f"- {limitation}")
-    return "\n".join(lines).rstrip() + "\n"
 
 
 def _code_budget_rows() -> list[dict[str, Any]]:
@@ -366,6 +261,7 @@ def _helper_artifact_summary(
     data_root: Path,
     profile_id: str,
     pair: str,
+    now: datetime,
 ) -> dict[str, Any]:
     profile_dir = data_root / "srs" / "profiles" / profile_id
     safe_pair = pair.replace("/", "-").replace(":", "-")
@@ -389,7 +285,12 @@ def _helper_artifact_summary(
     item_rows = _store_item_rows(store_payload, pair=pair)
     active_ids = _active_inventory_ids(inventory_payload, pair=pair, fallback_items=item_rows)
     rule_counts = _rule_counts_by_lemma(ruleset_payload)
-    stale_active = _stale_active_rows(item_rows, active_ids=active_ids, rule_counts=rule_counts)
+    stale_active = _stale_active_rows(
+        item_rows,
+        active_ids=active_ids,
+        rule_counts=rule_counts,
+        now=now,
+    )
 
     artifacts = [
         _artifact_row(
@@ -455,6 +356,13 @@ def _helper_artifact_summary(
         "stale_active_count": len(stale_active),
         "zero_exposure_active_count": sum(1 for row in stale_active if row["exposures"] == 0),
         "zero_feedback_active_count": sum(1 for row in stale_active if row["review_count"] == 0),
+        "stale_unseen_active_count": sum(
+            1 for row in stale_active if row.get("stale_unseen") is True
+        ),
+        "age_unknown_unseen_active_count": sum(
+            1 for row in stale_active if row.get("admitted_age_days") is None
+        ),
+        "encounter_stale_age_days": ENCOUNTER_STALE_AGE_DAYS,
         "stale_active_preview": stale_active[:25],
     }
 
@@ -479,6 +387,7 @@ def _store_item_rows(payload: Mapping[str, Any] | None, *, pair: str) -> list[di
                 ),
                 "last_seen": str(item.get("last_seen") or ""),
                 "last_review": str(item.get("last_review") or ""),
+                "admitted_at": str(item.get("admitted_at") or ""),
                 "scheduler_state": str(item.get("scheduler_state") or ""),
             }
         )
@@ -538,6 +447,7 @@ def _stale_active_rows(
     *,
     active_ids: set[str],
     rule_counts: Mapping[str, Mapping[str, int]],
+    now: datetime,
 ) -> list[dict[str, Any]]:
     rows = []
     for item in item_rows:
@@ -551,12 +461,19 @@ def _stale_active_rows(
             continue
         lemma = str(item.get("lemma") or "")
         rules = _as_mapping(rule_counts.get(lemma))
+        admitted_at = str(item.get("admitted_at") or "")
+        admitted_age_days = age_days(admitted_at, now=now)
         rows.append(
             {
                 "item_id": str(item.get("item_id") or ""),
                 "lemma": lemma,
                 "exposures": exposures,
                 "review_count": review_count,
+                "admitted_at": admitted_at,
+                "admitted_age_days": admitted_age_days,
+                "stale_unseen": (
+                    admitted_age_days is not None and admitted_age_days >= ENCOUNTER_STALE_AGE_DAYS
+                ),
                 "last_seen": str(item.get("last_seen") or ""),
                 "last_review": str(item.get("last_review") or ""),
                 "scheduler_state": str(item.get("scheduler_state") or ""),
@@ -795,6 +712,11 @@ def _summary(
         "active_item_count": _safe_int(helper_artifacts.get("active_item_count")),
         "zero_exposure_active_count": _safe_int(helper_artifacts.get("zero_exposure_active_count")),
         "zero_feedback_active_count": _safe_int(helper_artifacts.get("zero_feedback_active_count")),
+        "stale_unseen_active_count": _safe_int(helper_artifacts.get("stale_unseen_active_count")),
+        "age_unknown_unseen_active_count": _safe_int(
+            helper_artifacts.get("age_unknown_unseen_active_count")
+        ),
+        "encounter_stale_age_days": _safe_int(helper_artifacts.get("encounter_stale_age_days")),
         "finding_codes": [str(row.get("code")) for row in findings],
     }
 

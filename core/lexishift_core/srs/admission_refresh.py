@@ -404,6 +404,7 @@ def apply_admission_refresh(
         allowed_pairs=[pair],
         allowed_pos=allowed_pos or None,
         blocked_lemmas=blocked_lemmas or None,
+        now=now,
     )
     selected_lemmas = tuple(candidate.lemma for candidate in growth_plan.selected)
     diagnostics = AdmissionRefreshDiagnostics(

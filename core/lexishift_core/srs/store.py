@@ -79,6 +79,7 @@ class SrsItem:
     scheduler_step: Optional[int] = None
     exposures: int = 0
     history: Sequence[SrsHistoryEntry] = field(default_factory=tuple)
+    admitted_at: Optional[str] = None
     word_package: Optional[Mapping[str, object]] = None
     lifecycle_state: str = SRS_LIFECYCLE_ACTIVE
     lifecycle_reason: Optional[str] = None
@@ -214,6 +215,7 @@ def srs_store_from_dict(data: Mapping[str, Any]) -> SrsStore:
                 scheduler_step=item.get("scheduler_step"),
                 exposures=int(item.get("exposures", 0)),
                 history=history,
+                admitted_at=_normalize_optional_string(item.get("admitted_at")),
                 word_package=word_package,
                 lifecycle_state=normalize_srs_lifecycle_state(item.get("lifecycle_state")),
                 lifecycle_reason=_normalize_optional_string(item.get("lifecycle_reason")),
@@ -247,6 +249,7 @@ def srs_store_to_dict(store: SrsStore) -> dict[str, Any]:
             "scheduler_step": item.scheduler_step,
             "exposures": item.exposures,
             "srs_history": [{"ts": entry.ts, "rating": entry.rating} for entry in item.history],
+            "admitted_at": item.admitted_at,
             "word_package": word_package,
         }
         lifecycle_state = normalize_srs_lifecycle_state(item.lifecycle_state)

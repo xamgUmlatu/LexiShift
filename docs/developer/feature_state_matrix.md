@@ -1558,8 +1558,9 @@ Use this file when:
   encounter-watch visibility:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
   due/removed states, surface active zero-exposure/zero-feedback watch counts,
-  and expose scheduler/lifecycle details behind an advanced toggle in options;
-  the dashboard can locally search/filter/sort already-loaded
+  persist `admitted_at` for newly admitted items, and expose scheduler/lifecycle
+  details behind an advanced toggle in options; the dashboard can locally
+  search/filter/sort already-loaded
   words with page-size controls, first/previous/next/last pagination, refresh
   metadata, disabled-state-aware clear filters, and Escape-to-clear search; rows
   show read-only published-rule counts/source previews and can load capped
@@ -1567,12 +1568,13 @@ Use this file when:
   reuses `srs_admission_suppress` with `reason=user_blocked`; focused helper
   coverage now verifies profile-bootstrap initialization through rule publication
   and dashboard listing
-- Last verified: `2026-05-27` dashboard bridge and meta-control,
-  rule-summary/detail, search/filter/sort/pagination, confirmed discard route,
-  encounter-watch counters/rendering, and profile-bootstrap initialize-to-dashboard bridge tests; focused helper
-  endpoint, native-host route, helper client/manager route, suppression writer
-  tests, SRS quality harness, changed-file gate, doc-reference check, state
-  audit, and diff check
+- Last verified: `2026-05-27` admitted-at dashboard encounter diagnostics,
+  bridge/meta-control, rule-summary/detail, search/filter/sort/pagination,
+  confirmed discard route, stale-unseen encounter-watch counters/rendering, and
+  profile-bootstrap initialize-to-dashboard bridge tests; focused helper
+  endpoint, native-host route, helper client/manager route, resource-budget
+  audit, suppression writer tests, SRS quality harness, changed-file gate,
+  doc-reference check, state audit, and diff check
 - Default behavior:
   - The options page exposes a Learning words dashboard for the selected
     profile and language pair.
@@ -1592,9 +1594,11 @@ Use this file when:
     are adjusted, and Escape clears the current search.
   - The dashboard exposes first-order encounter-watch visibility through an
     `Unseen` summary card, an `Encounter watch` metadata row, and compact row
-    notes for active words with zero exposure plus zero feedback or no enabled
-    published rules. These are diagnostics only and do not clear, release, or
-    park words.
+    notes for active words with zero exposure plus zero feedback, stale-unseen
+    age, unknown admission age, or no enabled published rules. Newly admitted
+    SRS items persist `admitted_at`; legacy rows without it are treated as age
+    unknown. These are diagnostics only and do not clear, release, or park
+    words.
   - Each row can show read-only published-rule count plus a capped source-phrase
     preview from the current helper-published ruleset artifact. Missing or
     unreadable rulesets do not block item listing.
@@ -1614,6 +1618,15 @@ Use this file when:
 - Evidence:
   - `docs/srs/srs_admitted_words_dashboard_plan.md`
   - `docs/srs/srs_admission_lifecycle_current_state.md`
+  - `docs/srs/srs_schema.md`
+  - `scripts/testing/srs_resource_budget_audit.py`
+  - `scripts/testing/srs_resource_budget_audit_render.py`
+  - `scripts/testing/srs_resource_budget_audit_time.py`
+  - `core/lexishift_core/srs/store.py`
+  - `core/lexishift_core/srs/store_ops.py`
+  - `core/lexishift_core/srs/growth.py`
+  - `core/lexishift_core/srs/admission_refresh.py`
+  - `core/lexishift_core/helper/rulegen.py`
   - `core/lexishift_core/helper/use_cases/srs_items.py`
   - `core/lexishift_core/helper/engine.py`
   - `scripts/helper/lexishift_native_host.py`
@@ -1631,8 +1644,13 @@ Use this file when:
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_rule_details.js`
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js`
   - `apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js`
+  - `core/tests/srs/test_srs_store.py`
+  - `core/tests/srs/test_srs_store_ops.py`
+  - `core/tests/srs/test_srs_growth.py`
+  - `core/tests/srs/test_srs_admission_refresh.py`
   - `core/tests/helper/test_helper_srs_items.py`
   - `core/tests/helper/test_helper_admission_suppression.py`
+  - `core/tests/dev/test_srs_resource_budget_audit.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
   - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`

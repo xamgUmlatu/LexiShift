@@ -49,6 +49,7 @@ class TestSrsResourceBudgetAudit(unittest.TestCase):
                             "lemma": "armadillo",
                             "language_pair": "en-es",
                             "source_type": "frequency_list",
+                            "admitted_at": "2026-05-18T00:00:00Z",
                             "exposures": 0,
                             "srs_history": [],
                         },
@@ -113,6 +114,10 @@ class TestSrsResourceBudgetAudit(unittest.TestCase):
         self.assertTrue(report["scope"]["data_root_exists"])
         self.assertEqual(report["helper_artifacts"]["active_item_count"], 2)
         self.assertEqual(report["helper_artifacts"]["stale_active_count"], 1)
+        self.assertEqual(report["helper_artifacts"]["stale_unseen_active_count"], 1)
+        self.assertEqual(
+            report["helper_artifacts"]["stale_active_preview"][0]["admitted_age_days"], 9
+        )
         self.assertEqual(
             report["helper_artifacts"]["stale_active_preview"][0]["lemma"],
             "armadillo",
@@ -121,6 +126,7 @@ class TestSrsResourceBudgetAudit(unittest.TestCase):
 
         markdown = render_markdown(report)
         self.assertIn("Encounter-Starvation Preview", markdown)
+        self.assertIn("Stale unseen active items: `1` over `7` days", markdown)
         self.assertIn("armadillo", markdown)
 
 

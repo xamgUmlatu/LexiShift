@@ -57,6 +57,7 @@ class TestSrsStore(unittest.TestCase):
                     source_type="initial_set",
                     scheduler_state="review",
                     scheduler_step=None,
+                    admitted_at="2026-02-03T10:00:00+00:00",
                     last_review="2026-02-04T10:00:00+00:00",
                     word_package={
                         "version": 1,
@@ -83,6 +84,8 @@ class TestSrsStore(unittest.TestCase):
         self.assertEqual(restored.items[0].word_package["reading"], "ところ")
         self.assertEqual(restored.items[0].word_package["script_forms"]["romaji"], "tokoro")
         self.assertEqual(restored.items[0].scheduler_state, "review")
+        self.assertEqual(restored.items[0].admitted_at, "2026-02-03T10:00:00+00:00")
+        self.assertEqual(payload["items"][0]["admitted_at"], "2026-02-03T10:00:00+00:00")
         self.assertEqual(restored.items[0].last_review, "2026-02-04T10:00:00+00:00")
 
     def test_srs_store_roundtrip_with_lifecycle_marker(self) -> None:

@@ -30,7 +30,7 @@ from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord
 from lexishift_core.srs.signal_queue import summarize_signal_events
 from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST, normalize_source_type
 from lexishift_core.srs.store_ops import upsert_item
-from lexishift_core.srs.time import now_utc
+from lexishift_core.srs.time import format_ts, now_utc
 
 
 def _build_frequency_resource_payload(
@@ -510,6 +510,7 @@ def _build_new_seed_item(payload: Mapping[str, object]) -> SrsItem:
         language_pair=language_pair,
         source_type=source_type,
         confidence=_safe_optional_float(payload.get("confidence")),
+        admitted_at=format_ts(now_utc()),
         word_package=normalize_word_package(
             payload.get("word_package"),
             fallback_surface=lemma,

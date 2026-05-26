@@ -95,6 +95,7 @@ def record_exposure(
             language_pair=language_pair,
             source_type=source_type,
             exposures=0,
+            admitted_at=format_ts(now),
             word_package=resolved_word_package,
         )
     elif item.word_package is None and resolved_word_package is not None:
@@ -138,6 +139,7 @@ def record_feedback(
             language_pair=language_pair,
             source_type=source_type,
             history=(),
+            admitted_at=format_ts(now),
             word_package=resolved_word_package,
         )
     elif item.word_package is None and resolved_word_package is not None:
@@ -177,6 +179,7 @@ def append_history(
             language_pair=language_pair,
             source_type=source_type,
             history=(),
+            admitted_at=format_ts(now),
             word_package=resolved_word_package,
         )
     elif item.word_package is None and resolved_word_package is not None:

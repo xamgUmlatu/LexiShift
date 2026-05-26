@@ -2,7 +2,7 @@
 
 - Status: `review`
 - Decision: `srs_resource_budget_needs_review`
-- Generated: `2026-05-26T18:25:10.802044+00:00`
+- Generated: `2026-05-26T19:08:23.295044+00:00`
 - Pair: `en-es`
 - Profile: `default`
 - Data root exists: `True`
@@ -16,6 +16,8 @@
 - Active SRS items: `40`
 - Zero-exposure active items: `40`
 - Zero-feedback active items: `40`
+- Stale unseen active items: `0` over `7` days
+- Age-unknown unseen active items: `40`
 
 ## Code Budgets
 
@@ -53,33 +55,33 @@
 
 ## Encounter-Starvation Preview
 
-| Lemma | Exposures | Reviews | Rule Count | Source Phrases |
-| --- | ---: | ---: | ---: | ---: |
-| `crear` | 0 | 0 | 0 | 0 |
-| `el` | 0 | 0 | 0 | 0 |
-| `ese` | 0 | 0 | 0 | 0 |
-| `hasta` | 0 | 0 | 0 | 0 |
-| `junto` | 0 | 0 | 0 | 0 |
-| `mayor` | 0 | 0 | 0 | 0 |
-| `movimiento` | 0 | 0 | 0 | 0 |
-| `no` | 0 | 0 | 0 | 0 |
-| `ocurrir` | 0 | 0 | 0 | 0 |
-| `presentar` | 0 | 0 | 0 | 0 |
-| `pues` | 0 | 0 | 0 | 0 |
-| `sacar` | 0 | 0 | 0 | 0 |
-| `según` | 0 | 0 | 0 | 0 |
-| `dentro` | 0 | 0 | 1 | 1 |
-| `fondo` | 0 | 0 | 1 | 1 |
-| `hermano` | 0 | 0 | 1 | 1 |
-| `leer` | 0 | 0 | 1 | 1 |
-| `llamar` | 0 | 0 | 1 | 1 |
-| `luz` | 0 | 0 | 1 | 1 |
-| `mayoría` | 0 | 0 | 1 | 1 |
-| `mil` | 0 | 0 | 1 | 1 |
-| `millón` | 0 | 0 | 1 | 1 |
-| `más` | 0 | 0 | 1 | 1 |
-| `música` | 0 | 0 | 1 | 1 |
-| `nacional` | 0 | 0 | 1 | 1 |
+| Lemma | Age | Exposures | Reviews | Rule Count | Source Phrases |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `crear` | unknown | 0 | 0 | 0 | 0 |
+| `el` | unknown | 0 | 0 | 0 | 0 |
+| `ese` | unknown | 0 | 0 | 0 | 0 |
+| `hasta` | unknown | 0 | 0 | 0 | 0 |
+| `junto` | unknown | 0 | 0 | 0 | 0 |
+| `mayor` | unknown | 0 | 0 | 0 | 0 |
+| `movimiento` | unknown | 0 | 0 | 0 | 0 |
+| `no` | unknown | 0 | 0 | 0 | 0 |
+| `ocurrir` | unknown | 0 | 0 | 0 | 0 |
+| `presentar` | unknown | 0 | 0 | 0 | 0 |
+| `pues` | unknown | 0 | 0 | 0 | 0 |
+| `sacar` | unknown | 0 | 0 | 0 | 0 |
+| `según` | unknown | 0 | 0 | 0 | 0 |
+| `dentro` | unknown | 0 | 0 | 1 | 1 |
+| `fondo` | unknown | 0 | 0 | 1 | 1 |
+| `hermano` | unknown | 0 | 0 | 1 | 1 |
+| `leer` | unknown | 0 | 0 | 1 | 1 |
+| `llamar` | unknown | 0 | 0 | 1 | 1 |
+| `luz` | unknown | 0 | 0 | 1 | 1 |
+| `mayoría` | unknown | 0 | 0 | 1 | 1 |
+| `mil` | unknown | 0 | 0 | 1 | 1 |
+| `millón` | unknown | 0 | 0 | 1 | 1 |
+| `más` | unknown | 0 | 0 | 1 | 1 |
+| `música` | unknown | 0 | 0 | 1 | 1 |
+| `nacional` | unknown | 0 | 0 | 1 | 1 |
 
 ## Findings
 

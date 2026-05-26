@@ -142,8 +142,9 @@ Status key:
   topic preferences can move admission while preserving a mixed general batch.
 - `[~]` Encounter-starvation diagnostics/policy for rare admitted words that
   receive little or no replacement exposure and therefore cannot easily collect
-  learner feedback; dashboard summary visibility exists, while age thresholds
-  and release/parking policy remain undecided.
+  learner feedback; dashboard summary visibility and `admitted_at`-based
+  stale-unseen diagnostics exist, while the exact threshold and release/parking
+  policy remain undecided.
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
@@ -199,7 +200,8 @@ Status key:
 - `[x]` Extension runtime consumes helper rules through service-worker bridge (single native messaging boundary).
 - `[x]` Read-only options dashboard can list admitted SRS words for the selected
   pair/profile through the helper/native-host route, including encounter-watch
-  counters for active words with zero exposure plus zero feedback.
+  counters for active words with zero exposure plus zero feedback and
+  age-aware stale-unseen counts when `admitted_at` is known.
 - `[x]` Helper bridge test covers profile-bootstrap initialization through active
   rule publication and dashboard listing.
 - `[ ]` Rule quality hardening for broad/ambiguous gloss sources.

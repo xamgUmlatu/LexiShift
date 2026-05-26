@@ -24,6 +24,7 @@ SECONDS_PER_DAY = 24 * 60 * 60
 RULE_SOURCE_PREVIEW_LIMIT = 4
 RULE_DETAILS_DEFAULT_LIMIT = 25
 RULE_DETAILS_MAX_LIMIT = 100
+ENCOUNTER_STALE_AGE_DAYS = 7
 
 
 def list_srs_items(
@@ -183,6 +184,7 @@ def _item_payload(
     exposures = max(0, int(item.exposures or 0))
     review_count = len(item.history)
     rule_summary = _rule_summary_for_item(rules_by_lemma, item.lemma)
+    admitted_age_days = _age_days(item.admitted_at, now=now)
 
     return {
         "item_id": item.item_id,
@@ -197,6 +199,8 @@ def _item_payload(
         "due_in_seconds": due_in_seconds,
         "last_review": item.last_review,
         "last_seen": item.last_seen,
+        "admitted_at": item.admitted_at,
+        "admitted_age_days": admitted_age_days,
         "exposures": exposures,
         "review_count": review_count,
         "last_rating": last_history.rating if last_history else None,
@@ -209,6 +213,7 @@ def _item_payload(
             exposures=exposures,
             review_count=review_count,
             rule_summary=rule_summary,
+            admitted_age_days=admitted_age_days,
         ),
         "advanced": {
             "lifecycle_state": lifecycle_state,
@@ -468,6 +473,10 @@ def _summary(items: list[dict[str, object]], *, inventory_active_count: int) -> 
                 summary["active_zero_feedback"] += 1
             if encounter_state.get("zero_exposure_zero_feedback") is True:
                 summary["active_zero_exposure_zero_feedback"] += 1
+            if encounter_state.get("zero_exposure_zero_feedback_age_unknown") is True:
+                summary["active_zero_exposure_zero_feedback_age_unknown"] += 1
+            if encounter_state.get("stale_zero_exposure_zero_feedback") is True:
+                summary["active_stale_zero_exposure_zero_feedback"] += 1
             if encounter_state.get("without_enabled_rules") is True:
                 summary["active_without_enabled_rules"] += 1
             if encounter_state.get("needs_attention") is True:
@@ -484,12 +493,16 @@ def _encounter_state(
     exposures: int,
     review_count: int,
     rule_summary: Mapping[str, object],
-) -> dict[str, bool]:
+    admitted_age_days: int | None,
+) -> dict[str, object]:
     if not active:
         return {
             "zero_exposure": False,
             "zero_feedback": False,
             "zero_exposure_zero_feedback": False,
+            "zero_exposure_zero_feedback_age_unknown": False,
+            "stale_zero_exposure_zero_feedback": False,
+            "stale_age_days": ENCOUNTER_STALE_AGE_DAYS,
             "without_enabled_rules": False,
             "needs_attention": False,
         }
@@ -497,13 +510,29 @@ def _encounter_state(
     zero_feedback = review_count <= 0
     without_enabled_rules = int(rule_summary.get("enabled_rule_count") or 0) <= 0
     zero_exposure_zero_feedback = zero_exposure and zero_feedback
+    age_unknown = zero_exposure_zero_feedback and admitted_age_days is None
+    stale_unseen = (
+        zero_exposure_zero_feedback
+        and admitted_age_days is not None
+        and admitted_age_days >= ENCOUNTER_STALE_AGE_DAYS
+    )
     return {
         "zero_exposure": zero_exposure,
         "zero_feedback": zero_feedback,
         "zero_exposure_zero_feedback": zero_exposure_zero_feedback,
+        "zero_exposure_zero_feedback_age_unknown": age_unknown,
+        "stale_zero_exposure_zero_feedback": stale_unseen,
+        "stale_age_days": ENCOUNTER_STALE_AGE_DAYS,
         "without_enabled_rules": without_enabled_rules,
         "needs_attention": zero_exposure_zero_feedback or without_enabled_rules,
     }
+
+
+def _age_days(value: str | None, *, now: datetime) -> int | None:
+    parsed = parse_ts(value)
+    if parsed is None:
+        return None
+    return max(0, int((now - parsed).total_seconds() // SECONDS_PER_DAY))
 
 
 def _empty_summary() -> dict[str, int]:
@@ -523,8 +552,11 @@ def _empty_summary() -> dict[str, int]:
         "active_zero_exposure": 0,
         "active_zero_feedback": 0,
         "active_zero_exposure_zero_feedback": 0,
+        "active_zero_exposure_zero_feedback_age_unknown": 0,
+        "active_stale_zero_exposure_zero_feedback": 0,
         "active_without_enabled_rules": 0,
         "encounter_watch": 0,
+        "encounter_stale_age_days": ENCOUNTER_STALE_AGE_DAYS,
     }
 
 

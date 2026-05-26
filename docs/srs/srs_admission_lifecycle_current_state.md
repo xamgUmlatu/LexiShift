@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-26 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
+Last verified: 2026-05-27 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, admitted-at persistence tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -215,6 +215,8 @@ Current mitigations:
 - frequency, proficiency/readiness, POS, source, and rulegen gates still apply;
 - refresh admission has hard capacity, new-item, due-pressure, and retention
   gates;
+- newly admitted items persist `admitted_at`, allowing the dashboard to separate
+  newly unseen words from stale-unseen words by age threshold;
 - the dashboard discard route can remove a specific unwanted active item;
 - passive exposure counts exist and are intentionally non-authoritative for
   scheduling.
@@ -234,8 +236,9 @@ recommended MVP contract is:
 1. Keep feedback as the only event that advances FSRS scheduling.
 2. Treat passive exposure as evidence for servability/staleness diagnostics,
    not as recall.
-3. Add tester-visible diagnostics for active words with zero/low exposure and
-   no feedback.
+3. Use tester-visible diagnostics for active words with zero/low exposure and
+   no feedback, including the current `7` day stale-unseen threshold as a
+   tuning value rather than a release action.
 4. Add or schedule a stale-active release/clear policy that can free admission
    capacity without pretending the user learned the word.
 5. Keep manual discard for rare user rejection, not routine cooldown.

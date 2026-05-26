@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.lexicon.word_package import (
@@ -17,6 +18,7 @@ from lexishift_core.srs.selector import (
     rank_candidates,
 )
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
+from lexishift_core.srs.time import format_ts, now_utc
 
 
 @dataclass(frozen=True)
@@ -138,8 +140,10 @@ def apply_growth_plan(
     plan: SrsGrowthPlan,
     *,
     config: Optional[SrsGrowthConfig] = None,
+    now: Optional[datetime] = None,
 ) -> SrsStore:
     config = config or SrsGrowthConfig()
+    admitted_at = format_ts(now or now_utc())
     updated = store
     for candidate in plan.selected:
         confidence = _resolve_confidence(candidate, min_value=config.confidence_min)
@@ -153,6 +157,7 @@ def apply_growth_plan(
             confidence=confidence,
             scheduler_state="learning",
             scheduler_step=0,
+            admitted_at=admitted_at,
             word_package=word_package,
         )
         updated = upsert_item(updated, item)
@@ -168,6 +173,7 @@ def grow_srs_store(
     allowed_pairs: Optional[Sequence[str]] = None,
     allowed_pos: Optional[set[str]] = None,
     blocked_lemmas: Optional[set[str]] = None,
+    now: Optional[datetime] = None,
 ) -> tuple[SrsStore, SrsGrowthPlan]:
     config = config or SrsGrowthConfig()
     plan = plan_srs_growth(
@@ -179,7 +185,7 @@ def grow_srs_store(
         allowed_pos=allowed_pos,
         blocked_lemmas=blocked_lemmas,
     )
-    updated = apply_growth_plan(store, plan, config=config)
+    updated = apply_growth_plan(store, plan, config=config, now=now)
     return updated, plan
 
 

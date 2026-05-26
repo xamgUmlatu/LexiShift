@@ -174,9 +174,10 @@
       "message": "40 active item(s) have zero exposure and zero feedback in the audited store."
     }
   ],
-  "generated_at": "2026-05-26T18:25:10.802044+00:00",
+  "generated_at": "2026-05-26T19:08:23.295044+00:00",
   "helper_artifacts": {
     "active_item_count": 40,
+    "age_unknown_unseen_active_count": 40,
     "artifacts": [
       {
         "bytes": 75340,
@@ -280,11 +281,14 @@
         "status": "missing"
       }
     ],
+    "encounter_stale_age_days": 7,
     "profile_dir": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/srs/profiles/default",
     "profile_dir_exists": true,
     "stale_active_count": 40,
     "stale_active_preview": [
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:crear",
         "last_review": "",
@@ -293,9 +297,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:el",
         "last_review": "",
@@ -304,9 +311,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:ese",
         "last_review": "",
@@ -315,9 +325,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:hasta",
         "last_review": "",
@@ -326,9 +339,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:junto",
         "last_review": "",
@@ -337,9 +353,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:mayor",
         "last_review": "",
@@ -348,9 +367,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:movimiento",
         "last_review": "",
@@ -359,9 +381,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:no",
         "last_review": "",
@@ -370,9 +395,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:ocurrir",
         "last_review": "",
@@ -381,9 +409,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:presentar",
         "last_review": "",
@@ -392,9 +423,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:pues",
         "last_review": "",
@@ -403,9 +437,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:sacar",
         "last_review": "",
@@ -414,9 +451,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:según",
         "last_review": "",
@@ -425,9 +465,12 @@
         "review_count": 0,
         "rule_count": 0,
         "scheduler_state": "",
-        "source_phrase_count": 0
+        "source_phrase_count": 0,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:dentro",
         "last_review": "",
@@ -436,9 +479,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:fondo",
         "last_review": "",
@@ -447,9 +493,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:hermano",
         "last_review": "",
@@ -458,9 +507,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:leer",
         "last_review": "",
@@ -469,9 +521,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:llamar",
         "last_review": "",
@@ -480,9 +535,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:luz",
         "last_review": "",
@@ -491,9 +549,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:mayoría",
         "last_review": "",
@@ -502,9 +563,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:mil",
         "last_review": "",
@@ -513,9 +577,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:millón",
         "last_review": "",
@@ -524,9 +591,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:más",
         "last_review": "",
@@ -535,9 +605,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:música",
         "last_review": "",
@@ -546,9 +619,12 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       },
       {
+        "admitted_age_days": null,
+        "admitted_at": "",
         "exposures": 0,
         "item_id": "en-es:nacional",
         "last_review": "",
@@ -557,9 +633,11 @@
         "review_count": 0,
         "rule_count": 1,
         "scheduler_state": "",
-        "source_phrase_count": 1
+        "source_phrase_count": 1,
+        "stale_unseen": false
       }
     ],
+    "stale_unseen_active_count": 0,
     "zero_exposure_active_count": 40,
     "zero_feedback_active_count": 40
   },
@@ -580,14 +658,17 @@
   "status": "review",
   "summary": {
     "active_item_count": 40,
+    "age_unknown_unseen_active_count": 40,
     "bounded_code_row_count": 13,
     "code_budget_row_count": 16,
+    "encounter_stale_age_days": 7,
     "finding_codes": [
       "cache_budget_policy_missing",
       "encounter_starvation_candidates"
     ],
     "helper_artifact_row_count": 8,
     "helper_artifact_total_bytes": 683716,
+    "stale_unseen_active_count": 0,
     "zero_exposure_active_count": 40,
     "zero_feedback_active_count": 40
   }

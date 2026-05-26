@@ -2,8 +2,8 @@
 
 Status: active mixed schema reference
 Role: Mixed
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 normalization plus SRS-adjacent doc/code/test read; schema content not fully re-audited
+Last updated: 2026-05-27
+Last verified: 2026-05-27 admitted-at persistence and SRS store roundtrip tests
 Purpose: separate implemented SRS settings/store/signal shapes from planned extension fields
 Source-of-truth: mixed schema reference; current persisted-shape truth lives in SRS store/settings code, helper use cases, and SRS tests.
 
@@ -78,6 +78,7 @@ Key semantics:
       "scheduler_state": "review",
       "scheduler_step": null,
       "exposures": 3,
+      "admitted_at": "2026-02-03T10:00:00+00:00",
       "srs_history": [
         {"ts": "2026-02-04T10:00:00+00:00", "rating": "good"},
         {"ts": "2026-02-06T11:12:13+00:00", "rating": "hard"}
@@ -94,6 +95,10 @@ Notes:
 - New items may have `stability`, `difficulty`, and `last_review` unset until the first feedback review.
 - Current `difficulty` is the raw FSRS scheduler value, not a normalized `0..1` UI score.
 - `source_type: "initial_set"` identifies words admitted by bootstrap initialization.
+- `admitted_at` is written for newly admitted items and is used for
+  age-aware diagnostics such as "unseen for more than N days." Legacy store
+  rows may omit it and should be treated as age unknown rather than inferred
+  from filesystem timestamps.
 - Current store does not require a single explicit `probability` column; serving probability is derived from due/order policy at runtime.
 
 ---

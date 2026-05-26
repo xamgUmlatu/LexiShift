@@ -178,8 +178,11 @@ class TestHelperSrsItems(unittest.TestCase):
                     "active_zero_exposure": 3,
                     "active_zero_feedback": 3,
                     "active_zero_exposure_zero_feedback": 3,
+                    "active_zero_exposure_zero_feedback_age_unknown": 0,
+                    "active_stale_zero_exposure_zero_feedback": 0,
                     "active_without_enabled_rules": 0,
                     "encounter_watch": 3,
+                    "encounter_stale_age_days": 7,
                 },
             )
             self.assertEqual(dashboard["rule_summary"]["lemmas_with_rules"], 3)
@@ -208,6 +211,7 @@ class TestHelperSrsItems(unittest.TestCase):
                             lemma="perro",
                             language_pair="en-es",
                             source_type="initial_set",
+                            admitted_at=format_ts(NOW - timedelta(days=10)),
                             next_due=format_ts(NOW - timedelta(hours=2)),
                             scheduler_state="review",
                             exposures=3,
@@ -218,6 +222,7 @@ class TestHelperSrsItems(unittest.TestCase):
                             lemma="gato",
                             language_pair="en-es",
                             source_type="initial_set",
+                            admitted_at=format_ts(NOW - timedelta(days=8)),
                             next_due=format_ts(NOW + timedelta(hours=4)),
                             scheduler_state="learning",
                             word_package=_word_package("gato"),
@@ -310,8 +315,11 @@ class TestHelperSrsItems(unittest.TestCase):
                     "active_zero_exposure": 1,
                     "active_zero_feedback": 2,
                     "active_zero_exposure_zero_feedback": 1,
+                    "active_zero_exposure_zero_feedback_age_unknown": 0,
+                    "active_stale_zero_exposure_zero_feedback": 1,
                     "active_without_enabled_rules": 0,
                     "encounter_watch": 1,
+                    "encounter_stale_age_days": 7,
                 },
             )
             by_lemma = {item["lemma"]: item for item in result["items"]}
@@ -326,6 +334,10 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertFalse(by_lemma["perro"]["encounter_state"]["zero_exposure"])
             self.assertTrue(by_lemma["perro"]["encounter_state"]["zero_feedback"])
             self.assertTrue(by_lemma["gato"]["encounter_state"]["zero_exposure_zero_feedback"])
+            self.assertTrue(
+                by_lemma["gato"]["encounter_state"]["stale_zero_exposure_zero_feedback"]
+            )
+            self.assertEqual(by_lemma["gato"]["admitted_age_days"], 8)
             self.assertTrue(by_lemma["gato"]["encounter_state"]["needs_attention"])
             self.assertEqual(by_lemma["mesa"]["rule_summary"]["enabled_rule_count"], 0)
             self.assertEqual(by_lemma["mesa"]["rule_summary"]["rule_count"], 1)

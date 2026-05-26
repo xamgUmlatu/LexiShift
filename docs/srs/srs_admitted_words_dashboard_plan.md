@@ -92,7 +92,8 @@ Metadata row:
 - `Loaded`: total words in the currently loaded helper payload.
 - `Viewing`: words after local search/status/sort filtering.
 - `Encounter watch`: active words that may need observation because they have
-  zero exposure and zero feedback, or because no enabled published rule exists.
+  zero exposure and zero feedback, because they crossed the diagnostic age
+  threshold while still unseen, or because no enabled published rule exists.
 - `Inventory`: active-inventory source reported by the helper.
 - `Ruleset`: published-ruleset state, including rule count when available.
 
@@ -102,7 +103,8 @@ Rows:
 - show dashboard status using learner-facing labels;
 - show due timing, review count, exposure count, rule count, and source label;
 - show a compact watch note when an active row has zero exposure plus zero
-  feedback, or no enabled published rules;
+  feedback, crosses the diagnostic age threshold, has unknown admission age, or
+  has no enabled published rules;
 - show compact `Matches: ...` source phrases when published-rule summaries are
   available;
 - expose `Rule details` when the row has helper-published rules;
@@ -193,11 +195,14 @@ Payload contract:
 - `summary` includes `active`, `due_now`, `due_soon`, `queued`, `removed`, and
   `total`, plus encounter-watch counters:
   `active_zero_exposure`, `active_zero_feedback`,
-  `active_zero_exposure_zero_feedback`, `active_without_enabled_rules`, and
-  `encounter_watch`;
+  `active_zero_exposure_zero_feedback`,
+  `active_zero_exposure_zero_feedback_age_unknown`,
+  `active_stale_zero_exposure_zero_feedback`,
+  `active_without_enabled_rules`, `encounter_watch`, and
+  `encounter_stale_age_days`;
 - each item includes `item_id`, `lemma`, `display`, `reading`, `pair`, `active`,
-  `status`, `status_label`, due/review/exposure fields, source fields, `pos`,
-  `rule_summary`, `encounter_state`, and `advanced`;
+  `status`, `status_label`, admitted timestamp/age, due/review/exposure fields,
+  source fields, `pos`, `rule_summary`, `encounter_state`, and `advanced`;
 - item `rule_summary` includes enabled rule count and capped source-phrase
   preview;
 - top-level `rule_summary` describes the current published ruleset as a whole;
@@ -340,8 +345,9 @@ Current covered behaviors:
 
 - helper list payload shape, summaries, active/queued/due/removed status, and
   published-rule summaries;
-- encounter-watch summary counters and options rendering for active words with
-  zero exposure plus zero feedback;
+- `admitted_at` persistence for newly admitted items, legacy age-unknown
+  handling, and encounter-watch summary counters/options rendering for active
+  words with zero exposure plus zero feedback;
 - profile-bootstrap initialization can publish active rule outputs and then
   surface the admitted words through the dashboard read model;
 - helper rule-detail payload shape and capped rule rows;
@@ -379,8 +385,9 @@ The dashboard is acceptable for MVP when:
   and remain local to the loaded payload;
 - refresh metadata, clear-filter disabled state, and search Escape handling are
   covered by focused workflow tests;
-- encounter-watch counters are visible enough for tester review without
-  implying automatic stale-clear or release behavior;
+- encounter-watch counters include age-aware stale-unseen visibility and are
+  visible enough for tester review without implying automatic stale-clear or
+  release behavior;
 - published-rule summaries are covered by focused helper/options tests and
   remain read-only;
 - on-demand rule details are covered by focused helper/options tests and remain

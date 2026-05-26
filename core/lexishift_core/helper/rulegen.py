@@ -41,7 +41,7 @@ from lexishift_core.srs.set_strategy import (
 )
 from lexishift_core.srs.source import SOURCE_INITIAL_SET
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
-from lexishift_core.srs.time import now_utc, parse_ts
+from lexishift_core.srs.time import format_ts, now_utc, parse_ts
 from lexishift_core.scoring.weighting import GlossDecay
 
 __all__ = [
@@ -347,6 +347,7 @@ def initialize_store_from_frequency_list_with_report(
     inserted_count = 0
     updated_count = 0
     updated = store
+    admitted_at = format_ts(now_utc())
     for selected in admitted_words:
         item_id = build_item_id(selected.language_pair, selected.lemma)
         selected_word_package = _resolve_selected_word_package(selected)
@@ -368,6 +369,7 @@ def initialize_store_from_frequency_list_with_report(
                 language_pair=selected.language_pair,
                 source_type=SOURCE_INITIAL_SET,
                 confidence=confidence,
+                admitted_at=admitted_at,
                 word_package=selected_word_package,
             )
             existing_by_id[item_id] = item

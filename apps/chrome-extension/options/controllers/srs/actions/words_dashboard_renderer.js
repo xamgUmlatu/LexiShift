@@ -235,9 +235,7 @@
         `Source: ${item.source_label || item.source_type || "srs"}`
       ];
       const encounterWatch = formatEncounterWatchItem(item);
-      if (encounterWatch) {
-        rows.push(encounterWatch);
-      }
+      if (encounterWatch) rows.push(encounterWatch);
       rows.forEach((text) => meta.appendChild(createNode(doc, "span", "", text)));
       return meta;
     }
@@ -365,30 +363,32 @@
 
   function formatEncounterWatchSummary(summary) {
     const unseen = Number(summary.active_zero_exposure_zero_feedback || 0);
+    const staleUnseen = Number(summary.active_stale_zero_exposure_zero_feedback || 0);
+    const ageUnknown = Number(summary.active_zero_exposure_zero_feedback_age_unknown || 0);
     const withoutRules = Number(summary.active_without_enabled_rules || 0);
     const watch = Number(summary.encounter_watch || Math.max(unseen, withoutRules) || 0);
+    const staleDays = Number(summary.encounter_stale_age_days || 7);
     if (!Number.isFinite(watch) || watch <= 0) {
       return "Encounter watch: none";
     }
     const details = [
       unseen > 0 ? `${unseen} unseen/no feedback` : "",
+      staleUnseen > 0 ? `${staleUnseen} over ${staleDays}d` : "",
+      ageUnknown > 0 ? `${ageUnknown} age unknown` : "",
       withoutRules > 0 ? `${withoutRules} without rules` : ""
     ].filter(Boolean).join(", ");
-    const suffix = details ? ` (${details})` : "";
-    return `Encounter watch: ${formatWordCount(watch)}${suffix}`;
+    return `Encounter watch: ${formatWordCount(watch)}${details ? ` (${details})` : ""}`;
   }
-
   function formatEncounterWatchItem(item) {
     const state = item && typeof item.encounter_state === "object" ? item.encounter_state : {};
-    if (state.zero_exposure_zero_feedback) {
-      return "Watch: unseen/no feedback";
-    }
-    if (state.without_enabled_rules) {
-      return "Watch: no enabled rules";
-    }
-    return "";
+    return state.stale_zero_exposure_zero_feedback
+      ? `Watch: unseen/no feedback >${Number(state.stale_age_days || 7)}d`
+      : state.zero_exposure_zero_feedback_age_unknown
+        ? "Watch: unseen/no feedback (age unknown)"
+        : state.zero_exposure_zero_feedback
+          ? "Watch: unseen/no feedback"
+          : (state.without_enabled_rules ? "Watch: no enabled rules" : "");
   }
-
   function formatDue(item) {
     const status = String(item.status || "");
     if (status === "queued") {

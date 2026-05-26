@@ -604,8 +604,11 @@ const workflows = createMaintenanceWorkflows({{
             active_zero_exposure: 0,
             active_zero_feedback: 0,
             active_zero_exposure_zero_feedback: 0,
+            active_zero_exposure_zero_feedback_age_unknown: 0,
+            active_stale_zero_exposure_zero_feedback: 0,
             active_without_enabled_rules: 0,
-            encounter_watch: 0
+            encounter_watch: 0,
+            encounter_stale_age_days: 7
           }},
           items: [
             {{
@@ -643,8 +646,11 @@ const workflows = createMaintenanceWorkflows({{
           active_zero_exposure: 1,
           active_zero_feedback: 1,
           active_zero_exposure_zero_feedback: 1,
+          active_zero_exposure_zero_feedback_age_unknown: 0,
+          active_stale_zero_exposure_zero_feedback: 1,
           active_without_enabled_rules: 0,
-          encounter_watch: 1
+          encounter_watch: 1,
+          encounter_stale_age_days: 7
         }},
         items: [
           {{
@@ -662,6 +668,9 @@ const workflows = createMaintenanceWorkflows({{
               zero_exposure: false,
               zero_feedback: false,
               zero_exposure_zero_feedback: false,
+              zero_exposure_zero_feedback_age_unknown: false,
+              stale_zero_exposure_zero_feedback: false,
+              stale_age_days: 7,
               without_enabled_rules: false,
               needs_attention: false
             }},
@@ -693,6 +702,9 @@ const workflows = createMaintenanceWorkflows({{
               zero_exposure: false,
               zero_feedback: false,
               zero_exposure_zero_feedback: false,
+              zero_exposure_zero_feedback_age_unknown: false,
+              stale_zero_exposure_zero_feedback: false,
+              stale_age_days: 7,
               without_enabled_rules: false,
               needs_attention: false
             }},
@@ -721,6 +733,9 @@ const workflows = createMaintenanceWorkflows({{
               zero_exposure: true,
               zero_feedback: true,
               zero_exposure_zero_feedback: true,
+              zero_exposure_zero_feedback_age_unknown: false,
+              stale_zero_exposure_zero_feedback: true,
+              stale_age_days: 7,
               without_enabled_rules: false,
               needs_attention: true
             }},
@@ -835,7 +850,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(metaText().includes("Last refreshed:"), true);
   assert.equal(metaText().includes("Loaded: 3 words"), true);
   assert.equal(metaText().includes("Viewing: 3 words"), true);
-  assert.equal(metaText().includes("Encounter watch: 1 word (1 unseen/no feedback)"), true);
+  assert.equal(metaText().includes("Encounter watch: 1 word (1 unseen/no feedback, 1 over 7d)"), true);
   assert.equal(metaText().includes("Inventory: inventory"), true);
   assert.equal(metaText().includes("Ruleset: 4 rules"), true);
   const refreshMetaLabel = metaRoot.children[0].textContent;
@@ -867,7 +882,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(nextPageButton.disabled, true);
   assert.equal(listRoot.children.length, 1);
   assert.equal(listRoot.children[0].children[0].children[0].textContent, "ave");
-  assert.equal(listRoot.children[0].children[2].children[5].textContent, "Watch: unseen/no feedback");
+  assert.equal(listRoot.children[0].children[2].children[5].textContent, "Watch: unseen/no feedback >7d");
   await prevPageButton.click();
   assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
 

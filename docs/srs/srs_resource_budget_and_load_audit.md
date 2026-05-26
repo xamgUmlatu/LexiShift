@@ -59,8 +59,9 @@ and prevent page replacement from turning every page into a wall of substitution
    active/admitted state, but extension helper cache entries do not yet expose
    a source-level TTL or max-profile/pair policy.
 3. Encounter starvation now has tester-facing dashboard counters for active
-   words with zero exposure plus zero feedback, but no age-based stale policy or
-   automatic release behavior exists yet.
+   words with zero exposure plus zero feedback, including a `7` day diagnostic
+   stale-unseen threshold for items with known `admitted_at`. No automatic
+   release behavior exists yet.
 4. We do not yet have a browser-profile storage audit. The new script measures
    source constants and helper data-root artifacts, not live `chrome.storage`
    bytes.
@@ -92,8 +93,11 @@ It records:
 - zero-exposure/zero-feedback active item preview.
 
 The admitted-words dashboard also surfaces the same first-order signal through
-an `Unseen` summary card and an `Encounter watch` metadata row. This is only an
-observability surface: it does not clear, release, or park active words.
+an `Unseen` summary card and an `Encounter watch` metadata row. Newly admitted
+items now persist `admitted_at` so the dashboard can distinguish unseen words
+that are merely new from unseen words older than the current `7` day diagnostic
+threshold. Legacy rows without `admitted_at` are counted as age unknown. This is
+only an observability surface: it does not clear, release, or park active words.
 
 ## MVP Readiness Policy
 
@@ -112,8 +116,8 @@ Before broad SRS testers:
 ## Near-Term Work
 
 1. Run the resource-budget audit against the current local helper data root.
-2. Decide whether encounter-watch needs an age threshold after tester review
-   distinguishes normal newly admitted words from genuinely stuck active words.
+2. Tune the diagnostic stale-unseen threshold after tester review. The current
+   default is `7` days; likely comparison values are `3`, `7`, and `14` days.
 3. Decide extension helper cache policy:
    - keep latest per profile/pair only;
    - or keep a small LRU across profile/pair scopes;

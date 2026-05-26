@@ -182,6 +182,7 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
             )
             for index in range(10)
         ]
+        now = datetime(2026, 5, 26, 12, 0, tzinfo=timezone.utc)
         updated_store, result = apply_admission_refresh(
             store=store,
             settings=settings,
@@ -189,6 +190,7 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
             candidates=_build_candidates(),
             events=events,
             policy=AdmissionRefreshPolicy(feedback_window_size=100),
+            now=now,
         )
         self.assertTrue(result.applied)
         self.assertEqual(result.admitted_count, 2)
@@ -196,6 +198,8 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
         self.assertIn("beta", lemmas)
         self.assertIn("gamma", lemmas)
         self.assertNotIn("delta", lemmas)
+        beta = next(item for item in updated_store.items if item.lemma == "beta")
+        self.assertEqual(beta.admitted_at, "2026-05-26T12:00:00Z")
 
     def test_apply_refresh_tracks_pos_diagnostics_with_allowed_pos(self) -> None:
         store = SrsStore(items=tuple(), version=1)

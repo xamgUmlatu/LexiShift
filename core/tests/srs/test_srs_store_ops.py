@@ -42,6 +42,21 @@ class TestSrsStoreOps(unittest.TestCase):
         self.assertEqual(item.exposures, 2)
         self.assertIsNotNone(item.last_seen)
 
+    def test_record_exposure_created_item_sets_admitted_at(self) -> None:
+        store = SrsStore(items=tuple(), version=1)
+        now = datetime(2026, 2, 3, 12, 0, tzinfo=timezone.utc)
+
+        updated = record_exposure(
+            store,
+            language_pair="en-ja",
+            lemma="alpha",
+            now=now,
+            create_if_missing=True,
+        )
+
+        self.assertEqual(updated.items[0].admitted_at, "2026-02-03T12:00:00Z")
+        self.assertEqual(updated.items[0].last_seen, "2026-02-03T12:00:00Z")
+
     def test_record_feedback_updates_history(self) -> None:
         store = SrsStore(
             items=(
