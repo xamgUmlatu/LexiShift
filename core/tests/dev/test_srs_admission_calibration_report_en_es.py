@@ -100,6 +100,7 @@ class TestSrsAdmissionCalibrationReportEnEs(unittest.TestCase):
                 overlay_source_path=overlay_path,
                 set_top_n=3,
                 admission_budget=3,
+                top_k_window=3,
                 weighted_seeds=(1, 2),
                 augment_with_zipf_bridge=False,
             )
@@ -107,16 +108,24 @@ class TestSrsAdmissionCalibrationReportEnEs(unittest.TestCase):
         self.assertEqual(report["summary"]["fail_count"], 0)
         ranked_rows = {row["name"]: row for row in report["ranked_rows"]}
         weighted_rows = {row["name"]: row for row in report["weighted_rows"]}
+        top_k_rows = {row["name"]: row for row in report["top_k_weighted_rows"]}
+        topic_lane_rows = {row["name"]: row for row in report["topic_lane_rows"]}
         self.assertEqual(ranked_rows["neutral"]["selected_topic_share"], 0.0)
         self.assertGreater(ranked_rows["animals_interest"]["selected_topic_share"], 0.0)
         self.assertGreater(ranked_rows["plants_nature_interest"]["selected_topic_share"], 0.0)
         self.assertEqual(weighted_rows["animals_interest"]["seed_count"], 2)
         self.assertIn("mean_selected_topic_share", weighted_rows["animals_interest"])
+        self.assertEqual(top_k_rows["animals_interest"]["seed_count"], 2)
+        self.assertIn("mean_selected_topic_share", top_k_rows["animals_interest"])
+        self.assertGreater(topic_lane_rows["animals_interest"]["selected_topic_share"], 0.0)
         self.assertTrue(report["comparisons"]["ranked_animals_strength_monotonic"])
+        self.assertIn("topic_lane_animals_strength_shares", report["comparisons"])
 
         markdown = render_markdown(report)
         self.assertIn("## Ranked Admission Batch Shares", markdown)
         self.assertIn("## Weighted Admission Batch Shares", markdown)
+        self.assertIn("## Top-K Weighted Admission Shares", markdown)
+        self.assertIn("## Reserved Topic-Lane Simulation", markdown)
 
 
 if __name__ == "__main__":

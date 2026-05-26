@@ -4,8 +4,9 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from datetime import datetime, timezone
-import json
+import math
 from pathlib import Path
+import random
 import sys
 from typing import Any, Mapping, Sequence
 
@@ -20,16 +21,15 @@ from srs_admission_preference_preview_en_es import (  # noqa: E402
     DEFAULT_ZIPF_BRIDGE_PATH,
     build_report as build_preference_preview_report,
 )
+from srs_admission_calibration_markdown import render_markdown, write_report  # noqa: E402,F401
 
 REPORT_SCHEMA_VERSION = 1
 DEFAULT_WEIGHTED_SEEDS = (11, 23, 37)
 DEFAULT_ADMISSION_BUDGET = 10
-DEFAULT_JSON_OUT = (
-    PROJECT_ROOT / "docs" / "test_outputs" / "srs_admission_calibration_en_es_latest.json"
-)
-DEFAULT_MARKDOWN_OUT = (
-    PROJECT_ROOT / "docs" / "test_outputs" / "srs_admission_calibration_en_es_latest.md"
-)
+DEFAULT_TOP_K_WINDOW, DEFAULT_TOPIC_LANE_MAX_SHARE = 60, 0.5
+TEST_OUTPUTS_DIR = PROJECT_ROOT / "docs" / "test_outputs"
+DEFAULT_JSON_OUT = TEST_OUTPUTS_DIR / "srs_admission_calibration_en_es_latest.json"
+DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_DIR / "srs_admission_calibration_en_es_latest.md"
 
 
 def now_iso_utc() -> str:
@@ -44,6 +44,8 @@ def build_report(
     overlay_source_paths: Sequence[Path] | None = None,
     set_top_n: int = DEFAULT_SET_TOP_N,
     admission_budget: int = DEFAULT_ADMISSION_BUDGET,
+    top_k_window: int = DEFAULT_TOP_K_WINDOW,
+    topic_lane_max_share: float = DEFAULT_TOPIC_LANE_MAX_SHARE,
     weighted_seeds: Sequence[int] = DEFAULT_WEIGHTED_SEEDS,
     augment_with_zipf_bridge: bool = True,
     zipf_bridge_path: Path | None = DEFAULT_ZIPF_BRIDGE_PATH,
@@ -81,6 +83,20 @@ def build_report(
         )
         for seed in weighted_seeds
     ]
+    ranked_window_preview = build_preference_preview_report(
+        pair=pair,
+        frequency_db=frequency_db,
+        overlay_source_path=overlay_source_path,
+        overlay_source_paths=overlay_source_paths,
+        set_top_n=set_top_n,
+        initial_active_count=max(budget, int(top_k_window)),
+        preview_count=max(budget, int(top_k_window)),
+        preview_sampling_mode="ranked",
+        preview_seed=None,
+        augment_with_zipf_bridge=augment_with_zipf_bridge,
+        zipf_bridge_path=zipf_bridge_path,
+        kaikki_forward_db=kaikki_forward_db,
+    )
 
     ranked_rows = _scenario_rows(ranked_preview)
     weighted_rows_by_seed = [
@@ -88,9 +104,22 @@ def build_report(
         for seed, preview in zip(weighted_seeds, weighted_previews, strict=True)
     ]
     weighted_summary_rows = _weighted_summary_rows(weighted_rows_by_seed)
+    top_k_rows_by_seed = _simulate_top_k_rows_by_seed(
+        ranked_window_preview,
+        budget=budget,
+        weighted_seeds=weighted_seeds,
+    )
+    top_k_summary_rows = _weighted_summary_rows(top_k_rows_by_seed)
+    topic_lane_rows = _simulate_topic_lane_rows(
+        ranked_window_preview,
+        budget=budget,
+        topic_lane_max_share=topic_lane_max_share,
+    )
     comparisons = _build_comparisons(
         ranked_rows=ranked_rows,
         weighted_rows=weighted_summary_rows,
+        top_k_rows=top_k_summary_rows,
+        topic_lane_rows=topic_lane_rows,
     )
     findings = _build_findings(
         ranked_preview=ranked_preview,
@@ -102,6 +131,7 @@ def build_report(
         {
             "scenario_count": len(ranked_rows),
             "admission_budget": budget,
+            "top_k_window": max(budget, int(top_k_window)),
             "weighted_seed_count": len(tuple(weighted_seeds)),
             "source_topic_scenarios_with_ranked_share": sum(
                 1
@@ -129,6 +159,8 @@ def build_report(
         "parameters": {
             "set_top_n": int(set_top_n),
             "admission_budget": budget,
+            "top_k_window": max(budget, int(top_k_window)),
+            "topic_lane_max_share": round(float(topic_lane_max_share), 6),
             "weighted_seeds": [int(seed) for seed in weighted_seeds],
             "augment_with_zipf_bridge": bool(augment_with_zipf_bridge),
         },
@@ -142,6 +174,8 @@ def build_report(
         "ranked_rows": ranked_rows,
         "weighted_rows": weighted_summary_rows,
         "weighted_rows_by_seed": weighted_rows_by_seed,
+        "top_k_weighted_rows": top_k_summary_rows,
+        "topic_lane_rows": topic_lane_rows,
     }
 
 
@@ -166,11 +200,31 @@ def _scenario_row(
     admitted_words = [
         dict(row) for row in scenario.get("admitted_words", ()) if isinstance(row, Mapping)
     ]
+    return _scenario_row_from_words(
+        scenario,
+        admitted_words=admitted_words,
+        neutral_lemmas=neutral_lemmas,
+    )
+
+
+def _scenario_row_from_words(
+    scenario: Mapping[str, Any],
+    *,
+    admitted_words: Sequence[Mapping[str, Any]],
+    neutral_lemmas: Sequence[str],
+) -> dict[str, Any]:
     selected_count = len(admitted_words)
-    topic_mover_count = int(scenario.get("topic_mover_count") or 0)
-    top_lemmas = [str(lemma) for lemma in scenario.get("top_lemmas", ())]
-    neutral_set = set(neutral_lemmas)
     active_topics = _active_topics(scenario)
+    topic_mover_count = sum(1 for row in admitted_words if _is_topic_mover(row, active_topics))
+    topic_counts = Counter(
+        _topic_from_affinity_source(row, active_topics)
+        for row in admitted_words
+        if _is_topic_mover(row, active_topics)
+    )
+    top_lemmas = [str(lemma) for lemma in scenario.get("top_lemmas", ())]
+    if admitted_words:
+        top_lemmas = [str(row.get("lemma") or "") for row in admitted_words]
+    neutral_set = set(neutral_lemmas)
     return {
         "name": str(scenario.get("name") or ""),
         "description": str(scenario.get("description") or ""),
@@ -178,7 +232,7 @@ def _scenario_row(
         "selected_count": selected_count,
         "selected_topic_count": topic_mover_count,
         "selected_topic_share": _ratio(topic_mover_count, selected_count),
-        "topic_mover_counts": dict(scenario.get("topic_mover_counts") or {}),
+        "topic_mover_counts": {key: value for key, value in sorted(topic_counts.items()) if key},
         "average_difficulty": _average_metric(admitted_words, "difficulty_estimate"),
         "average_readiness": _average_metric(admitted_words, "readiness_multiplier"),
         "min_readiness": _min_metric(admitted_words, "readiness_multiplier"),
@@ -204,6 +258,33 @@ def _active_topics(scenario: Mapping[str, Any]) -> list[str]:
         if str(topic).strip() and _safe_float(weight) > 0.0
     ]
     return sorted(topics)
+
+
+def _max_topic_weight(scenario: Mapping[str, Any]) -> float:
+    context = scenario.get("effective_profile_context")
+    if not isinstance(context, Mapping):
+        return 0.0
+    topic_weights = context.get("topic_weights")
+    if not isinstance(topic_weights, Mapping):
+        return 0.0
+    return max((_safe_float(value) for value in topic_weights.values()), default=0.0)
+
+
+def _is_topic_mover(row: Mapping[str, Any], active_topics: Sequence[str]) -> bool:
+    if not active_topics:
+        return False
+    source = str(row.get("topic_affinity_source") or "")
+    if not source:
+        return False
+    return any(topic in source for topic in active_topics)
+
+
+def _topic_from_affinity_source(row: Mapping[str, Any], active_topics: Sequence[str]) -> str:
+    source = str(row.get("topic_affinity_source") or "")
+    for topic in active_topics:
+        if topic in source:
+            return topic
+    return ""
 
 
 def _active_topic_support_rows(
@@ -287,13 +368,161 @@ def _weighted_summary_rows(
     return summary_rows
 
 
+def _simulate_top_k_rows_by_seed(
+    report: Mapping[str, Any],
+    *,
+    budget: int,
+    weighted_seeds: Sequence[int],
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "seed": int(seed),
+            "rows": _scenario_rows_from_selector(
+                report,
+                selector=lambda scenario, seed=seed: _select_top_k_weighted_words(
+                    scenario.get("admitted_words", ()),
+                    budget=budget,
+                    seed=int(seed),
+                ),
+            ),
+        }
+        for seed in weighted_seeds
+    ]
+
+
+def _simulate_topic_lane_rows(
+    report: Mapping[str, Any],
+    *,
+    budget: int,
+    topic_lane_max_share: float,
+) -> list[dict[str, Any]]:
+    scenarios = [
+        scenario for scenario in report.get("scenarios", ()) if isinstance(scenario, Mapping)
+    ]
+    neutral = next((scenario for scenario in scenarios if scenario.get("name") == "neutral"), {})
+    neutral_words = [
+        dict(row) for row in neutral.get("admitted_words", ()) if isinstance(row, Mapping)
+    ]
+    neutral_selected = _select_topic_lane_words(
+        neutral,
+        neutral_words=neutral_words,
+        budget=budget,
+        topic_lane_max_share=topic_lane_max_share,
+    )
+    neutral_lemmas = [
+        str(row.get("lemma") or "")
+        for row in neutral_selected
+        if str(row.get("lemma") or "").strip()
+    ]
+    return [
+        _scenario_row_from_words(
+            scenario,
+            admitted_words=_select_topic_lane_words(
+                scenario,
+                neutral_words=neutral_words,
+                budget=budget,
+                topic_lane_max_share=topic_lane_max_share,
+            ),
+            neutral_lemmas=neutral_lemmas,
+        )
+        for scenario in scenarios
+    ]
+
+
+def _scenario_rows_from_selector(
+    report: Mapping[str, Any],
+    *,
+    selector,
+) -> list[dict[str, Any]]:
+    scenarios = [
+        scenario for scenario in report.get("scenarios", ()) if isinstance(scenario, Mapping)
+    ]
+    neutral = next((scenario for scenario in scenarios if scenario.get("name") == "neutral"), {})
+    neutral_lemmas = [
+        str(row.get("lemma") or "")
+        for row in selector(neutral)
+        if isinstance(row, Mapping) and str(row.get("lemma") or "").strip()
+    ]
+    return [
+        _scenario_row_from_words(
+            scenario,
+            admitted_words=selector(scenario),
+            neutral_lemmas=neutral_lemmas,
+        )
+        for scenario in scenarios
+    ]
+
+
+def _select_top_k_weighted_words(
+    admitted_words: object,
+    *,
+    budget: int,
+    seed: int,
+) -> list[dict[str, Any]]:
+    rows = [dict(row) for row in admitted_words if isinstance(row, Mapping)]
+    rng = random.Random(seed)
+    selected: list[dict[str, Any]] = []
+    pool = list(rows)
+    while pool and len(selected) < budget:
+        weights = [_selection_mass(row) for row in pool]
+        total = sum(weights)
+        if total <= 0.0:
+            selected.extend(pool[: budget - len(selected)])
+            break
+        roll = rng.random() * total
+        pick_index = len(pool) - 1
+        for index, weight in enumerate(weights):
+            roll -= weight
+            if roll <= 0.0:
+                pick_index = index
+                break
+        selected.append(pool.pop(pick_index))
+    return selected
+
+
+def _select_topic_lane_words(
+    scenario: Mapping[str, Any],
+    *,
+    neutral_words: Sequence[Mapping[str, Any]],
+    budget: int,
+    topic_lane_max_share: float,
+) -> list[dict[str, Any]]:
+    rows = [dict(row) for row in scenario.get("admitted_words", ()) if isinstance(row, Mapping)]
+    active_topics = _active_topics(scenario)
+    max_weight = _max_topic_weight(scenario)
+    if not active_topics or max_weight <= 0.0:
+        return rows[:budget]
+    topic_budget = min(
+        budget,
+        math.ceil(budget * max(0.0, min(1.0, max_weight)) * max(0.0, topic_lane_max_share)),
+    )
+    topic_rows = [row for row in rows if _is_topic_mover(row, active_topics)]
+    selected: list[dict[str, Any]] = topic_rows[:topic_budget]
+    selected_lemmas = {str(row.get("lemma") or "") for row in selected}
+    topic_lemmas = {str(row.get("lemma") or "") for row in topic_rows}
+    general_rows = [
+        dict(row)
+        for row in neutral_words
+        if str(row.get("lemma") or "") not in selected_lemmas | topic_lemmas
+    ]
+    selected.extend(general_rows[: max(0, budget - len(selected))])
+    selected_lemmas = {str(row.get("lemma") or "") for row in selected}
+    if len(selected) < budget:
+        selected.extend(row for row in rows if str(row.get("lemma") or "") not in selected_lemmas)
+    return selected[:budget]
+
+
 def _build_comparisons(
     *,
     ranked_rows: Sequence[Mapping[str, Any]],
     weighted_rows: Sequence[Mapping[str, Any]],
+    top_k_rows: Sequence[Mapping[str, Any]],
+    topic_lane_rows: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
     ranked = {str(row.get("name") or ""): row for row in ranked_rows}
     weighted = {str(row.get("name") or ""): row for row in weighted_rows}
+    top_k = {str(row.get("name") or ""): row for row in top_k_rows}
+    topic_lane = {str(row.get("name") or ""): row for row in topic_lane_rows}
     ranked_strength = [
         _row_share(ranked, "neutral"),
         _row_share(ranked, "animals_light_weight"),
@@ -303,6 +532,16 @@ def _build_comparisons(
         _weighted_share(weighted, "neutral"),
         _weighted_share(weighted, "animals_light_weight"),
         _weighted_share(weighted, "animals_interest"),
+    ]
+    top_k_strength = [
+        _weighted_share(top_k, "neutral"),
+        _weighted_share(top_k, "animals_light_weight"),
+        _weighted_share(top_k, "animals_interest"),
+    ]
+    topic_lane_strength = [
+        _row_share(topic_lane, "neutral"),
+        _row_share(topic_lane, "animals_light_weight"),
+        _row_share(topic_lane, "animals_interest"),
     ]
     strong_animals = ranked.get("animals_interest", {})
     high_animals = ranked.get("animals_high_proficiency", {})
@@ -314,6 +553,14 @@ def _build_comparisons(
         "weighted_animals_strength_visible": (
             weighted_strength[-1] > weighted_strength[0] and weighted_strength[-1] > 0.0
         ),
+        "top_k_animals_strength_mean_shares": top_k_strength,
+        "top_k_animals_strength_monotonic": top_k_strength == sorted(top_k_strength),
+        "top_k_animals_strength_visible": (
+            top_k_strength[-1] > top_k_strength[0] and top_k_strength[-1] > 0.0
+        ),
+        "topic_lane_animals_strength_shares": topic_lane_strength,
+        "topic_lane_animals_strength_monotonic": topic_lane_strength == sorted(topic_lane_strength),
+        "topic_lane_animals_strong_mixed": 0.0 < topic_lane_strength[-1] < 1.0,
         "high_proficiency_animals": {
             "strong_topic_share": _row_share(ranked, "animals_interest"),
             "high_proficiency_topic_share": _row_share(ranked, "animals_high_proficiency"),
@@ -372,6 +619,36 @@ def _build_findings(
             },
         )
     )
+    findings.append(
+        _finding(
+            "PASS"
+            if comparisons.get("top_k_animals_strength_monotonic")
+            and comparisons.get("top_k_animals_strength_visible")
+            else "WARN",
+            "TOP_K_WEIGHTED_TOPIC_SIGNAL_VISIBLE",
+            (
+                "Top-k weighted sampling makes the animals preference visible."
+                if comparisons.get("top_k_animals_strength_visible")
+                else "Top-k weighted sampling still did not make the animals preference visible."
+            ),
+            comparisons.get("top_k_animals_strength_mean_shares"),
+        )
+    )
+    findings.append(
+        _finding(
+            "PASS"
+            if comparisons.get("topic_lane_animals_strength_monotonic")
+            and comparisons.get("topic_lane_animals_strong_mixed")
+            else "WARN",
+            "RESERVED_TOPIC_LANE_PRODUCES_MIXED_TOPIC_BATCH",
+            (
+                "Reserved topic-lane simulation produces a meaningful but mixed animals batch."
+                if comparisons.get("topic_lane_animals_strong_mixed")
+                else "Reserved topic-lane simulation did not produce the intended mixed batch."
+            ),
+            comparisons.get("topic_lane_animals_strength_shares"),
+        )
+    )
     high = dict(comparisons.get("high_proficiency_animals") or {})
     findings.append(
         _finding(
@@ -406,104 +683,20 @@ def _summarize_findings(findings: Sequence[Mapping[str, Any]]) -> dict[str, Any]
     }
 
 
-def render_markdown(report: Mapping[str, Any]) -> str:
-    summary = dict(report.get("summary") or {})
-    lines = [
-        "# SRS Admission Calibration - en-es",
-        "",
-        f"- Status: {summary.get('status')}",
-        f"- Findings: pass={summary.get('pass_count')} warn={summary.get('warn_count')} fail={summary.get('fail_count')}",
-        f"- Admission budget: {summary.get('admission_budget')}",
-        f"- Weighted seeds: {', '.join(str(seed) for seed in dict(report.get('parameters') or {}).get('weighted_seeds', []))}",
-        f"- Source rows: {dict(report.get('source_summary') or {}).get('row_count')}",
-        "",
-        "## How To Read",
-        "",
-        "- Ranked share is the deterministic topic-matching share of the preview admission batch.",
-        "- Weighted share is the empirical topic-matching share across seeded weighted preview batches.",
-        "- These values are calibration diagnostics, not hard product guarantees.",
-        "",
-        "## Ranked Admission Batch Shares",
-        "",
-        "| Scenario | Active topics | Topic share | Topic count | Avg difficulty | Avg readiness | Top lemmas |",
-        "| --- | --- | ---: | ---: | ---: | ---: | --- |",
-    ]
-    for row in report.get("ranked_rows", ()):
-        if not isinstance(row, Mapping):
-            continue
-        lines.append(
-            "| "
-            f"{row.get('name')} | "
-            f"{_join(row.get('active_topics'))} | "
-            f"{_format_float(row.get('selected_topic_share'))} | "
-            f"{row.get('selected_topic_count')} | "
-            f"{_format_float(row.get('average_difficulty'))} | "
-            f"{_format_float(row.get('average_readiness'))} | "
-            f"{_join(list(row.get('top_lemmas') or [])[:8])} |"
-        )
-    lines.extend(
-        [
-            "",
-            "## Weighted Admission Batch Shares",
-            "",
-            "| Scenario | Mean topic share | Range | Mean topic count | Frequent lemmas |",
-            "| --- | ---: | --- | ---: | --- |",
-        ]
-    )
-    for row in report.get("weighted_rows", ()):
-        if not isinstance(row, Mapping):
-            continue
-        frequent = [
-            f"{item.get('lemma')}({item.get('count')})"
-            for item in row.get("top_lemma_frequency", ())
-            if isinstance(item, Mapping)
-        ]
-        lines.append(
-            "| "
-            f"{row.get('name')} | "
-            f"{_format_float(row.get('mean_selected_topic_share'))} | "
-            f"{_format_float(row.get('min_selected_topic_share'))}-"
-            f"{_format_float(row.get('max_selected_topic_share'))} | "
-            f"{_format_float(row.get('mean_selected_topic_count'))} | "
-            f"{_join(frequent[:8])} |"
-        )
-    lines.extend(["", "## Topic Support", ""])
-    for row in report.get("ranked_rows", ()):
-        if not isinstance(row, Mapping) or not row.get("active_topic_support"):
-            continue
-        lines.append(f"### {row.get('name')}")
-        for topic in row.get("active_topic_support", ()):
-            if not isinstance(topic, Mapping):
-                continue
-            lines.append(
-                "- "
-                f"{topic.get('topic')}: candidates={topic.get('candidate_count')}, "
-                f"support_mass={_format_float(topic.get('support_mass'))}, "
-                f"examples={_join(topic.get('top_examples'))}"
-            )
-        lines.append("")
-    lines.extend(["## Findings", ""])
-    for finding in report.get("findings", ()):
-        if isinstance(finding, Mapping):
-            lines.append(
-                f"- {finding.get('level')}: `{finding.get('code')}` - {finding.get('message')}"
-            )
-    return "\n".join(lines).rstrip() + "\n"
-
-
-def write_report(report: Mapping[str, Any], *, json_out: Path, markdown_out: Path) -> None:
-    json_out.parent.mkdir(parents=True, exist_ok=True)
-    markdown_out.parent.mkdir(parents=True, exist_ok=True)
-    json_out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    markdown_out.write_text(render_markdown(report), encoding="utf-8")
-
-
 def _row_share(rows_by_name: Mapping[str, Mapping[str, Any]], name: str) -> float:
     return float(rows_by_name.get(name, {}).get("selected_topic_share") or 0.0)
 
 
 def _weighted_share(rows_by_name: Mapping[str, Mapping[str, Any]], name: str) -> float:
     return float(rows_by_name.get(name, {}).get("mean_selected_topic_share") or 0.0)
+
+
+def _selection_mass(row: Mapping[str, Any]) -> float:
+    for key in ("selection_mass", "profile_score", "admission_weight"):
+        value = _safe_float(row.get(key))
+        if value > 0.0:
+            return value
+    return 0.001
 
 
 def _average_metric(rows: Sequence[Mapping[str, Any]], key: str) -> float | None:
@@ -540,27 +733,8 @@ def _rounded(value: object) -> float:
     return round(_safe_float(value), 6)
 
 
-def _format_float(value: object) -> str:
-    if value is None:
-        return "n/a"
-    return f"{_safe_float(value):.3f}"
-
-
-def _join(values: object) -> str:
-    if not isinstance(values, Sequence) or isinstance(values, str):
-        return "none"
-    rendered = [str(value) for value in values if str(value).strip()]
-    return ", ".join(rendered) if rendered else "none"
-
-
 def _parse_weighted_seeds(value: str) -> tuple[int, ...]:
-    seeds = []
-    for item in value.split(","):
-        stripped = item.strip()
-        if not stripped:
-            continue
-        seeds.append(int(stripped))
-    return tuple(seeds)
+    return tuple(int(item.strip()) for item in value.split(",") if item.strip())
 
 
 def parse_args() -> argparse.Namespace:
@@ -573,6 +747,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--overlay-source-paths", type=Path, nargs="*")
     parser.add_argument("--set-top-n", type=int, default=DEFAULT_SET_TOP_N)
     parser.add_argument("--admission-budget", type=int, default=DEFAULT_ADMISSION_BUDGET)
+    parser.add_argument("--top-k-window", type=int, default=DEFAULT_TOP_K_WINDOW)
+    parser.add_argument("--topic-lane-max-share", type=float, default=DEFAULT_TOPIC_LANE_MAX_SHARE)
     parser.add_argument(
         "--weighted-seeds",
         default=",".join(str(seed) for seed in DEFAULT_WEIGHTED_SEEDS),
@@ -599,6 +775,8 @@ def main() -> int:
         overlay_source_paths=args.overlay_source_paths,
         set_top_n=args.set_top_n,
         admission_budget=args.admission_budget,
+        top_k_window=args.top_k_window,
+        topic_lane_max_share=args.topic_lane_max_share,
         weighted_seeds=_parse_weighted_seeds(args.weighted_seeds),
         augment_with_zipf_bridge=args.augment_with_zipf_bridge,
         zipf_bridge_path=args.zipf_bridge_path,

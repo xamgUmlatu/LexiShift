@@ -322,6 +322,7 @@ def simplify_admitted_word(entry: Mapping[str, object]) -> dict[str, Any]:
         "reranked_rank": entry.get("reranked_rank"),
         "rank_delta": entry.get("rank_delta"),
         "profile_score": entry.get("profile_score"),
+        "selection_mass": entry.get("selection_mass"),
         "admission_weight": entry.get("admission_weight"),
         "difficulty_estimate": signals.get("difficulty_estimate")
         if isinstance(signals, Mapping)

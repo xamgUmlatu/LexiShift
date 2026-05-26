@@ -219,7 +219,10 @@ Status key:
   distributions:
   - ranked preview batch shares are now visible across topic/proficiency profiles;
   - weighted-without-replacement seeded samples are visible and currently warn
-    that full-pool weighted sampling is too diffuse for topic preferences.
+    that full-pool weighted sampling is too diffuse for topic preferences;
+  - top-k weighted and reserved topic-lane simulations are now reported so MVP
+    policy choices can be compared against realized topic shares without mutating
+    production SRS state.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
 
 ### Workstream H — LP parity and de-hardcoding (`en-de`/`en-es` vs `en-ja`)

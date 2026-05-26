@@ -1382,12 +1382,16 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-27` planner/helper metadata now reports requested `profile_bootstrap` as executable profile-aware bootstrap, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report exposes ranked batch shares plus weighted-sampling diffusion.
+- Last documented checkpoint: `2026-05-27` planner/helper metadata now reports requested `profile_bootstrap` as executable profile-aware bootstrap, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes.
 - Last verified: `2026-05-27` focused profile-bootstrap/planner/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, and a proficiency readiness multiplier over the frequency seed frontier before initial active selection.
   - The local SRS admission lab may create a temporary EN-ES Zipf-bridge augmented frequency DB from committed test artifacts plus installed Kaikki POS data; this is dev-lab-only and does not install, mutate, or promote a production frequency pack.
+  - The calibration report is preview-only. Its current MVP-facing signal is that
+    a reserved topic lane can make topic strength visible while keeping a mixed
+    general-admission batch; full-pool weighted sampling remains too diffuse as a
+    direct topic-preference policy.
   - `profile_growth` is executable for the dedicated rebalance preview/apply lane, but not yet as a general growth-admission strategy for adding new items into `S`.
   - `adaptive_refresh` still falls back to planning-only behavior.
 - Evidence:

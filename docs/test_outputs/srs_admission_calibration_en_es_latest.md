@@ -1,15 +1,18 @@
 # SRS Admission Calibration - en-es
 
 - Status: WARN
-- Findings: pass=3 warn=1 fail=0
+- Findings: pass=5 warn=1 fail=0
 - Admission budget: 10
+- Top-k window: 60
 - Weighted seeds: 11, 23, 37
 - Source rows: 4123
 
 ## How To Read
 
 - Ranked share is the deterministic topic-matching share of the preview admission batch.
-- Weighted share is the empirical topic-matching share across seeded weighted preview batches.
+- Full-pool weighted share samples from the whole candidate pool and is diagnostic only.
+- Top-k weighted share samples from the ranked window, preserving variety without using the whole pool.
+- Reserved lane share simulates a mixed batch with topic slots plus general slots.
 - These values are calibration diagnostics, not hard product guarantees.
 
 ## Ranked Admission Batch Shares
@@ -53,6 +56,48 @@
 | sports_fitness_interest | 0.000 | 0.000-0.000 | 0.000 | miércoles(1), asma(1), garra(1), reparo(1), cándido(1), motivación(1), prólogo(1), flagelo(1) |
 | travel_places_transport_interest | 0.000 | 0.000-0.000 | 0.000 | tío(1), escopeta(1), zinc(1), abreviatura(1), neerlandés(1), amplitud(1), tal(1), vello(1) |
 | weighted_plants_over_animals | 0.000 | 0.000-0.000 | 0.000 | cerebro(1), mostrador(1), cilindro(1), cándido(1), merluza(1), leña(1), mismo(1), magnetismo(1) |
+
+## Top-K Weighted Admission Shares
+
+| Scenario | Mean topic share | Range | Mean topic count | Frequent lemmas |
+| --- | ---: | --- | ---: | --- |
+| animals_high_proficiency | 0.000 | 0.000-0.000 | 0.000 | ucraniano(3), parpadeante(2), cosmogonía(2), repelar(2), ávidamente(2), húngara(1), neerlandesa(1), oficializar(1) |
+| animals_interest | 1.000 | 1.000-1.000 | 10.000 | cuervo(2), sapo(2), faisán(2), atún(2), insecto(2), oveja(2), rana(1), tigre(1) |
+| animals_light_weight | 0.033 | 0.000-0.100 | 0.333 | gobierno(3), caso(2), fin(2), hecho(2), bueno(2), contra(1), bien(1), país(1) |
+| animals_plants_interest | 1.000 | 1.000-1.000 | 10.000 | pino(2), parra(2), gaviota(2), cabra(2), gata(2), elefante(2), araña(1), lobo(1) |
+| finance_business_interest | 0.767 | 0.700-0.800 | 7.667 | propulsión(3), cargo(2), revés(2), día(2), radio(2), ejercicio(2), red(1), siete(1) |
+| food_cooking_interest | 0.600 | 0.500-0.700 | 6.000 | tomate(3), uva(2), menú(2), contra(2), sobre(2), maíz(2), patata(1), queso(1) |
+| games_interest | 0.767 | 0.700-0.800 | 7.667 | león(3), túnel(2), plancha(2), año(2), penal(2), palo(2), muerto(2), sencillo(1) |
+| law_politics_civics_interest | 1.000 | 1.000-1.000 | 10.000 | naranja(3), instrumento(2), caballería(2), metal(2), perla(2), protesta(1), acción(1), anillo(1) |
+| medicine_health_interest | 1.000 | 1.000-1.000 | 10.000 | arteria(3), faz(2), costilla(2), labio(2), ataque(2), mejilla(1), cerebro(1), frente(1) |
+| music_media_entertainment_interest | 0.767 | 0.700-0.800 | 7.667 | ronda(3), trombón(2), sencillo(2), año(2), accidental(2), orquesta(2), canción(2), metal(1) |
+| neutral | 0.000 | 0.000-0.000 | 0.000 | momento(3), poder(2), lado(2), país(2), historia(2), casa(1), día(1), bueno(1) |
+| plants_nature_interest | 0.367 | 0.300-0.500 | 3.667 | nada(2), nuevo(2), granado(2), sobre(2), tiempo(2), dos(2), manzano(1), calabaza(1) |
+| science_technology_interest | 0.367 | 0.300-0.500 | 3.667 | este(3), menú(2), hacer(2), caso(2), parte(2), plataforma(2), controlador(1), mandato(1) |
+| sports_fitness_interest | 1.000 | 1.000-1.000 | 10.000 | ataque(3), carrera(2), guardia(2), volante(2), cuadro(2), relevo(1), deporte(1), registro(1) |
+| travel_places_transport_interest | 0.433 | 0.400-0.500 | 4.333 | como(3), tranvía(2), casa(2), nada(2), billete(2), viaje(2), dos(1), visado(1) |
+| weighted_plants_over_animals | 0.900 | 0.800-1.000 | 9.000 | gato(3), manzano(2), como(2), granado(2), pez(2), col(2), perro(1), calabaza(1) |
+
+## Reserved Topic-Lane Simulation
+
+| Scenario | Active topics | Topic share | Topic count | Avg difficulty | Top lemmas |
+| --- | --- | ---: | ---: | ---: | --- |
+| neutral | none | 0.000 | 0 | 0.000 | como, este, sobre, dos, bien, hacer, nada, parte |
+| animals_interest | animals | 0.500 | 5 | 0.011 | perro, ganado, animal, gato, pollo, como, este, sobre |
+| animals_light_weight | animals | 0.100 | 1 | 0.002 | perro, como, este, sobre, dos, bien, hacer, nada |
+| plants_nature_interest | plants_nature | 0.500 | 5 | 0.017 | haya, árbol, flor, hierba, col, como, este, sobre |
+| food_cooking_interest | food_cooking | 0.500 | 5 | 0.006 | agua, comida, carne, pan, leche, como, este, sobre |
+| medicine_health_interest | medicine_health | 0.500 | 5 | 0.003 | mano, cabeza, cara, media, boca, como, este, sobre |
+| finance_business_interest | finance_business | 0.500 | 5 | 0.002 | punto, derecho, seguro, tierra, capital, como, este, sobre |
+| sports_fitness_interest | sports_fitness | 0.500 | 5 | 0.003 | final, largo, escuela, serie, campo, como, este, sobre |
+| games_interest | games | 0.500 | 5 | 0.004 | juego, rey, comer, color, muerto, como, este, sobre |
+| music_media_entertainment_interest | music_media_entertainment | 0.500 | 5 | 0.003 | bajo, grupo, música, película, canción, como, este, sobre |
+| law_politics_civics_interest | law_politics_civics | 0.500 | 5 | 0.001 | parte, general, ley, sistema, número, como, este, sobre |
+| science_technology_interest | science_technology | 0.500 | 5 | 0.007 | vida, salida, función, cadena, plataforma, como, este, sobre |
+| travel_places_transport_interest | travel_places_transport | 0.500 | 5 | 0.002 | país, ciudad, camino, calle, viaje, como, este, sobre |
+| animals_high_proficiency | animals | 0.000 | 0 | 0.000 | como, este, sobre, dos, bien, hacer, nada, parte |
+| animals_plants_interest | animals, plants_nature | 0.500 | 5 | 0.008 | haya, perro, ganado, animal, gato, como, este, sobre |
+| weighted_plants_over_animals | animals, plants_nature | 0.500 | 5 | 0.017 | haya, árbol, flor, hierba, col, como, este, sobre |
 
 ## Topic Support
 
@@ -108,4 +153,6 @@
 - PASS: `CALIBRATION_PREVIEWS_HAVE_NO_FAILURES` - Ranked and weighted admission previews completed without FAIL findings.
 - PASS: `RANKED_TOPIC_STRENGTH_MONOTONIC` - Ranked animals topic share is monotonic from neutral to light to strong.
 - WARN: `WEIGHTED_TOPIC_STRENGTH_MONOTONIC` - Weighted animals topic share did not become visible in the seeded samples; the full-pool weighted policy may be too diffuse for topic preferences.
+- PASS: `TOP_K_WEIGHTED_TOPIC_SIGNAL_VISIBLE` - Top-k weighted sampling makes the animals preference visible.
+- PASS: `RESERVED_TOPIC_LANE_PRODUCES_MIXED_TOPIC_BATCH` - Reserved topic-lane simulation produces a meaningful but mixed animals batch.
 - PASS: `HIGH_PROFICIENCY_TRADEOFF_VISIBLE` - High-proficiency animals calibration exposes whether readiness suppresses too-easy topic items.
