@@ -1387,6 +1387,34 @@ textarea {
   font-weight: 600;
 }
 
+.srs-words-filterbar {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.45fr) minmax(150px, 0.55fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.srs-words-filterbar label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5c5449;
+}
+
+.srs-words-filterbar input,
+.srs-words-filterbar select {
+  width: 100%;
+  min-height: 34px;
+  box-sizing: border-box;
+  border: 1px solid #cfc3b2;
+  border-radius: 6px;
+  background: #fffdf8;
+  color: #2c2a26;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+
 .srs-words-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
@@ -1432,6 +1460,14 @@ textarea {
   padding: 10px 0;
   color: #6c675f;
   font-size: 13px;
+}
+
+.srs-words-filter-note {
+  margin: 0;
+  padding: 8px 0;
+  color: #6c675f;
+  font-size: 12px;
+  border-bottom: 1px solid #e7decf;
 }
 
 .srs-word-row {
@@ -1537,6 +1573,12 @@ textarea {
   margin: 8px 0 0;
   color: #6c675f;
   font-size: 12px;
+}
+
+@media (max-width: 680px) {
+  .srs-words-filterbar {
+    grid-template-columns: 1fr;
+  }
 }
 
 button {

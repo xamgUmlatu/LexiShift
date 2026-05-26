@@ -116,8 +116,8 @@ Status key:
 - `[x]` Feedback ingestion from extension popup.
 - `[~]` Formal lifecycle statuses (backend `active`/`discarded`/`cleared`
   markers exist; fuller review/mastery lifecycle remains planned).
-- `[~]` User-facing SRS item visibility (read-only options dashboard exists;
-  confirmed dashboard discard exists; restore/mastery actions remain planned).
+- `[~]` User-facing SRS item visibility (options dashboard has search/filter/
+  sort and confirmed discard; restore/mastery actions remain planned).
 - `[ ]` Daily/session budget policy hardening (`max_active`, `max_new_per_day`).
 
 ### Workstream B — Set `S` admission and initialization

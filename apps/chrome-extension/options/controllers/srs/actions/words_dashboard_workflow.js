@@ -28,11 +28,54 @@
         };
     const wordsRefreshButton = opts.wordsRefreshButton || null;
     const wordsAdvancedInput = opts.wordsAdvancedInput || null;
+    const wordsSearchInput = opts.wordsSearchInput || null;
+    const wordsStatusFilterInput = opts.wordsStatusFilterInput || null;
+    const wordsSortInput = opts.wordsSortInput || null;
     const wordsSummaryRoot = opts.wordsSummaryRoot || null;
     const wordsListRoot = opts.wordsListRoot || null;
     const maxRenderedWordRows = 300;
+    const dashboardModelFactory = root.optionsSrsWordsDashboardModel
+      && typeof root.optionsSrsWordsDashboardModel.createWordsDashboardModel === "function"
+      ? root.optionsSrsWordsDashboardModel.createWordsDashboardModel
+      : null;
+    const dashboardModel = dashboardModelFactory
+      ? dashboardModelFactory()
+      : {
+          apply: (items) => items,
+          isAdjusted: () => false,
+          setSearchQuery: () => {},
+          setSortMode: () => {},
+          setStatusFilter: () => {}
+        };
     let latestWordsDashboardData = null;
     let wordsDashboardAdvanced = Boolean(wordsAdvancedInput && wordsAdvancedInput.checked);
+    dashboardModel.setSearchQuery(getControlValue(wordsSearchInput));
+    dashboardModel.setStatusFilter(getControlValue(wordsStatusFilterInput) || "all");
+    dashboardModel.setSortMode(getControlValue(wordsSortInput) || "source");
+
+    bindDashboardControl(wordsSearchInput, "input", () => {
+      dashboardModel.setSearchQuery(getControlValue(wordsSearchInput));
+      renderWordsDashboard(latestWordsDashboardData);
+    });
+    bindDashboardControl(wordsStatusFilterInput, "change", () => {
+      dashboardModel.setStatusFilter(getControlValue(wordsStatusFilterInput) || "all");
+      renderWordsDashboard(latestWordsDashboardData);
+    });
+    bindDashboardControl(wordsSortInput, "change", () => {
+      dashboardModel.setSortMode(getControlValue(wordsSortInput) || "source");
+      renderWordsDashboard(latestWordsDashboardData);
+    });
+
+    function getControlValue(control) {
+      return control && control.value !== undefined ? String(control.value || "").trim() : "";
+    }
+
+    function bindDashboardControl(control, eventName, handler) {
+      if (!control || typeof control.addEventListener !== "function") {
+        return;
+      }
+      control.addEventListener(eventName, handler);
+    }
 
     function clearNode(node) {
       if (!node) {
@@ -129,15 +172,27 @@
         wordsSummaryRoot.appendChild(appendSummaryItem(doc, label, value));
       });
 
-      const items = Array.isArray(data.items) ? data.items : [];
+      const allItems = Array.isArray(data.items) ? data.items : [];
+      const items = dashboardModel.apply(allItems);
       if (!items.length) {
         wordsListRoot.appendChild(createNode(
           doc,
           "p",
           "srs-words-empty",
-          "No SRS words are admitted for this pair yet."
+          allItems.length
+            ? "No SRS words match these filters."
+            : "No SRS words are admitted for this pair yet."
         ));
         return;
+      }
+
+      if (dashboardModel.isAdjusted()) {
+        wordsListRoot.appendChild(createNode(
+          doc,
+          "p",
+          "srs-words-filter-note",
+          `Showing ${items.length} of ${allItems.length} words.`
+        ));
       }
 
       items.slice(0, maxRenderedWordRows).forEach((item) => {

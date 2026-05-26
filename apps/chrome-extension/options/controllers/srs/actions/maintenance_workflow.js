@@ -32,6 +32,9 @@
     const resetButton = opts.resetButton || null;
     const wordsRefreshButton = opts.wordsRefreshButton || null;
     const wordsAdvancedInput = opts.wordsAdvancedInput || null;
+    const wordsSearchInput = opts.wordsSearchInput || null;
+    const wordsStatusFilterInput = opts.wordsStatusFilterInput || null;
+    const wordsSortInput = opts.wordsSortInput || null;
     const wordsSummaryRoot = opts.wordsSummaryRoot || null;
     const wordsListRoot = opts.wordsListRoot || null;
     const setOutputText = getFunction(opts.setOutputText, () => {});
@@ -84,6 +87,9 @@
           colors,
           wordsRefreshButton,
           wordsAdvancedInput,
+          wordsSearchInput,
+          wordsStatusFilterInput,
+          wordsSortInput,
           wordsSummaryRoot,
           wordsListRoot
         })

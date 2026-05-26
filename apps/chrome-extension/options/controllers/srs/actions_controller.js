@@ -41,6 +41,9 @@
     const resetButton = elements.resetButton || null;
     const wordsRefreshButton = elements.wordsRefreshButton || null;
     const wordsAdvancedInput = elements.wordsAdvancedInput || null;
+    const wordsSearchInput = elements.wordsSearchInput || null;
+    const wordsStatusFilterInput = elements.wordsStatusFilterInput || null;
+    const wordsSortInput = elements.wordsSortInput || null;
     const wordsSummaryRoot = elements.wordsSummaryRoot || null;
     const wordsListRoot = elements.wordsListRoot || null;
     const semanticPackInventoryPathInput = elements.semanticPackInventoryPathInput || null;
@@ -131,6 +134,9 @@
           resetButton,
           wordsRefreshButton,
           wordsAdvancedInput,
+          wordsSearchInput,
+          wordsStatusFilterInput,
+          wordsSortInput,
           wordsSummaryRoot,
           wordsListRoot,
           semanticPackInventoryPathInput,

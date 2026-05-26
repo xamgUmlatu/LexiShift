@@ -3,8 +3,9 @@
 Status: active implementation contract
 Role: Mixed product decision plus current dashboard implementation contract
 Last updated: 2026-05-26
-Last verified: 2026-05-26 helper/options dashboard tests, durable discard
-workflow tests, and SRS quality harness
+Last verified: 2026-05-26 helper/options dashboard tests, local
+search/filter/sort tests, durable discard workflow tests, and SRS quality
+harness
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, and deferred lifecycle actions
 Source-of-truth: product decision and UI contract live here; executable truth
@@ -25,6 +26,7 @@ Default view should show useful learner concepts:
 - removed words, including discarded or cleared items;
 - per-word display text, due status, review count, exposure count, and source
   label.
+- local search, status filtering, and sort controls for already-loaded words.
 
 Technical details belong behind an Advanced details toggle:
 
@@ -61,8 +63,10 @@ Read/listing path:
   store fallback when no pair inventory exists;
 - non-active lifecycle states are visible in the dashboard but remain ineligible
   for active serving elsewhere;
-- options.html exposes a Learning words dashboard with Refresh words and an
-  Advanced details toggle.
+- options.html exposes a Learning words dashboard with Refresh words, local
+  search, status filter, sort controls, and an Advanced details toggle.
+- search/filter/sort operate only on the already-loaded dashboard payload; they
+  do not call the helper, mutate SRS state, or change serving/admission order.
 
 The listing endpoint should not:
 
@@ -86,9 +90,10 @@ Discard path:
 
 ## Deferred Work
 
-Next product slices, after dashboard discard is stable:
+Next product slices, after dashboard search/filter/sort and discard are stable:
 
-1. Search/filter/sort for large admitted sets.
+1. Pagination or virtualized rendering if admitted sets become too large for
+   the current capped renderer.
 2. Optional right-click popup discard affordance, kept discrete beside review
    ratings.
 3. A confirmed restore/undo policy if discarded items should ever return.
@@ -100,6 +105,8 @@ Next product slices, after dashboard discard is stable:
 The dashboard is acceptable for MVP when:
 
 - the read-only endpoint and options UI are covered by focused tests;
+- dashboard search/filter/sort are covered by focused workflow tests and remain
+  local to the loaded payload;
 - dashboard discard is covered by focused workflow tests and uses the existing
   suppression route;
 - SRS quality harness still passes after the helper route lands;

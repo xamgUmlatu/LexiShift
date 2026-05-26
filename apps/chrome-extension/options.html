@@ -226,6 +226,32 @@
                 </label>
               </div>
             </div>
+            <div class="srs-words-filterbar">
+              <label>
+                <span data-i18n="label_srs_words_search">Search</span>
+                <input id="srs-words-search" type="search" autocomplete="off" />
+              </label>
+              <label>
+                <span data-i18n="label_srs_words_status_filter">Status</span>
+                <select id="srs-words-status-filter">
+                  <option value="all" data-i18n="option_srs_words_status_all">All</option>
+                  <option value="active" data-i18n="option_srs_words_status_active">Active</option>
+                  <option value="due" data-i18n="option_srs_words_status_due">Due</option>
+                  <option value="queued" data-i18n="option_srs_words_status_queued">Queued</option>
+                  <option value="removed" data-i18n="option_srs_words_status_removed">Removed</option>
+                </select>
+              </label>
+              <label>
+                <span data-i18n="label_srs_words_sort">Sort</span>
+                <select id="srs-words-sort">
+                  <option value="source" data-i18n="option_srs_words_sort_source">Source order</option>
+                  <option value="due" data-i18n="option_srs_words_sort_due">Due first</option>
+                  <option value="word" data-i18n="option_srs_words_sort_word">Word A-Z</option>
+                  <option value="reviews" data-i18n="option_srs_words_sort_reviews">Most reviews</option>
+                  <option value="seen" data-i18n="option_srs_words_sort_seen">Most seen</option>
+                </select>
+              </label>
+            </div>
             <div id="srs-words-summary" class="srs-words-summary" role="status"></div>
             <div id="srs-words-list" class="srs-words-list"></div>
           </div>
@@ -818,6 +844,7 @@
     <script src="options/controllers/srs/actions/formatters.js"></script>
     <script src="options/controllers/srs/actions/shared.js"></script>
     <script src="options/controllers/srs/actions/semantic_pack_install_workflow.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_model.js"></script>
     <script src="options/controllers/srs/actions/words_dashboard_workflow.js"></script>
     <script src="options/controllers/srs/actions/maintenance_workflow.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>

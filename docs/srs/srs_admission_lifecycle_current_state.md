@@ -182,9 +182,9 @@ Current related mechanisms:
 Current visibility/action surface: the options page can list admitted SRS words
 for the selected pair/profile through the read-only `srs_items_list`
 helper/native-host route. The view separates learner-facing status from
-advanced scheduler and lifecycle details. Eligible rows expose a confirmed
-Discard action that reuses the existing `srs_admission_suppress` route with
-`reason=user_blocked`.
+advanced scheduler and lifecycle details, and it can locally search/filter/sort
+the already-loaded payload. Eligible rows expose a confirmed Discard action that
+reuses the existing `srs_admission_suppress` route with `reason=user_blocked`.
 
 Open gap: full user-facing lifecycle management is still not implemented. The
 guard exists, refresh respects it, and dashboard discard can write it, but the

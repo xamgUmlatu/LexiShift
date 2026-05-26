@@ -14,6 +14,9 @@ WORDS_DASHBOARD_WORKFLOW_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js"
 )
+WORDS_DASHBOARD_MODEL_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_model.js"
+)
 SEMANTIC_PACK_INSTALL_WORKFLOW_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/semantic_pack_install_workflow.js"
@@ -470,6 +473,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const wordsDashboardModelPath = {json.dumps(str(WORDS_DASHBOARD_MODEL_JS))};
 const wordsDashboardModulePath = {json.dumps(str(WORDS_DASHBOARD_WORKFLOW_JS))};
 const modulePath = {json.dumps(str(MAINTENANCE_WORKFLOW_JS))};
 const context = vm.createContext({{ console }});
@@ -486,6 +490,7 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(wordsDashboardModelPath, "utf8"), context, {{ filename: wordsDashboardModelPath }});
 vm.runInContext(fs.readFileSync(wordsDashboardModulePath, "utf8"), context, {{ filename: wordsDashboardModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -533,6 +538,12 @@ summaryRoot.ownerDocument = doc;
 const listRoot = makeNode("div");
 listRoot.ownerDocument = doc;
 const refreshButton = {{ disabled: false }};
+const searchInput = makeNode("input");
+searchInput.value = "";
+const statusFilterInput = makeNode("select");
+statusFilterInput.value = "all";
+const sortInput = makeNode("select");
+sortInput.value = "source";
 const statuses = [];
 const listCalls = [];
 const discardCalls = [];
@@ -582,11 +593,11 @@ const workflows = createMaintenanceWorkflows({{
       return {{
         status: "ok",
         summary: {{
-          total: 1,
-          active: 1,
+          total: 3,
+          active: 2,
           due_now: 1,
-          due_soon: 0,
-          queued: 0,
+          due_soon: 1,
+          queued: 1,
           removed: 0
         }},
         items: [
@@ -608,6 +619,37 @@ const workflows = createMaintenanceWorkflows({{
               confidence: 0.9,
               stability: 4,
               difficulty: 3
+            }}
+          }},
+          {{
+            item_id: "en-es:gato",
+            lemma: "gato",
+            display: "gato",
+            reading: "gato",
+            status: "queued",
+            status_label: "Queued",
+            review_count: 0,
+            exposures: 1,
+            source_label: "freq-es-cde",
+            advanced: {{
+              lifecycle_state: "active",
+              scheduler_state: "new"
+            }}
+          }},
+          {{
+            item_id: "en-es:ave",
+            lemma: "ave",
+            display: "ave",
+            reading: "ave",
+            status: "due_soon",
+            status_label: "Due soon",
+            due_in_seconds: 3600,
+            review_count: 1,
+            exposures: 5,
+            source_label: "freq-es-cde",
+            advanced: {{
+              lifecycle_state: "active",
+              scheduler_state: "review"
             }}
           }}
         ]
@@ -636,6 +678,9 @@ const workflows = createMaintenanceWorkflows({{
   }},
   wordsRefreshButton: refreshButton,
   wordsAdvancedInput: {{ checked: false }},
+  wordsSearchInput: searchInput,
+  wordsStatusFilterInput: statusFilterInput,
+  wordsSortInput: sortInput,
   wordsSummaryRoot: summaryRoot,
   wordsListRoot: listRoot
 }});
@@ -647,14 +692,39 @@ const workflows = createMaintenanceWorkflows({{
     {{ pair: "en-es", options: {{ profileId: "alpha" }} }}
   ]);
   assert.equal(summaryRoot.children.length, 6);
-  assert.equal(summaryRoot.children[0].children[0].textContent, "1");
-  assert.equal(listRoot.children.length, 1);
+  assert.equal(summaryRoot.children[0].children[0].textContent, "2");
+  assert.equal(summaryRoot.children[3].children[0].textContent, "1");
+  assert.equal(summaryRoot.children[5].children[0].textContent, "3");
+  assert.equal(listRoot.children.length, 3);
   assert.equal(listRoot.children[0].children.length, 4);
-  assert.equal(statuses[0].message, "Loaded 1 SRS words.");
+  assert.equal(statuses[0].message, "Loaded 3 SRS words.");
   assert.equal(listRoot.children[0].children[3].className, "srs-word-actions");
 
+  searchInput.value = "gat";
+  searchInput.listeners.input();
+  assert.equal(listRoot.children[0].className, "srs-words-filter-note");
+  assert.equal(listRoot.children[0].textContent, "Showing 1 of 3 words.");
+  assert.equal(listRoot.children[1].children[0].children[0].textContent, "gato");
+
+  searchInput.value = "";
+  searchInput.listeners.input();
+  statusFilterInput.value = "due";
+  statusFilterInput.listeners.change();
+  assert.equal(listRoot.children[0].textContent, "Showing 2 of 3 words.");
+  sortInput.value = "word";
+  sortInput.listeners.change();
+  assert.equal(listRoot.children[1].children[0].children[0].textContent, "ave");
+  assert.equal(listRoot.children[2].children[0].children[0].textContent, "perro");
+
+  statusFilterInput.value = "all";
+  statusFilterInput.listeners.change();
+  sortInput.value = "source";
+  sortInput.listeners.change();
+  assert.equal(listRoot.children.length, 3);
+  assert.equal(listRoot.children[0].children[0].children[0].textContent, "perro");
+
   workflows.setWordsDashboardAdvanced(true);
-  assert.equal(listRoot.children.length, 1);
+  assert.equal(listRoot.children.length, 3);
   assert.equal(listRoot.children[0].children.length, 5);
   assert.equal(listRoot.children[0].children[3].className, "srs-word-advanced");
   assert.equal(listRoot.children[0].children[4].className, "srs-word-actions");
