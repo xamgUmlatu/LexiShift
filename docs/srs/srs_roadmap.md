@@ -93,7 +93,8 @@ Ship a non-destructive SRS layer where:
 - Decide whether a dedicated due-only publication artifact is still needed now that runtime gating uses helper SRS due metadata.
 - Add automatic refresh policy trigger from aggregated feedback thresholds (today refresh is explicit/manual).
 - Add stronger observability for feedback effects:
-  - before/after snapshots of `next_due`, `stability`, `difficulty`, and active item counts.
+  - before/after snapshots of `next_due`, `stability`, `difficulty`, selected
+    lemmas, and active item counts are now emitted by the SRS quality harness.
 - Harden retry/idempotency semantics under helper restart/offline transitions.
 - Improve rule generation quality so SRS-serving words are pedagogically precise (see rulegen quality gap below).
 
@@ -212,7 +213,8 @@ Status key:
   -> rule publication -> dashboard visibility.
 - `[x]` Surface refresh budget, selected lemmas, and preview-only browsing
   comparison in the options refresh output for manual SRS testing.
-- `[ ]` Add diagnostics snapshots for before/after feedback cycles (store + sampled lemmas).
+- `[x]` Add diagnostics snapshots for before/after feedback cycles (store,
+  scheduler fields, selected lemmas, and refresh deltas).
 - `[ ]` Add per-pair calibration report for admission/serving distributions.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
 

@@ -51,6 +51,9 @@ class TestSrsQualitySummary(unittest.TestCase):
                             "total_items_for_pair": 3,
                             "ruleset_count": 3,
                             "runtime_due_active_count": 2,
+                            "selected_lemmas": ["beta", "gamma"],
+                            "feedback_delta": {"reviewed_lemmas": ["alpha"]},
+                            "refresh_delta": {"added_lemmas": ["beta", "gamma"]},
                         }
                     ]
                 },
@@ -77,6 +80,9 @@ class TestSrsQualitySummary(unittest.TestCase):
         self.assertIn("- SRS due metadata/runtime-active targets: 12/8", markdown)
         self.assertIn("## Feedback Cycle", markdown)
         self.assertIn("runtime_due_active=2", markdown)
+        self.assertIn("selected=beta, gamma", markdown)
+        self.assertIn("feedback_reviewed=alpha", markdown)
+        self.assertIn("refresh_added=beta, gamma", markdown)
         self.assertIn("None.", markdown)
 
 

@@ -23,6 +23,27 @@ class TestSrsQualityHarness(unittest.TestCase):
         self.assertTrue(
             any(item.get("code") == "SRS_DUE_AWARE_RUNTIME_GATE_VERIFIED" for item in findings)
         )
+        self.assertTrue(
+            any(item.get("code") == "SRS_FEEDBACK_SNAPSHOTS_CAPTURED" for item in findings)
+        )
+        phases = report["feedback_cycle_scenario"]["phases"]
+        phase_1 = phases[0]
+        phase_2 = phases[1]
+        phase_3 = phases[2]
+        self.assertIn("before_refresh", phase_1)
+        self.assertIn("after_refresh", phase_1)
+        self.assertEqual(phase_1["feedback_delta"]["reviewed_lemmas"], ["alpha"])
+        self.assertIn("alpha", phase_1["feedback_delta"]["scheduler_changed_lemmas"])
+        self.assertEqual(
+            sorted(phase_1["selected_lemmas"]),
+            sorted(phase_1["refresh_delta"]["added_lemmas"]),
+        )
+        self.assertEqual(phase_2["selected_lemmas"], [])
+        self.assertEqual(phase_2["refresh_delta"]["total_items_delta"], 0)
+        self.assertEqual(
+            sorted(phase_3["selected_lemmas"]),
+            sorted(phase_3["refresh_delta"]["added_lemmas"]),
+        )
 
     def test_prepare_report_for_publication_normalizes_transient_fields(self) -> None:
         temp_root = Path(tempfile.gettempdir())

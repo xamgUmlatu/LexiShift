@@ -377,13 +377,14 @@ Use this file when:
 ## SRS Quality Harness
 
 - Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication/runtime-serving workflow
-- Last documented checkpoint: `2026-05-15` due-aware runtime serving is verified through helper-published SRS due metadata and extension runtime gating while helper publication may remain broader than the due subset
-- Last verified: `2026-05-15` targeted harness/summary tests plus fresh normalized JSON + Markdown artifact rerender
+- Last documented checkpoint: `2026-05-27` feedback-cycle before/after snapshots now make the SRS quality artifact show feedback deltas separately from refresh/admission deltas
+- Last verified: `2026-05-27` targeted harness/summary tests, feedback simulation test, SRS quality harness rerun, and fresh normalized JSON + Markdown artifact rerender
 - Default behavior:
   - Use the synthetic harness for SRS scheduler, admission refresh, helper publication, set execution, and runtime-serving workflow changes.
   - Review scheduling is now FSRS-based.
   - Current harness covers bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle pause/resume scenario.
   - The feedback-cycle scenario now checks helper SRS due metadata and runtime due-active counts, so broad publication can pass only when runtime serving remains due-aware.
+  - The feedback-cycle scenario now records initial, before-refresh, and after-refresh store snapshots, including scheduler fields, selected lemmas, and separate feedback vs refresh deltas.
   - The committed `latest` JSON artifact is publication-normalized for review stability; raw in-memory harness details remain available before publication.
   - Human-facing summary is available from the JSON artifact.
 - Evidence:

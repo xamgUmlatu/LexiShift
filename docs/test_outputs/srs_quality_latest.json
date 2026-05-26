@@ -9,7 +9,7 @@
   "unsupported_pairs": [],
   "summary": {
     "status": "PASS",
-    "pass_count": 18,
+    "pass_count": 19,
     "warn_count": 0,
     "fail_count": 0,
     "should_fail": false
@@ -2471,11 +2471,41 @@
   ],
   "feedback_cycle_scenario": {
     "pair": "en-ja",
+    "initial_snapshot": {
+      "total_items_for_pair": 1,
+      "active_count": 1,
+      "due_count": 1,
+      "lemmas": [
+        "alpha"
+      ],
+      "due_lemmas": [
+        "alpha"
+      ],
+      "items": [
+        {
+          "item_id": "en-ja:alpha",
+          "lemma": "alpha",
+          "lifecycle_state": "active",
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "stability": null,
+          "difficulty": null,
+          "last_review": null,
+          "next_due": null,
+          "exposures": 0,
+          "history_count": 0
+        }
+      ]
+    },
     "phases": [
       {
         "label": "high_retention_1",
         "applied": true,
         "added_items": 2,
+        "selected_lemmas": [
+          "beta",
+          "gamma"
+        ],
         "total_items_for_pair": 3,
         "reason_code": "normal",
         "feedback_count": 8,
@@ -2484,12 +2514,121 @@
         "srs_due_metadata_count": 3,
         "runtime_due_active_count": 2,
         "snapshot_target_count": 3,
+        "before_refresh": {
+          "total_items_for_pair": 1,
+          "active_count": 1,
+          "due_count": 0,
+          "lemmas": [
+            "alpha"
+          ],
+          "due_lemmas": [],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 16.132179,
+              "difficulty": 1.0,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 8,
+              "history_count": 8
+            }
+          ]
+        },
+        "after_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 16.132179,
+              "difficulty": 1.0,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 8,
+              "history_count": 8
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "feedback_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": -1,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [
+            "alpha"
+          ],
+          "reviewed_lemmas": [
+            "alpha"
+          ],
+          "scheduler_changed_lemmas": [
+            "alpha"
+          ]
+        },
+        "refresh_delta": {
+          "total_items_delta": 2,
+          "active_count_delta": 2,
+          "due_count_delta": 2,
+          "added_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "removed_lemmas": [],
+          "changed_lemmas": [],
+          "reviewed_lemmas": [],
+          "scheduler_changed_lemmas": []
+        },
         "due_count": 2
       },
       {
         "label": "low_retention_pause",
         "applied": false,
         "added_items": 0,
+        "selected_lemmas": [],
         "total_items_for_pair": 3,
         "reason_code": "retention_low",
         "feedback_count": 8,
@@ -2498,12 +2637,152 @@
         "srs_due_metadata_count": 3,
         "runtime_due_active_count": 2,
         "snapshot_target_count": 3,
+        "before_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "relearning",
+              "scheduler_step": 0,
+              "stability": 0.040565,
+              "difficulty": 9.948232,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 16,
+              "history_count": 16
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "after_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "relearning",
+              "scheduler_step": 0,
+              "stability": 0.040565,
+              "difficulty": 9.948232,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 16,
+              "history_count": 16
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "feedback_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": 0,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [
+            "alpha"
+          ],
+          "reviewed_lemmas": [
+            "alpha"
+          ],
+          "scheduler_changed_lemmas": [
+            "alpha"
+          ]
+        },
+        "refresh_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": 0,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [],
+          "reviewed_lemmas": [],
+          "scheduler_changed_lemmas": []
+        },
         "due_count": 2
       },
       {
         "label": "high_retention_2",
         "applied": true,
         "added_items": 2,
+        "selected_lemmas": [
+          "delta",
+          "epsilon"
+        ],
         "total_items_for_pair": 5,
         "reason_code": "normal",
         "feedback_count": 8,
@@ -2512,6 +2791,175 @@
         "srs_due_metadata_count": 5,
         "runtime_due_active_count": 4,
         "snapshot_target_count": 5,
+        "before_refresh": {
+          "total_items_for_pair": 3,
+          "active_count": 3,
+          "due_count": 2,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 1.137139,
+              "difficulty": 9.645387,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 24,
+              "history_count": 24
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "after_refresh": {
+          "total_items_for_pair": 5,
+          "active_count": 5,
+          "due_count": 4,
+          "lemmas": [
+            "alpha",
+            "beta",
+            "delta",
+            "epsilon",
+            "gamma"
+          ],
+          "due_lemmas": [
+            "beta",
+            "gamma",
+            "delta",
+            "epsilon"
+          ],
+          "items": [
+            {
+              "item_id": "en-ja:alpha",
+              "lemma": "alpha",
+              "lifecycle_state": "active",
+              "scheduler_state": "review",
+              "scheduler_step": null,
+              "stability": 1.137139,
+              "difficulty": 9.645387,
+              "last_review": "<timestamp>",
+              "next_due": "<timestamp>",
+              "exposures": 24,
+              "history_count": 24
+            },
+            {
+              "item_id": "en-ja:beta",
+              "lemma": "beta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:delta",
+              "lemma": "delta",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:epsilon",
+              "lemma": "epsilon",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            },
+            {
+              "item_id": "en-ja:gamma",
+              "lemma": "gamma",
+              "lifecycle_state": "active",
+              "scheduler_state": "learning",
+              "scheduler_step": 0,
+              "stability": null,
+              "difficulty": null,
+              "last_review": null,
+              "next_due": null,
+              "exposures": 0,
+              "history_count": 0
+            }
+          ]
+        },
+        "feedback_delta": {
+          "total_items_delta": 0,
+          "active_count_delta": 0,
+          "due_count_delta": 0,
+          "added_lemmas": [],
+          "removed_lemmas": [],
+          "changed_lemmas": [
+            "alpha"
+          ],
+          "reviewed_lemmas": [
+            "alpha"
+          ],
+          "scheduler_changed_lemmas": [
+            "alpha"
+          ]
+        },
+        "refresh_delta": {
+          "total_items_delta": 2,
+          "active_count_delta": 2,
+          "due_count_delta": 2,
+          "added_lemmas": [
+            "delta",
+            "epsilon"
+          ],
+          "removed_lemmas": [],
+          "changed_lemmas": [],
+          "reviewed_lemmas": [],
+          "scheduler_changed_lemmas": []
+        },
         "due_count": 4
       }
     ],
@@ -2536,6 +2984,13 @@
         "pair": "en-ja",
         "message": "Ruleset and snapshot target counts remain aligned across feedback phases.",
         "details": null
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_FEEDBACK_SNAPSHOTS_CAPTURED",
+        "pair": "en-ja",
+        "message": "Feedback-cycle phases include before/after store snapshots and separate feedback vs refresh deltas.",
+        "details": "phase1_reviewed=alpha phase1_added=beta,gamma phase3_added=delta,epsilon"
       },
       {
         "level": "PASS",
@@ -2665,6 +3120,13 @@
       "pair": "en-ja",
       "message": "Ruleset and snapshot target counts remain aligned across feedback phases.",
       "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_FEEDBACK_SNAPSHOTS_CAPTURED",
+      "pair": "en-ja",
+      "message": "Feedback-cycle phases include before/after store snapshots and separate feedback vs refresh deltas.",
+      "details": "phase1_reviewed=alpha phase1_added=beta,gamma phase3_added=delta,epsilon"
     },
     {
       "level": "PASS",

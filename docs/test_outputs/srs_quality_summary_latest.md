@@ -1,7 +1,7 @@
 # SRS Quality Harness
 
 - Status: PASS
-- Findings: pass=18 warn=0 fail=0
+- Findings: pass=19 warn=0 fail=0
 - Fail on warn: no
 - Synthetic pairs: en-ja, en-de
 
@@ -22,8 +22,11 @@
 ## Feedback Cycle
 
 - high_retention_1: applied=yes, reason=`normal`, total_items=3, ruleset=3, runtime_due_active=2
+  - selected=beta, gamma, feedback_reviewed=alpha, refresh_added=beta, gamma
 - low_retention_pause: applied=no, reason=`retention_low`, total_items=3, ruleset=3, runtime_due_active=2
+  - selected=none, feedback_reviewed=alpha, refresh_added=none
 - high_retention_2: applied=yes, reason=`normal`, total_items=5, ruleset=5, runtime_due_active=4
+  - selected=delta, epsilon, feedback_reviewed=alpha, refresh_added=delta, epsilon
 
 ## Actionable Findings
 

@@ -89,6 +89,25 @@ def render_summary(
         for phase in feedback.get("phases", []):
             if not isinstance(phase, dict):
                 continue
+            feedback_delta = (
+                phase.get("feedback_delta") if isinstance(phase.get("feedback_delta"), dict) else {}
+            )
+            refresh_delta = (
+                phase.get("refresh_delta") if isinstance(phase.get("refresh_delta"), dict) else {}
+            )
+            selected_lemmas = [
+                str(item) for item in phase.get("selected_lemmas", []) if str(item or "").strip()
+            ]
+            reviewed_lemmas = [
+                str(item)
+                for item in feedback_delta.get("reviewed_lemmas", [])
+                if str(item or "").strip()
+            ]
+            added_lemmas = [
+                str(item)
+                for item in refresh_delta.get("added_lemmas", [])
+                if str(item or "").strip()
+            ]
             lines.append(
                 "- "
                 f"{str(phase.get('label') or '<phase>')}: "
@@ -98,6 +117,13 @@ def render_summary(
                 f"ruleset={int(phase.get('ruleset_count') or 0)}, "
                 f"runtime_due_active={int(phase.get('runtime_due_active_count') or 0)}"
             )
+            if feedback_delta or refresh_delta or selected_lemmas:
+                lines.append(
+                    "  - "
+                    f"selected={', '.join(selected_lemmas) or 'none'}, "
+                    f"feedback_reviewed={', '.join(reviewed_lemmas) or 'none'}, "
+                    f"refresh_added={', '.join(added_lemmas) or 'none'}"
+                )
         lines.append("")
 
     actionable = [

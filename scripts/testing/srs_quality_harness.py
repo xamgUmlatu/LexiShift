@@ -3,11 +3,9 @@ from __future__ import annotations
 
 import argparse
 from contextlib import contextmanager
-from copy import deepcopy
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-import re
 import sys
 import tempfile
 from typing import Any, Iterator, Mapping, Sequence
@@ -39,114 +37,25 @@ from srs_quality_harness_support import (  # noqa: E402
     build_pair_resources as _build_pair_resources,
     build_seed_candidates as _build_seed_candidates,
     create_frequency_db as _create_frequency_db,
+    prepare_report_for_publication,
     ruleset_due_active_target_count as _ruleset_due_active_target_count,
     ruleset_srs_due_metadata_count as _ruleset_srs_due_metadata_count,
     ruleset_unique_target_count as _ruleset_unique_target_count,
     seed_browsing_preview_store as _seed_browsing_preview_store,
+    snapshot_delta as _snapshot_delta,
     snapshot_target_count as _snapshot_target_count,
+    store_snapshot as _store_snapshot,
+    summarize_findings,
     stub_run_rulegen_for_pair as _stub_run_rulegen_for_pair,
 )
 
 SUPPORTED_SYNTHETIC_PAIRS = {"en-ja", "en-de"}
 DEFAULT_PAIRS = ("en-ja", "en-de")
-_TEMP_ROOT = Path(tempfile.gettempdir())
-_TEMP_ROOT_RESOLVED = _TEMP_ROOT.resolve(strict=False)
-_TIMESTAMP_RE = re.compile(r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|\+00:00)\b")
-_GENERATION_ID_RE = re.compile(r"\b([a-z]{2}-[a-z]{2}:[A-Za-z0-9._-]+):[0-9a-f]{8,}\b")
-_TEMP_PATH_RE = re.compile(
-    r"(?:" + re.escape(str(_TEMP_ROOT)) + r"|" + re.escape(str(_TEMP_ROOT_RESOLVED)) + r')/[^"\s,]+'
-)
 
 
 def _count_items_for_pair(paths: HelperPaths, *, pair: str, profile_id: str) -> int:
     store = load_srs_store(paths.srs_store_path_for(profile_id))
     return len([item for item in store.items if item.language_pair == pair])
-
-
-def summarize_findings(
-    findings: Sequence[Mapping[str, Any]],
-    *,
-    fail_on_warn: bool = False,
-) -> dict[str, Any]:
-    pass_count = 0
-    warn_count = 0
-    fail_count = 0
-    for item in findings:
-        level = str(item.get("level") or "").upper()
-        if level == "PASS":
-            pass_count += 1
-        elif level == "WARN":
-            warn_count += 1
-        elif level == "FAIL":
-            fail_count += 1
-    status = "FAIL" if fail_count else "WARN" if warn_count else "PASS"
-    should_fail = fail_count > 0 or (fail_on_warn and warn_count > 0)
-    return {
-        "status": status,
-        "pass_count": pass_count,
-        "warn_count": warn_count,
-        "fail_count": fail_count,
-        "should_fail": should_fail,
-    }
-
-
-def _normalize_temp_path_for_publication(value: str) -> str:
-    try:
-        path = Path(value)
-    except (OSError, RuntimeError, ValueError):
-        return value
-    relative = None
-    for root in (_TEMP_ROOT, _TEMP_ROOT_RESOLVED):
-        try:
-            relative = path.relative_to(root)
-            break
-        except ValueError:
-            pass
-        try:
-            relative = path.resolve(strict=False).relative_to(root)
-            break
-        except (OSError, RuntimeError, ValueError):
-            pass
-    if relative is None:
-        return value
-    stable_parts = relative.parts[1:] if len(relative.parts) > 1 else ()
-    if not stable_parts:
-        return "<temp_root>"
-    return "/".join(("<temp_root>", *stable_parts))
-
-
-def _normalize_string_for_publication(value: str) -> str:
-    normalized = _TEMP_PATH_RE.sub(
-        lambda match: _normalize_temp_path_for_publication(match.group(0)),
-        value,
-    )
-    normalized = _GENERATION_ID_RE.sub(r"\1:<generated>", normalized)
-    normalized = _TIMESTAMP_RE.sub("<timestamp>", normalized)
-    return normalized
-
-
-def _normalize_for_publication(value: Any) -> Any:
-    if isinstance(value, dict):
-        return {key: _normalize_for_publication(item) for key, item in value.items()}
-    if isinstance(value, list):
-        return [_normalize_for_publication(item) for item in value]
-    if isinstance(value, str):
-        return _normalize_string_for_publication(value)
-    return value
-
-
-def prepare_report_for_publication(report: Mapping[str, Any]) -> dict[str, Any]:
-    published = _normalize_for_publication(deepcopy(dict(report)))
-    if isinstance(published, dict):
-        published["generated_at"] = "<generated_at>"
-        published["artifact_normalization"] = {
-            "mode": "stable_latest_v1",
-            "generated_at": "<generated_at>",
-            "timestamps": "<timestamp>",
-            "temp_root": "<temp_root>",
-            "generation_ids": "<generated>",
-        }
-    return published
 
 
 def _finding(
@@ -413,8 +322,22 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
         )
 
         phases: list[dict[str, Any]] = []
+        previous_snapshot = _store_snapshot(
+            paths,
+            pair=pair,
+            profile_id=profile_id,
+            max_active=8,
+        )
+        initial_snapshot = previous_snapshot
 
         def run_refresh(label: str) -> dict[str, Any]:
+            nonlocal previous_snapshot
+            before_refresh = _store_snapshot(
+                paths,
+                pair=pair,
+                profile_id=profile_id,
+                max_active=8,
+            )
             result = refresh_srs_set(
                 paths,
                 config=SrsRefreshJobConfig(
@@ -426,6 +349,12 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                     feedback_window_size=8,
                     persist_store=True,
                 ),
+            )
+            after_refresh = _store_snapshot(
+                paths,
+                pair=pair,
+                profile_id=profile_id,
+                max_active=8,
             )
             total_for_pair = _count_items_for_pair(paths, pair=pair, profile_id=profile_id)
             rulegen_payload = result.get("rulegen") or {}
@@ -443,6 +372,9 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                 "label": label,
                 "applied": bool(result.get("applied")),
                 "added_items": int(result.get("added_items") or 0),
+                "selected_lemmas": list(
+                    result.get("admission_refresh", {}).get("selected_lemmas", []) or []
+                ),
                 "total_items_for_pair": total_for_pair,
                 "reason_code": str(result.get("admission_refresh", {}).get("reason_code", "")),
                 "feedback_count": int(
@@ -465,15 +397,14 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                 "snapshot_target_count": _snapshot_target_count(snapshot_path)
                 if snapshot_path.exists()
                 else 0,
+                "before_refresh": before_refresh,
+                "after_refresh": after_refresh,
+                "feedback_delta": _snapshot_delta(previous_snapshot, before_refresh),
+                "refresh_delta": _snapshot_delta(before_refresh, after_refresh),
             }
-            store = load_srs_store(paths.srs_store_path_for(profile_id))
-            due_items = select_active_items(
-                store.items,
-                max_active=8,
-                allowed_pairs=[pair],
-            )
-            phase["due_count"] = len(due_items)
+            phase["due_count"] = int(after_refresh.get("due_count") or 0)
             phases.append(phase)
+            previous_snapshot = after_refresh
             return phase
 
         with (
@@ -574,6 +505,51 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
                 )
             )
 
+        snapshot_contract_ok = (
+            all(
+                isinstance(phase.get("before_refresh"), Mapping)
+                and isinstance(phase.get("after_refresh"), Mapping)
+                and isinstance(phase.get("feedback_delta"), Mapping)
+                and isinstance(phase.get("refresh_delta"), Mapping)
+                for phase in phases
+            )
+            and phase_1["feedback_delta"].get("reviewed_lemmas") == ["alpha"]
+            and "alpha" in phase_1["feedback_delta"].get("scheduler_changed_lemmas", [])
+            and sorted(phase_1.get("selected_lemmas", []))
+            == sorted(phase_1["refresh_delta"].get("added_lemmas", []))
+            and phase_2.get("selected_lemmas") == []
+            and int(phase_2["refresh_delta"].get("total_items_delta") or 0) == 0
+            and sorted(phase_3.get("selected_lemmas", []))
+            == sorted(phase_3["refresh_delta"].get("added_lemmas", []))
+        )
+        if snapshot_contract_ok:
+            findings.append(
+                _finding(
+                    level="PASS",
+                    code="SRS_FEEDBACK_SNAPSHOTS_CAPTURED",
+                    pair=pair,
+                    message=(
+                        "Feedback-cycle phases include before/after store snapshots and "
+                        "separate feedback vs refresh deltas."
+                    ),
+                    details=(
+                        f"phase1_reviewed={','.join(phase_1['feedback_delta']['reviewed_lemmas'])} "
+                        f"phase1_added={','.join(phase_1['refresh_delta']['added_lemmas'])} "
+                        f"phase3_added={','.join(phase_3['refresh_delta']['added_lemmas'])}"
+                    ),
+                )
+            )
+        else:
+            findings.append(
+                _finding(
+                    level="FAIL",
+                    code="SRS_FEEDBACK_SNAPSHOTS_INCOMPLETE",
+                    pair=pair,
+                    message="Feedback-cycle before/after snapshots are missing or inconsistent.",
+                    details=json.dumps(phases, ensure_ascii=False),
+                )
+            )
+
         due_scope_broader_than_due = next(
             (
                 phase
@@ -639,6 +615,7 @@ def _run_feedback_cycle_scenario() -> dict[str, Any]:
 
         return {
             "pair": pair,
+            "initial_snapshot": initial_snapshot,
             "phases": phases,
             "findings": findings,
         }
