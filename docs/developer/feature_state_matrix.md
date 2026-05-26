@@ -1529,18 +1529,19 @@ Use this file when:
   local dashboard search/filter/sort/pagination, read-only published-rule
   summaries, capped on-demand rule details, and confirmed durable dashboard
   discard; restore/mastery/release controls remain `planned`
-- Last documented checkpoint: `2026-05-26` admitted-words dashboard contract,
-  options UI, local review controls, published-rule summaries/details, and first
-  durable lifecycle action:
+- Last documented checkpoint: `2026-05-26` admitted-words dashboard control
+  polish, options UI, local review controls, published-rule summaries/details,
+  and first durable lifecycle action:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
   due/removed states, and expose scheduler/lifecycle details behind an advanced
   toggle in options; the dashboard can locally search/filter/sort already-loaded
-  words with page-size controls and first/previous/next/last pagination; rows
+  words with page-size controls, first/previous/next/last pagination, refresh
+  metadata, disabled-state-aware clear filters, and Escape-to-clear search; rows
   show read-only published-rule counts/source previews and can load capped
   read-only rule details on demand; eligible rows can confirm Discard, which
   reuses `srs_admission_suppress` with `reason=user_blocked`
-- Last verified: `2026-05-26` dashboard rule-summary/detail,
-  search/filter/sort/pagination, and confirmed discard route tests; focused
+- Last verified: `2026-05-26` dashboard meta-control,
+  rule-summary/detail, search/filter/sort/pagination, and confirmed discard route tests; focused
   helper endpoint, native-host route, helper client/manager route, suppression
   writer tests, SRS quality harness, changed-file gate, doc-reference check, and
   state audit
@@ -1556,6 +1557,11 @@ Use this file when:
     helper routes, mutate SRS state, or change admission/serving order.
   - Changing search, status, sort, page size, or clearing filters resets the
     dashboard to page 1.
+  - The dashboard shows refresh metadata for the already-loaded payload,
+    including loaded/viewed counts, active-inventory source, and published
+    ruleset state. The refresh timestamp is anchored to the helper result, not
+    local filter renders. Clear filters is disabled until search/status/sort
+    are adjusted, and Escape clears the current search.
   - Each row can show read-only published-rule count plus a capped source-phrase
     preview from the current helper-published ruleset artifact. Missing or
     unreadable rulesets do not block item listing.

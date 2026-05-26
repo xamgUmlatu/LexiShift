@@ -47,7 +47,7 @@ class UIManager {
       "srs-words-status-filter", "srs-words-sort", "srs-words-page-size",
       "srs-words-clear-filters", "srs-words-summary", "srs-words-pagination",
       "srs-words-page-info", "srs-words-first-page", "srs-words-prev-page",
-      "srs-words-next-page", "srs-words-last-page", "srs-words-list",
+      "srs-words-next-page", "srs-words-last-page", "srs-words-meta", "srs-words-list",
       "srs-rulegen-output", "srs-reset", "helper-status",
       "helper-last-sync", "debug-helper-test",
       "debug-semantic-pack-inventory-path", "debug-semantic-pack-id",

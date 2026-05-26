@@ -30,6 +30,7 @@
     const wordsPrevPageButton = opts.wordsPrevPageButton || null;
     const wordsNextPageButton = opts.wordsNextPageButton || null;
     const wordsLastPageButton = opts.wordsLastPageButton || null;
+    const wordsMetaRoot = opts.wordsMetaRoot || null;
     const wordsListRoot = opts.wordsListRoot || null;
     const maxRenderedWordRows = 300;
     const ruleDetailsLimit = 50;
@@ -66,6 +67,7 @@
           wordsPrevPageButton,
           wordsNextPageButton,
           wordsLastPageButton,
+          wordsMetaRoot,
           wordsListRoot,
           dashboardModel,
           maxRenderedWordRows,
@@ -92,21 +94,38 @@
     dashboardModel.setSearchQuery(getControlValue(wordsSearchInput));
     dashboardModel.setStatusFilter(getControlValue(wordsStatusFilterInput) || "all");
     dashboardModel.setSortMode(getControlValue(wordsSortInput) || "source");
+    updateDashboardControls();
 
     bindDashboardControl(wordsSearchInput, "input", () => {
       resetWordsDashboardPage();
       dashboardModel.setSearchQuery(getControlValue(wordsSearchInput));
       renderWordsDashboard(latestWordsDashboardData);
+      updateDashboardControls();
+    });
+    bindDashboardControl(wordsSearchInput, "keydown", (event) => {
+      if (!event || event.key !== "Escape") {
+        return;
+      }
+      if (!getControlValue(wordsSearchInput)) {
+        return;
+      }
+      wordsSearchInput.value = "";
+      resetWordsDashboardPage();
+      dashboardModel.setSearchQuery("");
+      renderWordsDashboard(latestWordsDashboardData);
+      updateDashboardControls();
     });
     bindDashboardControl(wordsStatusFilterInput, "change", () => {
       resetWordsDashboardPage();
       dashboardModel.setStatusFilter(getControlValue(wordsStatusFilterInput) || "all");
       renderWordsDashboard(latestWordsDashboardData);
+      updateDashboardControls();
     });
     bindDashboardControl(wordsSortInput, "change", () => {
       resetWordsDashboardPage();
       dashboardModel.setSortMode(getControlValue(wordsSortInput) || "source");
       renderWordsDashboard(latestWordsDashboardData);
+      updateDashboardControls();
     });
     bindDashboardControl(wordsPageSizeInput, "change", () => {
       wordsDashboardPageSize = normalizePageSize(getControlValue(wordsPageSizeInput));
@@ -168,10 +187,17 @@
       dashboardModel.setSortMode("source");
       resetWordsDashboardPage();
       renderWordsDashboard(latestWordsDashboardData);
+      updateDashboardControls();
     }
 
     function renderWordsDashboard(dataArg) {
       dashboardRenderer.render(dataArg || latestWordsDashboardData);
+    }
+
+    function updateDashboardControls() {
+      if (wordsClearFiltersButton) {
+        wordsClearFiltersButton.disabled = !dashboardModel.isAdjusted();
+      }
     }
 
     function hasPublishedRules(item) {
@@ -220,9 +246,14 @@
         ruleDetailsByKey.clear();
         resetWordsDashboardPage();
         latestWordsDashboardProfileId = synced.profileId || "default";
-        latestWordsDashboardData = result;
-        renderWordsDashboard(result);
-        const total = result && result.summary ? Number(result.summary.total || 0) : 0;
+        latestWordsDashboardData = {
+          ...(result && typeof result === "object" ? result : {}),
+          dashboard_refreshed_at: new Date().toISOString()
+        };
+        renderWordsDashboard(latestWordsDashboardData);
+        const total = latestWordsDashboardData.summary
+          ? Number(latestWordsDashboardData.summary.total || 0)
+          : 0;
         setStatus(
           translate("status_srs_items_list_ready", [total], `Loaded ${total} SRS words.`),
           colors.SUCCESS
@@ -230,7 +261,7 @@
         log("SRS words dashboard refreshed", {
           pair: srsPair,
           profileId: synced.profileId,
-          summary: result.summary || null
+          summary: latestWordsDashboardData.summary || null
         });
       } catch (err) {
         const msg = err && err.message

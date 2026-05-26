@@ -18,9 +18,10 @@ admission, due selection, active-inventory fallback, and rulegen publication. A
 helper/native-host writer can now persist durable suppression entries and mark
 existing SRS items as `discarded` for discard/block flows. The options
 dashboard can now surface admitted SRS items and trigger a confirmed durable
-discard for eligible words. There is intentionally no cooldown UX in the
-extension feedback popup. Restore, mastered, and release actions remain open
-product work.
+discard for eligible words; its refresh metadata, local filters, pagination, and
+learner-facing rule summaries are dashboard-only views of the already-loaded
+payload. There is intentionally no cooldown UX in the extension feedback popup.
+Restore, mastered, and release actions remain open product work.
 
 ## Admission Entry Points
 

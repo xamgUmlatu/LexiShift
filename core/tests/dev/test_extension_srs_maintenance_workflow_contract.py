@@ -567,6 +567,8 @@ const firstPageButton = makeNode("button");
 const prevPageButton = makeNode("button");
 const nextPageButton = makeNode("button");
 const lastPageButton = makeNode("button");
+const metaRoot = makeNode("div");
+metaRoot.ownerDocument = doc;
 const statuses = [];
 const listCalls = [];
 const ruleDetailsCalls = [];
@@ -587,6 +589,11 @@ const workflows = createMaintenanceWorkflows({{
       if (listCallCount > 1) {{
         return {{
           status: "ok",
+          inventory_source: "inventory",
+          ruleset_exists: true,
+          rule_summary: {{
+            enabled_rule_count: 1
+          }},
           summary: {{
             total: 1,
             active: 0,
@@ -616,6 +623,11 @@ const workflows = createMaintenanceWorkflows({{
       }}
       return {{
         status: "ok",
+        inventory_source: "inventory",
+        ruleset_exists: true,
+        rule_summary: {{
+          enabled_rule_count: 4
+        }},
         summary: {{
           total: 3,
           active: 2,
@@ -768,10 +780,13 @@ const workflows = createMaintenanceWorkflows({{
   wordsPrevPageButton: prevPageButton,
   wordsNextPageButton: nextPageButton,
   wordsLastPageButton: lastPageButton,
+  wordsMetaRoot: metaRoot,
   wordsListRoot: listRoot
 }});
+const metaText = () => metaRoot.children.map((child) => child.textContent).join(" ");
 
 (async () => {{
+  assert.equal(clearFiltersButton.disabled, true);
   await workflows.refreshWordsDashboard();
   assert.equal(refreshButton.disabled, false);
   assert.deepEqual(JSON.parse(JSON.stringify(listCalls)), [
@@ -785,6 +800,12 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
   assert.equal(prevPageButton.disabled, true);
   assert.equal(nextPageButton.disabled, false);
+  assert.equal(metaText().includes("Last refreshed:"), true);
+  assert.equal(metaText().includes("Loaded: 3 words"), true);
+  assert.equal(metaText().includes("Viewing: 3 words"), true);
+  assert.equal(metaText().includes("Inventory: inventory"), true);
+  assert.equal(metaText().includes("Ruleset: 4 rules"), true);
+  const refreshMetaLabel = metaRoot.children[0].textContent;
   assert.equal(listRoot.children[0].children.length, 5);
   assert.equal(statuses[0].message, "Loaded 3 SRS words.");
   assert.equal(listRoot.children[0].children[2].children[3].textContent, "Rules: 2");
@@ -818,10 +839,19 @@ const workflows = createMaintenanceWorkflows({{
 
   searchInput.value = "gat";
   searchInput.listeners.input();
+  assert.equal(clearFiltersButton.disabled, false);
   assert.equal(listRoot.children[0].className, "srs-words-filter-note");
   assert.equal(listRoot.children[0].textContent, "Filtered to 1 of 3 words.");
   assert.equal(listRoot.children[1].children[0].children[0].textContent, "gato");
   assert.equal(pageInfoRoot.textContent, "Showing 1-1 of 1 words");
+  assert.equal(metaText().includes("Viewing: 1 word"), true);
+  assert.equal(metaRoot.children[0].textContent, refreshMetaLabel);
+
+  searchInput.listeners.keydown({{ key: "Escape" }});
+  assert.equal(searchInput.value, "");
+  assert.equal(clearFiltersButton.disabled, true);
+  assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
+  assert.equal(metaRoot.children[0].textContent, refreshMetaLabel);
 
   searchInput.value = "hound";
   searchInput.listeners.input();
@@ -832,12 +862,14 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(searchInput.value, "");
   assert.equal(statusFilterInput.value, "all");
   assert.equal(sortInput.value, "source");
+  assert.equal(clearFiltersButton.disabled, true);
   assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
 
   searchInput.value = "";
   searchInput.listeners.input();
   statusFilterInput.value = "due";
   statusFilterInput.listeners.change();
+  assert.equal(clearFiltersButton.disabled, false);
   assert.equal(listRoot.children[0].textContent, "Filtered to 2 of 3 words.");
   sortInput.value = "word";
   sortInput.listeners.change();
@@ -848,6 +880,7 @@ const workflows = createMaintenanceWorkflows({{
   statusFilterInput.listeners.change();
   sortInput.value = "source";
   sortInput.listeners.change();
+  assert.equal(clearFiltersButton.disabled, true);
   assert.equal(listRoot.children.length, 2);
   assert.equal(listRoot.children[0].children[0].children[0].textContent, "perro");
 
@@ -869,6 +902,7 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(summaryRoot.children[0].children[0].textContent, "0");
   assert.equal(summaryRoot.children[4].children[0].textContent, "1");
   assert.equal(pageInfoRoot.textContent, "Showing 1-1 of 1 words");
+  assert.equal(metaText().includes("Loaded: 1 word"), true);
   assert.equal(listRoot.children[0].children[1].textContent, "Discarded");
   assert.equal(listRoot.children[0].children.length, 4);
   assert.equal(listRoot.children[0].children[3].className, "srs-word-advanced");

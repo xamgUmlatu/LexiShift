@@ -1434,6 +1434,11 @@ textarea {
   background: #f8f3ea;
 }
 
+.srs-words-clear-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .srs-words-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
@@ -1467,6 +1472,23 @@ textarea {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #7b7166;
+}
+
+.srs-words-meta {
+  display: flex;
+  gap: 8px 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  color: #6c675f;
+  font-size: 12px;
+}
+
+.srs-words-meta:empty {
+  display: none;
+}
+
+.srs-words-meta span {
+  white-space: nowrap;
 }
 
 .srs-words-list {

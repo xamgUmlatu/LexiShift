@@ -4,6 +4,7 @@
   function createWordsDashboardRenderer(options) {
     const opts = options && typeof options === "object" ? options : {};
     const wordsSummaryRoot = opts.wordsSummaryRoot || null;
+    const wordsMetaRoot = opts.wordsMetaRoot || null;
     const wordsListRoot = opts.wordsListRoot || null;
     const wordsPaginationRoot = opts.wordsPaginationRoot || null;
     const wordsPageInfoRoot = opts.wordsPageInfoRoot || null;
@@ -50,6 +51,7 @@
         return;
       }
       clearNode(wordsSummaryRoot);
+      clearNode(wordsMetaRoot);
       clearNode(wordsListRoot);
       if (!data) {
         updatePaginationControls({ total: 0, pageIndex: 0, pageSize: 25, pageCount: 1 });
@@ -57,7 +59,7 @@
         return;
       }
       renderSummary(doc, data.summary && typeof data.summary === "object" ? data.summary : {});
-      renderRows(doc, data);
+      renderDashboardMeta(doc, data, renderRows(doc, data));
     }
 
     function showListMessage(message) {
@@ -69,6 +71,7 @@
         return;
       }
       clearNode(wordsListRoot);
+      clearNode(wordsMetaRoot);
       wordsListRoot.appendChild(createNode(doc, "p", "srs-words-empty", message));
     }
 
@@ -89,7 +92,16 @@
       const allItems = Array.isArray(data.items) ? data.items : [];
       const items = dashboardModel.apply(allItems);
       if (!items.length) {
-        updatePaginationControls({ total: 0, pageIndex: 0, pageSize: 25, pageCount: 1 });
+        const rawPagination = getPaginationState() || {};
+        const emptyPagination = {
+          total: 0,
+          allTotal: allItems.length,
+          filteredTotal: 0,
+          pageIndex: 0,
+          pageSize: normalizePageSize(rawPagination.pageSize),
+          pageCount: 1
+        };
+        updatePaginationControls(emptyPagination);
         wordsListRoot.appendChild(createNode(
           doc,
           "p",
@@ -98,9 +110,11 @@
             ? "No SRS words match these filters."
             : "No SRS words are admitted for this pair yet."
         ));
-        return;
+        return emptyPagination;
       }
       const pagination = resolvePagination(items.length);
+      pagination.allTotal = allItems.length;
+      pagination.filteredTotal = items.length;
       if (dashboardModel.isAdjusted()) {
         wordsListRoot.appendChild(createNode(
           doc,
@@ -121,6 +135,29 @@
           `Showing ${maxRenderedWordRows} of ${pagination.pageSize} page rows.`
         ));
       }
+      return pagination;
+    }
+
+    function renderDashboardMeta(doc, data, pageState) {
+      if (!wordsMetaRoot) {
+        return;
+      }
+      clearNode(wordsMetaRoot);
+      const summary = data.summary && typeof data.summary === "object" ? data.summary : {};
+      const ruleSummary = data.rule_summary && typeof data.rule_summary === "object"
+        ? data.rule_summary
+        : {};
+      const loadedCount = Number(summary.total || pageState.allTotal || 0);
+      const viewingCount = Number(pageState.filteredTotal || 0);
+      [
+        `Last refreshed: ${formatRefreshTime(data)}`,
+        `Loaded: ${formatWordCount(loadedCount)}`,
+        `Viewing: ${formatWordCount(viewingCount)}`,
+        `Inventory: ${formatSource(data.inventory_source || "unknown")}`,
+        formatRulesetState(data, ruleSummary)
+      ].forEach((text) => {
+        wordsMetaRoot.appendChild(createNode(doc, "span", "", text));
+      });
     }
 
     function resolvePagination(total) {
@@ -292,6 +329,33 @@
     }
     const date = new Date(value);
     return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString();
+  }
+
+  function formatSource(value) {
+    const normalized = String(value || "").trim();
+    return normalized ? normalized.replaceAll("_", " ") : "unknown";
+  }
+
+  function formatRefreshTime(data) {
+    const rawValue = data && (data.dashboard_refreshed_at || data.refreshed_at);
+    const date = rawValue ? new Date(rawValue) : new Date();
+    return Number.isNaN(date.getTime()) ? "unknown" : date.toLocaleTimeString();
+  }
+
+  function formatWordCount(count) {
+    const normalized = Number.isFinite(count) ? count : 0;
+    return `${normalized} ${normalized === 1 ? "word" : "words"}`;
+  }
+
+  function formatRulesetState(data, ruleSummary) {
+    if (ruleSummary.load_error) {
+      return "Ruleset: warning";
+    }
+    const count = Number(ruleSummary.enabled_rule_count || ruleSummary.rule_count || 0);
+    if (Number.isFinite(count) && count > 0) {
+      return `Ruleset: ${count} rules`;
+    }
+    return data && data.ruleset_exists ? "Ruleset: empty" : "Ruleset: none";
   }
 
   function formatDue(item) {

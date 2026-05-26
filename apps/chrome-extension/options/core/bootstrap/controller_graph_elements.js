@@ -58,6 +58,7 @@
         wordsPrevPageButton: dom.srsWordsPrevPage,
         wordsNextPageButton: dom.srsWordsNextPage,
         wordsLastPageButton: dom.srsWordsLastPage,
+        wordsMetaRoot: dom.srsWordsMeta,
         wordsListRoot: dom.srsWordsList,
         semanticPackInventoryPathInput: dom.debugSemanticPackInventoryPathInput,
         semanticPackIdInput: dom.debugSemanticPackIdInput,

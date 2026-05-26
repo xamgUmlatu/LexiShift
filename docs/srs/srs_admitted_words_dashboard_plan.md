@@ -4,8 +4,8 @@ Status: active implementation contract
 Role: Mixed product decision plus current dashboard implementation contract
 Last updated: 2026-05-26
 Last verified: 2026-05-26 helper/options dashboard tests, local
-search/filter/sort/pagination tests, published-rule summary/detail tests,
-durable discard workflow tests, and SRS quality harness
+search/filter/sort/pagination/meta-control tests, published-rule
+summary/detail tests, durable discard workflow tests, and SRS quality harness
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, and deferred lifecycle actions
 Source-of-truth: product decision and UI contract live here; executable truth
@@ -32,6 +32,8 @@ Default view should show useful learner concepts:
   normal dashboard payload small;
 - local search, status filtering, sort, page-size, pagination, and clear-filter
   controls for already-loaded words.
+- dashboard refresh metadata showing last refresh time, loaded/viewed counts,
+  active-inventory source, and current published-ruleset availability.
 
 Technical details belong behind an Advanced details toggle:
 
@@ -72,12 +74,16 @@ Read/listing path:
   for active serving elsewhere;
 - options.html exposes a Learning words dashboard with Refresh words, local
   search, status filter, sort controls, page-size controls, pagination, clear
-  filters, and an Advanced details toggle.
+  filters, refresh metadata, and an Advanced details toggle.
 - search/filter/sort/pagination operate only on the already-loaded dashboard
   payload; they do not call the helper, mutate SRS state, or change serving/
   admission order.
 - changing search, status, sort, page size, or clearing filters resets the
   dashboard to page 1.
+- the Clear filters control is disabled until search/status/sort are adjusted;
+  Escape in the search box clears the current search and returns to page 1.
+- the Last refreshed value is anchored to the helper refresh result; local
+  search, filter, sort, and pagination renders do not change that timestamp.
 - rule summaries are display-only: rule count plus a capped source-phrase
   preview.
 - rule details are also read-only and loaded on demand through
@@ -145,6 +151,8 @@ The dashboard is acceptable for MVP when:
   local to the loaded payload;
 - dashboard pagination/page-size controls are covered by focused workflow tests
   and remain local to the loaded payload;
+- refresh metadata, clear-filter disabled state, and search Escape handling are
+  covered by focused workflow tests;
 - published-rule summaries are covered by focused helper/options tests and
   remain read-only;
 - on-demand rule details are covered by focused helper/options tests and remain

@@ -161,6 +161,7 @@
           wordsPrevPageButton: opts.wordsPrevPageButton || null,
           wordsNextPageButton: opts.wordsNextPageButton || null,
           wordsLastPageButton: opts.wordsLastPageButton || null,
+          wordsMetaRoot: opts.wordsMetaRoot || null,
           wordsListRoot: opts.wordsListRoot || null,
           semanticPackInventoryPathInput: opts.semanticPackInventoryPathInput || null,
           semanticPackIdInput: opts.semanticPackIdInput || null,

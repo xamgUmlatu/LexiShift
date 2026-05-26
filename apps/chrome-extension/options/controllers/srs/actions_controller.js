@@ -53,6 +53,7 @@
     const wordsPrevPageButton = elements.wordsPrevPageButton || null;
     const wordsNextPageButton = elements.wordsNextPageButton || null;
     const wordsLastPageButton = elements.wordsLastPageButton || null;
+    const wordsMetaRoot = elements.wordsMetaRoot || null;
     const wordsListRoot = elements.wordsListRoot || null;
     const semanticPackInventoryPathInput = elements.semanticPackInventoryPathInput || null;
     const semanticPackIdInput = elements.semanticPackIdInput || null;
@@ -154,6 +155,7 @@
           wordsPrevPageButton,
           wordsNextPageButton,
           wordsLastPageButton,
+          wordsMetaRoot,
           wordsListRoot,
           semanticPackInventoryPathInput,
           semanticPackIdInput,
