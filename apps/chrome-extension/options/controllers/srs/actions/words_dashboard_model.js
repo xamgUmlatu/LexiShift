@@ -45,7 +45,8 @@
         item.status_label,
         item.status,
         item.source_label,
-        item.source_type
+        item.source_type,
+        ...ruleSourcePhrases(item)
       ].some((value) => String(value || "").toLocaleLowerCase().includes(query));
     }
 
@@ -109,6 +110,11 @@
       return dueSeconds;
     }
     return 7000000000;
+  }
+
+  function ruleSourcePhrases(item) {
+    const summary = item && typeof item.rule_summary === "object" ? item.rule_summary : {};
+    return Array.isArray(summary.source_phrases) ? summary.source_phrases : [];
   }
 
   root.optionsSrsWordsDashboardModel = {

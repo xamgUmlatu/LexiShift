@@ -229,11 +229,17 @@
         `Due: ${formatDue(item)}`,
         `Reviews: ${Number(item.review_count || 0)}`,
         `Seen: ${Number(item.exposures || 0)}`,
+        formatRuleCount(item),
         `Source: ${item.source_label || item.source_type || "srs"}`
       ].forEach((text) => {
         meta.appendChild(createNode(doc, "span", "", text));
       });
       row.appendChild(meta);
+
+      const ruleSources = renderRuleSources(doc, item);
+      if (ruleSources) {
+        row.appendChild(ruleSources);
+      }
 
       if (wordsDashboardAdvanced) {
         row.appendChild(renderAdvancedDetails(doc, item));
@@ -243,6 +249,23 @@
       }
 
       return row;
+    }
+
+    function formatRuleCount(item) {
+      const summary = item && typeof item.rule_summary === "object" ? item.rule_summary : {};
+      const count = Number(summary.enabled_rule_count || 0);
+      return `Rules: ${Number.isFinite(count) ? count : 0}`;
+    }
+
+    function renderRuleSources(doc, item) {
+      const summary = item && typeof item.rule_summary === "object" ? item.rule_summary : {};
+      const sourcePhrases = Array.isArray(summary.source_phrases) ? summary.source_phrases : [];
+      if (!sourcePhrases.length) {
+        return null;
+      }
+      const text = sourcePhrases.join(", ");
+      const suffix = summary.source_preview_truncated ? ", ..." : "";
+      return createNode(doc, "div", "srs-word-rules", `Matches: ${text}${suffix}`);
     }
 
     function canDiscardItem(item) {

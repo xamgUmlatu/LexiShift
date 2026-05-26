@@ -1504,6 +1504,15 @@ textarea {
   color: #655d52;
 }
 
+.srs-word-rules {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: #4d473f;
+  background: #f8f3ea;
+  border-left: 3px solid #b9a98f;
+  padding: 6px 8px;
+}
+
 .srs-word-status {
   align-self: start;
   justify-self: end;

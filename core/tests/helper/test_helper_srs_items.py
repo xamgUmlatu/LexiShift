@@ -12,6 +12,8 @@ if str(CORE_ROOT) not in sys.path:
 
 from lexishift_core.helper.engine import list_srs_items  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
+from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.srs import (  # noqa: E402
     SRS_LIFECYCLE_DISCARDED,
     SrsInventory,
@@ -105,6 +107,17 @@ class TestHelperSrsItems(unittest.TestCase):
                 ),
                 paths.srs_inventory_path_for("default"),
             )
+            save_vocab_dataset(
+                VocabDataset(
+                    rules=(
+                        VocabRule(source_phrase="dog", replacement="perro"),
+                        VocabRule(source_phrase="hound", replacement="perro"),
+                        VocabRule(source_phrase="cat", replacement="gato"),
+                        VocabRule(source_phrase="table", replacement="mesa", enabled=False),
+                    ),
+                ),
+                paths.ruleset_path("en-es", profile_id="default"),
+            )
 
             result = list_srs_items(paths, pair="en-es", profile_id="default", now=NOW)
 
@@ -112,7 +125,19 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertEqual(result["pair"], "en-es")
             self.assertTrue(result["store_exists"])
             self.assertTrue(result["inventory_exists"])
+            self.assertTrue(result["ruleset_exists"])
             self.assertEqual(result["inventory_source"], "inventory")
+            self.assertEqual(
+                result["rule_summary"],
+                {
+                    "ruleset_path": str(paths.ruleset_path("en-es", profile_id="default")),
+                    "ruleset_exists": True,
+                    "rule_count": 4,
+                    "enabled_rule_count": 3,
+                    "lemmas_with_rules": 3,
+                    "load_error": None,
+                },
+            )
             self.assertEqual(
                 result["summary"],
                 {
@@ -137,6 +162,10 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertEqual(by_lemma["planta"]["status"], "discarded")
             self.assertEqual(by_lemma["perro"]["source_label"], "freq-es-cde")
             self.assertEqual(by_lemma["perro"]["pos"], "noun")
+            self.assertEqual(by_lemma["perro"]["rule_summary"]["enabled_rule_count"], 2)
+            self.assertEqual(by_lemma["perro"]["rule_summary"]["source_phrases"], ["dog", "hound"])
+            self.assertEqual(by_lemma["mesa"]["rule_summary"]["enabled_rule_count"], 0)
+            self.assertEqual(by_lemma["mesa"]["rule_summary"]["rule_count"], 1)
             self.assertEqual(by_lemma["planta"]["advanced"]["lifecycle_reason"], "user_blocked")
 
     def test_missing_store_returns_empty_dashboard_payload(self) -> None:
@@ -151,6 +180,8 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertEqual(result["items"], [])
             self.assertEqual(result["summary"]["total"], 0)
             self.assertEqual(result["inventory_source"], "missing_store")
+            self.assertFalse(result["ruleset_exists"])
+            self.assertEqual(result["rule_summary"]["rule_count"], 0)
 
 
 if __name__ == "__main__":

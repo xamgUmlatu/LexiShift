@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Callable, Mapping, Optional
 
 from lexishift_core.helper.paths import HelperPaths
+from lexishift_core.persistence.storage import load_vocab_dataset
 from lexishift_core.srs import (
     SRS_LIFECYCLE_ACTIVE,
     SRS_LIFECYCLE_CLEARED,
@@ -20,6 +21,7 @@ from lexishift_core.srs.time import now_utc, parse_ts
 
 
 SECONDS_PER_DAY = 24 * 60 * 60
+RULE_SOURCE_PREVIEW_LIMIT = 4
 
 
 def list_srs_items(
@@ -36,6 +38,7 @@ def list_srs_items(
     normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
     store_path = paths.srs_store_path_for(normalized_profile_id)
     inventory_path = paths.srs_inventory_path_for(normalized_profile_id)
+    ruleset_path = paths.ruleset_path(normalized_pair, profile_id=normalized_profile_id)
     anchor = now or now_utc()
 
     if not store_path.exists():
@@ -47,6 +50,9 @@ def list_srs_items(
             "store_exists": False,
             "inventory_path": str(inventory_path),
             "inventory_exists": inventory_path.exists(),
+            "ruleset_path": str(ruleset_path),
+            "ruleset_exists": ruleset_path.exists(),
+            "rule_summary": _empty_rule_summary(ruleset_path),
             "inventory_source": "missing_store",
             "summary": _empty_summary(),
             "items": [],
@@ -59,12 +65,14 @@ def list_srs_items(
         pair=normalized_pair,
         inventory=inventory,
     )
+    rules_by_lemma, rule_summary = _load_rule_summaries(ruleset_path)
     active_item_id_set = set(active_item_ids)
     scoped_items = [item for item in store.items if item.language_pair == normalized_pair]
     payload_items = [
         _item_payload(
             item,
             active_item_ids=active_item_id_set,
+            rules_by_lemma=rules_by_lemma,
             now=anchor,
         )
         for item in scoped_items
@@ -79,6 +87,9 @@ def list_srs_items(
         "store_exists": True,
         "inventory_path": str(inventory_path),
         "inventory_exists": inventory_path.exists(),
+        "ruleset_path": str(ruleset_path),
+        "ruleset_exists": ruleset_path.exists(),
+        "rule_summary": rule_summary,
         "inventory_source": inventory_source,
         "summary": _summary(payload_items, inventory_active_count=len(active_item_ids)),
         "items": payload_items,
@@ -95,6 +106,7 @@ def _item_payload(
     item: SrsItem,
     *,
     active_item_ids: set[str],
+    rules_by_lemma: Mapping[str, Mapping[str, object]],
     now: datetime,
 ) -> dict[str, object]:
     lifecycle_state = normalize_srs_lifecycle_state(item.lifecycle_state)
@@ -132,6 +144,7 @@ def _item_payload(
         "source_type": item.source_type,
         "source_label": source_label,
         "pos": word_package.get("pos_canonical") or word_package.get("pos") or "",
+        "rule_summary": _rule_summary_for_item(rules_by_lemma, item.lemma),
         "advanced": {
             "lifecycle_state": lifecycle_state,
             "lifecycle_reason": item.lifecycle_reason,
@@ -179,6 +192,86 @@ def _word_package_payload(value: object) -> dict[str, object]:
     if not isinstance(value, Mapping):
         return {}
     return dict(value)
+
+
+def _load_rule_summaries(path: Path) -> tuple[dict[str, Mapping[str, object]], dict[str, object]]:
+    summary = _empty_rule_summary(path)
+    if not path.exists():
+        return {}, summary
+
+    try:
+        dataset = load_vocab_dataset(path)
+    except Exception as exc:  # pragma: no cover - defensive read-only dashboard path
+        summary["load_error"] = str(exc)
+        return {}, summary
+
+    source_sets_by_lemma: dict[str, set[str]] = {}
+    enabled_counts_by_lemma: dict[str, int] = {}
+    total_counts_by_lemma: dict[str, int] = {}
+    total_rule_count = 0
+    enabled_rule_count = 0
+    for rule in dataset.rules:
+        lemma = str(rule.replacement or "").strip()
+        if not lemma:
+            continue
+        total_rule_count += 1
+        total_counts_by_lemma[lemma] = total_counts_by_lemma.get(lemma, 0) + 1
+        if rule.enabled is False:
+            continue
+        source_phrase = str(rule.source_phrase or "").strip()
+        enabled_rule_count += 1
+        enabled_counts_by_lemma[lemma] = enabled_counts_by_lemma.get(lemma, 0) + 1
+        source_sets_by_lemma.setdefault(lemma, set())
+        if source_phrase:
+            source_sets_by_lemma[lemma].add(source_phrase)
+
+    rules_by_lemma: dict[str, Mapping[str, object]] = {}
+    for lemma in sorted(total_counts_by_lemma.keys()):
+        sources = sorted(source_sets_by_lemma.get(lemma, set()))
+        preview = sources[:RULE_SOURCE_PREVIEW_LIMIT]
+        rules_by_lemma[lemma] = {
+            "rule_count": total_counts_by_lemma.get(lemma, 0),
+            "enabled_rule_count": enabled_counts_by_lemma.get(lemma, 0),
+            "source_phrases": preview,
+            "source_phrase_count": len(sources),
+            "source_preview_truncated": len(sources) > len(preview),
+        }
+
+    summary.update(
+        {
+            "ruleset_exists": True,
+            "rule_count": total_rule_count,
+            "enabled_rule_count": enabled_rule_count,
+            "lemmas_with_rules": len(rules_by_lemma),
+        }
+    )
+    return rules_by_lemma, summary
+
+
+def _rule_summary_for_item(
+    rules_by_lemma: Mapping[str, Mapping[str, object]], lemma: str
+) -> Mapping[str, object]:
+    return rules_by_lemma.get(
+        lemma,
+        {
+            "rule_count": 0,
+            "enabled_rule_count": 0,
+            "source_phrases": [],
+            "source_phrase_count": 0,
+            "source_preview_truncated": False,
+        },
+    )
+
+
+def _empty_rule_summary(path: Path) -> dict[str, object]:
+    return {
+        "ruleset_path": str(path),
+        "ruleset_exists": path.exists(),
+        "rule_count": 0,
+        "enabled_rule_count": 0,
+        "lemmas_with_rules": 0,
+        "load_error": None,
+    }
 
 
 def _summary(items: list[dict[str, object]], *, inventory_active_count: int) -> dict[str, int]:

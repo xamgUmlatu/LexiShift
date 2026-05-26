@@ -612,6 +612,11 @@ const workflows = createMaintenanceWorkflows({{
             review_count: 2,
             exposures: 3,
             source_label: "freq-es-cde",
+            rule_summary: {{
+              enabled_rule_count: 2,
+              source_phrases: ["dog", "hound"],
+              source_preview_truncated: false
+            }},
             advanced: {{
               lifecycle_state: "active",
               scheduler_state: "review",
@@ -631,6 +636,11 @@ const workflows = createMaintenanceWorkflows({{
             review_count: 0,
             exposures: 1,
             source_label: "freq-es-cde",
+            rule_summary: {{
+              enabled_rule_count: 1,
+              source_phrases: ["cat"],
+              source_preview_truncated: false
+            }},
             advanced: {{
               lifecycle_state: "active",
               scheduler_state: "new"
@@ -647,6 +657,11 @@ const workflows = createMaintenanceWorkflows({{
             review_count: 1,
             exposures: 5,
             source_label: "freq-es-cde",
+            rule_summary: {{
+              enabled_rule_count: 1,
+              source_phrases: ["bird"],
+              source_preview_truncated: false
+            }},
             advanced: {{
               lifecycle_state: "active",
               scheduler_state: "review"
@@ -696,15 +711,22 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(summaryRoot.children[3].children[0].textContent, "1");
   assert.equal(summaryRoot.children[5].children[0].textContent, "3");
   assert.equal(listRoot.children.length, 3);
-  assert.equal(listRoot.children[0].children.length, 4);
+  assert.equal(listRoot.children[0].children.length, 5);
   assert.equal(statuses[0].message, "Loaded 3 SRS words.");
-  assert.equal(listRoot.children[0].children[3].className, "srs-word-actions");
+  assert.equal(listRoot.children[0].children[2].children[3].textContent, "Rules: 2");
+  assert.equal(listRoot.children[0].children[3].textContent, "Matches: dog, hound");
+  assert.equal(listRoot.children[0].children[4].className, "srs-word-actions");
 
   searchInput.value = "gat";
   searchInput.listeners.input();
   assert.equal(listRoot.children[0].className, "srs-words-filter-note");
   assert.equal(listRoot.children[0].textContent, "Showing 1 of 3 words.");
   assert.equal(listRoot.children[1].children[0].children[0].textContent, "gato");
+
+  searchInput.value = "hound";
+  searchInput.listeners.input();
+  assert.equal(listRoot.children[0].textContent, "Showing 1 of 3 words.");
+  assert.equal(listRoot.children[1].children[0].children[0].textContent, "perro");
 
   searchInput.value = "";
   searchInput.listeners.input();
@@ -725,11 +747,11 @@ const workflows = createMaintenanceWorkflows({{
 
   workflows.setWordsDashboardAdvanced(true);
   assert.equal(listRoot.children.length, 3);
-  assert.equal(listRoot.children[0].children.length, 5);
-  assert.equal(listRoot.children[0].children[3].className, "srs-word-advanced");
-  assert.equal(listRoot.children[0].children[4].className, "srs-word-actions");
+  assert.equal(listRoot.children[0].children.length, 6);
+  assert.equal(listRoot.children[0].children[4].className, "srs-word-advanced");
+  assert.equal(listRoot.children[0].children[5].className, "srs-word-actions");
 
-  await listRoot.children[0].children[4].children[0].click();
+  await listRoot.children[0].children[5].children[0].click();
   assert.equal(confirms.length, 1);
   assert.equal(confirms[0], "Discard perro? It will be removed from SRS and blocked from future admission until SRS data is reset.");
   assert.deepEqual(JSON.parse(JSON.stringify(discardCalls)), [

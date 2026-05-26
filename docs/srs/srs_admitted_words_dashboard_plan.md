@@ -4,8 +4,8 @@ Status: active implementation contract
 Role: Mixed product decision plus current dashboard implementation contract
 Last updated: 2026-05-26
 Last verified: 2026-05-26 helper/options dashboard tests, local
-search/filter/sort tests, durable discard workflow tests, and SRS quality
-harness
+search/filter/sort tests, published-rule summary tests, durable discard
+workflow tests, and SRS quality harness
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, and deferred lifecycle actions
 Source-of-truth: product decision and UI contract live here; executable truth
@@ -26,6 +26,8 @@ Default view should show useful learner concepts:
 - removed words, including discarded or cleared items;
 - per-word display text, due status, review count, exposure count, and source
   label.
+- per-word published rule count and a compact source-phrase preview, when a
+  current helper-published ruleset exists;
 - local search, status filtering, and sort controls for already-loaded words.
 
 Technical details belong behind an Advanced details toggle:
@@ -59,6 +61,8 @@ Read/listing path:
 - helper/native-host exposes `srs_items_list`;
 - the endpoint is pair/profile scoped and read-only;
 - the endpoint reads `srs_store.json` and `srs_inventory.json`;
+- the endpoint also reads the current helper-published `srs_ruleset_<pair>.json`
+  and attaches compact per-lemma rule summaries;
 - active membership uses the existing active-inventory resolver, including
   store fallback when no pair inventory exists;
 - non-active lifecycle states are visible in the dashboard but remain ineligible
@@ -67,6 +71,8 @@ Read/listing path:
   search, status filter, sort controls, and an Advanced details toggle.
 - search/filter/sort operate only on the already-loaded dashboard payload; they
   do not call the helper, mutate SRS state, or change serving/admission order.
+- rule summaries are display-only: rule count plus a capped source-phrase
+  preview. They do not replace a future full rule-inspection UI.
 
 The listing endpoint should not:
 
@@ -75,6 +81,14 @@ The listing endpoint should not:
 - admit new words;
 - change due scheduling;
 - publish rulegen outputs.
+
+Rule summary path:
+
+- reads the full published ruleset artifact, not the capped diagnostic snapshot;
+- groups enabled rules by canonical target lemma (`replacement`);
+- reports `Rules: N` and a capped `Matches: ...` preview on each dashboard row;
+- tolerates a missing or unreadable ruleset by showing zero rule summaries while
+  preserving the SRS item list.
 
 Discard path:
 
@@ -94,10 +108,12 @@ Next product slices, after dashboard search/filter/sort and discard are stable:
 
 1. Pagination or virtualized rendering if admitted sets become too large for
    the current capped renderer.
-2. Optional right-click popup discard affordance, kept discrete beside review
+2. Full rule inspection for a selected admitted word, including all source
+   phrases, metadata, semantic-admission pointers, and morphology variants.
+3. Optional right-click popup discard affordance, kept discrete beside review
    ratings.
-3. A confirmed restore/undo policy if discarded items should ever return.
-4. Full mastered/released lifecycle semantics, if normal FSRS feedback is not
+4. A confirmed restore/undo policy if discarded items should ever return.
+5. Full mastered/released lifecycle semantics, if normal FSRS feedback is not
    enough for known-word dropoff.
 
 ## Release Boundary
@@ -107,6 +123,8 @@ The dashboard is acceptable for MVP when:
 - the read-only endpoint and options UI are covered by focused tests;
 - dashboard search/filter/sort are covered by focused workflow tests and remain
   local to the loaded payload;
+- published-rule summaries are covered by focused helper/options tests and
+  remain read-only;
 - dashboard discard is covered by focused workflow tests and uses the existing
   suppression route;
 - SRS quality harness still passes after the helper route lands;

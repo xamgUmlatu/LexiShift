@@ -1526,18 +1526,21 @@ Use this file when:
 ## SRS Admitted Words Dashboard
 
 - Status: `implemented`, `default-on`, `verified` for visibility plus
-  local dashboard search/filter/sort and confirmed durable dashboard discard;
-  restore/mastery/release controls remain `planned`
+  local dashboard search/filter/sort, read-only published-rule summaries, and
+  confirmed durable dashboard discard; restore/mastery/release controls remain
+  `planned`
 - Last documented checkpoint: `2026-05-26` admitted-words dashboard contract,
-  options UI, local review controls, and first durable lifecycle action:
+  options UI, local review controls, published-rule summaries, and first durable
+  lifecycle action:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
   due/removed states, and expose scheduler/lifecycle details behind an advanced
   toggle in options; the dashboard can locally search/filter/sort already-loaded
-  words; eligible rows can confirm Discard, which reuses `srs_admission_suppress`
-  with `reason=user_blocked`
-- Last verified: `2026-05-26` dashboard search/filter/sort and confirmed
-  discard route tests; focused helper endpoint, native-host route, helper
-  client/manager route, suppression writer tests, SRS quality harness,
+  words; rows show read-only published-rule counts/source previews; eligible
+  rows can confirm Discard, which reuses `srs_admission_suppress` with
+  `reason=user_blocked`
+- Last verified: `2026-05-26` dashboard rule-summary, search/filter/sort, and
+  confirmed discard route tests; focused helper endpoint, native-host route,
+  helper client/manager route, suppression writer tests, SRS quality harness,
   changed-file gate, doc-reference check, and state audit
 - Default behavior:
   - The options page exposes a Learning words dashboard for the selected
@@ -1549,6 +1552,9 @@ Use this file when:
   - Search, status filter, and sort controls reshape only the already-loaded
     dashboard payload. They do not call helper routes, mutate SRS state, or
     change admission/serving order.
+  - Each row can show read-only published-rule count plus a capped source-phrase
+    preview from the current helper-published ruleset artifact. Missing or
+    unreadable rulesets do not block item listing.
   - Active status uses the same active-inventory resolver as helper SRS serving;
     queued admitted words remain visible but not active.
   - Eligible words expose a confirmed Discard action. It durably blocks refresh
@@ -1581,6 +1587,8 @@ Use this file when:
   - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
 - Known gaps:
   - Dashboard pagination or virtualization is not implemented.
+  - Full per-word rule inspection, semantic metadata inspection, and morphology
+    variant inspection are not implemented.
   - User actions for restore, clear, release, and mastered-state management are
     not implemented.
   - The extension feedback popup remains review-feedback only.
