@@ -1417,7 +1417,7 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-26` SRS lifecycle and active-budget update:
+- Last documented checkpoint: `2026-05-26` SRS lifecycle, active-budget, and manual refresh diagnostics update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
@@ -1429,8 +1429,11 @@ Use this file when:
   `discarded` for future discard/block flows; non-active lifecycle states are
   now excluded from active inventory, due selection, growth capacity, and
   rulegen publication; refresh capacity now uses total active store load for
-  the pair rather than the smaller due-only subset
-- Last verified: `2026-05-26` lifecycle marker, active-budget, and active-inventory
+  the pair rather than the smaller due-only subset; options refresh output now
+  surfaces active budget, selected lemmas, and preview-only browsing comparison
+  diagnostics for manual SRS testing
+- Last verified: `2026-05-26` lifecycle marker, active-budget, manual refresh diagnostics,
+  and active-inventory
   filtering tests, lifecycle-aware scheduler/growth/rulegen tests, admission
   suppression writer tests, reset suppression-metadata tests, fractional
   browsing-budget tests, SRS quality harness with seeded non-empty browsing
@@ -1463,6 +1466,9 @@ Use this file when:
   - Manual refresh responses include preview-only browsing admission diagnostics
     for the same candidate pool and budget; the diagnostics do not affect the
     persisted refresh selection.
+  - Options refresh output displays active count, due count, capacity budget,
+    final admission budget, selected lemmas, and neutral vs `Balanced`/`Strong`
+    browsing preview selections when available.
   - The preview uses fractional small-budget realization so `Balanced` can show
     one browsing lane when signal pressure is meaningful, while actual persisted
     admission remains neutral.
@@ -1494,6 +1500,8 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/browsing_admission.py`
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
+  - `apps/chrome-extension/options/controllers/srs/actions/refresh_result_formatter.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/formatters.js`
   - `core/lexishift_core/helper/rulegen.py`
   - `core/lexishift_core/helper/paths.py`
   - `scripts/helper/lexishift_native_host.py`
@@ -1516,6 +1524,7 @@ Use this file when:
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/helper/test_helper_engine.py`
   - `core/tests/helper/test_helper_rulegen.py`
+  - `core/tests/dev/test_extension_srs_action_workflows.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
   - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`

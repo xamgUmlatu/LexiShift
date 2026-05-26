@@ -150,7 +150,7 @@ Status key:
 - `[~]` Feedback-window aggregation for admission updates (separate from due scheduling).
 - `[ ]` Persist aggregated admission feedback state (per pair, versioned).
 - `[~]` Persist browsing admission aggregate state (core decayed/bounded store, opt-in helper dev ingest, and hidden dev extension replacement-exposure packet builder exist; broad page capture is not wired).
-- `[~]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics (backend probability diagnostics, offline helper/core text probes, refresh-path browsing preview, and small-budget `Balanced` fractional lane realization exist; helper/options preview is not wired).
+- `[~]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics (backend probability diagnostics, offline helper/core text probes, refresh-path browsing preview, small-budget `Balanced` fractional lane realization, and options refresh output diagnostics exist; dedicated controls are not wired).
 - `[x]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
 - `[~]` Runtime page replacement load model (page-level budgets, explicit standard density defaults, and SRS metadata-aware budget priority exist; durable mastered/released dropoff remains open).
 - `[~]` Lifecycle audit for admission triggers, mastered/released state, and durable discard/block behavior (code-backed audit exists; refresh admission, scheduler due selection, active inventory, and rulegen publication respect non-active lifecycle states; backend `user_blocked` writer marks existing items `discarded` and removes active inventory; user-facing lifecycle controls remain open).
@@ -210,6 +210,8 @@ Status key:
 - `[x]` Add multi-phase simulation test (`high retention -> low retention pause -> high retention`) asserting S growth + ruleset/snapshot evolution (`core/tests/srs/test_srs_feedback_simulation.py`).
 - `[x]` Add helper bridge test for preference-aware bootstrap -> active inventory
   -> rule publication -> dashboard visibility.
+- `[x]` Surface refresh budget, selected lemmas, and preview-only browsing
+  comparison in the options refresh output for manual SRS testing.
 - `[ ]` Add diagnostics snapshots for before/after feedback cycles (store + sampled lemmas).
 - `[ ]` Add per-pair calibration report for admission/serving distributions.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).

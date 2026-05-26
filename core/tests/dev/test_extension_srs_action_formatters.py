@@ -8,6 +8,10 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 FORMATTERS_JS = PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/formatters.js"
+REFRESH_RESULT_FORMATTER_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/refresh_result_formatter.js"
+)
 ADMISSION_PREVIEW_FORMATTER_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/admission_preview_formatter.js"
@@ -30,6 +34,82 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionSrsActionFormatters(unittest.TestCase):
+    def test_refresh_result_output_shows_budget_and_browsing_diagnostics(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const refreshFormatterPath = {json.dumps(str(REFRESH_RESULT_FORMATTER_JS))};
+const modulePath = {json.dumps(str(FORMATTERS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(refreshFormatterPath, "utf8"), context, {{ filename: refreshFormatterPath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const output = context.LexiShift.optionsSrsActionFormatters.buildRefreshResultOutput({{
+  translate: null,
+  applied: true,
+  added: 2,
+  srsPair: "en-es",
+  result: {{
+    total_items_for_pair: 22,
+    max_active_items: 40,
+    max_new_items_per_day: 8,
+    browsing_admission_preview: {{
+      status: "ok",
+      matching_signal_count: 2,
+      aggregate_item_count: 5,
+      neutral_selected_lemmas: ["perro", "gato"],
+      simulations: {{
+        balanced: {{ selected_lemmas: ["perro", "ave"] }},
+        strong: {{ selected_lemmas: ["perro", "hipoteca"] }}
+      }}
+    }}
+  }},
+  admission: {{
+    active_count: 20,
+    due_count: 3,
+    due_pressure: 0.075,
+    capacity_budget: 20,
+    base_admission_budget: 8,
+    admission_budget: 2,
+    reason_code: "normal",
+    selected_lemmas: ["perro", "gato"],
+    feedback_window: {{
+      feedback_count: 12,
+      retention_ratio: 0.83
+    }}
+  }},
+  publishedRulegen: {{
+    published: true,
+    targets: 22,
+    rules: 31,
+    ruleset_path: "/tmp/rules.json"
+  }}
+}});
+
+assert.equal(output.includes("- active_count: 20"), true);
+assert.equal(output.includes("- due_count: 3"), true);
+assert.equal(output.includes("- capacity_budget: 20"), true);
+assert.equal(output.includes("- admission_budget: 2"), true);
+assert.equal(output.includes("- selected_lemmas: perro, gato"), true);
+assert.equal(output.includes("- browsing_preview_status: ok"), true);
+assert.equal(output.includes("- browsing_signal_matches: 2 / 5"), true);
+assert.equal(output.includes("- browsing_balanced_selected: perro, ave"), true);
+assert.equal(output.includes("- browsing_strong_selected: perro, hipoteca"), true);
+"""
+        _run_node(script)
+
     def test_admission_preview_output_shows_profile_topic_overlay(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
@@ -118,6 +198,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const refreshFormatterPath = {json.dumps(str(REFRESH_RESULT_FORMATTER_JS))};
 const modulePath = {json.dumps(str(FORMATTERS_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -130,6 +211,7 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(refreshFormatterPath, "utf8"), context, {{ filename: refreshFormatterPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const formatters = context.LexiShift.optionsSrsActionFormatters;
@@ -277,6 +359,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const refreshFormatterPath = {json.dumps(str(REFRESH_RESULT_FORMATTER_JS))};
 const modulePath = {json.dumps(str(FORMATTERS_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -289,6 +372,7 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(refreshFormatterPath, "utf8"), context, {{ filename: refreshFormatterPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const formatters = context.LexiShift.optionsSrsActionFormatters;

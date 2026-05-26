@@ -197,48 +197,6 @@
     ].filter(Boolean).join("\n");
   }
 
-  function buildRefreshResultOutput(options) {
-    const opts = options && typeof options === "object" ? options : {};
-    const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
-    const applied = opts.applied === true;
-    const added = Number(opts.added || 0);
-    const srsPair = String(opts.srsPair || "en-en");
-    const result = opts.result && typeof opts.result === "object" ? opts.result : {};
-    const admission = opts.admission && typeof opts.admission === "object" ? opts.admission : {};
-    const feedbackWindow = admission.feedback_window && typeof admission.feedback_window === "object"
-      ? admission.feedback_window
-      : {};
-    const publishedRulegen = opts.publishedRulegen && typeof opts.publishedRulegen === "object"
-      ? opts.publishedRulegen
-      : null;
-    const header = applied
-      ? translate(
-          "status_srs_refresh_success",
-          [srsPair, added],
-          `S refreshed for ${srsPair}: +${added} admitted.`
-        )
-      : translate(
-          "status_srs_refresh_noop",
-          [srsPair],
-          `S refresh for ${srsPair}: no new admissions.`
-        );
-    return [
-      header,
-      `- applied: ${applied}`,
-      `- added_items: ${added}`,
-      `- total_items_for_pair: ${result.total_items_for_pair ?? "n/a"}`,
-      `- max_active_items: ${result.max_active_items ?? "n/a"}`,
-      `- max_new_items_per_day: ${result.max_new_items_per_day ?? "n/a"}`,
-      `- reason_code: ${admission.reason_code || "n/a"}`,
-      `- feedback_count: ${feedbackWindow.feedback_count ?? "n/a"}`,
-      `- retention_ratio: ${feedbackWindow.retention_ratio ?? "n/a"}`,
-      `- rulegen_published: ${publishedRulegen ? publishedRulegen.published !== false : false}`,
-      publishedRulegen ? `- rulegen_targets: ${publishedRulegen.targets ?? "n/a"}` : null,
-      publishedRulegen ? `- rulegen_rules: ${publishedRulegen.rules ?? "n/a"}` : null,
-      publishedRulegen ? `- ruleset_path: ${publishedRulegen.ruleset_path || "n/a"}` : null
-    ].filter(Boolean).join("\n");
-  }
-
   function buildRuntimeDiagnosticsOutput(options) {
     const opts = options && typeof options === "object" ? options : {};
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
@@ -430,6 +388,11 @@
     return [header, ...samplingLines, "", ...lines].join("\n");
   }
 
+  const refreshResultFormatter = root.optionsSrsRefreshResultFormatter
+    && typeof root.optionsSrsRefreshResultFormatter === "object"
+    ? root.optionsSrsRefreshResultFormatter
+    : {};
+
   root.optionsSrsActionFormatters = {
     formatMissingResourceList,
     formatPairPolicySummary,
@@ -437,7 +400,9 @@
     buildPreflightBlockedLines,
     buildInitializeResultOutput,
     buildRebalanceResultOutput,
-    buildRefreshResultOutput,
+    buildRefreshResultOutput: typeof refreshResultFormatter.buildRefreshResultOutput === "function"
+      ? refreshResultFormatter.buildRefreshResultOutput
+      : (() => ""),
     buildRuntimeDiagnosticsOutput,
     buildAdmissionPreviewOutput,
     buildSampledRulegenSamplingLines,

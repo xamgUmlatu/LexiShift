@@ -401,6 +401,11 @@ Current prototype evidence:
 - `core/lexishift_core/helper/use_cases/refresh_set.py` returns this diagnostic
   under `browsing_admission_preview`; it does not alter actual refresh
   selection.
+- `apps/chrome-extension/options/controllers/srs/actions/refresh_result_formatter.js`
+  surfaces the refresh budget, selected lemmas, and preview-only browsing
+  comparison in the existing options refresh output so manual testing can
+  inspect neutral vs browsing-influenced outcomes without creating a separate
+  dev tool.
 - `docs/srs/srs_admission_lifecycle_current_state.md` records the current
   code-backed audit for initial admission, refresh growth, rebalance,
   feedback/exposure caveats, and release/discard/suspend gaps.
@@ -1013,6 +1018,9 @@ Key result:
   displacement.
 - `srs_refresh` now includes a preview-only browsing admission diagnostic, but
   actual refresh selection remains neutral.
+- The options refresh output displays the neutral selected lemmas and
+  `Balanced` / `Strong` preview selections when the helper returns browsing
+  diagnostics, so manual testing can inspect the effect without mutating SRS.
 - `record_feedback` and `record_exposure` must not be reused for browsing
   admission because they can create SRS store rows directly.
 - Refresh admission now respects active suppression entries and non-active
