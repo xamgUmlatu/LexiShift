@@ -27,6 +27,10 @@
     const diagnosticsButton = opts.diagnosticsButton || null;
     const sampledButton = opts.sampledButton || null;
     const resetButton = opts.resetButton || null;
+    const wordsRefreshButton = opts.wordsRefreshButton || null;
+    const wordsAdvancedInput = opts.wordsAdvancedInput || null;
+    const wordsSummaryRoot = opts.wordsSummaryRoot || null;
+    const wordsListRoot = opts.wordsListRoot || null;
     const setOutputText = typeof opts.setOutputText === "function" ? opts.setOutputText : (() => {});
     const setSampledOutputText = typeof opts.setSampledOutputText === "function"
       ? opts.setSampledOutputText
@@ -77,6 +81,29 @@
     const semanticPackWorkflow = semanticPackWorkflowFactory
       ? semanticPackWorkflowFactory(opts)
       : { installSemanticPack: async () => {} };
+    const wordsDashboardWorkflowFactory = root.optionsSrsWordsDashboardWorkflow
+      && typeof root.optionsSrsWordsDashboardWorkflow.createWordsDashboardWorkflow === "function"
+      ? root.optionsSrsWordsDashboardWorkflow.createWordsDashboardWorkflow
+      : null;
+    const wordsDashboardWorkflow = wordsDashboardWorkflowFactory
+      ? wordsDashboardWorkflowFactory({
+          settingsManager,
+          helperManager,
+          translate,
+          setStatus,
+          resolvePair,
+          syncSelectedProfile,
+          log,
+          colors,
+          wordsRefreshButton,
+          wordsAdvancedInput,
+          wordsSummaryRoot,
+          wordsListRoot
+        })
+      : {
+          refreshWordsDashboard: async () => {},
+          setWordsDashboardAdvanced: () => {}
+        };
 
     async function initializeSet() {
       if (!initializeButton || !output) {
@@ -409,7 +436,9 @@
       runRuntimeDiagnostics,
       previewSampledRulegen,
       installSemanticPack: semanticPackWorkflow.installSemanticPack,
-      resetSrsData
+      resetSrsData,
+      refreshWordsDashboard: wordsDashboardWorkflow.refreshWordsDashboard,
+      setWordsDashboardAdvanced: wordsDashboardWorkflow.setWordsDashboardAdvanced
     };
   }
 

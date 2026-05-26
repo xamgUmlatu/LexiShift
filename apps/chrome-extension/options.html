@@ -210,6 +210,25 @@
               </div>
             </div>
           </div>
+          <div class="srs-words-dashboard" aria-labelledby="srs-words-dashboard-heading">
+            <div class="srs-words-dashboard-header">
+              <div>
+                <h3 id="srs-words-dashboard-heading" data-i18n="heading_srs_words_dashboard">Learning words</h3>
+                <p class="hint" data-i18n="hint_srs_words_dashboard">
+                  Review the words currently admitted for this profile and language pair.
+                </p>
+              </div>
+              <div class="srs-words-dashboard-controls">
+                <button id="srs-words-refresh" type="button" data-i18n="button_srs_words_refresh">Refresh words</button>
+                <label class="toggle srs-words-advanced-toggle">
+                  <input id="srs-words-advanced" type="checkbox" />
+                  <span data-i18n="toggle_srs_words_advanced">Advanced details</span>
+                </label>
+              </div>
+            </div>
+            <div id="srs-words-summary" class="srs-words-summary" role="status"></div>
+            <div id="srs-words-list" class="srs-words-list"></div>
+          </div>
           <div class="actions">
             <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
           </div>
@@ -799,6 +818,7 @@
     <script src="options/controllers/srs/actions/formatters.js"></script>
     <script src="options/controllers/srs/actions/shared.js"></script>
     <script src="options/controllers/srs/actions/semantic_pack_install_workflow.js"></script>
+    <script src="options/controllers/srs/actions/words_dashboard_workflow.js"></script>
     <script src="options/controllers/srs/actions/maintenance_workflow.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>
     <script src="options/controllers/srs/actions_controller.js"></script>

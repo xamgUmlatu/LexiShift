@@ -57,6 +57,10 @@
       return this.send("srs_diagnostics", { pair, profile_id: profileId });
     }
 
+    listSrsItems(pair, profileId) {
+      return this.send("srs_items_list", { pair, profile_id: profileId });
+    }
+
     getProfiles() {
       return this.send("profiles_get");
     }

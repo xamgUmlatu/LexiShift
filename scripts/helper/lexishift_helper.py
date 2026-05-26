@@ -19,6 +19,7 @@ from lexishift_core.helper.engine import (
     apply_exposure,
     apply_feedback,
     initialize_srs_set,
+    list_srs_items,
     load_semantic_inventory,
     load_snapshot,
     plan_srs_set,
@@ -158,6 +159,13 @@ def cmd_srs_diagnostics(args: argparse.Namespace) -> int:
     payload = get_srs_runtime_diagnostics(
         paths, pair=args.pair, profile_id=args.profile_id or "default"
     )
+    _print_json(payload)
+    return 0
+
+
+def cmd_srs_items_list(args: argparse.Namespace) -> int:
+    paths = build_helper_paths()
+    payload = list_srs_items(paths, pair=args.pair, profile_id=args.profile_id or "default")
     _print_json(payload)
     return 0
 
@@ -422,6 +430,14 @@ def build_parser() -> argparse.ArgumentParser:
     diagnostics.add_argument("--pair", default="en-ja")
     diagnostics.add_argument("--profile-id", help="Profile id (default: default)")
     diagnostics.set_defaults(func=cmd_srs_diagnostics)
+
+    srs_items_list = sub.add_parser(
+        "srs_items_list",
+        help="List SRS words for the selected pair/profile.",
+    )
+    srs_items_list.add_argument("--pair", default="en-ja")
+    srs_items_list.add_argument("--profile-id", help="Profile id (default: default)")
+    srs_items_list.set_defaults(func=cmd_srs_items_list)
 
     run = sub.add_parser("run_rulegen", help="Run rulegen for a language pair")
     run.add_argument("--pair", default="en-ja")

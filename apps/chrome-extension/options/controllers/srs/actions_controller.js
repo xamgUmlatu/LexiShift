@@ -39,6 +39,10 @@
     const diagnosticsButton = elements.diagnosticsButton || null;
     const sampledButton = elements.sampledButton || null;
     const resetButton = elements.resetButton || null;
+    const wordsRefreshButton = elements.wordsRefreshButton || null;
+    const wordsAdvancedInput = elements.wordsAdvancedInput || null;
+    const wordsSummaryRoot = elements.wordsSummaryRoot || null;
+    const wordsListRoot = elements.wordsListRoot || null;
     const semanticPackInventoryPathInput = elements.semanticPackInventoryPathInput || null;
     const semanticPackIdInput = elements.semanticPackIdInput || null;
     const semanticPackDefaultDataRootInput = elements.semanticPackDefaultDataRootInput || null;
@@ -125,6 +129,10 @@
           diagnosticsButton,
           sampledButton,
           resetButton,
+          wordsRefreshButton,
+          wordsAdvancedInput,
+          wordsSummaryRoot,
+          wordsListRoot,
           semanticPackInventoryPathInput,
           semanticPackIdInput,
           semanticPackDefaultDataRootInput,
@@ -169,7 +177,9 @@
           runRuntimeDiagnostics: async () => {},
           previewSampledRulegen: async () => {},
           installSemanticPack: async () => {},
-          resetSrsData: async () => {}
+          resetSrsData: async () => {},
+          refreshWordsDashboard: async () => {},
+          setWordsDashboardAdvanced: () => {}
         };
 
     return {
@@ -181,7 +191,9 @@
       runRuntimeDiagnostics: workflows.runRuntimeDiagnostics,
       previewSampledRulegen: workflows.previewSampledRulegen,
       installSemanticPack: workflows.installSemanticPack,
-      resetSrsData: workflows.resetSrsData
+      resetSrsData: workflows.resetSrsData,
+      refreshWordsDashboard: workflows.refreshWordsDashboard,
+      setWordsDashboardAdvanced: workflows.setWordsDashboardAdvanced
     };
   }
 

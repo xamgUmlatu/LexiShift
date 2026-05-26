@@ -29,6 +29,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming profile strategies are default execution paths. |
 | Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Treating `profile_growth` as broad admission execution. |
 | Admission lifecycle and refresh mutation boundaries | `docs/srs/srs_admission_lifecycle_current_state.md` | Current code-backed audit for initial admission, refresh growth, rebalance, feedback/exposure caveats, and suppression guards. | Claiming discard/suspend UI or full mastered/released lifecycle exists. |
+| Admitted-words dashboard and lifecycle UX policy | `docs/srs/srs_admitted_words_dashboard_plan.md` | Mixed product/implementation contract for the read-only admitted-words dashboard, advanced-details boundary, and deferred discard/restore controls. | Claiming destructive lifecycle actions are shipped. |
 | Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
 | en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |
 | Browsing-based admission | `docs/srs/srs_browsing_based_admission_plan.md` | Planning workstream for opt-in, local-only browsing word signals that can influence future admission within SRS budget/lifecycle gates. | Claiming passive browsing changes scheduling, review state, or current default behavior. |
@@ -58,6 +59,8 @@ Current disposition:
 - `srs_topic_coverage_pause_state_en_es.md` is the current closeout snapshot
   for the paused en-es topic coverage work; it records the accepted incomplete
   state but does not make topic coverage comprehensive or default-on.
+- `srs_admitted_words_dashboard_plan.md` records the read-only user-facing
+  admitted-words dashboard decision and deferred lifecycle action policy.
 - `srs_browsing_based_admission_plan.md` is a planning workstream only; it
   records the intended opt-in word-signal design and the boundary that passive
   browsing must not mutate review scheduling.

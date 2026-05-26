@@ -1523,6 +1523,52 @@ Use this file when:
   - Full user-facing durable discard/block/release/mastered lifecycle controls
     remain planned; the current lifecycle writer is backend-only.
 
+## SRS Admitted Words Dashboard
+
+- Status: `implemented`, `default-on`, `verified` for read-only visibility;
+  lifecycle mutation controls remain `planned`
+- Last documented checkpoint: `2026-05-26` read-only admitted-words dashboard
+  contract and options UI:
+  helper/native-host can list pair/profile SRS items, summarize active/queued/
+  due/removed states, and expose scheduler/lifecycle details behind an advanced
+  toggle in options
+- Last verified: `2026-05-26` focused helper endpoint, native-host route,
+  helper client/manager route, options dashboard workflow tests, SRS quality
+  harness, changed-file gate, doc-reference check, and state audit
+- Default behavior:
+  - The options page exposes a Learning words dashboard for the selected
+    profile and language pair.
+  - Refresh words calls `srs_items_list`; the route is read-only and does not
+    admit, schedule, publish, discard, clear, or restore items.
+  - The default dashboard shows learner-facing counts and rows; advanced fields
+    are hidden behind a toggle.
+  - Active status uses the same active-inventory resolver as helper SRS serving;
+    queued admitted words remain visible but not active.
+  - Discard/restore/mastered/release actions remain planned and must not be
+    inferred from the read-only dashboard.
+- Evidence:
+  - `docs/srs/srs_admitted_words_dashboard_plan.md`
+  - `docs/srs/srs_admission_lifecycle_current_state.md`
+  - `core/lexishift_core/helper/use_cases/srs_items.py`
+  - `core/lexishift_core/helper/engine.py`
+  - `scripts/helper/lexishift_native_host.py`
+  - `scripts/helper/lexishift_helper.py`
+  - `apps/chrome-extension/options.html`
+  - `apps/chrome-extension/options.css`
+  - `apps/chrome-extension/shared/helper/helper_client.js`
+  - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js`
+  - `core/tests/helper/test_helper_srs_items.py`
+  - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
+  - `core/tests/dev/test_extension_helper_status_profile_contract.py`
+  - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
+- Known gaps:
+  - Dashboard search/filter/sort/pagination are not implemented.
+  - User actions for discard, restore, clear, release, and mastered-state
+    management are not implemented.
+  - The extension feedback popup remains review-feedback only.
+
 ## Pair-Local Active Inventory
 
 - Status: `implemented`, `default-on`, `verified`

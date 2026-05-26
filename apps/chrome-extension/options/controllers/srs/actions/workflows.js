@@ -147,6 +147,10 @@
           diagnosticsButton: opts.diagnosticsButton || null,
           sampledButton: opts.sampledButton || null,
           resetButton: opts.resetButton || null,
+          wordsRefreshButton: opts.wordsRefreshButton || null,
+          wordsAdvancedInput: opts.wordsAdvancedInput || null,
+          wordsSummaryRoot: opts.wordsSummaryRoot || null,
+          wordsListRoot: opts.wordsListRoot || null,
           semanticPackInventoryPathInput: opts.semanticPackInventoryPathInput || null,
           semanticPackIdInput: opts.semanticPackIdInput || null,
           semanticPackDefaultDataRootInput: opts.semanticPackDefaultDataRootInput || null,
@@ -187,7 +191,9 @@
           runRuntimeDiagnostics: async () => {},
           previewSampledRulegen: async () => {},
           installSemanticPack: async () => {},
-          resetSrsData: async () => {}
+          resetSrsData: async () => {},
+          refreshWordsDashboard: async () => {},
+          setWordsDashboardAdvanced: () => {}
         };
 
     return {
@@ -199,7 +205,9 @@
       runRuntimeDiagnostics: maintenanceWorkflows.runRuntimeDiagnostics,
       previewSampledRulegen: maintenanceWorkflows.previewSampledRulegen,
       installSemanticPack: maintenanceWorkflows.installSemanticPack,
-      resetSrsData: maintenanceWorkflows.resetSrsData
+      resetSrsData: maintenanceWorkflows.resetSrsData,
+      refreshWordsDashboard: maintenanceWorkflows.refreshWordsDashboard,
+      setWordsDashboardAdvanced: maintenanceWorkflows.setWordsDashboardAdvanced
     };
   }
 

@@ -49,6 +49,8 @@
     const srsRuntimeDiagnosticsButton = elements.srsRuntimeDiagnosticsButton || null;
     const srsRulegenSampledButton = elements.srsRulegenSampledButton || null;
     const srsResetButton = elements.srsResetButton || null;
+    const srsWordsRefreshButton = elements.srsWordsRefreshButton || null;
+    const srsWordsAdvancedInput = elements.srsWordsAdvancedInput || null;
     const semanticPackInstallButton = elements.semanticPackInstallButton || null;
     const srsAdmissionPreviewOutput = elements.srsAdmissionPreviewOutput || null;
     const srsRulegenSampledOutput = elements.srsRulegenSampledOutput || null;
@@ -240,6 +242,18 @@
       fallbackMessage: () => translate("status_srs_reset_failed", null, "SRS reset failed."),
       logMessage: "[Reset] Failed:"
     });
+    bindAsyncListener(srsWordsRefreshButton, "click", () => srsActionsController.refreshWordsDashboard(), {
+      fallbackMessage: () => translate("status_srs_items_list_failed", null, "Failed to load SRS words."),
+      logMessage: "SRS words dashboard refresh failed."
+    });
+    if (srsWordsAdvancedInput) {
+      srsWordsAdvancedInput.addEventListener("change", () => {
+        if (!srsActionsController || typeof srsActionsController.setWordsDashboardAdvanced !== "function") {
+          return;
+        }
+        srsActionsController.setWordsDashboardAdvanced(srsWordsAdvancedInput.checked);
+      });
+    }
     if (debugHelperTestButton) {
       debugHelperTestButton.addEventListener("click", () => {
         helperActionsController.testConnection();

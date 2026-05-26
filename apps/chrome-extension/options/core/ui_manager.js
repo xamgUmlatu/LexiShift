@@ -43,6 +43,8 @@ class UIManager {
       "srs-initialize-set", "srs-rebalance-preview", "srs-rebalance-apply",
       "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
+      "srs-words-refresh", "srs-words-advanced",
+      "srs-words-summary", "srs-words-list",
       "srs-rulegen-output", "srs-reset", "helper-status",
       "helper-last-sync", "debug-helper-test",
       "debug-semantic-pack-inventory-path", "debug-semantic-pack-id",

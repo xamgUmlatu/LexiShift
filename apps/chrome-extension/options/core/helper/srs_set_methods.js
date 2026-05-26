@@ -164,6 +164,24 @@
       return response.data || {};
     };
 
+    proto.listSrsItems = async function listSrsItems(pair, options) {
+      const client = this.getClient();
+      if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      const opts = options && typeof options === "object" ? options : {};
+      const profileId = this.normalizeProfileId(opts.profileId);
+      const response = await client.listSrsItems(pair, profileId);
+      if (!response || response.ok === false) {
+        throw new Error(
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_items_list_failed",
+            "Failed to load SRS words."
+          )
+        );
+      }
+      return response.data || {};
+    };
+
     proto.planSrsRebalance = async function planSrsRebalance(pair, options) {
       const client = this.getClient();
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));

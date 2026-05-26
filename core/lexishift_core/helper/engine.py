@@ -115,6 +115,14 @@ def _reset_srs_data_use_case(*args, **kwargs):
     return reset_module.reset_srs_data(*args, **kwargs)
 
 
+def _list_srs_items_use_case(*args, **kwargs):
+    srs_items_module = __import__(
+        "lexishift_core.helper.use_cases.srs_items",
+        fromlist=["list_srs_items"],
+    )
+    return srs_items_module.list_srs_items(*args, **kwargs)
+
+
 @dataclass(frozen=True)
 class RulegenJobConfig:
     pair: str
@@ -336,6 +344,22 @@ def get_srs_runtime_diagnostics(
         paths,
         pair=pair,
         profile_id=profile_id,
+    )
+
+
+def list_srs_items(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    profile_id: str = "default",
+    now: datetime | None = None,
+) -> dict:
+    return _list_srs_items_use_case(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+        now=now,
+        resolve_profile_id_fn=_resolve_profile_id,
     )
 
 

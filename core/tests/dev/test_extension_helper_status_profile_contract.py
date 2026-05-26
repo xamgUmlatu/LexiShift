@@ -125,6 +125,42 @@ const client = new HelperClient({{
 """
         _run_node(script)
 
+    def test_helper_client_routes_srs_items_list(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const clientPath = {json.dumps(str(HELPER_CLIENT_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(clientPath, "utf8"), context, {{ filename: clientPath }});
+
+const HelperClient = context.LexiShift.helperClient;
+const calls = [];
+const client = new HelperClient({{
+  async send(type, payload) {{
+    calls.push({{ type, payload }});
+    return {{ ok: true, data: null }};
+  }}
+}});
+
+(async () => {{
+  await client.listSrsItems("en-es", "default");
+  assert.equal(JSON.stringify(calls), JSON.stringify([
+    {{
+      type: "srs_items_list",
+      payload: {{ pair: "en-es", profile_id: "default" }}
+    }}
+  ]));
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_helper_client_routes_semantic_pack_install_with_long_timeout(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
@@ -157,6 +193,70 @@ const client = new HelperClient({{
   assert.equal(calls[0].type, "install_semantic_pack");
   assert.equal(calls[0].payload.profile_id, "semantic-alpha");
   assert.equal(calls[0].timeoutMs, 60000);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_manager_lists_srs_items_with_profile_id(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const files = [
+  {json.dumps(str(HELPER_ERROR_COPY_JS))},
+  {json.dumps(str(HELPER_CLIENT_JS))},
+  {json.dumps(str(HELPER_BASE_METHODS_JS))},
+  {json.dumps(str(HELPER_DIAGNOSTICS_METHODS_JS))},
+  {json.dumps(str(HELPER_SRS_SET_METHODS_JS))},
+  {json.dumps(str(HELPER_MANAGER_JS))}
+];
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  helperTransportExtension: {{
+    calls: [],
+    async send(type, payload, timeoutMs) {{
+      this.calls.push({{ type, payload, timeoutMs }});
+      return {{
+        ok: true,
+        data: {{
+          status: "ok",
+          summary: {{ total: 1 }},
+          items: [{{ lemma: "perro" }}]
+        }}
+      }};
+    }}
+  }}
+}};
+for (const file of files) {{
+  const source = fs.readFileSync(file, "utf8");
+  vm.runInContext(
+    file === {json.dumps(str(HELPER_MANAGER_JS))}
+      ? `${{source}}\nthis.__HelperManager = HelperManager;`
+      : source,
+    context,
+    {{ filename: file }}
+  );
+}}
+
+const manager = new context.__HelperManager({{
+  t: (_key, _args, fallback) => fallback || ""
+}}, () => {{}});
+
+(async () => {{
+  const result = await manager.listSrsItems("en-es", {{ profileId: "alpha" }});
+  assert.equal(result.summary.total, 1);
+  assert.equal(JSON.stringify(context.LexiShift.helperTransportExtension.calls), JSON.stringify([
+    {{
+      type: "srs_items_list",
+      payload: {{ pair: "en-es", profile_id: "alpha" }},
+      timeoutMs: 4000
+    }}
+  ]));
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

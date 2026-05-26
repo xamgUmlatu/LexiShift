@@ -10,6 +10,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 MAINTENANCE_WORKFLOW_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js"
 )
+WORDS_DASHBOARD_WORKFLOW_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js"
+)
 SEMANTIC_PACK_INSTALL_WORKFLOW_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/semantic_pack_install_workflow.js"
@@ -453,6 +457,156 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(statuses[1].color, "#b42318");
   assert.equal(output.textContent, "stale output");
   assert.equal(confirmMessages.length, 5);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_words_dashboard_refreshes_read_only_items_and_advanced_toggle(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const wordsDashboardModulePath = {json.dumps(str(WORDS_DASHBOARD_WORKFLOW_JS))};
+const modulePath = {json.dumps(str(MAINTENANCE_WORKFLOW_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, args, fallback) => {{
+            if (Array.isArray(args) && fallback) return fallback;
+            return fallback;
+          }});
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(wordsDashboardModulePath, "utf8"), context, {{ filename: wordsDashboardModulePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createMaintenanceWorkflows =
+  context.LexiShift.optionsSrsActionMaintenanceWorkflow.createMaintenanceWorkflows;
+function makeNode(tagName) {{
+  return {{
+    tagName,
+    className: "",
+    textContent: "",
+    children: [],
+    attributes: {{}},
+    ownerDocument: null,
+    get firstChild() {{
+      return this.children[0] || null;
+    }},
+    appendChild(child) {{
+      this.children.push(child);
+      return child;
+    }},
+    removeChild(child) {{
+      this.children = this.children.filter((item) => item !== child);
+    }},
+    setAttribute(name, value) {{
+      this.attributes[name] = String(value);
+    }}
+  }};
+}}
+const doc = {{
+  createElement(tagName) {{
+    const node = makeNode(tagName);
+    node.ownerDocument = doc;
+    return node;
+  }}
+}};
+const summaryRoot = makeNode("div");
+summaryRoot.ownerDocument = doc;
+const listRoot = makeNode("div");
+listRoot.ownerDocument = doc;
+const refreshButton = {{ disabled: false }};
+const statuses = [];
+const helperCalls = [];
+
+const workflows = createMaintenanceWorkflows({{
+  settingsManager: {{
+    async load() {{
+      return {{ saved: true }};
+    }}
+  }},
+  helperManager: {{
+    async listSrsItems(pair, options) {{
+      helperCalls.push({{ pair, options }});
+      return {{
+        status: "ok",
+        summary: {{
+          total: 1,
+          active: 1,
+          due_now: 1,
+          due_soon: 0,
+          queued: 0,
+          removed: 0
+        }},
+        items: [
+          {{
+            item_id: "en-es:perro",
+            lemma: "perro",
+            display: "perro",
+            reading: "perro",
+            status: "due_now",
+            status_label: "Due now",
+            due_in_seconds: -60,
+            review_count: 2,
+            exposures: 3,
+            source_label: "freq-es-cde",
+            advanced: {{
+              lifecycle_state: "active",
+              scheduler_state: "review",
+              scheduler_step: 1,
+              confidence: 0.9,
+              stability: 4,
+              difficulty: 3
+            }}
+          }}
+        ]
+      }};
+    }}
+  }},
+  translate: null,
+  setStatus: (message, color) => {{
+    statuses.push({{ message, color }});
+  }},
+  resolvePair: () => "en-es",
+  syncSelectedProfile: async (items) => ({{ items, profileId: "alpha" }}),
+  log: () => {{}},
+  colors: {{
+    SUCCESS: "#3c5a2a",
+    ERROR: "#b42318",
+    DEFAULT: "#6c675f"
+  }},
+  wordsRefreshButton: refreshButton,
+  wordsAdvancedInput: {{ checked: false }},
+  wordsSummaryRoot: summaryRoot,
+  wordsListRoot: listRoot
+}});
+
+(async () => {{
+  await workflows.refreshWordsDashboard();
+  assert.equal(refreshButton.disabled, false);
+  assert.deepEqual(JSON.parse(JSON.stringify(helperCalls)), [
+    {{ pair: "en-es", options: {{ profileId: "alpha" }} }}
+  ]);
+  assert.equal(summaryRoot.children.length, 6);
+  assert.equal(summaryRoot.children[0].children[0].textContent, "1");
+  assert.equal(listRoot.children.length, 1);
+  assert.equal(listRoot.children[0].children.length, 3);
+  assert.equal(statuses[0].message, "Loaded 1 SRS words.");
+
+  workflows.setWordsDashboardAdvanced(true);
+  assert.equal(listRoot.children.length, 1);
+  assert.equal(listRoot.children[0].children.length, 4);
+  assert.equal(listRoot.children[0].children[3].className, "srs-word-advanced");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

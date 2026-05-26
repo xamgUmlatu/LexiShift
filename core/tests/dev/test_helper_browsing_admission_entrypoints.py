@@ -15,6 +15,7 @@ if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.srs import SrsItem, SrsStore, save_srs_store  # noqa: E402
 from lexishift_core.srs.admission_suppression import (  # noqa: E402
     active_suppressed_lemmas,
     load_admission_suppression_store,
@@ -37,6 +38,38 @@ def _load_module(name: str, path: Path):
 
 
 class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
+    def test_native_host_routes_srs_items_list(self) -> None:
+        module = _load_module("lexishift_native_host_srs_items_list_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-es:perro",
+                            lemma="perro",
+                            language_pair="en-es",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=2,
+                ),
+                paths.srs_store_path_for("default"),
+            )
+            with patch.object(module, "build_helper_paths", return_value=paths):
+                response = module._handle_request(
+                    "srs_items_list",
+                    {
+                        "pair": "en-es",
+                        "profile_id": "default",
+                    },
+                )
+
+            self.assertEqual(response["status"], "ok")
+            self.assertEqual(response["summary"]["total"], 1)
+            self.assertEqual(response["items"][0]["lemma"], "perro")
+
     def test_native_host_routes_srs_admission_suppression(self) -> None:
         module = _load_module("lexishift_native_host_admission_suppress_test", NATIVE_HOST_SCRIPT)
 

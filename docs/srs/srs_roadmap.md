@@ -10,6 +10,7 @@ Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/exten
 Related design:
 - `docs/srs/README.md`
 - `docs/srs/srs_hybrid_model_technical.md`
+- `docs/srs/srs_admitted_words_dashboard_plan.md`
 - `docs/srs/srs_browsing_based_admission_plan.md`
 - `docs/architecture/srs_lp_architecture.md`
 
@@ -115,6 +116,8 @@ Status key:
 - `[x]` Feedback ingestion from extension popup.
 - `[~]` Formal lifecycle statuses (backend `active`/`discarded`/`cleared`
   markers exist; fuller review/mastery lifecycle remains planned).
+- `[~]` User-facing SRS item visibility (read-only options dashboard exists;
+  discard/restore/mastery actions remain planned).
 - `[ ]` Daily/session budget policy hardening (`max_active`, `max_new_per_day`).
 
 ### Workstream B — Set `S` admission and initialization
@@ -173,6 +176,8 @@ Status key:
 - `[x]` Options action for explicit refresh+publish flow (non-debug).
 - `[x]` Runtime diagnostics surface: helper store/ruleset + extension cache + current tab rule counts.
 - `[x]` Extension runtime consumes helper rules through service-worker bridge (single native messaging boundary).
+- `[x]` Read-only options dashboard can list admitted SRS words for the selected
+  pair/profile through the helper/native-host route.
 - `[ ]` Rule quality hardening for broad/ambiguous gloss sources.
 
 ### Workstream F — Cross-surface consistency
