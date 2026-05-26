@@ -1381,11 +1381,11 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-19` profile-bootstrap scoring now includes a multiplicative readiness gate that suppresses too-easy/too-hard candidates while allowing topic-relevant words a wider proficiency band; the local SRS admission lab exposes gate and topic-depth diagnostics and can build a dev-only Zipf-bridge augmented EN-ES frontier for fuller topic-preference testing
-- Last verified: `2026-05-19` focused profile-bootstrap/selector/admission-lab tests, SRS quality harness, changed-file gate, and local admission-lab browser smoke
+- Last documented checkpoint: `2026-05-26` planner/helper metadata now reports requested `profile_bootstrap` as executable profile-aware bootstrap, and options initialize/admission preview request it with current profile context.
+- Last verified: `2026-05-26` focused profile-bootstrap/planner/helper/options tests, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
-  - Default bootstrap execution remains frequency bootstrap.
-  - `profile_bootstrap` now has implemented normalization, scoring, diagnostics, and standalone/dev harness coverage, including a proficiency readiness multiplier that affects both ranked score and weighted sampling mass; helper initialization/admission preview still fall back to frequency bootstrap execution until later wiring.
+  - No-strategy helper bootstrap execution remains frequency bootstrap.
+  - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, and a proficiency readiness multiplier over the frequency seed frontier before initial active selection.
   - The local SRS admission lab may create a temporary EN-ES Zipf-bridge augmented frequency DB from committed test artifacts plus installed Kaikki POS data; this is dev-lab-only and does not install, mutate, or promote a production frequency pack.
   - `profile_growth` is executable for the dedicated rebalance preview/apply lane, but not yet as a general growth-admission strategy for adding new items into `S`.
   - `adaptive_refresh` still falls back to planning-only behavior.
@@ -1410,7 +1410,6 @@ Use this file when:
   - `scripts/testing/srs_frequency_topic_coverage.py`
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
 - Known gaps:
-  - Planner/core diagnostics are ahead of helper execution wiring for `profile_bootstrap`.
   - `profile_growth` execution is currently limited to rebalance preview/apply; broader growth admission remains planned.
   - Pair policy defaults are currently near-identical across active pairs.
   - `core/lexishift_core/srs/profile_bootstrap.py` remains a structural hotspot and should be split in a later health pass rather than folded into admission-contract edits.

@@ -58,10 +58,14 @@ Ship a non-destructive SRS layer where:
 - `srs/set_policy.py`: centralized sizing policy/defaults/clamps.
 - `srs/set_planner.py`: plan metadata + diagnostics.
 - `srs_plan_set` helper command: no side effects.
-- `srs_initialize` helper command: mutation via the current executable baseline strategy.
+- `srs_initialize` helper command: mutation via the requested executable
+  bootstrap strategy.
 - Current execution reality:
-  - `frequency_bootstrap` is the default executable path
-  - `profile_bootstrap` returns diagnostics but still falls back to the frequency-bootstrap execution path
+  - `frequency_bootstrap` remains the no-strategy helper default
+  - options initialize and admission preview explicitly request
+    `profile_bootstrap`
+  - requested `profile_bootstrap` now reports and executes as profile-aware
+    bootstrap over the frequency seed frontier
   - `profile_growth` and `adaptive_refresh` remain non-default future strategies
 - Bootstrap admission policy now applies explicit POS buckets with centralized coefficients (non-magic constants).
 - JP stopword filtering is active from helper-owned `srs/stopwords/stopwords-ja.json` (or sibling fallback path).
@@ -126,7 +130,9 @@ Status key:
 - `[x]` JMDict-filtered JA bootstrap flow (`en-ja`).
 - `[x]` Planner scaffold (`srs_plan_set` + extended `srs_initialize`).
 - `[x]` Centralized sizing policy (`bootstrap_top_n`, `initial_active_count`, clamps, diagnostics notes).
-- `[~]` Profile-aware weighting in `profile_bootstrap` (normalization/scoring/diagnostics landed; helper execution still falls back to frequency bootstrap).
+- `[x]` Profile-aware weighting in `profile_bootstrap` (normalization,
+  scoring, diagnostics, helper plan reporting, options admission preview, and
+  initialize execution use profile-aware bootstrap when requested).
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.

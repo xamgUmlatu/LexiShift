@@ -102,7 +102,9 @@ Set Planner (bootstrap/growth/refresh strategy)
 ## 4) Planner + bootstrap/growth policies
 - Decide how new words enter `S`.
 - Enforce explicit sizing policy (`bootstrap_top_n`, `initial_active_count`, clamp notes).
-- Keep current executable fallback (`frequency_bootstrap`) while profile strategies mature.
+- Keep the no-strategy executable baseline (`frequency_bootstrap`) while
+  allowing requested `profile_bootstrap` initialization and preview paths to
+  apply profile-aware scoring over the seed frontier.
 
 ## Data ownership
 - Helper is canonical for mutable SRS scheduling state.

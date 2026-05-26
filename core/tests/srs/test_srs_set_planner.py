@@ -24,7 +24,7 @@ class TestSrsSetPlanner(unittest.TestCase):
         self.assertEqual(plan.execution_mode, "frequency_bootstrap")
         self.assertEqual(plan.strategy_effective, "frequency_bootstrap")
 
-    def test_profile_bootstrap_surfaces_diagnostics_but_falls_back_to_frequency(
+    def test_profile_bootstrap_is_executable_with_diagnostics(
         self,
     ) -> None:
         plan = build_srs_set_plan(
@@ -36,10 +36,10 @@ class TestSrsSetPlanner(unittest.TestCase):
             )
         )
         self.assertTrue(plan.can_execute)
-        self.assertEqual(plan.execution_mode, "frequency_bootstrap")
-        self.assertEqual(plan.strategy_effective, "frequency_bootstrap")
+        self.assertEqual(plan.execution_mode, "profile_bootstrap")
+        self.assertEqual(plan.strategy_effective, "profile_bootstrap")
         self.assertIn("difficulty_preferences", plan.requires_profile_fields)
-        self.assertTrue(any("falling back" in note.lower() for note in plan.notes))
+        self.assertTrue(any("profile-aware candidate scoring" in note for note in plan.notes))
         self.assertIn("profile_bootstrap", plan.diagnostics)
         context = plan.diagnostics["profile_bootstrap"]["context"]
         self.assertEqual(context["active_signals"], ["interests"])

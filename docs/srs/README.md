@@ -73,9 +73,10 @@ Current disposition:
 For productization closure, preserve these boundaries unless a later verified
 update changes the owning docs:
 
-- default bootstrap execution remains `frequency_bootstrap`;
-- `profile_bootstrap` has implemented scoring/diagnostics but is not the helper
-  initialization default path;
+- no-strategy helper bootstrap execution remains `frequency_bootstrap`;
+- options initialize and admission preview explicitly request
+  `profile_bootstrap`, which applies implemented profile-aware scoring and
+  diagnostics over the frequency seed frontier;
 - `profile_growth` is executable for rebalance preview/apply, not broad
   growth-admission into `S`;
 - due-aware serving is implemented through helper rulegen SRS due metadata plus

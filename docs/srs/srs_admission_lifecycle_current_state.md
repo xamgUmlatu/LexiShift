@@ -59,8 +59,9 @@ Sizing is centralized in `core/lexishift_core/srs/set_policy.py`:
 
 Bootstrap selection is in `core/lexishift_core/helper/rulegen.py`:
 
-- `frequency_bootstrap` is the default native-host strategy.
-- `profile_bootstrap` is implemented but not the default helper init strategy.
+- `frequency_bootstrap` is the no-strategy native-host baseline.
+- `profile_bootstrap` is executable when requested; options initialize and
+  admission preview request it with current profile context.
 - Selection policy defaults to deterministic `top_n`; weighted without
   replacement is supported only when explicitly requested by config.
 - The helper writes store rows, writes active inventory ids, then publishes

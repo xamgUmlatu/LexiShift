@@ -320,7 +320,8 @@ This keeps profile modeling decoupled from mutation details.
 ## Strategy taxonomy alignment
 
 - `frequency_bootstrap`: executable baseline.
-- `profile_bootstrap`: planner-supported, currently fallback execution.
+- `profile_bootstrap`: executable when requested; options initialize and
+  admission preview request this strategy with normalized profile context.
 - `profile_growth`: executable for dedicated rebalance preview/apply, but not yet for general growth admission.
 - `adaptive_refresh`: planner-only, feedback-aggregation dependent.
 

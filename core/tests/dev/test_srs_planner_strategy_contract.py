@@ -76,7 +76,7 @@ def _create_frequency_db(path: Path) -> Path:
 
 
 class TestSrsPlannerStrategyContract(unittest.TestCase):
-    def test_helper_plan_keeps_profile_bootstrap_as_frequency_execution(self) -> None:
+    def test_helper_plan_reports_profile_bootstrap_execution(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
 
@@ -92,8 +92,8 @@ class TestSrsPlannerStrategyContract(unittest.TestCase):
 
             self.assertEqual(payload["pair"], "en-en")
             self.assertEqual(payload["plan"]["strategy_requested"], "profile_bootstrap")
-            self.assertEqual(payload["plan"]["strategy_effective"], "frequency_bootstrap")
-            self.assertEqual(payload["plan"]["execution_mode"], "frequency_bootstrap")
+            self.assertEqual(payload["plan"]["strategy_effective"], "profile_bootstrap")
+            self.assertEqual(payload["plan"]["execution_mode"], "profile_bootstrap")
             self.assertTrue(payload["plan"]["can_execute"])
 
     def test_helper_rebalance_keeps_profile_growth_as_effective_strategy(self) -> None:

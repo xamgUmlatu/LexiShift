@@ -2101,7 +2101,8 @@ class TestHelperEnginePlanSrsSet(unittest.TestCase):
             self.assertIn("plan", plan_payload)
             plan = plan_payload["plan"]
             self.assertEqual(plan["strategy_requested"], "profile_bootstrap")
-            self.assertEqual(plan["strategy_effective"], "frequency_bootstrap")
+            self.assertEqual(plan["strategy_effective"], "profile_bootstrap")
+            self.assertEqual(plan["execution_mode"], "profile_bootstrap")
             self.assertTrue(plan["can_execute"])
 
     def test_plan_resolves_stopwords_path_from_srs_subdir(self) -> None:
@@ -3095,7 +3096,8 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
                 )
 
             self.assertEqual(payload["pair"], "en-ja")
-            self.assertEqual(payload["plan"]["strategy_effective"], "frequency_bootstrap")
+            self.assertEqual(payload["plan"]["strategy_effective"], "profile_bootstrap")
+            self.assertEqual(payload["plan"]["execution_mode"], "profile_bootstrap")
             preview = payload["preview"]
             self.assertEqual(preview["selection_strategy"], "profile_bootstrap")
             self.assertEqual(preview["selector_version"], "profile_bootstrap_v3")
@@ -3259,7 +3261,8 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
 
             self.assertEqual(payload["pair"], "en-en")
             self.assertTrue(payload["plan"]["can_execute"])
-            self.assertEqual(payload["plan"]["strategy_effective"], "frequency_bootstrap")
+            self.assertEqual(payload["plan"]["strategy_effective"], "profile_bootstrap")
+            self.assertEqual(payload["plan"]["execution_mode"], "profile_bootstrap")
             preview = payload["preview"]
             self.assertEqual(preview["selection_strategy"], "profile_bootstrap")
             self.assertEqual(preview["sample_count_effective"], 2)

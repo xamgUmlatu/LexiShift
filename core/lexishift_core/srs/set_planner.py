@@ -62,15 +62,14 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
     elif requested == STRATEGY_PROFILE_BOOTSTRAP:
         required_fields.extend(("interests", "proficiency", "difficulty_preferences"))
         can_execute = True
-        execution_mode = "frequency_bootstrap"
-        effective = STRATEGY_FREQUENCY_BOOTSTRAP
+        execution_mode = "profile_bootstrap"
         profile_bootstrap_summary = summarize_profile_bootstrap_context(request.profile_context)
         extra_diagnostics = {
             "profile_bootstrap": profile_bootstrap_summary,
         }
         notes.append(
-            "Profile bootstrap diagnostics are implemented, but helper execution is still "
-            "falling back to frequency bootstrap."
+            "Profile bootstrap applies profile-aware candidate scoring to the frequency "
+            "bootstrap seed frontier."
         )
         active_signals = tuple(
             profile_bootstrap_summary.get("context", {}).get("active_signals", [])  # type: ignore[union-attr]

@@ -57,7 +57,7 @@ const text = formatter.buildAdmissionPreviewOutput({{
   plan: {{
     can_execute: true,
     strategy_requested: "profile_bootstrap",
-    strategy_effective: "frequency_bootstrap",
+    strategy_effective: "profile_bootstrap",
     execution_mode: "profile_bootstrap"
   }},
   preview: {{
