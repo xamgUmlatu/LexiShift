@@ -317,6 +317,63 @@
   "button_srs_reset": {
     "message": "重置 SRS 数据"
   },
+  "heading_srs_words_dashboard": {
+    "message": "学习词"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "查看当前为此档案和语言对加入的词。"
+  },
+  "button_srs_words_refresh": {
+    "message": "刷新词"
+  },
+  "toggle_srs_words_advanced": {
+    "message": "高级详情"
+  },
+  "label_srs_words_search": {
+    "message": "搜索"
+  },
+  "label_srs_words_status_filter": {
+    "message": "状态"
+  },
+  "option_srs_words_status_all": {
+    "message": "全部"
+  },
+  "option_srs_words_status_active": {
+    "message": "活跃"
+  },
+  "option_srs_words_status_due": {
+    "message": "到期"
+  },
+  "option_srs_words_status_queued": {
+    "message": "队列中"
+  },
+  "option_srs_words_status_removed": {
+    "message": "已移除"
+  },
+  "label_srs_words_sort": {
+    "message": "排序"
+  },
+  "option_srs_words_sort_source": {
+    "message": "来源顺序"
+  },
+  "option_srs_words_sort_due": {
+    "message": "到期优先"
+  },
+  "option_srs_words_sort_word": {
+    "message": "词 A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "复习最多"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "显示最多"
+  },
+  "label_srs_words_page_size": {
+    "message": "行数"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "清除筛选"
+  },
   "confirm_srs_reset_1": {
     "message": "确定要重置此语言对的所有 SRS 进度吗？此操作无法撤销。"
   },

@@ -317,6 +317,63 @@
   "button_srs_reset": {
     "message": "SRSデータをリセット"
   },
+  "heading_srs_words_dashboard": {
+    "message": "学習中の語"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "このプロファイルと言語ペアで現在登録されている語を確認します。"
+  },
+  "button_srs_words_refresh": {
+    "message": "語を更新"
+  },
+  "toggle_srs_words_advanced": {
+    "message": "詳細情報"
+  },
+  "label_srs_words_search": {
+    "message": "検索"
+  },
+  "label_srs_words_status_filter": {
+    "message": "状態"
+  },
+  "option_srs_words_status_all": {
+    "message": "すべて"
+  },
+  "option_srs_words_status_active": {
+    "message": "アクティブ"
+  },
+  "option_srs_words_status_due": {
+    "message": "期限あり"
+  },
+  "option_srs_words_status_queued": {
+    "message": "待機中"
+  },
+  "option_srs_words_status_removed": {
+    "message": "削除済み"
+  },
+  "label_srs_words_sort": {
+    "message": "並び順"
+  },
+  "option_srs_words_sort_source": {
+    "message": "ソース順"
+  },
+  "option_srs_words_sort_due": {
+    "message": "期限ありを先頭"
+  },
+  "option_srs_words_sort_word": {
+    "message": "語 A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "復習回数が多い順"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "表示回数が多い順"
+  },
+  "label_srs_words_page_size": {
+    "message": "行数"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "フィルターをクリア"
+  },
   "confirm_srs_reset_1": {
     "message": "この言語ペアのSRS進捗をすべてリセットしますか？この操作は元に戻せません。"
   },

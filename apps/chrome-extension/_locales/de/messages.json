@@ -317,6 +317,63 @@
   "button_srs_reset": {
     "message": "SRS-Daten zurücksetzen"
   },
+  "heading_srs_words_dashboard": {
+    "message": "Lernwörter"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "Sieh dir die Wörter an, die aktuell für dieses Profil und Sprachpaar zugelassen sind."
+  },
+  "button_srs_words_refresh": {
+    "message": "Wörter aktualisieren"
+  },
+  "toggle_srs_words_advanced": {
+    "message": "Erweiterte Details"
+  },
+  "label_srs_words_search": {
+    "message": "Suchen"
+  },
+  "label_srs_words_status_filter": {
+    "message": "Status"
+  },
+  "option_srs_words_status_all": {
+    "message": "Alle"
+  },
+  "option_srs_words_status_active": {
+    "message": "Aktiv"
+  },
+  "option_srs_words_status_due": {
+    "message": "Fällig"
+  },
+  "option_srs_words_status_queued": {
+    "message": "Wartend"
+  },
+  "option_srs_words_status_removed": {
+    "message": "Entfernt"
+  },
+  "label_srs_words_sort": {
+    "message": "Sortieren"
+  },
+  "option_srs_words_sort_source": {
+    "message": "Quellreihenfolge"
+  },
+  "option_srs_words_sort_due": {
+    "message": "Fällige zuerst"
+  },
+  "option_srs_words_sort_word": {
+    "message": "Wort A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "Meiste Wiederholungen"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "Am häufigsten gesehen"
+  },
+  "label_srs_words_page_size": {
+    "message": "Zeilen"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "Filter löschen"
+  },
   "confirm_srs_reset_1": {
     "message": "Möchtest du den gesamten SRS-Fortschritt für dieses Sprachpaar wirklich zurücksetzen? Dies kann nicht rückgängig gemacht werden."
   },

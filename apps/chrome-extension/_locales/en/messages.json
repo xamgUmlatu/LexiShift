@@ -317,6 +317,63 @@
   "button_srs_reset": {
     "message": "Reset SRS data"
   },
+  "heading_srs_words_dashboard": {
+    "message": "Learning words"
+  },
+  "hint_srs_words_dashboard": {
+    "message": "Review the words currently admitted for this profile and language pair."
+  },
+  "button_srs_words_refresh": {
+    "message": "Refresh words"
+  },
+  "toggle_srs_words_advanced": {
+    "message": "Advanced details"
+  },
+  "label_srs_words_search": {
+    "message": "Search"
+  },
+  "label_srs_words_status_filter": {
+    "message": "Status"
+  },
+  "option_srs_words_status_all": {
+    "message": "All"
+  },
+  "option_srs_words_status_active": {
+    "message": "Active"
+  },
+  "option_srs_words_status_due": {
+    "message": "Due"
+  },
+  "option_srs_words_status_queued": {
+    "message": "Queued"
+  },
+  "option_srs_words_status_removed": {
+    "message": "Removed"
+  },
+  "label_srs_words_sort": {
+    "message": "Sort"
+  },
+  "option_srs_words_sort_source": {
+    "message": "Source order"
+  },
+  "option_srs_words_sort_due": {
+    "message": "Due first"
+  },
+  "option_srs_words_sort_word": {
+    "message": "Word A-Z"
+  },
+  "option_srs_words_sort_reviews": {
+    "message": "Most reviews"
+  },
+  "option_srs_words_sort_seen": {
+    "message": "Most seen"
+  },
+  "label_srs_words_page_size": {
+    "message": "Rows"
+  },
+  "button_srs_words_clear_filters": {
+    "message": "Clear filters"
+  },
   "confirm_srs_reset_1": {
     "message": "Are you sure you want to reset all SRS progress for this language pair? This cannot be undone."
   },
