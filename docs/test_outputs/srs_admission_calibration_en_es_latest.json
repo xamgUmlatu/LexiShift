@@ -1,0 +1,5522 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-26T16:20:48.290108+00:00",
+  "pair": "en-es",
+  "runtime_scope": "admission_calibration_preview_only",
+  "interpretation": {
+    "ranked_selected_topic_share": "Deterministic share of the preview admission batch that matched active profile topics.",
+    "weighted_selected_topic_share": "Empirical share across seeded weighted-without-replacement preview batches; use as a calibration signal, not a product guarantee.",
+    "mutation": "No product SRS store is mutated; previews run in temporary helper roots."
+  },
+  "parameters": {
+    "set_top_n": 10000,
+    "admission_budget": 10,
+    "weighted_seeds": [
+      11,
+      23,
+      37
+    ],
+    "augment_with_zipf_bridge": true
+  },
+  "inputs": {
+    "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "frequency_db_exists": true,
+    "preview_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-n9_5zs5h/srs-admission-lab-zipf-augmented.sqlite",
+    "overlay_source_path": null,
+    "overlay_source_paths": [
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_food_cooking_topic_overlay_en_es_spalex_10k_latest.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_wikidata_natural_taxonomy_topic_overlay_en_es_spalex_10k_latest.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json",
+      "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json"
+    ],
+    "merged_overlay_source_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-n9_5zs5h/srs-admission-lab-merged-topic-overlay.json",
+    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-n9_5zs5h/srs/topic_overlays/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+    "augment_with_zipf_bridge": true,
+    "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite"
+  },
+  "source_summary": {
+    "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-n9_5zs5h/srs-admission-lab-zipf-augmented.sqlite",
+    "row_count": 4123,
+    "distinct_non_empty_lemma_count": 4123,
+    "columns": [
+      "id",
+      "pmw",
+      "freq",
+      "lemma",
+      "pos",
+      "source_family",
+      "source_rank",
+      "source_frequency",
+      "cde_rank",
+      "cde_freq",
+      "cde_pos",
+      "bridge_zipf",
+      "bridge_source",
+      "topics",
+      "topic_source",
+      "pos_source"
+    ]
+  },
+  "base_source_summary": {
+    "path": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "row_count": 2000,
+    "distinct_non_empty_lemma_count": 1984,
+    "columns": [
+      "id",
+      "freq",
+      "lemma",
+      "pos"
+    ]
+  },
+  "source_augmentation": {
+    "status": "applied",
+    "runtime_scope": "dev_lab_only",
+    "output_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-n9_5zs5h/srs-admission-lab-zipf-augmented.sqlite",
+    "base_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
+    "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
+    "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
+    "base_row_count": 1984,
+    "bridge_target_count": 2481,
+    "output_row_count": 4123,
+    "added_row_count": 2139,
+    "added_lemma_sample": [
+      "que",
+      "por",
+      "una",
+      "para",
+      "como",
+      "este",
+      "todo",
+      "sin",
+      "muy",
+      "también",
+      "porque",
+      "así",
+      "dos",
+      "bien",
+      "hacer",
+      "ahora",
+      "nada",
+      "donde",
+      "parte",
+      "solo"
+    ],
+    "overlay_topic_lemma_count": 1034,
+    "overlay_missing_without_bridge_count": 489,
+    "overlay_missing_without_bridge_sample": [
+      "anta",
+      "asno",
+      "bovino",
+      "can",
+      "chihuahua",
+      "cobra",
+      "comadreja",
+      "coyote",
+      "culebra",
+      "cóndor",
+      "dinosaurio",
+      "efímera",
+      "hornero",
+      "jaca",
+      "lechuza",
+      "reno",
+      "tortuga",
+      "venado",
+      "vicuña",
+      "yegua"
+    ],
+    "kaikki_pos_lemma_count": 4008,
+    "example_zipf_ranks": {
+      "perro": {
+        "rank": 456,
+        "zipf": 4.9
+      },
+      "gato": {
+        "rank": 740,
+        "zipf": 4.62
+      },
+      "caballo": {
+        "rank": 804,
+        "zipf": 4.56
+      },
+      "ave": {
+        "rank": 1387,
+        "zipf": 4.12
+      },
+      "pájaro": {
+        "rank": 1617,
+        "zipf": 3.95
+      },
+      "león": {
+        "rank": 601,
+        "zipf": 4.73
+      },
+      "vaca": {
+        "rank": 1347,
+        "zipf": 4.15
+      },
+      "pez": {
+        "rank": 1288,
+        "zipf": 4.19
+      }
+    }
+  },
+  "summary": {
+    "status": "WARN",
+    "pass_count": 3,
+    "warn_count": 1,
+    "fail_count": 0,
+    "scenario_count": 16,
+    "admission_budget": 10,
+    "weighted_seed_count": 3,
+    "source_topic_scenarios_with_ranked_share": 14
+  },
+  "findings": [
+    {
+      "level": "PASS",
+      "code": "CALIBRATION_PREVIEWS_HAVE_NO_FAILURES",
+      "message": "Ranked and weighted admission previews completed without FAIL findings.",
+      "details": {
+        "ranked_fail_count": 0,
+        "weighted_fail_count": 0
+      }
+    },
+    {
+      "level": "PASS",
+      "code": "RANKED_TOPIC_STRENGTH_MONOTONIC",
+      "message": "Ranked animals topic share is monotonic from neutral to light to strong.",
+      "details": [
+        0.0,
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "level": "WARN",
+      "code": "WEIGHTED_TOPIC_STRENGTH_MONOTONIC",
+      "message": "Weighted animals topic share did not become visible in the seeded samples; the full-pool weighted policy may be too diffuse for topic preferences.",
+      "details": {
+        "shares": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "visible": false
+      }
+    },
+    {
+      "level": "PASS",
+      "code": "HIGH_PROFICIENCY_TRADEOFF_VISIBLE",
+      "message": "High-proficiency animals calibration exposes whether readiness suppresses too-easy topic items.",
+      "details": {
+        "strong_topic_share": 1.0,
+        "high_proficiency_topic_share": 0.0,
+        "strong_average_difficulty": 0.033614,
+        "high_proficiency_average_difficulty": 0.646441
+      }
+    }
+  ],
+  "comparisons": {
+    "ranked_animals_strength_shares": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "ranked_animals_strength_monotonic": true,
+    "weighted_animals_strength_mean_shares": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "weighted_animals_strength_monotonic": true,
+    "weighted_animals_strength_visible": false,
+    "high_proficiency_animals": {
+      "strong_topic_share": 1.0,
+      "high_proficiency_topic_share": 0.0,
+      "strong_average_difficulty": 0.033614,
+      "high_proficiency_average_difficulty": 0.646441
+    }
+  },
+  "ranked_rows": [
+    {
+      "name": "neutral",
+      "description": "No user preference signals.",
+      "active_topics": [],
+      "selected_count": 10,
+      "selected_topic_count": 0,
+      "selected_topic_share": 0.0,
+      "topic_mover_counts": {},
+      "average_difficulty": 0.000447,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 5.5,
+      "top_lemmas": [
+        "como",
+        "este",
+        "sobre",
+        "dos",
+        "bien",
+        "hacer",
+        "nada",
+        "parte",
+        "tiempo",
+        "día"
+      ],
+      "introduced_vs_neutral": [],
+      "neutral_overlap_count": 10,
+      "top_topic_movers": [],
+      "active_topic_support": []
+    },
+    {
+      "name": "animals_interest",
+      "description": "Strong explicit animals interest from the UX chip.",
+      "active_topics": [
+        "animals"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "animals": 10
+      },
+      "average_difficulty": 0.033614,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 755.7,
+      "top_lemmas": [
+        "perro",
+        "ganado",
+        "animal",
+        "gato",
+        "pollo",
+        "toro",
+        "lobo",
+        "pez",
+        "vaca",
+        "tigre"
+      ],
+      "introduced_vs_neutral": [
+        "perro",
+        "ganado",
+        "animal",
+        "gato",
+        "pollo",
+        "toro",
+        "lobo",
+        "pez",
+        "vaca",
+        "tigre"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "perro",
+          "base_rank": 347,
+          "reranked_rank": 1,
+          "rank_delta": 346,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "ganado",
+          "base_rank": 441,
+          "reranked_rank": 2,
+          "rank_delta": 439,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "animal",
+          "base_rank": 514,
+          "reranked_rank": 3,
+          "rank_delta": 511,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "gato",
+          "base_rank": 573,
+          "reranked_rank": 4,
+          "rank_delta": 569,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "pollo",
+          "base_rank": 789,
+          "reranked_rank": 5,
+          "rank_delta": 784,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "toro",
+          "base_rank": 897,
+          "reranked_rank": 6,
+          "rank_delta": 891,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "lobo",
+          "base_rank": 966,
+          "reranked_rank": 7,
+          "rank_delta": 959,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "pez",
+          "base_rank": 976,
+          "reranked_rank": 8,
+          "rank_delta": 968,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "animals",
+          "candidate_count": 80,
+          "support_mass": 68.105722,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "perro",
+            "ganado",
+            "animal",
+            "gato",
+            "pollo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "animals_light_weight",
+      "description": "Low scalar animals preference below the full chip weight.",
+      "active_topics": [
+        "animals"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 5,
+      "selected_topic_share": 0.5,
+      "topic_mover_counts": {
+        "animals": 5
+      },
+      "average_difficulty": 0.009558,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 231.3,
+      "top_lemmas": [
+        "perro",
+        "ganado",
+        "animal",
+        "gato",
+        "reina",
+        "como",
+        "este",
+        "sobre",
+        "dos",
+        "bien"
+      ],
+      "introduced_vs_neutral": [
+        "perro",
+        "ganado",
+        "animal",
+        "gato",
+        "reina"
+      ],
+      "neutral_overlap_count": 5,
+      "top_topic_movers": [
+        {
+          "lemma": "perro",
+          "base_rank": 347,
+          "reranked_rank": 1,
+          "rank_delta": 346,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "ganado",
+          "base_rank": 441,
+          "reranked_rank": 2,
+          "rank_delta": 439,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "animal",
+          "base_rank": 514,
+          "reranked_rank": 3,
+          "rank_delta": 511,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "gato",
+          "base_rank": 573,
+          "reranked_rank": 4,
+          "rank_delta": 569,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "reina",
+          "base_rank": 423,
+          "reranked_rank": 5,
+          "rank_delta": 418,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "animals",
+          "candidate_count": 80,
+          "support_mass": 68.105722,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "perro",
+            "ganado",
+            "animal",
+            "gato",
+            "pollo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "plants_nature_interest",
+      "description": "Strong explicit plants/nature interest from the UX chip.",
+      "active_topics": [
+        "plants_nature"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "plants_nature": 10
+      },
+      "average_difficulty": 0.05584,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 1081.3,
+      "top_lemmas": [
+        "haya",
+        "árbol",
+        "flor",
+        "hierba",
+        "col",
+        "pino",
+        "parra",
+        "plátano",
+        "roble",
+        "calabaza"
+      ],
+      "introduced_vs_neutral": [
+        "haya",
+        "árbol",
+        "flor",
+        "hierba",
+        "col",
+        "pino",
+        "parra",
+        "plátano",
+        "roble",
+        "calabaza"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "haya",
+          "base_rank": 107,
+          "reranked_rank": 1,
+          "rank_delta": 106,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "árbol",
+          "base_rank": 611,
+          "reranked_rank": 2,
+          "rank_delta": 609,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "flor",
+          "base_rank": 705,
+          "reranked_rank": 3,
+          "rank_delta": 702,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "hierba",
+          "base_rank": 1137,
+          "reranked_rank": 4,
+          "rank_delta": 1133,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "col",
+          "base_rank": 1163,
+          "reranked_rank": 5,
+          "rank_delta": 1158,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "pino",
+          "base_rank": 1210,
+          "reranked_rank": 6,
+          "rank_delta": 1204,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "parra",
+          "base_rank": 1397,
+          "reranked_rank": 7,
+          "rank_delta": 1390,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "plátano",
+          "base_rank": 1450,
+          "reranked_rank": 8,
+          "rank_delta": 1442,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "plants_nature",
+          "candidate_count": 28,
+          "support_mass": 23.447109,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "haya",
+            "árbol",
+            "flor",
+            "hierba",
+            "col"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "food_cooking_interest",
+      "description": "Strong explicit food/cooking interest from the UX chip.",
+      "active_topics": [
+        "food_cooking"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "food_cooking": 10
+      },
+      "average_difficulty": 0.020888,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 496.9,
+      "top_lemmas": [
+        "agua",
+        "comida",
+        "carne",
+        "pan",
+        "leche",
+        "cerveza",
+        "huevo",
+        "aceite",
+        "azúcar",
+        "queso"
+      ],
+      "introduced_vs_neutral": [
+        "agua",
+        "comida",
+        "carne",
+        "pan",
+        "leche",
+        "cerveza",
+        "huevo",
+        "aceite",
+        "azúcar",
+        "queso"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "agua",
+          "base_rank": 61,
+          "reranked_rank": 1,
+          "rank_delta": 60,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "comida",
+          "base_rank": 188,
+          "reranked_rank": 2,
+          "rank_delta": 186,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "carne",
+          "base_rank": 390,
+          "reranked_rank": 3,
+          "rank_delta": 387,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "pan",
+          "base_rank": 401,
+          "reranked_rank": 4,
+          "rank_delta": 397,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "leche",
+          "base_rank": 457,
+          "reranked_rank": 5,
+          "rank_delta": 452,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "cerveza",
+          "base_rank": 662,
+          "reranked_rank": 6,
+          "rank_delta": 656,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "huevo",
+          "base_rank": 676,
+          "reranked_rank": 7,
+          "rank_delta": 669,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "aceite",
+          "base_rank": 707,
+          "reranked_rank": 8,
+          "rank_delta": 699,
+          "topic_affinity_source": "topic_hint:food_cooking",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "food_cooking",
+          "candidate_count": 35,
+          "support_mass": 31.305781,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "agua",
+            "comida",
+            "carne",
+            "pan",
+            "leche"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "medicine_health_interest",
+      "description": "Strong explicit medicine/health interest from source-backed topics.",
+      "active_topics": [
+        "medicine_health"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "medicine_health": 10
+      },
+      "average_difficulty": 0.010753,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 262.8,
+      "top_lemmas": [
+        "mano",
+        "cabeza",
+        "cara",
+        "media",
+        "boca",
+        "vía",
+        "simple",
+        "miembro",
+        "producto",
+        "cerebro"
+      ],
+      "introduced_vs_neutral": [
+        "mano",
+        "cabeza",
+        "cara",
+        "media",
+        "boca",
+        "vía",
+        "simple",
+        "miembro",
+        "producto",
+        "cerebro"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "mano",
+          "base_rank": 91,
+          "reranked_rank": 1,
+          "rank_delta": 90,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "cabeza",
+          "base_rank": 105,
+          "reranked_rank": 2,
+          "rank_delta": 103,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "cara",
+          "base_rank": 132,
+          "reranked_rank": 3,
+          "rank_delta": 129,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "media",
+          "base_rank": 170,
+          "reranked_rank": 4,
+          "rank_delta": 166,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "boca",
+          "base_rank": 258,
+          "reranked_rank": 5,
+          "rank_delta": 253,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "vía",
+          "base_rank": 286,
+          "reranked_rank": 6,
+          "rank_delta": 280,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "simple",
+          "base_rank": 305,
+          "reranked_rank": 7,
+          "rank_delta": 298,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "miembro",
+          "base_rank": 364,
+          "reranked_rank": 8,
+          "rank_delta": 356,
+          "topic_affinity_source": "topic_hint:medicine_health",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "medicine_health",
+          "candidate_count": 90,
+          "support_mass": 71.477091,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "mano",
+            "cabeza",
+            "cara",
+            "media",
+            "boca"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "finance_business_interest",
+      "description": "Strong explicit finance/business interest from source-backed topics.",
+      "active_topics": [
+        "finance_business"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "finance_business": 10
+      },
+      "average_difficulty": 0.006666,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 161.3,
+      "top_lemmas": [
+        "punto",
+        "derecho",
+        "seguro",
+        "tierra",
+        "capital",
+        "plaza",
+        "valor",
+        "interés",
+        "par",
+        "siete"
+      ],
+      "introduced_vs_neutral": [
+        "punto",
+        "derecho",
+        "seguro",
+        "tierra",
+        "capital",
+        "plaza",
+        "valor",
+        "interés",
+        "par",
+        "siete"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "punto",
+          "base_rank": 60,
+          "reranked_rank": 1,
+          "rank_delta": 59,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "derecho",
+          "base_rank": 75,
+          "reranked_rank": 2,
+          "rank_delta": 73,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "seguro",
+          "base_rank": 88,
+          "reranked_rank": 3,
+          "rank_delta": 85,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "tierra",
+          "base_rank": 101,
+          "reranked_rank": 4,
+          "rank_delta": 97,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "capital",
+          "base_rank": 139,
+          "reranked_rank": 5,
+          "rank_delta": 134,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "plaza",
+          "base_rank": 201,
+          "reranked_rank": 6,
+          "rank_delta": 195,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "valor",
+          "base_rank": 203,
+          "reranked_rank": 7,
+          "rank_delta": 196,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "interés",
+          "base_rank": 217,
+          "reranked_rank": 8,
+          "rank_delta": 209,
+          "topic_affinity_source": "topic_hint:finance_business",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "finance_business",
+          "candidate_count": 51,
+          "support_mass": 42.412389,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "punto",
+            "derecho",
+            "seguro",
+            "tierra",
+            "capital"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sports_fitness_interest",
+      "description": "Strong explicit sports/fitness interest from source-backed topics.",
+      "active_topics": [
+        "sports_fitness"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "sports_fitness": 10
+      },
+      "average_difficulty": 0.009251,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 224.8,
+      "top_lemmas": [
+        "final",
+        "largo",
+        "escuela",
+        "serie",
+        "campo",
+        "resultado",
+        "puerta",
+        "defensa",
+        "abierto",
+        "deporte"
+      ],
+      "introduced_vs_neutral": [
+        "final",
+        "largo",
+        "escuela",
+        "serie",
+        "campo",
+        "resultado",
+        "puerta",
+        "defensa",
+        "abierto",
+        "deporte"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "final",
+          "base_rank": 58,
+          "reranked_rank": 1,
+          "rank_delta": 57,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "largo",
+          "base_rank": 116,
+          "reranked_rank": 2,
+          "rank_delta": 114,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "escuela",
+          "base_rank": 136,
+          "reranked_rank": 3,
+          "rank_delta": 133,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "serie",
+          "base_rank": 154,
+          "reranked_rank": 4,
+          "rank_delta": 150,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "campo",
+          "base_rank": 173,
+          "reranked_rank": 5,
+          "rank_delta": 168,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "resultado",
+          "base_rank": 211,
+          "reranked_rank": 6,
+          "rank_delta": 205,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "puerta",
+          "base_rank": 239,
+          "reranked_rank": 7,
+          "rank_delta": 232,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "defensa",
+          "base_rank": 242,
+          "reranked_rank": 8,
+          "rank_delta": 234,
+          "topic_affinity_source": "topic_hint:sports_fitness",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "sports_fitness",
+          "candidate_count": 103,
+          "support_mass": 73.060965,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "final",
+            "largo",
+            "escuela",
+            "serie",
+            "campo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "games_interest",
+      "description": "Strong explicit games interest from source-backed topics.",
+      "active_topics": [
+        "games"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "games": 10
+      },
+      "average_difficulty": 0.018942,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 447.1,
+      "top_lemmas": [
+        "juego",
+        "rey",
+        "comer",
+        "color",
+        "muerto",
+        "copa",
+        "torre",
+        "columna",
+        "dama",
+        "fila"
+      ],
+      "introduced_vs_neutral": [
+        "juego",
+        "rey",
+        "comer",
+        "color",
+        "muerto",
+        "copa",
+        "torre",
+        "columna",
+        "dama",
+        "fila"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "juego",
+          "base_rank": 90,
+          "reranked_rank": 1,
+          "rank_delta": 89,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "rey",
+          "base_rank": 149,
+          "reranked_rank": 2,
+          "rank_delta": 147,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "comer",
+          "base_rank": 226,
+          "reranked_rank": 3,
+          "rank_delta": 223,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "color",
+          "base_rank": 241,
+          "reranked_rank": 4,
+          "rank_delta": 237,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "muerto",
+          "base_rank": 319,
+          "reranked_rank": 5,
+          "rank_delta": 314,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "copa",
+          "base_rank": 381,
+          "reranked_rank": 6,
+          "rank_delta": 375,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "torre",
+          "base_rank": 666,
+          "reranked_rank": 7,
+          "rank_delta": 659,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "columna",
+          "base_rank": 712,
+          "reranked_rank": 8,
+          "rank_delta": 704,
+          "topic_affinity_source": "topic_hint:games",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "games",
+          "candidate_count": 56,
+          "support_mass": 37.551046,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "juego",
+            "rey",
+            "comer",
+            "color",
+            "muerto"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "music_media_entertainment_interest",
+      "description": "Strong explicit music/media/entertainment interest from source-backed topics.",
+      "active_topics": [
+        "music_media_entertainment"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "music_media_entertainment": 10
+      },
+      "average_difficulty": 0.01174,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 284.0,
+      "top_lemmas": [
+        "bajo",
+        "grupo",
+        "música",
+        "película",
+        "canción",
+        "natural",
+        "televisión",
+        "accidente",
+        "escala",
+        "concierto"
+      ],
+      "introduced_vs_neutral": [
+        "bajo",
+        "grupo",
+        "música",
+        "película",
+        "canción",
+        "natural",
+        "televisión",
+        "accidente",
+        "escala",
+        "concierto"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "bajo",
+          "base_rank": 44,
+          "reranked_rank": 1,
+          "rank_delta": 43,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "grupo",
+          "base_rank": 45,
+          "reranked_rank": 2,
+          "rank_delta": 43,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "música",
+          "base_rank": 147,
+          "reranked_rank": 3,
+          "rank_delta": 144,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "película",
+          "base_rank": 178,
+          "reranked_rank": 4,
+          "rank_delta": 174,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "canción",
+          "base_rank": 240,
+          "reranked_rank": 5,
+          "rank_delta": 235,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "natural",
+          "base_rank": 261,
+          "reranked_rank": 6,
+          "rank_delta": 255,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "televisión",
+          "base_rank": 284,
+          "reranked_rank": 7,
+          "rank_delta": 277,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "accidente",
+          "base_rank": 497,
+          "reranked_rank": 8,
+          "rank_delta": 489,
+          "topic_affinity_source": "topic_hint:music_media_entertainment",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "music_media_entertainment",
+          "candidate_count": 44,
+          "support_mass": 35.955294,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "bajo",
+            "grupo",
+            "música",
+            "película",
+            "canción"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "law_politics_civics_interest",
+      "description": "Strong explicit law/politics/civics interest from source-backed topics.",
+      "active_topics": [
+        "law_politics_civics"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "law_politics_civics": 10
+      },
+      "average_difficulty": 0.003991,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 90.4,
+      "top_lemmas": [
+        "parte",
+        "general",
+        "ley",
+        "sistema",
+        "número",
+        "cuerpo",
+        "proceso",
+        "orden",
+        "vista",
+        "acción"
+      ],
+      "introduced_vs_neutral": [
+        "general",
+        "ley",
+        "sistema",
+        "número",
+        "cuerpo",
+        "proceso",
+        "orden",
+        "vista",
+        "acción"
+      ],
+      "neutral_overlap_count": 1,
+      "top_topic_movers": [
+        {
+          "lemma": "parte",
+          "base_rank": 8,
+          "reranked_rank": 1,
+          "rank_delta": 7,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "general",
+          "base_rank": 38,
+          "reranked_rank": 2,
+          "rank_delta": 36,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "ley",
+          "base_rank": 41,
+          "reranked_rank": 3,
+          "rank_delta": 38,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "sistema",
+          "base_rank": 50,
+          "reranked_rank": 4,
+          "rank_delta": 46,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "número",
+          "base_rank": 71,
+          "reranked_rank": 5,
+          "rank_delta": 66,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "cuerpo",
+          "base_rank": 102,
+          "reranked_rank": 6,
+          "rank_delta": 96,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "proceso",
+          "base_rank": 112,
+          "reranked_rank": 7,
+          "rank_delta": 105,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "orden",
+          "base_rank": 117,
+          "reranked_rank": 8,
+          "rank_delta": 109,
+          "topic_affinity_source": "topic_hint:law_politics_civics",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "law_politics_civics",
+          "candidate_count": 108,
+          "support_mass": 84.073719,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "parte",
+            "general",
+            "ley",
+            "sistema",
+            "número"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "science_technology_interest",
+      "description": "Strong explicit science/technology interest from source-backed topics.",
+      "active_topics": [
+        "science_technology"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "science_technology": 10
+      },
+      "average_difficulty": 0.020755,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 497.7,
+      "top_lemmas": [
+        "vida",
+        "salida",
+        "función",
+        "cadena",
+        "plataforma",
+        "cliente",
+        "motor",
+        "ventana",
+        "tabla",
+        "mandato"
+      ],
+      "introduced_vs_neutral": [
+        "vida",
+        "salida",
+        "función",
+        "cadena",
+        "plataforma",
+        "cliente",
+        "motor",
+        "ventana",
+        "tabla",
+        "mandato"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "vida",
+          "base_rank": 11,
+          "reranked_rank": 1,
+          "rank_delta": 10,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "salida",
+          "base_rank": 367,
+          "reranked_rank": 2,
+          "rank_delta": 365,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "función",
+          "base_rank": 369,
+          "reranked_rank": 3,
+          "rank_delta": 366,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "cadena",
+          "base_rank": 449,
+          "reranked_rank": 4,
+          "rank_delta": 445,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "plataforma",
+          "base_rank": 524,
+          "reranked_rank": 5,
+          "rank_delta": 519,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "cliente",
+          "base_rank": 589,
+          "reranked_rank": 6,
+          "rank_delta": 583,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "motor",
+          "base_rank": 594,
+          "reranked_rank": 7,
+          "rank_delta": 587,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "ventana",
+          "base_rank": 649,
+          "reranked_rank": 8,
+          "rank_delta": 641,
+          "topic_affinity_source": "topic_hint:science_technology",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "science_technology",
+          "candidate_count": 39,
+          "support_mass": 30.813974,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "vida",
+            "salida",
+            "función",
+            "cadena",
+            "plataforma"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel_places_transport_interest",
+      "description": "Strong explicit travel/place/transport interest from the beta coverage path.",
+      "active_topics": [
+        "travel_places_transport"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "travel_places_transport": 10
+      },
+      "average_difficulty": 0.011778,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 285.4,
+      "top_lemmas": [
+        "país",
+        "ciudad",
+        "camino",
+        "calle",
+        "viaje",
+        "hotel",
+        "aeropuerto",
+        "frontera",
+        "avión",
+        "extranjero"
+      ],
+      "introduced_vs_neutral": [
+        "país",
+        "ciudad",
+        "camino",
+        "calle",
+        "viaje",
+        "hotel",
+        "aeropuerto",
+        "frontera",
+        "avión",
+        "extranjero"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "país",
+          "base_rank": 27,
+          "reranked_rank": 1,
+          "rank_delta": 26,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "ciudad",
+          "base_rank": 33,
+          "reranked_rank": 2,
+          "rank_delta": 31,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "camino",
+          "base_rank": 123,
+          "reranked_rank": 3,
+          "rank_delta": 120,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "calle",
+          "base_rank": 131,
+          "reranked_rank": 4,
+          "rank_delta": 127,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "viaje",
+          "base_rank": 214,
+          "reranked_rank": 5,
+          "rank_delta": 209,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "hotel",
+          "base_rank": 414,
+          "reranked_rank": 6,
+          "rank_delta": 408,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "aeropuerto",
+          "base_rank": 447,
+          "reranked_rank": 7,
+          "rank_delta": 440,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "frontera",
+          "base_rank": 456,
+          "reranked_rank": 8,
+          "rank_delta": 448,
+          "topic_affinity_source": "topic_hint:travel_places_transport",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "travel_places_transport",
+          "candidate_count": 30,
+          "support_mass": 27.726618,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "país",
+            "ciudad",
+            "camino",
+            "calle",
+            "viaje"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "animals_high_proficiency",
+      "description": "Animals preference with high proficiency should suppress too-easy animals.",
+      "active_topics": [
+        "animals"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 0,
+      "selected_topic_share": 0.0,
+      "topic_mover_counts": {},
+      "average_difficulty": 0.646441,
+      "average_readiness": 0.998873,
+      "min_readiness": 0.997937,
+      "average_base_rank": 4088.5,
+      "top_lemmas": [
+        "oh",
+        "hola",
+        "ésa",
+        "nabab",
+        "vos",
+        "debacle",
+        "según",
+        "pues",
+        "el",
+        "neerlandesa"
+      ],
+      "introduced_vs_neutral": [
+        "oh",
+        "hola",
+        "ésa",
+        "nabab",
+        "vos",
+        "debacle",
+        "según",
+        "pues",
+        "el",
+        "neerlandesa"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [],
+      "active_topic_support": [
+        {
+          "topic": "animals",
+          "candidate_count": 80,
+          "support_mass": 68.105722,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "perro",
+            "ganado",
+            "animal",
+            "gato",
+            "pollo"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "animals_plants_interest",
+      "description": "Combined animals plus plants/nature interests.",
+      "active_topics": [
+        "animals",
+        "plants_nature"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "animals": 7,
+        "plants_nature": 3
+      },
+      "average_difficulty": 0.025547,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 595.0,
+      "top_lemmas": [
+        "haya",
+        "perro",
+        "ganado",
+        "animal",
+        "gato",
+        "árbol",
+        "flor",
+        "pollo",
+        "toro",
+        "lobo"
+      ],
+      "introduced_vs_neutral": [
+        "haya",
+        "perro",
+        "ganado",
+        "animal",
+        "gato",
+        "árbol",
+        "flor",
+        "pollo",
+        "toro",
+        "lobo"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "haya",
+          "base_rank": 107,
+          "reranked_rank": 1,
+          "rank_delta": 106,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "perro",
+          "base_rank": 347,
+          "reranked_rank": 2,
+          "rank_delta": 345,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "ganado",
+          "base_rank": 441,
+          "reranked_rank": 3,
+          "rank_delta": 438,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "animal",
+          "base_rank": 514,
+          "reranked_rank": 4,
+          "rank_delta": 510,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "gato",
+          "base_rank": 573,
+          "reranked_rank": 5,
+          "rank_delta": 568,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "árbol",
+          "base_rank": 611,
+          "reranked_rank": 6,
+          "rank_delta": 605,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "flor",
+          "base_rank": 705,
+          "reranked_rank": 7,
+          "rank_delta": 698,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "pollo",
+          "base_rank": 789,
+          "reranked_rank": 8,
+          "rank_delta": 781,
+          "topic_affinity_source": "topic_hint:animals",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "animals",
+          "candidate_count": 80,
+          "support_mass": 68.105722,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "perro",
+            "ganado",
+            "animal",
+            "gato",
+            "pollo"
+          ]
+        },
+        {
+          "topic": "plants_nature",
+          "candidate_count": 28,
+          "support_mass": 23.447109,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "haya",
+            "árbol",
+            "flor",
+            "hierba",
+            "col"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "weighted_plants_over_animals",
+      "description": "Scalar topic weights preferring plants/nature over animals.",
+      "active_topics": [
+        "animals",
+        "plants_nature"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 10,
+      "selected_topic_share": 1.0,
+      "topic_mover_counts": {
+        "plants_nature": 10
+      },
+      "average_difficulty": 0.05584,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 1081.3,
+      "top_lemmas": [
+        "haya",
+        "árbol",
+        "flor",
+        "hierba",
+        "col",
+        "pino",
+        "parra",
+        "plátano",
+        "roble",
+        "calabaza"
+      ],
+      "introduced_vs_neutral": [
+        "haya",
+        "árbol",
+        "flor",
+        "hierba",
+        "col",
+        "pino",
+        "parra",
+        "plátano",
+        "roble",
+        "calabaza"
+      ],
+      "neutral_overlap_count": 0,
+      "top_topic_movers": [
+        {
+          "lemma": "haya",
+          "base_rank": 107,
+          "reranked_rank": 1,
+          "rank_delta": 106,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "árbol",
+          "base_rank": 611,
+          "reranked_rank": 2,
+          "rank_delta": 609,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "flor",
+          "base_rank": 705,
+          "reranked_rank": 3,
+          "rank_delta": 702,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "hierba",
+          "base_rank": 1137,
+          "reranked_rank": 4,
+          "rank_delta": 1133,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "col",
+          "base_rank": 1163,
+          "reranked_rank": 5,
+          "rank_delta": 1158,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "pino",
+          "base_rank": 1210,
+          "reranked_rank": 6,
+          "rank_delta": 1204,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "parra",
+          "base_rank": 1397,
+          "reranked_rank": 7,
+          "rank_delta": 1390,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "plátano",
+          "base_rank": 1450,
+          "reranked_rank": 8,
+          "rank_delta": 1442,
+          "topic_affinity_source": "topic_hint:plants_nature",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "plants_nature",
+          "candidate_count": 28,
+          "support_mass": 23.447109,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "haya",
+            "árbol",
+            "flor",
+            "hierba",
+            "col"
+          ]
+        },
+        {
+          "topic": "animals",
+          "candidate_count": 80,
+          "support_mass": 68.105722,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "perro",
+            "ganado",
+            "animal",
+            "gato",
+            "pollo"
+          ]
+        }
+      ]
+    }
+  ],
+  "weighted_rows": [
+    {
+      "name": "animals_high_proficiency",
+      "active_topics": [
+        "animals"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "para",
+          "count": 2
+        },
+        {
+          "lemma": "mudez",
+          "count": 2
+        },
+        {
+          "lemma": "informador",
+          "count": 2
+        },
+        {
+          "lemma": "siempre",
+          "count": 2
+        },
+        {
+          "lemma": "femineidad",
+          "count": 1
+        },
+        {
+          "lemma": "mazurca",
+          "count": 1
+        },
+        {
+          "lemma": "monoclonal",
+          "count": 1
+        },
+        {
+          "lemma": "fríamente",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "animals_interest",
+      "active_topics": [
+        "animals"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "invierno",
+          "count": 1
+        },
+        {
+          "lemma": "caudillo",
+          "count": 1
+        },
+        {
+          "lemma": "hindú",
+          "count": 1
+        },
+        {
+          "lemma": "arado",
+          "count": 1
+        },
+        {
+          "lemma": "urraca",
+          "count": 1
+        },
+        {
+          "lemma": "protocolo",
+          "count": 1
+        },
+        {
+          "lemma": "solo",
+          "count": 1
+        },
+        {
+          "lemma": "dorsal",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "animals_light_weight",
+      "active_topics": [
+        "animals"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "fotografía",
+          "count": 1
+        },
+        {
+          "lemma": "oasis",
+          "count": 1
+        },
+        {
+          "lemma": "protestante",
+          "count": 1
+        },
+        {
+          "lemma": "abreviatura",
+          "count": 1
+        },
+        {
+          "lemma": "trombón",
+          "count": 1
+        },
+        {
+          "lemma": "realista",
+          "count": 1
+        },
+        {
+          "lemma": "péndulo",
+          "count": 1
+        },
+        {
+          "lemma": "evidente",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "animals_plants_interest",
+      "active_topics": [
+        "animals",
+        "plants_nature"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "deuda",
+          "count": 1
+        },
+        {
+          "lemma": "camarero",
+          "count": 1
+        },
+        {
+          "lemma": "demolición",
+          "count": 1
+        },
+        {
+          "lemma": "recado",
+          "count": 1
+        },
+        {
+          "lemma": "finlandés",
+          "count": 1
+        },
+        {
+          "lemma": "jurisdicción",
+          "count": 1
+        },
+        {
+          "lemma": "potasio",
+          "count": 1
+        },
+        {
+          "lemma": "hall",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "finance_business_interest",
+      "active_topics": [
+        "finance_business"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "moneda",
+          "count": 1
+        },
+        {
+          "lemma": "calabaza",
+          "count": 1
+        },
+        {
+          "lemma": "tranvía",
+          "count": 1
+        },
+        {
+          "lemma": "cesto",
+          "count": 1
+        },
+        {
+          "lemma": "indonesio",
+          "count": 1
+        },
+        {
+          "lemma": "leña",
+          "count": 1
+        },
+        {
+          "lemma": "pecador",
+          "count": 1
+        },
+        {
+          "lemma": "horrible",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "food_cooking_interest",
+      "active_topics": [
+        "food_cooking"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "cliente",
+          "count": 1
+        },
+        {
+          "lemma": "escopeta",
+          "count": 1
+        },
+        {
+          "lemma": "zinc",
+          "count": 1
+        },
+        {
+          "lemma": "urraca",
+          "count": 1
+        },
+        {
+          "lemma": "rezagado",
+          "count": 1
+        },
+        {
+          "lemma": "realista",
+          "count": 1
+        },
+        {
+          "lemma": "fuero",
+          "count": 1
+        },
+        {
+          "lemma": "evidente",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "games_interest",
+      "active_topics": [
+        "games"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.333333,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 1,
+      "mean_selected_topic_share": 0.033333,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.1,
+      "top_lemma_frequency": [
+        {
+          "lemma": "correr",
+          "count": 1
+        },
+        {
+          "lemma": "notario",
+          "count": 1
+        },
+        {
+          "lemma": "abeja",
+          "count": 1
+        },
+        {
+          "lemma": "argelino",
+          "count": 1
+        },
+        {
+          "lemma": "fisonomía",
+          "count": 1
+        },
+        {
+          "lemma": "fluido",
+          "count": 1
+        },
+        {
+          "lemma": "interferencia",
+          "count": 1
+        },
+        {
+          "lemma": "cargar",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "law_politics_civics_interest",
+      "active_topics": [
+        "law_politics_civics"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "agencia",
+          "count": 1
+        },
+        {
+          "lemma": "asma",
+          "count": 1
+        },
+        {
+          "lemma": "grieta",
+          "count": 1
+        },
+        {
+          "lemma": "romería",
+          "count": 1
+        },
+        {
+          "lemma": "farsante",
+          "count": 1
+        },
+        {
+          "lemma": "pensador",
+          "count": 1
+        },
+        {
+          "lemma": "lagarto",
+          "count": 1
+        },
+        {
+          "lemma": "delantera",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "medicine_health_interest",
+      "active_topics": [
+        "medicine_health"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.333333,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 1,
+      "mean_selected_topic_share": 0.033333,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.1,
+      "top_lemma_frequency": [
+        {
+          "lemma": "ayuntamiento",
+          "count": 1
+        },
+        {
+          "lemma": "caucho",
+          "count": 1
+        },
+        {
+          "lemma": "sintomático",
+          "count": 1
+        },
+        {
+          "lemma": "propulsión",
+          "count": 1
+        },
+        {
+          "lemma": "avispa",
+          "count": 1
+        },
+        {
+          "lemma": "humano",
+          "count": 1
+        },
+        {
+          "lemma": "arquero",
+          "count": 1
+        },
+        {
+          "lemma": "divertido",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "music_media_entertainment_interest",
+      "active_topics": [
+        "music_media_entertainment"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "cliente",
+          "count": 1
+        },
+        {
+          "lemma": "calabaza",
+          "count": 1
+        },
+        {
+          "lemma": "reja",
+          "count": 1
+        },
+        {
+          "lemma": "cándido",
+          "count": 1
+        },
+        {
+          "lemma": "merluza",
+          "count": 1
+        },
+        {
+          "lemma": "peste",
+          "count": 1
+        },
+        {
+          "lemma": "temática",
+          "count": 1
+        },
+        {
+          "lemma": "reflector",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "neutral",
+      "active_topics": [],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "rostro",
+          "count": 1
+        },
+        {
+          "lemma": "celo",
+          "count": 1
+        },
+        {
+          "lemma": "pleito",
+          "count": 1
+        },
+        {
+          "lemma": "frontón",
+          "count": 1
+        },
+        {
+          "lemma": "faisán",
+          "count": 1
+        },
+        {
+          "lemma": "superioridad",
+          "count": 1
+        },
+        {
+          "lemma": "caldera",
+          "count": 1
+        },
+        {
+          "lemma": "ladrido",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "plants_nature_interest",
+      "active_topics": [
+        "plants_nature"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "motor",
+          "count": 1
+        },
+        {
+          "lemma": "patriarca",
+          "count": 1
+        },
+        {
+          "lemma": "abeja",
+          "count": 1
+        },
+        {
+          "lemma": "cantábrico",
+          "count": 1
+        },
+        {
+          "lemma": "rezagado",
+          "count": 1
+        },
+        {
+          "lemma": "ácido",
+          "count": 1
+        },
+        {
+          "lemma": "guaraní",
+          "count": 1
+        },
+        {
+          "lemma": "evidente",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "science_technology_interest",
+      "active_topics": [
+        "science_technology"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "toque",
+          "count": 1
+        },
+        {
+          "lemma": "patriarca",
+          "count": 1
+        },
+        {
+          "lemma": "escultor",
+          "count": 1
+        },
+        {
+          "lemma": "finlandés",
+          "count": 1
+        },
+        {
+          "lemma": "fisonomía",
+          "count": 1
+        },
+        {
+          "lemma": "oponente",
+          "count": 1
+        },
+        {
+          "lemma": "pecador",
+          "count": 1
+        },
+        {
+          "lemma": "profundo",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "sports_fitness_interest",
+      "active_topics": [
+        "sports_fitness"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "miércoles",
+          "count": 1
+        },
+        {
+          "lemma": "asma",
+          "count": 1
+        },
+        {
+          "lemma": "garra",
+          "count": 1
+        },
+        {
+          "lemma": "reparo",
+          "count": 1
+        },
+        {
+          "lemma": "cándido",
+          "count": 1
+        },
+        {
+          "lemma": "motivación",
+          "count": 1
+        },
+        {
+          "lemma": "prólogo",
+          "count": 1
+        },
+        {
+          "lemma": "flagelo",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "travel_places_transport_interest",
+      "active_topics": [
+        "travel_places_transport"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "tío",
+          "count": 1
+        },
+        {
+          "lemma": "escopeta",
+          "count": 1
+        },
+        {
+          "lemma": "zinc",
+          "count": 1
+        },
+        {
+          "lemma": "abreviatura",
+          "count": 1
+        },
+        {
+          "lemma": "neerlandés",
+          "count": 1
+        },
+        {
+          "lemma": "amplitud",
+          "count": 1
+        },
+        {
+          "lemma": "tal",
+          "count": 1
+        },
+        {
+          "lemma": "vello",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "weighted_plants_over_animals",
+      "active_topics": [
+        "animals",
+        "plants_nature"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "cerebro",
+          "count": 1
+        },
+        {
+          "lemma": "mostrador",
+          "count": 1
+        },
+        {
+          "lemma": "cilindro",
+          "count": 1
+        },
+        {
+          "lemma": "cándido",
+          "count": 1
+        },
+        {
+          "lemma": "merluza",
+          "count": 1
+        },
+        {
+          "lemma": "leña",
+          "count": 1
+        },
+        {
+          "lemma": "mismo",
+          "count": 1
+        },
+        {
+          "lemma": "magnetismo",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "weighted_rows_by_seed": [
+    {
+      "seed": 11,
+      "rows": [
+        {
+          "name": "neutral",
+          "description": "No user preference signals.",
+          "active_topics": [],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.158843,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2015.4,
+          "top_lemmas": [
+            "rostro",
+            "celo",
+            "pleito",
+            "frontón",
+            "faisán",
+            "superioridad",
+            "caldera",
+            "ladrido",
+            "aprender",
+            "resignar"
+          ],
+          "introduced_vs_neutral": [],
+          "neutral_overlap_count": 10,
+          "top_topic_movers": [],
+          "active_topic_support": []
+        },
+        {
+          "name": "animals_interest",
+          "description": "Strong explicit animals interest from the UX chip.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.156761,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1991.3,
+          "top_lemmas": [
+            "invierno",
+            "caudillo",
+            "hindú",
+            "arado",
+            "urraca",
+            "protocolo",
+            "solo",
+            "dorsal",
+            "eterno",
+            "especificar"
+          ],
+          "introduced_vs_neutral": [
+            "invierno",
+            "caudillo",
+            "hindú",
+            "arado",
+            "urraca",
+            "protocolo",
+            "solo",
+            "dorsal",
+            "eterno",
+            "especificar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_light_weight",
+          "description": "Low scalar animals preference below the full chip weight.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.158302,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2009.0,
+          "top_lemmas": [
+            "fotografía",
+            "oasis",
+            "protestante",
+            "abreviatura",
+            "trombón",
+            "realista",
+            "péndulo",
+            "evidente",
+            "aprender",
+            "resignar"
+          ],
+          "introduced_vs_neutral": [
+            "fotografía",
+            "oasis",
+            "protestante",
+            "abreviatura",
+            "trombón",
+            "realista",
+            "péndulo",
+            "evidente"
+          ],
+          "neutral_overlap_count": 2,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "plants_nature_interest",
+          "description": "Strong explicit plants/nature interest from the UX chip.",
+          "active_topics": [
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.158209,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2007.9,
+          "top_lemmas": [
+            "motor",
+            "patriarca",
+            "abeja",
+            "cantábrico",
+            "rezagado",
+            "ácido",
+            "guaraní",
+            "evidente",
+            "abolengo",
+            "desafiar"
+          ],
+          "introduced_vs_neutral": [
+            "motor",
+            "patriarca",
+            "abeja",
+            "cantábrico",
+            "rezagado",
+            "ácido",
+            "guaraní",
+            "evidente",
+            "abolengo",
+            "desafiar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "food_cooking_interest",
+          "description": "Strong explicit food/cooking interest from the UX chip.",
+          "active_topics": [
+            "food_cooking"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.158273,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2008.9,
+          "top_lemmas": [
+            "cliente",
+            "escopeta",
+            "zinc",
+            "urraca",
+            "rezagado",
+            "realista",
+            "fuero",
+            "evidente",
+            "eterno",
+            "desafiar"
+          ],
+          "introduced_vs_neutral": [
+            "cliente",
+            "escopeta",
+            "zinc",
+            "urraca",
+            "rezagado",
+            "realista",
+            "fuero",
+            "evidente",
+            "eterno",
+            "desafiar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "food_cooking",
+              "candidate_count": 35,
+              "support_mass": 31.305781,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "agua",
+                "comida",
+                "carne",
+                "pan",
+                "leche"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "medicine_health_interest",
+          "description": "Strong explicit medicine/health interest from source-backed topics.",
+          "active_topics": [
+            "medicine_health"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 1,
+          "selected_topic_share": 0.1,
+          "topic_mover_counts": {
+            "medicine_health": 1
+          },
+          "average_difficulty": 0.18268,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2169.3,
+          "top_lemmas": [
+            "ayuntamiento",
+            "caucho",
+            "sintomático",
+            "propulsión",
+            "avispa",
+            "humano",
+            "arquero",
+            "divertido",
+            "jugar",
+            "enfocar"
+          ],
+          "introduced_vs_neutral": [
+            "ayuntamiento",
+            "caucho",
+            "sintomático",
+            "propulsión",
+            "avispa",
+            "humano",
+            "arquero",
+            "divertido",
+            "jugar",
+            "enfocar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [
+            {
+              "lemma": "sintomático",
+              "base_rank": 3424,
+              "reranked_rank": 1606,
+              "rank_delta": 1818,
+              "topic_affinity_source": "topic_hint:medicine_health",
+              "readiness_multiplier": 1.0
+            }
+          ],
+          "active_topic_support": [
+            {
+              "topic": "medicine_health",
+              "candidate_count": 90,
+              "support_mass": 71.477091,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "mano",
+                "cabeza",
+                "cara",
+                "media",
+                "boca"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finance_business_interest",
+          "description": "Strong explicit finance/business interest from source-backed topics.",
+          "active_topics": [
+            "finance_business"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.157569,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2003.2,
+          "top_lemmas": [
+            "moneda",
+            "calabaza",
+            "tranvía",
+            "cesto",
+            "indonesio",
+            "leña",
+            "pecador",
+            "horrible",
+            "creer",
+            "especificar"
+          ],
+          "introduced_vs_neutral": [
+            "moneda",
+            "calabaza",
+            "tranvía",
+            "cesto",
+            "indonesio",
+            "leña",
+            "pecador",
+            "horrible",
+            "creer",
+            "especificar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "finance_business",
+              "candidate_count": 51,
+              "support_mass": 42.412389,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "punto",
+                "derecho",
+                "seguro",
+                "tierra",
+                "capital"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "sports_fitness_interest",
+          "description": "Strong explicit sports/fitness interest from source-backed topics.",
+          "active_topics": [
+            "sports_fitness"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.155917,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1988.1,
+          "top_lemmas": [
+            "miércoles",
+            "asma",
+            "garra",
+            "reparo",
+            "cándido",
+            "motivación",
+            "prólogo",
+            "flagelo",
+            "usar",
+            "sagrado"
+          ],
+          "introduced_vs_neutral": [
+            "miércoles",
+            "asma",
+            "garra",
+            "reparo",
+            "cándido",
+            "motivación",
+            "prólogo",
+            "flagelo",
+            "usar",
+            "sagrado"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "sports_fitness",
+              "candidate_count": 103,
+              "support_mass": 73.060965,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "final",
+                "largo",
+                "escuela",
+                "serie",
+                "campo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "games_interest",
+          "description": "Strong explicit games interest from source-backed topics.",
+          "active_topics": [
+            "games"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 1,
+          "selected_topic_share": 0.1,
+          "topic_mover_counts": {
+            "games": 1
+          },
+          "average_difficulty": 0.173202,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2094.8,
+          "top_lemmas": [
+            "correr",
+            "notario",
+            "abeja",
+            "argelino",
+            "fisonomía",
+            "fluido",
+            "interferencia",
+            "cargar",
+            "dilación",
+            "impregnar"
+          ],
+          "introduced_vs_neutral": [
+            "correr",
+            "notario",
+            "abeja",
+            "argelino",
+            "fisonomía",
+            "fluido",
+            "interferencia",
+            "cargar",
+            "dilación",
+            "impregnar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [
+            {
+              "lemma": "cargar",
+              "base_rank": 3151,
+              "reranked_rank": 2237,
+              "rank_delta": 914,
+              "topic_affinity_source": "topic_hint:games",
+              "readiness_multiplier": 1.0
+            }
+          ],
+          "active_topic_support": [
+            {
+              "topic": "games",
+              "candidate_count": 56,
+              "support_mass": 37.551046,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "juego",
+                "rey",
+                "comer",
+                "color",
+                "muerto"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "music_media_entertainment_interest",
+          "description": "Strong explicit music/media/entertainment interest from source-backed topics.",
+          "active_topics": [
+            "music_media_entertainment"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.15776,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2004.5,
+          "top_lemmas": [
+            "cliente",
+            "calabaza",
+            "reja",
+            "cándido",
+            "merluza",
+            "peste",
+            "temática",
+            "reflector",
+            "galeno",
+            "especificar"
+          ],
+          "introduced_vs_neutral": [
+            "cliente",
+            "calabaza",
+            "reja",
+            "cándido",
+            "merluza",
+            "peste",
+            "temática",
+            "reflector",
+            "galeno",
+            "especificar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "music_media_entertainment",
+              "candidate_count": 44,
+              "support_mass": 35.955294,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "bajo",
+                "grupo",
+                "música",
+                "película",
+                "canción"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "law_politics_civics_interest",
+          "description": "Strong explicit law/politics/civics interest from source-backed topics.",
+          "active_topics": [
+            "law_politics_civics"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.156419,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1991.1,
+          "top_lemmas": [
+            "agencia",
+            "asma",
+            "grieta",
+            "romería",
+            "farsante",
+            "pensador",
+            "lagarto",
+            "delantera",
+            "ayudar",
+            "enfocar"
+          ],
+          "introduced_vs_neutral": [
+            "agencia",
+            "asma",
+            "grieta",
+            "romería",
+            "farsante",
+            "pensador",
+            "lagarto",
+            "delantera",
+            "ayudar",
+            "enfocar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "law_politics_civics",
+              "candidate_count": 108,
+              "support_mass": 84.073719,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "parte",
+                "general",
+                "ley",
+                "sistema",
+                "número"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "science_technology_interest",
+          "description": "Strong explicit science/technology interest from source-backed topics.",
+          "active_topics": [
+            "science_technology"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.157637,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2004.4,
+          "top_lemmas": [
+            "toque",
+            "patriarca",
+            "escultor",
+            "finlandés",
+            "fisonomía",
+            "oponente",
+            "pecador",
+            "profundo",
+            "jugar",
+            "especificar"
+          ],
+          "introduced_vs_neutral": [
+            "toque",
+            "patriarca",
+            "escultor",
+            "finlandés",
+            "fisonomía",
+            "oponente",
+            "pecador",
+            "profundo",
+            "jugar",
+            "especificar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "science_technology",
+              "candidate_count": 39,
+              "support_mass": 30.813974,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "vida",
+                "salida",
+                "función",
+                "cadena",
+                "plataforma"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "travel_places_transport_interest",
+          "description": "Strong explicit travel/place/transport interest from the beta coverage path.",
+          "active_topics": [
+            "travel_places_transport"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.158419,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2010.9,
+          "top_lemmas": [
+            "tío",
+            "escopeta",
+            "zinc",
+            "abreviatura",
+            "neerlandés",
+            "amplitud",
+            "tal",
+            "vello",
+            "escribir",
+            "desafiar"
+          ],
+          "introduced_vs_neutral": [
+            "tío",
+            "escopeta",
+            "zinc",
+            "abreviatura",
+            "neerlandés",
+            "amplitud",
+            "tal",
+            "vello",
+            "escribir",
+            "desafiar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "travel_places_transport",
+              "candidate_count": 30,
+              "support_mass": 27.726618,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "país",
+                "ciudad",
+                "camino",
+                "calle",
+                "viaje"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_high_proficiency",
+          "description": "Animals preference with high proficiency should suppress too-easy animals.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.575861,
+          "average_readiness": 0.659766,
+          "min_readiness": 0.091808,
+          "average_base_rank": 3979.4,
+          "top_lemmas": [
+            "femineidad",
+            "para",
+            "mazurca",
+            "mudez",
+            "monoclonal",
+            "fríamente",
+            "informador",
+            "desaceleración",
+            "economizar",
+            "siempre"
+          ],
+          "introduced_vs_neutral": [
+            "femineidad",
+            "para",
+            "mazurca",
+            "mudez",
+            "monoclonal",
+            "fríamente",
+            "informador",
+            "desaceleración",
+            "economizar",
+            "siempre"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_plants_interest",
+          "description": "Combined animals plus plants/nature interests.",
+          "active_topics": [
+            "animals",
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.156033,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1983.6,
+          "top_lemmas": [
+            "deuda",
+            "camarero",
+            "demolición",
+            "recado",
+            "finlandés",
+            "jurisdicción",
+            "potasio",
+            "hall",
+            "pagar",
+            "especificar"
+          ],
+          "introduced_vs_neutral": [
+            "deuda",
+            "camarero",
+            "demolición",
+            "recado",
+            "finlandés",
+            "jurisdicción",
+            "potasio",
+            "hall",
+            "pagar",
+            "especificar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            },
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "weighted_plants_over_animals",
+          "description": "Scalar topic weights preferring plants/nature over animals.",
+          "active_topics": [
+            "animals",
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.157157,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1995.5,
+          "top_lemmas": [
+            "cerebro",
+            "mostrador",
+            "cilindro",
+            "cándido",
+            "merluza",
+            "leña",
+            "mismo",
+            "magnetismo",
+            "escribir",
+            "desafiar"
+          ],
+          "introduced_vs_neutral": [
+            "cerebro",
+            "mostrador",
+            "cilindro",
+            "cándido",
+            "merluza",
+            "leña",
+            "mismo",
+            "magnetismo",
+            "escribir",
+            "desafiar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            },
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 23,
+      "rows": [
+        {
+          "name": "neutral",
+          "description": "No user preference signals.",
+          "active_topics": [],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.169353,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1908.5,
+          "top_lemmas": [
+            "colegio",
+            "calor",
+            "risa",
+            "turca",
+            "cascada",
+            "renacimiento",
+            "siguiente",
+            "jurar",
+            "acumulativo",
+            "cabecear"
+          ],
+          "introduced_vs_neutral": [],
+          "neutral_overlap_count": 10,
+          "top_topic_movers": [],
+          "active_topic_support": []
+        },
+        {
+          "name": "animals_interest",
+          "description": "Strong explicit animals interest from the UX chip.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.167142,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1872.5,
+          "top_lemmas": [
+            "santa",
+            "motivo",
+            "placer",
+            "asedio",
+            "vinagre",
+            "colombiano",
+            "metafísica",
+            "adiposo",
+            "conferir",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "santa",
+            "motivo",
+            "placer",
+            "asedio",
+            "vinagre",
+            "colombiano",
+            "metafísica",
+            "adiposo",
+            "conferir",
+            "presencial"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_light_weight",
+          "description": "Low scalar animals preference below the full chip weight.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.168885,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1901.0,
+          "top_lemmas": [
+            "domingo",
+            "carga",
+            "montaña",
+            "cuerno",
+            "chaleco",
+            "absurdo",
+            "retablo",
+            "jurar",
+            "acumulativo",
+            "cabecear"
+          ],
+          "introduced_vs_neutral": [
+            "domingo",
+            "carga",
+            "montaña",
+            "cuerno",
+            "chaleco",
+            "absurdo",
+            "retablo"
+          ],
+          "neutral_overlap_count": 3,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "plants_nature_interest",
+          "description": "Strong explicit plants/nature interest from the UX chip.",
+          "active_topics": [
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.16868,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1896.5,
+          "top_lemmas": [
+            "puta",
+            "francés",
+            "ruido",
+            "pavo",
+            "caucho",
+            "franco",
+            "único",
+            "jurar",
+            "acumulativo",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "puta",
+            "francés",
+            "ruido",
+            "pavo",
+            "caucho",
+            "franco",
+            "único",
+            "presencial"
+          ],
+          "neutral_overlap_count": 2,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "food_cooking_interest",
+          "description": "Strong explicit food/cooking interest from the UX chip.",
+          "active_topics": [
+            "food_cooking"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.168765,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1896.9,
+          "top_lemmas": [
+            "ministerio",
+            "sección",
+            "ideal",
+            "plátano",
+            "acera",
+            "legislación",
+            "artificio",
+            "jurar",
+            "acumulativo",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "ministerio",
+            "sección",
+            "ideal",
+            "plátano",
+            "acera",
+            "legislación",
+            "artificio",
+            "presencial"
+          ],
+          "neutral_overlap_count": 2,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "food_cooking",
+              "candidate_count": 35,
+              "support_mass": 31.305781,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "agua",
+                "comida",
+                "carne",
+                "pan",
+                "leche"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "medicine_health_interest",
+          "description": "Strong explicit medicine/health interest from source-backed topics.",
+          "active_topics": [
+            "medicine_health"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.166607,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1872.8,
+          "top_lemmas": [
+            "duda",
+            "corrupción",
+            "amistad",
+            "cesión",
+            "tortilla",
+            "criterio",
+            "mismo",
+            "excluir",
+            "sagrado",
+            "picotear"
+          ],
+          "introduced_vs_neutral": [
+            "duda",
+            "corrupción",
+            "amistad",
+            "cesión",
+            "tortilla",
+            "criterio",
+            "mismo",
+            "excluir",
+            "sagrado",
+            "picotear"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "medicine_health",
+              "candidate_count": 90,
+              "support_mass": 71.477091,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "mano",
+                "cabeza",
+                "cara",
+                "media",
+                "boca"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finance_business_interest",
+          "description": "Strong explicit finance/business interest from source-backed topics.",
+          "active_topics": [
+            "finance_business"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.168311,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1892.7,
+          "top_lemmas": [
+            "defensa",
+            "sección",
+            "rostro",
+            "lecho",
+            "útero",
+            "vapor",
+            "importante",
+            "acomodar",
+            "intensificar",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "defensa",
+            "sección",
+            "rostro",
+            "lecho",
+            "útero",
+            "vapor",
+            "importante",
+            "acomodar",
+            "intensificar",
+            "presencial"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "finance_business",
+              "candidate_count": 51,
+              "support_mass": 42.412389,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "punto",
+                "derecho",
+                "seguro",
+                "tierra",
+                "capital"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "sports_fitness_interest",
+          "description": "Strong explicit sports/fitness interest from source-backed topics.",
+          "active_topics": [
+            "sports_fitness"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.167032,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1876.4,
+          "top_lemmas": [
+            "causa",
+            "término",
+            "motor",
+            "mejilla",
+            "mozo",
+            "discurso",
+            "humildad",
+            "felicitar",
+            "resignar",
+            "portento"
+          ],
+          "introduced_vs_neutral": [
+            "causa",
+            "término",
+            "motor",
+            "mejilla",
+            "mozo",
+            "discurso",
+            "humildad",
+            "felicitar",
+            "resignar",
+            "portento"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "sports_fitness",
+              "candidate_count": 103,
+              "support_mass": 73.060965,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "final",
+                "largo",
+                "escuela",
+                "serie",
+                "campo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "games_interest",
+          "description": "Strong explicit games interest from source-backed topics.",
+          "active_topics": [
+            "games"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.168124,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1892.5,
+          "top_lemmas": [
+            "hija",
+            "sección",
+            "nacimiento",
+            "sótano",
+            "caudillo",
+            "posesión",
+            "visibilidad",
+            "excluir",
+            "resignar",
+            "picotear"
+          ],
+          "introduced_vs_neutral": [
+            "hija",
+            "sección",
+            "nacimiento",
+            "sótano",
+            "caudillo",
+            "posesión",
+            "visibilidad",
+            "excluir",
+            "resignar",
+            "picotear"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "games",
+              "candidate_count": 56,
+              "support_mass": 37.551046,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "juego",
+                "rey",
+                "comer",
+                "color",
+                "muerto"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "music_media_entertainment_interest",
+          "description": "Strong explicit music/media/entertainment interest from source-backed topics.",
+          "active_topics": [
+            "music_media_entertainment"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.168519,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1893.6,
+          "top_lemmas": [
+            "puerta",
+            "parecer",
+            "nacimiento",
+            "pavo",
+            "útero",
+            "placa",
+            "contaminante",
+            "adiposo",
+            "intensificar",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "puerta",
+            "parecer",
+            "nacimiento",
+            "pavo",
+            "útero",
+            "placa",
+            "contaminante",
+            "adiposo",
+            "intensificar",
+            "presencial"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "music_media_entertainment",
+              "candidate_count": 44,
+              "support_mass": 35.955294,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "bajo",
+                "grupo",
+                "música",
+                "película",
+                "canción"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "law_politics_civics_interest",
+          "description": "Strong explicit law/politics/civics interest from source-backed topics.",
+          "active_topics": [
+            "law_politics_civics"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.167002,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1875.6,
+          "top_lemmas": [
+            "arte",
+            "producto",
+            "tasa",
+            "corbata",
+            "nervio",
+            "humor",
+            "chapa",
+            "liberador",
+            "especificar",
+            "sobrevolar"
+          ],
+          "introduced_vs_neutral": [
+            "arte",
+            "producto",
+            "tasa",
+            "corbata",
+            "nervio",
+            "humor",
+            "chapa",
+            "liberador",
+            "especificar",
+            "sobrevolar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "law_politics_civics",
+              "candidate_count": 108,
+              "support_mass": 84.073719,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "parte",
+                "general",
+                "ley",
+                "sistema",
+                "número"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "science_technology_interest",
+          "description": "Strong explicit science/technology interest from source-backed topics.",
+          "active_topics": [
+            "science_technology"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.168549,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1896.8,
+          "top_lemmas": [
+            "banco",
+            "compra",
+            "alemán",
+            "sótano",
+            "caudillo",
+            "rival",
+            "morfema",
+            "adiposo",
+            "conferir",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "banco",
+            "compra",
+            "alemán",
+            "sótano",
+            "caudillo",
+            "rival",
+            "morfema",
+            "adiposo",
+            "conferir",
+            "presencial"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "science_technology",
+              "candidate_count": 39,
+              "support_mass": 30.813974,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "vida",
+                "salida",
+                "función",
+                "cadena",
+                "plataforma"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "travel_places_transport_interest",
+          "description": "Strong explicit travel/place/transport interest from the beta coverage path.",
+          "active_topics": [
+            "travel_places_transport"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.168879,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1899.6,
+          "top_lemmas": [
+            "conocido",
+            "planta",
+            "alemán",
+            "irlandés",
+            "vestíbulo",
+            "conductor",
+            "último",
+            "jurar",
+            "acumulativo",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "conocido",
+            "planta",
+            "alemán",
+            "irlandés",
+            "vestíbulo",
+            "conductor",
+            "último",
+            "presencial"
+          ],
+          "neutral_overlap_count": 2,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "travel_places_transport",
+              "candidate_count": 30,
+              "support_mass": 27.726618,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "país",
+                "ciudad",
+                "camino",
+                "calle",
+                "viaje"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_high_proficiency",
+          "description": "Animals preference with high proficiency should suppress too-easy animals.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.566512,
+          "average_readiness": 0.636262,
+          "min_readiness": 0.053151,
+          "average_base_rank": 3963.4,
+          "top_lemmas": [
+            "flamígero",
+            "uniformemente",
+            "amén",
+            "entre",
+            "para",
+            "desbandar",
+            "informador",
+            "baladí",
+            "siempre",
+            "remunerar"
+          ],
+          "introduced_vs_neutral": [
+            "flamígero",
+            "uniformemente",
+            "amén",
+            "entre",
+            "para",
+            "desbandar",
+            "informador",
+            "baladí",
+            "siempre",
+            "remunerar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_plants_interest",
+          "description": "Combined animals plus plants/nature interests.",
+          "active_topics": [
+            "animals",
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.166365,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1859.7,
+          "top_lemmas": [
+            "media",
+            "federal",
+            "invierno",
+            "psiquiatra",
+            "tejado",
+            "sindicato",
+            "tal",
+            "acomodar",
+            "intensificar",
+            "olfatear"
+          ],
+          "introduced_vs_neutral": [
+            "media",
+            "federal",
+            "invierno",
+            "psiquiatra",
+            "tejado",
+            "sindicato",
+            "tal",
+            "acomodar",
+            "intensificar",
+            "olfatear"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            },
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "weighted_plants_over_animals",
+          "description": "Scalar topic weights preferring plants/nature over animals.",
+          "active_topics": [
+            "animals",
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.167585,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1878.6,
+          "top_lemmas": [
+            "negro",
+            "cruz",
+            "cola",
+            "asedio",
+            "banquete",
+            "titular",
+            "tajo",
+            "adiposo",
+            "conferir",
+            "presencial"
+          ],
+          "introduced_vs_neutral": [
+            "negro",
+            "cruz",
+            "cola",
+            "asedio",
+            "banquete",
+            "titular",
+            "tajo",
+            "adiposo",
+            "conferir",
+            "presencial"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            },
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 37,
+      "rows": [
+        {
+          "name": "neutral",
+          "description": "No user preference signals.",
+          "active_topics": [],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.153909,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1876.1,
+          "top_lemmas": [
+            "canal",
+            "temporada",
+            "armario",
+            "estilo",
+            "pece",
+            "disponible",
+            "distribuidor",
+            "severo",
+            "gritar",
+            "atraer"
+          ],
+          "introduced_vs_neutral": [],
+          "neutral_overlap_count": 10,
+          "top_topic_movers": [],
+          "active_topic_support": []
+        },
+        {
+          "name": "animals_interest",
+          "description": "Strong explicit animals interest from the UX chip.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.151613,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1846.1,
+          "top_lemmas": [
+            "blanco",
+            "colegio",
+            "séptimo",
+            "repugnancia",
+            "creciente",
+            "listo",
+            "profundo",
+            "recomendable",
+            "concluyente",
+            "novato"
+          ],
+          "introduced_vs_neutral": [
+            "blanco",
+            "colegio",
+            "séptimo",
+            "repugnancia",
+            "creciente",
+            "listo",
+            "profundo",
+            "recomendable",
+            "concluyente",
+            "novato"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_light_weight",
+          "description": "Low scalar animals preference below the full chip weight.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.153503,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1871.0,
+          "top_lemmas": [
+            "odio",
+            "ciencia",
+            "instinto",
+            "área",
+            "leyenda",
+            "filme",
+            "tapete",
+            "recepcionista",
+            "gritar",
+            "afectar"
+          ],
+          "introduced_vs_neutral": [
+            "odio",
+            "ciencia",
+            "instinto",
+            "área",
+            "leyenda",
+            "filme",
+            "tapete",
+            "recepcionista",
+            "afectar"
+          ],
+          "neutral_overlap_count": 1,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "plants_nature_interest",
+          "description": "Strong explicit plants/nature interest from the UX chip.",
+          "active_topics": [
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.153185,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1866.6,
+          "top_lemmas": [
+            "rápido",
+            "sueño",
+            "autónomo",
+            "ese",
+            "vapor",
+            "polilla",
+            "tapete",
+            "nadador",
+            "descargar",
+            "afectar"
+          ],
+          "introduced_vs_neutral": [
+            "rápido",
+            "sueño",
+            "autónomo",
+            "ese",
+            "vapor",
+            "polilla",
+            "tapete",
+            "nadador",
+            "descargar",
+            "afectar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "food_cooking_interest",
+          "description": "Strong explicit food/cooking interest from the UX chip.",
+          "active_topics": [
+            "food_cooking"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.15323,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1866.4,
+          "top_lemmas": [
+            "entender",
+            "federal",
+            "portuguesa",
+            "mayor",
+            "opción",
+            "filme",
+            "tapete",
+            "nadador",
+            "descargar",
+            "afectar"
+          ],
+          "introduced_vs_neutral": [
+            "entender",
+            "federal",
+            "portuguesa",
+            "mayor",
+            "opción",
+            "filme",
+            "tapete",
+            "nadador",
+            "descargar",
+            "afectar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "food_cooking",
+              "candidate_count": 35,
+              "support_mass": 31.305781,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "agua",
+                "comida",
+                "carne",
+                "pan",
+                "leche"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "medicine_health_interest",
+          "description": "Strong explicit medicine/health interest from source-backed topics.",
+          "active_topics": [
+            "medicine_health"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.150581,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1841.2,
+          "top_lemmas": [
+            "diferencia",
+            "constitución",
+            "matrícula",
+            "finlandés",
+            "demanda",
+            "lleno",
+            "flagelo",
+            "ateo",
+            "polizonte",
+            "escoger"
+          ],
+          "introduced_vs_neutral": [
+            "diferencia",
+            "constitución",
+            "matrícula",
+            "finlandés",
+            "demanda",
+            "lleno",
+            "flagelo",
+            "ateo",
+            "polizonte",
+            "escoger"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "medicine_health",
+              "candidate_count": 90,
+              "support_mass": 71.477091,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "mano",
+                "cabeza",
+                "cara",
+                "media",
+                "boca"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "finance_business_interest",
+          "description": "Strong explicit finance/business interest from source-backed topics.",
+          "active_topics": [
+            "finance_business"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.152591,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1861.4,
+          "top_lemmas": [
+            "diario",
+            "federal",
+            "raya",
+            "neerlandés",
+            "estadio",
+            "antorcha",
+            "instructor",
+            "gastado",
+            "concluyente",
+            "novato"
+          ],
+          "introduced_vs_neutral": [
+            "diario",
+            "federal",
+            "raya",
+            "neerlandés",
+            "estadio",
+            "antorcha",
+            "instructor",
+            "gastado",
+            "concluyente",
+            "novato"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "finance_business",
+              "candidate_count": 51,
+              "support_mass": 42.412389,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "punto",
+                "derecho",
+                "seguro",
+                "tierra",
+                "capital"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "sports_fitness_interest",
+          "description": "Strong explicit sports/fitness interest from source-backed topics.",
+          "active_topics": [
+            "sports_fitness"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.150851,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1843.6,
+          "top_lemmas": [
+            "diferencia",
+            "constitución",
+            "araña",
+            "abreviatura",
+            "órgano",
+            "dentadura",
+            "siervo",
+            "ateo",
+            "solicitar",
+            "escoger"
+          ],
+          "introduced_vs_neutral": [
+            "diferencia",
+            "constitución",
+            "araña",
+            "abreviatura",
+            "órgano",
+            "dentadura",
+            "siervo",
+            "ateo",
+            "solicitar",
+            "escoger"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "sports_fitness",
+              "candidate_count": 103,
+              "support_mass": 73.060965,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "final",
+                "largo",
+                "escuela",
+                "serie",
+                "campo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "games_interest",
+          "description": "Strong explicit games interest from source-backed topics.",
+          "active_topics": [
+            "games"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.152313,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1859.5,
+          "top_lemmas": [
+            "domingo",
+            "federal",
+            "batallón",
+            "ostra",
+            "sindicato",
+            "anarquía",
+            "profundo",
+            "pedo",
+            "fugitivo",
+            "quemar"
+          ],
+          "introduced_vs_neutral": [
+            "domingo",
+            "federal",
+            "batallón",
+            "ostra",
+            "sindicato",
+            "anarquía",
+            "profundo",
+            "pedo",
+            "fugitivo",
+            "quemar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "games",
+              "candidate_count": 56,
+              "support_mass": 37.551046,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "juego",
+                "rey",
+                "comer",
+                "color",
+                "muerto"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "music_media_entertainment_interest",
+          "description": "Strong explicit music/media/entertainment interest from source-backed topics.",
+          "active_topics": [
+            "music_media_entertainment"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.152834,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1863.5,
+          "top_lemmas": [
+            "diario",
+            "visita",
+            "trozo",
+            "neerlandés",
+            "posesión",
+            "grave",
+            "vello",
+            "sarcófago",
+            "concluyente",
+            "montar"
+          ],
+          "introduced_vs_neutral": [
+            "diario",
+            "visita",
+            "trozo",
+            "neerlandés",
+            "posesión",
+            "grave",
+            "vello",
+            "sarcófago",
+            "concluyente",
+            "montar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "music_media_entertainment",
+              "candidate_count": 44,
+              "support_mass": 35.955294,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "bajo",
+                "grupo",
+                "música",
+                "película",
+                "canción"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "law_politics_civics_interest",
+          "description": "Strong explicit law/politics/civics interest from source-backed topics.",
+          "active_topics": [
+            "law_politics_civics"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.151201,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1845.1,
+          "top_lemmas": [
+            "prueba",
+            "error",
+            "viña",
+            "embriaguez",
+            "intervención",
+            "salvo",
+            "suicida",
+            "rinoceronte",
+            "completar",
+            "conservar"
+          ],
+          "introduced_vs_neutral": [
+            "prueba",
+            "error",
+            "viña",
+            "embriaguez",
+            "intervención",
+            "salvo",
+            "suicida",
+            "rinoceronte",
+            "completar",
+            "conservar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "law_politics_civics",
+              "candidate_count": 108,
+              "support_mass": 84.073719,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "parte",
+                "general",
+                "ley",
+                "sistema",
+                "número"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "science_technology_interest",
+          "description": "Strong explicit science/technology interest from source-backed topics.",
+          "active_topics": [
+            "science_technology"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.152555,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1862.4,
+          "top_lemmas": [
+            "colegio",
+            "transporte",
+            "librería",
+            "ostra",
+            "pista",
+            "divergencia",
+            "epopeya",
+            "pedo",
+            "fugitivo",
+            "reír"
+          ],
+          "introduced_vs_neutral": [
+            "colegio",
+            "transporte",
+            "librería",
+            "ostra",
+            "pista",
+            "divergencia",
+            "epopeya",
+            "pedo",
+            "fugitivo",
+            "reír"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "science_technology",
+              "candidate_count": 39,
+              "support_mass": 30.813974,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "vida",
+                "salida",
+                "función",
+                "cadena",
+                "plataforma"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "travel_places_transport_interest",
+          "description": "Strong explicit travel/place/transport interest from the beta coverage path.",
+          "active_topics": [
+            "travel_places_transport"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.153354,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1868.3,
+          "top_lemmas": [
+            "decisión",
+            "transporte",
+            "muelle",
+            "movimiento",
+            "rival",
+            "correcto",
+            "peligroso",
+            "arrogancia",
+            "descargar",
+            "afectar"
+          ],
+          "introduced_vs_neutral": [
+            "decisión",
+            "transporte",
+            "muelle",
+            "movimiento",
+            "rival",
+            "correcto",
+            "peligroso",
+            "arrogancia",
+            "descargar",
+            "afectar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "travel_places_transport",
+              "candidate_count": 30,
+              "support_mass": 27.726618,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "país",
+                "ciudad",
+                "camino",
+                "calle",
+                "viaje"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_high_proficiency",
+          "description": "Animals preference with high proficiency should suppress too-easy animals.",
+          "active_topics": [
+            "animals"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.575435,
+          "average_readiness": 0.655348,
+          "min_readiness": 0.220964,
+          "average_base_rank": 3991.7,
+          "top_lemmas": [
+            "absurdamente",
+            "florecita",
+            "amiga",
+            "mudez",
+            "toilette",
+            "vaciado",
+            "palmotear",
+            "espontáneamente",
+            "zurcir",
+            "revalorización"
+          ],
+          "introduced_vs_neutral": [
+            "absurdamente",
+            "florecita",
+            "amiga",
+            "mudez",
+            "toilette",
+            "vaciado",
+            "palmotear",
+            "espontáneamente",
+            "zurcir",
+            "revalorización"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "animals_plants_interest",
+          "description": "Combined animals plus plants/nature interests.",
+          "active_topics": [
+            "animals",
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.150814,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1835.9,
+          "top_lemmas": [
+            "opinión",
+            "puta",
+            "alojamiento",
+            "frontón",
+            "instalación",
+            "naturalismo",
+            "suicida",
+            "perredeístas",
+            "descansar",
+            "engañar"
+          ],
+          "introduced_vs_neutral": [
+            "opinión",
+            "puta",
+            "alojamiento",
+            "frontón",
+            "instalación",
+            "naturalismo",
+            "suicida",
+            "perredeístas",
+            "descansar",
+            "engañar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            },
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "weighted_plants_over_animals",
+          "description": "Scalar topic weights preferring plants/nature over animals.",
+          "active_topics": [
+            "animals",
+            "plants_nature"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.152249,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1853.1,
+          "top_lemmas": [
+            "ministerio",
+            "presencia",
+            "séptimo",
+            "birrete",
+            "significado",
+            "antorcha",
+            "horrible",
+            "gastado",
+            "descargar",
+            "montar"
+          ],
+          "introduced_vs_neutral": [
+            "ministerio",
+            "presencia",
+            "séptimo",
+            "birrete",
+            "significado",
+            "antorcha",
+            "horrible",
+            "gastado",
+            "descargar",
+            "montar"
+          ],
+          "neutral_overlap_count": 0,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "plants_nature",
+              "candidate_count": 28,
+              "support_mass": 23.447109,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "haya",
+                "árbol",
+                "flor",
+                "hierba",
+                "col"
+              ]
+            },
+            {
+              "topic": "animals",
+              "candidate_count": 80,
+              "support_mass": 68.105722,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "perro",
+                "ganado",
+                "animal",
+                "gato",
+                "pollo"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

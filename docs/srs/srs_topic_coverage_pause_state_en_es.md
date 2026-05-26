@@ -2,8 +2,8 @@
 
 Status: active pause snapshot
 Role: Current closeout note
-Last updated: 2026-05-23
-Last verified: 2026-05-23 by Wikidata natural-taxonomy overlay generation, release-readiness regeneration, SRS admission lab smoke, focused tests, SRS quality harness, changed-file gate, and doc-reference check
+Last updated: 2026-05-27
+Last verified: 2026-05-27 by Wikidata natural-taxonomy overlay generation, release-readiness regeneration, SRS admission lab smoke, en-es admission calibration artifact generation, focused tests, SRS quality harness, changed-file gate, and doc-reference check
 Purpose: record the accepted temporary stopping point for en-es topic coverage so future work can resume deliberately without re-litigating this cleanup slice
 Source-of-truth: closeout note only; executable truth lives in SRS/helper code, overlay artifacts, generated readiness reports, tests, and the topic taxonomy fixture.
 
@@ -136,7 +136,8 @@ Resume topic coverage work only when one of these becomes a product priority:
 - a target topic feels obviously broken in lab or user testing;
 - a new legally usable source is identified;
 - a new LP needs topic-signal onboarding;
-- the admission algorithm needs calibrated realized-share diagnostics.
+- the admission algorithm needs more calibrated realized-share diagnostics than
+  the current en-es ranked/weighted admission calibration artifact provides.
 
 Best next work if resumed:
 
@@ -145,8 +146,9 @@ Best next work if resumed:
 2. add difficulty-band enrichment for high-value limited-depth topics;
 3. identify source-backed paths for Hobbies/Crafts and Pop Culture;
 4. build English-target SAT/TOEFL source review only after legal/source approval;
-5. add realized topic-share diagnostics to quantify what preference strength
-   produces in sampled admissions.
+5. use `../test_outputs/srs_admission_calibration_en_es_latest.md` to inspect
+   realized topic-share diagnostics before changing topic coverage or sampling
+   policy.
 
 ## Verification Commands
 

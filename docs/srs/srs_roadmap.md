@@ -2,8 +2,8 @@
 
 Status: active mixed roadmap
 Role: Mixed
-Last updated: 2026-05-26
-Last verified: 2026-05-26 lifecycle marker backend update; roadmap claims not fully re-audited
+Last updated: 2026-05-27
+Last verified: 2026-05-27 en-es admission calibration report, focused calibration test, and generated JSON/Markdown artifacts; roadmap claims not fully re-audited
 Purpose: preserve the SRS current-state snapshot, remaining E2E gaps, and roadmap workstreams
 Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/extension code, SRS harnesses, and `docs/developer/feature_state_matrix.md`.
 
@@ -215,7 +215,11 @@ Status key:
   comparison in the options refresh output for manual SRS testing.
 - `[x]` Add diagnostics snapshots for before/after feedback cycles (store,
   scheduler fields, selected lemmas, and refresh deltas).
-- `[ ]` Add per-pair calibration report for admission/serving distributions.
+- `[x]` Add initial per-pair calibration report for en-es admission
+  distributions:
+  - ranked preview batch shares are now visible across topic/proficiency profiles;
+  - weighted-without-replacement seeded samples are visible and currently warn
+    that full-pool weighted sampling is too diffuse for topic preferences.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
 
 ### Workstream H — LP parity and de-hardcoding (`en-de`/`en-es` vs `en-ja`)

@@ -1382,8 +1382,8 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-26` planner/helper metadata now reports requested `profile_bootstrap` as executable profile-aware bootstrap, options initialize/admission preview request it with current profile context, and the preference sanity report includes a deterministic strength/proficiency matrix.
-- Last verified: `2026-05-26` focused profile-bootstrap/planner/helper/options tests, preference sanity artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-05-27` planner/helper metadata now reports requested `profile_bootstrap` as executable profile-aware bootstrap, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report exposes ranked batch shares plus weighted-sampling diffusion.
+- Last verified: `2026-05-27` focused profile-bootstrap/planner/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, and a proficiency readiness multiplier over the frequency seed frontier before initial active selection.
@@ -1406,8 +1406,11 @@ Use this file when:
   - `core/tests/srs/test_srs_set_planner.py`
   - `core/tests/dev/test_srs_planner_strategy_contract.py`
   - `core/tests/dev/test_srs_admission_preference_sanity.py`
+  - `core/tests/dev/test_srs_admission_calibration_report_en_es.py`
   - `core/tests/dev/test_srs_frequency_topic_coverage.py`
   - `scripts/testing/srs_admission_preference_sanity.py`
+  - `scripts/testing/srs_admission_calibration_report_en_es.py`
+  - `docs/test_outputs/srs_admission_calibration_en_es_latest.md`
   - `scripts/testing/srs_frequency_topic_coverage.py`
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
 - Known gaps:
