@@ -264,6 +264,77 @@ const manager = new context.__HelperManager({{
 """
         _run_node(script)
 
+    def test_helper_manager_discards_srs_item_through_suppression_route(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const files = [
+  {json.dumps(str(HELPER_ERROR_COPY_JS))},
+  {json.dumps(str(HELPER_CLIENT_JS))},
+  {json.dumps(str(HELPER_BASE_METHODS_JS))},
+  {json.dumps(str(HELPER_DIAGNOSTICS_METHODS_JS))},
+  {json.dumps(str(HELPER_SRS_SET_METHODS_JS))},
+  {json.dumps(str(HELPER_MANAGER_JS))}
+];
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  helperTransportExtension: {{
+    calls: [],
+    async send(type, payload, timeoutMs) {{
+      this.calls.push({{ type, payload, timeoutMs }});
+      return {{
+        ok: true,
+        data: {{
+          status: "ok",
+          lemma: payload.lemma,
+          reason: payload.reason,
+          active_item_removed: true
+        }}
+      }};
+    }}
+  }}
+}};
+for (const file of files) {{
+  const source = fs.readFileSync(file, "utf8");
+  vm.runInContext(
+    file === {json.dumps(str(HELPER_MANAGER_JS))}
+      ? `${{source}}\nthis.__HelperManager = HelperManager;`
+      : source,
+    context,
+    {{ filename: file }}
+  );
+}}
+
+const manager = new context.__HelperManager({{
+  t: (_key, _args, fallback) => fallback || ""
+}}, () => {{}});
+
+(async () => {{
+  const result = await manager.discardSrsItem("en-es", " perro ", {{ profileId: "alpha" }});
+  assert.equal(result.reason, "user_blocked");
+  assert.equal(JSON.stringify(context.LexiShift.helperTransportExtension.calls), JSON.stringify([
+    {{
+      type: "srs_admission_suppress",
+      payload: {{
+        pair: "en-es",
+        profile_id: "alpha",
+        lemma: "perro",
+        reason: "user_blocked",
+        note: "srs_words_dashboard_discard"
+      }},
+      timeoutMs: 4000
+    }}
+  ]));
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
     def test_helper_manager_installs_semantic_pack_and_clears_pair_cache(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");

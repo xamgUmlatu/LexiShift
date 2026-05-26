@@ -1447,6 +1447,7 @@ Use this file when:
   - The `srs_admission_suppress` helper/native-host route can write durable
     `user_blocked` suppression; when a matching SRS item already exists, it marks
     that item `lifecycle_state=discarded` and removes it from active inventory.
+    The options dashboard now uses this route for confirmed learner discard.
   - `SrsItem` lifecycle markers currently support `active`, `discarded`, and
     `cleared`; non-active lifecycle states are filtered out of active-inventory
     fallback, stale-inventory resolution, scheduler due selection, refresh
@@ -1520,32 +1521,37 @@ Use this file when:
   - Browsing aggregates are not yet consumed by production admission refresh.
   - User-facing settings and reset/clear controls for browsing admission signals
     remain planned.
-  - Full user-facing durable discard/block/release/mastered lifecycle controls
-    remain planned; the current lifecycle writer is backend-only.
+  - Restore/release/mastered lifecycle controls remain planned.
 
 ## SRS Admitted Words Dashboard
 
-- Status: `implemented`, `default-on`, `verified` for read-only visibility;
-  lifecycle mutation controls remain `planned`
-- Last documented checkpoint: `2026-05-26` read-only admitted-words dashboard
-  contract and options UI:
+- Status: `implemented`, `default-on`, `verified` for visibility plus
+  confirmed durable dashboard discard; restore/mastery/release controls remain
+  `planned`
+- Last documented checkpoint: `2026-05-26` admitted-words dashboard contract,
+  options UI, and first durable lifecycle action:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
   due/removed states, and expose scheduler/lifecycle details behind an advanced
-  toggle in options
-- Last verified: `2026-05-26` focused helper endpoint, native-host route,
-  helper client/manager route, options dashboard workflow tests, SRS quality
+  toggle in options; eligible rows can confirm Discard, which reuses
+  `srs_admission_suppress` with `reason=user_blocked`
+- Last verified: `2026-05-26` focused helper endpoint, native-host route, and
+  confirmed dashboard discard route tests; helper client/manager route,
+  dashboard discard workflow tests, suppression writer tests, SRS quality
   harness, changed-file gate, doc-reference check, and state audit
 - Default behavior:
   - The options page exposes a Learning words dashboard for the selected
     profile and language pair.
-  - Refresh words calls `srs_items_list`; the route is read-only and does not
-    admit, schedule, publish, discard, clear, or restore items.
+  - Refresh words calls `srs_items_list`; the listing route is read-only and
+    does not admit, schedule, publish, discard, clear, or restore items.
   - The default dashboard shows learner-facing counts and rows; advanced fields
     are hidden behind a toggle.
   - Active status uses the same active-inventory resolver as helper SRS serving;
     queued admitted words remain visible but not active.
-  - Discard/restore/mastered/release actions remain planned and must not be
-    inferred from the read-only dashboard.
+  - Eligible words expose a confirmed Discard action. It durably blocks refresh
+    re-admission, marks existing SRS items `discarded`, and removes active
+    inventory membership through the existing helper suppression route.
+  - Restore/mastered/release actions remain planned and must not be inferred
+    from dashboard discard.
 - Evidence:
   - `docs/srs/srs_admitted_words_dashboard_plan.md`
   - `docs/srs/srs_admission_lifecycle_current_state.md`
@@ -1560,13 +1566,14 @@ Use this file when:
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js`
   - `apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js`
   - `core/tests/helper/test_helper_srs_items.py`
+  - `core/tests/helper/test_helper_admission_suppression.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
   - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
 - Known gaps:
   - Dashboard search/filter/sort/pagination are not implemented.
-  - User actions for discard, restore, clear, release, and mastered-state
-    management are not implemented.
+  - User actions for restore, clear, release, and mastered-state management are
+    not implemented.
   - The extension feedback popup remains review-feedback only.
 
 ## Pair-Local Active Inventory

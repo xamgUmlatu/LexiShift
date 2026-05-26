@@ -182,6 +182,34 @@
       return response.data || {};
     };
 
+    proto.discardSrsItem = async function discardSrsItem(pair, lemma, options) {
+      const client = this.getClient();
+      if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      const normalizedLemma = String(lemma || "").trim();
+      if (!normalizedLemma) throw new Error("Missing SRS word.");
+      const opts = options && typeof options === "object" ? options : {};
+      const profileId = this.normalizeProfileId(opts.profileId);
+      const response = await client.suppressSrsAdmission({
+        pair,
+        profile_id: profileId,
+        lemma: normalizedLemma,
+        reason: "user_blocked",
+        note: typeof opts.note === "string" && opts.note
+          ? opts.note
+          : "srs_words_dashboard_discard"
+      });
+      if (!response || response.ok === false) {
+        throw new Error(
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_discard_failed",
+            "Failed to discard SRS word."
+          )
+        );
+      }
+      return response.data || {};
+    };
+
     proto.planSrsRebalance = async function planSrsRebalance(pair, options) {
       const client = this.getClient();
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));

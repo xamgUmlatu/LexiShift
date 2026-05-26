@@ -15,6 +15,9 @@
     const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"
       ? opts.syncSelectedProfile
       : ((items) => Promise.resolve({ items, profileId: "default" }));
+    const confirmFn = typeof opts.confirmFn === "function"
+      ? opts.confirmFn
+      : (message) => globalThis.confirm(message);
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const colors = opts.colors && typeof opts.colors === "object"
       ? opts.colors
@@ -180,8 +183,28 @@
       if (wordsDashboardAdvanced) {
         row.appendChild(renderAdvancedDetails(doc, item));
       }
+      if (canDiscardItem(item)) {
+        row.appendChild(renderWordActions(doc, item));
+      }
 
       return row;
+    }
+
+    function canDiscardItem(item) {
+      const status = String(item.status || "");
+      if (!String(item.lemma || "").trim()) {
+        return false;
+      }
+      return status !== "discarded" && status !== "cleared" && status !== "removed";
+    }
+
+    function renderWordActions(doc, item) {
+      const actions = createNode(doc, "div", "srs-word-actions");
+      const button = createNode(doc, "button", "srs-word-discard-button", "Discard");
+      button.setAttribute("type", "button");
+      button.addEventListener("click", () => discardWord(item, button));
+      actions.appendChild(button);
+      return actions;
     }
 
     function renderAdvancedDetails(doc, item) {
@@ -242,6 +265,54 @@
         log("SRS words dashboard refresh failed.", err);
       } finally {
         wordsRefreshButton.disabled = false;
+      }
+    }
+
+    async function discardWord(item, button) {
+      const lemma = String(item.lemma || "").trim();
+      const display = String(item.display || lemma || "this word").trim();
+      if (!lemma) {
+        return;
+      }
+      const confirmed = confirmFn(translate(
+        "confirm_srs_discard_word",
+        [display],
+        `Discard ${display}? It will be removed from SRS and blocked from future admission until SRS data is reset.`
+      ));
+      if (!confirmed) {
+        return;
+      }
+      const srsPair = resolvePair();
+      if (button) {
+        button.disabled = true;
+      }
+      try {
+        const items = await settingsManager.load();
+        const synced = await syncSelectedProfile(items);
+        const result = await helperManager.discardSrsItem(srsPair, lemma, {
+          profileId: synced.profileId
+        });
+        setStatus(
+          translate("status_srs_discard_success", [display], `Discarded ${display}.`),
+          colors.SUCCESS
+        );
+        log("SRS word discarded", {
+          pair: srsPair,
+          profileId: synced.profileId,
+          lemma,
+          result
+        });
+        await refreshWordsDashboard();
+      } catch (err) {
+        const msg = err && err.message
+          ? err.message
+          : translate("status_srs_discard_failed", null, "Failed to discard SRS word.");
+        setStatus(msg, colors.ERROR);
+        log("SRS word discard failed.", err);
+      } finally {
+        if (button) {
+          button.disabled = false;
+        }
       }
     }
 

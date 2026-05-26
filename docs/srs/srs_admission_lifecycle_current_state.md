@@ -16,11 +16,11 @@ This audit found one important gap and closed it across active SRS serving:
 lifecycle suppression and non-active lifecycle states now block candidate
 admission, due selection, active-inventory fallback, and rulegen publication. A
 helper/native-host writer can now persist durable suppression entries and mark
-existing SRS items as `discarded` for future discard/block flows. A read-only
-options dashboard can now surface admitted SRS items and lifecycle states, but
-there is intentionally no cooldown UX in the extension feedback popup.
-User-facing discard, block, mastered, and release actions remain open product
-work.
+existing SRS items as `discarded` for discard/block flows. The options
+dashboard can now surface admitted SRS items and trigger a confirmed durable
+discard for eligible words. There is intentionally no cooldown UX in the
+extension feedback popup. Restore, mastered, and release actions remain open
+product work.
 
 ## Admission Entry Points
 
@@ -179,14 +179,16 @@ Current related mechanisms:
   future confirmation UX that lets the learner keep durable discard/block
   metadata during reset.
 
-Current visibility: the options page can list admitted SRS words for the
-selected pair/profile through the read-only `srs_items_list` helper/native-host
-route. The view separates learner-facing status from advanced scheduler and
-lifecycle details.
+Current visibility/action surface: the options page can list admitted SRS words
+for the selected pair/profile through the read-only `srs_items_list`
+helper/native-host route. The view separates learner-facing status from
+advanced scheduler and lifecycle details. Eligible rows expose a confirmed
+Discard action that reuses the existing `srs_admission_suppress` route with
+`reason=user_blocked`.
 
 Open gap: full user-facing lifecycle management is still not implemented. The
-guard exists and refresh respects it, but the product still needs explicit
-actions and policy for durable discard/block, restore, release, and
+guard exists, refresh respects it, and dashboard discard can write it, but the
+product still needs explicit actions and policy for restore, release, and
 mastered-state management. Known words should primarily advance through normal
 SRS feedback (`easy`), not through a cooldown UX.
 

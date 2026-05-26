@@ -511,6 +511,13 @@ function makeNode(tagName) {{
     }},
     setAttribute(name, value) {{
       this.attributes[name] = String(value);
+    }},
+    addEventListener(type, handler) {{
+      this.listeners = this.listeners || {{}};
+      this.listeners[type] = handler;
+    }},
+    click() {{
+      return this.listeners && this.listeners.click ? this.listeners.click() : undefined;
     }}
   }};
 }}
@@ -527,7 +534,10 @@ const listRoot = makeNode("div");
 listRoot.ownerDocument = doc;
 const refreshButton = {{ disabled: false }};
 const statuses = [];
-const helperCalls = [];
+const listCalls = [];
+const discardCalls = [];
+const confirms = [];
+let listCallCount = 0;
 
 const workflows = createMaintenanceWorkflows({{
   settingsManager: {{
@@ -537,7 +547,38 @@ const workflows = createMaintenanceWorkflows({{
   }},
   helperManager: {{
     async listSrsItems(pair, options) {{
-      helperCalls.push({{ pair, options }});
+      listCalls.push({{ pair, options }});
+      listCallCount += 1;
+      if (listCallCount > 1) {{
+        return {{
+          status: "ok",
+          summary: {{
+            total: 1,
+            active: 0,
+            due_now: 0,
+            due_soon: 0,
+            queued: 0,
+            removed: 1
+          }},
+          items: [
+            {{
+              item_id: "en-es:perro",
+              lemma: "perro",
+              display: "perro",
+              reading: "perro",
+              status: "discarded",
+              status_label: "Discarded",
+              review_count: 2,
+              exposures: 3,
+              source_label: "freq-es-cde",
+              advanced: {{
+                lifecycle_state: "discarded",
+                lifecycle_reason: "user_blocked"
+              }}
+            }}
+          ]
+        }};
+      }}
       return {{
         status: "ok",
         summary: {{
@@ -571,6 +612,10 @@ const workflows = createMaintenanceWorkflows({{
           }}
         ]
       }};
+    }},
+    async discardSrsItem(pair, lemma, options) {{
+      discardCalls.push({{ pair, lemma, options }});
+      return {{ status: "ok", lemma, reason: "user_blocked" }};
     }}
   }},
   translate: null,
@@ -579,6 +624,10 @@ const workflows = createMaintenanceWorkflows({{
   }},
   resolvePair: () => "en-es",
   syncSelectedProfile: async (items) => ({{ items, profileId: "alpha" }}),
+  confirmFn: (message) => {{
+    confirms.push(message);
+    return true;
+  }},
   log: () => {{}},
   colors: {{
     SUCCESS: "#3c5a2a",
@@ -594,17 +643,34 @@ const workflows = createMaintenanceWorkflows({{
 (async () => {{
   await workflows.refreshWordsDashboard();
   assert.equal(refreshButton.disabled, false);
-  assert.deepEqual(JSON.parse(JSON.stringify(helperCalls)), [
+  assert.deepEqual(JSON.parse(JSON.stringify(listCalls)), [
     {{ pair: "en-es", options: {{ profileId: "alpha" }} }}
   ]);
   assert.equal(summaryRoot.children.length, 6);
   assert.equal(summaryRoot.children[0].children[0].textContent, "1");
   assert.equal(listRoot.children.length, 1);
-  assert.equal(listRoot.children[0].children.length, 3);
+  assert.equal(listRoot.children[0].children.length, 4);
   assert.equal(statuses[0].message, "Loaded 1 SRS words.");
+  assert.equal(listRoot.children[0].children[3].className, "srs-word-actions");
 
   workflows.setWordsDashboardAdvanced(true);
   assert.equal(listRoot.children.length, 1);
+  assert.equal(listRoot.children[0].children.length, 5);
+  assert.equal(listRoot.children[0].children[3].className, "srs-word-advanced");
+  assert.equal(listRoot.children[0].children[4].className, "srs-word-actions");
+
+  await listRoot.children[0].children[4].children[0].click();
+  assert.equal(confirms.length, 1);
+  assert.equal(confirms[0], "Discard perro? It will be removed from SRS and blocked from future admission until SRS data is reset.");
+  assert.deepEqual(JSON.parse(JSON.stringify(discardCalls)), [
+    {{ pair: "en-es", lemma: "perro", options: {{ profileId: "alpha" }} }}
+  ]);
+  assert.equal(listCalls.length, 2);
+  assert.equal(statuses[1].message, "Discarded perro.");
+  assert.equal(statuses[2].message, "Loaded 1 SRS words.");
+  assert.equal(summaryRoot.children[0].children[0].textContent, "0");
+  assert.equal(summaryRoot.children[4].children[0].textContent, "1");
+  assert.equal(listRoot.children[0].children[1].textContent, "Discarded");
   assert.equal(listRoot.children[0].children.length, 4);
   assert.equal(listRoot.children[0].children[3].className, "srs-word-advanced");
 }})().catch((error) => {{

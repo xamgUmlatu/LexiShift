@@ -3,6 +3,9 @@
 
   function createMaintenanceWorkflows(options) {
     const opts = options && typeof options === "object" ? options : {};
+    const getFunction = (candidate, fallback) => typeof candidate === "function"
+      ? candidate
+      : fallback;
     const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
       ? opts.settingsManager
       : null;
@@ -10,10 +13,10 @@
       ? opts.helperManager
       : null;
     const translate = root.optionsTranslateResolver.resolveTranslate(opts.translate);
-    const setStatus = typeof opts.setStatus === "function" ? opts.setStatus : (() => {});
-    const resolvePair = typeof opts.resolvePair === "function" ? opts.resolvePair : (() => "en-en");
-    const confirmFn = typeof opts.confirmFn === "function" ? opts.confirmFn : (message) => globalThis.confirm(message);
-    const log = typeof opts.log === "function" ? opts.log : (() => {});
+    const setStatus = getFunction(opts.setStatus, () => {});
+    const resolvePair = getFunction(opts.resolvePair, () => "en-en");
+    const confirmFn = getFunction(opts.confirmFn, (message) => globalThis.confirm(message));
+    const log = getFunction(opts.log, () => {});
     const colors = opts.colors && typeof opts.colors === "object"
       ? opts.colors
       : {
@@ -31,49 +34,32 @@
     const wordsAdvancedInput = opts.wordsAdvancedInput || null;
     const wordsSummaryRoot = opts.wordsSummaryRoot || null;
     const wordsListRoot = opts.wordsListRoot || null;
-    const setOutputText = typeof opts.setOutputText === "function" ? opts.setOutputText : (() => {});
-    const setSampledOutputText = typeof opts.setSampledOutputText === "function"
-      ? opts.setSampledOutputText
-      : setOutputText;
-    const markRulesetUpdatedNow = typeof opts.markRulesetUpdatedNow === "function"
-      ? opts.markRulesetUpdatedNow
-      : (() => Promise.resolve());
-    const preflightSrsPairResources = typeof opts.preflightSrsPairResources === "function"
-      ? opts.preflightSrsPairResources
-      : ((_pair, _profileId, _actionLabel) => Promise.resolve(true));
-    const buildInitializeResultOutput = typeof opts.buildInitializeResultOutput === "function"
-      ? opts.buildInitializeResultOutput
-      : (_options) => "";
-    const buildRefreshResultOutput = typeof opts.buildRefreshResultOutput === "function"
-      ? opts.buildRefreshResultOutput
-      : (_options) => "";
-    const buildRuntimeDiagnosticsOutput = typeof opts.buildRuntimeDiagnosticsOutput === "function"
-      ? opts.buildRuntimeDiagnosticsOutput
-      : (_options) => "";
-    const buildSampledRulegenSamplingLines = typeof opts.buildSampledRulegenSamplingLines === "function"
-      ? opts.buildSampledRulegenSamplingLines
-      : (_options) => [];
-    const buildSampledRulegenHeader = typeof opts.buildSampledRulegenHeader === "function"
-      ? opts.buildSampledRulegenHeader
-      : (_options) => "";
-    const buildSampledRulegenEmptyOutput = typeof opts.buildSampledRulegenEmptyOutput === "function"
-      ? opts.buildSampledRulegenEmptyOutput
-      : (_options) => "";
-    const buildSampledRulegenTargetsOutput = typeof opts.buildSampledRulegenTargetsOutput === "function"
-      ? opts.buildSampledRulegenTargetsOutput
-      : (_options) => "";
-    const syncSelectedProfile = typeof opts.syncSelectedProfile === "function"
-      ? opts.syncSelectedProfile
-      : ((items) => Promise.resolve({
-          items,
-          profileId: "default"
-        }));
-    const resolvePlanningState = typeof opts.resolvePlanningState === "function"
-      ? opts.resolvePlanningState
-      : (() => null);
-    const refreshSemanticAdmissionStatus = typeof opts.refreshSemanticAdmissionStatus === "function"
-      ? opts.refreshSemanticAdmissionStatus
-      : (() => Promise.resolve());
+    const setOutputText = getFunction(opts.setOutputText, () => {});
+    const setSampledOutputText = getFunction(opts.setSampledOutputText, setOutputText);
+    const markRulesetUpdatedNow = getFunction(opts.markRulesetUpdatedNow, () => Promise.resolve());
+    const preflightSrsPairResources = getFunction(
+      opts.preflightSrsPairResources,
+      (_pair, _profileId, _actionLabel) => Promise.resolve(true)
+    );
+    const buildInitializeResultOutput = getFunction(opts.buildInitializeResultOutput, () => "");
+    const buildRefreshResultOutput = getFunction(opts.buildRefreshResultOutput, () => "");
+    const buildRuntimeDiagnosticsOutput = getFunction(opts.buildRuntimeDiagnosticsOutput, () => "");
+    const buildSampledRulegenSamplingLines = getFunction(opts.buildSampledRulegenSamplingLines, () => []);
+    const buildSampledRulegenHeader = getFunction(opts.buildSampledRulegenHeader, () => "");
+    const buildSampledRulegenEmptyOutput = getFunction(opts.buildSampledRulegenEmptyOutput, () => "");
+    const buildSampledRulegenTargetsOutput = getFunction(opts.buildSampledRulegenTargetsOutput, () => "");
+    const syncSelectedProfile = getFunction(
+      opts.syncSelectedProfile,
+      (items) => Promise.resolve({
+        items,
+        profileId: "default"
+      })
+    );
+    const resolvePlanningState = getFunction(opts.resolvePlanningState, () => null);
+    const refreshSemanticAdmissionStatus = getFunction(
+      opts.refreshSemanticAdmissionStatus,
+      () => Promise.resolve()
+    );
     const semanticPackWorkflowFactory = root.optionsSrsSemanticPackInstallWorkflow
       && typeof root.optionsSrsSemanticPackInstallWorkflow.createSemanticPackInstallWorkflow === "function"
       ? root.optionsSrsSemanticPackInstallWorkflow.createSemanticPackInstallWorkflow
@@ -93,6 +79,7 @@
           setStatus,
           resolvePair,
           syncSelectedProfile,
+          confirmFn,
           log,
           colors,
           wordsRefreshButton,
