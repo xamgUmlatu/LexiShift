@@ -661,7 +661,9 @@ Primary computation points:
 - growth or refresh:
   - user requests more words or policy triggers a growth cycle;
   - profile and inventory state are current inputs;
-  - new probabilities are computed against the current eligible frontier.
+  - current implementation uses `profile_growth`, which reuses the same
+    profile-aware utility signals as `profile_bootstrap` against the current
+    eligible frontier, then admits only within the normal refresh budget.
 
 - profile or source changes:
   - if interests, proficiency, source pack, rulegen coverage, or blocked terms

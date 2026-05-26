@@ -509,6 +509,7 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
                 set_top_n=set_top_n,
                 feedback_window_size=feedback_window_size,
                 max_active_items=_optional_int(payload, "max_active_items"),

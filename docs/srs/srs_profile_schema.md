@@ -322,7 +322,8 @@ This keeps profile modeling decoupled from mutation details.
 - `frequency_bootstrap`: executable baseline.
 - `profile_bootstrap`: executable when requested; options initialize and
   admission preview request this strategy with normalized profile context.
-- `profile_growth`: executable for dedicated rebalance preview/apply, but not yet for general growth admission.
+- `profile_growth`: executable for refresh/growth admission and dedicated
+  rebalance preview/apply.
 - `adaptive_refresh`: planner-only, feedback-aggregation dependent.
 
 Objectives:

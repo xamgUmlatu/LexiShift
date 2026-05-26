@@ -75,6 +75,21 @@ class TestSrsSetPlanner(unittest.TestCase):
         self.assertEqual(plan.objective, "rebalance")
         self.assertIn("empirical_trends", plan.requires_profile_fields)
 
+    def test_profile_growth_refresh_is_executable(self) -> None:
+        plan = build_srs_set_plan(
+            SrsSetPlanRequest(
+                pair="en-ja",
+                strategy="profile_growth",
+                objective="refresh",
+                profile_context={"interests": ["animals"]},
+            )
+        )
+        self.assertTrue(plan.can_execute)
+        self.assertEqual(plan.execution_mode, "profile_growth")
+        self.assertEqual(plan.strategy_effective, "profile_growth")
+        self.assertEqual(plan.objective, "refresh")
+        self.assertTrue(any("ongoing refresh/growth admission" in note for note in plan.notes))
+
 
 if __name__ == "__main__":
     unittest.main()

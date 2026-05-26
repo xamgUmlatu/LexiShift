@@ -66,9 +66,9 @@ Ship a non-destructive SRS layer where:
     `profile_bootstrap`
   - requested `profile_bootstrap` now reports and executes as profile-aware
     bootstrap over the frequency seed frontier
-  - `profile_growth` remains a non-default future strategy for general
-    growth admission, but is now an MVP requirement for keeping later
-    admissions specialized after the initial bootstrap batch
+  - refresh now defaults to `profile_growth`, which keeps later admissions
+    specialized after the initial bootstrap batch by applying profile-aware
+    candidate scoring before the normal refresh gates
   - `adaptive_refresh` remains a non-default future strategy
 - Bootstrap admission policy now applies explicit POS buckets with centralized coefficients (non-magic constants).
 - JP stopword filtering is active from helper-owned `srs/stopwords/stopwords-ja.json` (or sibling fallback path).
@@ -152,7 +152,7 @@ Status key:
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
-- `[ ]` MVP executable `profile_growth` policy for ongoing specialized
+- `[x]` MVP executable `profile_growth` policy for ongoing specialized
   admission after bootstrap; later refresh/growth admissions must keep applying
   profile topic/proficiency/challenge shaping instead of reverting to generic
   frequency order.
@@ -287,7 +287,8 @@ Definition of done for `en-de` parity:
 4. Keep frequency bootstrap as executable baseline.
 
 ### Phase 2 (admission quality)
-1. Implement profile-aware scoring for bootstrap/growth admission.
+1. Keep profile-aware bootstrap/growth admission calibrated against topic
+   coverage and learner-proficiency behavior.
 2. Make `initial_active_count` executable in active/frontier serving policy.
 3. Add planner diagnostics for why each item entered `S`.
 4. Add policy knobs for per-pair new-item pace.

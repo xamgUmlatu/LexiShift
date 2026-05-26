@@ -350,6 +350,7 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(helperCalls[0].options.profileId, "travel");
   assert.equal(helperCalls[0].options.setTopN, 900);
   assert.equal(helperCalls[0].options.maxActiveItems, 24);
+  assert.equal(helperCalls[0].options.strategy, "profile_growth");
   assert.equal(helperCalls[0].options.trigger, "options_refresh_set_button");
   assert.deepEqual(normalize(helperCalls[0].options.profileContext), {{
     pair: "en-ja",

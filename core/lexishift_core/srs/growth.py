@@ -16,6 +16,7 @@ from lexishift_core.srs.selector import (
     SelectorConfig,
     filter_candidates,
     rank_candidates,
+    select_scored_candidates,
 )
 from lexishift_core.srs.store_ops import build_item_id, upsert_item
 from lexishift_core.srs.time import format_ts, now_utc
@@ -121,7 +122,13 @@ def plan_srs_growth(
         add_count = min(add_count, max(0, int(max_new)))
     add_count = min(add_count, len(scored))
 
-    selected = [entry.candidate for entry in scored[:add_count]]
+    selected_scored = select_scored_candidates(
+        scored,
+        config=config.selector_config,
+        selection_count=add_count,
+        seed=None,
+    )
+    selected = [entry.candidate for entry in selected_scored]
     return SrsGrowthPlan(
         allowed_pairs=pairs,
         coverage_ratio=coverage_ratio,

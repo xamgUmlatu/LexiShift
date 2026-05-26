@@ -48,8 +48,12 @@ Define how set `S` is planned and mutated:
     preview explicitly request this strategy.
 
 - `profile_growth`
-  - Status: rebalance-only executable lane.
-  - Behavior: dedicated rebalance preview/apply keep `profile_growth` as the effective strategy, but broader growth admission remains unimplemented.
+  - Status: executable for refresh/growth admission and dedicated rebalance.
+  - Behavior: refresh/growth admission reuses the profile-bootstrap utility
+    model over the current eligible seed frontier, then applies the normal SRS
+    capacity, due-pressure, retention, POS, and lifecycle gates before adding
+    new items into `S`. Dedicated rebalance preview/apply also keep
+    `profile_growth` as the effective strategy for inventory-aware replacement.
 
 - `adaptive_refresh`
   - Status: planner-only.
@@ -132,11 +136,6 @@ Policy decision for SRS scheduling:
 
 ## Planned implementation steps
 
-1. Implement executable `profile_growth` for controlled admission into `S`,
-   beyond the current rebalance-only lane. This is MVP-relevant because
-   preference-shaped admission must continue after bootstrap; later refreshes
-   should not fall back to generic frequency order when topic/proficiency/
-   challenge profile signals are available.
-2. Add feedback-window aggregation for `adaptive_refresh`.
-3. Add policy registry by pair/domain to route strategy defaults.
-4. Expand UI diagnostics for profile signal coverage and planner decisions.
+1. Add feedback-window aggregation for `adaptive_refresh`.
+2. Add policy registry by pair/domain to route strategy defaults.
+3. Expand UI diagnostics for profile signal coverage and planner decisions.

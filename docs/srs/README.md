@@ -26,8 +26,8 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | SRS model semantics (`S`, due set, passive exposure, feedback) | `docs/srs/srs_hybrid_model_technical.md` | Mixed model reference for the adopted hybrid inventory/scheduling model. | Exact persisted schema truth when code/tests differ. |
 | Runtime practice-layer boundary | `docs/srs/srs_practice_layer_design.md` | Mixed design reference for helper publication/runtime gating and due-only publication gaps. | Claiming a due-only publication artifact exists. |
 | Persisted SRS settings/store/signal shape | `docs/srs/srs_schema.md` | Mixed schema reference separating implemented fields from planned extensions. | Assuming planned schema sections are already written by runtime. |
-| Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming profile strategies are default execution paths. |
-| Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Treating `profile_growth` as broad admission execution. |
+| Profile signal and request shapes | `docs/srs/srs_profile_schema.md` | Mixed schema reference for extension profile storage and helper `profile_context`. | Claiming every profile strategy is a default execution path. |
+| Set planning, sizing policy, and strategy behavior | `docs/srs/srs_set_planning_technical.md` | Mixed technical reference for planner modules, helper APIs, sizing clamps, and current strategy status. | Claiming automatic adaptive refresh is implemented. |
 | Admission lifecycle and refresh mutation boundaries | `docs/srs/srs_admission_lifecycle_current_state.md` | Current code-backed audit for initial admission, refresh growth, rebalance, feedback/exposure caveats, and suppression guards. | Claiming discard/suspend UI or full mastered/released lifecycle exists. |
 | SRS resource, storage, and cognitive-load budgets | `docs/srs/srs_resource_budget_and_load_audit.md` | Current-plus-readiness audit for active-set size, page replacement density, extension storage caps, helper artifacts, browsing aggregates, and encounter-starvation diagnostics. | Claiming live Chrome storage bytes have been audited without a browser-profile export. |
 | Admitted-words dashboard and lifecycle UX policy | `docs/srs/srs_admitted_words_dashboard_plan.md` | Product/implementation contract and verification runbook for the admitted-words dashboard, including read-only listing/rule details, local controls, encounter-watch visibility, advanced-details boundary, and confirmed discard. | Claiming restore, mastery/release, or undo controls are shipped. |
@@ -79,8 +79,8 @@ update changes the owning docs:
 - options initialize and admission preview explicitly request
   `profile_bootstrap`, which applies implemented profile-aware scoring and
   diagnostics over the frequency seed frontier;
-- `profile_growth` is executable for rebalance preview/apply, not broad
-  growth-admission into `S`;
+- `profile_growth` is executable for refresh/growth admission into `S` and for
+  rebalance preview/apply;
 - due-aware serving is implemented through helper rulegen SRS due metadata plus
   extension runtime gating when regenerated helper rules carry that metadata;
 - helper publication still uses the broader active/admitted inventory rather

@@ -2267,6 +2267,142 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertIn("admission_weight", result["admission_refresh"]["weight_terms"])
             self.assertIn("serving_priority", result["admission_refresh"]["weight_terms"])
 
+    def test_refresh_applies_profile_growth_scoring(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+
+            save_srs_settings(
+                SrsSettings(max_active_items=3, max_new_items_per_day=2),
+                paths.srs_settings_path,
+            )
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:alpha",
+                            lemma="alpha",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            save_signal_events(
+                paths.srs_signal_queue_path,
+                [
+                    SrsSignalEvent(
+                        event_type="feedback",
+                        pair="en-ja",
+                        lemma=f"lemma{i}",
+                        source_type="extension",
+                        rating="good",
+                    )
+                    for i in range(12)
+                ],
+            )
+
+            selected = [
+                SimpleNamespace(
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    core_rank=1.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=100.0,
+                    base_weight=0.99,
+                    admission_weight=0.99,
+                    metadata={},
+                    word_package=None,
+                ),
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=2.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=98.0,
+                    base_weight=0.95,
+                    admission_weight=0.95,
+                    metadata={},
+                    word_package=None,
+                ),
+                SimpleNamespace(
+                    lemma="gamma",
+                    language_pair="en-ja",
+                    core_rank=3.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=96.0,
+                    base_weight=0.90,
+                    admission_weight=0.90,
+                    metadata={},
+                    word_package=None,
+                ),
+                SimpleNamespace(
+                    lemma="madre",
+                    language_pair="en-ja",
+                    core_rank=20.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=55.0,
+                    base_weight=0.70,
+                    admission_weight=0.70,
+                    metadata={"sense_topics": ["family"]},
+                    word_package={
+                        "version": 1,
+                        "language_tag": "ja",
+                        "surface": "madre",
+                        "script_forms": {"surface": "madre"},
+                        "source": {"provider": "unit"},
+                    },
+                ),
+            ]
+            with patch(
+                "lexishift_core.helper.engine.build_seed_candidates",
+                return_value=selected,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        strategy="profile_growth",
+                        profile_context={"interests": ["family"]},
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            self.assertEqual(result["strategy_effective"], "profile_growth")
+            refresh_payload = result["admission_refresh"]
+            self.assertEqual(
+                refresh_payload["selection_strategy_effective"],
+                "profile_growth",
+            )
+            self.assertEqual(refresh_payload["selection_policy"], "reserved_topic_lane")
+            self.assertEqual(
+                refresh_payload["profile_growth"]["selector_version"],
+                "profile_bootstrap_v5",
+            )
+            self.assertEqual(refresh_payload["selected_lemmas"], ["madre", "beta"])
+
+            persisted = load_srs_store(paths.srs_store_path)
+            madre = next(item for item in persisted.items if item.lemma == "madre")
+            self.assertIsNotNone(madre.word_package)
+            self.assertEqual(madre.word_package["surface"], "madre")
+
     def test_refresh_respects_max_active_items_for_non_due_active_items(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

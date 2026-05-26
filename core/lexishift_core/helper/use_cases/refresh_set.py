@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from pathlib import Path
-from typing import Callable, Sequence
+from typing import Callable, Mapping, Optional, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
@@ -32,8 +33,19 @@ from lexishift_core.srs.admission_suppression import (
 )
 from lexishift_core.srs.browsing_admission import load_browsing_signal_store
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
+from lexishift_core.srs.profile_bootstrap import (
+    DEFAULT_PROFILE_BOOTSTRAP_POLICY,
+    score_seed_words_for_profile,
+)
 from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord, seed_to_selector_candidates
+from lexishift_core.srs.selector import SelectorCandidate, SelectorConfig
 from lexishift_core.srs.signal_queue import load_signal_events
+from lexishift_core.srs.set_strategy import (
+    STRATEGY_FREQUENCY_BOOTSTRAP,
+    STRATEGY_PROFILE_BOOTSTRAP,
+    STRATEGY_PROFILE_GROWTH,
+    normalize_set_strategy,
+)
 from lexishift_core.srs.store_ops import build_item_id
 from lexishift_core.srs.time import now_utc
 
@@ -139,7 +151,20 @@ def refresh_srs_set(
             if str(getattr(seed, "lemma", "")).strip()
         )
     )
-    selector_candidates = seed_to_selector_candidates(selection)
+    strategy_requested = str(
+        getattr(config, "strategy", STRATEGY_PROFILE_GROWTH) or STRATEGY_PROFILE_GROWTH
+    ).strip()
+    strategy_effective = _resolve_refresh_strategy(strategy_requested)
+    selector_config: Optional[SelectorConfig] = None
+    profile_growth_diagnostics: Mapping[str, object] = {}
+    if strategy_effective == STRATEGY_PROFILE_GROWTH:
+        selector_candidates, profile_growth_diagnostics = _profile_growth_selector_candidates(
+            selection,
+            profile_context=getattr(config, "profile_context", None),
+        )
+        selector_config = DEFAULT_PROFILE_BOOTSTRAP_POLICY.selector_config
+    else:
+        selector_candidates = seed_to_selector_candidates(selection)
     signal_events = load_signal_events(paths.srs_signal_queue_path_for(profile_id))
     allowed_pos = _normalize_allowed_pos(getattr(config, "allowed_pos", None))
     refresh_policy = AdmissionRefreshPolicy(
@@ -147,6 +172,7 @@ def refresh_srs_set(
         max_active_items_override=config.max_active_items,
         max_new_items_override=config.max_new_items,
         allowed_pos=allowed_pos or None,
+        selector_config=selector_config or AdmissionRefreshPolicy().selector_config,
         blocked_lemmas=set(suppressed_lemmas.keys()) or None,
     )
     updated_store, refresh_result = apply_admission_refresh(
@@ -171,6 +197,8 @@ def refresh_srs_set(
     )
     browsing_preview["store_path"] = str(browsing_store_path)
     browsing_preview["store_exists"] = bool(browsing_store_path.exists())
+    browsing_preview["selection_strategy_requested"] = strategy_requested
+    browsing_preview["selection_strategy_effective"] = strategy_effective
     inventory_updated_at = None
     inventory_payload_source = inventory_source
     inventory_backfilled = False
@@ -270,6 +298,11 @@ def refresh_srs_set(
             ),
         }
     refresh_payload = admission_refresh_result_to_dict(refresh_result)
+    refresh_payload["selection_strategy_requested"] = strategy_requested
+    refresh_payload["selection_strategy_effective"] = strategy_effective
+    refresh_payload["selection_policy"] = refresh_policy.selector_config.selection_policy
+    if profile_growth_diagnostics:
+        refresh_payload["profile_growth"] = _profile_growth_payload(profile_growth_diagnostics)
     refresh_payload["weight_terms"] = {
         "admission_weight": "Entry/growth score for adding words into S.",
         "serving_priority": "Due/scheduler-derived priority for selecting words already in S.",
@@ -277,6 +310,8 @@ def refresh_srs_set(
     return {
         "pair": pair,
         "profile_id": profile_id,
+        "strategy_requested": strategy_requested,
+        "strategy_effective": strategy_effective,
         "set_top_n": effective_set_top_n,
         "feedback_window_size": effective_feedback_window_size,
         "allowed_pos": sorted(allowed_pos),
@@ -308,6 +343,130 @@ def refresh_srs_set(
         "persisted": bool(config.persist_store),
         "trigger": str(config.trigger or "manual"),
     }
+
+
+def _resolve_refresh_strategy(value: object) -> str:
+    normalized = normalize_set_strategy(value)
+    if normalized in {STRATEGY_PROFILE_BOOTSTRAP, STRATEGY_PROFILE_GROWTH}:
+        return STRATEGY_PROFILE_GROWTH
+    return STRATEGY_FREQUENCY_BOOTSTRAP
+
+
+def _profile_growth_selector_candidates(
+    seeds: Sequence[SeedWord],
+    *,
+    profile_context: Optional[Mapping[str, object]],
+) -> tuple[list[SelectorCandidate], Mapping[str, object]]:
+    scored_entries, diagnostics = score_seed_words_for_profile(
+        seeds,
+        profile_context=profile_context,
+        preview_limit=10,
+    )
+    candidates: list[SelectorCandidate] = []
+    for entry in scored_entries:
+        base_candidates = seed_to_selector_candidates([entry.seed])
+        if not base_candidates:
+            continue
+        base_candidate = base_candidates[0]
+        profile_candidate = entry.scored_candidate.candidate
+        base_metadata = (
+            dict(base_candidate.metadata) if isinstance(base_candidate.metadata, Mapping) else {}
+        )
+        profile_metadata = (
+            dict(profile_candidate.metadata)
+            if isinstance(profile_candidate.metadata, Mapping)
+            else {}
+        )
+        metadata = {
+            **base_metadata,
+            **profile_metadata,
+            "selection_strategy": STRATEGY_PROFILE_GROWTH,
+            "profile_growth_score": round(
+                float(entry.scored_candidate.breakdown.final_score),
+                6,
+            ),
+            "profile_growth_weighted_components": {
+                key: round(float(value), 6)
+                for key, value in entry.scored_candidate.breakdown.components.items()
+            },
+        }
+        candidates.append(
+            replace(
+                profile_candidate,
+                confidence=base_candidate.confidence,
+                source_type=base_candidate.source_type,
+                metadata=metadata,
+            )
+        )
+    return candidates, diagnostics
+
+
+def _profile_growth_payload(diagnostics: Mapping[str, object]) -> dict[str, object]:
+    payload: dict[str, object] = {}
+    profile_context = diagnostics.get("profile_context")
+    active_signals = (
+        profile_context.get("active_signals") if isinstance(profile_context, Mapping) else None
+    )
+    has_active_profile_signals = bool(active_signals)
+    for key in (
+        "selector_version",
+        "selector_policy_version",
+        "selection_weights",
+        "selection_policy",
+        "utility_weights",
+        "profile_context",
+    ):
+        if key in diagnostics:
+            payload[key] = diagnostics[key]
+    if not has_active_profile_signals:
+        return payload
+    for key in (
+        "active_topic_support",
+        "topic_depth_by_level",
+        "ranking_preview",
+    ):
+        if key in diagnostics:
+            if key == "ranking_preview":
+                payload[key] = _compact_profile_growth_ranking_preview(diagnostics[key])
+            else:
+                payload[key] = diagnostics[key]
+    return payload
+
+
+def _compact_profile_growth_ranking_preview(value: object) -> list[dict[str, object]]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return []
+    preview: list[dict[str, object]] = []
+    for entry in value[:10]:
+        if not isinstance(entry, Mapping):
+            continue
+        signals = entry.get("signals")
+        signal_map = signals if isinstance(signals, Mapping) else {}
+        preview.append(
+            {
+                "lemma": entry.get("lemma"),
+                "base_rank": entry.get("base_rank"),
+                "reranked_rank": entry.get("reranked_rank"),
+                "rank_delta": entry.get("rank_delta"),
+                "pos_bucket": entry.get("pos_bucket"),
+                "base_weight": entry.get("base_weight"),
+                "admission_weight": entry.get("admission_weight"),
+                "profile_score": entry.get("profile_score"),
+                "topic_affinity": signal_map.get("topic_affinity"),
+                "topic_affinity_source": signal_map.get("topic_affinity_source"),
+                "proficiency_fit": signal_map.get("proficiency_fit"),
+                "challenge_fit": signal_map.get("challenge_fit"),
+                "readiness_multiplier": signal_map.get("readiness_multiplier"),
+                "difficulty_estimate": signal_map.get("difficulty_estimate"),
+                "active_profile_drivers": list(
+                    entry.get("active_profile_drivers")
+                    if isinstance(entry.get("active_profile_drivers"), Sequence)
+                    and not isinstance(entry.get("active_profile_drivers"), (str, bytes))
+                    else []
+                ),
+            }
+        )
+    return preview
 
 
 def _normalize_allowed_pos(value: object) -> set[str]:

@@ -328,6 +328,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
         set_source_db_arg=args.set_source_db,
     )
     try:
+        profile_context = _load_optional_json(args.profile_context_json)
         payload = refresh_srs_set(
             paths,
             config=SrsRefreshJobConfig(
@@ -336,6 +337,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
                 translation_dict_path=translation_dict_path,
                 set_source_db=set_source_db,
                 profile_id=args.profile_id or "default",
+                strategy=args.strategy,
                 set_top_n=args.set_top_n,
                 feedback_window_size=args.feedback_window_size,
                 max_active_items=args.max_active_items,
@@ -343,6 +345,7 @@ def cmd_refresh_srs_set(args: argparse.Namespace) -> int:
                 allowed_pos=args.allowed_pos,
                 persist_store=not args.no_persist_store,
                 trigger=args.trigger,
+                profile_context=profile_context,
             ),
         )
         _print_json(payload)
@@ -726,6 +729,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--allowed-pos",
         nargs="+",
         help="Optional POS bucket allow-list for admission (e.g. noun adjective verb).",
+    )
+    refresh_s.add_argument("--strategy", default="profile_growth")
+    refresh_s.add_argument(
+        "--profile-context-json",
+        help="JSON object with profile context signals used by profile_growth.",
     )
     refresh_s.add_argument(
         "--no-persist-store", action="store_true", help="Do not write changes to srs_store.json"

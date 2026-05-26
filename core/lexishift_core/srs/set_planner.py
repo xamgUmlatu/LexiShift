@@ -6,7 +6,9 @@ from typing import Mapping, Sequence
 from lexishift_core.srs.profile_bootstrap import summarize_profile_bootstrap_context
 from lexishift_core.srs.set_strategy import (
     OBJECTIVE_BOOTSTRAP,
+    OBJECTIVE_GROWTH,
     OBJECTIVE_REBALANCE,
+    OBJECTIVE_REFRESH,
     STRATEGY_ADAPTIVE_REFRESH,
     STRATEGY_FREQUENCY_BOOTSTRAP,
     STRATEGY_PROFILE_BOOTSTRAP,
@@ -102,11 +104,19 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
                 "Profile growth rebalance reranks retained and seed candidates against the "
                 "current active inventory."
             )
+        elif objective in {OBJECTIVE_GROWTH, OBJECTIVE_REFRESH}:
+            can_execute = True
+            execution_mode = "profile_growth"
+            notes.append(
+                "Profile growth applies profile-aware candidate scoring during ongoing "
+                "refresh/growth admission."
+            )
         else:
             can_execute = False
             execution_mode = "planner_only"
             notes.append(
-                "Profile growth strategy is planned but not implemented. Planner returns requirements only."
+                "Profile growth is executable for refresh/growth objectives; choose "
+                "objective=growth or objective=refresh for admission into S."
             )
     elif requested == STRATEGY_ADAPTIVE_REFRESH:
         required_fields.extend(("feedback_signals", "exposure_signals"))

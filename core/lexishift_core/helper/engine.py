@@ -236,6 +236,7 @@ class SrsRefreshJobConfig:
     translation_dict_path: Optional[Path] = None
     set_source_db: Optional[Path] = None
     profile_id: str = "default"
+    strategy: str = STRATEGY_PROFILE_GROWTH
     set_top_n: Optional[int] = None
     feedback_window_size: Optional[int] = None
     max_active_items: Optional[int] = None

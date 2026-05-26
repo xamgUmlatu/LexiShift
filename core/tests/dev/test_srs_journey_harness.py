@@ -197,6 +197,14 @@ class TestSrsJourneyHarness(unittest.TestCase):
         self.assertEqual(phases[0]["counts"]["admitted"], 3)
         self.assertEqual(phases[2]["refresh"]["audit"]["selected_lemmas"], ["hora", "campo"])
         self.assertEqual(
+            phases[2]["refresh"]["payload"]["admission_refresh"]["selection_strategy_effective"],
+            "profile_growth",
+        )
+        self.assertEqual(
+            phases[2]["refresh"]["payload"]["admission_refresh"]["selection_policy"],
+            "reserved_topic_lane",
+        )
+        self.assertEqual(
             phases[3]["refresh"]["payload"]["admission_refresh"]["reason_code"],
             "retention_low",
         )

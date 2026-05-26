@@ -147,6 +147,7 @@
           : undefined,
         allowed_pos: allowedPos && allowedPos.length ? allowedPos : undefined,
         persist_store: opts.persistStore !== false,
+        strategy: typeof opts.strategy === "string" && opts.strategy ? opts.strategy : "profile_growth",
         trigger: typeof opts.trigger === "string" && opts.trigger ? opts.trigger : "options_refresh_button",
         profile_context: opts.profileContext && typeof opts.profileContext === "object"
           ? opts.profileContext

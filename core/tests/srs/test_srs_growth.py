@@ -16,11 +16,17 @@ from lexishift_core.srs import (  # noqa: E402
     SrsStore,
 )
 from lexishift_core.srs.growth import (  # noqa: E402
+    SrsGrowthConfig,
     normalize_coverage_scalar,
     plan_srs_growth,
     apply_growth_plan,
 )
-from lexishift_core.srs.selector import SelectorCandidate  # noqa: E402
+from lexishift_core.srs.selector import (  # noqa: E402
+    SELECTION_POLICY_RESERVED_TOPIC_LANE,
+    SelectorCandidate,
+    SelectorConfig,
+    SelectorWeights,
+)
 
 
 class TestSrsGrowth(unittest.TestCase):
@@ -138,6 +144,39 @@ class TestSrsGrowth(unittest.TestCase):
         self.assertEqual(plan.existing_count, 0)
         self.assertEqual(plan.filtered_size, 2)
         self.assertEqual(tuple(candidate.lemma for candidate in plan.selected), ("beta", "gamma"))
+
+    def test_plan_growth_respects_reserved_topic_lane_selection_policy(self) -> None:
+        candidates = [
+            SelectorCandidate(lemma="alpha", language_pair="en-ja", base_freq=0.99),
+            SelectorCandidate(lemma="beta", language_pair="en-ja", base_freq=0.98),
+            SelectorCandidate(lemma="gamma", language_pair="en-ja", base_freq=0.97),
+            SelectorCandidate(
+                lemma="animal",
+                language_pair="en-ja",
+                base_freq=0.40,
+                topic_bias=1.0,
+            ),
+        ]
+        store = SrsStore(items=tuple(), version=1)
+        settings = SrsSettings(coverage_scalar=1.0, max_new_items_per_day=2)
+
+        plan = plan_srs_growth(
+            candidates,
+            store=store,
+            settings=settings,
+            config=SrsGrowthConfig(
+                max_new_items=2,
+                selector_config=SelectorConfig(
+                    selection_policy=SELECTION_POLICY_RESERVED_TOPIC_LANE,
+                    weights=SelectorWeights(base_freq=1.0, topic_bias=0.01),
+                    topic_lane_max_share=0.5,
+                    topic_lane_min_window=4,
+                ),
+            ),
+            allowed_pairs=["en-ja"],
+        )
+
+        self.assertEqual(tuple(candidate.lemma for candidate in plan.selected), ("animal", "alpha"))
 
 
 if __name__ == "__main__":

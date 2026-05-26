@@ -759,8 +759,6 @@ Deliverables:
 ## Immediate Next Step
 
 Next useful harness work:
-- add an executable `profile_growth` journey lane once growth admission uses
-  profile-aware candidate scoring after bootstrap
 - add the same kind of profile-preference lane for another LP only after the
   needed topic metadata exists
 - keep the current publication broader-than-due warning visible until product

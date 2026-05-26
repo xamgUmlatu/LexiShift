@@ -1385,10 +1385,10 @@ Use this file when:
 - Status:
   - `frequency_bootstrap`: `implemented`, `default-on`, `verified`
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
-  - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
+  - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-27` `profile_bootstrap` now uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes.
-- Last verified: `2026-05-27` focused profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes.
+- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
@@ -1396,7 +1396,12 @@ Use this file when:
   - The calibration report is preview-only, but the reserved topic-lane row now
     exercises the real profile-bootstrap selection policy. Full-pool weighted
     sampling remains too diffuse as a direct topic-preference policy.
-  - `profile_growth` is executable for the dedicated rebalance preview/apply lane, but not yet as a general growth-admission strategy for adding new items into `S`.
+  - `profile_growth` is executable for refresh/growth admission into `S`; it
+    transforms the seed frontier through profile-aware scoring, applies the
+    capped reserved topic-lane selector where relevant, and then uses the
+    existing refresh admission gates before persistence/publication.
+  - `profile_growth` remains executable for the dedicated rebalance
+    preview/apply lane.
   - `adaptive_refresh` still falls back to planning-only behavior.
 - Evidence:
   - `docs/srs/srs_set_planning_technical.md`
@@ -1404,6 +1409,8 @@ Use this file when:
   - `core/lexishift_core/srs/profile_bootstrap.py`
   - `core/lexishift_core/srs/profile_bootstrap_support.py`
   - `core/lexishift_core/helper/use_cases/admission_preview.py`
+  - `core/lexishift_core/helper/use_cases/refresh_set.py`
+  - `core/lexishift_core/srs/growth.py`
   - `core/lexishift_core/srs/set_planner.py`
   - `core/lexishift_core/srs/selector.py`
   - `scripts/dev/srs_admission_lab_server.py`
@@ -1413,7 +1420,11 @@ Use this file when:
   - `core/tests/srs/test_selector.py`
   - `core/tests/dev/test_srs_admission_lab_server.py`
   - `core/tests/srs/test_srs_set_planner.py`
+  - `core/tests/srs/test_srs_growth.py`
+  - `core/tests/helper/test_helper_engine.py`
   - `core/tests/dev/test_srs_planner_strategy_contract.py`
+  - `core/tests/dev/test_helper_translation_dict_entrypoints.py`
+  - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
   - `core/tests/dev/test_srs_admission_preference_sanity.py`
   - `core/tests/dev/test_srs_admission_calibration_report_en_es.py`
   - `core/tests/dev/test_srs_frequency_topic_coverage.py`
@@ -1423,10 +1434,8 @@ Use this file when:
   - `scripts/testing/srs_frequency_topic_coverage.py`
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
 - Known gaps:
-  - `profile_growth` execution is currently limited to rebalance preview/apply; broader growth admission remains planned.
-  - Broader `profile_growth` is now an MVP product requirement for ongoing
-    specialized admission after bootstrap; implementation and verification are
-    still pending.
+  - `profile_growth` uses explicit profile signals supplied at refresh time; it
+    does not yet auto-recalibrate proficiency from conquered words.
   - Pair policy defaults are currently near-identical across active pairs.
   - `core/lexishift_core/srs/profile_bootstrap.py` remains a structural hotspot and should be split in a later health pass rather than folded into admission-contract edits.
 

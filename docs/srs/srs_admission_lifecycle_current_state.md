@@ -28,7 +28,7 @@ Restore, mastered, and release actions remain open product work.
 | Entry point | Mutates store | Mutates active inventory | Publishes rulegen | Current role |
 | --- | --- | --- | --- | --- |
 | `srs_initialize` | Yes | Yes | Yes | Initial `S` bootstrap for a pair/profile. |
-| `srs_refresh` | Yes when budget allows | Yes when budget allows | Yes when new items are admitted | Manual growth admission. This is the intended future browsing-influenced mutation point. |
+| `srs_refresh` | Yes when budget allows | Yes when budget allows | Yes when new items are admitted | Manual profile-growth admission. This is the intended future browsing-influenced mutation point. |
 | `srs_rebalance_apply` | Yes when activating new seeds | Yes | Yes when applied | Replaces swappable active items; not full deletion/release. |
 | `record_feedback` | Yes | No direct inventory write | No | Scheduler feedback; can create missing store rows and should not be reused as browsing admission. |
 | `record_exposure` | Yes | No direct inventory write | No | Passive exposure count; can create missing store rows and should not be reused as browsing admission. |
@@ -87,9 +87,11 @@ Refresh budget is controlled by:
 - mid-retention partial admission below `0.70`
 - optional request overrides for max active, max new, feedback window, and POS
 
-Candidate selection uses frequency seeds converted to selector candidates.
-Existing lemmas are filtered by `grow_srs_store`, so refresh does not duplicate
-already admitted lemmas for the same pair.
+Candidate selection defaults to `profile_growth`: frequency seeds are converted
+through the profile-aware admission scorer, then selected by the same growth
+planner used by ordinary SRS admission. Existing lemmas are filtered by
+`grow_srs_store`, so refresh does not duplicate already admitted lemmas for the
+same pair.
 
 Current lifecycle guard:
 

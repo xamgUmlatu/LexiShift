@@ -309,6 +309,36 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertEqual(config.preview_count, 3)
         self.assertEqual(config.profile_context, {"interests": ["animals"]})
 
+    def test_native_host_routes_srs_refresh_profile_growth(self) -> None:
+        module = _load_module("lexishift_native_host_refresh_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            with (
+                patch.object(module, "build_helper_paths", return_value=paths),
+                patch.object(
+                    module,
+                    "refresh_srs_set",
+                    return_value={"kind": "refresh", "pair": "en-ja"},
+                ) as refresh,
+            ):
+                response = module._handle_request(
+                    "srs_refresh",
+                    {
+                        "pair": "en-ja",
+                        "profile_id": "default",
+                        "strategy": "profile_growth",
+                        "profile_context": {"interests": ["animals"]},
+                    },
+                )
+
+        self.assertEqual(response["kind"], "refresh")
+        config = refresh.call_args.kwargs["config"]
+        self.assertEqual(config.pair, "en-ja")
+        self.assertEqual(config.profile_id, "default")
+        self.assertEqual(config.strategy, "profile_growth")
+        self.assertEqual(config.profile_context, {"interests": ["animals"]})
+
     def test_native_host_routes_semantic_admit_batch(self) -> None:
         module = _load_module("lexishift_native_host_semantic_admit_batch_test", NATIVE_HOST_SCRIPT)
 

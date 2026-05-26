@@ -215,6 +215,7 @@
           profileId: synced.profileId,
           setTopN: planningState.profile.srsBootstrapTopN || settingsManager.defaults.srsBootstrapTopN || 800,
           maxActiveItems: planningState.profile.srsMaxActive || settingsManager.defaults.srsMaxActive || 40,
+          strategy: "profile_growth",
           trigger: "options_refresh_set_button",
           profileContext
         });
