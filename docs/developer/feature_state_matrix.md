@@ -1528,9 +1528,9 @@ Use this file when:
   local dashboard search/filter/sort/pagination, read-only published-rule
   summaries, capped on-demand rule details, and confirmed durable dashboard
   discard; restore/mastery/release controls remain `planned`
-- Last documented checkpoint: `2026-05-26` admitted-words dashboard control
+- Last documented checkpoint: `2026-05-26` admitted-words dashboard bridge/control
   polish, options UI, local review controls, published-rule summaries/details,
-  and first durable lifecycle action:
+  first durable lifecycle action, and profile-bootstrap bridge coverage:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
   due/removed states, and expose scheduler/lifecycle details behind an advanced
   toggle in options; the dashboard can locally search/filter/sort already-loaded
@@ -1538,12 +1538,15 @@ Use this file when:
   metadata, disabled-state-aware clear filters, and Escape-to-clear search; rows
   show read-only published-rule counts/source previews and can load capped
   read-only rule details on demand; eligible rows can confirm Discard, which
-  reuses `srs_admission_suppress` with `reason=user_blocked`
-- Last verified: `2026-05-26` dashboard meta-control,
-  rule-summary/detail, search/filter/sort/pagination, and confirmed discard route tests; focused
-  helper endpoint, native-host route, helper client/manager route, suppression
-  writer tests, SRS quality harness, changed-file gate, doc-reference check, and
-  state audit
+  reuses `srs_admission_suppress` with `reason=user_blocked`; focused helper
+  coverage now verifies profile-bootstrap initialization through rule publication
+  and dashboard listing
+- Last verified: `2026-05-26` dashboard bridge and meta-control,
+  rule-summary/detail, search/filter/sort/pagination, confirmed discard route,
+  and profile-bootstrap initialize-to-dashboard bridge tests; focused helper
+  endpoint, native-host route, helper client/manager route, suppression writer
+  tests, SRS quality harness, changed-file gate, doc-reference check, and state
+  audit
 - Default behavior:
   - The options page exposes a Learning words dashboard for the selected
     profile and language pair.
@@ -1564,6 +1567,9 @@ Use this file when:
   - Each row can show read-only published-rule count plus a capped source-phrase
     preview from the current helper-published ruleset artifact. Missing or
     unreadable rulesets do not block item listing.
+  - Profile-bootstrap initialization, helper-published rule outputs, active
+    inventory, and dashboard list summaries share the same pair/profile helper
+    state.
   - Rows with published rules can load capped read-only details for that lemma
     on demand through `srs_item_rule_details`; the normal list payload remains
     compact.

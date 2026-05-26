@@ -3,9 +3,10 @@
 Status: active implementation contract
 Role: Product/UX decision, implementation contract, and verification runbook
 Last updated: 2026-05-26
-Last verified: 2026-05-26 helper/options dashboard tests, local
-search/filter/sort/pagination/meta-control tests, published-rule
-summary/detail tests, durable discard workflow tests, and SRS quality harness
+Last verified: 2026-05-26 helper/options dashboard tests, profile-bootstrap
+initialize -> rule publication -> dashboard bridge test, local search/filter/
+sort/pagination/meta-control tests, published-rule summary/detail tests, durable
+discard workflow tests, and SRS quality harness
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, module/data boundaries, and
 deferred lifecycle actions
@@ -329,6 +330,8 @@ Current covered behaviors:
 
 - helper list payload shape, summaries, active/queued/due/removed status, and
   published-rule summaries;
+- profile-bootstrap initialization can publish active rule outputs and then
+  surface the admitted words through the dashboard read model;
 - helper rule-detail payload shape and capped rule rows;
 - native-host/helper-manager route plumbing;
 - options dashboard refresh, search, status filter, sort, page-size,

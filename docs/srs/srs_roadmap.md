@@ -185,6 +185,8 @@ Status key:
 - `[x]` Extension runtime consumes helper rules through service-worker bridge (single native messaging boundary).
 - `[x]` Read-only options dashboard can list admitted SRS words for the selected
   pair/profile through the helper/native-host route.
+- `[x]` Helper bridge test covers profile-bootstrap initialization through active
+  rule publication and dashboard listing.
 - `[ ]` Rule quality hardening for broad/ambiguous gloss sources.
 
 ### Workstream F — Cross-surface consistency
@@ -203,6 +205,8 @@ Status key:
 - `[x]` Add assertion checks for "no schedule mutation from exposure-only events".
 - `[x]` Add deterministic helper test: high-retention feedback enables admissions and publishes rulegen outputs.
 - `[x]` Add multi-phase simulation test (`high retention -> low retention pause -> high retention`) asserting S growth + ruleset/snapshot evolution (`core/tests/srs/test_srs_feedback_simulation.py`).
+- `[x]` Add helper bridge test for preference-aware bootstrap -> active inventory
+  -> rule publication -> dashboard visibility.
 - `[ ]` Add diagnostics snapshots for before/after feedback cycles (store + sampled lemmas).
 - `[ ]` Add per-pair calibration report for admission/serving distributions.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).

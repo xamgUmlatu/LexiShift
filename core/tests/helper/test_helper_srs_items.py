@@ -1,16 +1,24 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+import sqlite3
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 CORE_ROOT = Path(__file__).resolve().parents[2]
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
-from lexishift_core.helper.engine import get_srs_item_rule_details, list_srs_items  # noqa: E402
+from lexishift_core.helper.engine import (  # noqa: E402
+    SetInitializationJobConfig,
+    get_srs_item_rule_details,
+    initialize_srs_set,
+    list_srs_items,
+)
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
@@ -42,7 +50,148 @@ def _word_package(surface: str, *, pos: str = "noun") -> dict[str, object]:
     }
 
 
+def _create_profile_frequency_db(path: Path) -> Path:
+    rows = (
+        ("money", 1.0, 90.0, "noun", "finance"),
+        ("home", 2.0, 84.0, "noun", "daily_life"),
+        ("food", 3.0, 78.0, "noun", "food_cooking"),
+        ("travel", 4.0, 66.0, "noun", "travel"),
+        ("music", 5.0, 62.0, "noun", "music_entertainment"),
+        ("dog", 6.0, 60.0, "noun", "animals,pets"),
+        ("elephant", 7.0, 52.0, "noun", "animals"),
+        ("falcon", 8.0, 40.0, "noun", "animals"),
+        ("reptile", 9.0, 36.0, "noun", "animals"),
+        ("thesis", 10.0, 38.0, "noun", "academic"),
+    )
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute(
+            """
+            CREATE TABLE frequency (
+                lemma TEXT,
+                core_rank REAL,
+                pmw REAL,
+                pos TEXT,
+                sense_topics TEXT
+            )
+            """
+        )
+        conn.executemany(
+            """
+            INSERT INTO frequency (lemma, core_rank, pmw, pos, sense_topics)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            rows,
+        )
+        conn.commit()
+    finally:
+        conn.close()
+    return path
+
+
+def _stub_rulegen_for_pair(*, store, pair: str, active_item_ids=None, **_kwargs):
+    active_ids = {str(item_id).strip() for item_id in (active_item_ids or ())}
+    lemmas = [
+        item.lemma
+        for item in store.items
+        if item.language_pair == pair and (not active_ids or item.item_id in active_ids)
+    ]
+    rules = tuple(VocabRule(source_phrase=f"source_{lemma}", replacement=lemma) for lemma in lemmas)
+    snapshot = {
+        "version": 1,
+        "pair": pair,
+        "targets": [{"lemma": lemma} for lemma in lemmas],
+        "stats": {
+            "target_count": len(lemmas),
+            "rule_count": len(rules),
+            "source_count": len(rules),
+        },
+    }
+    return store, SimpleNamespace(
+        rules=rules,
+        snapshot=snapshot,
+        target_count=len(lemmas),
+        semantic_inventory=None,
+    )
+
+
 class TestHelperSrsItems(unittest.TestCase):
+    def test_profile_bootstrap_initialize_publishes_dashboard_rows(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            frequency_db = _create_profile_frequency_db(Path(tmp) / "profile_freq.sqlite")
+
+            with patch(
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
+                side_effect=_stub_rulegen_for_pair,
+            ):
+                init_payload = initialize_srs_set(
+                    paths,
+                    config=SetInitializationJobConfig(
+                        pair="en-en",
+                        set_source_db=frequency_db,
+                        set_top_n=10,
+                        initial_active_count=3,
+                        replace_pair=True,
+                        strategy="profile_bootstrap",
+                        profile_context={
+                            "topic_weights": {"animals": 1.0},
+                            "proficiency": {"estimated_value": 0.45},
+                        },
+                    ),
+                )
+
+            self.assertTrue(init_payload["applied"])
+            self.assertEqual(init_payload["plan"]["strategy_effective"], "profile_bootstrap")
+            self.assertEqual(init_payload["plan"]["execution_mode"], "profile_bootstrap")
+            self.assertEqual(
+                init_payload["bootstrap_diagnostics"]["selection_strategy"],
+                "profile_bootstrap",
+            )
+            self.assertEqual(
+                init_payload["bootstrap_diagnostics"]["initial_active_preview"],
+                ["falcon", "reptile", "elephant"],
+            )
+
+            dashboard = list_srs_items(paths, pair="en-en", profile_id="default", now=NOW)
+
+            self.assertEqual(dashboard["status"], "ok")
+            self.assertTrue(dashboard["store_exists"])
+            self.assertTrue(dashboard["inventory_exists"])
+            self.assertTrue(dashboard["ruleset_exists"])
+            self.assertEqual(dashboard["inventory_source"], "inventory")
+            self.assertEqual(
+                dashboard["summary"],
+                {
+                    "total": 3,
+                    "active": 3,
+                    "queued": 0,
+                    "due_now": 0,
+                    "due_soon": 0,
+                    "learning": 3,
+                    "reviewing": 0,
+                    "discarded": 0,
+                    "cleared": 0,
+                    "removed": 0,
+                    "with_word_package": 3,
+                    "inventory_active_count": 3,
+                },
+            )
+            self.assertEqual(dashboard["rule_summary"]["lemmas_with_rules"], 3)
+            by_lemma = {item["lemma"]: item for item in dashboard["items"]}
+            self.assertEqual(set(by_lemma), {"elephant", "falcon", "reptile"})
+            self.assertEqual(by_lemma["falcon"]["status"], "learning")
+            self.assertEqual(
+                by_lemma["falcon"]["rule_summary"],
+                {
+                    "rule_count": 1,
+                    "enabled_rule_count": 1,
+                    "source_phrases": ["source_falcon"],
+                    "source_phrase_count": 1,
+                    "source_preview_truncated": False,
+                },
+            )
+
     def test_list_srs_items_reports_dashboard_statuses(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             paths = build_helper_paths(Path(tmp))
