@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
+Last verified: 2026-05-26 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -77,7 +77,9 @@ coarse and too sticky for passive browsing history.
 Refresh budget is controlled by:
 
 - `SrsSettings.max_active_items`, default `40`
-- `SrsSettings.max_new_items_per_day`, default `8`
+- active SRS item count for the pair, counted from active store rows
+- `SrsSettings.max_new_items_per_day`, default `8` (currently a per-refresh
+  admission cap, not a separate calendar-day ledger)
 - current due count from `select_active_items`
 - due pressure threshold, default pause above `0.80`
 - feedback-window size, default `100`

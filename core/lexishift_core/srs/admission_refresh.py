@@ -81,6 +81,7 @@ class AdmissionRefreshDecision:
     pair: str
     max_active_items: int
     max_new_items_per_day: int
+    active_count: int
     due_count: int
     due_pressure: float
     capacity_budget: int
@@ -281,8 +282,9 @@ def plan_admission_refresh(
     )
     due_count = len(due_items)
     due_pressure = due_count / float(max_active_items) if max_active_items > 0 else 1.0
+    active_count = _count_active_items_for_pair(store, pair=pair)
 
-    capacity_budget = max(0, max_active_items - due_count)
+    capacity_budget = max(0, max_active_items - active_count)
     base_budget = min(max_new_items, capacity_budget)
 
     feedback_stats = compute_feedback_window_stats(
@@ -321,6 +323,7 @@ def plan_admission_refresh(
         pair=pair,
         max_active_items=max_active_items,
         max_new_items_per_day=max_new_items,
+        active_count=active_count,
         due_count=due_count,
         due_pressure=round(due_pressure, 6),
         capacity_budget=capacity_budget,
@@ -443,6 +446,7 @@ def admission_refresh_result_to_dict(result: AdmissionRefreshResult) -> dict[str
         "pair": decision.pair,
         "max_active_items": decision.max_active_items,
         "max_new_items_per_day": decision.max_new_items_per_day,
+        "active_count": decision.active_count,
         "due_count": decision.due_count,
         "due_pressure": decision.due_pressure,
         "capacity_budget": decision.capacity_budget,
@@ -484,6 +488,10 @@ def _resolve_non_negative_int(value: Optional[int], *, fallback: int) -> int:
     else:
         parsed = int(value)
     return max(0, parsed)
+
+
+def _count_active_items_for_pair(store: SrsStore, *, pair: str) -> int:
+    return sum(1 for item in store.items if item.language_pair == pair and srs_item_is_active(item))
 
 
 def _normalize_allowed_pos(value: Optional[IterableCollection[str]]) -> set[str]:

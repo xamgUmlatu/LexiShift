@@ -6,6 +6,7 @@ import sqlite3
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from hashlib import sha1
 from pathlib import Path
 from types import SimpleNamespace
@@ -2265,6 +2266,90 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertEqual(result["admission_refresh"]["reason_code"], "normal")
             self.assertIn("admission_weight", result["admission_refresh"]["weight_terms"])
             self.assertIn("serving_priority", result["admission_refresh"]["weight_terms"])
+
+    def test_refresh_respects_max_active_items_for_non_due_active_items(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+            future_due = (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
+
+            save_srs_settings(
+                SrsSettings(max_active_items=3, max_new_items_per_day=4),
+                paths.srs_settings_path,
+            )
+            save_srs_store(
+                SrsStore(
+                    items=tuple(
+                        SrsItem(
+                            item_id=f"en-ja:existing{i}",
+                            lemma=f"existing{i}",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            next_due=future_due,
+                        )
+                        for i in range(3)
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            save_signal_events(
+                paths.srs_signal_queue_path,
+                [
+                    SrsSignalEvent(
+                        event_type="feedback",
+                        pair="en-ja",
+                        lemma=f"lemma{i}",
+                        source_type="extension",
+                        rating="good",
+                    )
+                    for i in range(12)
+                ],
+            )
+
+            selected = [
+                SimpleNamespace(
+                    lemma="beta",
+                    language_pair="en-ja",
+                    core_rank=1.0,
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=100.0,
+                    base_weight=0.95,
+                    admission_weight=0.95,
+                    metadata={},
+                ),
+            ]
+            with patch(
+                "lexishift_core.helper.engine.build_seed_candidates",
+                return_value=selected,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            lemmas = {item.lemma for item in persisted.items if item.language_pair == "en-ja"}
+            self.assertEqual(lemmas, {"existing0", "existing1", "existing2"})
+            self.assertFalse(result["applied"])
+            self.assertEqual(result["added_items"], 0)
+            refresh = result["admission_refresh"]
+            self.assertEqual(refresh["active_count"], 3)
+            self.assertEqual(refresh["due_count"], 0)
+            self.assertEqual(refresh["capacity_budget"], 0)
+            self.assertEqual(refresh["reason_code"], "capacity_exhausted")
 
     def test_refresh_respects_allowed_pos_filter(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

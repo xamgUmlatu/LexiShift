@@ -123,7 +123,10 @@ Status key:
 - `[~]` User-facing SRS item visibility (options dashboard has search/filter/
   sort, pagination, refresh metadata, published-rule summaries/details, and
   confirmed discard; restore/mastery actions remain planned).
-- `[ ]` Daily/session budget policy hardening (`max_active`, `max_new_per_day`).
+- `[x]` Refresh budget hardening (`max_active` caps total active SRS items for
+  the pair; `max_new_per_day` caps each refresh admission).
+- `[ ]` Calendar-day quota ledger if `max_new_per_day` must remain strict
+  across repeated manual refreshes in the same day.
 
 ### Workstream B — Set `S` admission and initialization
 - `[x]` Frequency bootstrap pipeline for initial `S`.

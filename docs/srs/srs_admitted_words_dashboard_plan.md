@@ -349,8 +349,9 @@ Next product slices, after dashboard pagination and discard are stable:
    rendering.
 2. Rich inspection for a selected admitted word, including semantic-admission
    pointers, morphology variants, and deeper rulegen debug metadata.
-3. Optional right-click popup discard affordance, kept discrete beside review
-   ratings.
+3. Optional word-context discard affordance: likely a right-click word popup
+   with a discrete three-dots control. This is deferred until the dashboard
+   discard path and SRS testing path are stable.
 4. A confirmed restore/undo policy if discarded items should ever return.
 5. Full mastered/released lifecycle semantics, if normal FSRS feedback is not
    enough for known-word dropoff.

@@ -1417,7 +1417,7 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-26` SRS lifecycle marker update:
+- Last documented checkpoint: `2026-05-26` SRS lifecycle and active-budget update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
@@ -1428,21 +1428,26 @@ Use this file when:
   durable `user_blocked` suppression entries and mark existing SRS items
   `discarded` for future discard/block flows; non-active lifecycle states are
   now excluded from active inventory, due selection, growth capacity, and
-  rulegen publication
-- Last verified: `2026-05-26` lifecycle marker roundtrip and active-inventory
+  rulegen publication; refresh capacity now uses total active store load for
+  the pair rather than the smaller due-only subset
+- Last verified: `2026-05-26` lifecycle marker, active-budget, and active-inventory
   filtering tests, lifecycle-aware scheduler/growth/rulegen tests, admission
   suppression writer tests, reset suppression-metadata tests, fractional
   browsing-budget tests, SRS quality harness with seeded non-empty browsing
   preview, refresh-path browsing preview tests, refresh-suppression lifecycle
-  guard tests, extension packet-builder and offline helper/core research probe
-  tests, focused helper/native-host browsing ingest tests, refreshed
-  admission-lifecycle audit, and regenerated backend simulation artifact
+  guard tests, active-capacity refresh tests, extension packet-builder and
+  offline helper/core research probe tests, focused helper/native-host browsing
+  ingest tests, refreshed admission-lifecycle audit, and regenerated backend
+  simulation artifact
 - Default behavior:
   - No live browser capture is wired by default; the extension packet builder
     only runs when hidden setting `srsBrowsingAdmissionSignalsEnabled` is true.
   - No browsing signal changes actual SRS admission refresh yet.
   - Manual refresh admission now filters active admission-suppression entries;
     this guards future browsing boost from re-admitting suppressed lemmas.
+  - Manual refresh capacity is capped by total active SRS items for the pair,
+    not only by currently due items. Due count remains a pressure signal that
+    can pause admission when reviews are overloaded.
   - The `srs_admission_suppress` helper/native-host route can write durable
     `user_blocked` suppression; when a matching SRS item already exists, it marks
     that item `lifecycle_state=discarded` and removes it from active inventory.
@@ -1520,6 +1525,8 @@ Use this file when:
   - Browsing aggregates are not yet consumed by production admission refresh.
   - User-facing settings and reset/clear controls for browsing admission signals
     remain planned.
+  - A strict calendar-day quota ledger for repeated manual refreshes remains
+    planned if `max_new_items_per_day` must mean more than a per-refresh cap.
   - Restore/release/mastered lifecycle controls remain planned.
 
 ## SRS Admitted Words Dashboard

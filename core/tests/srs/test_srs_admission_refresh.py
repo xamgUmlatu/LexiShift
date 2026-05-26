@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import sys
 import unittest
+from datetime import datetime, timedelta, timezone
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
@@ -63,6 +64,39 @@ def _build_candidates() -> list[SelectorCandidate]:
 
 
 class TestSrsAdmissionRefresh(unittest.TestCase):
+    def test_plan_caps_capacity_by_active_items_not_due_only(self) -> None:
+        now = datetime(2026, 5, 26, tzinfo=timezone.utc)
+        future_due = (now + timedelta(days=7)).isoformat()
+        store = SrsStore(
+            items=tuple(
+                SrsItem(
+                    item_id=f"en-ja:existing{index}",
+                    lemma=f"existing{index}",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    next_due=future_due,
+                )
+                for index in range(3)
+            ),
+            version=1,
+        )
+        settings = SrsSettings(max_active_items=3, max_new_items_per_day=4)
+        decision = plan_admission_refresh(
+            store=store,
+            settings=settings,
+            pair="en-ja",
+            events=[],
+            policy=AdmissionRefreshPolicy(feedback_window_size=100),
+            now=now,
+        )
+
+        self.assertEqual(decision.active_count, 3)
+        self.assertEqual(decision.due_count, 0)
+        self.assertEqual(decision.capacity_budget, 0)
+        self.assertEqual(decision.base_admission_budget, 0)
+        self.assertEqual(decision.admission_budget, 0)
+        self.assertEqual(decision.reason_code, "capacity_exhausted")
+
     def test_plan_reduces_budget_for_mid_retention(self) -> None:
         store = SrsStore(
             items=(

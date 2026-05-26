@@ -82,8 +82,8 @@ not be treated as interchangeable.
 3. **Refresh / growth admission**
    - Options uses the refresh button to call `srs_refresh`.
    - The helper computes a hard admission budget from `max_active_items`,
-     `max_new_items_per_day`, current due pressure, and feedback-window
-     retention.
+     active SRS items for the pair, `max_new_items_per_day`, current due
+     pressure, and feedback-window retention.
    - If budget remains, growth admission filters out existing lemmas and selects
      new candidates by ranked score.
    - This is the right eventual runtime mutation point for browsing influence,
@@ -531,11 +531,13 @@ E = candidates
     - disallowed POS/source/license rows
     - rulegen-unsupported rows when rulegen is required
 
-B = min(max_new_items_per_day, max_active_items - due_count)
+B = min(max_new_items_per_day, max_active_items - active_count)
 ```
 
 Then the refresh policy may reduce `B` to zero under high due pressure or low
-retention. Browsing only acts after this point.
+retention. `active_count` is the total active store load for the pair, while
+`due_count` remains a review-pressure signal. Browsing only acts after this
+point.
 
 ### Option A: Score-Only Boost
 
