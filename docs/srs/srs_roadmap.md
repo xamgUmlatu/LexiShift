@@ -123,7 +123,8 @@ Status key:
   markers exist; fuller review/mastery lifecycle remains planned).
 - `[~]` User-facing SRS item visibility (options dashboard has search/filter/
   sort, pagination, refresh metadata, published-rule summaries/details, and
-  confirmed discard; restore/mastery actions remain planned).
+  confirmed discard plus encounter-watch visibility; restore/mastery actions
+  remain planned).
 - `[x]` Refresh budget hardening (`max_active` caps total active SRS items for
   the pair; `max_new_per_day` caps each refresh admission).
 - `[ ]` Calendar-day quota ledger if `max_new_per_day` must remain strict
@@ -139,9 +140,10 @@ Status key:
   initialize execution use profile-aware bootstrap when requested).
 - `[x]` Capped reserved topic-lane selection in `profile_bootstrap` so explicit
   topic preferences can move admission while preserving a mixed general batch.
-- `[ ]` Encounter-starvation diagnostics/policy for rare admitted words that
+- `[~]` Encounter-starvation diagnostics/policy for rare admitted words that
   receive little or no replacement exposure and therefore cannot easily collect
-  learner feedback.
+  learner feedback; dashboard summary visibility exists, while age thresholds
+  and release/parking policy remain undecided.
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
@@ -196,7 +198,8 @@ Status key:
 - `[x]` Runtime diagnostics surface: helper store/ruleset + extension cache + current tab rule counts.
 - `[x]` Extension runtime consumes helper rules through service-worker bridge (single native messaging boundary).
 - `[x]` Read-only options dashboard can list admitted SRS words for the selected
-  pair/profile through the helper/native-host route.
+  pair/profile through the helper/native-host route, including encounter-watch
+  counters for active words with zero exposure plus zero feedback.
 - `[x]` Helper bridge test covers profile-bootstrap initialization through active
   rule publication and dashboard listing.
 - `[ ]` Rule quality hardening for broad/ambiguous gloss sources.

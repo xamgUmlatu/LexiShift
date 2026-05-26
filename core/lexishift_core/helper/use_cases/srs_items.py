@@ -180,6 +180,10 @@ def _item_payload(
     due_in_seconds = int((next_due_dt - now).total_seconds()) if next_due_dt is not None else None
     last_history = item.history[-1] if item.history else None
 
+    exposures = max(0, int(item.exposures or 0))
+    review_count = len(item.history)
+    rule_summary = _rule_summary_for_item(rules_by_lemma, item.lemma)
+
     return {
         "item_id": item.item_id,
         "lemma": item.lemma,
@@ -193,13 +197,19 @@ def _item_payload(
         "due_in_seconds": due_in_seconds,
         "last_review": item.last_review,
         "last_seen": item.last_seen,
-        "exposures": max(0, int(item.exposures or 0)),
-        "review_count": len(item.history),
+        "exposures": exposures,
+        "review_count": review_count,
         "last_rating": last_history.rating if last_history else None,
         "source_type": item.source_type,
         "source_label": source_label,
         "pos": word_package.get("pos_canonical") or word_package.get("pos") or "",
-        "rule_summary": _rule_summary_for_item(rules_by_lemma, item.lemma),
+        "rule_summary": rule_summary,
+        "encounter_state": _encounter_state(
+            active=active,
+            exposures=exposures,
+            review_count=review_count,
+            rule_summary=rule_summary,
+        ),
         "advanced": {
             "lifecycle_state": lifecycle_state,
             "lifecycle_reason": item.lifecycle_reason,
@@ -450,10 +460,50 @@ def _summary(items: list[dict[str, object]], *, inventory_active_count: int) -> 
             summary[status] += 1
         if status in {"discarded", "cleared", "removed"}:
             summary["removed"] += 1
+        encounter_state = item.get("encounter_state")
+        if isinstance(encounter_state, Mapping):
+            if encounter_state.get("zero_exposure") is True:
+                summary["active_zero_exposure"] += 1
+            if encounter_state.get("zero_feedback") is True:
+                summary["active_zero_feedback"] += 1
+            if encounter_state.get("zero_exposure_zero_feedback") is True:
+                summary["active_zero_exposure_zero_feedback"] += 1
+            if encounter_state.get("without_enabled_rules") is True:
+                summary["active_without_enabled_rules"] += 1
+            if encounter_state.get("needs_attention") is True:
+                summary["encounter_watch"] += 1
         advanced = item.get("advanced")
         if isinstance(advanced, Mapping) and advanced.get("word_package"):
             summary["with_word_package"] += 1
     return summary
+
+
+def _encounter_state(
+    *,
+    active: bool,
+    exposures: int,
+    review_count: int,
+    rule_summary: Mapping[str, object],
+) -> dict[str, bool]:
+    if not active:
+        return {
+            "zero_exposure": False,
+            "zero_feedback": False,
+            "zero_exposure_zero_feedback": False,
+            "without_enabled_rules": False,
+            "needs_attention": False,
+        }
+    zero_exposure = exposures <= 0
+    zero_feedback = review_count <= 0
+    without_enabled_rules = int(rule_summary.get("enabled_rule_count") or 0) <= 0
+    zero_exposure_zero_feedback = zero_exposure and zero_feedback
+    return {
+        "zero_exposure": zero_exposure,
+        "zero_feedback": zero_feedback,
+        "zero_exposure_zero_feedback": zero_exposure_zero_feedback,
+        "without_enabled_rules": without_enabled_rules,
+        "needs_attention": zero_exposure_zero_feedback or without_enabled_rules,
+    }
 
 
 def _empty_summary() -> dict[str, int]:
@@ -470,6 +520,11 @@ def _empty_summary() -> dict[str, int]:
         "removed": 0,
         "with_word_package": 0,
         "inventory_active_count": 0,
+        "active_zero_exposure": 0,
+        "active_zero_feedback": 0,
+        "active_zero_exposure_zero_feedback": 0,
+        "active_without_enabled_rules": 0,
+        "encounter_watch": 0,
     }
 
 

@@ -2,11 +2,12 @@
 
 Status: active implementation contract
 Role: Product/UX decision, implementation contract, and verification runbook
-Last updated: 2026-05-26
-Last verified: 2026-05-26 helper/options dashboard tests, profile-bootstrap
+Last updated: 2026-05-27
+Last verified: 2026-05-27 helper/options dashboard tests, profile-bootstrap
 initialize -> rule publication -> dashboard bridge test, local search/filter/
 sort/pagination/meta-control tests, published-rule summary/detail tests, durable
-discard workflow tests, and SRS quality harness
+discard workflow tests, encounter-watch summary tests, SRS quality harness, and
+local changed-file gate
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, module/data boundaries, and
 deferred lifecycle actions
@@ -32,6 +33,7 @@ Default view should show useful learner concepts:
 - active words;
 - due now and due soon words;
 - queued admitted words that are not currently active;
+- active words that are still unseen and have no review feedback;
 - removed words, including discarded or cleared items;
 - per-word display text, due status, review count, exposure count, and source
   label;
@@ -79,6 +81,7 @@ Summary cards:
 - `Due now`
 - `Due soon`
 - `Queued`
+- `Unseen`
 - `Removed`
 - `Total`
 
@@ -88,6 +91,8 @@ Metadata row:
   local filter or pagination renders.
 - `Loaded`: total words in the currently loaded helper payload.
 - `Viewing`: words after local search/status/sort filtering.
+- `Encounter watch`: active words that may need observation because they have
+  zero exposure and zero feedback, or because no enabled published rule exists.
 - `Inventory`: active-inventory source reported by the helper.
 - `Ruleset`: published-ruleset state, including rule count when available.
 
@@ -96,6 +101,8 @@ Rows:
 - show target display text and reading when distinct;
 - show dashboard status using learner-facing labels;
 - show due timing, review count, exposure count, rule count, and source label;
+- show a compact watch note when an active row has zero exposure plus zero
+  feedback, or no enabled published rules;
 - show compact `Matches: ...` source phrases when published-rule summaries are
   available;
 - expose `Rule details` when the row has helper-published rules;
@@ -184,10 +191,13 @@ Payload contract:
   ruleset paths and existence flags, `inventory_source`, `rule_summary`,
   `summary`, and `items`;
 - `summary` includes `active`, `due_now`, `due_soon`, `queued`, `removed`, and
-  `total`;
+  `total`, plus encounter-watch counters:
+  `active_zero_exposure`, `active_zero_feedback`,
+  `active_zero_exposure_zero_feedback`, `active_without_enabled_rules`, and
+  `encounter_watch`;
 - each item includes `item_id`, `lemma`, `display`, `reading`, `pair`, `active`,
   `status`, `status_label`, due/review/exposure fields, source fields, `pos`,
-  `rule_summary`, and `advanced`;
+  `rule_summary`, `encounter_state`, and `advanced`;
 - item `rule_summary` includes enabled rule count and capped source-phrase
   preview;
 - top-level `rule_summary` describes the current published ruleset as a whole;
@@ -330,6 +340,8 @@ Current covered behaviors:
 
 - helper list payload shape, summaries, active/queued/due/removed status, and
   published-rule summaries;
+- encounter-watch summary counters and options rendering for active words with
+  zero exposure plus zero feedback;
 - profile-bootstrap initialization can publish active rule outputs and then
   surface the admitted words through the dashboard read model;
 - helper rule-detail payload shape and capped rule rows;
@@ -367,6 +379,8 @@ The dashboard is acceptable for MVP when:
   and remain local to the loaded payload;
 - refresh metadata, clear-filter disabled state, and search Escape handling are
   covered by focused workflow tests;
+- encounter-watch counters are visible enough for tester review without
+  implying automatic stale-clear or release behavior;
 - published-rule summaries are covered by focused helper/options tests and
   remain read-only;
 - on-demand rule details are covered by focused helper/options tests and remain

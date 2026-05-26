@@ -150,7 +150,7 @@ class TestHelperSrsItems(unittest.TestCase):
             )
             self.assertEqual(
                 init_payload["bootstrap_diagnostics"]["initial_active_preview"],
-                ["falcon", "reptile", "elephant"],
+                ["falcon", "reptile", "thesis"],
             )
 
             dashboard = list_srs_items(paths, pair="en-en", profile_id="default", now=NOW)
@@ -175,11 +175,16 @@ class TestHelperSrsItems(unittest.TestCase):
                     "removed": 0,
                     "with_word_package": 3,
                     "inventory_active_count": 3,
+                    "active_zero_exposure": 3,
+                    "active_zero_feedback": 3,
+                    "active_zero_exposure_zero_feedback": 3,
+                    "active_without_enabled_rules": 0,
+                    "encounter_watch": 3,
                 },
             )
             self.assertEqual(dashboard["rule_summary"]["lemmas_with_rules"], 3)
             by_lemma = {item["lemma"]: item for item in dashboard["items"]}
-            self.assertEqual(set(by_lemma), {"elephant", "falcon", "reptile"})
+            self.assertEqual(set(by_lemma), {"falcon", "reptile", "thesis"})
             self.assertEqual(by_lemma["falcon"]["status"], "learning")
             self.assertEqual(
                 by_lemma["falcon"]["rule_summary"],
@@ -302,6 +307,11 @@ class TestHelperSrsItems(unittest.TestCase):
                     "removed": 1,
                     "with_word_package": 4,
                     "inventory_active_count": 2,
+                    "active_zero_exposure": 1,
+                    "active_zero_feedback": 2,
+                    "active_zero_exposure_zero_feedback": 1,
+                    "active_without_enabled_rules": 0,
+                    "encounter_watch": 1,
                 },
             )
             by_lemma = {item["lemma"]: item for item in result["items"]}
@@ -313,8 +323,13 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertEqual(by_lemma["perro"]["pos"], "noun")
             self.assertEqual(by_lemma["perro"]["rule_summary"]["enabled_rule_count"], 2)
             self.assertEqual(by_lemma["perro"]["rule_summary"]["source_phrases"], ["dog", "hound"])
+            self.assertFalse(by_lemma["perro"]["encounter_state"]["zero_exposure"])
+            self.assertTrue(by_lemma["perro"]["encounter_state"]["zero_feedback"])
+            self.assertTrue(by_lemma["gato"]["encounter_state"]["zero_exposure_zero_feedback"])
+            self.assertTrue(by_lemma["gato"]["encounter_state"]["needs_attention"])
             self.assertEqual(by_lemma["mesa"]["rule_summary"]["enabled_rule_count"], 0)
             self.assertEqual(by_lemma["mesa"]["rule_summary"]["rule_count"], 1)
+            self.assertFalse(by_lemma["mesa"]["encounter_state"]["without_enabled_rules"])
             self.assertEqual(by_lemma["planta"]["advanced"]["lifecycle_reason"], "user_blocked")
 
     def test_missing_store_returns_empty_dashboard_payload(self) -> None:
@@ -328,6 +343,7 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertFalse(result["store_exists"])
             self.assertEqual(result["items"], [])
             self.assertEqual(result["summary"]["total"], 0)
+            self.assertEqual(result["summary"]["encounter_watch"], 0)
             self.assertEqual(result["inventory_source"], "missing_store")
             self.assertFalse(result["ruleset_exists"])
             self.assertEqual(result["rule_summary"]["rule_count"], 0)

@@ -81,6 +81,7 @@
         ["Due now", summary.due_now || 0],
         ["Due soon", summary.due_soon || 0],
         ["Queued", summary.queued || 0],
+        ["Unseen", summary.active_zero_exposure_zero_feedback || 0],
         ["Removed", summary.removed || 0],
         ["Total", summary.total || 0]
       ].forEach(([label, value]) => {
@@ -153,6 +154,7 @@
         `Last refreshed: ${formatRefreshTime(data)}`,
         `Loaded: ${formatWordCount(loadedCount)}`,
         `Viewing: ${formatWordCount(viewingCount)}`,
+        formatEncounterWatchSummary(summary),
         `Inventory: ${formatSource(data.inventory_source || "unknown")}`,
         formatRulesetState(data, ruleSummary)
       ].forEach((text) => {
@@ -225,15 +227,18 @@
 
     function renderMeta(doc, item) {
       const meta = createNode(doc, "div", "srs-word-meta");
-      [
+      const rows = [
         `Due: ${formatDue(item)}`,
         `Reviews: ${Number(item.review_count || 0)}`,
         `Seen: ${Number(item.exposures || 0)}`,
         formatRuleCount(item),
         `Source: ${item.source_label || item.source_type || "srs"}`
-      ].forEach((text) => {
-        meta.appendChild(createNode(doc, "span", "", text));
-      });
+      ];
+      const encounterWatch = formatEncounterWatchItem(item);
+      if (encounterWatch) {
+        rows.push(encounterWatch);
+      }
+      rows.forEach((text) => meta.appendChild(createNode(doc, "span", "", text)));
       return meta;
     }
 
@@ -358,6 +363,32 @@
     return data && data.ruleset_exists ? "Ruleset: empty" : "Ruleset: none";
   }
 
+  function formatEncounterWatchSummary(summary) {
+    const unseen = Number(summary.active_zero_exposure_zero_feedback || 0);
+    const withoutRules = Number(summary.active_without_enabled_rules || 0);
+    const watch = Number(summary.encounter_watch || Math.max(unseen, withoutRules) || 0);
+    if (!Number.isFinite(watch) || watch <= 0) {
+      return "Encounter watch: none";
+    }
+    const details = [
+      unseen > 0 ? `${unseen} unseen/no feedback` : "",
+      withoutRules > 0 ? `${withoutRules} without rules` : ""
+    ].filter(Boolean).join(", ");
+    const suffix = details ? ` (${details})` : "";
+    return `Encounter watch: ${formatWordCount(watch)}${suffix}`;
+  }
+
+  function formatEncounterWatchItem(item) {
+    const state = item && typeof item.encounter_state === "object" ? item.encounter_state : {};
+    if (state.zero_exposure_zero_feedback) {
+      return "Watch: unseen/no feedback";
+    }
+    if (state.without_enabled_rules) {
+      return "Watch: no enabled rules";
+    }
+    return "";
+  }
+
   function formatDue(item) {
     const status = String(item.status || "");
     if (status === "queued") {
@@ -412,7 +443,5 @@
     return advancedRoot;
   }
 
-  root.optionsSrsWordsDashboardRenderer = {
-    createWordsDashboardRenderer
-  };
+  root.optionsSrsWordsDashboardRenderer = { createWordsDashboardRenderer };
 })();

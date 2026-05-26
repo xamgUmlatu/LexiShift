@@ -3,7 +3,7 @@
 Status: active audit lane
 Role: Current plus near-term readiness plan
 Last updated: 2026-05-27
-Last verified: 2026-05-27 by source inspection of SRS settings, extension storage caps, page replacement budgets, browsing-signal bounds, helper artifact readers, and the first resource-budget audit script
+Last verified: 2026-05-27 by source inspection of SRS settings, extension storage caps, page replacement budgets, browsing-signal bounds, helper artifact readers, the first resource-budget audit script, and dashboard encounter-watch counters
 Purpose: keep SRS personalization, browsing signals, replacement runtime, and admitted-word dashboards bounded enough for MVP testing without overloading user cognition, extension storage, helper files, or page runtime
 Source-of-truth: this audit is a routing and measurement surface; executable truth lives in helper/core SRS modules, extension runtime code, generated audit artifacts, and tests.
 
@@ -58,8 +58,9 @@ and prevent page replacement from turning every page into a wall of substitution
 2. Helper ruleset, snapshot, and semantic-inventory caches are generated from
    active/admitted state, but extension helper cache entries do not yet expose
    a source-level TTL or max-profile/pair policy.
-3. Encounter starvation is documented, but tester-facing diagnostics are still
-   needed for active words with zero exposure and zero feedback.
+3. Encounter starvation now has tester-facing dashboard counters for active
+   words with zero exposure plus zero feedback, but no age-based stale policy or
+   automatic release behavior exists yet.
 4. We do not yet have a browser-profile storage audit. The new script measures
    source constants and helper data-root artifacts, not live `chrome.storage`
    bytes.
@@ -90,6 +91,10 @@ It records:
 - browsing aggregate counts;
 - zero-exposure/zero-feedback active item preview.
 
+The admitted-words dashboard also surfaces the same first-order signal through
+an `Unseen` summary card and an `Encounter watch` metadata row. This is only an
+observability surface: it does not clear, release, or park active words.
+
 ## MVP Readiness Policy
 
 Before broad SRS testers:
@@ -107,8 +112,8 @@ Before broad SRS testers:
 ## Near-Term Work
 
 1. Run the resource-budget audit against the current local helper data root.
-2. Add the stale-active summary to the admitted-words dashboard or refresh
-   diagnostics so testers can see whether active words are encounterable.
+2. Decide whether encounter-watch needs an age threshold after tester review
+   distinguishes normal newly admitted words from genuinely stuck active words.
 3. Decide extension helper cache policy:
    - keep latest per profile/pair only;
    - or keep a small LRU across profile/pair scopes;

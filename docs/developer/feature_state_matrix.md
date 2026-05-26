@@ -1552,12 +1552,14 @@ Use this file when:
   local dashboard search/filter/sort/pagination, read-only published-rule
   summaries, capped on-demand rule details, and confirmed durable dashboard
   discard; restore/mastery/release controls remain `planned`
-- Last documented checkpoint: `2026-05-26` admitted-words dashboard bridge/control
+- Last documented checkpoint: `2026-05-27` admitted-words dashboard bridge/control
   polish, options UI, local review controls, published-rule summaries/details,
-  first durable lifecycle action, and profile-bootstrap bridge coverage:
+  first durable lifecycle action, profile-bootstrap bridge coverage, and
+  encounter-watch visibility:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
-  due/removed states, and expose scheduler/lifecycle details behind an advanced
-  toggle in options; the dashboard can locally search/filter/sort already-loaded
+  due/removed states, surface active zero-exposure/zero-feedback watch counts,
+  and expose scheduler/lifecycle details behind an advanced toggle in options;
+  the dashboard can locally search/filter/sort already-loaded
   words with page-size controls, first/previous/next/last pagination, refresh
   metadata, disabled-state-aware clear filters, and Escape-to-clear search; rows
   show read-only published-rule counts/source previews and can load capped
@@ -1565,12 +1567,12 @@ Use this file when:
   reuses `srs_admission_suppress` with `reason=user_blocked`; focused helper
   coverage now verifies profile-bootstrap initialization through rule publication
   and dashboard listing
-- Last verified: `2026-05-26` dashboard bridge and meta-control,
+- Last verified: `2026-05-27` dashboard bridge and meta-control,
   rule-summary/detail, search/filter/sort/pagination, confirmed discard route,
-  and profile-bootstrap initialize-to-dashboard bridge tests; focused helper
+  encounter-watch counters/rendering, and profile-bootstrap initialize-to-dashboard bridge tests; focused helper
   endpoint, native-host route, helper client/manager route, suppression writer
-  tests, SRS quality harness, changed-file gate, doc-reference check, and state
-  audit
+  tests, SRS quality harness, changed-file gate, doc-reference check, state
+  audit, and diff check
 - Default behavior:
   - The options page exposes a Learning words dashboard for the selected
     profile and language pair.
@@ -1588,6 +1590,11 @@ Use this file when:
     ruleset state. The refresh timestamp is anchored to the helper result, not
     local filter renders. Clear filters is disabled until search/status/sort
     are adjusted, and Escape clears the current search.
+  - The dashboard exposes first-order encounter-watch visibility through an
+    `Unseen` summary card, an `Encounter watch` metadata row, and compact row
+    notes for active words with zero exposure plus zero feedback or no enabled
+    published rules. These are diagnostics only and do not clear, release, or
+    park words.
   - Each row can show read-only published-rule count plus a capped source-phrase
     preview from the current helper-published ruleset artifact. Missing or
     unreadable rulesets do not block item listing.
