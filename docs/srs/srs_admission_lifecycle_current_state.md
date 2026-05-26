@@ -183,9 +183,11 @@ Current visibility/action surface: the options page can list admitted SRS words
 for the selected pair/profile through the read-only `srs_items_list`
 helper/native-host route. The view separates learner-facing status from
 advanced scheduler and lifecycle details, can show read-only published-rule
-summaries, and can locally search/filter/sort the already-loaded payload.
-Eligible rows expose a confirmed Discard action that reuses the existing
-`srs_admission_suppress` route with `reason=user_blocked`.
+summaries, can load capped published-rule details for one selected row through
+the read-only `srs_item_rule_details` route, and can locally search/filter/sort
+the already-loaded payload. Eligible rows expose a confirmed Discard action
+that reuses the existing `srs_admission_suppress` route with
+`reason=user_blocked`.
 
 Open gap: full user-facing lifecycle management is still not implemented. The
 guard exists, refresh respects it, and dashboard discard can write it, but the

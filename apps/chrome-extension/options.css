@@ -1513,6 +1513,46 @@ textarea {
   padding: 6px 8px;
 }
 
+.srs-word-rule-details {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+  border: 1px solid #dfd3c3;
+  background: #fffcf6;
+  padding: 8px;
+  font-size: 12px;
+  color: #433d34;
+}
+
+.srs-word-rule-details-summary {
+  margin: 0;
+  color: #6c675f;
+}
+
+.srs-word-rule-detail-row {
+  display: grid;
+  gap: 3px;
+  padding-top: 7px;
+  border-top: 1px solid #eee4d7;
+}
+
+.srs-word-rule-detail-source {
+  font-weight: 700;
+  color: #2c2a26;
+}
+
+.srs-word-rule-detail-meta {
+  color: #655d52;
+}
+
+.srs-word-rule-detail-advanced {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #766d62;
+  font-size: 11px;
+}
+
 .srs-word-status {
   align-self: start;
   justify-self: end;
@@ -1564,6 +1604,18 @@ textarea {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.srs-word-rules-button {
+  border: 1px solid #b7c2bd;
+  background: #f4faf7;
+  color: #315747;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.srs-word-rules-button:hover {
+  background: #eaf5ef;
 }
 
 .srs-word-discard-button {

@@ -22,6 +22,8 @@ from lexishift_core.srs.time import now_utc, parse_ts
 
 SECONDS_PER_DAY = 24 * 60 * 60
 RULE_SOURCE_PREVIEW_LIMIT = 4
+RULE_DETAILS_DEFAULT_LIMIT = 25
+RULE_DETAILS_MAX_LIMIT = 100
 
 
 def list_srs_items(
@@ -94,6 +96,59 @@ def list_srs_items(
         "summary": _summary(payload_items, inventory_active_count=len(active_item_ids)),
         "items": payload_items,
     }
+
+
+def get_srs_item_rule_details(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    profile_id: str = "default",
+    limit: int | None = None,
+    resolve_profile_id_fn: Callable[..., str],
+) -> dict[str, object]:
+    normalized_pair = str(pair or "").strip()
+    if not normalized_pair:
+        raise ValueError("Missing pair.")
+    normalized_lemma = str(lemma or "").strip()
+    if not normalized_lemma:
+        raise ValueError("Missing lemma.")
+    normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
+    resolved_limit = _normalize_rule_details_limit(limit)
+    ruleset_path = paths.ruleset_path(normalized_pair, profile_id=normalized_profile_id)
+    payload = _empty_rule_details_payload(
+        pair=normalized_pair,
+        profile_id=normalized_profile_id,
+        lemma=normalized_lemma,
+        ruleset_path=ruleset_path,
+        limit=resolved_limit,
+    )
+    if not ruleset_path.exists():
+        return payload
+
+    try:
+        dataset = load_vocab_dataset(ruleset_path)
+    except Exception as exc:  # pragma: no cover - defensive read-only dashboard path
+        payload["load_error"] = str(exc)
+        return payload
+
+    matches = [
+        rule for rule in dataset.rules if str(rule.replacement or "").strip() == normalized_lemma
+    ]
+    matches.sort(key=_rule_detail_sort_key)
+    returned = matches[:resolved_limit]
+    enabled_rule_count = sum(1 for rule in matches if rule.enabled is not False)
+    payload.update(
+        {
+            "ruleset_exists": True,
+            "rule_count": len(matches),
+            "enabled_rule_count": enabled_rule_count,
+            "returned_rule_count": len(returned),
+            "truncated": len(matches) > len(returned),
+            "rules": [_rule_detail_payload(rule) for rule in returned],
+        }
+    )
+    return payload
 
 
 def _load_inventory_if_present(path: Path) -> Optional[SrsInventory]:
@@ -271,6 +326,115 @@ def _empty_rule_summary(path: Path) -> dict[str, object]:
         "enabled_rule_count": 0,
         "lemmas_with_rules": 0,
         "load_error": None,
+    }
+
+
+def _normalize_rule_details_limit(value: int | None) -> int:
+    if value is None:
+        return RULE_DETAILS_DEFAULT_LIMIT
+    try:
+        resolved = int(value)
+    except (TypeError, ValueError):
+        resolved = RULE_DETAILS_DEFAULT_LIMIT
+    return min(RULE_DETAILS_MAX_LIMIT, max(1, resolved))
+
+
+def _rule_detail_sort_key(rule: object) -> tuple[int, int, str]:
+    enabled_order = 0 if getattr(rule, "enabled", True) is not False else 1
+    priority = int(getattr(rule, "priority", 0) or 0)
+    source_phrase = str(getattr(rule, "source_phrase", "") or "").casefold()
+    return (enabled_order, -priority, source_phrase)
+
+
+def _rule_detail_payload(rule: object) -> dict[str, object]:
+    return {
+        "source_phrase": str(getattr(rule, "source_phrase", "") or ""),
+        "replacement": str(getattr(rule, "replacement", "") or ""),
+        "enabled": getattr(rule, "enabled", True) is not False,
+        "priority": int(getattr(rule, "priority", 0) or 0),
+        "case_policy": str(getattr(rule, "case_policy", "") or "match"),
+        "tags": [str(tag) for tag in getattr(rule, "tags", ())],
+        "created_at": getattr(rule, "created_at", None),
+        "metadata": _rule_metadata_payload(getattr(rule, "metadata", None)),
+    }
+
+
+def _rule_metadata_payload(metadata: object) -> dict[str, object]:
+    if metadata is None:
+        return {}
+    payload: dict[str, object] = {}
+    for key in (
+        "label",
+        "description",
+        "notes",
+        "source",
+        "source_type",
+        "language_pair",
+        "confidence",
+    ):
+        value = getattr(metadata, key, None)
+        if value not in (None, ""):
+            payload[key] = value
+    examples = getattr(metadata, "examples", None)
+    if examples:
+        payload["examples"] = [str(item) for item in examples]
+    script_forms = getattr(metadata, "script_forms", None)
+    if isinstance(script_forms, Mapping):
+        payload["script_forms"] = {
+            str(key): str(value)
+            for key, value in script_forms.items()
+            if str(key).strip() and str(value).strip()
+        }
+    for key in ("pos", "rulegen", "semantic_admission"):
+        value = getattr(metadata, key, None)
+        if isinstance(value, Mapping):
+            compact = {str(inner_key): inner_value for inner_key, inner_value in value.items()}
+            if compact:
+                payload[key] = compact
+    word_package = getattr(metadata, "word_package", None)
+    if isinstance(word_package, Mapping):
+        compact_word_package = {
+            key: word_package.get(key)
+            for key in (
+                "surface",
+                "reading",
+                "pos",
+                "pos_canonical",
+                "core_rank",
+                "row_rank",
+            )
+            if word_package.get(key) not in (None, "")
+        }
+        source = word_package.get("source")
+        if isinstance(source, Mapping) and source.get("provider"):
+            compact_word_package["source_provider"] = source.get("provider")
+        if compact_word_package:
+            payload["word_package"] = compact_word_package
+    return payload
+
+
+def _empty_rule_details_payload(
+    *,
+    pair: str,
+    profile_id: str,
+    lemma: str,
+    ruleset_path: Path,
+    limit: int,
+) -> dict[str, object]:
+    return {
+        "status": "ok",
+        "pair": pair,
+        "profile_id": profile_id,
+        "lemma": lemma,
+        "ruleset_path": str(ruleset_path),
+        "ruleset_exists": ruleset_path.exists(),
+        "rule_count": 0,
+        "enabled_rule_count": 0,
+        "returned_rule_count": 0,
+        "limit": limit,
+        "truncated": False,
+        "load_error": None,
+        "rules": [],
     }
 
 

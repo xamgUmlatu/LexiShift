@@ -61,6 +61,10 @@
       return this.send("srs_items_list", { pair, profile_id: profileId });
     }
 
+    getSrsItemRuleDetails(pair, profileId, lemma, limit) {
+      return this.send("srs_item_rule_details", { pair, profile_id: profileId, lemma, limit });
+    }
+
     getProfiles() {
       return this.send("profiles_get");
     }

@@ -15,6 +15,8 @@ if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
+from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
+from lexishift_core.replacement.core import VocabRule  # noqa: E402
 from lexishift_core.srs import SrsItem, SrsStore, save_srs_store  # noqa: E402
 from lexishift_core.srs.admission_suppression import (  # noqa: E402
     active_suppressed_lemmas,
@@ -69,6 +71,37 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
             self.assertEqual(response["status"], "ok")
             self.assertEqual(response["summary"]["total"], 1)
             self.assertEqual(response["items"][0]["lemma"], "perro")
+
+    def test_native_host_routes_srs_item_rule_details(self) -> None:
+        module = _load_module("lexishift_native_host_srs_rule_details_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            save_vocab_dataset(
+                VocabDataset(
+                    rules=(
+                        VocabRule(source_phrase="dog", replacement="perro"),
+                        VocabRule(source_phrase="hound", replacement="perro"),
+                    ),
+                ),
+                paths.ruleset_path("en-es", profile_id="default"),
+            )
+            with patch.object(module, "build_helper_paths", return_value=paths):
+                response = module._handle_request(
+                    "srs_item_rule_details",
+                    {
+                        "pair": "en-es",
+                        "profile_id": "default",
+                        "lemma": "perro",
+                        "limit": 1,
+                    },
+                )
+
+            self.assertEqual(response["status"], "ok")
+            self.assertEqual(response["rule_count"], 2)
+            self.assertEqual(response["returned_rule_count"], 1)
+            self.assertTrue(response["truncated"])
+            self.assertEqual(response["rules"][0]["replacement"], "perro")
 
     def test_native_host_routes_srs_admission_suppression(self) -> None:
         module = _load_module("lexishift_native_host_admission_suppress_test", NATIVE_HOST_SCRIPT)

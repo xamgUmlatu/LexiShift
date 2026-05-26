@@ -1,0 +1,284 @@
+(() => {
+  const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+
+  function createWordsDashboardRenderer(options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const wordsSummaryRoot = opts.wordsSummaryRoot || null;
+    const wordsListRoot = opts.wordsListRoot || null;
+    const dashboardModel = opts.dashboardModel && typeof opts.dashboardModel === "object"
+      ? opts.dashboardModel
+      : { apply: (items) => items, isAdjusted: () => false };
+    const maxRenderedWordRows = Number.parseInt(opts.maxRenderedWordRows, 10) || 300;
+    const renderRuleDetailsView = typeof opts.renderRuleDetailsView === "function"
+      ? opts.renderRuleDetailsView
+      : (() => null);
+    const isAdvancedEnabled = typeof opts.isAdvancedEnabled === "function"
+      ? opts.isAdvancedEnabled
+      : (() => false);
+    const canLoadRuleDetails = typeof opts.canLoadRuleDetails === "function"
+      ? opts.canLoadRuleDetails
+      : (() => false);
+    const canDiscardItem = typeof opts.canDiscardItem === "function"
+      ? opts.canDiscardItem
+      : (() => false);
+    const ruleDetailKey = typeof opts.ruleDetailKey === "function"
+      ? opts.ruleDetailKey
+      : (() => "");
+    const toggleRuleDetails = typeof opts.toggleRuleDetails === "function"
+      ? opts.toggleRuleDetails
+      : (() => {});
+    const discardWord = typeof opts.discardWord === "function" ? opts.discardWord : (() => {});
+
+    function render(data) {
+      if (!wordsSummaryRoot || !wordsListRoot) {
+        return;
+      }
+      const doc = wordsListRoot.ownerDocument || globalThis.document;
+      if (!doc) {
+        return;
+      }
+      clearNode(wordsSummaryRoot);
+      clearNode(wordsListRoot);
+      if (!data) {
+        showListMessage("Refresh words to load the current SRS dashboard.");
+        return;
+      }
+      renderSummary(doc, data.summary && typeof data.summary === "object" ? data.summary : {});
+      renderRows(doc, data);
+    }
+
+    function showListMessage(message) {
+      if (!wordsListRoot) {
+        return;
+      }
+      const doc = wordsListRoot.ownerDocument || globalThis.document;
+      if (!doc) {
+        return;
+      }
+      clearNode(wordsListRoot);
+      wordsListRoot.appendChild(createNode(doc, "p", "srs-words-empty", message));
+    }
+
+    function renderSummary(doc, summary) {
+      [
+        ["Active", summary.active || 0],
+        ["Due now", summary.due_now || 0],
+        ["Due soon", summary.due_soon || 0],
+        ["Queued", summary.queued || 0],
+        ["Removed", summary.removed || 0],
+        ["Total", summary.total || 0]
+      ].forEach(([label, value]) => {
+        wordsSummaryRoot.appendChild(appendSummaryItem(doc, label, value));
+      });
+    }
+
+    function renderRows(doc, data) {
+      const allItems = Array.isArray(data.items) ? data.items : [];
+      const items = dashboardModel.apply(allItems);
+      if (!items.length) {
+        wordsListRoot.appendChild(createNode(
+          doc,
+          "p",
+          "srs-words-empty",
+          allItems.length
+            ? "No SRS words match these filters."
+            : "No SRS words are admitted for this pair yet."
+        ));
+        return;
+      }
+      if (dashboardModel.isAdjusted()) {
+        wordsListRoot.appendChild(createNode(
+          doc,
+          "p",
+          "srs-words-filter-note",
+          `Showing ${items.length} of ${allItems.length} words.`
+        ));
+      }
+      items.slice(0, maxRenderedWordRows).forEach((item) => {
+        wordsListRoot.appendChild(renderWordRow(doc, item));
+      });
+      if (items.length > maxRenderedWordRows) {
+        wordsListRoot.appendChild(createNode(
+          doc,
+          "p",
+          "srs-words-truncated",
+          `Showing ${maxRenderedWordRows} of ${items.length} words.`
+        ));
+      }
+    }
+
+    function renderWordRow(doc, item) {
+      const row = createNode(doc, "div", "srs-word-row");
+      row.appendChild(renderTitle(doc, item));
+      const status = createNode(doc, "span", "srs-word-status", item.status_label || item.status || "SRS");
+      status.setAttribute("data-status", String(item.status || ""));
+      row.appendChild(status);
+      row.appendChild(renderMeta(doc, item));
+      appendIfPresent(row, renderRuleSources(doc, item));
+      appendIfPresent(row, renderRuleDetailsView(doc, item, {
+        ruleDetailKey,
+        expandedKeys: opts.expandedRuleDetailKeys,
+        loadingKeys: opts.loadingRuleDetailKeys,
+        detailsByKey: opts.ruleDetailsByKey,
+        advancedEnabled: isAdvancedEnabled()
+      }));
+      if (isAdvancedEnabled()) {
+        row.appendChild(renderAdvancedDetails(doc, item));
+      }
+      appendIfPresent(row, renderWordActions(doc, item));
+      return row;
+    }
+
+    function renderTitle(doc, item) {
+      const title = createNode(doc, "div", "srs-word-title");
+      title.appendChild(createNode(doc, "span", "srs-word-display", item.display || item.lemma || "—"));
+      const reading = String(item.reading || "").trim();
+      if (reading && reading !== String(item.display || "").trim()) {
+        title.appendChild(createNode(doc, "span", "srs-word-reading", reading));
+      }
+      return title;
+    }
+
+    function renderMeta(doc, item) {
+      const meta = createNode(doc, "div", "srs-word-meta");
+      [
+        `Due: ${formatDue(item)}`,
+        `Reviews: ${Number(item.review_count || 0)}`,
+        `Seen: ${Number(item.exposures || 0)}`,
+        formatRuleCount(item),
+        `Source: ${item.source_label || item.source_type || "srs"}`
+      ].forEach((text) => {
+        meta.appendChild(createNode(doc, "span", "", text));
+      });
+      return meta;
+    }
+
+    function renderRuleSources(doc, item) {
+      const summary = item && typeof item.rule_summary === "object" ? item.rule_summary : {};
+      const sourcePhrases = Array.isArray(summary.source_phrases) ? summary.source_phrases : [];
+      if (!sourcePhrases.length) {
+        return null;
+      }
+      const text = sourcePhrases.join(", ");
+      const suffix = summary.source_preview_truncated ? ", ..." : "";
+      return createNode(doc, "div", "srs-word-rules", `Matches: ${text}${suffix}`);
+    }
+
+    function renderWordActions(doc, item) {
+      const actions = createNode(doc, "div", "srs-word-actions");
+      if (canLoadRuleDetails(item)) {
+        const key = ruleDetailKey(item);
+        const expanded = key && opts.expandedRuleDetailKeys.has(key);
+        const loading = key && opts.loadingRuleDetailKeys.has(key);
+        const rulesButton = createNode(
+          doc,
+          "button",
+          "srs-word-rules-button",
+          loading ? "Loading..." : (expanded ? "Hide rules" : "Rule details")
+        );
+        rulesButton.setAttribute("type", "button");
+        rulesButton.disabled = Boolean(loading);
+        rulesButton.addEventListener("click", () => toggleRuleDetails(item));
+        actions.appendChild(rulesButton);
+      }
+      if (canDiscardItem(item)) {
+        const button = createNode(doc, "button", "srs-word-discard-button", "Discard");
+        button.setAttribute("type", "button");
+        button.addEventListener("click", () => discardWord(item, button));
+        actions.appendChild(button);
+      }
+      return actions.children.length ? actions : null;
+    }
+
+    return { render, showListMessage };
+  }
+
+  function appendIfPresent(parent, child) {
+    if (child) {
+      parent.appendChild(child);
+    }
+  }
+
+  function clearNode(node) {
+    while (node && node.firstChild) {
+      node.removeChild(node.firstChild);
+    }
+  }
+
+  function createNode(doc, tagName, className, text) {
+    const node = doc.createElement(tagName);
+    if (className) {
+      node.className = className;
+    }
+    if (text !== undefined && text !== null) {
+      node.textContent = String(text);
+    }
+    return node;
+  }
+
+  function formatDate(value) {
+    if (!value) {
+      return "—";
+    }
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString();
+  }
+
+  function formatDue(item) {
+    const status = String(item.status || "");
+    if (status === "queued") {
+      return "Queued";
+    }
+    if (status === "discarded" || status === "cleared" || status === "removed") {
+      return item.status_label || "Removed";
+    }
+    const dueSeconds = Number(item.due_in_seconds);
+    if (!Number.isFinite(dueSeconds)) {
+      return "No due date";
+    }
+    if (dueSeconds <= 0) {
+      return "Due now";
+    }
+    if (dueSeconds < 3600) {
+      return `Due in ${Math.max(1, Math.round(dueSeconds / 60))}m`;
+    }
+    if (dueSeconds < 86400) {
+      return `Due in ${Math.round(dueSeconds / 3600)}h`;
+    }
+    return `Due ${formatDate(item.next_due)}`;
+  }
+
+  function appendSummaryItem(doc, label, value) {
+    const item = createNode(doc, "div", "srs-words-summary-item");
+    item.appendChild(createNode(doc, "span", "srs-words-summary-value", value));
+    item.appendChild(createNode(doc, "span", "srs-words-summary-label", label));
+    return item;
+  }
+
+  function formatRuleCount(item) {
+    const summary = item && typeof item.rule_summary === "object" ? item.rule_summary : {};
+    const count = Number(summary.enabled_rule_count || 0);
+    return `Rules: ${Number.isFinite(count) ? count : 0}`;
+  }
+
+  function renderAdvancedDetails(doc, item) {
+    const advanced = item.advanced && typeof item.advanced === "object" ? item.advanced : {};
+    const advancedRoot = createNode(doc, "div", "srs-word-advanced");
+    [
+      `ID: ${item.item_id || "—"}`,
+      `Lifecycle: ${advanced.lifecycle_state || "active"}`,
+      `Scheduler: ${advanced.scheduler_state || "—"}`,
+      `Step: ${advanced.scheduler_step ?? "—"}`,
+      `Confidence: ${advanced.confidence ?? "—"}`,
+      `Stability: ${advanced.stability ?? "—"}`,
+      `Difficulty: ${advanced.difficulty ?? "—"}`
+    ].forEach((text) => {
+      advancedRoot.appendChild(createNode(doc, "span", "", text));
+    });
+    return advancedRoot;
+  }
+
+  root.optionsSrsWordsDashboardRenderer = {
+    createWordsDashboardRenderer
+  };
+})();

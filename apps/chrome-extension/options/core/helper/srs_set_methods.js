@@ -182,6 +182,32 @@
       return response.data || {};
     };
 
+    proto.getSrsItemRuleDetails = async function getSrsItemRuleDetails(pair, lemma, options) {
+      const client = this.getClient();
+      if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      const normalizedLemma = String(lemma || "").trim();
+      if (!normalizedLemma) throw new Error("Missing SRS word.");
+      const opts = options && typeof options === "object" ? options : {};
+      const profileId = this.normalizeProfileId(opts.profileId);
+      const limit = Number.parseInt(opts.limit, 10);
+      const response = await client.getSrsItemRuleDetails(
+        pair,
+        profileId,
+        normalizedLemma,
+        Number.isFinite(limit) ? limit : undefined
+      );
+      if (!response || response.ok === false) {
+        throw new Error(
+          this.normalizeHelperErrorMessage(
+            response && response.error,
+            "status_srs_rule_details_failed",
+            "Failed to load rule details."
+          )
+        );
+      }
+      return response.data || {};
+    };
+
     proto.discardSrsItem = async function discardSrsItem(pair, lemma, options) {
       const client = this.getClient();
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));

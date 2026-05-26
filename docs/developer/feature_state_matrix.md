@@ -1527,19 +1527,19 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified` for visibility plus
   local dashboard search/filter/sort, read-only published-rule summaries, and
-  confirmed durable dashboard discard; restore/mastery/release controls remain
-  `planned`
+  capped on-demand rule details plus confirmed durable dashboard discard;
+  restore/mastery/release controls remain `planned`
 - Last documented checkpoint: `2026-05-26` admitted-words dashboard contract,
-  options UI, local review controls, published-rule summaries, and first durable
-  lifecycle action:
+  options UI, local review controls, published-rule summaries/details, and first
+  durable lifecycle action:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
   due/removed states, and expose scheduler/lifecycle details behind an advanced
   toggle in options; the dashboard can locally search/filter/sort already-loaded
-  words; rows show read-only published-rule counts/source previews; eligible
-  rows can confirm Discard, which reuses `srs_admission_suppress` with
-  `reason=user_blocked`
-- Last verified: `2026-05-26` dashboard rule-summary, search/filter/sort, and
-  confirmed discard route tests; focused helper endpoint, native-host route,
+  words; rows show read-only published-rule counts/source previews and can load
+  capped read-only rule details on demand; eligible rows can confirm Discard,
+  which reuses `srs_admission_suppress` with `reason=user_blocked`
+- Last verified: `2026-05-26` dashboard rule-summary/detail, search/filter/sort,
+  and confirmed discard route tests; focused helper endpoint, native-host route,
   helper client/manager route, suppression writer tests, SRS quality harness,
   changed-file gate, doc-reference check, and state audit
 - Default behavior:
@@ -1555,6 +1555,9 @@ Use this file when:
   - Each row can show read-only published-rule count plus a capped source-phrase
     preview from the current helper-published ruleset artifact. Missing or
     unreadable rulesets do not block item listing.
+  - Rows with published rules can load capped read-only details for that lemma
+    on demand through `srs_item_rule_details`; the normal list payload remains
+    compact.
   - Active status uses the same active-inventory resolver as helper SRS serving;
     queued admitted words remain visible but not active.
   - Eligible words expose a confirmed Discard action. It durably blocks refresh
@@ -1578,6 +1581,8 @@ Use this file when:
   - `apps/chrome-extension/options/controllers/srs/actions/workflows.js`
   - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_model.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_renderer.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_rule_details.js`
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js`
   - `apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js`
   - `core/tests/helper/test_helper_srs_items.py`
@@ -1587,8 +1592,8 @@ Use this file when:
   - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
 - Known gaps:
   - Dashboard pagination or virtualization is not implemented.
-  - Full per-word rule inspection, semantic metadata inspection, and morphology
-    variant inspection are not implemented.
+  - Deep per-word semantic metadata inspection and morphology variant inspection
+    are not implemented.
   - User actions for restore, clear, release, and mastered-state management are
     not implemented.
   - The extension feedback popup remains review-feedback only.

@@ -123,6 +123,14 @@ def _list_srs_items_use_case(*args, **kwargs):
     return srs_items_module.list_srs_items(*args, **kwargs)
 
 
+def _get_srs_item_rule_details_use_case(*args, **kwargs):
+    srs_items_module = __import__(
+        "lexishift_core.helper.use_cases.srs_items",
+        fromlist=["get_srs_item_rule_details"],
+    )
+    return srs_items_module.get_srs_item_rule_details(*args, **kwargs)
+
+
 @dataclass(frozen=True)
 class RulegenJobConfig:
     pair: str
@@ -359,6 +367,24 @@ def list_srs_items(
         pair=pair,
         profile_id=profile_id,
         now=now,
+        resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def get_srs_item_rule_details(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    profile_id: str = "default",
+    limit: int | None = None,
+) -> dict:
+    return _get_srs_item_rule_details_use_case(
+        paths,
+        pair=pair,
+        lemma=lemma,
+        profile_id=profile_id,
+        limit=limit,
         resolve_profile_id_fn=_resolve_profile_id,
     )
 

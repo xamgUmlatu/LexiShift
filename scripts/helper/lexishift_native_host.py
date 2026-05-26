@@ -76,6 +76,7 @@ try:
         apply_srs_rebalance,
         apply_exposure,
         apply_feedback,
+        get_srs_item_rule_details,
         ingest_browsing_admission_signals,
         initialize_srs_set,
         list_srs_items,
@@ -306,6 +307,15 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
     if msg_type == "srs_items_list":
         pair = str(payload.get("pair", "en-ja"))
         return list_srs_items(paths, pair=pair, profile_id=profile_id or "default")
+    if msg_type == "srs_item_rule_details":
+        pair = str(payload.get("pair", "en-ja"))
+        return get_srs_item_rule_details(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            lemma=str(payload.get("lemma", "")),
+            limit=_optional_int(payload, "limit"),
+        )
     if msg_type == "semantic_admit_batch":
         return semantic_admit_batch(paths, payload=payload)
     if msg_type == "record_feedback":

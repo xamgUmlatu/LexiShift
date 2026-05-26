@@ -17,6 +17,14 @@ WORDS_DASHBOARD_WORKFLOW_JS = (
 WORDS_DASHBOARD_MODEL_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_model.js"
 )
+WORDS_DASHBOARD_RULE_DETAILS_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_rule_details.js"
+)
+WORDS_DASHBOARD_RENDERER_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_renderer.js"
+)
 SEMANTIC_PACK_INSTALL_WORKFLOW_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/semantic_pack_install_workflow.js"
@@ -474,6 +482,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const wordsDashboardModelPath = {json.dumps(str(WORDS_DASHBOARD_MODEL_JS))};
+const wordsDashboardRendererPath = {json.dumps(str(WORDS_DASHBOARD_RENDERER_JS))};
+const wordsDashboardRuleDetailsPath = {json.dumps(str(WORDS_DASHBOARD_RULE_DETAILS_JS))};
 const wordsDashboardModulePath = {json.dumps(str(WORDS_DASHBOARD_WORKFLOW_JS))};
 const modulePath = {json.dumps(str(MAINTENANCE_WORKFLOW_JS))};
 const context = vm.createContext({{ console }});
@@ -491,6 +501,8 @@ context.LexiShift = {{
   }}
 }};
 vm.runInContext(fs.readFileSync(wordsDashboardModelPath, "utf8"), context, {{ filename: wordsDashboardModelPath }});
+vm.runInContext(fs.readFileSync(wordsDashboardRendererPath, "utf8"), context, {{ filename: wordsDashboardRendererPath }});
+vm.runInContext(fs.readFileSync(wordsDashboardRuleDetailsPath, "utf8"), context, {{ filename: wordsDashboardRuleDetailsPath }});
 vm.runInContext(fs.readFileSync(wordsDashboardModulePath, "utf8"), context, {{ filename: wordsDashboardModulePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
@@ -546,6 +558,7 @@ const sortInput = makeNode("select");
 sortInput.value = "source";
 const statuses = [];
 const listCalls = [];
+const ruleDetailsCalls = [];
 const discardCalls = [];
 const confirms = [];
 let listCallCount = 0;
@@ -670,6 +683,45 @@ const workflows = createMaintenanceWorkflows({{
         ]
       }};
     }},
+    async getSrsItemRuleDetails(pair, lemma, options) {{
+      ruleDetailsCalls.push({{ pair, lemma, options }});
+      return {{
+        status: "ok",
+        lemma,
+        rule_count: 2,
+        enabled_rule_count: 2,
+        returned_rule_count: 2,
+        limit: 50,
+        truncated: false,
+        rules: [
+          {{
+            source_phrase: "dog",
+            replacement: "perro",
+            enabled: true,
+            priority: 5,
+            case_policy: "match",
+            tags: ["animal"],
+            metadata: {{
+              confidence: 0.92,
+              source_type: "rulegen",
+              word_package: {{
+                pos_canonical: "noun",
+                source_provider: "freq-es-cde"
+              }}
+            }}
+          }},
+          {{
+            source_phrase: "hound",
+            replacement: "perro",
+            enabled: true,
+            priority: 1,
+            case_policy: "match",
+            tags: [],
+            metadata: {{}}
+          }}
+        ]
+      }};
+    }},
     async discardSrsItem(pair, lemma, options) {{
       discardCalls.push({{ pair, lemma, options }});
       return {{ status: "ok", lemma, reason: "user_blocked" }};
@@ -716,6 +768,22 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(listRoot.children[0].children[2].children[3].textContent, "Rules: 2");
   assert.equal(listRoot.children[0].children[3].textContent, "Matches: dog, hound");
   assert.equal(listRoot.children[0].children[4].className, "srs-word-actions");
+  assert.equal(listRoot.children[0].children[4].children[0].textContent, "Rule details");
+
+  await listRoot.children[0].children[4].children[0].click();
+  assert.deepEqual(JSON.parse(JSON.stringify(ruleDetailsCalls)), [
+    {{ pair: "en-es", lemma: "perro", options: {{ profileId: "alpha", limit: 50 }} }}
+  ]);
+  assert.equal(statuses[1].message, "Loaded rule details for perro.");
+  assert.equal(listRoot.children[0].children[4].className, "srs-word-rule-details");
+  assert.equal(
+    listRoot.children[0].children[4].children[0].textContent,
+    "Showing 2 of 2 published rules."
+  );
+  assert.equal(listRoot.children[0].children[4].children[1].children[0].textContent, "dog -> perro");
+
+  await listRoot.children[0].children[5].children[0].click();
+  assert.equal(listRoot.children[0].children.length, 5);
 
   searchInput.value = "gat";
   searchInput.listeners.input();
@@ -751,15 +819,15 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(listRoot.children[0].children[4].className, "srs-word-advanced");
   assert.equal(listRoot.children[0].children[5].className, "srs-word-actions");
 
-  await listRoot.children[0].children[5].children[0].click();
+  await listRoot.children[0].children[5].children[1].click();
   assert.equal(confirms.length, 1);
   assert.equal(confirms[0], "Discard perro? It will be removed from SRS and blocked from future admission until SRS data is reset.");
   assert.deepEqual(JSON.parse(JSON.stringify(discardCalls)), [
     {{ pair: "en-es", lemma: "perro", options: {{ profileId: "alpha" }} }}
   ]);
   assert.equal(listCalls.length, 2);
-  assert.equal(statuses[1].message, "Discarded perro.");
-  assert.equal(statuses[2].message, "Loaded 1 SRS words.");
+  assert.equal(statuses[2].message, "Discarded perro.");
+  assert.equal(statuses[3].message, "Loaded 1 SRS words.");
   assert.equal(summaryRoot.children[0].children[0].textContent, "0");
   assert.equal(summaryRoot.children[4].children[0].textContent, "1");
   assert.equal(listRoot.children[0].children[1].textContent, "Discarded");

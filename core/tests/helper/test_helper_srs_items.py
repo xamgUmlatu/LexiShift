@@ -10,10 +10,10 @@ CORE_ROOT = Path(__file__).resolve().parents[2]
 if str(CORE_ROOT) not in sys.path:
     sys.path.insert(0, str(CORE_ROOT))
 
-from lexishift_core.helper.engine import list_srs_items  # noqa: E402
+from lexishift_core.helper.engine import get_srs_item_rule_details, list_srs_items  # noqa: E402
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
 from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset  # noqa: E402
-from lexishift_core.replacement.core import VocabRule  # noqa: E402
+from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.srs import (  # noqa: E402
     SRS_LIFECYCLE_DISCARDED,
     SrsInventory,
@@ -182,6 +182,89 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertEqual(result["inventory_source"], "missing_store")
             self.assertFalse(result["ruleset_exists"])
             self.assertEqual(result["rule_summary"]["rule_count"], 0)
+
+    def test_rule_details_are_capped_and_include_compact_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            save_vocab_dataset(
+                VocabDataset(
+                    rules=(
+                        VocabRule(
+                            source_phrase="dog",
+                            replacement="perro",
+                            metadata=RuleMetadata(
+                                confidence=0.91,
+                                source_type="rulegen",
+                                language_pair="en-es",
+                                word_package={
+                                    "version": 1,
+                                    "language_tag": "es",
+                                    "surface": "perro",
+                                    "reading": "perro",
+                                    "script_forms": {"latin": "perro"},
+                                    "source": {"provider": "freq-es-cde"},
+                                    "pos_canonical": "noun",
+                                },
+                            ),
+                        ),
+                        VocabRule(
+                            source_phrase="hound",
+                            replacement="perro",
+                            priority=5,
+                            tags=("animal",),
+                        ),
+                        VocabRule(
+                            source_phrase="cur",
+                            replacement="perro",
+                            enabled=False,
+                        ),
+                        VocabRule(source_phrase="cat", replacement="gato"),
+                    ),
+                ),
+                paths.ruleset_path("en-es", profile_id="study profile"),
+            )
+
+            result = get_srs_item_rule_details(
+                paths,
+                pair="en-es",
+                profile_id="study profile",
+                lemma="perro",
+                limit=2,
+            )
+
+            self.assertEqual(result["status"], "ok")
+            self.assertEqual(result["profile_id"], "study_profile")
+            self.assertEqual(result["lemma"], "perro")
+            self.assertTrue(result["ruleset_exists"])
+            self.assertEqual(result["rule_count"], 3)
+            self.assertEqual(result["enabled_rule_count"], 2)
+            self.assertEqual(result["returned_rule_count"], 2)
+            self.assertTrue(result["truncated"])
+            self.assertEqual(result["rules"][0]["source_phrase"], "hound")
+            self.assertEqual(result["rules"][0]["tags"], ["animal"])
+            self.assertEqual(result["rules"][1]["source_phrase"], "dog")
+            self.assertEqual(result["rules"][1]["metadata"]["confidence"], 0.91)
+            self.assertEqual(
+                result["rules"][1]["metadata"]["word_package"]["source_provider"],
+                "freq-es-cde",
+            )
+
+    def test_missing_ruleset_returns_empty_rule_details_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+
+            result = get_srs_item_rule_details(
+                paths,
+                pair="en-es",
+                profile_id="study profile",
+                lemma="perro",
+            )
+
+            self.assertEqual(result["status"], "ok")
+            self.assertEqual(result["profile_id"], "study_profile")
+            self.assertFalse(result["ruleset_exists"])
+            self.assertEqual(result["rules"], [])
+            self.assertEqual(result["rule_count"], 0)
 
 
 if __name__ == "__main__":

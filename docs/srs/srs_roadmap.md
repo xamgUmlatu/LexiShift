@@ -117,7 +117,7 @@ Status key:
 - `[~]` Formal lifecycle statuses (backend `active`/`discarded`/`cleared`
   markers exist; fuller review/mastery lifecycle remains planned).
 - `[~]` User-facing SRS item visibility (options dashboard has search/filter/
-  sort, published-rule summaries, and confirmed discard; restore/mastery
+  sort, published-rule summaries/details, and confirmed discard; restore/mastery
   actions remain planned).
 - `[ ]` Daily/session budget policy hardening (`max_active`, `max_new_per_day`).
 
