@@ -22,6 +22,7 @@ from lexishift_core.srs import (
     save_srs_inventory,
     save_srs_store,
     set_active_item_ids,
+    srs_item_is_active,
 )
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.set_policy import resolve_set_sizing_policy
@@ -180,10 +181,23 @@ def initialize_srs_set(
         for lemma in getattr(init_report, "initial_active_preview", ()) or ()
         if str(lemma).strip()
     )
+    active_available_ids = {
+        item.item_id
+        for item in updated_store.items
+        if item.language_pair == pair and srs_item_is_active(item)
+    }
+    initial_active_item_ids = tuple(
+        item_id for item_id in initial_active_item_ids if item_id in active_available_ids
+    )
     active_item_ids = (
         initial_active_item_ids
         if config.replace_pair
-        else merge_active_item_ids(existing_active_item_ids, initial_active_item_ids)
+        else merge_active_item_ids(
+            tuple(
+                item_id for item_id in existing_active_item_ids if item_id in active_available_ids
+            ),
+            initial_active_item_ids,
+        )
     )
     inventory_updated_at = now_utc().isoformat()
     updated_inventory = set_active_item_ids(

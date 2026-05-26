@@ -11,6 +11,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.srs import (  # noqa: E402
+    SRS_LIFECYCLE_DISCARDED,
     SrsInventory,
     SrsItem,
     SrsPairInventory,
@@ -134,6 +135,47 @@ class TestSrsInventory(unittest.TestCase):
 
         self.assertEqual(active_item_ids, ("en-ja:alpha", "en-ja:beta"))
         self.assertEqual(source, "store_fallback")
+
+    def test_resolve_active_item_ids_ignores_discarded_items(self) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:alpha",
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                ),
+                SrsItem(
+                    item_id="en-ja:beta",
+                    lemma="beta",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+                ),
+            ),
+            version=2,
+        )
+        inventory = SrsInventory(
+            pairs={
+                "en-ja": SrsPairInventory(active_item_ids=("en-ja:alpha", "en-ja:beta")),
+            }
+        )
+
+        inventory_ids, inventory_source = resolve_active_item_ids(
+            store=store,
+            pair="en-ja",
+            inventory=inventory,
+        )
+        fallback_ids, fallback_source = resolve_active_item_ids(
+            store=store,
+            pair="en-ja",
+            inventory=None,
+        )
+
+        self.assertEqual(inventory_ids, ("en-ja:alpha",))
+        self.assertEqual(inventory_source, "inventory")
+        self.assertEqual(fallback_ids, ("en-ja:alpha",))
+        self.assertEqual(fallback_source, "store_fallback")
 
     def test_resolve_active_item_ids_falls_back_to_store_when_pair_missing_from_inventory(
         self,

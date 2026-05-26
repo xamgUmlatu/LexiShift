@@ -1,7 +1,7 @@
 # SRS Quality Harness
 
 - Status: PASS
-- Findings: pass=16 warn=0 fail=0
+- Findings: pass=18 warn=0 fail=0
 - Fail on warn: no
 - Synthetic pairs: en-ja, en-de
 

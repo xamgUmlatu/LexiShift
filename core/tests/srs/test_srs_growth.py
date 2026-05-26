@@ -8,7 +8,12 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.srs import SrsItem, SrsSettings, SrsStore  # noqa: E402
+from lexishift_core.srs import (  # noqa: E402
+    SRS_LIFECYCLE_DISCARDED,
+    SrsItem,
+    SrsSettings,
+    SrsStore,
+)
 from lexishift_core.srs.growth import (  # noqa: E402
     normalize_coverage_scalar,
     plan_srs_growth,
@@ -102,6 +107,34 @@ class TestSrsGrowth(unittest.TestCase):
         self.assertEqual(plan.filtered_size, 1)
         self.assertEqual(len(plan.selected), 1)
         self.assertEqual(plan.selected[0].lemma, "alpha")
+
+    def test_plan_growth_excludes_inactive_lifecycle_items_without_counting_capacity(
+        self,
+    ) -> None:
+        candidates = [
+            SelectorCandidate(lemma="alpha", language_pair="en-ja", base_freq=0.9),
+            SelectorCandidate(lemma="beta", language_pair="en-ja", base_freq=0.8),
+            SelectorCandidate(lemma="gamma", language_pair="en-ja", base_freq=0.7),
+        ]
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:alpha",
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    source_type="frequency_list",
+                    lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+                ),
+            ),
+            version=1,
+        )
+        settings = SrsSettings(coverage_scalar=1.0, max_new_items_per_day=5)
+
+        plan = plan_srs_growth(candidates, store=store, settings=settings, allowed_pairs=["en-ja"])
+
+        self.assertEqual(plan.existing_count, 0)
+        self.assertEqual(plan.filtered_size, 2)
+        self.assertEqual(tuple(candidate.lemma for candidate in plan.selected), ("beta", "gamma"))
 
 
 if __name__ == "__main__":

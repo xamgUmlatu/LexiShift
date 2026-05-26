@@ -559,7 +559,16 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
         )
     if msg_type == "srs_reset":
         pair = str(payload.get("pair", "")).strip() or None
-        return reset_srs_data(paths, pair=pair, profile_id=profile_id or "default")
+        return reset_srs_data(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            preserve_lifecycle_metadata=_optional_bool(
+                payload,
+                "preserve_lifecycle_metadata",
+            )
+            is True,
+        )
     if msg_type == "open_data_dir":
         open_path(paths.data_root)
         return {"opened": str(paths.data_root)}

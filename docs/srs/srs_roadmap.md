@@ -2,8 +2,8 @@
 
 Status: active mixed roadmap
 Role: Mixed
-Last updated: 2026-05-23
-Last verified: 2026-05-23 browsing-based admission planning update; roadmap claims not fully re-audited
+Last updated: 2026-05-26
+Last verified: 2026-05-26 lifecycle marker backend update; roadmap claims not fully re-audited
 Purpose: preserve the SRS current-state snapshot, remaining E2E gaps, and roadmap workstreams
 Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/extension code, SRS harnesses, and `docs/developer/feature_state_matrix.md`.
 
@@ -113,7 +113,8 @@ Status key:
 - `[x]` Core SRS item model + FSRS scheduler update function.
 - `[x]` Runtime gate integration for helper-published SRS rules with due metadata (publication still remains broader than a dedicated due-only artifact).
 - `[x]` Feedback ingestion from extension popup.
-- `[~]` Formal lifecycle statuses (`new/learning/review/mature/relearn/suspended`).
+- `[~]` Formal lifecycle statuses (backend `active`/`discarded`/`cleared`
+  markers exist; fuller review/mastery lifecycle remains planned).
 - `[ ]` Daily/session budget policy hardening (`max_active`, `max_new_per_day`).
 
 ### Workstream B — Set `S` admission and initialization
@@ -139,7 +140,7 @@ Status key:
 - `[~]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics (backend probability diagnostics, offline helper/core text probes, refresh-path browsing preview, and small-budget `Balanced` fractional lane realization exist; helper/options preview is not wired).
 - `[x]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
 - `[~]` Runtime page replacement load model (page-level budgets, explicit standard density defaults, and SRS metadata-aware budget priority exist; durable mastered/released dropoff remains open).
-- `[~]` Lifecycle audit for admission triggers, mastered/released state, and durable discard/block behavior (code-backed audit exists; refresh admission now respects suppression; backend `user_blocked` writer exists; user-facing lifecycle controls remain open).
+- `[~]` Lifecycle audit for admission triggers, mastered/released state, and durable discard/block behavior (code-backed audit exists; refresh admission, scheduler due selection, active inventory, and rulegen publication respect non-active lifecycle states; backend `user_blocked` writer marks existing items `discarded` and removes active inventory; user-facing lifecycle controls remain open).
 - `[ ]` Opt-in gated browsing relevance boost for actual admission refresh.
 - `[ ]` Automatic `adaptive_refresh` trigger policy.
 - `[~]` Explicit policy gate for any non-feedback signals (browsing helper ingest and extension replacement-exposure packet builder require opt-in; production capture policy is not wired).
@@ -240,7 +241,7 @@ Definition of done for `en-de` parity:
 
 ### Phase 3 (adaptive refresh)
 1. Aggregate feedback trends in bounded windows.
-2. Add refresh trigger thresholds and cooldown.
+2. Add refresh trigger thresholds and rate-limit/pacing policy.
 3. Execute `adaptive_refresh` with audit-friendly logs.
 
 ### Phase 4 (E2E + profile integration)

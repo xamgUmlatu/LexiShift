@@ -96,15 +96,14 @@ history, stability, or future review due date.
 
 Lifecycle caveat:
 
-- `SrsItem` currently stores scheduler fields, exposures, history, and
-  word-package metadata, but it does not expose a canonical persisted
-  `discarded`, `suspended`, `released`, or `mastered` lifecycle flag.
+- `SrsItem` stores scheduler fields, exposures, history, word-package metadata,
+  and backend lifecycle markers: `active`, `discarded`, or `cleared`.
 - Selector code has a `mastered` penalty concept, and rebalance has
   protected/swappable/parked states, but those are not yet a full user-facing
   lifecycle contract.
 - Actual browsing-influenced admission should therefore wait for either a
-  lifecycle blocklist/cooldown surface or an explicit decision that
-  re-suggestion after discard/suspend is out of scope.
+  user-facing durable lifecycle surface or an explicit decision that
+  re-suggestion after discard/block is out of scope.
 
 Existing exposure paths are also not the right browsing-admission substrate:
 
@@ -378,16 +377,23 @@ Current prototype evidence:
   pair, and profile; it does not forward URL, raw text, source phrase, or
   context text.
 - `core/lexishift_core/srs/admission_suppression.py` defines a generic
-  suppression/cooldown store for discarded, suspended, user-blocked, and manual
-  cooldown lemmas.
+  suppression store for discarded, suspended, and user-blocked lemmas. The code
+  can represent expiring suppression, but the current product direction is not
+  to expose learner-managed cooldowns.
 - `core/lexishift_core/helper/use_cases/admission_suppression.py`,
   `scripts/helper/lexishift_native_host.py`, and
   `apps/chrome-extension/shared/helper/helper_client.js` expose a backend
-  suppression writer that defaults to durable `user_blocked`; it mutates only
-  the suppression store, not SRS item rows.
+  suppression writer that defaults to durable `user_blocked`; when the item
+  already exists, it also marks the SRS item `discarded` and removes it from
+  active inventory.
 - `core/lexishift_core/helper/use_cases/refresh_set.py` now loads active
   suppression entries and passes blocked lemmas into refresh admission, so real
-  refresh growth cannot admit suppressed lemmas.
+  refresh growth cannot admit suppressed lemmas. Refresh admission also blocks
+  non-active store lifecycle states before candidate growth.
+- `core/lexishift_core/srs/scheduler.py`, `core/lexishift_core/srs/growth.py`,
+  and `core/lexishift_core/helper/rulegen.py` ignore non-active lifecycle states
+  for due selection, active growth capacity, target loading, word-package
+  loading, and SRS rule metadata publication.
 - `core/lexishift_core/srs/admission_refresh.py` now exposes a preview-only
   browsing refresh simulation that reuses the actual refresh decision, filters,
   candidate scoring, and budget before reporting `Off`, `Balanced`, and
@@ -745,9 +751,8 @@ Recommended MVP behavior:
 - one page can create diagnostics and a small boost, but should not create a
   durable admission unless the candidate survives budget, readiness, and
   sampling-share policy;
-- if the learner discards/suspends a word, browsing should not immediately
-  re-admit it. Add a cooldown or explicit re-suggest policy before actual
-  browsing admission is enabled;
+- if the learner discards/blocks a word, browsing should not re-admit it unless
+  a future explicit re-suggest/undo policy says otherwise;
 - already admitted or mastered words should not be duplicated through browsing.
   Browsing may be diagnostic later, but should not create a second admission
   path for the same target lemma.
@@ -843,7 +848,7 @@ Caps:
 - global max browsing boost;
 - per-source mapping confidence multiplier;
 - minimum source-quality threshold;
-- discard/suspend cooldown before re-suggestion;
+- durable discard/block suppression before any future explicit re-suggestion;
 - readiness gate always applied after browsing boost.
 
 These caps prevent one repetitive page, one spammy site, or one unusual session
@@ -946,7 +951,8 @@ Exit criteria:
 - Allow browsing boost in actual admission refresh only when the user opted in.
 - Keep boost capped, readiness-gated, and budget/share-capped.
 - Add diagnostics and rollback/clear behavior.
-- Enforce discard/suspend cooldowns before browsing can re-suggest a target.
+- Enforce durable discard/block suppression before browsing can re-suggest a
+  target.
 
 Exit criteria:
 
@@ -1007,12 +1013,13 @@ Key result:
   actual refresh selection remains neutral.
 - `record_feedback` and `record_exposure` must not be reused for browsing
   admission because they can create SRS store rows directly.
-- Refresh admission now respects active suppression entries, so discarded,
-  suspended, user-blocked, or manual-cooldown lemmas cannot be admitted through
-  refresh while suppression is active.
+- Refresh admission now respects active suppression entries and non-active
+  store lifecycle states, so discarded, suspended, or user-blocked lemmas cannot
+  be admitted through refresh while suppression is active.
 - A backend suppression writer exists for future durable discard/block flows, but
-  no user-facing cooldown action is exposed. Full discard/block lifecycle
-  controls remain unimplemented.
+  no user-facing cooldown action is exposed. It marks existing SRS items as
+  `discarded` and clears matching reset metadata by default; full user-facing
+  discard/block lifecycle controls remain unimplemented.
 
 ## Open Decisions
 
@@ -1027,8 +1034,8 @@ Key result:
    simulation.
 7. Whether browsing share caps should be strict hard caps or soft weighted
    pressure.
-8. Discard/suspend cooldown duration and whether users can explicitly allow
-   re-suggestions.
+8. Whether durable discard/block should ever allow an explicit undo or
+   re-suggestion flow.
 9. How much diagnostic detail should be user-facing versus developer-only.
 
 ## Non-Goals

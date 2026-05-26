@@ -13,7 +13,12 @@ from lexishift_core.srs import (
     save_srs_inventory,
     save_srs_store,
 )
-from lexishift_core.srs.time import now_utc
+from lexishift_core.srs.admission_suppression import (
+    SrsAdmissionSuppressionStore,
+    load_admission_suppression_store,
+    save_admission_suppression_store,
+)
+from lexishift_core.srs.time import format_ts, now_utc
 
 
 def _remove_file(path: Path) -> bool:
@@ -28,6 +33,7 @@ def reset_srs_data(
     *,
     pair: Optional[str] = None,
     profile_id: str = "default",
+    preserve_lifecycle_metadata: bool = False,
     resolve_profile_id_fn: Callable[..., str],
 ) -> dict:
     normalized_profile_id = resolve_profile_id_fn(paths, profile_id=profile_id)
@@ -36,6 +42,7 @@ def reset_srs_data(
     profile_inventory_path = paths.srs_inventory_path_for(normalized_profile_id)
     profile_srs_dir = paths.profile_srs_dir(normalized_profile_id)
     profile_status_path = paths.srs_status_path_for(normalized_profile_id)
+    suppression_path = paths.srs_admission_suppression_store_path_for(normalized_profile_id)
 
     removed_items = 0
     remaining_items = 0
@@ -98,6 +105,14 @@ def reset_srs_data(
             if _remove_file(publication_manifest):
                 removed_publication_manifests += 1
 
+    removed_suppression_entries = 0
+    removed_suppression_file = 0
+    if not preserve_lifecycle_metadata:
+        removed_suppression_entries, removed_suppression_file = _reset_suppression_store(
+            suppression_path,
+            pair=scoped_pair,
+        )
+
     status = load_status(profile_status_path)
     save_status(
         HelperStatus(
@@ -123,4 +138,36 @@ def reset_srs_data(
         "removed_inventory_pairs": removed_inventory_pairs,
         "removed_semantic_inventories": removed_semantic_inventories,
         "removed_publication_manifests": removed_publication_manifests,
+        "removed_suppression_entries": removed_suppression_entries,
+        "removed_suppression_file": removed_suppression_file,
+        "preserved_lifecycle_metadata": bool(preserve_lifecycle_metadata),
     }
+
+
+def _reset_suppression_store(path: Path, *, pair: Optional[str]) -> tuple[int, int]:
+    if not path.exists():
+        return 0, 0
+    store = load_admission_suppression_store(path)
+    if pair is None:
+        removed_entries = len(tuple(store.entries or ()))
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_entries, removed_file
+
+    kept_entries = tuple(entry for entry in store.entries if entry.pair != pair)
+    removed_entries = len(tuple(store.entries or ())) - len(kept_entries)
+    if removed_entries <= 0:
+        return 0, 0
+    if not kept_entries:
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_entries, removed_file
+    save_admission_suppression_store(
+        SrsAdmissionSuppressionStore(
+            profile_id=store.profile_id,
+            entries=kept_entries,
+            version=store.version,
+            policy_version=store.policy_version,
+            updated_at=format_ts(now_utc()),
+        ),
+        path,
+    )
+    return removed_entries, 0

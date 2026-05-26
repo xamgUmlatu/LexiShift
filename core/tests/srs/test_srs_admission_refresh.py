@@ -8,7 +8,12 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.srs import SrsItem, SrsSettings, SrsStore  # noqa: E402
+from lexishift_core.srs import (  # noqa: E402
+    SRS_LIFECYCLE_DISCARDED,
+    SrsItem,
+    SrsSettings,
+    SrsStore,
+)
 from lexishift_core.srs.admission_refresh import (  # noqa: E402
     AdmissionRefreshPolicy,
     admission_refresh_result_to_dict,
@@ -260,6 +265,47 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
         payload = admission_refresh_result_to_dict(result)
         self.assertEqual(payload["diagnostics"]["blocked_by_lifecycle"], 2)
         self.assertEqual(payload["diagnostics"]["blocked_lemmas"], ["alpha", "gamma"])
+
+    def test_apply_refresh_skips_inactive_store_lifecycle_items(self) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:alpha",
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+                ),
+            ),
+            version=1,
+        )
+        settings = SrsSettings(max_active_items=10, max_new_items_per_day=2)
+        events = [
+            SrsSignalEvent(
+                event_type="feedback",
+                pair="en-ja",
+                lemma=f"lemma{index}",
+                source_type="extension",
+                rating="good",
+            )
+            for index in range(10)
+        ]
+
+        updated_store, result = apply_admission_refresh(
+            store=store,
+            settings=settings,
+            pair="en-ja",
+            candidates=_build_candidates(),
+            events=events,
+            policy=AdmissionRefreshPolicy(feedback_window_size=100),
+        )
+
+        self.assertTrue(result.applied)
+        self.assertEqual(result.selected_lemmas, ("beta", "gamma"))
+        self.assertEqual(result.diagnostics.blocked_by_lifecycle, 1)
+        self.assertEqual(tuple(result.diagnostics.blocked_lemmas), ("alpha",))
+        alpha = next(item for item in updated_store.items if item.lemma == "alpha")
+        self.assertEqual(alpha.lifecycle_state, SRS_LIFECYCLE_DISCARDED)
 
     def test_browsing_refresh_preview_does_not_change_actual_selection(self) -> None:
         store = SrsStore(items=tuple(), version=1)

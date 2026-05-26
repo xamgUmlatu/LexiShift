@@ -16,6 +16,9 @@ from lexishift_core.srs.inventory import (
 )
 from lexishift_core.srs.store import (
     PracticeGateState,
+    SRS_LIFECYCLE_ACTIVE,
+    SRS_LIFECYCLE_CLEARED,
+    SRS_LIFECYCLE_DISCARDED,
     SrsHistoryEntry,
     SrsItem,
     SrsPairSettings,
@@ -25,8 +28,10 @@ from lexishift_core.srs.store import (
     SrsSync,
     load_srs_settings,
     load_srs_store,
+    normalize_srs_lifecycle_state,
     save_srs_settings,
     save_srs_store,
+    srs_item_is_active,
     srs_bundle_from_dict,
     srs_bundle_to_dict,
     srs_settings_from_dict,
@@ -37,6 +42,9 @@ from lexishift_core.srs.store import (
 
 __all__ = [
     "PracticeGateState",
+    "SRS_LIFECYCLE_ACTIVE",
+    "SRS_LIFECYCLE_CLEARED",
+    "SRS_LIFECYCLE_DISCARDED",
     "SrsHistoryEntry",
     "SrsInventory",
     "SrsItem",
@@ -52,6 +60,7 @@ __all__ = [
     "load_srs_inventory",
     "load_srs_store",
     "merge_active_item_ids",
+    "normalize_srs_lifecycle_state",
     "remove_pair_inventory",
     "resolve_active_item_ids",
     "save_srs_settings",
@@ -62,6 +71,7 @@ __all__ = [
     "srs_bundle_to_dict",
     "srs_inventory_from_dict",
     "srs_inventory_to_dict",
+    "srs_item_is_active",
     "srs_pair_inventory_from_dict",
     "srs_pair_inventory_to_dict",
     "srs_settings_from_dict",

@@ -17,6 +17,8 @@ from lexishift_core.helper.rulegen import (  # noqa: E402
     SetInitializationConfig,
     annotate_rules_with_srs_serving_metadata,
     initialize_store_from_frequency_list_with_report,
+    load_target_word_packages_from_store,
+    load_targets_from_store,
     run_rulegen_for_pair,
 )
 from lexishift_core.helper.paths import build_helper_paths  # noqa: E402
@@ -25,7 +27,7 @@ from lexishift_core.rulegen.generation import RuleCandidate  # noqa: E402
 from lexishift_core.rulegen.semantic_publication import (  # noqa: E402
     annotate_results_with_semantic_admission,
 )
-from lexishift_core.srs import SrsItem, SrsStore  # noqa: E402
+from lexishift_core.srs import SRS_LIFECYCLE_DISCARDED, SrsItem, SrsStore  # noqa: E402
 
 
 class TestHelperRulegenInitialization(unittest.TestCase):
@@ -299,6 +301,45 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertAlmostEqual(request.scoring.weights.pos_match, 0.1, places=6)
         self.assertFalse(request.reverse_check.enabled)
 
+    def test_store_targets_and_packages_exclude_inactive_lifecycle_items(self) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:alpha",
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    word_package={"surface": "alpha"},
+                ),
+                SrsItem(
+                    item_id="en-ja:beta",
+                    lemma="beta",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+                    word_package={"surface": "beta"},
+                ),
+            ),
+            version=1,
+        )
+
+        self.assertEqual(load_targets_from_store(store, pair="en-ja"), ["alpha"])
+        self.assertEqual(
+            load_targets_from_store(
+                store,
+                pair="en-ja",
+                active_item_ids=("en-ja:alpha", "en-ja:beta"),
+            ),
+            ["alpha"],
+        )
+        packages = load_target_word_packages_from_store(
+            store,
+            pair="en-ja",
+            active_item_ids=("en-ja:alpha", "en-ja:beta"),
+        )
+
+        self.assertEqual(tuple(packages), ("alpha",))
+
     def test_annotates_rules_with_srs_due_serving_metadata(self) -> None:
         store = SrsStore(
             items=(
@@ -351,6 +392,39 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertEqual(beta_srs["item_id"], "en-ja:beta")
         self.assertFalse(beta_srs["in_due"])
         self.assertIsNone(rules[2].metadata)
+
+    def test_rule_srs_metadata_excludes_inactive_lifecycle_items(self) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:alpha",
+                    lemma="alpha",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                ),
+                SrsItem(
+                    item_id="en-ja:beta",
+                    lemma="beta",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+                ),
+            ),
+            version=1,
+        )
+
+        rules = annotate_rules_with_srs_serving_metadata(
+            (
+                VocabRule(source_phrase="one", replacement="alpha"),
+                VocabRule(source_phrase="two", replacement="beta"),
+            ),
+            store=store,
+            pair="en-ja",
+            active_item_ids=("en-ja:alpha", "en-ja:beta"),
+        )
+
+        self.assertIsNotNone(rules[0].metadata)
+        self.assertIsNone(rules[1].metadata)
 
     def test_run_rulegen_for_pair_can_upgrade_primary_rules_from_semantic_context_targets(
         self,

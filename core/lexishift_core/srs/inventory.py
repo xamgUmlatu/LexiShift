@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence
 
-from lexishift_core.srs.store import SrsStore
+from lexishift_core.srs.store import SrsStore, srs_item_is_active
 
 
 @dataclass(frozen=True)
@@ -136,7 +136,9 @@ def derive_active_item_ids_from_store(store: SrsStore, *, pair: str) -> tuple[st
     item_ids = [
         item.item_id
         for item in store.items
-        if item.language_pair == normalized_pair and str(item.item_id or "").strip()
+        if item.language_pair == normalized_pair
+        and srs_item_is_active(item)
+        and str(item.item_id or "").strip()
     ]
     return _normalize_item_ids(item_ids)
 
@@ -155,7 +157,9 @@ def resolve_active_item_ids(
     available_ids = {
         item.item_id
         for item in store.items
-        if item.language_pair == normalized_pair and str(item.item_id or "").strip()
+        if item.language_pair == normalized_pair
+        and srs_item_is_active(item)
+        and str(item.item_id or "").strip()
     }
     resolved_ids = [
         item_id

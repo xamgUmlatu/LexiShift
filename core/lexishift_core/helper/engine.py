@@ -663,10 +663,12 @@ def reset_srs_data(
     *,
     pair: Optional[str] = None,
     profile_id: str = "default",
+    preserve_lifecycle_metadata: bool = False,
 ) -> dict:
     return _reset_srs_data_use_case(
         paths,
         pair=pair,
         profile_id=profile_id,
+        preserve_lifecycle_metadata=preserve_lifecycle_metadata,
         resolve_profile_id_fn=_resolve_profile_id,
     )

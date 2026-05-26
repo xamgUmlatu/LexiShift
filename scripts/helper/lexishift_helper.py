@@ -373,7 +373,12 @@ def cmd_record_exposure(args: argparse.Namespace) -> int:
 
 def cmd_reset_srs(args: argparse.Namespace) -> int:
     paths = build_helper_paths()
-    payload = reset_srs_data(paths, pair=args.pair, profile_id=args.profile_id or "default")
+    payload = reset_srs_data(
+        paths,
+        pair=args.pair,
+        profile_id=args.profile_id or "default",
+        preserve_lifecycle_metadata=bool(args.preserve_lifecycle_metadata),
+    )
     _print_json(payload)
     return 0
 
@@ -738,6 +743,11 @@ def build_parser() -> argparse.ArgumentParser:
     reset = sub.add_parser("reset_srs", help="Reset SRS progress")
     reset.add_argument("--pair", help="Language pair to reset (omit to reset all).")
     reset.add_argument("--profile-id", help="Profile id (default: default)")
+    reset.add_argument(
+        "--preserve-lifecycle-metadata",
+        action="store_true",
+        help="Keep durable discard/block suppression metadata during reset.",
+    )
     reset.set_defaults(func=cmd_reset_srs)
 
     profiles_get = sub.add_parser(

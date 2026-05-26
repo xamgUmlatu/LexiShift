@@ -42,6 +42,7 @@ from lexishift_core.srs.admission_suppression import (  # noqa: E402
     SUPPRESSION_REASON_DISCARDED,
     SrsAdmissionSuppressionStore,
     create_admission_suppression,
+    load_admission_suppression_store,
     save_admission_suppression_store,
     upsert_admission_suppression,
 )
@@ -311,6 +312,85 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertEqual(result["removed_inventory_pairs"], 2)
             self.assertEqual(result["removed_semantic_inventories"], 2)
             self.assertEqual(result["removed_publication_manifests"], 2)
+
+    def test_reset_pair_removes_matching_suppression_metadata_by_default(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = _seed_store_and_outputs(Path(tmp))
+            suppression = upsert_admission_suppression(
+                SrsAdmissionSuppressionStore(profile_id="default"),
+                create_admission_suppression(
+                    pair="en-ja",
+                    lemma="alpha",
+                    reason=SUPPRESSION_REASON_DISCARDED,
+                ),
+            )
+            suppression = upsert_admission_suppression(
+                suppression,
+                create_admission_suppression(
+                    pair="en-en",
+                    lemma="beta",
+                    reason=SUPPRESSION_REASON_DISCARDED,
+                ),
+            )
+            save_admission_suppression_store(
+                suppression,
+                paths.srs_admission_suppression_store_path_for("default"),
+            )
+
+            result = reset_srs_data(paths, pair="en-ja")
+
+            store = load_admission_suppression_store(
+                paths.srs_admission_suppression_store_path_for("default")
+            )
+            self.assertEqual(result["removed_suppression_entries"], 1)
+            self.assertEqual(result["removed_suppression_file"], 0)
+            self.assertFalse(result["preserved_lifecycle_metadata"])
+            self.assertEqual(tuple(entry.pair for entry in store.entries), ("en-en",))
+
+    def test_reset_all_removes_suppression_metadata_by_default(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = _seed_store_and_outputs(Path(tmp))
+            suppression = upsert_admission_suppression(
+                SrsAdmissionSuppressionStore(profile_id="default"),
+                create_admission_suppression(
+                    pair="en-ja",
+                    lemma="alpha",
+                    reason=SUPPRESSION_REASON_DISCARDED,
+                ),
+            )
+            save_admission_suppression_store(
+                suppression,
+                paths.srs_admission_suppression_store_path_for("default"),
+            )
+
+            result = reset_srs_data(paths)
+
+            self.assertEqual(result["removed_suppression_entries"], 1)
+            self.assertEqual(result["removed_suppression_file"], 1)
+            self.assertFalse(paths.srs_admission_suppression_store_path_for("default").exists())
+
+    def test_reset_can_preserve_suppression_metadata_for_future_confirmation_ux(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = _seed_store_and_outputs(Path(tmp))
+            suppression = upsert_admission_suppression(
+                SrsAdmissionSuppressionStore(profile_id="default"),
+                create_admission_suppression(
+                    pair="en-ja",
+                    lemma="alpha",
+                    reason=SUPPRESSION_REASON_DISCARDED,
+                ),
+            )
+            save_admission_suppression_store(
+                suppression,
+                paths.srs_admission_suppression_store_path_for("default"),
+            )
+
+            result = reset_srs_data(paths, preserve_lifecycle_metadata=True)
+
+            self.assertEqual(result["removed_suppression_entries"], 0)
+            self.assertEqual(result["removed_suppression_file"], 0)
+            self.assertTrue(result["preserved_lifecycle_metadata"])
+            self.assertTrue(paths.srs_admission_suppression_store_path_for("default").exists())
 
 
 class TestHelperEngineProfileIsolation(unittest.TestCase):

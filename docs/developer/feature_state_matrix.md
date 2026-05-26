@@ -1418,7 +1418,7 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-26` admission suppression writer update:
+- Last documented checkpoint: `2026-05-26` SRS lifecycle marker update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
@@ -1426,8 +1426,13 @@ Use this file when:
   browsing diagnostics without changing actual neutral admission selection;
   `Balanced` preview can now realize one browsing slot for small budgets when
   fractional signal pressure is high enough; helper/native-host can now write
-  durable `user_blocked` suppression entries for future discard/block flows
-- Last verified: `2026-05-26` admission suppression writer tests, fractional
+  durable `user_blocked` suppression entries and mark existing SRS items
+  `discarded` for future discard/block flows; non-active lifecycle states are
+  now excluded from active inventory, due selection, growth capacity, and
+  rulegen publication
+- Last verified: `2026-05-26` lifecycle marker roundtrip and active-inventory
+  filtering tests, lifecycle-aware scheduler/growth/rulegen tests, admission
+  suppression writer tests, reset suppression-metadata tests, fractional
   browsing-budget tests, SRS quality harness with seeded non-empty browsing
   preview, refresh-path browsing preview tests, refresh-suppression lifecycle
   guard tests, extension packet-builder and offline helper/core research probe
@@ -1440,7 +1445,14 @@ Use this file when:
   - Manual refresh admission now filters active admission-suppression entries;
     this guards future browsing boost from re-admitting suppressed lemmas.
   - The `srs_admission_suppress` helper/native-host route can write durable
-    `user_blocked` suppression without creating or mutating `SrsItem` rows.
+    `user_blocked` suppression; when a matching SRS item already exists, it marks
+    that item `lifecycle_state=discarded` and removes it from active inventory.
+  - `SrsItem` lifecycle markers currently support `active`, `discarded`, and
+    `cleared`; non-active lifecycle states are filtered out of active-inventory
+    fallback, stale-inventory resolution, scheduler due selection, refresh
+    growth admission, and helper rulegen publication.
+  - `srs_reset` clears matching suppression metadata by default. A backend
+    `preserve_lifecycle_metadata` flag exists for a future confirmation UX.
   - The SRS feedback popup remains a review-feedback surface only; it does not
     expose a cooldown action.
   - Manual refresh responses include preview-only browsing admission diagnostics
@@ -1466,10 +1478,18 @@ Use this file when:
   - `docs/srs/srs_browsing_based_admission_plan.md`
   - `core/lexishift_core/srs/browsing_admission.py`
   - `core/lexishift_core/srs/admission_refresh.py`
+  - `core/lexishift_core/srs/growth.py`
+  - `core/lexishift_core/srs/scheduler.py`
+  - `core/lexishift_core/srs/store.py`
+  - `core/lexishift_core/srs/inventory.py`
+  - `core/lexishift_core/srs/store_ops.py`
   - `core/lexishift_core/srs/admission_suppression.py`
   - `core/lexishift_core/helper/use_cases/admission_suppression.py`
+  - `core/lexishift_core/helper/use_cases/reset.py`
   - `core/lexishift_core/helper/use_cases/browsing_admission.py`
+  - `core/lexishift_core/helper/use_cases/initialize_set.py`
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
+  - `core/lexishift_core/helper/rulegen.py`
   - `core/lexishift_core/helper/paths.py`
   - `scripts/helper/lexishift_native_host.py`
   - `scripts/helper/lexishift_helper.py`
@@ -1482,9 +1502,15 @@ Use this file when:
   - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
   - `core/tests/srs/test_srs_admission_refresh.py`
   - `core/tests/srs/test_srs_browsing_admission.py`
+  - `core/tests/srs/test_srs_growth.py`
+  - `core/tests/srs/test_srs_scheduler.py`
+  - `core/tests/srs/test_srs_store.py`
+  - `core/tests/srs/test_srs_inventory.py`
+  - `core/tests/srs/test_srs_store_ops.py`
   - `core/tests/helper/test_helper_admission_suppression.py`
   - `core/tests/helper/test_helper_browsing_admission.py`
   - `core/tests/helper/test_helper_engine.py`
+  - `core/tests/helper/test_helper_rulegen.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_browsing_admission_signals.py`
   - `core/tests/dev/test_srs_browsing_admission_research_en_es.py`
@@ -1495,7 +1521,7 @@ Use this file when:
   - User-facing settings and reset/clear controls for browsing admission signals
     remain planned.
   - Full user-facing durable discard/block/release/mastered lifecycle controls
-    remain planned; the current suppression writer is backend-only.
+    remain planned; the current lifecycle writer is backend-only.
 
 ## Pair-Local Active Inventory
 

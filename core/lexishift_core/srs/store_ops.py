@@ -8,7 +8,14 @@ from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
-from lexishift_core.srs import SrsHistoryEntry, SrsItem, SrsSettings, SrsStore
+from lexishift_core.srs import (
+    SRS_LIFECYCLE_ACTIVE,
+    SrsHistoryEntry,
+    SrsItem,
+    SrsSettings,
+    SrsStore,
+    normalize_srs_lifecycle_state,
+)
 from lexishift_core.srs.source import SOURCE_UNKNOWN, normalize_source_type
 from lexishift_core.srs.scheduler import apply_feedback
 from lexishift_core.srs.time import format_ts, now_utc
@@ -34,6 +41,30 @@ def upsert_item(store: SrsStore, item: SrsItem) -> SrsStore:
             return SrsStore(items=tuple(items), version=store.version)
     items.append(item)
     return SrsStore(items=tuple(items), version=store.version)
+
+
+def mark_item_lifecycle(
+    store: SrsStore,
+    *,
+    language_pair: str,
+    lemma: str,
+    lifecycle_state: str,
+    reason: str | None = None,
+    now: Optional[datetime] = None,
+) -> tuple[SrsStore, Optional[SrsItem]]:
+    normalized_state = normalize_srs_lifecycle_state(lifecycle_state)
+    if normalized_state == SRS_LIFECYCLE_ACTIVE:
+        reason = None
+    item = find_item(store, language_pair=language_pair, lemma=lemma)
+    if item is None:
+        return store, None
+    updated = replace(
+        item,
+        lifecycle_state=normalized_state,
+        lifecycle_reason=str(reason or "").strip() or None,
+        lifecycle_updated_at=format_ts(now or now_utc()),
+    )
+    return upsert_item(store, updated), updated
 
 
 def record_exposure(

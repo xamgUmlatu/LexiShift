@@ -10,6 +10,17 @@ from lexishift_core.lexicon.word_package import (
     resolve_language_tag_from_pair,
 )
 
+SRS_LIFECYCLE_ACTIVE = "active"
+SRS_LIFECYCLE_DISCARDED = "discarded"
+SRS_LIFECYCLE_CLEARED = "cleared"
+SRS_LIFECYCLE_STATES = frozenset(
+    {
+        SRS_LIFECYCLE_ACTIVE,
+        SRS_LIFECYCLE_DISCARDED,
+        SRS_LIFECYCLE_CLEARED,
+    }
+)
+
 
 @dataclass(frozen=True)
 class SrsSync:
@@ -69,6 +80,9 @@ class SrsItem:
     exposures: int = 0
     history: Sequence[SrsHistoryEntry] = field(default_factory=tuple)
     word_package: Optional[Mapping[str, object]] = None
+    lifecycle_state: str = SRS_LIFECYCLE_ACTIVE
+    lifecycle_reason: Optional[str] = None
+    lifecycle_updated_at: Optional[str] = None
 
 
 @dataclass(frozen=True)
@@ -201,6 +215,9 @@ def srs_store_from_dict(data: Mapping[str, Any]) -> SrsStore:
                 exposures=int(item.get("exposures", 0)),
                 history=history,
                 word_package=word_package,
+                lifecycle_state=normalize_srs_lifecycle_state(item.get("lifecycle_state")),
+                lifecycle_reason=_normalize_optional_string(item.get("lifecycle_reason")),
+                lifecycle_updated_at=_normalize_optional_string(item.get("lifecycle_updated_at")),
             )
         )
     return SrsStore(items=tuple(items), version=int(data.get("version", 1)))
@@ -232,6 +249,11 @@ def srs_store_to_dict(store: SrsStore) -> dict[str, Any]:
             "srs_history": [{"ts": entry.ts, "rating": entry.rating} for entry in item.history],
             "word_package": word_package,
         }
+        lifecycle_state = normalize_srs_lifecycle_state(item.lifecycle_state)
+        if lifecycle_state != SRS_LIFECYCLE_ACTIVE:
+            record["lifecycle_state"] = lifecycle_state
+            record["lifecycle_reason"] = item.lifecycle_reason
+            record["lifecycle_updated_at"] = item.lifecycle_updated_at
         trimmed = {key: value for key, value in record.items() if value not in (None, [], "")}
         items.append(trimmed)
     return {"version": store.version, "items": items}
@@ -270,6 +292,17 @@ def srs_bundle_from_dict(data: Mapping[str, Any]) -> tuple[SrsSettings, SrsStore
     return settings, store
 
 
+def normalize_srs_lifecycle_state(value: object) -> str:
+    state = str(value or "").strip().lower()
+    if state in SRS_LIFECYCLE_STATES:
+        return state
+    return SRS_LIFECYCLE_ACTIVE
+
+
+def srs_item_is_active(item: SrsItem) -> bool:
+    return normalize_srs_lifecycle_state(item.lifecycle_state) == SRS_LIFECYCLE_ACTIVE
+
+
 def _coerce_int_sequence(value: object, *, default: Sequence[int]) -> tuple[int, ...]:
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
         return tuple(int(item) for item in default)
@@ -294,3 +327,10 @@ def _coerce_optional_float_sequence(value: object) -> Optional[tuple[float, ...]
         except (TypeError, ValueError):
             continue
     return tuple(result) or None
+
+
+def _normalize_optional_string(value: object) -> Optional[str]:
+    if value is None:
+        return None
+    normalized = str(value).strip()
+    return normalized or None

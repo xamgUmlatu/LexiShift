@@ -23,7 +23,7 @@ from lexishift_core.rulegen.adapters import (
 )
 from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
-from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store
+from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store, srs_item_is_active
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
 from lexishift_core.srs.profile_bootstrap import score_seed_words_for_profile
 from lexishift_core.srs.selector import (
@@ -160,10 +160,10 @@ def load_targets_from_store(
 ) -> list[str]:
     active_item_id_list = _normalize_item_id_sequence(active_item_ids)
     if active_item_id_list is None:
-        return [item.lemma for item in store.items if item.language_pair == pair and item.lemma]
+        return [item.lemma for item in store.items if _item_is_active_for_pair(item, pair)]
 
     items_by_id = {
-        item.item_id: item for item in store.items if item.language_pair == pair and item.lemma
+        item.item_id: item for item in store.items if _item_is_active_for_pair(item, pair)
     }
     targets: list[str] = []
     seen_lemmas: set[str] = set()
@@ -187,7 +187,7 @@ def load_target_word_packages_from_store(
     active_item_id_set = _normalize_item_id_filter(active_item_ids)
     packages: dict[str, Mapping[str, object]] = {}
     for item in store.items:
-        if item.language_pair != pair or not item.lemma:
+        if not _item_is_active_for_pair(item, pair):
             continue
         if active_item_id_set is not None and item.item_id not in active_item_id_set:
             continue
@@ -216,7 +216,7 @@ def annotate_rules_with_srs_serving_metadata(
     now = now_utc()
     items_by_lemma: dict[str, SrsItem] = {}
     for item in store.items:
-        if item.language_pair != pair or not item.lemma:
+        if not _item_is_active_for_pair(item, pair):
             continue
         if active_item_id_set is not None and item.item_id not in active_item_id_set:
             continue
@@ -491,6 +491,10 @@ def _normalize_item_id_sequence(
         seen.add(candidate)
         normalized.append(candidate)
     return tuple(normalized)
+
+
+def _item_is_active_for_pair(item: SrsItem, pair: str) -> bool:
+    return item.language_pair == pair and bool(item.lemma) and srs_item_is_active(item)
 
 
 def _build_srs_serving_metadata(item: SrsItem, *, now) -> dict[str, object]:

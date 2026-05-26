@@ -9,6 +9,8 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.srs import (  # noqa: E402
+    SRS_LIFECYCLE_CLEARED,
+    SRS_LIFECYCLE_DISCARDED,
     SrsItem,
     SrsSchedulerSettings,
     SrsSettings,
@@ -82,6 +84,40 @@ class TestSrsStore(unittest.TestCase):
         self.assertEqual(restored.items[0].word_package["script_forms"]["romaji"], "tokoro")
         self.assertEqual(restored.items[0].scheduler_state, "review")
         self.assertEqual(restored.items[0].last_review, "2026-02-04T10:00:00+00:00")
+
+    def test_srs_store_roundtrip_with_lifecycle_marker(self) -> None:
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-es:perro",
+                    lemma="perro",
+                    language_pair="en-es",
+                    source_type="initial_set",
+                    lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+                    lifecycle_reason="user_blocked",
+                    lifecycle_updated_at="2026-05-26T00:00:00Z",
+                ),
+                SrsItem(
+                    item_id="en-es:gato",
+                    lemma="gato",
+                    language_pair="en-es",
+                    source_type="initial_set",
+                    lifecycle_state=SRS_LIFECYCLE_CLEARED,
+                    lifecycle_reason="user_known",
+                    lifecycle_updated_at="2026-05-26T00:00:00Z",
+                ),
+            ),
+            version=2,
+        )
+
+        payload = srs_store_to_dict(store)
+        restored = srs_store_from_dict(payload)
+
+        self.assertEqual(payload["items"][0]["lifecycle_state"], "discarded")
+        self.assertEqual(payload["items"][1]["lifecycle_state"], "cleared")
+        self.assertEqual(restored.items[0].lifecycle_state, "discarded")
+        self.assertEqual(restored.items[0].lifecycle_reason, "user_blocked")
+        self.assertEqual(restored.items[1].lifecycle_state, "cleared")
 
     def test_legacy_srs_store_without_word_package_still_loads(self) -> None:
         legacy = {

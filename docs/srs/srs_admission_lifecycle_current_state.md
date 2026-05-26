@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS admission suppression writer tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
+Last verified: 2026-05-26 by source audit, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -12,12 +12,13 @@ Browsing signals should enter real SRS mutation only through the existing
 feedback-retention, existing-lemma, POS, pair-resource, inventory, and rulegen
 publication checks.
 
-This audit found one important gap and closed it for refresh admission:
-lifecycle suppression can now block candidate admission through the production
-refresh path. A helper/native-host writer can now persist durable suppression
-entries for future discard/block flows, but there is intentionally no cooldown
-UX in the extension feedback popup. Full discard, block, mastered, and release
-lifecycle controls remain open product work.
+This audit found one important gap and closed it across active SRS serving:
+lifecycle suppression and non-active lifecycle states now block candidate
+admission, due selection, active-inventory fallback, and rulegen publication. A
+helper/native-host writer can now persist durable suppression entries and mark
+existing SRS items as `discarded` for future discard/block flows, but there is
+intentionally no cooldown UX in the extension feedback popup. Full user-facing
+discard, block, mastered, and release controls remain open product work.
 
 ## Admission Entry Points
 
@@ -29,7 +30,7 @@ lifecycle controls remain open product work.
 | `record_feedback` | Yes | No direct inventory write | No | Scheduler feedback; can create missing store rows and should not be reused as browsing admission. |
 | `record_exposure` | Yes | No direct inventory write | No | Passive exposure count; can create missing store rows and should not be reused as browsing admission. |
 | `srs_browsing_signal_ingest` | No SRS item mutation | No | No | Opt-in aggregate signal ingest only. |
-| `srs_admission_suppress` | Suppression store only | No | No | Backend suppression writer for future durable discard/block flows. |
+| `srs_admission_suppress` | Yes when item exists | Yes when item is active | No | Backend durable discard/block primitive: writes suppression, marks existing item `discarded`, and removes it from active inventory. |
 
 Native-host routing is in `scripts/helper/lexishift_native_host.py`. Helper
 execution lives mainly in:
@@ -90,8 +91,16 @@ Current lifecycle guard:
   `srs_admission_suppression.json`.
 - Expired entries are pruned during persistent refresh.
 - Active suppressed lemmas are passed to `AdmissionRefreshPolicy.blocked_lemmas`.
-- `apply_admission_refresh` filters blocked lemmas before growth selection and
-  reports `blocked_by_lifecycle` plus `blocked_lemmas` in diagnostics.
+- `apply_admission_refresh` filters blocked lemmas and non-active store
+  lifecycle states before growth selection and reports `blocked_by_lifecycle`
+  plus `blocked_lemmas` in diagnostics.
+- `grow_srs_store` counts only active store items toward existing active
+  capacity and blocks non-active store lemmas from re-admission.
+- `select_active_items` ignores non-active lifecycle states, so discarded or
+  cleared items do not create due pressure.
+- Helper rulegen target loading, word-package loading, and SRS rule metadata
+  annotation ignore non-active lifecycle states, so stale inventory ids cannot
+  publish discarded or cleared items.
 
 This makes refresh the safest place to add browsing boost later: browsing can
 change candidate score pressure, but it still cannot exceed refresh budgets or
@@ -135,10 +144,11 @@ passive browsing to displace active words. That is not needed for MVP.
 
 Current persisted `SrsItem` fields include scheduler state, scheduler step,
 stability, difficulty, last review, next due, exposures, history, source type,
-confidence, and word package metadata.
+confidence, word package metadata, and lifecycle metadata:
 
-There is no canonical persisted `released`, `mastered`, `discarded`, or
-`suspended` field on `SrsItem`.
+- `lifecycle_state`: `active`, `discarded`, or `cleared`;
+- `lifecycle_reason`: freeform backend reason such as `user_blocked`;
+- `lifecycle_updated_at`: timestamp of the lifecycle marker.
 
 Current related mechanisms:
 
@@ -155,7 +165,17 @@ Current related mechanisms:
   matches a future rare "discard this specific word" action than a temporary
   reshow policy.
 - `core/lexishift_core/helper/use_cases/admission_suppression.py` writes the
-  profile suppression store without creating or mutating `SrsItem` rows.
+  profile suppression store, marks an existing matching SRS item as
+  `lifecycle_state=discarded`, and removes that item from active inventory. If
+  the item is not in the SRS store yet, the suppression store still blocks future
+  refresh admission.
+- `core/lexishift_core/srs/scheduler.py`, `core/lexishift_core/srs/growth.py`,
+  and `core/lexishift_core/helper/rulegen.py` all treat non-active lifecycle
+  states as ineligible for active serving.
+- `reset_srs_data` clears suppression metadata by default when resetting a pair
+  or all SRS data. A backend `preserve_lifecycle_metadata` flag exists for a
+  future confirmation UX that lets the learner keep durable discard/block
+  metadata during reset.
 
 Open gap: full user-facing lifecycle management is still not implemented. The
 guard exists and refresh respects it, but the product still needs explicit
@@ -186,7 +206,8 @@ Before browsing signals can affect actual `srs_refresh`, keep these conditions:
 
 1. Browsing boost applies only inside refresh candidate scoring, after opt-in.
 2. Refresh budgets and due-pressure/retention gates remain hard gates.
-3. Existing store lemmas remain filtered out.
+3. Existing active store lemmas remain filtered out; non-active lifecycle states
+   are excluded from active serving.
 4. Active suppression remains filtered out.
 5. Browsing events never update FSRS scheduling fields.
 6. Browsing events never create `SrsItem` rows directly.

@@ -6,7 +6,7 @@ from datetime import datetime
 from math import floor
 from typing import Iterable, Mapping, Optional, Sequence
 
-from lexishift_core.srs import SrsSettings, SrsStore
+from lexishift_core.srs import SrsSettings, SrsStore, srs_item_is_active
 from lexishift_core.srs.browsing_admission import (
     BrowsingAdmissionCandidate,
     BrowsingAdmissionSimulationResult,
@@ -128,7 +128,11 @@ def preview_browsing_admission_refresh(
     policy = policy or AdmissionRefreshPolicy()
     browsing_policy = browsing_policy or BrowsingSignalIngestPolicy()
     allowed_pos = _normalize_allowed_pos(policy.allowed_pos)
-    blocked_lemmas = _normalize_blocked_lemmas(policy.blocked_lemmas)
+    blocked_lemmas = _resolve_lifecycle_blocked_lemmas(
+        store=store,
+        pair=pair,
+        policy=policy,
+    )
     decision = plan_admission_refresh(
         store=store,
         settings=settings,
@@ -340,7 +344,11 @@ def apply_admission_refresh(
 ) -> tuple[SrsStore, AdmissionRefreshResult]:
     policy = policy or AdmissionRefreshPolicy()
     allowed_pos = _normalize_allowed_pos(policy.allowed_pos)
-    blocked_lemmas = _normalize_blocked_lemmas(policy.blocked_lemmas)
+    blocked_lemmas = _resolve_lifecycle_blocked_lemmas(
+        store=store,
+        pair=pair,
+        policy=policy,
+    )
     filtered_by_pos = _count_filtered_by_allowed_pos(candidates, allowed_pos=allowed_pos)
     blocked_by_lifecycle = _count_blocked_by_lifecycle(candidates, blocked_lemmas)
     unknown_pos_seen = _count_unknown_pos(candidates)
@@ -488,6 +496,22 @@ def _normalize_blocked_lemmas(value: Optional[IterableCollection[str]]) -> set[s
     if not value:
         return set()
     return {str(item).strip() for item in value if str(item).strip()}
+
+
+def _resolve_lifecycle_blocked_lemmas(
+    *,
+    store: SrsStore,
+    pair: str,
+    policy: AdmissionRefreshPolicy,
+) -> set[str]:
+    blocked = _normalize_blocked_lemmas(policy.blocked_lemmas)
+    for item in store.items:
+        if item.language_pair != pair or srs_item_is_active(item):
+            continue
+        lemma = str(item.lemma or "").strip()
+        if lemma:
+            blocked.add(lemma)
+    return blocked
 
 
 def _apply_allowed_pos_filter(

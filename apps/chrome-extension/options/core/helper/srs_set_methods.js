@@ -233,7 +233,11 @@
       const profileId = this.normalizeProfileId(opts.profileId);
 
       this.logger(`[HelperManager] resetSrs called for ${pair} (profile=${profileId})`);
-      const response = await client.resetSrs({ pair, profile_id: profileId });
+      const response = await client.resetSrs({
+        pair,
+        profile_id: profileId,
+        preserve_lifecycle_metadata: opts.preserveLifecycleMetadata === true
+      });
 
       this.logger("[HelperManager] resetSrs response:", response);
 

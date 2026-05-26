@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Mapping, Optional, Iterable, Sequence
+from typing import Iterable, Mapping, Optional, Sequence
 
 from lexishift_core.lexicon.word_package import (
     normalize_word_package,
     resolve_language_tag_from_pair,
 )
-from lexishift_core.srs import SrsItem, SrsSettings, SrsStore
+from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, srs_item_is_active
 from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST, normalize_source_type
 from lexishift_core.srs.selector import (
     ScoredCandidate,
@@ -84,8 +84,16 @@ def plan_srs_growth(
     pool_size = len(pool)
 
     existing = {
-        item.lemma for item in store.items if not pair_set or item.language_pair in pair_set
+        item.lemma
+        for item in store.items
+        if (not pair_set or item.language_pair in pair_set) and srs_item_is_active(item)
     }
+    inactive_lifecycle = {
+        item.lemma
+        for item in store.items
+        if (not pair_set or item.language_pair in pair_set) and not srs_item_is_active(item)
+    }
+    blocked = set(blocked_lemmas or set()) | inactive_lifecycle
 
     coverage_scalar = (
         config.coverage_scalar if config.coverage_scalar is not None else settings.coverage_scalar
@@ -96,7 +104,7 @@ def plan_srs_growth(
 
     filtered = filter_candidates(
         pool,
-        blocked_lemmas=blocked_lemmas,
+        blocked_lemmas=blocked,
         in_s=existing,
         allowed_pairs=pairs if pairs else None,
         allowed_pos=effective_allowed_pos,

@@ -9,7 +9,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from lexishift_core.srs import SrsItem
+from lexishift_core.srs import SRS_LIFECYCLE_DISCARDED, SrsItem
 from lexishift_core.srs.scheduler import (
     RATING_GOOD,
     apply_feedback,
@@ -43,12 +43,21 @@ class TestSrsScheduler(unittest.TestCase):
                 source_type="frequency",
                 next_due=None,
             ),
+            SrsItem(
+                item_id="en-en:discarded",
+                lemma="discarded",
+                language_pair="en-en",
+                source_type="frequency",
+                next_due=None,
+                lifecycle_state=SRS_LIFECYCLE_DISCARDED,
+            ),
         ]
         due = select_active_items(items, now=now, max_active=10, allowed_pairs=["en-en"])
         ids = [item.item_id for item in due]
         self.assertIn("en-en:alpha", ids)
         self.assertIn("en-en:gamma", ids)
         self.assertNotIn("de-de:beta", ids)
+        self.assertNotIn("en-en:discarded", ids)
 
     def test_apply_feedback_sets_due(self) -> None:
         now = datetime(2026, 2, 2, 12, 0, tzinfo=timezone.utc)
