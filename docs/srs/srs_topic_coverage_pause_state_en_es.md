@@ -125,6 +125,8 @@ Interpretation:
 5. Register/style preferences are ready for ordinary topic-style product
    exposure.
 6. SAT/TOEFL can be shipped without a legally reviewed English-target source.
+7. Rare topic words cannot starve active SRS capacity by being admitted and
+   then rarely encountered in ordinary browsing.
 
 These are acceptable open gaps for the pause point.
 

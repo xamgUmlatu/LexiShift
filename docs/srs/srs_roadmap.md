@@ -139,6 +139,9 @@ Status key:
   initialize execution use profile-aware bootstrap when requested).
 - `[x]` Capped reserved topic-lane selection in `profile_bootstrap` so explicit
   topic preferences can move admission while preserving a mixed general batch.
+- `[ ]` Encounter-starvation diagnostics/policy for rare admitted words that
+  receive little or no replacement exposure and therefore cannot easily collect
+  learner feedback.
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.

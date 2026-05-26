@@ -199,6 +199,47 @@ product still needs explicit actions and policy for restore, release, and
 mastered-state management. Known words should primarily advance through normal
 SRS feedback (`easy`), not through a cooldown UX.
 
+## Encounter Starvation Risk
+
+Interest-tailored admission can admit correct but rarely encountered target
+words. For example, a strong Animals preference can admit specialized animal
+lemmas whose replacement rules almost never match the learner's normal browsing.
+If those words stay active but receive few or no replacement exposures, the
+learner may have no natural chance to give `good` or `easy` feedback. They can
+then occupy active capacity and slow or block future admission.
+
+Current mitigations:
+
+- the reserved topic lane is capped, so a strong topic preference does not fill
+  the whole batch;
+- frequency, proficiency/readiness, POS, source, and rulegen gates still apply;
+- refresh admission has hard capacity, new-item, due-pressure, and retention
+  gates;
+- the dashboard discard route can remove a specific unwanted active item;
+- passive exposure counts exist and are intentionally non-authoritative for
+  scheduling.
+
+Current gap:
+
+- there is no automatic stale-active policy that clears, releases, or parks a
+  low-exposure item in a way that frees refresh capacity;
+- rebalance can change active inventory membership, but refresh capacity is
+  currently counted from active lifecycle store items for the pair, so inventory
+  parking alone is not enough to solve starvation;
+- durable mastered/released semantics remain open.
+
+Before broad tester handoff, this needs an explicit product contract. The
+recommended MVP contract is:
+
+1. Keep feedback as the only event that advances FSRS scheduling.
+2. Treat passive exposure as evidence for servability/staleness diagnostics,
+   not as recall.
+3. Add tester-visible diagnostics for active words with zero/low exposure and
+   no feedback.
+4. Add or schedule a stale-active release/clear policy that can free admission
+   capacity without pretending the user learned the word.
+5. Keep manual discard for rare user rejection, not routine cooldown.
+
 ## Feedback And Exposure Caveat
 
 The current feedback/exposure helper path uses `create_if_missing=True`.

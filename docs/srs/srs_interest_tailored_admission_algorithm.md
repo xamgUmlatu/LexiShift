@@ -497,6 +497,56 @@ it compares topic top-N counts, first-draw selection mass, proficiency-driven
 difficulty shift, and high-proficiency topic pressure on a controlled synthetic
 frontier.
 
+## Encounterability Constraint
+
+A word should not enter active SRS only because it is topically interesting. It
+also needs a plausible path to being seen, reviewed, and eventually moved out
+of the active learning lane.
+
+The failure mode is "encounter starvation":
+
+```text
+rare topical word admitted -> replacement rule rarely matches pages ->
+little/no feedback -> word remains active -> active capacity stays full ->
+future admission slows or stalls
+```
+
+This is especially relevant for narrow topic preferences such as rare animals,
+plants, technical tools, or specialist jargon. The answer is not to remove
+topic personalization. The answer is to keep topic lift bounded and pair it
+with servability signals.
+
+Recommended scoring extension:
+
+```text
+encounterability_i =
+    0.70 * general_frequency_i
+  + 0.20 * recent_browsing_match_i
+  + 0.10 * replacement_source_frequency_i
+
+final_score_i =
+    interest_score_i
+  * readiness_multiplier_i
+  * encounterability_floor_i
+```
+
+For MVP, `general_frequency_i` and the existing frequency/rank frontier are the
+main encounterability proxy. Browsing signals can later raise encounterability
+only after opt-in. Passive replacement exposure should not count as recall, but
+it is useful evidence that an admitted word is actually servable in the
+learner's reading environment.
+
+Operational policy:
+
+- a strong topic preference may reserve a capped lane, but should not consume
+  the whole active set;
+- very rare topic words should need either strong source/readiness evidence or
+  direct browsing evidence before receiving large admission pressure;
+- active words with low/no exposure and no feedback should be visible in
+  diagnostics before testers evaluate the SRS experience;
+- a future stale-active release/clear policy should be able to free capacity
+  without marking the word learned.
+
 ## Clean Admission Sequence
 
 Admission should be staged.
