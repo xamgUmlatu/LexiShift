@@ -49,6 +49,7 @@ class CandidateSpec:
     pos_bucket: str = "noun"
     pos_weight: float = 1.0
     frequency_pos_raw: str = "n"
+    topics: tuple[str, ...] = tuple()
 
 
 @dataclass(frozen=True)
@@ -76,6 +77,8 @@ class JourneyScenario:
     pair: str
     lane: str
     phase_plans: tuple[JourneyPhasePlan, ...]
+    strategy: str = "frequency_bootstrap"
+    profile_context: Mapping[str, object] | None = None
     resource_mode: str = "synthetic"
     use_stub_seed_candidates: bool = True
     use_stub_rulegen: bool = True
@@ -91,7 +94,9 @@ def _candidate_specs(
     rows: Sequence[tuple[str, str, str, float]],
     *,
     frequency_pos_raw: str = "n",
+    topics_by_lemma: Mapping[str, Sequence[str]] | None = None,
 ) -> tuple[CandidateSpec, ...]:
+    topic_map = topics_by_lemma or {}
     return tuple(
         CandidateSpec(
             lemma=lemma,
@@ -99,6 +104,7 @@ def _candidate_specs(
             cohort=cohort,
             base_weight=base_weight,
             frequency_pos_raw=frequency_pos_raw,
+            topics=tuple(str(topic) for topic in topic_map.get(lemma, ()) if str(topic).strip()),
         )
         for lemma, source_gloss, cohort, base_weight in rows
     )
@@ -128,7 +134,8 @@ EN_ES_CANDIDATE_SPECS = _candidate_specs(
         ("campo", "field", "frontier", 0.82),
         ("ventana", "window", "frontier", 0.78),
         ("mesa", "table", "frontier", 0.74),
-    )
+    ),
+    topics_by_lemma={"madre": ("family", "people")},
 )
 
 PAIR_FIXTURES = {
@@ -155,6 +162,7 @@ EN_ES_CORE_SCENARIO_NAME = "en-es_core_journey_v1"
 EN_ES_EDGE_SCENARIO_NAME = "en-es_edge_behaviors_v1"
 EN_ES_REAL_SCENARIO_NAME = "en-es_real_publication_v1"
 EN_ES_INSTALLED_SCENARIO_NAME = "en-es_installed_data_journey_v1"
+EN_ES_PROFILE_SCENARIO_NAME = "en-es_profile_preference_journey_v1"
 
 CORE_SCENARIO_NAME = EN_JA_CORE_SCENARIO_NAME
 EDGE_SCENARIO_NAME = EN_JA_EDGE_SCENARIO_NAME
@@ -302,6 +310,57 @@ EDGE_PHASE_PLANS = (
     JourneyPhasePlan(label="final_observe", observe_at=BASE_TIME + timedelta(days=3)),
 )
 
+EN_ES_PROFILE_PHASE_PLANS = (
+    JourneyPhasePlan(label="bootstrap_publish", observe_at=BASE_TIME),
+    JourneyPhasePlan(label="baseline_observe", observe_at=BASE_TIME + timedelta(minutes=5)),
+    JourneyPhasePlan(
+        label="high_retention_growth",
+        observe_at=BASE_TIME + timedelta(days=1),
+        feedback_events=(
+            ("casa", "good"),
+            ("libro", "easy"),
+            ("casa", "good"),
+            ("libro", "easy"),
+            ("casa", "easy"),
+            ("libro", "good"),
+            ("casa", "easy"),
+            ("libro", "good"),
+        ),
+        refresh_at=BASE_TIME + timedelta(days=1),
+    ),
+    JourneyPhasePlan(
+        label="low_retention_pause",
+        observe_at=BASE_TIME + timedelta(days=2),
+        feedback_events=(
+            ("madre", "again"),
+            ("madre", "hard"),
+            ("madre", "again"),
+            ("madre", "hard"),
+            ("madre", "again"),
+            ("madre", "hard"),
+            ("madre", "again"),
+            ("madre", "hard"),
+        ),
+        refresh_at=BASE_TIME + timedelta(days=2),
+    ),
+    JourneyPhasePlan(
+        label="recovery_resume",
+        observe_at=BASE_TIME + timedelta(days=3),
+        feedback_events=(
+            ("hora", "good"),
+            ("campo", "easy"),
+            ("hora", "good"),
+            ("campo", "easy"),
+            ("hora", "easy"),
+            ("campo", "good"),
+            ("hora", "easy"),
+            ("campo", "good"),
+        ),
+        refresh_at=BASE_TIME + timedelta(days=3),
+    ),
+    JourneyPhasePlan(label="final_observe", observe_at=BASE_TIME + timedelta(days=7)),
+)
+
 
 def _translate_phase_plans(
     phase_plans: Sequence[JourneyPhasePlan],
@@ -394,6 +453,14 @@ SCENARIOS = {
         set_top_n=50,
         bootstrap_top_n=50,
     ),
+    EN_ES_PROFILE_SCENARIO_NAME: JourneyScenario(
+        name=EN_ES_PROFILE_SCENARIO_NAME,
+        pair="en-es",
+        lane="profile_preference_journey",
+        phase_plans=EN_ES_PROFILE_PHASE_PLANS,
+        strategy="profile_bootstrap",
+        profile_context={"topic_weights": {"family": 1.0}},
+    ),
 }
 
 
@@ -423,15 +490,20 @@ def create_frequency_db(path: Path, *, specs: Sequence[CandidateSpec]) -> Path:
     conn = sqlite3.connect(path)
     try:
         conn.execute("DROP TABLE IF EXISTS frequency;")
-        conn.execute("CREATE TABLE frequency (lemma TEXT, core_rank REAL, pmw REAL, pos TEXT);")
+        conn.execute(
+            "CREATE TABLE frequency "
+            "(lemma TEXT, core_rank REAL, pmw REAL, pos TEXT, profile_topics TEXT);"
+        )
         conn.executemany(
-            "INSERT INTO frequency (lemma, core_rank, pmw, pos) VALUES (?, ?, ?, ?);",
+            "INSERT INTO frequency "
+            "(lemma, core_rank, pmw, pos, profile_topics) VALUES (?, ?, ?, ?, ?);",
             [
                 (
                     spec.lemma,
                     float(index + 1),
                     float(len(specs) - index),
                     spec.frequency_pos_raw,
+                    ",".join(spec.topics) if spec.topics else None,
                 )
                 for index, spec in enumerate(specs)
             ],
@@ -524,7 +596,10 @@ def build_seed_candidates(*args, pair: str = "", **kwargs) -> list[SimpleNamespa
                 pmw=float(len(fixture.candidate_specs) - index),
                 base_weight=spec.base_weight,
                 admission_weight=round(spec.base_weight * spec.pos_weight, 6),
-                metadata={"cohort": spec.cohort},
+                metadata={
+                    "cohort": spec.cohort,
+                    "topics": list(spec.topics),
+                },
             )
         )
     return candidates
@@ -581,6 +656,7 @@ def scenario_candidate_universe(*, pair: str) -> list[dict[str, object]]:
             "admission_weight": round(candidate.base_weight * candidate.pos_weight, 6),
             "core_rank": float(index + 1),
             "source_gloss": candidate.source_gloss,
+            "topics": list(candidate.topics),
         }
         for index, candidate in enumerate(fixture.candidate_specs)
     ]

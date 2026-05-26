@@ -3,7 +3,7 @@
 Status: active mixed roadmap
 Role: Mixed
 Last updated: 2026-05-27
-Last verified: 2026-05-27 en-es admission calibration report, focused calibration test, generated JSON/Markdown artifacts, and SRS encounter-watch harness update; roadmap claims not fully re-audited
+Last verified: 2026-05-27 en-es admission calibration report, focused calibration test, generated JSON/Markdown artifacts, SRS encounter-watch harness update, and en-es profile-preference journey lane; roadmap claims not fully re-audited
 Purpose: preserve the SRS current-state snapshot, remaining E2E gaps, and roadmap workstreams
 Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/extension code, SRS harnesses, and `docs/developer/feature_state_matrix.md`.
 
@@ -225,6 +225,8 @@ Status key:
 - `[x]` Add multi-phase simulation test (`high retention -> low retention pause -> high retention`) asserting S growth + ruleset/snapshot evolution (`core/tests/srs/test_srs_feedback_simulation.py`).
 - `[x]` Add helper bridge test for preference-aware bootstrap -> active inventory
   -> rule publication -> dashboard visibility.
+- `[x]` Add deterministic journey harness lane for preference-aware en-es
+  bootstrap plus feedback-driven growth/pause/resume continuity.
 - `[x]` Surface refresh budget, selected lemmas, and preview-only browsing
   comparison in the options refresh output for manual SRS testing.
 - `[x]` Add diagnostics snapshots for before/after feedback cycles (store,

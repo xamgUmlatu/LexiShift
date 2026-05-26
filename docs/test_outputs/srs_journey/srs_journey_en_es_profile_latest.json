@@ -1,0 +1,5029 @@
+{
+  "version": 2,
+  "generated_at": "2026-05-26T22:43:21.373312+00:00",
+  "plan_doc": "/Users/takeyayuki/Documents/projects/LexiShift/docs/srs/srs_journey_harness_workstream.md",
+  "scenario": {
+    "id": "en-es_profile_preference_journey_v1",
+    "name": "en-es_profile_preference_journey_v1",
+    "pair": "en-es",
+    "lane": "profile_preference_journey",
+    "resource_mode": "synthetic",
+    "contract_mode": "observe_current_behavior",
+    "profile_id": "default",
+    "settings": {
+      "max_active_items": 8,
+      "max_new_items_per_day": 2
+    },
+    "strategy": "profile_bootstrap",
+    "profile_context": {
+      "topic_weights": {
+        "family": 1.0
+      }
+    },
+    "bootstrap": {
+      "set_top_n": 7,
+      "bootstrap_top_n": 7,
+      "initial_active_count": 3,
+      "replace_pair": true
+    },
+    "candidate_universe": [
+      {
+        "lemma": "casa",
+        "cohort": "stable",
+        "base_weight": 0.97,
+        "admission_weight": 0.97,
+        "core_rank": 1.0,
+        "source_gloss": "house",
+        "topics": []
+      },
+      {
+        "lemma": "libro",
+        "cohort": "stable",
+        "base_weight": 0.93,
+        "admission_weight": 0.93,
+        "core_rank": 2.0,
+        "source_gloss": "book",
+        "topics": []
+      },
+      {
+        "lemma": "hora",
+        "cohort": "difficult",
+        "base_weight": 0.9,
+        "admission_weight": 0.9,
+        "core_rank": 3.0,
+        "source_gloss": "hour",
+        "topics": []
+      },
+      {
+        "lemma": "madre",
+        "cohort": "frontier",
+        "base_weight": 0.86,
+        "admission_weight": 0.86,
+        "core_rank": 4.0,
+        "source_gloss": "mother",
+        "topics": [
+          "family",
+          "people"
+        ]
+      },
+      {
+        "lemma": "campo",
+        "cohort": "frontier",
+        "base_weight": 0.82,
+        "admission_weight": 0.82,
+        "core_rank": 5.0,
+        "source_gloss": "field",
+        "topics": []
+      },
+      {
+        "lemma": "ventana",
+        "cohort": "frontier",
+        "base_weight": 0.78,
+        "admission_weight": 0.78,
+        "core_rank": 6.0,
+        "source_gloss": "window",
+        "topics": []
+      },
+      {
+        "lemma": "mesa",
+        "cohort": "frontier",
+        "base_weight": 0.74,
+        "admission_weight": 0.74,
+        "core_rank": 7.0,
+        "source_gloss": "table",
+        "topics": []
+      }
+    ],
+    "cohorts": {
+      "stable": [
+        "casa",
+        "libro"
+      ],
+      "difficult": [
+        "hora"
+      ],
+      "frontier": [
+        "madre",
+        "campo",
+        "ventana",
+        "mesa"
+      ]
+    },
+    "role_assignments": {
+      "@stable_1": "madre",
+      "@stable_2": "casa",
+      "@difficult_1": "libro",
+      "@growth_1": "hora",
+      "@growth_2": "campo"
+    },
+    "clock": {
+      "bootstrap_publish": "2026-03-21T09:00:00+00:00",
+      "baseline_observe": "2026-03-21T09:05:00+00:00",
+      "high_retention_growth": "2026-03-22T09:00:00+00:00",
+      "low_retention_pause": "2026-03-23T09:00:00+00:00",
+      "recovery_resume": "2026-03-24T09:00:00+00:00",
+      "final_observe": "2026-03-28T09:00:00+00:00"
+    }
+  },
+  "initialize": {
+    "pair": "en-es",
+    "profile_id": "default",
+    "set_top_n": 200,
+    "bootstrap_top_n": 200,
+    "initial_active_count": 3,
+    "max_active_items_hint": null,
+    "pair_policy": {
+      "pair": "en-es",
+      "bootstrap_top_n_default": 800,
+      "refresh_top_n_default": 2000,
+      "feedback_window_size_default": 100,
+      "initial_active_count_default": 40,
+      "max_new_items_per_day_default": null,
+      "notes": []
+    },
+    "source_type": "initial_set",
+    "replace_pair": true,
+    "added_items": 3,
+    "total_items_for_pair": 3,
+    "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+    "stopwords_path": null,
+    "bootstrap_diagnostics": {
+      "selected_count": 7,
+      "selected_unique_count": 7,
+      "admitted_count": 3,
+      "inserted_count": 3,
+      "updated_count": 0,
+      "selected_preview": [
+        "casa",
+        "madre",
+        "libro",
+        "hora",
+        "campo",
+        "ventana",
+        "mesa"
+      ],
+      "initial_active_preview": [
+        "madre",
+        "casa",
+        "libro"
+      ],
+      "admission_weight_profile": {
+        "noun": 1.0,
+        "adjective": 0.85,
+        "verb": 0.7,
+        "adverb": 0.55,
+        "other": 0.4
+      },
+      "initial_active_weight_preview": [
+        {
+          "lemma": "madre",
+          "pos": "n",
+          "pos_bucket": "noun",
+          "base_weight": 0.773976,
+          "pos_weight": 1.0,
+          "admission_weight": 0.773976
+        },
+        {
+          "lemma": "casa",
+          "pos": "n",
+          "pos_bucket": "noun",
+          "base_weight": 1.0,
+          "pos_weight": 1.0,
+          "admission_weight": 1.0
+        },
+        {
+          "lemma": "libro",
+          "pos": "n",
+          "pos_bucket": "noun",
+          "base_weight": 0.935785,
+          "pos_weight": 1.0,
+          "admission_weight": 0.935785
+        }
+      ],
+      "selection_strategy": "profile_bootstrap",
+      "selection_policy": "reserved_topic_lane",
+      "selection_seed": null,
+      "selector_version": "profile_bootstrap_v5"
+    },
+    "inventory": {
+      "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+      "exists": true,
+      "active_items_for_pair": 3,
+      "source": "initialized",
+      "backfilled_from_store": false,
+      "updated_at": "2026-05-26T22:43:21.332872+00:00"
+    },
+    "rulegen": {
+      "published": true,
+      "targets": 3,
+      "rules": 3,
+      "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+      "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+      "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+      "semantic_inventory_path": null
+    },
+    "applied": true,
+    "plan": {
+      "pair": "en-es",
+      "strategy_requested": "profile_bootstrap",
+      "strategy_effective": "profile_bootstrap",
+      "objective": "bootstrap",
+      "can_execute": true,
+      "execution_mode": "profile_bootstrap",
+      "requires_profile_fields": [
+        "interests",
+        "proficiency",
+        "difficulty_preferences"
+      ],
+      "notes": [
+        "Profile bootstrap applies profile-aware candidate scoring to the frequency bootstrap seed frontier.",
+        "Profile bootstrap will keep missing signals neutral: proficiency, challenge_preference.",
+        "Active bootstrap profile signals: interests.",
+        "bootstrap_top_n clamped to 200 (allowed: 200..50000)."
+      ],
+      "diagnostics": {
+        "pair": "en-es",
+        "set_top_n": 200,
+        "bootstrap_top_n": 200,
+        "initial_active_count": 3,
+        "max_active_items_hint": 0,
+        "replace_pair": true,
+        "trigger": "srs_journey_harness",
+        "existing_items_for_pair": 0,
+        "profile_keys": [
+          "topic_weights"
+        ],
+        "signal_summary_keys": [
+          "event_count",
+          "event_types",
+          "last_event_at",
+          "pair",
+          "unique_lemmas"
+        ],
+        "profile_bootstrap": {
+          "context": {
+            "version": "admission_profile_features_v1",
+            "topic_normalization_version": "topic_family_v1",
+            "raw_profile_keys": [
+              "topic_weights"
+            ],
+            "interests": [],
+            "explicit_topic_weights": {
+              "family": 1.0
+            },
+            "implicit_topic_weights": {},
+            "topic_weights": {
+              "family": 1.0
+            },
+            "topic_weight_sources": {
+              "family": "topic_weights"
+            },
+            "proficiency_estimate": null,
+            "challenge_target": null,
+            "challenge_spread": null,
+            "goal_mode": null,
+            "active_signals": [
+              "interests"
+            ],
+            "missing_signals": [
+              "proficiency",
+              "challenge_preference"
+            ],
+            "signal_sources": {
+              "interests": "topic_weights"
+            }
+          },
+          "policy": {
+            "version": "profile_bootstrap_policy_v4",
+            "default_selection_policy": "reserved_topic_lane",
+            "topic_lane_max_share": 0.5,
+            "topic_lane_candidate_window_multiplier": 6.0,
+            "topic_lane_min_window": 60,
+            "difficulty_proxy": "1_minus_admission_weight",
+            "topic_metadata_keys": [
+              "sense_topics",
+              "topics",
+              "topic",
+              "profile_topics"
+            ],
+            "topic_exact_match_multiplier": 1.0,
+            "proficiency_taper_width": 0.75,
+            "challenge_default_spread": 0.18,
+            "challenge_min_spread": 0.1,
+            "readiness_base_lower_margin": 0.15,
+            "readiness_base_upper_margin": 0.18,
+            "readiness_topic_extra_lower_margin": 0.12,
+            "readiness_topic_extra_upper_margin": 0.08,
+            "readiness_too_easy_penalty": 60.0,
+            "readiness_too_hard_penalty": 35.0,
+            "explanation_component_floor": 0.025,
+            "topic_specificity_floor": 0.45,
+            "scarcity_support_min_count": 3,
+            "scarcity_support_min_mass": 1.0,
+            "scarcity_support_mass_proxy": "sum(lexical_commonness * topic_specificity)",
+            "scarcity_bonus_enabled": true,
+            "scarcity_bonus_target_mass": 6.0,
+            "scarcity_bonus_mass_smoothing": 0.5,
+            "scarcity_bonus_mass_exponent": 0.5,
+            "scarcity_bonus_max_extra": 0.45,
+            "utility_shape": {
+              "positive_terms": [
+                "proficiency_fit",
+                "challenge_fit",
+                "topic_affinity",
+                "scarcity_bonus",
+                "coverage_gain"
+              ],
+              "negative_terms": [
+                "lexical_risk",
+                "redundancy"
+              ],
+              "exploration_terms": [
+                "exploration_bonus"
+              ],
+              "multipliers": [
+                "readiness_multiplier"
+              ]
+            }
+          },
+          "selector_version": "profile_bootstrap_v5"
+        }
+      }
+    },
+    "signal_summary": {
+      "pair": "en-es",
+      "event_count": 0,
+      "event_types": {},
+      "unique_lemmas": 0,
+      "last_event_at": null
+    },
+    "bootstrap_audit": {
+      "candidate_count": 7,
+      "admitted_count": 3,
+      "admission_weight_sum": 5.099736,
+      "stopwords_path": null,
+      "candidates": [
+        {
+          "seed_rank": 1,
+          "lemma": "casa",
+          "cohort": "stable",
+          "core_rank": 1.0,
+          "pmw": 7.0,
+          "pos": "n",
+          "pos_bucket": "noun",
+          "pos_weight": 1.0,
+          "base_weight": 1.0,
+          "admission_weight": 1.0,
+          "word_package_present": true,
+          "word_package": {
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "casa"
+            }
+          },
+          "selected": true,
+          "selected_order": 1,
+          "admission_weight_share": 0.196089
+        },
+        {
+          "seed_rank": 2,
+          "lemma": "libro",
+          "cohort": "stable",
+          "core_rank": 2.0,
+          "pmw": 6.0,
+          "pos": "n",
+          "pos_bucket": "noun",
+          "pos_weight": 1.0,
+          "base_weight": 0.935785,
+          "admission_weight": 0.935785,
+          "word_package_present": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
+            }
+          },
+          "selected": true,
+          "selected_order": 2,
+          "admission_weight_share": 0.183497
+        },
+        {
+          "seed_rank": 3,
+          "lemma": "hora",
+          "cohort": "difficult",
+          "core_rank": 3.0,
+          "pmw": 5.0,
+          "pos": "n",
+          "pos_bucket": "noun",
+          "pos_weight": 1.0,
+          "base_weight": 0.861654,
+          "admission_weight": 0.861654,
+          "word_package_present": true,
+          "word_package": {
+            "surface": "hora",
+            "reading": "hora",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "hora"
+            }
+          },
+          "selected": true,
+          "selected_order": 3,
+          "admission_weight_share": 0.168961
+        },
+        {
+          "seed_rank": 4,
+          "lemma": "madre",
+          "cohort": "frontier",
+          "core_rank": 4.0,
+          "pmw": 4.0,
+          "pos": "n",
+          "pos_bucket": "noun",
+          "pos_weight": 1.0,
+          "base_weight": 0.773976,
+          "admission_weight": 0.773976,
+          "word_package_present": true,
+          "word_package": {
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "madre"
+            }
+          },
+          "selected": false,
+          "selected_order": null,
+          "admission_weight_share": 0.151768
+        },
+        {
+          "seed_rank": 5,
+          "lemma": "campo",
+          "cohort": "frontier",
+          "core_rank": 5.0,
+          "pmw": 3.0,
+          "pos": "n",
+          "pos_bucket": "noun",
+          "pos_weight": 1.0,
+          "base_weight": 0.666667,
+          "admission_weight": 0.666667,
+          "word_package_present": true,
+          "word_package": {
+            "surface": "campo",
+            "reading": "campo",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "campo"
+            }
+          },
+          "selected": false,
+          "selected_order": null,
+          "admission_weight_share": 0.130726
+        },
+        {
+          "seed_rank": 6,
+          "lemma": "ventana",
+          "cohort": "frontier",
+          "core_rank": 6.0,
+          "pmw": 2.0,
+          "pos": "n",
+          "pos_bucket": "noun",
+          "pos_weight": 1.0,
+          "base_weight": 0.528321,
+          "admission_weight": 0.528321,
+          "word_package_present": true,
+          "word_package": {
+            "surface": "ventana",
+            "reading": "ventana",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "ventana"
+            }
+          },
+          "selected": false,
+          "selected_order": null,
+          "admission_weight_share": 0.103598
+        },
+        {
+          "seed_rank": 7,
+          "lemma": "mesa",
+          "cohort": "frontier",
+          "core_rank": 7.0,
+          "pmw": 1.0,
+          "pos": "n",
+          "pos_bucket": "noun",
+          "pos_weight": 1.0,
+          "base_weight": 0.333333,
+          "admission_weight": 0.333333,
+          "word_package_present": true,
+          "word_package": {
+            "surface": "mesa",
+            "reading": "mesa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "mesa"
+            }
+          },
+          "selected": false,
+          "selected_order": null,
+          "admission_weight_share": 0.065363
+        }
+      ]
+    }
+  },
+  "phases": [
+    {
+      "label": "bootstrap_publish",
+      "step_index": 1,
+      "now": "2026-03-21T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [],
+        "exposure": [],
+        "counts": {
+          "feedback": 0,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": false,
+        "payload": null,
+        "audit": null,
+        "ts": null
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_translation_dictionary_for_rulegen": true
+          },
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "wiktionary",
+          "translation_pack_id": "wiktionary_es_en",
+          "translation_pos_source_profile": "wiktionary",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 3,
+          "store_items_for_pair": 3,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 3,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-26T22:43:21.332872+00:00",
+          "inventory_last_refreshed_at": null,
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 3,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 3,
+          "snapshot_generation_id": "en-es:default:62172a8c677bd971",
+          "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:62172a8c677bd971",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-21T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-es",
+            "last_rule_count": 3,
+            "last_target_count": 3
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "journey_src_casa",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_sources_preview": [
+          "journey_src_casa",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_casa",
+            "target": "casa"
+          },
+          {
+            "source": "journey_src_libro",
+            "target": "libro"
+          },
+          {
+            "source": "journey_src_madre",
+            "target": "madre"
+          }
+        ],
+        "snapshot_targets": [
+          "casa",
+          "libro",
+          "madre"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "due": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "published": [
+          "casa",
+          "libro",
+          "madre"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 3,
+        "due": 3,
+        "published": 3
+      },
+      "items": [
+        {
+          "lemma": "casa",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 1.0,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "casa"
+            }
+          }
+        },
+        {
+          "lemma": "libro",
+          "cohort": "difficult",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": null,
+          "due_rank": 2,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
+            }
+          }
+        },
+        {
+          "lemma": "madre",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.7739760316291208,
+          "next_due": null,
+          "due_rank": 3,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "madre"
+            }
+          }
+        }
+      ],
+      "deltas": {
+        "admitted_in": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "admitted_out": [],
+        "due_in": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "due_out": [],
+        "published_in": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "published_out": []
+      },
+      "findings": []
+    },
+    {
+      "label": "baseline_observe",
+      "step_index": 2,
+      "now": "2026-03-21T09:05:00+00:00",
+      "events_applied": {
+        "feedback": [],
+        "exposure": [],
+        "counts": {
+          "feedback": 0,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": false,
+        "payload": null,
+        "audit": null,
+        "ts": null
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_translation_dictionary_for_rulegen": true
+          },
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "wiktionary",
+          "translation_pack_id": "wiktionary_es_en",
+          "translation_pos_source_profile": "wiktionary",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 3,
+          "store_items_for_pair": 3,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 3,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-26T22:43:21.332872+00:00",
+          "inventory_last_refreshed_at": null,
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 3,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 3,
+          "snapshot_generation_id": "en-es:default:62172a8c677bd971",
+          "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:62172a8c677bd971",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-21T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-es",
+            "last_rule_count": 3,
+            "last_target_count": 3
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "journey_src_casa",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_sources_preview": [
+          "journey_src_casa",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_casa",
+            "target": "casa"
+          },
+          {
+            "source": "journey_src_libro",
+            "target": "libro"
+          },
+          {
+            "source": "journey_src_madre",
+            "target": "madre"
+          }
+        ],
+        "snapshot_targets": [
+          "casa",
+          "libro",
+          "madre"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "due": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "published": [
+          "casa",
+          "libro",
+          "madre"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 3,
+        "due": 3,
+        "published": 3
+      },
+      "items": [
+        {
+          "lemma": "casa",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 1.0,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "casa"
+            }
+          }
+        },
+        {
+          "lemma": "libro",
+          "cohort": "difficult",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": null,
+          "due_rank": 2,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
+            }
+          }
+        },
+        {
+          "lemma": "madre",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.7739760316291208,
+          "next_due": null,
+          "due_rank": 3,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "madre"
+            }
+          }
+        }
+      ],
+      "deltas": {
+        "admitted_in": [],
+        "admitted_out": [],
+        "due_in": [],
+        "due_out": [],
+        "published_in": [],
+        "published_out": []
+      },
+      "findings": []
+    },
+    {
+      "label": "high_retention_growth",
+      "step_index": 3,
+      "now": "2026-03-22T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [
+          {
+            "index": 1,
+            "ref": "casa",
+            "lemma": "casa",
+            "rating": "good",
+            "ts": "2026-03-22T09:00:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 2,
+            "ref": "libro",
+            "lemma": "libro",
+            "rating": "easy",
+            "ts": "2026-03-22T09:01:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 3,
+            "ref": "casa",
+            "lemma": "casa",
+            "rating": "good",
+            "ts": "2026-03-22T09:02:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 4,
+            "ref": "libro",
+            "lemma": "libro",
+            "rating": "easy",
+            "ts": "2026-03-22T09:03:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 5,
+            "ref": "casa",
+            "lemma": "casa",
+            "rating": "easy",
+            "ts": "2026-03-22T09:04:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 6,
+            "ref": "libro",
+            "lemma": "libro",
+            "rating": "good",
+            "ts": "2026-03-22T09:05:00+00:00",
+            "cohort": "difficult"
+          },
+          {
+            "index": 7,
+            "ref": "casa",
+            "lemma": "casa",
+            "rating": "easy",
+            "ts": "2026-03-22T09:06:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 8,
+            "ref": "libro",
+            "lemma": "libro",
+            "rating": "good",
+            "ts": "2026-03-22T09:07:00+00:00",
+            "cohort": "difficult"
+          }
+        ],
+        "exposure": [],
+        "counts": {
+          "feedback": 8,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": true,
+        "payload": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "set_top_n": 7,
+          "feedback_window_size": 8,
+          "allowed_pos": [],
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "max_active_items": 8,
+          "max_new_items_per_day": 2,
+          "added_items": 2,
+          "total_items_for_pair": 5,
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "stopwords_path": null,
+          "admission_refresh": {
+            "pair": "en-es",
+            "max_active_items": 8,
+            "max_new_items_per_day": 2,
+            "active_count": 3,
+            "due_count": 1,
+            "due_pressure": 0.125,
+            "capacity_budget": 5,
+            "base_admission_budget": 2,
+            "admission_budget": 2,
+            "reason_code": "normal",
+            "notes": [],
+            "feedback_window": {
+              "pair": "en-es",
+              "window_size_requested": 8,
+              "window_size_effective": 8,
+              "feedback_count": 8,
+              "count_again": 0,
+              "count_hard": 0,
+              "count_good": 4,
+              "count_easy": 4,
+              "retention_ratio": 1.0,
+              "strain_ratio": 0.0
+            },
+            "candidate_pool_size": 7,
+            "admitted_count": 2,
+            "selected_lemmas": [
+              "hora",
+              "campo"
+            ],
+            "diagnostics": {
+              "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
+              "admitted_by_pos_bucket": {
+                "noun": 2
+              },
+              "unknown_pos_seen": 7,
+              "allowed_pos": [],
+              "candidate_pool_effective": 7
+            },
+            "applied": true,
+            "weight_terms": {
+              "admission_weight": "Entry/growth score for adding words into S.",
+              "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
+            }
+          },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 5,
+            "source": "refreshed",
+            "backfilled_from_store": false,
+            "updated_at": "2026-03-22T09:00:00+00:00"
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "ok",
+            "scope": "refresh_candidate_preview_only",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 2,
+            "candidate_pool_effective": 4,
+            "aggregate_item_count": 0,
+            "matching_signal_count": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
+            "neutral_selected_lemmas": [
+              "hora",
+              "campo"
+            ],
+            "simulations": {
+              "off": {
+                "strength": "off",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "hora",
+                  "campo"
+                ],
+                "neutral_selected_lemmas": [
+                  "hora",
+                  "campo"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "hora",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.9,
+                    "final_score": 0.9,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.426247,
+                    "approximate_selection_probability": 0.426247
+                  },
+                  {
+                    "lemma": "campo",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.82,
+                    "final_score": 0.82,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.397202,
+                    "approximate_selection_probability": 0.397202
+                  },
+                  {
+                    "lemma": "ventana",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.78,
+                    "final_score": 0.78,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.382133,
+                    "approximate_selection_probability": 0.382133
+                  },
+                  {
+                    "lemma": "mesa",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.74,
+                    "final_score": 0.74,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.366687,
+                    "approximate_selection_probability": 0.366687
+                  }
+                ],
+                "row_count": 4,
+                "row_preview_count": 4
+              },
+              "balanced": {
+                "strength": "balanced",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "hora",
+                  "campo"
+                ],
+                "neutral_selected_lemmas": [
+                  "hora",
+                  "campo"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "hora",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.9,
+                    "final_score": 0.9,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.426247,
+                    "approximate_selection_probability": 0.426247
+                  },
+                  {
+                    "lemma": "campo",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.82,
+                    "final_score": 0.82,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.397202,
+                    "approximate_selection_probability": 0.397202
+                  },
+                  {
+                    "lemma": "ventana",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.78,
+                    "final_score": 0.78,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.382133,
+                    "approximate_selection_probability": 0.382133
+                  },
+                  {
+                    "lemma": "mesa",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.74,
+                    "final_score": 0.74,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.366687,
+                    "approximate_selection_probability": 0.366687
+                  }
+                ],
+                "row_count": 4,
+                "row_preview_count": 4
+              },
+              "strong": {
+                "strength": "strong",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "hora",
+                  "campo"
+                ],
+                "neutral_selected_lemmas": [
+                  "hora",
+                  "campo"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "hora",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.9,
+                    "final_score": 0.9,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.426247,
+                    "approximate_selection_probability": 0.426247
+                  },
+                  {
+                    "lemma": "campo",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.82,
+                    "final_score": 0.82,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.397202,
+                    "approximate_selection_probability": 0.397202
+                  },
+                  {
+                    "lemma": "ventana",
+                    "neutral_rank": 3,
+                    "final_rank": 3,
+                    "neutral_score": 0.78,
+                    "final_score": 0.78,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.382133,
+                    "approximate_selection_probability": 0.382133
+                  },
+                  {
+                    "lemma": "mesa",
+                    "neutral_rank": 4,
+                    "final_rank": 4,
+                    "neutral_score": 0.74,
+                    "final_score": 0.74,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": false,
+                    "selected_lane": "not_selected",
+                    "neutral_selected": false,
+                    "deterministic_selection_probability": 0.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.366687,
+                    "approximate_selection_probability": 0.366687
+                  }
+                ],
+                "row_count": 4,
+                "row_preview_count": 4
+              }
+            },
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_browsing_signals_en-es.json",
+            "store_exists": false
+          },
+          "rulegen": {
+            "published": true,
+            "targets": 5,
+            "rules": 5,
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+            "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+            "semantic_inventory_path": null
+          },
+          "applied": true,
+          "persisted": true,
+          "trigger": "srs_journey_harness"
+        },
+        "audit": {
+          "candidate_count": 7,
+          "existing_count": 3,
+          "eligible_count": 4,
+          "score_sum": 3.24,
+          "selector_config": {
+            "weights": {
+              "base_freq": 0.8,
+              "topic_bias": 0.0,
+              "user_pref": 0.0,
+              "confidence": 0.2,
+              "difficulty_target": 0.0
+            },
+            "penalties": {
+              "recency_threshold": 0.25,
+              "recency_multiplier": 0.3,
+              "mastered_multiplier": 0.2,
+              "oversubscribed_multiplier": 0.8
+            },
+            "selection_policy": "top_n",
+            "top_n": 200
+          },
+          "feedback_event_count": 8,
+          "allowed_pos": [],
+          "stopwords_path": null,
+          "existing_lemmas": [
+            "casa",
+            "libro",
+            "madre"
+          ],
+          "candidates": [
+            {
+              "seed_rank": 1,
+              "lemma": "casa",
+              "cohort": "stable",
+              "core_rank": 1.0,
+              "pmw": 7.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.97,
+              "admission_weight": 0.97,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.161667,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 2,
+              "lemma": "libro",
+              "cohort": "difficult",
+              "core_rank": 2.0,
+              "pmw": 6.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.93,
+              "admission_weight": 0.93,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.155,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 3,
+              "lemma": "hora",
+              "cohort": "difficult",
+              "core_rank": 3.0,
+              "pmw": 5.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.9,
+              "admission_weight": 0.9,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.15,
+              "selected": true,
+              "selected_order": 1,
+              "eligible_rank": 1,
+              "selector_score": 0.9,
+              "selector_score_share": 0.277778,
+              "selector_components": {
+                "base_freq": 0.72,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.18,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 4,
+              "lemma": "madre",
+              "cohort": "stable",
+              "core_rank": 4.0,
+              "pmw": 4.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.86,
+              "admission_weight": 0.86,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.143333,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 5,
+              "lemma": "campo",
+              "cohort": "frontier",
+              "core_rank": 5.0,
+              "pmw": 3.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.82,
+              "admission_weight": 0.82,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.136667,
+              "selected": true,
+              "selected_order": 2,
+              "eligible_rank": 2,
+              "selector_score": 0.82,
+              "selector_score_share": 0.253086,
+              "selector_components": {
+                "base_freq": 0.656,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.164,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 6,
+              "lemma": "ventana",
+              "cohort": "frontier",
+              "core_rank": 6.0,
+              "pmw": 2.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.78,
+              "admission_weight": 0.78,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.13,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": 3,
+              "selector_score": 0.78,
+              "selector_score_share": 0.240741,
+              "selector_components": {
+                "base_freq": 0.624,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.156,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 7,
+              "lemma": "mesa",
+              "cohort": "frontier",
+              "core_rank": 7.0,
+              "pmw": 1.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.74,
+              "admission_weight": 0.74,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.123333,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": 4,
+              "selector_score": 0.74,
+              "selector_score_share": 0.228395,
+              "selector_components": {
+                "base_freq": 0.592,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.148,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            }
+          ],
+          "selected_lemmas": [
+            "hora",
+            "campo"
+          ],
+          "selected_count": 2
+        },
+        "ts": "2026-03-22T09:00:00+00:00"
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_translation_dictionary_for_rulegen": true
+          },
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "wiktionary",
+          "translation_pack_id": "wiktionary_es_en",
+          "translation_pos_source_profile": "wiktionary",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 5,
+          "store_items_for_pair": 5,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 5,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-26T22:43:21.332872+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 5,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 5,
+          "snapshot_generation_id": "en-es:default:579caf59a383fc8f",
+          "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:579caf59a383fc8f",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-22T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-es",
+            "last_rule_count": 5,
+            "last_target_count": 5
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_sources_preview": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_campo",
+            "target": "campo"
+          },
+          {
+            "source": "journey_src_casa",
+            "target": "casa"
+          },
+          {
+            "source": "journey_src_hora",
+            "target": "hora"
+          },
+          {
+            "source": "journey_src_libro",
+            "target": "libro"
+          },
+          {
+            "source": "journey_src_madre",
+            "target": "madre"
+          }
+        ],
+        "snapshot_targets": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre"
+        ],
+        "due": [
+          "campo",
+          "hora",
+          "madre"
+        ],
+        "published": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "casa",
+          "libro"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 5,
+        "due": 3,
+        "published": 5
+      },
+      "items": [
+        {
+          "lemma": "campo",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.82,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "casa",
+          "cohort": "stable",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 1.0,
+          "next_due": "2026-03-29T09:06:00Z",
+          "due_rank": null,
+          "stability": 6.516695286031526,
+          "difficulty": 1.0,
+          "retrievability": 1.0,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:06:00Z",
+          "last_review": "2026-03-22T09:06:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:00:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:02:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:04:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:06:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "casa"
+            }
+          }
+        },
+        {
+          "lemma": "hora",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.9,
+          "next_due": null,
+          "due_rank": 2,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "libro",
+          "cohort": "difficult",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": "2026-04-04T09:07:00Z",
+          "due_rank": null,
+          "stability": 13.046064691177454,
+          "difficulty": 1.0,
+          "retrievability": 1.0,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:07:00Z",
+          "last_review": "2026-03-22T09:07:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:01:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:03:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:05:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:07:00Z",
+              "rating": "good"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
+            }
+          }
+        },
+        {
+          "lemma": "madre",
+          "cohort": "stable",
+          "status": "new",
+          "source_type": "initial_set",
+          "confidence": 0.7739760316291208,
+          "next_due": null,
+          "due_rank": 3,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": null,
+          "scheduler_step": null,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "madre"
+            }
+          }
+        }
+      ],
+      "deltas": {
+        "admitted_in": [
+          "campo",
+          "hora"
+        ],
+        "admitted_out": [],
+        "due_in": [
+          "campo",
+          "hora"
+        ],
+        "due_out": [
+          "casa",
+          "libro"
+        ],
+        "published_in": [
+          "campo",
+          "hora"
+        ],
+        "published_out": []
+      },
+      "findings": [
+        {
+          "level": "PASS",
+          "code": "SRS_JOURNEY_HIGH_RETENTION_ADMITS",
+          "message": "High-retention phase admitted new frontier items.",
+          "details": "admitted=5",
+          "phase": "high_retention_growth"
+        }
+      ]
+    },
+    {
+      "label": "low_retention_pause",
+      "step_index": 4,
+      "now": "2026-03-23T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [
+          {
+            "index": 1,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "again",
+            "ts": "2026-03-23T09:00:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 2,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "hard",
+            "ts": "2026-03-23T09:01:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 3,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "again",
+            "ts": "2026-03-23T09:02:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 4,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "hard",
+            "ts": "2026-03-23T09:03:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 5,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "again",
+            "ts": "2026-03-23T09:04:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 6,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "hard",
+            "ts": "2026-03-23T09:05:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 7,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "again",
+            "ts": "2026-03-23T09:06:00+00:00",
+            "cohort": "stable"
+          },
+          {
+            "index": 8,
+            "ref": "madre",
+            "lemma": "madre",
+            "rating": "hard",
+            "ts": "2026-03-23T09:07:00+00:00",
+            "cohort": "stable"
+          }
+        ],
+        "exposure": [],
+        "counts": {
+          "feedback": 8,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": true,
+        "payload": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "set_top_n": 7,
+          "feedback_window_size": 8,
+          "allowed_pos": [],
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "max_active_items": 8,
+          "max_new_items_per_day": 2,
+          "added_items": 0,
+          "total_items_for_pair": 5,
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "stopwords_path": null,
+          "admission_refresh": {
+            "pair": "en-es",
+            "max_active_items": 8,
+            "max_new_items_per_day": 2,
+            "active_count": 5,
+            "due_count": 2,
+            "due_pressure": 0.25,
+            "capacity_budget": 3,
+            "base_admission_budget": 2,
+            "admission_budget": 0,
+            "reason_code": "retention_low",
+            "notes": [
+              "Retention is below low threshold; paused new admissions."
+            ],
+            "feedback_window": {
+              "pair": "en-es",
+              "window_size_requested": 8,
+              "window_size_effective": 8,
+              "feedback_count": 8,
+              "count_again": 4,
+              "count_hard": 4,
+              "count_good": 0,
+              "count_easy": 0,
+              "retention_ratio": 0.0,
+              "strain_ratio": 1.0
+            },
+            "candidate_pool_size": 7,
+            "admitted_count": 0,
+            "selected_lemmas": [],
+            "diagnostics": {
+              "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
+              "admitted_by_pos_bucket": {},
+              "unknown_pos_seen": 7,
+              "allowed_pos": [],
+              "candidate_pool_effective": 7
+            },
+            "applied": false,
+            "weight_terms": {
+              "admission_weight": "Entry/growth score for adding words into S.",
+              "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
+            }
+          },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 5,
+            "source": "inventory",
+            "backfilled_from_store": false,
+            "updated_at": null
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "skipped",
+            "reason": "retention_low",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 0,
+            "aggregate_item_count": 0,
+            "simulations": {},
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_browsing_signals_en-es.json",
+            "store_exists": false
+          },
+          "rulegen": null,
+          "applied": false,
+          "persisted": true,
+          "trigger": "srs_journey_harness"
+        },
+        "audit": {
+          "candidate_count": 7,
+          "existing_count": 5,
+          "eligible_count": 2,
+          "score_sum": 1.52,
+          "selector_config": {
+            "weights": {
+              "base_freq": 0.8,
+              "topic_bias": 0.0,
+              "user_pref": 0.0,
+              "confidence": 0.2,
+              "difficulty_target": 0.0
+            },
+            "penalties": {
+              "recency_threshold": 0.25,
+              "recency_multiplier": 0.3,
+              "mastered_multiplier": 0.2,
+              "oversubscribed_multiplier": 0.8
+            },
+            "selection_policy": "top_n",
+            "top_n": 200
+          },
+          "feedback_event_count": 16,
+          "allowed_pos": [],
+          "stopwords_path": null,
+          "existing_lemmas": [
+            "campo",
+            "casa",
+            "hora",
+            "libro",
+            "madre"
+          ],
+          "candidates": [
+            {
+              "seed_rank": 1,
+              "lemma": "casa",
+              "cohort": "stable",
+              "core_rank": 1.0,
+              "pmw": 7.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.97,
+              "admission_weight": 0.97,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.161667,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 2,
+              "lemma": "libro",
+              "cohort": "difficult",
+              "core_rank": 2.0,
+              "pmw": 6.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.93,
+              "admission_weight": 0.93,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.155,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 3,
+              "lemma": "hora",
+              "cohort": "frontier",
+              "core_rank": 3.0,
+              "pmw": 5.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.9,
+              "admission_weight": 0.9,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.15,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 4,
+              "lemma": "madre",
+              "cohort": "stable",
+              "core_rank": 4.0,
+              "pmw": 4.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.86,
+              "admission_weight": 0.86,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.143333,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 5,
+              "lemma": "campo",
+              "cohort": "frontier",
+              "core_rank": 5.0,
+              "pmw": 3.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.82,
+              "admission_weight": 0.82,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.136667,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 6,
+              "lemma": "ventana",
+              "cohort": "frontier",
+              "core_rank": 6.0,
+              "pmw": 2.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.78,
+              "admission_weight": 0.78,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.13,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": 1,
+              "selector_score": 0.78,
+              "selector_score_share": 0.513158,
+              "selector_components": {
+                "base_freq": 0.624,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.156,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 7,
+              "lemma": "mesa",
+              "cohort": "frontier",
+              "core_rank": 7.0,
+              "pmw": 1.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.74,
+              "admission_weight": 0.74,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.123333,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": 2,
+              "selector_score": 0.74,
+              "selector_score_share": 0.486842,
+              "selector_components": {
+                "base_freq": 0.592,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.148,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            }
+          ],
+          "selected_lemmas": [],
+          "selected_count": 0
+        },
+        "ts": "2026-03-23T09:00:00+00:00"
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_translation_dictionary_for_rulegen": true
+          },
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "wiktionary",
+          "translation_pack_id": "wiktionary_es_en",
+          "translation_pos_source_profile": "wiktionary",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 5,
+          "store_items_for_pair": 5,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 5,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-26T22:43:21.332872+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 5,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 5,
+          "snapshot_generation_id": "en-es:default:579caf59a383fc8f",
+          "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:579caf59a383fc8f",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-22T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-es",
+            "last_rule_count": 5,
+            "last_target_count": 5
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_sources_preview": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_campo",
+            "target": "campo"
+          },
+          {
+            "source": "journey_src_casa",
+            "target": "casa"
+          },
+          {
+            "source": "journey_src_hora",
+            "target": "hora"
+          },
+          {
+            "source": "journey_src_libro",
+            "target": "libro"
+          },
+          {
+            "source": "journey_src_madre",
+            "target": "madre"
+          }
+        ],
+        "snapshot_targets": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre"
+        ],
+        "due": [
+          "campo",
+          "hora"
+        ],
+        "published": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "casa",
+          "libro",
+          "madre"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 5,
+        "due": 2,
+        "published": 5
+      },
+      "items": [
+        {
+          "lemma": "campo",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.82,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "casa",
+          "cohort": "stable",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 1.0,
+          "next_due": "2026-03-29T09:06:00Z",
+          "due_rank": null,
+          "stability": 6.516695286031526,
+          "difficulty": 1.0,
+          "retrievability": 1.0,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:06:00Z",
+          "last_review": "2026-03-22T09:06:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:00:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:02:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:04:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:06:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "casa"
+            }
+          }
+        },
+        {
+          "lemma": "hora",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.9,
+          "next_due": null,
+          "due_rank": 2,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "libro",
+          "cohort": "difficult",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": "2026-04-04T09:07:00Z",
+          "due_rank": null,
+          "stability": 13.046064691177454,
+          "difficulty": 1.0,
+          "retrievability": 1.0,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:07:00Z",
+          "last_review": "2026-03-22T09:07:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:01:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:03:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:05:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:07:00Z",
+              "rating": "good"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
+            }
+          }
+        },
+        {
+          "lemma": "madre",
+          "cohort": "stable",
+          "status": "learning",
+          "source_type": "initial_set",
+          "confidence": 0.7739760316291208,
+          "next_due": "2026-03-23T09:12:30Z",
+          "due_rank": null,
+          "stability": 0.005867906606314601,
+          "difficulty": 9.943999213026316,
+          "retrievability": 1.0,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": "2026-03-23T09:07:00Z",
+          "last_review": "2026-03-23T09:07:00Z",
+          "exposures": 8,
+          "history_count": 8,
+          "recent_history": [
+            {
+              "ts": "2026-03-23T09:04:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-23T09:05:00Z",
+              "rating": "hard"
+            },
+            {
+              "ts": "2026-03-23T09:06:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-23T09:07:00Z",
+              "rating": "hard"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "madre"
+            }
+          }
+        }
+      ],
+      "deltas": {
+        "admitted_in": [],
+        "admitted_out": [],
+        "due_in": [],
+        "due_out": [
+          "madre"
+        ],
+        "published_in": [],
+        "published_out": []
+      },
+      "findings": [
+        {
+          "level": "PASS",
+          "code": "SRS_JOURNEY_LOW_RETENTION_PAUSES",
+          "message": "Low-retention phase paused new admissions.",
+          "details": "reason_code=retention_low",
+          "phase": "low_retention_pause"
+        }
+      ]
+    },
+    {
+      "label": "recovery_resume",
+      "step_index": 5,
+      "now": "2026-03-24T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [
+          {
+            "index": 1,
+            "ref": "hora",
+            "lemma": "hora",
+            "rating": "good",
+            "ts": "2026-03-24T09:00:00+00:00",
+            "cohort": "frontier"
+          },
+          {
+            "index": 2,
+            "ref": "campo",
+            "lemma": "campo",
+            "rating": "easy",
+            "ts": "2026-03-24T09:01:00+00:00",
+            "cohort": "frontier"
+          },
+          {
+            "index": 3,
+            "ref": "hora",
+            "lemma": "hora",
+            "rating": "good",
+            "ts": "2026-03-24T09:02:00+00:00",
+            "cohort": "frontier"
+          },
+          {
+            "index": 4,
+            "ref": "campo",
+            "lemma": "campo",
+            "rating": "easy",
+            "ts": "2026-03-24T09:03:00+00:00",
+            "cohort": "frontier"
+          },
+          {
+            "index": 5,
+            "ref": "hora",
+            "lemma": "hora",
+            "rating": "easy",
+            "ts": "2026-03-24T09:04:00+00:00",
+            "cohort": "frontier"
+          },
+          {
+            "index": 6,
+            "ref": "campo",
+            "lemma": "campo",
+            "rating": "good",
+            "ts": "2026-03-24T09:05:00+00:00",
+            "cohort": "frontier"
+          },
+          {
+            "index": 7,
+            "ref": "hora",
+            "lemma": "hora",
+            "rating": "easy",
+            "ts": "2026-03-24T09:06:00+00:00",
+            "cohort": "frontier"
+          },
+          {
+            "index": 8,
+            "ref": "campo",
+            "lemma": "campo",
+            "rating": "good",
+            "ts": "2026-03-24T09:07:00+00:00",
+            "cohort": "frontier"
+          }
+        ],
+        "exposure": [],
+        "counts": {
+          "feedback": 8,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": true,
+        "payload": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "set_top_n": 7,
+          "feedback_window_size": 8,
+          "allowed_pos": [],
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "max_active_items": 8,
+          "max_new_items_per_day": 2,
+          "added_items": 2,
+          "total_items_for_pair": 7,
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "stopwords_path": null,
+          "admission_refresh": {
+            "pair": "en-es",
+            "max_active_items": 8,
+            "max_new_items_per_day": 2,
+            "active_count": 5,
+            "due_count": 1,
+            "due_pressure": 0.125,
+            "capacity_budget": 3,
+            "base_admission_budget": 2,
+            "admission_budget": 2,
+            "reason_code": "normal",
+            "notes": [],
+            "feedback_window": {
+              "pair": "en-es",
+              "window_size_requested": 8,
+              "window_size_effective": 8,
+              "feedback_count": 8,
+              "count_again": 0,
+              "count_hard": 0,
+              "count_good": 4,
+              "count_easy": 4,
+              "retention_ratio": 1.0,
+              "strain_ratio": 0.0
+            },
+            "candidate_pool_size": 7,
+            "admitted_count": 2,
+            "selected_lemmas": [
+              "ventana",
+              "mesa"
+            ],
+            "diagnostics": {
+              "filtered_by_pos": 0,
+              "blocked_by_lifecycle": 0,
+              "blocked_lemmas": [],
+              "admitted_by_pos_bucket": {
+                "noun": 2
+              },
+              "unknown_pos_seen": 7,
+              "allowed_pos": [],
+              "candidate_pool_effective": 7
+            },
+            "applied": true,
+            "weight_terms": {
+              "admission_weight": "Entry/growth score for adding words into S.",
+              "serving_priority": "Due/scheduler-derived priority for selecting words already in S."
+            }
+          },
+          "inventory": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+            "exists": true,
+            "active_items_for_pair": 7,
+            "source": "refreshed",
+            "backfilled_from_store": false,
+            "updated_at": "2026-03-22T09:00:00+00:00"
+          },
+          "suppression": {
+            "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_admission_suppression.json",
+            "exists": false,
+            "active_suppressed_lemmas": {},
+            "active_suppressed_count": 0
+          },
+          "browsing_admission_preview": {
+            "status": "ok",
+            "scope": "refresh_candidate_preview_only",
+            "applied_to_actual_admission": false,
+            "runtime_srs_mutation": false,
+            "admission_budget": 2,
+            "candidate_pool_effective": 2,
+            "aggregate_item_count": 0,
+            "matching_signal_count": 0,
+            "blocked_by_lifecycle": 0,
+            "blocked_lemmas": [],
+            "neutral_selected_lemmas": [
+              "ventana",
+              "mesa"
+            ],
+            "simulations": {
+              "off": {
+                "strength": "off",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "ventana",
+                  "mesa"
+                ],
+                "neutral_selected_lemmas": [
+                  "ventana",
+                  "mesa"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "ventana",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.78,
+                    "final_score": 0.78,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.641675,
+                    "approximate_selection_probability": 0.641675
+                  },
+                  {
+                    "lemma": "mesa",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.74,
+                    "final_score": 0.74,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.622311,
+                    "approximate_selection_probability": 0.622311
+                  }
+                ],
+                "row_count": 2,
+                "row_preview_count": 2
+              },
+              "balanced": {
+                "strength": "balanced",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "ventana",
+                  "mesa"
+                ],
+                "neutral_selected_lemmas": [
+                  "ventana",
+                  "mesa"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "ventana",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.78,
+                    "final_score": 0.78,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.641675,
+                    "approximate_selection_probability": 0.641675
+                  },
+                  {
+                    "lemma": "mesa",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.74,
+                    "final_score": 0.74,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.622311,
+                    "approximate_selection_probability": 0.622311
+                  }
+                ],
+                "row_count": 2,
+                "row_preview_count": 2
+              },
+              "strong": {
+                "strength": "strong",
+                "admission_budget": 2,
+                "browsing_budget": 0,
+                "general_budget": 2,
+                "signal_volume": 0.0,
+                "volume_factor": 0.0,
+                "selected_lemmas": [
+                  "ventana",
+                  "mesa"
+                ],
+                "neutral_selected_lemmas": [
+                  "ventana",
+                  "mesa"
+                ],
+                "browsing_lane_count": 0,
+                "browsing_relevant_selected_count": 0,
+                "browsing_driven_count": 0,
+                "suppressed_count": 0,
+                "browsing_lane_share": 0.0,
+                "browsing_relevant_share": 0.0,
+                "browsing_driven_share": 0.0,
+                "probability_semantics": {
+                  "deterministic_selection_probability": "Exact for the current deterministic two-lane simulation.",
+                  "browsing_lane_probability": "Approximate inclusion probability if the browsing lane uses weighted sampling without replacement.",
+                  "general_lane_probability": "Approximate inclusion probability if the general lane uses weighted sampling without replacement.",
+                  "approximate_selection_probability": "Approximate combined inclusion probability under the planned smoother weighted selection model."
+                },
+                "rows": [
+                  {
+                    "lemma": "ventana",
+                    "neutral_rank": 1,
+                    "final_rank": 1,
+                    "neutral_score": 0.78,
+                    "final_score": 0.78,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.641675,
+                    "approximate_selection_probability": 0.641675
+                  },
+                  {
+                    "lemma": "mesa",
+                    "neutral_rank": 2,
+                    "final_rank": 2,
+                    "neutral_score": 0.74,
+                    "final_score": 0.74,
+                    "browsing_signal": 0.0,
+                    "browsing_boost": 1.0,
+                    "selected": true,
+                    "selected_lane": "general",
+                    "neutral_selected": true,
+                    "deterministic_selection_probability": 1.0,
+                    "browsing_lane_probability": 0.0,
+                    "general_lane_probability": 0.622311,
+                    "approximate_selection_probability": 0.622311
+                  }
+                ],
+                "row_count": 2,
+                "row_preview_count": 2
+              }
+            },
+            "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_browsing_signals_en-es.json",
+            "store_exists": false
+          },
+          "rulegen": {
+            "published": true,
+            "targets": 7,
+            "rules": 7,
+            "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+            "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+            "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+            "semantic_inventory_path": null
+          },
+          "applied": true,
+          "persisted": true,
+          "trigger": "srs_journey_harness"
+        },
+        "audit": {
+          "candidate_count": 7,
+          "existing_count": 5,
+          "eligible_count": 2,
+          "score_sum": 1.52,
+          "selector_config": {
+            "weights": {
+              "base_freq": 0.8,
+              "topic_bias": 0.0,
+              "user_pref": 0.0,
+              "confidence": 0.2,
+              "difficulty_target": 0.0
+            },
+            "penalties": {
+              "recency_threshold": 0.25,
+              "recency_multiplier": 0.3,
+              "mastered_multiplier": 0.2,
+              "oversubscribed_multiplier": 0.8
+            },
+            "selection_policy": "top_n",
+            "top_n": 200
+          },
+          "feedback_event_count": 24,
+          "allowed_pos": [],
+          "stopwords_path": null,
+          "existing_lemmas": [
+            "campo",
+            "casa",
+            "hora",
+            "libro",
+            "madre"
+          ],
+          "candidates": [
+            {
+              "seed_rank": 1,
+              "lemma": "casa",
+              "cohort": "stable",
+              "core_rank": 1.0,
+              "pmw": 7.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.97,
+              "admission_weight": 0.97,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.161667,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 2,
+              "lemma": "libro",
+              "cohort": "difficult",
+              "core_rank": 2.0,
+              "pmw": 6.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.93,
+              "admission_weight": 0.93,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.155,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 3,
+              "lemma": "hora",
+              "cohort": "frontier",
+              "core_rank": 3.0,
+              "pmw": 5.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.9,
+              "admission_weight": 0.9,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.15,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 4,
+              "lemma": "madre",
+              "cohort": "stable",
+              "core_rank": 4.0,
+              "pmw": 4.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.86,
+              "admission_weight": 0.86,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.143333,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 5,
+              "lemma": "campo",
+              "cohort": "frontier",
+              "core_rank": 5.0,
+              "pmw": 3.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.82,
+              "admission_weight": 0.82,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": true,
+              "eligible": false,
+              "filtered_reason": "already_in_store",
+              "admission_weight_share": 0.136667,
+              "selected": false,
+              "selected_order": null,
+              "eligible_rank": null,
+              "selector_score": null,
+              "selector_score_share": null,
+              "selector_components": {},
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 6,
+              "lemma": "ventana",
+              "cohort": "frontier",
+              "core_rank": 6.0,
+              "pmw": 2.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.78,
+              "admission_weight": 0.78,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.13,
+              "selected": true,
+              "selected_order": 1,
+              "eligible_rank": 1,
+              "selector_score": 0.78,
+              "selector_score_share": 0.513158,
+              "selector_components": {
+                "base_freq": 0.624,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.156,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            },
+            {
+              "seed_rank": 7,
+              "lemma": "mesa",
+              "cohort": "frontier",
+              "core_rank": 7.0,
+              "pmw": 1.0,
+              "pos": "noun-tag",
+              "pos_bucket": "noun",
+              "pos_weight": 1.0,
+              "base_weight": 0.74,
+              "admission_weight": 0.74,
+              "word_package_present": false,
+              "word_package": null,
+              "in_store_before": false,
+              "eligible": true,
+              "filtered_reason": null,
+              "admission_weight_share": 0.123333,
+              "selected": true,
+              "selected_order": 2,
+              "eligible_rank": 2,
+              "selector_score": 0.74,
+              "selector_score_share": 0.486842,
+              "selector_components": {
+                "base_freq": 0.592,
+                "topic_bias": 0.0,
+                "scarcity_bonus": 0.0,
+                "user_pref": 0.0,
+                "confidence": 0.148,
+                "difficulty_target": 0.0
+              },
+              "selector_penalties": []
+            }
+          ],
+          "selected_lemmas": [
+            "ventana",
+            "mesa"
+          ],
+          "selected_count": 2
+        },
+        "ts": "2026-03-24T09:00:00+00:00"
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_translation_dictionary_for_rulegen": true
+          },
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "wiktionary",
+          "translation_pack_id": "wiktionary_es_en",
+          "translation_pos_source_profile": "wiktionary",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 7,
+          "store_items_for_pair": 7,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 7,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-26T22:43:21.332872+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 7,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 7,
+          "snapshot_generation_id": "en-es:default:ffae7397f2f6a8b9",
+          "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:ffae7397f2f6a8b9",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-24T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-es",
+            "last_rule_count": 7,
+            "last_target_count": 7
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre",
+          "journey_src_mesa",
+          "journey_src_ventana"
+        ],
+        "ruleset_sources_preview": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_campo",
+            "target": "campo"
+          },
+          {
+            "source": "journey_src_casa",
+            "target": "casa"
+          },
+          {
+            "source": "journey_src_hora",
+            "target": "hora"
+          },
+          {
+            "source": "journey_src_libro",
+            "target": "libro"
+          },
+          {
+            "source": "journey_src_madre",
+            "target": "madre"
+          },
+          {
+            "source": "journey_src_mesa",
+            "target": "mesa"
+          },
+          {
+            "source": "journey_src_ventana",
+            "target": "ventana"
+          }
+        ],
+        "snapshot_targets": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre",
+          "mesa",
+          "ventana"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre",
+          "mesa",
+          "ventana"
+        ],
+        "due": [
+          "madre",
+          "mesa",
+          "ventana"
+        ],
+        "published": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre",
+          "mesa",
+          "ventana"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "campo",
+          "casa",
+          "hora",
+          "libro"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 7,
+        "due": 3,
+        "published": 7
+      },
+      "items": [
+        {
+          "lemma": "campo",
+          "cohort": "frontier",
+          "status": "mature",
+          "source_type": "frequency_list",
+          "confidence": 0.82,
+          "next_due": "2026-04-06T09:07:00Z",
+          "due_rank": null,
+          "stability": 13.046064691177454,
+          "difficulty": 1.0,
+          "retrievability": 1.0,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-24T09:07:00Z",
+          "last_review": "2026-03-24T09:07:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-24T09:01:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-24T09:03:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-24T09:05:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-24T09:07:00Z",
+              "rating": "good"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "casa",
+          "cohort": "stable",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 1.0,
+          "next_due": "2026-03-29T09:06:00Z",
+          "due_rank": null,
+          "stability": 6.516695286031526,
+          "difficulty": 1.0,
+          "retrievability": 0.9786220567261495,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:06:00Z",
+          "last_review": "2026-03-22T09:06:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:00:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:02:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:04:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:06:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "casa"
+            }
+          }
+        },
+        {
+          "lemma": "hora",
+          "cohort": "frontier",
+          "status": "mature",
+          "source_type": "frequency_list",
+          "confidence": 0.9,
+          "next_due": "2026-03-31T09:06:00Z",
+          "due_rank": null,
+          "stability": 6.516695286031526,
+          "difficulty": 1.0,
+          "retrievability": 1.0,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-24T09:06:00Z",
+          "last_review": "2026-03-24T09:06:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-24T09:00:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-24T09:02:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-24T09:04:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-24T09:06:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "libro",
+          "cohort": "difficult",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": "2026-04-04T09:07:00Z",
+          "due_rank": null,
+          "stability": 13.046064691177454,
+          "difficulty": 1.0,
+          "retrievability": 0.9888895389055463,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:07:00Z",
+          "last_review": "2026-03-22T09:07:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:01:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:03:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:05:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:07:00Z",
+              "rating": "good"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
+            }
+          }
+        },
+        {
+          "lemma": "madre",
+          "cohort": "stable",
+          "status": "learning",
+          "source_type": "initial_set",
+          "confidence": 0.7739760316291208,
+          "next_due": "2026-03-23T09:12:30Z",
+          "due_rank": 3,
+          "stability": 0.005867906606314601,
+          "difficulty": 9.943999213026316,
+          "retrievability": 1.0,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": "2026-03-23T09:07:00Z",
+          "last_review": "2026-03-23T09:07:00Z",
+          "exposures": 8,
+          "history_count": 8,
+          "recent_history": [
+            {
+              "ts": "2026-03-23T09:04:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-23T09:05:00Z",
+              "rating": "hard"
+            },
+            {
+              "ts": "2026-03-23T09:06:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-23T09:07:00Z",
+              "rating": "hard"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "madre"
+            }
+          }
+        },
+        {
+          "lemma": "mesa",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.74,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "ventana",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.78,
+          "next_due": null,
+          "due_rank": 2,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        }
+      ],
+      "deltas": {
+        "admitted_in": [
+          "mesa",
+          "ventana"
+        ],
+        "admitted_out": [],
+        "due_in": [
+          "madre",
+          "mesa",
+          "ventana"
+        ],
+        "due_out": [
+          "campo",
+          "hora"
+        ],
+        "published_in": [
+          "mesa",
+          "ventana"
+        ],
+        "published_out": []
+      },
+      "findings": [
+        {
+          "level": "PASS",
+          "code": "SRS_JOURNEY_RECOVERY_RESUMES",
+          "message": "Recovery phase resumed new admissions.",
+          "details": "admitted=7",
+          "phase": "recovery_resume"
+        }
+      ]
+    },
+    {
+      "label": "final_observe",
+      "step_index": 6,
+      "now": "2026-03-28T09:00:00+00:00",
+      "events_applied": {
+        "feedback": [],
+        "exposure": [],
+        "counts": {
+          "feedback": 0,
+          "exposure": 0
+        }
+      },
+      "refresh": {
+        "requested": false,
+        "payload": null,
+        "audit": null,
+        "ts": null
+      },
+      "runtime": {
+        "diagnostics": {
+          "pair": "en-es",
+          "profile_id": "default",
+          "requirements": {
+            "pair": "en-es",
+            "rulegen_mode": "en_es",
+            "supports_rulegen": true,
+            "srs_selectable": true,
+            "default_frequency_db": "freq-es-cde.sqlite",
+            "requires_jmdict_for_seed": false,
+            "requires_jmdict_for_rulegen": false,
+            "requires_translation_dictionary_for_rulegen": true
+          },
+          "pair_policy": {
+            "pair": "en-es",
+            "bootstrap_top_n_default": 800,
+            "refresh_top_n_default": 2000,
+            "feedback_window_size_default": 100,
+            "initial_active_count_default": 40,
+            "max_new_items_per_day_default": null,
+            "notes": []
+          },
+          "jmdict_path": null,
+          "jmdict_exists": false,
+          "translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_dict_exists": true,
+          "translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-es-en.sqlite",
+          "translation_pack_exists": true,
+          "translation_dict_provider": "wiktionary",
+          "translation_pack_id": "wiktionary_es_en",
+          "translation_pos_source_profile": "wiktionary",
+          "reverse_translation_dict_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_dict_exists": true,
+          "reverse_translation_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/language_packs/wiktionary-en-es.sqlite",
+          "reverse_translation_pack_exists": true,
+          "reverse_translation_dict_provider": "wiktionary",
+          "reverse_translation_pack_id": "wiktionary_en_es",
+          "reverse_translation_pos_source_profile": "wiktionary",
+          "set_source_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "set_source_db_exists": true,
+          "frequency_pack_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/frequency_packs/freq-es-cde.sqlite",
+          "frequency_pack_exists": true,
+          "frequency_pack_id": "freq-es-cde",
+          "frequency_pack_provider": "freq-es-cde",
+          "frequency_pos_source_profile": "freq-es-cde",
+          "stopwords_path": null,
+          "stopwords_exists": false,
+          "missing_inputs": [],
+          "store_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_store.json",
+          "store_exists": true,
+          "store_items_total": 7,
+          "store_items_for_pair": 7,
+          "store_items_with_word_package_total": 3,
+          "store_items_with_word_package_for_pair": 3,
+          "store_error": null,
+          "inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_inventory.json",
+          "inventory_exists": true,
+          "inventory_active_items_for_pair": 7,
+          "inventory_source": "inventory",
+          "inventory_last_initialized_at": "2026-05-26T22:43:21.332872+00:00",
+          "inventory_last_refreshed_at": "2026-03-22T09:00:00+00:00",
+          "inventory_last_rebalanced_at": null,
+          "inventory_store_missing_item_ids_count": 0,
+          "inventory_error": null,
+          "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+          "ruleset_exists": true,
+          "ruleset_rules_count": 7,
+          "ruleset_rules_with_script_forms": 0,
+          "ruleset_rules_with_word_package": 0,
+          "ruleset_rules_with_semantic_admission": 0,
+          "ruleset_rules_semantic_ready": 0,
+          "ruleset_rules_semantic_unavailable": 0,
+          "ruleset_rules_semantic_not_applicable": 0,
+          "semantic_runtime_capability": "unavailable",
+          "semantic_runtime_reason_code": "no_semantic_rules",
+          "ruleset_error": null,
+          "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+          "snapshot_exists": true,
+          "snapshot_target_count": 7,
+          "snapshot_generation_id": "en-es:default:ffae7397f2f6a8b9",
+          "snapshot_error": null,
+          "semantic_inventory_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_semantic_inventory_en-es.json",
+          "semantic_inventory_exists": false,
+          "semantic_inventory_schema_version": null,
+          "semantic_inventory_generation_id": null,
+          "semantic_inventory_pointer_modes": [],
+          "semantic_inventory_default_unavailable_reason_code": null,
+          "semantic_inventory_trigger_count": 0,
+          "semantic_inventory_sense_count": 0,
+          "semantic_inventory_competition_set_count": 0,
+          "semantic_inventory_phrase_set_count": 0,
+          "semantic_inventory_error": null,
+          "publication_manifest_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_publication_manifest_en-es.json",
+          "publication_manifest_exists": true,
+          "publication_manifest_generation_id": "en-es:default:ffae7397f2f6a8b9",
+          "publication_manifest_family_valid": true,
+          "publication_manifest_error_count": 0,
+          "publication_manifest_errors": [],
+          "status": {
+            "version": 1,
+            "helper_version": "0.1.0",
+            "last_run_at": "2026-03-24T09:00:00+00:00",
+            "last_error": null,
+            "last_pair": "en-es",
+            "last_rule_count": 7,
+            "last_target_count": 7
+          }
+        },
+        "ruleset_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_ruleset_en-es.json",
+        "snapshot_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/tmpihqfgjqy/srs/profiles/default/srs_rulegen_snapshot_en-es.json",
+        "ruleset_sources": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre",
+          "journey_src_mesa",
+          "journey_src_ventana"
+        ],
+        "ruleset_sources_preview": [
+          "journey_src_campo",
+          "journey_src_casa",
+          "journey_src_hora",
+          "journey_src_libro",
+          "journey_src_madre"
+        ],
+        "ruleset_source_target_pairs": [
+          {
+            "source": "journey_src_campo",
+            "target": "campo"
+          },
+          {
+            "source": "journey_src_casa",
+            "target": "casa"
+          },
+          {
+            "source": "journey_src_hora",
+            "target": "hora"
+          },
+          {
+            "source": "journey_src_libro",
+            "target": "libro"
+          },
+          {
+            "source": "journey_src_madre",
+            "target": "madre"
+          },
+          {
+            "source": "journey_src_mesa",
+            "target": "mesa"
+          },
+          {
+            "source": "journey_src_ventana",
+            "target": "ventana"
+          }
+        ],
+        "snapshot_targets": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre",
+          "mesa",
+          "ventana"
+        ]
+      },
+      "sets": {
+        "admitted": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre",
+          "mesa",
+          "ventana"
+        ],
+        "due": [
+          "madre",
+          "mesa",
+          "ventana"
+        ],
+        "published": [
+          "campo",
+          "casa",
+          "hora",
+          "libro",
+          "madre",
+          "mesa",
+          "ventana"
+        ]
+      },
+      "relationships": {
+        "published_not_due": [
+          "campo",
+          "casa",
+          "hora",
+          "libro"
+        ],
+        "published_not_admitted": [],
+        "due_not_published": []
+      },
+      "counts": {
+        "admitted": 7,
+        "due": 3,
+        "published": 7
+      },
+      "items": [
+        {
+          "lemma": "campo",
+          "cohort": "frontier",
+          "status": "mature",
+          "source_type": "frequency_list",
+          "confidence": 0.82,
+          "next_due": "2026-04-06T09:07:00Z",
+          "due_rank": null,
+          "stability": 13.046064691177454,
+          "difficulty": 1.0,
+          "retrievability": 0.9691380370952475,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-24T09:07:00Z",
+          "last_review": "2026-03-24T09:07:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-24T09:01:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-24T09:03:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-24T09:05:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-24T09:07:00Z",
+              "rating": "good"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "casa",
+          "cohort": "stable",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 1.0,
+          "next_due": "2026-03-29T09:06:00Z",
+          "due_rank": null,
+          "stability": 6.516695286031526,
+          "difficulty": 1.0,
+          "retrievability": 0.917149501844453,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:06:00Z",
+          "last_review": "2026-03-22T09:06:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:00:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:02:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:04:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:06:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "casa",
+            "reading": "casa",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "casa"
+            }
+          }
+        },
+        {
+          "lemma": "hora",
+          "cohort": "frontier",
+          "status": "mature",
+          "source_type": "frequency_list",
+          "confidence": 0.9,
+          "next_due": "2026-03-31T09:06:00Z",
+          "due_rank": null,
+          "stability": 6.516695286031526,
+          "difficulty": 1.0,
+          "retrievability": 0.9441840327870716,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-24T09:06:00Z",
+          "last_review": "2026-03-24T09:06:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-24T09:00:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-24T09:02:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-24T09:04:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-24T09:06:00Z",
+              "rating": "easy"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "libro",
+          "cohort": "difficult",
+          "status": "mature",
+          "source_type": "initial_set",
+          "confidence": 0.9357849740192015,
+          "next_due": "2026-04-04T09:07:00Z",
+          "due_rank": null,
+          "stability": 13.046064691177454,
+          "difficulty": 1.0,
+          "retrievability": 0.9520032333843449,
+          "scheduler_state": "review",
+          "scheduler_step": null,
+          "last_seen": "2026-03-22T09:07:00Z",
+          "last_review": "2026-03-22T09:07:00Z",
+          "exposures": 4,
+          "history_count": 4,
+          "recent_history": [
+            {
+              "ts": "2026-03-22T09:01:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:03:00Z",
+              "rating": "easy"
+            },
+            {
+              "ts": "2026-03-22T09:05:00Z",
+              "rating": "good"
+            },
+            {
+              "ts": "2026-03-22T09:07:00Z",
+              "rating": "good"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": false,
+          "in_published": true,
+          "word_package": {
+            "surface": "libro",
+            "reading": "libro",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "libro"
+            }
+          }
+        },
+        {
+          "lemma": "madre",
+          "cohort": "stable",
+          "status": "learning",
+          "source_type": "initial_set",
+          "confidence": 0.7739760316291208,
+          "next_due": "2026-03-23T09:12:30Z",
+          "due_rank": 3,
+          "stability": 0.005867906606314601,
+          "difficulty": 9.943999213026316,
+          "retrievability": 0.36668368568223125,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": "2026-03-23T09:07:00Z",
+          "last_review": "2026-03-23T09:07:00Z",
+          "exposures": 8,
+          "history_count": 8,
+          "recent_history": [
+            {
+              "ts": "2026-03-23T09:04:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-23T09:05:00Z",
+              "rating": "hard"
+            },
+            {
+              "ts": "2026-03-23T09:06:00Z",
+              "rating": "again"
+            },
+            {
+              "ts": "2026-03-23T09:07:00Z",
+              "rating": "hard"
+            }
+          ],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": {
+            "surface": "madre",
+            "reading": "madre",
+            "language_tag": "es",
+            "pos_canonical": "noun",
+            "provider": "freq-es-cde",
+            "script_forms": {
+              "surface": "madre"
+            }
+          }
+        },
+        {
+          "lemma": "mesa",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.74,
+          "next_due": null,
+          "due_rank": 1,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        },
+        {
+          "lemma": "ventana",
+          "cohort": "frontier",
+          "status": "new",
+          "source_type": "frequency_list",
+          "confidence": 0.78,
+          "next_due": null,
+          "due_rank": 2,
+          "stability": null,
+          "difficulty": null,
+          "retrievability": null,
+          "scheduler_state": "learning",
+          "scheduler_step": 0,
+          "last_seen": null,
+          "last_review": null,
+          "exposures": 0,
+          "history_count": 0,
+          "recent_history": [],
+          "in_admitted": true,
+          "in_due": true,
+          "in_published": true,
+          "word_package": null
+        }
+      ],
+      "deltas": {
+        "admitted_in": [],
+        "admitted_out": [],
+        "due_in": [],
+        "due_out": [],
+        "published_in": [],
+        "published_out": []
+      },
+      "findings": []
+    }
+  ],
+  "signal_log": [
+    {
+      "index": 1,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "casa",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-22T09:00:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 2,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "libro",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-22T09:01:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 3,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "casa",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-22T09:02:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 4,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "libro",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-22T09:03:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 5,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "casa",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-22T09:04:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 6,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "libro",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-22T09:05:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 7,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "casa",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-22T09:06:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 8,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "libro",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-22T09:07:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 9,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-23T09:00:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 10,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-23T09:01:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 11,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-23T09:02:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 12,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-23T09:03:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 13,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-23T09:04:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 14,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-23T09:05:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 15,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "again",
+      "ts": "2026-03-23T09:06:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 16,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "madre",
+      "source_type": "extension",
+      "rating": "hard",
+      "ts": "2026-03-23T09:07:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 17,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "hora",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-24T09:00:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 18,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "campo",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-24T09:01:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 19,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "hora",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-24T09:02:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 20,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "campo",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-24T09:03:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 21,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "hora",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-24T09:04:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 22,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "campo",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-24T09:05:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 23,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "hora",
+      "source_type": "extension",
+      "rating": "easy",
+      "ts": "2026-03-24T09:06:00+00:00",
+      "metadata": {}
+    },
+    {
+      "index": 24,
+      "event_type": "feedback",
+      "pair": "en-es",
+      "lemma": "campo",
+      "source_type": "extension",
+      "rating": "good",
+      "ts": "2026-03-24T09:07:00+00:00",
+      "metadata": {}
+    }
+  ],
+  "signal_summary": {
+    "pair": "en-es",
+    "event_count": 24,
+    "event_types": {
+      "feedback": 24
+    },
+    "unique_lemmas": 5,
+    "last_event_at": "2026-03-24T09:07:00+00:00"
+  },
+  "summary": {
+    "status": "WARN",
+    "pass_count": 5,
+    "warn_count": 1,
+    "fail_count": 0,
+    "should_fail": false
+  },
+  "findings": [
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_BOOTSTRAP_APPLIED",
+      "message": "Bootstrap initialized the first active SRS inventory.",
+      "details": "admitted=3",
+      "phase": "bootstrap_publish"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_HIGH_RETENTION_ADMITS",
+      "message": "High-retention phase admitted new frontier items.",
+      "details": "admitted=5",
+      "phase": "high_retention_growth"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_LOW_RETENTION_PAUSES",
+      "message": "Low-retention phase paused new admissions.",
+      "details": "reason_code=retention_low",
+      "phase": "low_retention_pause"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_RECOVERY_RESUMES",
+      "message": "Recovery phase resumed new admissions.",
+      "details": "admitted=7",
+      "phase": "recovery_resume"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_JOURNEY_RUNTIME_ARTIFACTS_PRESENT",
+      "message": "Store, ruleset, and snapshot artifacts are present for the journey harness.",
+      "details": null,
+      "phase": "bootstrap_publish"
+    },
+    {
+      "level": "WARN",
+      "code": "SRS_JOURNEY_PUBLICATION_SCOPE_OBSERVED",
+      "message": "Published set is broader than the due subset in the current journey run.",
+      "details": "phase=high_retention_growth admitted=5 due=3 published=5",
+      "phase": "high_retention_growth"
+    }
+  ]
+}

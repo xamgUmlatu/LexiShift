@@ -129,6 +129,8 @@ def build_report(
                     bootstrap_top_n=scenario_def.bootstrap_top_n,
                     initial_active_count=scenario_def.initial_active_count,
                     replace_pair=True,
+                    strategy=scenario_def.strategy,
+                    profile_context=scenario_def.profile_context,
                     trigger="srs_journey_harness",
                 ),
             )
@@ -179,6 +181,7 @@ def build_report(
             set_top_n=scenario_def.set_top_n,
             feedback_window_size=8,
             persist_store=True,
+            profile_context=scenario_def.profile_context,
             trigger="srs_journey_harness",
         )
 
@@ -439,6 +442,8 @@ def build_report(
                     "max_active_items": scenario_def.max_active_items,
                     "max_new_items_per_day": scenario_def.max_new_items_per_day,
                 },
+                "strategy": scenario_def.strategy,
+                "profile_context": dict(scenario_def.profile_context or {}),
                 "bootstrap": {
                     "set_top_n": scenario_def.set_top_n,
                     "bootstrap_top_n": scenario_def.bootstrap_top_n,

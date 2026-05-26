@@ -450,8 +450,8 @@ Use this file when:
 ## SRS Journey E2E Harness
 
 - Status: `implemented`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-03-21` FSRS-backed journey artifacts for deterministic, synthetic-real, and installed-resource `en-ja` + `en-es` lanes
-- Last verified: `2026-03-21` deterministic `en-ja` + `en-es` core and edge journey harness runs, synthetic-resource real-publication lanes, installed-resource `en-ja` + `en-es` runs, Markdown summaries, and interactive HTML review artifacts
+- Last documented checkpoint: `2026-05-27` FSRS-backed journey artifacts for deterministic, synthetic-real, installed-resource, and `en-es` profile-preference lanes
+- Last verified: `2026-05-27` deterministic `en-ja` + `en-es` core and edge journey harness runs, synthetic-resource real-publication lanes, installed-resource `en-ja` + `en-es` runs, `en-es_profile_preference_journey_v1`, Markdown summaries, and interactive HTML review artifacts
 - Default behavior:
   - Deterministic `en-ja` and `en-es` core and edge journey lanes plus matching real-publication lanes are available as analysis-first SRS E2E harnesses, but they are not yet part of the required default SRS workflow loop in `AGENTS.md`.
   - The core lane captures item-level admitted `S`, due `D`, and published `P` sets across bootstrap, refresh, and fade/stick phases.
@@ -459,6 +459,7 @@ Use this file when:
   - The edge lane captures duplicate-feedback and exposure-only behavior with the same item-level reporting contract.
   - The real-publication lane keeps deterministic clocks/resources, uses the actual seed-builder plus helper/rulegen publication path, and now holds complete due publication for the current `en-ja` and `en-es` scenarios.
   - Separate installed-resource review lanes now stage the user's local frequency/dictionary packs into an isolated temp helper root, assign cohorts from actual admitted lemmas, and surface real-data pedagogical flow without mutating the live helper state.
+  - The `en-es` profile-preference lane proves that `profile_bootstrap` can promote a tagged topic candidate into the initial active set, while the same scenario still grows, pauses, and resumes through feedback refresh.
   - Interactive HTML playback artifacts now provide step-by-step review with phase controls, admission rationale tables, and a sticky profile-state panel.
   - Current contract mode defaults to observation: publication broader than the due subset is surfaced as a warning rather than a hard failure.
 - Evidence:
@@ -484,6 +485,9 @@ Use this file when:
   - `docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.json`
   - `docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.md`
   - `docs/test_outputs/srs_journey/srs_journey_en_es_real_latest.html`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.md`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.html`
   - `docs/test_outputs/srs_journey/srs_journey_en_ja_installed_latest.json`
   - `docs/test_outputs/srs_journey/srs_journey_en_ja_installed_latest.md`
   - `docs/test_outputs/srs_journey/srs_journey_en_ja_installed_latest.html`

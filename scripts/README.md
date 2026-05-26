@@ -35,6 +35,7 @@ Use the package-script workflow surfaces first when they exist:
 - SRS journey edge lane: `npm --prefix scripts run quality:srs:journey:edge`
 - SRS journey real-publication lane: `npm --prefix scripts run quality:srs:journey:real`
 - SRS journey installed-resource lane: `npm --prefix scripts run quality:srs:journey:installed`
+- SRS `en-es` profile-preference lane: `npm --prefix scripts run quality:srs:journey:en-es:profile`
 
 Use the raw script paths below when there is no package-script surface or when you need direct CLI control.
 Use `../docs/developer/productization_lane4_validation_gate_inventory.md` when
@@ -161,6 +162,8 @@ you need to choose the smallest honest bundle for a specific change type.
   `testing/srs_journey_harness.py --scenario en-es_core_journey_v1`, `--scenario en-es_edge_behaviors_v1`, and `--scenario en-es_real_publication_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es`, `quality:srs:journey:en-es:edge`, and `quality:srs:journey:en-es:real`)
 - `en-es` installed-resource journey lane mirrors the same real-data review flow with local Spanish packs:
   `testing/srs_journey_harness.py --scenario en-es_installed_data_journey_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es:installed`)
+- `en-es` profile-preference journey lane proves profile-aware bootstrap plus feedback-loop continuity:
+  `testing/srs_journey_harness.py --scenario en-es_profile_preference_journey_v1` (also exposed via `npm --prefix scripts run quality:srs:journey:en-es:profile`)
 - Render Markdown summaries from SRS journey JSON artifacts:
   `testing/srs_journey_summary.py` (also exposed via `npm --prefix scripts run quality:srs:journey:summary`)
 - Render interactive HTML pedagogical review surfaces from SRS journey JSON artifacts:

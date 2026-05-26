@@ -204,6 +204,9 @@ npm --prefix scripts run quality:srs:journey:installed:html
 npm --prefix scripts run quality:srs:journey:en-es
 npm --prefix scripts run quality:srs:journey:en-es:summary
 npm --prefix scripts run quality:srs:journey:en-es:html
+npm --prefix scripts run quality:srs:journey:en-es:profile
+npm --prefix scripts run quality:srs:journey:en-es:profile:summary
+npm --prefix scripts run quality:srs:journey:en-es:profile:html
 npm --prefix scripts run quality:srs:journey:en-es:edge
 npm --prefix scripts run quality:srs:journey:en-es:edge:summary
 npm --prefix scripts run quality:srs:journey:en-es:edge:html

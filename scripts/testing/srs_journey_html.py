@@ -397,7 +397,7 @@ def render_html(payload: dict[str, Any], *, title: str = APP_TITLE) -> str:
       if (value === null || value === undefined || value === '') return '—';
       const number = Number(value);
       if (Number.isNaN(number)) return String(value);
-      return number.toFixed(digits).replace(/\.0+$/, '').replace(/(\.\d*[1-9])0+$/, '$1');
+      return number.toFixed(digits).replace(/\\.0+$/, '').replace(/(\\.\\d*[1-9])0+$/, '$1');
     }}
 
     function pct(value) {{
