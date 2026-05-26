@@ -2,8 +2,8 @@
 
 Status: active design reference
 Role: Planning / WIP
-Last updated: 2026-05-23
-Last verified: 2026-05-23 by SRS profile-bootstrap readiness-gate code read, focused SRS admission tests, SRS quality harness, local admission-lab browser smoke, preference taxonomy lifecycle review, and browsing-based admission plan routing
+Last updated: 2026-05-26
+Last verified: 2026-05-26 by SRS profile-bootstrap preference matrix tests, SRS quality harness, feature-state audit, doc-reference check, and changed-file gate
 Purpose: define the product algorithm for tailoring SRS admission probabilities to user interests, readiness, source quality, and LP resource coverage
 Source-of-truth: target algorithm reference; current executable truth lives in `core/lexishift_core/srs/seed.py`, `core/lexishift_core/srs/profile_bootstrap.py`, `core/lexishift_core/srs/selector.py`, helper admission use cases, SRS tests, and `docs/developer/feature_state_matrix.md`.
 
@@ -55,7 +55,9 @@ Current code already has important pieces of this model:
   both ranked score and weighted sampling mass can suppress candidates that are
   much too easy or too hard for the learner's proficiency band;
 - preview tests prove that topic-bearing candidates can move ahead of neutral
-  frequency order.
+  frequency order, that stronger topic strength monotonically increases
+  realized topic pressure in the synthetic matrix, and that higher proficiency
+  shifts the preview toward harder candidates;
 - browsing-based admission is planned as a separate opt-in word-signal layer;
   it is not implemented/default-on and must not mutate review scheduling.
 
@@ -490,6 +492,10 @@ The product requirement is not a specific probability formula. The requirement
 is that stronger topic preference monotonically increases matching candidates'
 rank or sampling mass when source coverage and readiness allow it, while
 diagnostics report the realized preferred-topic share and source-limited cases.
+The committed preference sanity matrix checks this as a deterministic contract:
+it compares topic top-N counts, first-draw selection mass, proficiency-driven
+difficulty shift, and high-proficiency topic pressure on a controlled synthetic
+frontier.
 
 ## Clean Admission Sequence
 

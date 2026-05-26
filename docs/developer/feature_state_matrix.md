@@ -1381,8 +1381,8 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented` (rebalance preview/apply lane), `verified`; `default-on` = `no`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-26` planner/helper metadata now reports requested `profile_bootstrap` as executable profile-aware bootstrap, and options initialize/admission preview request it with current profile context.
-- Last verified: `2026-05-26` focused profile-bootstrap/planner/helper/options tests, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-05-26` planner/helper metadata now reports requested `profile_bootstrap` as executable profile-aware bootstrap, options initialize/admission preview request it with current profile context, and the preference sanity report includes a deterministic strength/proficiency matrix.
+- Last verified: `2026-05-26` focused profile-bootstrap/planner/helper/options tests, preference sanity artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, and a proficiency readiness multiplier over the frequency seed frontier before initial active selection.

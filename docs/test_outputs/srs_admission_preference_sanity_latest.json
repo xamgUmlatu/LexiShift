@@ -1,6 +1,6 @@
 {
-  "version": "srs_admission_preference_sanity_v1",
-  "generated_at": "2026-04-19T04:47:37.509557+00:00",
+  "version": "srs_admission_preference_sanity_v2",
+  "generated_at": "2026-05-26T04:19:53.524362+00:00",
   "pair": "en-en",
   "seed_pool": {
     "size": 8,
@@ -49,7 +49,7 @@
         "difficulty_target": 0.1
       },
       "policy": {
-        "version": "profile_bootstrap_policy_v2",
+        "version": "profile_bootstrap_policy_v3",
         "difficulty_proxy": "1_minus_admission_weight",
         "topic_metadata_keys": [
           "sense_topics",
@@ -61,6 +61,12 @@
         "proficiency_taper_width": 0.75,
         "challenge_default_spread": 0.18,
         "challenge_min_spread": 0.1,
+        "readiness_base_lower_margin": 0.15,
+        "readiness_base_upper_margin": 0.18,
+        "readiness_topic_extra_lower_margin": 0.12,
+        "readiness_topic_extra_upper_margin": 0.08,
+        "readiness_too_easy_penalty": 60.0,
+        "readiness_too_hard_penalty": 35.0,
         "explanation_component_floor": 0.025,
         "topic_specificity_floor": 0.45,
         "scarcity_support_min_count": 3,
@@ -85,6 +91,9 @@
           ],
           "exploration_terms": [
             "exploration_bonus"
+          ],
+          "multipliers": [
+            "readiness_multiplier"
           ]
         }
       },
@@ -104,9 +113,15 @@
           "reranked_rank": 1,
           "rank_delta": 0,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.8,
           "profile_score": 0.44,
+          "penalties": [],
           "selection_mass": 0.566,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -166,6 +181,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -186,6 +207,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -222,9 +249,15 @@
           "reranked_rank": 2,
           "rank_delta": 0,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.76,
           "profile_score": 0.418,
+          "penalties": [],
           "selection_mass": 0.5377,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -284,6 +317,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -304,6 +343,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -340,9 +385,15 @@
           "reranked_rank": 3,
           "rank_delta": 0,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.72,
           "profile_score": 0.396,
+          "penalties": [],
           "selection_mass": 0.5094,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -402,6 +453,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -422,6 +479,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -458,9 +521,15 @@
           "reranked_rank": 4,
           "rank_delta": 0,
           "pos_bucket": "adjective",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.66,
           "profile_score": 0.363,
+          "penalties": [],
           "selection_mass": 0.46695,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -520,6 +589,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -540,6 +615,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -576,9 +657,15 @@
           "reranked_rank": 5,
           "rank_delta": 0,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.63,
           "profile_score": 0.3465,
+          "penalties": [],
           "selection_mass": 0.445725,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -656,6 +743,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -676,6 +769,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -754,7 +853,7 @@
         "difficulty_target": 0.1
       },
       "policy": {
-        "version": "profile_bootstrap_policy_v2",
+        "version": "profile_bootstrap_policy_v3",
         "difficulty_proxy": "1_minus_admission_weight",
         "topic_metadata_keys": [
           "sense_topics",
@@ -766,6 +865,12 @@
         "proficiency_taper_width": 0.75,
         "challenge_default_spread": 0.18,
         "challenge_min_spread": 0.1,
+        "readiness_base_lower_margin": 0.15,
+        "readiness_base_upper_margin": 0.18,
+        "readiness_topic_extra_lower_margin": 0.12,
+        "readiness_topic_extra_upper_margin": 0.08,
+        "readiness_too_easy_penalty": 60.0,
+        "readiness_too_hard_penalty": 35.0,
         "explanation_component_floor": 0.025,
         "topic_specificity_floor": 0.45,
         "scarcity_support_min_count": 3,
@@ -790,6 +895,9 @@
           ],
           "exploration_terms": [
             "exploration_bonus"
+          ],
+          "multipliers": [
+            "readiness_multiplier"
           ]
         }
       },
@@ -813,9 +921,15 @@
           "reranked_rank": 1,
           "rank_delta": 5,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.6,
           "profile_score": 0.5025,
+          "penalties": [],
           "selection_mass": 0.536625,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -887,6 +1001,12 @@
             "topic_hint_count": 2,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -907,6 +1027,12 @@
             "topic_hint_count": 2,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -945,9 +1071,15 @@
           "reranked_rank": 2,
           "rank_delta": 5,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.56,
           "profile_score": 0.4805,
+          "penalties": [],
           "selection_mass": 0.508325,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1007,6 +1139,12 @@
             "topic_hint_count": 1,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1027,6 +1165,12 @@
             "topic_hint_count": 1,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1065,9 +1209,15 @@
           "reranked_rank": 3,
           "rank_delta": -2,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.8,
           "profile_score": 0.44,
+          "penalties": [],
           "selection_mass": 0.566,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1127,6 +1277,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1147,6 +1303,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1183,9 +1345,15 @@
           "reranked_rank": 4,
           "rank_delta": -2,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.76,
           "profile_score": 0.418,
+          "penalties": [],
           "selection_mass": 0.5377,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1245,6 +1413,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1265,6 +1439,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1301,9 +1481,15 @@
           "reranked_rank": 5,
           "rank_delta": 3,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.53,
           "profile_score": 0.413476,
+          "penalties": [],
           "selection_mass": 0.454259,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1373,6 +1559,12 @@
             "topic_hint_count": 2,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1393,6 +1585,12 @@
             "topic_hint_count": 2,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1476,7 +1674,7 @@
         "difficulty_target": 0.1
       },
       "policy": {
-        "version": "profile_bootstrap_policy_v2",
+        "version": "profile_bootstrap_policy_v3",
         "difficulty_proxy": "1_minus_admission_weight",
         "topic_metadata_keys": [
           "sense_topics",
@@ -1488,6 +1686,12 @@
         "proficiency_taper_width": 0.75,
         "challenge_default_spread": 0.18,
         "challenge_min_spread": 0.1,
+        "readiness_base_lower_margin": 0.15,
+        "readiness_base_upper_margin": 0.18,
+        "readiness_topic_extra_lower_margin": 0.12,
+        "readiness_topic_extra_upper_margin": 0.08,
+        "readiness_too_easy_penalty": 60.0,
+        "readiness_too_hard_penalty": 35.0,
         "explanation_component_floor": 0.025,
         "topic_specificity_floor": 0.45,
         "scarcity_support_min_count": 3,
@@ -1512,6 +1716,9 @@
           ],
           "exploration_terms": [
             "exploration_bonus"
+          ],
+          "multipliers": [
+            "readiness_multiplier"
           ]
         }
       },
@@ -1534,9 +1741,15 @@
           "reranked_rank": 1,
           "rank_delta": 3,
           "pos_bucket": "adjective",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.66,
           "profile_score": 0.4605,
+          "penalties": [],
           "selection_mass": 0.530325,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1596,6 +1809,12 @@
             "topic_hint_count": 1,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1616,6 +1835,12 @@
             "topic_hint_count": 1,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1654,9 +1879,15 @@
           "reranked_rank": 2,
           "rank_delta": -1,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.8,
           "profile_score": 0.44,
+          "penalties": [],
           "selection_mass": 0.566,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1716,6 +1947,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1736,6 +1973,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1772,9 +2015,15 @@
           "reranked_rank": 3,
           "rank_delta": 2,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.63,
           "profile_score": 0.431353,
+          "penalties": [],
           "selection_mass": 0.500879,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1852,6 +2101,12 @@
             "topic_hint_count": 2,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1872,6 +2127,12 @@
             "topic_hint_count": 2,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1910,9 +2171,15 @@
           "reranked_rank": 4,
           "rank_delta": -2,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.76,
           "profile_score": 0.418,
+          "penalties": [],
           "selection_mass": 0.5377,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -1972,6 +2239,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -1992,6 +2265,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -2028,9 +2307,15 @@
           "reranked_rank": 5,
           "rank_delta": -2,
           "pos_bucket": "noun",
+          "pos_raw": null,
+          "pos_canonical": null,
+          "pos_source_profile": null,
+          "pos_matched_rule": null,
+          "pos_weight": null,
           "base_weight": null,
           "admission_weight": 0.72,
           "profile_score": 0.396,
+          "penalties": [],
           "selection_mass": 0.5094,
           "candidate_traits": {
             "version": "admission_candidate_features_v1",
@@ -2090,6 +2375,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -2110,6 +2401,12 @@
             "topic_hint_count": 0,
             "proficiency_fit": 0.0,
             "challenge_fit": 0.0,
+            "readiness_multiplier": 1.0,
+            "readiness_lower_bound": 0.0,
+            "readiness_upper_bound": 1.0,
+            "readiness_topic_strength": 0.0,
+            "readiness_too_easy_gap": 0.0,
+            "readiness_too_hard_gap": 0.0,
             "lexical_risk": 0.0,
             "redundancy": 0.0,
             "exploration_bonus": 0.0,
@@ -2143,6 +2440,759 @@
       ]
     }
   ],
+  "preference_matrix": {
+    "top_n": 5,
+    "focus_lemmas": [
+      "dog",
+      "elephant",
+      "falcon",
+      "reptile"
+    ],
+    "seed_pool": {
+      "size": 12,
+      "neutral_order": [
+        "money",
+        "home",
+        "food",
+        "travel",
+        "music",
+        "dog",
+        "elephant",
+        "falcon",
+        "reptile",
+        "thesis",
+        "hypothesis",
+        "algorithm"
+      ]
+    },
+    "rows": [
+      {
+        "name": "neutral",
+        "description": "No profile signals.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": null,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [],
+          "missing_signals": [
+            "interests",
+            "proficiency",
+            "challenge_preference"
+          ],
+          "signal_sources": {}
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "money",
+          "home",
+          "food",
+          "travel",
+          "music"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 0,
+        "focus_average_rank": 7.75,
+        "focus_first_draw_probability": 0.282282,
+        "average_top_difficulty": 0.24,
+        "top_preview": [
+          {
+            "lemma": "money",
+            "profile_score": 0.495,
+            "selection_mass": 0.63675,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "home",
+            "profile_score": 0.462,
+            "selection_mass": 0.5943,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.429,
+            "selection_mass": 0.55185,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.363,
+            "selection_mass": 0.46695,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.341,
+            "selection_mass": 0.43865,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "animals_light",
+        "description": "Light animals preference at mid proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 0.25
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 0.25
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "dog",
+          "travel",
+          "music",
+          "elephant",
+          "food"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 2,
+        "focus_average_rank": 4.5,
+        "focus_first_draw_probability": 0.403289,
+        "average_top_difficulty": 0.364,
+        "top_preview": [
+          {
+            "lemma": "dog",
+            "profile_score": 0.473125,
+            "selection_mass": 0.517531,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.25
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.441,
+            "selection_mass": 0.50365,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.425125,
+            "selection_mass": 0.458331,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.25
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.360319,
+            "selection_mass": 0.420156,
+            "readiness_multiplier": 0.681131,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "animals_medium",
+        "description": "Medium animals preference at mid proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 0.5
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 0.5
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "dog",
+          "elephant",
+          "travel",
+          "music",
+          "falcon"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 3,
+        "focus_average_rank": 3.75,
+        "focus_first_draw_probability": 0.419019,
+        "average_top_difficulty": 0.44,
+        "top_preview": [
+          {
+            "lemma": "dog",
+            "profile_score": 0.51625,
+            "selection_mass": 0.545562,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.5
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.46825,
+            "selection_mass": 0.486363,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.5
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.441,
+            "selection_mass": 0.50365,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "falcon",
+            "profile_score": 0.38625,
+            "selection_mass": 0.391062,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.5
+          }
+        ]
+      },
+      {
+        "name": "animals_strong",
+        "description": "Strong animals preference at mid proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 1.0
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 1.0
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "travel",
+          "reptile"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 4,
+        "focus_average_rank": 2.75,
+        "focus_first_draw_probability": 0.448115,
+        "average_top_difficulty": 0.492,
+        "top_preview": [
+          {
+            "lemma": "dog",
+            "profile_score": 0.6025,
+            "selection_mass": 0.601625,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.5545,
+            "selection_mass": 0.542425,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "falcon",
+            "profile_score": 0.4725,
+            "selection_mass": 0.447125,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "reptile",
+            "profile_score": 0.445167,
+            "selection_mass": 0.415358,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          }
+        ]
+      },
+      {
+        "name": "proficiency_low",
+        "description": "Low proficiency without topic preference.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": 0.2,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "proficiency"
+          ],
+          "missing_signals": [
+            "interests",
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "money",
+          "home",
+          "food",
+          "travel",
+          "music"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 0,
+        "focus_average_rank": 7.75,
+        "focus_first_draw_probability": 0.216106,
+        "average_top_difficulty": 0.24,
+        "top_preview": [
+          {
+            "lemma": "money",
+            "profile_score": 0.595,
+            "selection_mass": 0.70175,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "home",
+            "profile_score": 0.562,
+            "selection_mass": 0.6593,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.526333,
+            "selection_mass": 0.615117,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "travel",
+            "profile_score": 0.444333,
+            "selection_mass": 0.519817,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.417,
+            "selection_mass": 0.48805,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "proficiency_mid",
+        "description": "Mid proficiency without topic preference.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": 0.45,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "proficiency"
+          ],
+          "missing_signals": [
+            "interests",
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "travel",
+          "music",
+          "dog",
+          "elephant",
+          "food"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 2,
+        "focus_average_rank": 5.25,
+        "focus_first_draw_probability": 0.386522,
+        "average_top_difficulty": 0.364,
+        "top_preview": [
+          {
+            "lemma": "travel",
+            "profile_score": 0.463,
+            "selection_mass": 0.53195,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "music",
+            "profile_score": 0.441,
+            "selection_mass": 0.50365,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "dog",
+            "profile_score": 0.43,
+            "selection_mass": 0.4895,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "elephant",
+            "profile_score": 0.382,
+            "selection_mass": 0.4303,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "food",
+            "profile_score": 0.360319,
+            "selection_mass": 0.420156,
+            "readiness_multiplier": 0.681131,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "proficiency_high",
+        "description": "High proficiency without topic preference.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {},
+          "implicit_topic_weights": {},
+          "topic_weights": {},
+          "topic_weight_sources": {},
+          "proficiency_estimate": 0.75,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "proficiency"
+          ],
+          "missing_signals": [
+            "interests",
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "falcon",
+          "thesis",
+          "reptile",
+          "hypothesis",
+          "algorithm"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 2,
+        "focus_average_rank": 4.25,
+        "focus_first_draw_probability": 0.491561,
+        "average_top_difficulty": 0.652,
+        "top_preview": [
+          {
+            "lemma": "falcon",
+            "profile_score": 0.32,
+            "selection_mass": 0.348,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "thesis",
+            "profile_score": 0.309,
+            "selection_mass": 0.33385,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "reptile",
+            "profile_score": 0.298,
+            "selection_mass": 0.3197,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "hypothesis",
+            "profile_score": 0.276,
+            "selection_mass": 0.2914,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          },
+          {
+            "lemma": "algorithm",
+            "profile_score": 0.254,
+            "selection_mass": 0.2631,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      },
+      {
+        "name": "animals_high_proficiency",
+        "description": "Strong animals preference at high proficiency.",
+        "profile_context": {
+          "version": "admission_profile_features_v1",
+          "topic_normalization_version": "topic_family_v1",
+          "raw_profile_keys": [
+            "proficiency",
+            "topic_weights"
+          ],
+          "interests": [],
+          "explicit_topic_weights": {
+            "animals": 1.0
+          },
+          "implicit_topic_weights": {},
+          "topic_weights": {
+            "animals": 1.0
+          },
+          "topic_weight_sources": {
+            "animals": "topic_weights"
+          },
+          "proficiency_estimate": 0.75,
+          "challenge_target": null,
+          "challenge_spread": null,
+          "goal_mode": null,
+          "active_signals": [
+            "interests",
+            "proficiency"
+          ],
+          "missing_signals": [
+            "challenge_preference"
+          ],
+          "signal_sources": {
+            "interests": "topic_weights",
+            "proficiency": "proficiency.estimated_value"
+          }
+        },
+        "top_n": 5,
+        "top_lemmas": [
+          "elephant",
+          "falcon",
+          "reptile",
+          "dog",
+          "thesis"
+        ],
+        "focus_lemmas": [
+          "dog",
+          "elephant",
+          "falcon",
+          "reptile"
+        ],
+        "focus_top_n_count": 4,
+        "focus_average_rank": 2.5,
+        "focus_first_draw_probability": 0.666211,
+        "average_top_difficulty": 0.548,
+        "top_preview": [
+          {
+            "lemma": "elephant",
+            "profile_score": 0.5585,
+            "selection_mass": 0.545025,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "falcon",
+            "profile_score": 0.4925,
+            "selection_mass": 0.460125,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "reptile",
+            "profile_score": 0.4705,
+            "selection_mass": 0.431825,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "dog",
+            "profile_score": 0.410382,
+            "selection_mass": 0.409786,
+            "readiness_multiplier": 0.681131,
+            "topic_affinity": 1.0
+          },
+          {
+            "lemma": "thesis",
+            "profile_score": 0.309,
+            "selection_mass": 0.33385,
+            "readiness_multiplier": 1.0,
+            "topic_affinity": 0.0
+          }
+        ]
+      }
+    ],
+    "comparisons": {
+      "topic_strength_top_n_counts": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "topic_strength_first_draw_probabilities": [
+        0.282282,
+        0.403289,
+        0.419019,
+        0.448115
+      ],
+      "topic_strength_top_n_monotonic": true,
+      "topic_strength_probability_monotonic": true,
+      "proficiency_average_top_difficulty_delta": 0.412,
+      "high_proficiency_topic_top_n_delta": 2
+    }
+  },
   "comparisons": {
     "explicit_animals_vs_neutral": {
       "focus_lemmas": [
@@ -2200,11 +3250,35 @@
       "code": "LIVE_METADATA_COVERAGE_AUDIT_AVAILABLE",
       "message": "Synthetic sanity passes the scoring seam, and live frequency-source topic coverage is now tracked by the dedicated frontier audit.",
       "details": null
+    },
+    {
+      "level": "PASS",
+      "code": "PREFERENCE_STRENGTH_TOP_N_MONOTONIC",
+      "message": "Increasing topic strength did not reduce the number of focus-topic candidates in the top-N preview.",
+      "details": "[0, 2, 3, 4]"
+    },
+    {
+      "level": "PASS",
+      "code": "PREFERENCE_STRENGTH_MASS_MONOTONIC",
+      "message": "Increasing topic strength did not reduce focus-topic first-draw selection mass.",
+      "details": "[0.282282, 0.403289, 0.419019, 0.448115]"
+    },
+    {
+      "level": "PASS",
+      "code": "PROFICIENCY_SHIFTS_TOP_N_DIFFICULTY",
+      "message": "Higher proficiency shifted the top-N preview toward harder words.",
+      "details": "0.412"
+    },
+    {
+      "level": "PASS",
+      "code": "HIGH_PROFICIENCY_TOPIC_PRESSURE_VISIBLE",
+      "message": "A strong topic preference still increased focus-topic presence for high-proficiency users.",
+      "details": "2"
     }
   ],
   "summary": {
     "status": "PASS",
-    "pass_count": 6,
+    "pass_count": 10,
     "warn_count": 0,
     "fail_count": 0
   }

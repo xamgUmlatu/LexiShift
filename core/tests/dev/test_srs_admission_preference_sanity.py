@@ -44,8 +44,34 @@ class TestSrsAdmissionPreferenceSanity(unittest.TestCase):
             report["comparisons"]["implicit_streaming_comedy_vs_neutral"]["average_rank_gain"],
             0.0,
         )
+        matrix = report["preference_matrix"]
+        matrix_comparisons = matrix["comparisons"]
+        self.assertEqual(
+            matrix_comparisons["topic_strength_top_n_counts"],
+            [0, 2, 3, 4],
+        )
+        self.assertEqual(
+            matrix_comparisons["topic_strength_top_n_counts"],
+            sorted(matrix_comparisons["topic_strength_top_n_counts"]),
+        )
+        self.assertEqual(
+            matrix_comparisons["topic_strength_first_draw_probabilities"],
+            sorted(matrix_comparisons["topic_strength_first_draw_probabilities"]),
+        )
+        self.assertGreaterEqual(
+            matrix_comparisons["proficiency_average_top_difficulty_delta"],
+            0.30,
+        )
+        self.assertGreater(
+            matrix_comparisons["high_proficiency_topic_top_n_delta"],
+            0,
+        )
         findings = {finding["code"]: finding for finding in report["findings"]}
         self.assertIn("LIVE_METADATA_COVERAGE_AUDIT_AVAILABLE", findings)
+        self.assertIn("PREFERENCE_STRENGTH_TOP_N_MONOTONIC", findings)
+        self.assertIn("PREFERENCE_STRENGTH_MASS_MONOTONIC", findings)
+        self.assertIn("PROFICIENCY_SHIFTS_TOP_N_DIFFICULTY", findings)
+        self.assertIn("HIGH_PROFICIENCY_TOPIC_PRESSURE_VISIBLE", findings)
 
 
 if __name__ == "__main__":

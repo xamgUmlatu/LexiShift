@@ -11,9 +11,11 @@ from types import SimpleNamespace
 import types
 from typing import Any, Mapping, Sequence
 
+from srs_admission_preference_matrix import build_preference_matrix
+
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-REPORT_VERSION = "srs_admission_preference_sanity_v1"
+REPORT_VERSION = "srs_admission_preference_sanity_v2"
 SYNTHETIC_PAIR = "en-en"
 
 
@@ -48,7 +50,8 @@ def _load_profile_bootstrap_module() -> object:
     return sys.modules["lexishift_core.srs.profile_bootstrap"]
 
 
-rerank_seed_words_for_profile = _load_profile_bootstrap_module().rerank_seed_words_for_profile
+_profile_bootstrap_module = _load_profile_bootstrap_module()
+rerank_seed_words_for_profile = _profile_bootstrap_module.rerank_seed_words_for_profile
 
 
 def _now_iso_utc() -> str:
@@ -244,6 +247,12 @@ def build_report(*, preview_limit: int = 5) -> dict[str, Any]:
         },
     }
 
+    preference_matrix = build_preference_matrix(
+        rerank_seed_words_for_profile=rerank_seed_words_for_profile,
+        seed_factory=_seed,
+    )
+    matrix_comparisons = preference_matrix["comparisons"]
+
     findings: list[dict[str, Any]] = []
     if neutral["top_lemmas"] == base_order[:preview_limit]:
         findings.append(
@@ -270,9 +279,7 @@ def build_report(*, preview_limit: int = 5) -> dict[str, Any]:
                 level="PASS",
                 code="EXPLICIT_INTEREST_LIFTS_TOPIC_MATCHES",
                 message="Explicit `animals` interest promoted animal-related candidates.",
-                details=(
-                    "gain=" f"{comparisons['explicit_animals_vs_neutral']['average_rank_gain']}"
-                ),
+                details=(f"gain={comparisons['explicit_animals_vs_neutral']['average_rank_gain']}"),
             )
         )
     else:
@@ -358,6 +365,94 @@ def build_report(*, preview_limit: int = 5) -> dict[str, Any]:
         )
     )
 
+    if matrix_comparisons["topic_strength_top_n_monotonic"]:
+        findings.append(
+            _finding(
+                level="PASS",
+                code="PREFERENCE_STRENGTH_TOP_N_MONOTONIC",
+                message=(
+                    "Increasing topic strength did not reduce the number of focus-topic "
+                    "candidates in the top-N preview."
+                ),
+                details=str(matrix_comparisons["topic_strength_top_n_counts"]),
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                level="FAIL",
+                code="PREFERENCE_STRENGTH_TOP_N_REGRESSION",
+                message="Increasing topic strength reduced focus-topic top-N presence.",
+                details=str(matrix_comparisons["topic_strength_top_n_counts"]),
+            )
+        )
+
+    if matrix_comparisons["topic_strength_probability_monotonic"]:
+        findings.append(
+            _finding(
+                level="PASS",
+                code="PREFERENCE_STRENGTH_MASS_MONOTONIC",
+                message=(
+                    "Increasing topic strength did not reduce focus-topic first-draw "
+                    "selection mass."
+                ),
+                details=str(matrix_comparisons["topic_strength_first_draw_probabilities"]),
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                level="FAIL",
+                code="PREFERENCE_STRENGTH_MASS_REGRESSION",
+                message="Increasing topic strength reduced focus-topic selection mass.",
+                details=str(matrix_comparisons["topic_strength_first_draw_probabilities"]),
+            )
+        )
+
+    if matrix_comparisons["proficiency_average_top_difficulty_delta"] >= 0.30:
+        findings.append(
+            _finding(
+                level="PASS",
+                code="PROFICIENCY_SHIFTS_TOP_N_DIFFICULTY",
+                message="Higher proficiency shifted the top-N preview toward harder words.",
+                details=str(matrix_comparisons["proficiency_average_top_difficulty_delta"]),
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                level="FAIL",
+                code="PROFICIENCY_DIFFICULTY_SHIFT_TOO_WEAK",
+                message="Higher proficiency did not sufficiently shift top-N difficulty.",
+                details=str(matrix_comparisons["proficiency_average_top_difficulty_delta"]),
+            )
+        )
+
+    if matrix_comparisons["high_proficiency_topic_top_n_delta"] > 0:
+        findings.append(
+            _finding(
+                level="PASS",
+                code="HIGH_PROFICIENCY_TOPIC_PRESSURE_VISIBLE",
+                message=(
+                    "A strong topic preference still increased focus-topic presence for "
+                    "high-proficiency users."
+                ),
+                details=str(matrix_comparisons["high_proficiency_topic_top_n_delta"]),
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                level="FAIL",
+                code="HIGH_PROFICIENCY_TOPIC_PRESSURE_NOT_VISIBLE",
+                message=(
+                    "A strong topic preference did not increase focus-topic presence for "
+                    "high-proficiency users."
+                ),
+                details=str(matrix_comparisons["high_proficiency_topic_top_n_delta"]),
+            )
+        )
+
     summary = summarize_findings(findings)
     return {
         "version": REPORT_VERSION,
@@ -368,6 +463,7 @@ def build_report(*, preview_limit: int = 5) -> dict[str, Any]:
             "neutral_order": base_order,
         },
         "scenarios": scenarios,
+        "preference_matrix": preference_matrix,
         "comparisons": comparisons,
         "findings": findings,
         "summary": summary,
@@ -415,6 +511,37 @@ def render_markdown(report: Mapping[str, Any]) -> str:
                 f"{preview['lemma']} [delta={preview['rank_delta']:+}, "
                 f"score={preview['profile_score']}]: {preview['explanation']}"
             )
+    lines.append("")
+    lines.append("## Preference Matrix")
+    preference_matrix = report["preference_matrix"]
+    lines.append(f"- top_n: {preference_matrix['top_n']}")
+    lines.append(f"- focus_lemmas: {', '.join(preference_matrix['focus_lemmas'])}")
+    comparisons = preference_matrix["comparisons"]
+    lines.append(f"- topic_strength_top_n_counts: {comparisons['topic_strength_top_n_counts']}")
+    lines.append(
+        "- topic_strength_first_draw_probabilities: "
+        f"{comparisons['topic_strength_first_draw_probabilities']}"
+    )
+    lines.append(
+        "- proficiency_average_top_difficulty_delta: "
+        f"{comparisons['proficiency_average_top_difficulty_delta']}"
+    )
+    lines.append(
+        f"- high_proficiency_topic_top_n_delta: {comparisons['high_proficiency_topic_top_n_delta']}"
+    )
+    for row in preference_matrix["rows"]:
+        lines.extend(
+            [
+                "",
+                f"### matrix/{row['name']}",
+                f"- description: {row['description']}",
+                f"- top_lemmas: {', '.join(row['top_lemmas'])}",
+                f"- focus_top_n_count: {row['focus_top_n_count']}",
+                f"- focus_average_rank: {row['focus_average_rank']}",
+                (f"- focus_first_draw_probability: {row['focus_first_draw_probability']}"),
+                f"- average_top_difficulty: {row['average_top_difficulty']}",
+            ]
+        )
     return "\n".join(lines) + "\n"
 
 
