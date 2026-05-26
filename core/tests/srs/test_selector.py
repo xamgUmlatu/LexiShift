@@ -9,11 +9,13 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from lexishift_core.srs.selector import (  # noqa: E402
+    SELECTION_POLICY_RESERVED_TOPIC_LANE,
     SelectorCandidate,
     SelectorConfig,
     SelectorWeights,
     resolve_selection_mass,
     score_candidate,
+    select_candidates,
 )
 
 
@@ -66,6 +68,37 @@ class TestSelectorReadinessMultiplier(unittest.TestCase):
         )
 
         self.assertAlmostEqual(resolve_selection_mass(scored, config), 0.01, places=6)
+
+
+class TestSelectorReservedTopicLane(unittest.TestCase):
+    def test_reserved_topic_lane_caps_topic_share_and_fills_general_candidates(self) -> None:
+        selected = select_candidates(
+            [
+                SelectorCandidate("animal-a", "en-es", base_freq=0.80, topic_bias=1.0),
+                SelectorCandidate("animal-b", "en-es", base_freq=0.78, topic_bias=1.0),
+                SelectorCandidate("animal-c", "en-es", base_freq=0.76, topic_bias=1.0),
+                SelectorCandidate("general-a", "en-es", base_freq=0.74),
+                SelectorCandidate("general-b", "en-es", base_freq=0.72),
+            ],
+            config=SelectorConfig(
+                selection_policy=SELECTION_POLICY_RESERVED_TOPIC_LANE,
+                weights=SelectorWeights(
+                    base_freq=1.0,
+                    topic_bias=1.0,
+                    scarcity_bonus=0.0,
+                    user_pref=0.0,
+                    confidence=0.0,
+                    difficulty_target=0.0,
+                ),
+                topic_lane_max_share=0.5,
+            ),
+            selection_count=4,
+        )
+
+        self.assertEqual(
+            [entry.candidate.lemma for entry in selected],
+            ["animal-a", "animal-b", "general-a", "general-b"],
+        )
 
 
 if __name__ == "__main__":

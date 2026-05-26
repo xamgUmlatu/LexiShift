@@ -125,7 +125,7 @@ class TestSrsAdmissionCalibrationReportEnEs(unittest.TestCase):
         self.assertIn("## Ranked Admission Batch Shares", markdown)
         self.assertIn("## Weighted Admission Batch Shares", markdown)
         self.assertIn("## Top-K Weighted Admission Shares", markdown)
-        self.assertIn("## Reserved Topic-Lane Simulation", markdown)
+        self.assertIn("## Reserved Topic-Lane Policy", markdown)
 
 
 if __name__ == "__main__":

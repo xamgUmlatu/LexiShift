@@ -614,8 +614,8 @@ def _build_profile_bootstrap_selector_config(
 
 def _resolve_selection_policy_override(value: object) -> str:
     normalized = str(value or "").strip().lower()
-    if normalized == SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT:
-        return SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT
+    if normalized in {SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT, "reserved_topic_lane"}:
+        return normalized
     return SELECTION_POLICY_TOP_N
 
 

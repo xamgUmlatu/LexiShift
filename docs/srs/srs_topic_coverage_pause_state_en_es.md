@@ -149,7 +149,7 @@ Best next work if resumed:
 4. build English-target SAT/TOEFL source review only after legal/source approval;
 5. use `../test_outputs/srs_admission_calibration_en_es_latest.md` to inspect
    realized topic-share diagnostics before changing topic coverage or sampling
-   policy; current MVP evidence favors a capped reserved topic lane over
+   policy; current MVP implementation uses a capped reserved topic lane over
    full-pool weighted sampling for explicit topic preferences.
 
 ## Verification Commands

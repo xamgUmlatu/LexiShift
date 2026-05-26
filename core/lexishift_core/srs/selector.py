@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import math
 import random
 from typing import Any, Iterable, Mapping, Optional, Sequence
 
 SELECTION_POLICY_TOP_N = "top_n"
 SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT = "weighted_without_replacement"
+SELECTION_POLICY_RESERVED_TOPIC_LANE = "reserved_topic_lane"
 SUPPORTED_SELECTION_POLICIES = {
     SELECTION_POLICY_TOP_N,
     SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
+    SELECTION_POLICY_RESERVED_TOPIC_LANE,
 }
 
 
@@ -39,6 +42,9 @@ class SelectorConfig:
     sampling_baseline_alpha: float = 0.35
     sampling_temperature: float = 1.0
     sampling_min_mass: float = 0.001
+    topic_lane_max_share: float = 0.5
+    topic_lane_candidate_window_multiplier: float = 6.0
+    topic_lane_min_window: int = 60
 
 
 @dataclass(frozen=True)
@@ -210,6 +216,12 @@ def select_scored_candidates(
         return ranked
     if resolve_selection_policy(config) == SELECTION_POLICY_TOP_N:
         return ranked[:target]
+    if resolve_selection_policy(config) == SELECTION_POLICY_RESERVED_TOPIC_LANE:
+        return _select_reserved_topic_lane_candidates(
+            ranked,
+            config=config,
+            selection_count=target,
+        )
     masses = [resolve_selection_mass(entry, config) for entry in ranked]
     selected = _weighted_sample_scored_without_replacement(
         ranked,
@@ -224,6 +236,71 @@ def select_scored_candidates(
         )
     )
     return selected
+
+
+def _select_reserved_topic_lane_candidates(
+    ranked: Sequence[ScoredCandidate],
+    *,
+    config: SelectorConfig,
+    selection_count: int,
+) -> list[ScoredCandidate]:
+    target = max(0, int(selection_count))
+    if target <= 0:
+        return []
+    window_size = min(
+        len(ranked),
+        max(
+            target,
+            int(math.ceil(target * max(1.0, float(config.topic_lane_candidate_window_multiplier)))),
+            max(0, int(config.topic_lane_min_window)),
+        ),
+    )
+    window = list(ranked[:window_size])
+    max_topic_strength = max((_candidate_topic_strength(entry) for entry in window), default=0.0)
+    if max_topic_strength <= 0.0:
+        return list(ranked[:target])
+
+    topic_budget = min(
+        target,
+        int(
+            math.ceil(
+                target
+                * max(0.0, min(1.0, max_topic_strength))
+                * max(0.0, min(1.0, float(config.topic_lane_max_share)))
+            )
+        ),
+    )
+    topic_entries = [entry for entry in window if _candidate_topic_strength(entry) > 0.0]
+    selected: list[ScoredCandidate] = topic_entries[:topic_budget]
+    selected_keys = {_candidate_key(entry) for entry in selected}
+
+    general_entries = [entry for entry in ranked if _candidate_topic_strength(entry) <= 0.0]
+    for entry in general_entries:
+        if len(selected) >= target:
+            break
+        key = _candidate_key(entry)
+        if key in selected_keys:
+            continue
+        selected.append(entry)
+        selected_keys.add(key)
+
+    for entry in ranked:
+        if len(selected) >= target:
+            break
+        key = _candidate_key(entry)
+        if key in selected_keys:
+            continue
+        selected.append(entry)
+        selected_keys.add(key)
+    return selected[:target]
+
+
+def _candidate_topic_strength(entry: ScoredCandidate) -> float:
+    return max(0.0, min(1.0, float(entry.candidate.topic_bias or 0.0)))
+
+
+def _candidate_key(entry: ScoredCandidate) -> tuple[str, str]:
+    return (str(entry.candidate.language_pair or ""), str(entry.candidate.lemma or ""))
 
 
 def _weighted_sample_scored_without_replacement(

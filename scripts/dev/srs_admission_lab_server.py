@@ -45,7 +45,7 @@ DEFAULT_TOPIC_OVERLAY_SOURCE_PATHS = tuple(
 DEFAULT_ZIPF_BRIDGE_PATH = TEST_OUTPUTS_ROOT / (
     "semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json"
 )
-SUPPORTED_SAMPLING_MODES = frozenset({"ranked", "weighted_without_replacement"})
+SUPPORTED_SAMPLING_MODES = {"ranked", "reserved_topic_lane", "weighted_without_replacement"}
 
 
 @dataclass(frozen=True)
@@ -54,7 +54,7 @@ class LabConfig:
     set_top_n: int = DEFAULT_SET_TOP_N
     initial_active_count: int = 120
     preview_count: int = 10
-    preview_sampling_mode: str = "ranked"
+    preview_sampling_mode: str = "reserved_topic_lane"
     preview_seed: int | None = 424242
     frequency_db: Path | None = None
     overlay_source_path: Path | None = None
@@ -754,7 +754,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--preview-sampling-mode",
         choices=tuple(sorted(SUPPORTED_SAMPLING_MODES)),
-        default="ranked",
+        default="reserved_topic_lane",
     )
     parser.add_argument("--preview-seed", type=int, default=424242)
     parser.add_argument(

@@ -238,7 +238,7 @@ const workflow = createAdmissionPreviewWorkflow({{
   assert.equal(request.options.objective, "bootstrap");
   assert.equal(request.options.trigger, "options_admission_preview_button");
   assert.equal(request.options.previewCount, 10);
-  assert.equal(request.options.previewSamplingMode, "weighted_without_replacement");
+  assert.equal(request.options.previewSamplingMode, "reserved_topic_lane");
   assert.equal(request.options.previewSeed, 424242);
   assert.deepEqual(normalize(request.options.profileContext), {{
     pair: "en-ja",

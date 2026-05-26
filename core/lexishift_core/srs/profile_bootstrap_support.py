@@ -31,6 +31,12 @@ class ReadinessGate:
 def build_policy_summary(policy: object) -> dict[str, object]:
     return {
         "version": policy.version,
+        "default_selection_policy": policy.selector_config.selection_policy,
+        "topic_lane_max_share": rounded_or_none(policy.selector_config.topic_lane_max_share),
+        "topic_lane_candidate_window_multiplier": rounded_or_none(
+            policy.selector_config.topic_lane_candidate_window_multiplier
+        ),
+        "topic_lane_min_window": int(policy.selector_config.topic_lane_min_window),
         "difficulty_proxy": policy.difficulty_proxy,
         "topic_metadata_keys": list(policy.topic_metadata_keys),
         "topic_exact_match_multiplier": rounded_or_none(policy.topic_exact_match_multiplier),

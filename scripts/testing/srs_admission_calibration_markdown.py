@@ -23,7 +23,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "- Ranked share is the deterministic topic-matching share of the preview admission batch.",
         "- Full-pool weighted share samples from the whole candidate pool and is diagnostic only.",
         "- Top-k weighted share samples from the ranked window, preserving variety without using the whole pool.",
-        "- Reserved lane share simulates a mixed batch with topic slots plus general slots.",
+        "- Reserved lane share uses the real profile-bootstrap policy with topic slots plus general slots.",
         "- These values are calibration diagnostics, not hard product guarantees.",
         "",
         "## Ranked Admission Batch Shares",
@@ -99,7 +99,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## Reserved Topic-Lane Simulation",
+            "## Reserved Topic-Lane Policy",
             "",
             "| Scenario | Active topics | Topic share | Topic count | Avg difficulty | Top lemmas |",
             "| --- | --- | ---: | ---: | ---: | --- |",

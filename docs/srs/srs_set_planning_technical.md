@@ -43,9 +43,9 @@ Define how set `S` is planned and mutated:
 
 - `profile_bootstrap`
   - Status: executable when requested.
-  - Behavior: applies profile-aware scoring and selection to the frequency seed
-    frontier. Options initialize and admission preview explicitly request this
-    strategy.
+  - Behavior: applies profile-aware scoring and capped reserved topic-lane
+    selection to the frequency seed frontier. Options initialize and admission
+    preview explicitly request this strategy.
 
 - `profile_growth`
   - Status: rebalance-only executable lane.
@@ -73,8 +73,8 @@ Define how set `S` is planned and mutated:
   - Current execution note:
     - `strategy_requested="profile_bootstrap"` reports
       `strategy_effective="profile_bootstrap"` and executes the profile-aware
-      selector over the frequency seed frontier while returning
-      profile-bootstrap diagnostics.
+      reserved topic-lane selector over the frequency seed frontier while
+      returning profile-bootstrap diagnostics.
 
 ## Sizing policy (implemented)
 

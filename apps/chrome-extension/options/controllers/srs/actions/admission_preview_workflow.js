@@ -79,7 +79,7 @@
             objective: "bootstrap",
             trigger: "options_admission_preview_button",
             previewCount,
-            previewSamplingMode: "weighted_without_replacement",
+            previewSamplingMode: "reserved_topic_lane",
             previewSeed,
             profileContext
           }

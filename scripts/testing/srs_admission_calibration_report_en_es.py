@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from datetime import datetime, timezone
-import math
 from pathlib import Path
 import random
 import sys
@@ -26,7 +25,7 @@ from srs_admission_calibration_markdown import render_markdown, write_report  # 
 REPORT_SCHEMA_VERSION = 1
 DEFAULT_WEIGHTED_SEEDS = (11, 23, 37)
 DEFAULT_ADMISSION_BUDGET = 10
-DEFAULT_TOP_K_WINDOW, DEFAULT_TOPIC_LANE_MAX_SHARE = 60, 0.5
+DEFAULT_TOP_K_WINDOW = 60
 TEST_OUTPUTS_DIR = PROJECT_ROOT / "docs" / "test_outputs"
 DEFAULT_JSON_OUT = TEST_OUTPUTS_DIR / "srs_admission_calibration_en_es_latest.json"
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_DIR / "srs_admission_calibration_en_es_latest.md"
@@ -45,7 +44,6 @@ def build_report(
     set_top_n: int = DEFAULT_SET_TOP_N,
     admission_budget: int = DEFAULT_ADMISSION_BUDGET,
     top_k_window: int = DEFAULT_TOP_K_WINDOW,
-    topic_lane_max_share: float = DEFAULT_TOPIC_LANE_MAX_SHARE,
     weighted_seeds: Sequence[int] = DEFAULT_WEIGHTED_SEEDS,
     augment_with_zipf_bridge: bool = True,
     zipf_bridge_path: Path | None = DEFAULT_ZIPF_BRIDGE_PATH,
@@ -97,6 +95,20 @@ def build_report(
         zipf_bridge_path=zipf_bridge_path,
         kaikki_forward_db=kaikki_forward_db,
     )
+    topic_lane_preview = build_preference_preview_report(
+        pair=pair,
+        frequency_db=frequency_db,
+        overlay_source_path=overlay_source_path,
+        overlay_source_paths=overlay_source_paths,
+        set_top_n=set_top_n,
+        initial_active_count=budget,
+        preview_count=budget,
+        preview_sampling_mode="reserved_topic_lane",
+        preview_seed=None,
+        augment_with_zipf_bridge=augment_with_zipf_bridge,
+        zipf_bridge_path=zipf_bridge_path,
+        kaikki_forward_db=kaikki_forward_db,
+    )
 
     ranked_rows = _scenario_rows(ranked_preview)
     weighted_rows_by_seed = [
@@ -110,11 +122,7 @@ def build_report(
         weighted_seeds=weighted_seeds,
     )
     top_k_summary_rows = _weighted_summary_rows(top_k_rows_by_seed)
-    topic_lane_rows = _simulate_topic_lane_rows(
-        ranked_window_preview,
-        budget=budget,
-        topic_lane_max_share=topic_lane_max_share,
-    )
+    topic_lane_rows = _scenario_rows(topic_lane_preview)
     comparisons = _build_comparisons(
         ranked_rows=ranked_rows,
         weighted_rows=weighted_summary_rows,
@@ -160,7 +168,6 @@ def build_report(
             "set_top_n": int(set_top_n),
             "admission_budget": budget,
             "top_k_window": max(budget, int(top_k_window)),
-            "topic_lane_max_share": round(float(topic_lane_max_share), 6),
             "weighted_seeds": [int(seed) for seed in weighted_seeds],
             "augment_with_zipf_bridge": bool(augment_with_zipf_bridge),
         },
@@ -258,16 +265,6 @@ def _active_topics(scenario: Mapping[str, Any]) -> list[str]:
         if str(topic).strip() and _safe_float(weight) > 0.0
     ]
     return sorted(topics)
-
-
-def _max_topic_weight(scenario: Mapping[str, Any]) -> float:
-    context = scenario.get("effective_profile_context")
-    if not isinstance(context, Mapping):
-        return 0.0
-    topic_weights = context.get("topic_weights")
-    if not isinstance(topic_weights, Mapping):
-        return 0.0
-    return max((_safe_float(value) for value in topic_weights.values()), default=0.0)
 
 
 def _is_topic_mover(row: Mapping[str, Any], active_topics: Sequence[str]) -> bool:
@@ -390,45 +387,6 @@ def _simulate_top_k_rows_by_seed(
     ]
 
 
-def _simulate_topic_lane_rows(
-    report: Mapping[str, Any],
-    *,
-    budget: int,
-    topic_lane_max_share: float,
-) -> list[dict[str, Any]]:
-    scenarios = [
-        scenario for scenario in report.get("scenarios", ()) if isinstance(scenario, Mapping)
-    ]
-    neutral = next((scenario for scenario in scenarios if scenario.get("name") == "neutral"), {})
-    neutral_words = [
-        dict(row) for row in neutral.get("admitted_words", ()) if isinstance(row, Mapping)
-    ]
-    neutral_selected = _select_topic_lane_words(
-        neutral,
-        neutral_words=neutral_words,
-        budget=budget,
-        topic_lane_max_share=topic_lane_max_share,
-    )
-    neutral_lemmas = [
-        str(row.get("lemma") or "")
-        for row in neutral_selected
-        if str(row.get("lemma") or "").strip()
-    ]
-    return [
-        _scenario_row_from_words(
-            scenario,
-            admitted_words=_select_topic_lane_words(
-                scenario,
-                neutral_words=neutral_words,
-                budget=budget,
-                topic_lane_max_share=topic_lane_max_share,
-            ),
-            neutral_lemmas=neutral_lemmas,
-        )
-        for scenario in scenarios
-    ]
-
-
 def _scenario_rows_from_selector(
     report: Mapping[str, Any],
     *,
@@ -478,38 +436,6 @@ def _select_top_k_weighted_words(
                 break
         selected.append(pool.pop(pick_index))
     return selected
-
-
-def _select_topic_lane_words(
-    scenario: Mapping[str, Any],
-    *,
-    neutral_words: Sequence[Mapping[str, Any]],
-    budget: int,
-    topic_lane_max_share: float,
-) -> list[dict[str, Any]]:
-    rows = [dict(row) for row in scenario.get("admitted_words", ()) if isinstance(row, Mapping)]
-    active_topics = _active_topics(scenario)
-    max_weight = _max_topic_weight(scenario)
-    if not active_topics or max_weight <= 0.0:
-        return rows[:budget]
-    topic_budget = min(
-        budget,
-        math.ceil(budget * max(0.0, min(1.0, max_weight)) * max(0.0, topic_lane_max_share)),
-    )
-    topic_rows = [row for row in rows if _is_topic_mover(row, active_topics)]
-    selected: list[dict[str, Any]] = topic_rows[:topic_budget]
-    selected_lemmas = {str(row.get("lemma") or "") for row in selected}
-    topic_lemmas = {str(row.get("lemma") or "") for row in topic_rows}
-    general_rows = [
-        dict(row)
-        for row in neutral_words
-        if str(row.get("lemma") or "") not in selected_lemmas | topic_lemmas
-    ]
-    selected.extend(general_rows[: max(0, budget - len(selected))])
-    selected_lemmas = {str(row.get("lemma") or "") for row in selected}
-    if len(selected) < budget:
-        selected.extend(row for row in rows if str(row.get("lemma") or "") not in selected_lemmas)
-    return selected[:budget]
 
 
 def _build_comparisons(
@@ -642,9 +568,9 @@ def _build_findings(
             else "WARN",
             "RESERVED_TOPIC_LANE_PRODUCES_MIXED_TOPIC_BATCH",
             (
-                "Reserved topic-lane simulation produces a meaningful but mixed animals batch."
+                "Reserved topic-lane policy produces a meaningful but mixed animals batch."
                 if comparisons.get("topic_lane_animals_strong_mixed")
-                else "Reserved topic-lane simulation did not produce the intended mixed batch."
+                else "Reserved topic-lane policy did not produce the intended mixed batch."
             ),
             comparisons.get("topic_lane_animals_strength_shares"),
         )
@@ -748,7 +674,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--set-top-n", type=int, default=DEFAULT_SET_TOP_N)
     parser.add_argument("--admission-budget", type=int, default=DEFAULT_ADMISSION_BUDGET)
     parser.add_argument("--top-k-window", type=int, default=DEFAULT_TOP_K_WINDOW)
-    parser.add_argument("--topic-lane-max-share", type=float, default=DEFAULT_TOPIC_LANE_MAX_SHARE)
     parser.add_argument(
         "--weighted-seeds",
         default=",".join(str(seed) for seed in DEFAULT_WEIGHTED_SEEDS),
@@ -776,7 +701,6 @@ def main() -> int:
         set_top_n=args.set_top_n,
         admission_budget=args.admission_budget,
         top_k_window=args.top_k_window,
-        topic_lane_max_share=args.topic_lane_max_share,
         weighted_seeds=_parse_weighted_seeds(args.weighted_seeds),
         augment_with_zipf_bridge=args.augment_with_zipf_bridge,
         zipf_bridge_path=args.zipf_bridge_path,

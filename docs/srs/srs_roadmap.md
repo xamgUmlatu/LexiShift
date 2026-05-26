@@ -137,6 +137,8 @@ Status key:
 - `[x]` Profile-aware weighting in `profile_bootstrap` (normalization,
   scoring, diagnostics, helper plan reporting, options admission preview, and
   initialize execution use profile-aware bootstrap when requested).
+- `[x]` Capped reserved topic-lane selection in `profile_bootstrap` so explicit
+  topic preferences can move admission while preserving a mixed general batch.
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
@@ -220,9 +222,9 @@ Status key:
   - ranked preview batch shares are now visible across topic/proficiency profiles;
   - weighted-without-replacement seeded samples are visible and currently warn
     that full-pool weighted sampling is too diffuse for topic preferences;
-  - top-k weighted and reserved topic-lane simulations are now reported so MVP
-    policy choices can be compared against realized topic shares without mutating
-    production SRS state.
+  - top-k weighted diagnostics and the real reserved topic-lane policy are now
+    reported so MVP policy choices can be compared against realized topic shares
+    without mutating production SRS state.
 - `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
 
 ### Workstream H — LP parity and de-hardcoding (`en-de`/`en-es` vs `en-ja`)

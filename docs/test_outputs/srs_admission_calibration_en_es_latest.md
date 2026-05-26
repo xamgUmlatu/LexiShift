@@ -12,7 +12,7 @@
 - Ranked share is the deterministic topic-matching share of the preview admission batch.
 - Full-pool weighted share samples from the whole candidate pool and is diagnostic only.
 - Top-k weighted share samples from the ranked window, preserving variety without using the whole pool.
-- Reserved lane share simulates a mixed batch with topic slots plus general slots.
+- Reserved lane share uses the real profile-bootstrap policy with topic slots plus general slots.
 - These values are calibration diagnostics, not hard product guarantees.
 
 ## Ranked Admission Batch Shares
@@ -78,7 +78,7 @@
 | travel_places_transport_interest | 0.433 | 0.400-0.500 | 4.333 | como(3), tranvía(2), casa(2), nada(2), billete(2), viaje(2), dos(1), visado(1) |
 | weighted_plants_over_animals | 0.900 | 0.800-1.000 | 9.000 | gato(3), manzano(2), como(2), granado(2), pez(2), col(2), perro(1), calabaza(1) |
 
-## Reserved Topic-Lane Simulation
+## Reserved Topic-Lane Policy
 
 | Scenario | Active topics | Topic share | Topic count | Avg difficulty | Top lemmas |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -95,7 +95,7 @@
 | law_politics_civics_interest | law_politics_civics | 0.500 | 5 | 0.001 | parte, general, ley, sistema, número, como, este, sobre |
 | science_technology_interest | science_technology | 0.500 | 5 | 0.007 | vida, salida, función, cadena, plataforma, como, este, sobre |
 | travel_places_transport_interest | travel_places_transport | 0.500 | 5 | 0.002 | país, ciudad, camino, calle, viaje, como, este, sobre |
-| animals_high_proficiency | animals | 0.000 | 0 | 0.000 | como, este, sobre, dos, bien, hacer, nada, parte |
+| animals_high_proficiency | animals | 0.000 | 0 | 0.646 | oh, hola, ésa, nabab, vos, debacle, según, pues |
 | animals_plants_interest | animals, plants_nature | 0.500 | 5 | 0.008 | haya, perro, ganado, animal, gato, como, este, sobre |
 | weighted_plants_over_animals | animals, plants_nature | 0.500 | 5 | 0.017 | haya, árbol, flor, hierba, col, como, este, sobre |
 
@@ -154,5 +154,5 @@
 - PASS: `RANKED_TOPIC_STRENGTH_MONOTONIC` - Ranked animals topic share is monotonic from neutral to light to strong.
 - WARN: `WEIGHTED_TOPIC_STRENGTH_MONOTONIC` - Weighted animals topic share did not become visible in the seeded samples; the full-pool weighted policy may be too diffuse for topic preferences.
 - PASS: `TOP_K_WEIGHTED_TOPIC_SIGNAL_VISIBLE` - Top-k weighted sampling makes the animals preference visible.
-- PASS: `RESERVED_TOPIC_LANE_PRODUCES_MIXED_TOPIC_BATCH` - Reserved topic-lane simulation produces a meaningful but mixed animals batch.
+- PASS: `RESERVED_TOPIC_LANE_PRODUCES_MIXED_TOPIC_BATCH` - Reserved topic-lane policy produces a meaningful but mixed animals batch.
 - PASS: `HIGH_PROFICIENCY_TRADEOFF_VISIBLE` - High-proficiency animals calibration exposes whether readiness suppresses too-easy topic items.

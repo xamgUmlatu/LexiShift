@@ -25,6 +25,7 @@ from lexishift_core.srs.profile_bootstrap_support import (
     compute_topic_affinity as _compute_topic_affinity,
 )
 from lexishift_core.srs.selector import (
+    SELECTION_POLICY_RESERVED_TOPIC_LANE,
     ScoredCandidate,
     SelectorCandidate,
     SelectorConfig,
@@ -32,8 +33,8 @@ from lexishift_core.srs.selector import (
     score_candidate,
 )
 
-PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v3"
-PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v4"
+PROFILE_BOOTSTRAP_POLICY_VERSION = "profile_bootstrap_policy_v4"
+PROFILE_BOOTSTRAP_SELECTOR_VERSION = "profile_bootstrap_v5"
 PROFILE_TOPIC_DEPTH_VERSION = "profile_topic_depth_v1"
 
 PROFILE_TOPIC_DEPTH_BANDS: tuple[tuple[str, float, float], ...] = (
@@ -53,6 +54,7 @@ class ProfileBootstrapPolicy:
     version: str = PROFILE_BOOTSTRAP_POLICY_VERSION
     selector_config: SelectorConfig = field(
         default_factory=lambda: SelectorConfig(
+            selection_policy=SELECTION_POLICY_RESERVED_TOPIC_LANE,
             weights=SelectorWeights(
                 base_freq=0.55,
                 topic_bias=0.15,
@@ -60,7 +62,7 @@ class ProfileBootstrapPolicy:
                 user_pref=0.10,
                 confidence=0.0,
                 difficulty_target=0.10,
-            )
+            ),
         )
     )
     difficulty_proxy: str = "1_minus_admission_weight"

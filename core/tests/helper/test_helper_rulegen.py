@@ -212,6 +212,50 @@ class TestHelperRulegenInitialization(unittest.TestCase):
         self.assertIn("verb", report.admission_weight_profile)
         self.assertEqual(report.initial_active_weight_preview[0]["lemma"], "alpha")
 
+    def test_profile_bootstrap_uses_reserved_topic_lane_by_default(self) -> None:
+        selected = [
+            SimpleNamespace(
+                lemma="animal-a",
+                language_pair="en-ja",
+                admission_weight=0.78,
+                metadata={"topics": ["animals"]},
+            ),
+            SimpleNamespace(
+                lemma="animal-b",
+                language_pair="en-ja",
+                admission_weight=0.76,
+                metadata={"topics": ["animals"]},
+            ),
+            SimpleNamespace(
+                lemma="animal-c",
+                language_pair="en-ja",
+                admission_weight=0.74,
+                metadata={"topics": ["animals"]},
+            ),
+            SimpleNamespace(lemma="general-a", language_pair="en-ja", admission_weight=0.72),
+            SimpleNamespace(lemma="general-b", language_pair="en-ja", admission_weight=0.70),
+        ]
+        with patch("lexishift_core.helper.rulegen.build_seed_candidates", return_value=selected):
+            store, report = initialize_store_from_frequency_list_with_report(
+                SrsStore(),
+                config=SetInitializationConfig(
+                    frequency_db=Path("/tmp/freq.sqlite"),
+                    jmdict_path=Path("/tmp/JMdict_e"),
+                    top_n=800,
+                    initial_active_count=4,
+                    language_pair="en-ja",
+                    strategy="profile_bootstrap",
+                    profile_context={"interests": ["animals"]},
+                ),
+            )
+
+        self.assertEqual(report.selection_policy, "reserved_topic_lane")
+        self.assertEqual(len(store.items), 4)
+        self.assertEqual(
+            tuple(report.initial_active_preview),
+            ("animal-a", "animal-b", "general-a", "general-b"),
+        )
+
     def test_initialization_persists_selected_word_package(self) -> None:
         selected = [
             SimpleNamespace(

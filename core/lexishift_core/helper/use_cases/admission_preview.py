@@ -10,6 +10,7 @@ from lexishift_core.helper.rulegen import SetInitializationConfig, SetInitializa
 from lexishift_core.srs import SrsStore
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
 from lexishift_core.srs.selector import (
+    SELECTION_POLICY_RESERVED_TOPIC_LANE,
     SELECTION_POLICY_TOP_N,
     SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
 )
@@ -18,6 +19,7 @@ from lexishift_core.srs.signal_queue import summarize_signal_events
 from lexishift_core.srs.topic_overlay import resolve_preview_profile_topic_overlay
 
 PREVIEW_SAMPLING_MODE_RANKED = "ranked"
+PREVIEW_SAMPLING_MODE_RESERVED_TOPIC_LANE = "reserved_topic_lane"
 PREVIEW_SAMPLING_MODE_WEIGHTED = "weighted_without_replacement"
 
 
@@ -326,8 +328,12 @@ def _build_planned_active_words(
     return planned_active_words
 
 
-def _resolve_preview_selection_policy(value: object) -> str:
-    normalized_mode = str(value or "").strip().lower() or PREVIEW_SAMPLING_MODE_RANKED
+def _resolve_preview_selection_policy(value: object) -> str | None:
+    normalized_mode = str(value or "").strip().lower()
+    if not normalized_mode:
+        return None
+    if normalized_mode == PREVIEW_SAMPLING_MODE_RESERVED_TOPIC_LANE:
+        return SELECTION_POLICY_RESERVED_TOPIC_LANE
     if normalized_mode == PREVIEW_SAMPLING_MODE_WEIGHTED:
         return SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT
     return SELECTION_POLICY_TOP_N

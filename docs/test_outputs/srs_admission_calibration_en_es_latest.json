@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-05-26T17:07:47.326961+00:00",
+  "generated_at": "2026-05-26T17:42:33.816603+00:00",
   "pair": "en-es",
   "runtime_scope": "admission_calibration_preview_only",
   "interpretation": {
@@ -12,7 +12,6 @@
     "set_top_n": 10000,
     "admission_budget": 10,
     "top_k_window": 60,
-    "topic_lane_max_share": 0.5,
     "weighted_seeds": [
       11,
       23,
@@ -23,7 +22,7 @@
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "frequency_db_exists": true,
-    "preview_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-cyv9pf91/srs-admission-lab-zipf-augmented.sqlite",
+    "preview_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-zipf-augmented.sqlite",
     "overlay_source_path": null,
     "overlay_source_paths": [
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
@@ -32,14 +31,14 @@
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json",
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json"
     ],
-    "merged_overlay_source_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-cyv9pf91/srs-admission-lab-merged-topic-overlay.json",
-    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-cyv9pf91/srs/topic_overlays/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+    "merged_overlay_source_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-merged-topic-overlay.json",
+    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs/topic_overlays/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
     "augment_with_zipf_bridge": true,
     "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite"
   },
   "source_summary": {
-    "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-cyv9pf91/srs-admission-lab-zipf-augmented.sqlite",
+    "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-zipf-augmented.sqlite",
     "row_count": 4123,
     "distinct_non_empty_lemma_count": 4123,
     "columns": [
@@ -75,7 +74,7 @@
   "source_augmentation": {
     "status": "applied",
     "runtime_scope": "dev_lab_only",
-    "output_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-cyv9pf91/srs-admission-lab-zipf-augmented.sqlite",
+    "output_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-zipf-augmented.sqlite",
     "base_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -222,7 +221,7 @@
     {
       "level": "PASS",
       "code": "RESERVED_TOPIC_LANE_PRODUCES_MIXED_TOPIC_BATCH",
-      "message": "Reserved topic-lane simulation produces a meaningful but mixed animals batch.",
+      "message": "Reserved topic-lane policy produces a meaningful but mixed animals batch.",
       "details": [
         0.0,
         0.1,
@@ -6416,30 +6415,6 @@
           "rank_delta": 784,
           "topic_affinity_source": "topic_hint:animals",
           "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "toro",
-          "base_rank": 897,
-          "reranked_rank": 6,
-          "rank_delta": 891,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "lobo",
-          "base_rank": 966,
-          "reranked_rank": 7,
-          "rank_delta": 959,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "pez",
-          "base_rank": 976,
-          "reranked_rank": 8,
-          "rank_delta": 968,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
         }
       ],
       "active_topic_support": [
@@ -6496,38 +6471,6 @@
           "base_rank": 347,
           "reranked_rank": 1,
           "rank_delta": 346,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "ganado",
-          "base_rank": 441,
-          "reranked_rank": 2,
-          "rank_delta": 439,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "animal",
-          "base_rank": 514,
-          "reranked_rank": 3,
-          "rank_delta": 511,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "gato",
-          "base_rank": 573,
-          "reranked_rank": 4,
-          "rank_delta": 569,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "reina",
-          "base_rank": 423,
-          "reranked_rank": 5,
-          "rank_delta": 418,
           "topic_affinity_source": "topic_hint:animals",
           "readiness_multiplier": 1.0
         }
@@ -6624,30 +6567,6 @@
           "rank_delta": 1158,
           "topic_affinity_source": "topic_hint:plants_nature",
           "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "pino",
-          "base_rank": 1210,
-          "reranked_rank": 6,
-          "rank_delta": 1204,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "parra",
-          "base_rank": 1397,
-          "reranked_rank": 7,
-          "rank_delta": 1390,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "plátano",
-          "base_rank": 1450,
-          "reranked_rank": 8,
-          "rank_delta": 1442,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
         }
       ],
       "active_topic_support": [
@@ -6740,30 +6659,6 @@
           "base_rank": 457,
           "reranked_rank": 5,
           "rank_delta": 452,
-          "topic_affinity_source": "topic_hint:food_cooking",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "cerveza",
-          "base_rank": 662,
-          "reranked_rank": 6,
-          "rank_delta": 656,
-          "topic_affinity_source": "topic_hint:food_cooking",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "huevo",
-          "base_rank": 676,
-          "reranked_rank": 7,
-          "rank_delta": 669,
-          "topic_affinity_source": "topic_hint:food_cooking",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "aceite",
-          "base_rank": 707,
-          "reranked_rank": 8,
-          "rank_delta": 699,
           "topic_affinity_source": "topic_hint:food_cooking",
           "readiness_multiplier": 1.0
         }
@@ -6860,30 +6755,6 @@
           "rank_delta": 253,
           "topic_affinity_source": "topic_hint:medicine_health",
           "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "vía",
-          "base_rank": 286,
-          "reranked_rank": 6,
-          "rank_delta": 280,
-          "topic_affinity_source": "topic_hint:medicine_health",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "simple",
-          "base_rank": 305,
-          "reranked_rank": 7,
-          "rank_delta": 298,
-          "topic_affinity_source": "topic_hint:medicine_health",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "miembro",
-          "base_rank": 364,
-          "reranked_rank": 8,
-          "rank_delta": 356,
-          "topic_affinity_source": "topic_hint:medicine_health",
-          "readiness_multiplier": 1.0
         }
       ],
       "active_topic_support": [
@@ -6976,30 +6847,6 @@
           "base_rank": 139,
           "reranked_rank": 5,
           "rank_delta": 134,
-          "topic_affinity_source": "topic_hint:finance_business",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "plaza",
-          "base_rank": 201,
-          "reranked_rank": 6,
-          "rank_delta": 195,
-          "topic_affinity_source": "topic_hint:finance_business",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "valor",
-          "base_rank": 203,
-          "reranked_rank": 7,
-          "rank_delta": 196,
-          "topic_affinity_source": "topic_hint:finance_business",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "interés",
-          "base_rank": 217,
-          "reranked_rank": 8,
-          "rank_delta": 209,
           "topic_affinity_source": "topic_hint:finance_business",
           "readiness_multiplier": 1.0
         }
@@ -7096,30 +6943,6 @@
           "rank_delta": 168,
           "topic_affinity_source": "topic_hint:sports_fitness",
           "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "resultado",
-          "base_rank": 211,
-          "reranked_rank": 6,
-          "rank_delta": 205,
-          "topic_affinity_source": "topic_hint:sports_fitness",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "puerta",
-          "base_rank": 239,
-          "reranked_rank": 7,
-          "rank_delta": 232,
-          "topic_affinity_source": "topic_hint:sports_fitness",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "defensa",
-          "base_rank": 242,
-          "reranked_rank": 8,
-          "rank_delta": 234,
-          "topic_affinity_source": "topic_hint:sports_fitness",
-          "readiness_multiplier": 1.0
         }
       ],
       "active_topic_support": [
@@ -7212,30 +7035,6 @@
           "base_rank": 319,
           "reranked_rank": 5,
           "rank_delta": 314,
-          "topic_affinity_source": "topic_hint:games",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "copa",
-          "base_rank": 381,
-          "reranked_rank": 6,
-          "rank_delta": 375,
-          "topic_affinity_source": "topic_hint:games",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "torre",
-          "base_rank": 666,
-          "reranked_rank": 7,
-          "rank_delta": 659,
-          "topic_affinity_source": "topic_hint:games",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "columna",
-          "base_rank": 712,
-          "reranked_rank": 8,
-          "rank_delta": 704,
           "topic_affinity_source": "topic_hint:games",
           "readiness_multiplier": 1.0
         }
@@ -7332,30 +7131,6 @@
           "rank_delta": 235,
           "topic_affinity_source": "topic_hint:music_media_entertainment",
           "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "natural",
-          "base_rank": 261,
-          "reranked_rank": 6,
-          "rank_delta": 255,
-          "topic_affinity_source": "topic_hint:music_media_entertainment",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "televisión",
-          "base_rank": 284,
-          "reranked_rank": 7,
-          "rank_delta": 277,
-          "topic_affinity_source": "topic_hint:music_media_entertainment",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "accidente",
-          "base_rank": 497,
-          "reranked_rank": 8,
-          "rank_delta": 489,
-          "topic_affinity_source": "topic_hint:music_media_entertainment",
-          "readiness_multiplier": 1.0
         }
       ],
       "active_topic_support": [
@@ -7447,30 +7222,6 @@
           "base_rank": 71,
           "reranked_rank": 5,
           "rank_delta": 66,
-          "topic_affinity_source": "topic_hint:law_politics_civics",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "cuerpo",
-          "base_rank": 102,
-          "reranked_rank": 6,
-          "rank_delta": 96,
-          "topic_affinity_source": "topic_hint:law_politics_civics",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "proceso",
-          "base_rank": 112,
-          "reranked_rank": 7,
-          "rank_delta": 105,
-          "topic_affinity_source": "topic_hint:law_politics_civics",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "orden",
-          "base_rank": 117,
-          "reranked_rank": 8,
-          "rank_delta": 109,
           "topic_affinity_source": "topic_hint:law_politics_civics",
           "readiness_multiplier": 1.0
         }
@@ -7567,30 +7318,6 @@
           "rank_delta": 519,
           "topic_affinity_source": "topic_hint:science_technology",
           "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "cliente",
-          "base_rank": 589,
-          "reranked_rank": 6,
-          "rank_delta": 583,
-          "topic_affinity_source": "topic_hint:science_technology",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "motor",
-          "base_rank": 594,
-          "reranked_rank": 7,
-          "rank_delta": 587,
-          "topic_affinity_source": "topic_hint:science_technology",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "ventana",
-          "base_rank": 649,
-          "reranked_rank": 8,
-          "rank_delta": 641,
-          "topic_affinity_source": "topic_hint:science_technology",
-          "readiness_multiplier": 1.0
         }
       ],
       "active_topic_support": [
@@ -7685,30 +7412,6 @@
           "rank_delta": 209,
           "topic_affinity_source": "topic_hint:travel_places_transport",
           "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "hotel",
-          "base_rank": 414,
-          "reranked_rank": 6,
-          "rank_delta": 408,
-          "topic_affinity_source": "topic_hint:travel_places_transport",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "aeropuerto",
-          "base_rank": 447,
-          "reranked_rank": 7,
-          "rank_delta": 440,
-          "topic_affinity_source": "topic_hint:travel_places_transport",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "frontera",
-          "base_rank": 456,
-          "reranked_rank": 8,
-          "rank_delta": 448,
-          "topic_affinity_source": "topic_hint:travel_places_transport",
-          "readiness_multiplier": 1.0
         }
       ],
       "active_topic_support": [
@@ -7737,24 +7440,35 @@
       "selected_topic_count": 0,
       "selected_topic_share": 0.0,
       "topic_mover_counts": {},
-      "average_difficulty": 0.000447,
-      "average_readiness": 1.0,
-      "min_readiness": 1.0,
-      "average_base_rank": 5.5,
+      "average_difficulty": 0.646441,
+      "average_readiness": 0.998873,
+      "min_readiness": 0.997937,
+      "average_base_rank": 4088.5,
       "top_lemmas": [
-        "como",
-        "este",
-        "sobre",
-        "dos",
-        "bien",
-        "hacer",
-        "nada",
-        "parte",
-        "tiempo",
-        "día"
+        "oh",
+        "hola",
+        "ésa",
+        "nabab",
+        "vos",
+        "debacle",
+        "según",
+        "pues",
+        "el",
+        "neerlandesa"
       ],
-      "introduced_vs_neutral": [],
-      "neutral_overlap_count": 10,
+      "introduced_vs_neutral": [
+        "oh",
+        "hola",
+        "ésa",
+        "nabab",
+        "vos",
+        "debacle",
+        "según",
+        "pues",
+        "el",
+        "neerlandesa"
+      ],
+      "neutral_overlap_count": 0,
       "top_topic_movers": [],
       "active_topic_support": [
         {
@@ -7848,30 +7562,6 @@
           "base_rank": 573,
           "reranked_rank": 5,
           "rank_delta": 568,
-          "topic_affinity_source": "topic_hint:animals",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "árbol",
-          "base_rank": 611,
-          "reranked_rank": 6,
-          "rank_delta": 605,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "flor",
-          "base_rank": 705,
-          "reranked_rank": 7,
-          "rank_delta": 698,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "pollo",
-          "base_rank": 789,
-          "reranked_rank": 8,
-          "rank_delta": 781,
           "topic_affinity_source": "topic_hint:animals",
           "readiness_multiplier": 1.0
         }
@@ -7980,30 +7670,6 @@
           "base_rank": 1163,
           "reranked_rank": 5,
           "rank_delta": 1158,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "pino",
-          "base_rank": 1210,
-          "reranked_rank": 6,
-          "rank_delta": 1204,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "parra",
-          "base_rank": 1397,
-          "reranked_rank": 7,
-          "rank_delta": 1390,
-          "topic_affinity_source": "topic_hint:plants_nature",
-          "readiness_multiplier": 1.0
-        },
-        {
-          "lemma": "plátano",
-          "base_rank": 1450,
-          "reranked_rank": 8,
-          "rank_delta": 1442,
           "topic_affinity_source": "topic_hint:plants_nature",
           "readiness_multiplier": 1.0
         }

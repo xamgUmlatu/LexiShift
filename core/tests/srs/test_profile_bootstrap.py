@@ -232,6 +232,12 @@ class TestProfileBootstrapReranking(unittest.TestCase):
             diagnostics["ranking_preview"][0]["explanation"],
             "Kept in neutral frequency order because profile signals were effectively neutral.",
         )
+        self.assertEqual(diagnostics["selection_policy"], "reserved_topic_lane")
+        self.assertAlmostEqual(
+            diagnostics["policy"]["topic_lane_max_share"],
+            0.5,
+            places=6,
+        )
 
     def test_interest_match_explanation_reports_profile_lift_and_coverage_support(self) -> None:
         seeds = [
