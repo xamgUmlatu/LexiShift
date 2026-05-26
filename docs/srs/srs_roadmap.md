@@ -159,6 +159,9 @@ Status key:
 - `[~]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics (backend probability diagnostics, offline helper/core text probes, refresh-path browsing preview, small-budget `Balanced` fractional lane realization, and options refresh output diagnostics exist; dedicated controls are not wired).
 - `[x]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
 - `[~]` Runtime page replacement load model (page-level budgets, explicit standard density defaults, and SRS metadata-aware budget priority exist; durable mastered/released dropoff remains open).
+- `[~]` Resource/storage/cognitive-load budget audit (source constants and
+  helper artifact report exist; live browser storage bytes and helper cache TTL
+  policy remain open).
 - `[~]` Lifecycle audit for admission triggers, mastered/released state, and durable discard/block behavior (code-backed audit exists; refresh admission, scheduler due selection, active inventory, and rulegen publication respect non-active lifecycle states; backend `user_blocked` writer marks existing items `discarded` and removes active inventory; user-facing lifecycle controls remain open).
 - `[ ]` Opt-in gated browsing relevance boost for actual admission refresh.
 - `[ ]` Automatic `adaptive_refresh` trigger policy.
