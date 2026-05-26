@@ -3,7 +3,7 @@
 Status: active audit lane
 Role: Current plus near-term readiness plan
 Last updated: 2026-05-27
-Last verified: 2026-05-27 by source inspection of SRS settings, extension storage caps, page replacement budgets, browsing-signal bounds, helper artifact readers, the first resource-budget audit script, and dashboard encounter-watch counters
+Last verified: 2026-05-27 by source inspection of SRS settings, extension storage caps, page replacement budgets, browsing-signal bounds, helper artifact readers, the first resource-budget audit script, dashboard encounter-watch counters, and SRS quality harness encounter-watch coverage
 Purpose: keep SRS personalization, browsing signals, replacement runtime, and admitted-word dashboards bounded enough for MVP testing without overloading user cognition, extension storage, helper files, or page runtime
 Source-of-truth: this audit is a routing and measurement surface; executable truth lives in helper/core SRS modules, extension runtime code, generated audit artifacts, and tests.
 
@@ -98,6 +98,10 @@ items now persist `admitted_at` so the dashboard can distinguish unseen words
 that are merely new from unseen words older than the current `7` day diagnostic
 threshold. Legacy rows without `admitted_at` are counted as age unknown. This is
 only an observability surface: it does not clear, release, or park active words.
+The SRS quality harness now checks the same diagnostic contract against a
+synthetic mix of fresh unseen, stale unseen, legacy age-unknown, reviewed, and
+no-enabled-rule active items; its Markdown summary reports the encounter-watch
+totals alongside bootstrap and feedback-cycle results.
 
 ## MVP Readiness Policy
 
@@ -124,4 +128,5 @@ Before broad SRS testers:
    - optionally include TTL for stale generated artifacts.
 4. Decide helper lifecycle policy for zero-exposure/zero-feedback active items:
    diagnostics first, then explicit clear/release policy only after testing.
-5. Re-run SRS quality harness after any code path changes.
+5. Re-run SRS quality harness after any code path changes; the latest harness
+   artifacts should keep the Encounter Watch section visible.

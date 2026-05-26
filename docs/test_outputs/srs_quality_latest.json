@@ -9,7 +9,7 @@
   "unsupported_pairs": [],
   "summary": {
     "status": "PASS",
-    "pass_count": 19,
+    "pass_count": 22,
     "warn_count": 0,
     "fail_count": 0,
     "should_fail": false
@@ -3001,6 +3001,113 @@
       }
     ]
   },
+  "encounter_watch_scenario": {
+    "pair": "en-ja",
+    "now": "<timestamp>",
+    "stale_age_days": 7,
+    "dashboard_summary": {
+      "total": 5,
+      "active": 5,
+      "queued": 0,
+      "due_now": 0,
+      "due_soon": 0,
+      "learning": 5,
+      "reviewing": 0,
+      "discarded": 0,
+      "cleared": 0,
+      "removed": 0,
+      "with_word_package": 0,
+      "inventory_active_count": 5,
+      "active_zero_exposure": 4,
+      "active_zero_feedback": 4,
+      "active_zero_exposure_zero_feedback": 4,
+      "active_zero_exposure_zero_feedback_age_unknown": 1,
+      "active_stale_zero_exposure_zero_feedback": 2,
+      "active_without_enabled_rules": 1,
+      "encounter_watch": 4,
+      "encounter_stale_age_days": 7
+    },
+    "item_states_by_lemma": {
+      "fresh": {
+        "admitted_age_days": 2,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": false,
+        "stale": false,
+        "without_enabled_rules": false,
+        "needs_attention": true
+      },
+      "legacy": {
+        "admitted_age_days": null,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": true,
+        "stale": false,
+        "without_enabled_rules": false,
+        "needs_attention": true
+      },
+      "orphan": {
+        "admitted_age_days": 8,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 0,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": false,
+        "stale": true,
+        "without_enabled_rules": true,
+        "needs_attention": true
+      },
+      "seen": {
+        "admitted_age_days": 8,
+        "exposures": 1,
+        "review_count": 1,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": false,
+        "age_unknown": false,
+        "stale": false,
+        "without_enabled_rules": false,
+        "needs_attention": false
+      },
+      "stale": {
+        "admitted_age_days": 8,
+        "exposures": 0,
+        "review_count": 0,
+        "enabled_rule_count": 1,
+        "zero_exposure_zero_feedback": true,
+        "age_unknown": false,
+        "stale": true,
+        "without_enabled_rules": false,
+        "needs_attention": true
+      }
+    },
+    "findings": [
+      {
+        "level": "PASS",
+        "code": "SRS_ENCOUNTER_WATCH_SUMMARY_VERIFIED",
+        "pair": "en-ja",
+        "message": "Encounter-watch summary counts stale, legacy, and no-rule risks.",
+        "details": "active_zero_exposure=4 active_zero_feedback=4 active_zero_exposure_zero_feedback=4 active_zero_exposure_zero_feedback_age_unknown=1 active_stale_zero_exposure_zero_feedback=2 active_without_enabled_rules=1 encounter_watch=4"
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION",
+        "pair": "en-ja",
+        "message": "Encounter diagnostics distinguish fresh, stale, and age-unknown items.",
+        "details": "fresh_age=2 stale_age=8 threshold_days=7 legacy_age=unknown"
+      },
+      {
+        "level": "PASS",
+        "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION",
+        "pair": "en-ja",
+        "message": "Reviewed items clear encounter watch and no-rule active items stay visible.",
+        "details": "seen_needs_attention=false orphan_without_enabled_rules=true"
+      }
+    ]
+  },
   "findings": [
     {
       "level": "PASS",
@@ -3134,6 +3241,27 @@
       "pair": "en-ja",
       "message": "Helper ruleset may remain broader than due, but due metadata supports runtime due-aware serving.",
       "details": "phase=high_retention_1 total_items=3 due_count=2 ruleset_count=3 srs_due_metadata_count=3 runtime_due_active_count=2"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_ENCOUNTER_WATCH_SUMMARY_VERIFIED",
+      "pair": "en-ja",
+      "message": "Encounter-watch summary counts stale, legacy, and no-rule risks.",
+      "details": "active_zero_exposure=4 active_zero_feedback=4 active_zero_exposure_zero_feedback=4 active_zero_exposure_zero_feedback_age_unknown=1 active_stale_zero_exposure_zero_feedback=2 active_without_enabled_rules=1 encounter_watch=4"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION",
+      "pair": "en-ja",
+      "message": "Encounter diagnostics distinguish fresh, stale, and age-unknown items.",
+      "details": "fresh_age=2 stale_age=8 threshold_days=7 legacy_age=unknown"
+    },
+    {
+      "level": "PASS",
+      "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION",
+      "pair": "en-ja",
+      "message": "Reviewed items clear encounter watch and no-rule active items stay visible.",
+      "details": "seen_needs_attention=false orphan_without_enabled_rules=true"
     }
   ],
   "artifact_normalization": {

@@ -1,7 +1,7 @@
 # SRS Quality Harness
 
 - Status: PASS
-- Findings: pass=19 warn=0 fail=0
+- Findings: pass=22 warn=0 fail=0
 - Fail on warn: no
 - Synthetic pairs: en-ja, en-de
 
@@ -27,6 +27,14 @@
   - selected=none, feedback_reviewed=alpha, refresh_added=none
 - high_retention_2: applied=yes, reason=`normal`, total_items=5, ruleset=5, runtime_due_active=4
   - selected=delta, epsilon, feedback_reviewed=alpha, refresh_added=delta, epsilon
+
+## Encounter Watch
+
+- Active unseen/no-feedback: 4
+- Stale unseen/no-feedback: 2 over 7d
+- Age unknown: 1
+- Active without enabled rules: 1
+- Encounter watch total: 4
 
 ## Actionable Findings
 

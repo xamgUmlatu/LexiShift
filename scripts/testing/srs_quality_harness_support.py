@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import re
@@ -11,10 +12,21 @@ from typing import Any, Mapping, Sequence
 
 from lexishift_core.helper.paths import HelperPaths
 from lexishift_core.helper.rulegen import annotate_rules_with_srs_serving_metadata
+from lexishift_core.helper.use_cases.srs_items import list_srs_items
+from lexishift_core.persistence.storage import VocabDataset, save_vocab_dataset
 from lexishift_core.replacement.core import VocabRule
-from lexishift_core.srs import SrsItem, load_srs_store
+from lexishift_core.srs import (
+    SrsHistoryEntry,
+    SrsInventory,
+    SrsItem,
+    SrsPairInventory,
+    SrsStore,
+    load_srs_store,
+    save_srs_inventory,
+    save_srs_store,
+)
 from lexishift_core.srs.scheduler import select_active_items
-from lexishift_core.srs.time import now_utc, parse_ts
+from lexishift_core.srs.time import format_ts, now_utc, parse_ts
 from lexishift_core.srs.browsing_admission import (
     BrowsingSignalAggregate,
     BrowsingSignalStore,
@@ -32,6 +44,7 @@ _GENERATION_ID_RE = re.compile(r"\b([a-z]{2}-[a-z]{2}:[A-Za-z0-9._-]+):[0-9a-f]{
 _TEMP_PATH_RE = re.compile(
     r"(?:" + re.escape(str(_TEMP_ROOT)) + r"|" + re.escape(str(_TEMP_ROOT_RESOLVED)) + r')/[^"\s,]+'
 )
+ENCOUNTER_SCENARIO_NOW = datetime(2026, 5, 26, 12, 0, tzinfo=timezone.utc)
 
 
 def _alpha_suffix(index: int) -> str:
@@ -436,6 +449,238 @@ def browsing_preview_findings(
             "details": json.dumps(browsing_preview, ensure_ascii=False),
         }
     ]
+
+
+def run_encounter_watch_scenario(paths: HelperPaths) -> dict[str, Any]:
+    profile_id = "default"
+    pair = "en-ja"
+    now = ENCOUNTER_SCENARIO_NOW
+    save_srs_store(
+        SrsStore(
+            items=(
+                SrsItem(
+                    item_id=f"{pair}:fresh",
+                    lemma="fresh",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=24)),
+                ),
+                SrsItem(
+                    item_id=f"{pair}:stale",
+                    lemma="stale",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=18)),
+                ),
+                SrsItem(
+                    item_id=f"{pair}:legacy",
+                    lemma="legacy",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                ),
+                SrsItem(
+                    item_id=f"{pair}:seen",
+                    lemma="seen",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=18)),
+                    exposures=1,
+                    history=(SrsHistoryEntry(ts=format_ts(now.replace(day=19)), rating="good"),),
+                ),
+                SrsItem(
+                    item_id=f"{pair}:orphan",
+                    lemma="orphan",
+                    language_pair=pair,
+                    source_type="synthetic_quality",
+                    admitted_at=format_ts(now.replace(day=18)),
+                ),
+            )
+        ),
+        paths.srs_store_path_for(profile_id),
+    )
+    active_item_ids = (
+        f"{pair}:fresh",
+        f"{pair}:stale",
+        f"{pair}:legacy",
+        f"{pair}:seen",
+        f"{pair}:orphan",
+    )
+    save_srs_inventory(
+        SrsInventory(pairs={pair: SrsPairInventory(active_item_ids=active_item_ids)}),
+        paths.srs_inventory_path_for(profile_id),
+    )
+    save_vocab_dataset(
+        VocabDataset(
+            rules=(
+                VocabRule(source_phrase="src_fresh", replacement="fresh"),
+                VocabRule(source_phrase="src_stale", replacement="stale"),
+                VocabRule(source_phrase="src_legacy", replacement="legacy"),
+                VocabRule(source_phrase="src_seen", replacement="seen"),
+                VocabRule(source_phrase="src_orphan", replacement="orphan", enabled=False),
+            )
+        ),
+        paths.ruleset_path(pair, profile_id=profile_id),
+    )
+
+    dashboard = list_srs_items(
+        paths,
+        pair=pair,
+        profile_id=profile_id,
+        now=now,
+        resolve_profile_id_fn=_resolve_synthetic_profile_id,
+    )
+    summary = dashboard.get("summary") if isinstance(dashboard, Mapping) else {}
+    items = dashboard.get("items") if isinstance(dashboard, Mapping) else []
+    by_lemma = {
+        str(item.get("lemma")): item
+        for item in items
+        if isinstance(item, Mapping) and item.get("lemma")
+    }
+    findings = _encounter_watch_findings(summary=summary, by_lemma=by_lemma, pair=pair)
+    return {
+        "pair": pair,
+        "now": format_ts(now),
+        "stale_age_days": 7,
+        "dashboard_summary": summary,
+        "item_states_by_lemma": _encounter_state_snapshot(by_lemma),
+        "findings": findings,
+    }
+
+
+def _resolve_synthetic_profile_id(_paths: HelperPaths, *, profile_id: str) -> str:
+    return str(profile_id or "default")
+
+
+def _encounter_watch_findings(
+    *,
+    summary: object,
+    by_lemma: Mapping[str, Mapping[str, Any]],
+    pair: str,
+) -> list[dict[str, Any]]:
+    findings: list[dict[str, Any]] = []
+    expected_summary = {
+        "active_zero_exposure": 4,
+        "active_zero_feedback": 4,
+        "active_zero_exposure_zero_feedback": 4,
+        "active_zero_exposure_zero_feedback_age_unknown": 1,
+        "active_stale_zero_exposure_zero_feedback": 2,
+        "active_without_enabled_rules": 1,
+        "encounter_watch": 4,
+    }
+    summary_ok = isinstance(summary, Mapping) and all(
+        int(summary.get(key) or 0) == value for key, value in expected_summary.items()
+    )
+    if summary_ok:
+        findings.append(
+            {
+                "level": "PASS",
+                "code": "SRS_ENCOUNTER_WATCH_SUMMARY_VERIFIED",
+                "pair": pair,
+                "message": "Encounter-watch summary counts stale, legacy, and no-rule risks.",
+                "details": " ".join(f"{key}={value}" for key, value in expected_summary.items()),
+            }
+        )
+    else:
+        findings.append(
+            {
+                "level": "FAIL",
+                "code": "SRS_ENCOUNTER_WATCH_SUMMARY_MISMATCH",
+                "pair": pair,
+                "message": "Encounter-watch summary counts did not match expected values.",
+                "details": json.dumps(summary, ensure_ascii=False),
+            }
+        )
+
+    stale_state_ok = (
+        by_lemma.get("fresh", {}).get("admitted_age_days") == 2
+        and _encounter_flag(by_lemma, "fresh", "stale_zero_exposure_zero_feedback") is False
+        and by_lemma.get("stale", {}).get("admitted_age_days") == 8
+        and _encounter_flag(by_lemma, "stale", "stale_zero_exposure_zero_feedback") is True
+        and by_lemma.get("legacy", {}).get("admitted_age_days") is None
+        and _encounter_flag(by_lemma, "legacy", "zero_exposure_zero_feedback_age_unknown") is True
+    )
+    if stale_state_ok:
+        findings.append(
+            {
+                "level": "PASS",
+                "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION",
+                "pair": pair,
+                "message": "Encounter diagnostics distinguish fresh, stale, and age-unknown items.",
+                "details": "fresh_age=2 stale_age=8 threshold_days=7 legacy_age=unknown",
+            }
+        )
+    else:
+        findings.append(
+            {
+                "level": "FAIL",
+                "code": "SRS_ENCOUNTER_STALE_AGE_CLASSIFICATION_BROKEN",
+                "pair": pair,
+                "message": "Encounter diagnostics misclassified age-based risk states.",
+                "details": json.dumps(by_lemma, ensure_ascii=False),
+            }
+        )
+
+    reviewed_and_rule_state_ok = (
+        _encounter_flag(by_lemma, "seen", "needs_attention") is False
+        and _encounter_flag(by_lemma, "orphan", "without_enabled_rules") is True
+    )
+    if reviewed_and_rule_state_ok:
+        findings.append(
+            {
+                "level": "PASS",
+                "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION",
+                "pair": pair,
+                "message": "Reviewed items clear encounter watch and no-rule active items stay visible.",
+                "details": "seen_needs_attention=false orphan_without_enabled_rules=true",
+            }
+        )
+    else:
+        findings.append(
+            {
+                "level": "FAIL",
+                "code": "SRS_ENCOUNTER_REVIEW_AND_RULE_CLASSIFICATION_BROKEN",
+                "pair": pair,
+                "message": "Reviewed/no-rule encounter states did not match expectations.",
+                "details": json.dumps(by_lemma, ensure_ascii=False),
+            }
+        )
+    return findings
+
+
+def _encounter_flag(by_lemma: Mapping[str, Mapping[str, Any]], lemma: str, flag: str) -> object:
+    state = by_lemma.get(lemma, {}).get("encounter_state")
+    if not isinstance(state, Mapping):
+        return None
+    return state.get(flag)
+
+
+def _encounter_state_snapshot(
+    by_lemma: Mapping[str, Mapping[str, Any]],
+) -> dict[str, dict[str, object]]:
+    snapshot: dict[str, dict[str, object]] = {}
+    for lemma, item in sorted(by_lemma.items()):
+        rule_summary = item.get("rule_summary")
+        enabled_rule_count = (
+            int(rule_summary.get("enabled_rule_count") or 0)
+            if isinstance(rule_summary, Mapping)
+            else 0
+        )
+        snapshot[lemma] = {
+            "admitted_age_days": item.get("admitted_age_days"),
+            "exposures": int(item.get("exposures") or 0),
+            "review_count": int(item.get("review_count") or 0),
+            "enabled_rule_count": enabled_rule_count,
+            "zero_exposure_zero_feedback": _encounter_flag(
+                by_lemma, lemma, "zero_exposure_zero_feedback"
+            ),
+            "age_unknown": _encounter_flag(
+                by_lemma, lemma, "zero_exposure_zero_feedback_age_unknown"
+            ),
+            "stale": _encounter_flag(by_lemma, lemma, "stale_zero_exposure_zero_feedback"),
+            "without_enabled_rules": _encounter_flag(by_lemma, lemma, "without_enabled_rules"),
+            "needs_attention": _encounter_flag(by_lemma, lemma, "needs_attention"),
+        }
+    return snapshot
 
 
 def create_frequency_db(path: Path) -> Path:

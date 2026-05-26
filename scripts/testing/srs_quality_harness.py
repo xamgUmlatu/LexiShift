@@ -41,6 +41,7 @@ from srs_quality_harness_support import (  # noqa: E402
     ruleset_due_active_target_count as _ruleset_due_active_target_count,
     ruleset_srs_due_metadata_count as _ruleset_srs_due_metadata_count,
     ruleset_unique_target_count as _ruleset_unique_target_count,
+    run_encounter_watch_scenario as _run_encounter_watch_scenario,
     seed_browsing_preview_store as _seed_browsing_preview_store,
     snapshot_delta as _snapshot_delta,
     snapshot_target_count as _snapshot_target_count,
@@ -653,6 +654,10 @@ def build_report(
         feedback_report = _run_feedback_cycle_scenario()
         findings.extend(feedback_report["findings"])
 
+    with _temp_paths() as paths:
+        encounter_watch_report = _run_encounter_watch_scenario(paths)
+    findings.extend(encounter_watch_report["findings"])
+
     summary = summarize_findings(findings, fail_on_warn=fail_on_warn)
     return {
         "version": 1,
@@ -663,6 +668,7 @@ def build_report(
         "summary": summary,
         "pair_bootstrap_scenarios": pair_reports,
         "feedback_cycle_scenario": feedback_report,
+        "encounter_watch_scenario": encounter_watch_report,
         "findings": findings,
     }
 

@@ -26,6 +26,12 @@ class TestSrsQualityHarness(unittest.TestCase):
         self.assertTrue(
             any(item.get("code") == "SRS_FEEDBACK_SNAPSHOTS_CAPTURED" for item in findings)
         )
+        self.assertTrue(
+            any(item.get("code") == "SRS_ENCOUNTER_WATCH_SUMMARY_VERIFIED" for item in findings)
+        )
+        encounter_summary = report["encounter_watch_scenario"]["dashboard_summary"]
+        self.assertEqual(encounter_summary["active_stale_zero_exposure_zero_feedback"], 2)
+        self.assertEqual(encounter_summary["active_without_enabled_rules"], 1)
         phases = report["feedback_cycle_scenario"]["phases"]
         phase_1 = phases[0]
         phase_2 = phases[1]

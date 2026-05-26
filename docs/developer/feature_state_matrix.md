@@ -377,16 +377,17 @@ Use this file when:
 ## SRS Quality Harness
 
 - Status: `implemented`, `verified`, `default-on` = `yes` for SRS scheduler/admission/publication/runtime-serving workflow
-- Last documented checkpoint: `2026-05-27` feedback-cycle before/after snapshots now make the SRS quality artifact show feedback deltas separately from refresh/admission deltas
-- Last verified: `2026-05-27` targeted harness/summary tests, feedback simulation test, SRS quality harness rerun, and fresh normalized JSON + Markdown artifact rerender
+- Last documented checkpoint: `2026-05-27` feedback-cycle before/after snapshots now make the SRS quality artifact show feedback deltas separately from refresh/admission deltas; the harness also includes an encounter-watch scenario for fresh unseen, stale unseen, legacy age-unknown, reviewed, and no-enabled-rule active SRS items
+- Last verified: `2026-05-27` targeted harness/summary tests, feedback simulation test, SRS quality harness rerun with encounter-watch coverage, and fresh normalized JSON + Markdown artifact rerender
 - Default behavior:
   - Use the synthetic harness for SRS scheduler, admission refresh, helper publication, set execution, and runtime-serving workflow changes.
   - Review scheduling is now FSRS-based.
   - Current harness covers bootstrap/publication/runtime diagnostics for `en-ja` and `en-de`, plus an `en-ja` feedback-cycle pause/resume scenario.
   - The feedback-cycle scenario now checks helper SRS due metadata and runtime due-active counts, so broad publication can pass only when runtime serving remains due-aware.
   - The feedback-cycle scenario now records initial, before-refresh, and after-refresh store snapshots, including scheduler fields, selected lemmas, and separate feedback vs refresh deltas.
+  - The encounter-watch scenario verifies age-aware dashboard diagnostics for fresh unseen, stale unseen, legacy age-unknown, reviewed, and no-enabled-rule active items.
   - The committed `latest` JSON artifact is publication-normalized for review stability; raw in-memory harness details remain available before publication.
-  - Human-facing summary is available from the JSON artifact.
+  - Human-facing summary is available from the JSON artifact and includes an Encounter Watch section.
 - Evidence:
   - `AGENTS.md`
   - `docs/developer/ai_workflow.md`
@@ -1573,8 +1574,8 @@ Use this file when:
   confirmed discard route, stale-unseen encounter-watch counters/rendering, and
   profile-bootstrap initialize-to-dashboard bridge tests; focused helper
   endpoint, native-host route, helper client/manager route, resource-budget
-  audit, suppression writer tests, SRS quality harness, changed-file gate,
-  doc-reference check, state audit, and diff check
+  audit, suppression writer tests, SRS quality harness encounter-watch scenario,
+  changed-file gate, doc-reference check, state audit, and diff check
 - Default behavior:
   - The options page exposes a Learning words dashboard for the selected
     profile and language pair.

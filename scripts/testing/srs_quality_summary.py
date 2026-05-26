@@ -126,6 +126,34 @@ def render_summary(
                 )
         lines.append("")
 
+    encounter = payload.get("encounter_watch_scenario")
+    if isinstance(encounter, dict):
+        encounter_summary = encounter.get("dashboard_summary")
+        if isinstance(encounter_summary, dict):
+            stale_age_days = int(encounter.get("stale_age_days") or 0)
+            lines.extend(["## Encounter Watch", ""])
+            lines.append(
+                "- Active unseen/no-feedback: "
+                f"{int(encounter_summary.get('active_zero_exposure_zero_feedback') or 0)}"
+            )
+            lines.append(
+                "- Stale unseen/no-feedback: "
+                f"{int(encounter_summary.get('active_stale_zero_exposure_zero_feedback') or 0)} "
+                f"over {stale_age_days}d"
+            )
+            lines.append(
+                "- Age unknown: "
+                f"{int(encounter_summary.get('active_zero_exposure_zero_feedback_age_unknown') or 0)}"
+            )
+            lines.append(
+                "- Active without enabled rules: "
+                f"{int(encounter_summary.get('active_without_enabled_rules') or 0)}"
+            )
+            lines.append(
+                f"- Encounter watch total: {int(encounter_summary.get('encounter_watch') or 0)}"
+            )
+            lines.append("")
+
     actionable = [
         item
         for item in findings

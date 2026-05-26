@@ -7,7 +7,9 @@ Last verified: 2026-05-27 helper/options dashboard tests, profile-bootstrap
 initialize -> rule publication -> dashboard bridge test, local search/filter/
 sort/pagination/meta-control tests, published-rule summary/detail tests, durable
 discard workflow tests, encounter-watch summary tests, SRS quality harness, and
-local changed-file gate
+local changed-file gate; 2026-05-27 SRS quality harness now includes an
+encounter-watch scenario covering fresh unseen, stale unseen, legacy age-unknown,
+reviewed, and no-enabled-rule active items
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, module/data boundaries, and
 deferred lifecycle actions
@@ -347,7 +349,8 @@ Current covered behaviors:
   published-rule summaries;
 - `admitted_at` persistence for newly admitted items, legacy age-unknown
   handling, and encounter-watch summary counters/options rendering for active
-  words with zero exposure plus zero feedback;
+  words with zero exposure plus zero feedback; the SRS quality harness now
+  verifies the same fresh/stale/legacy/reviewed/no-rule diagnostic states;
 - profile-bootstrap initialization can publish active rule outputs and then
   surface the admitted words through the dashboard read model;
 - helper rule-detail payload shape and capped rule rows;
@@ -357,7 +360,8 @@ Current covered behaviors:
   disabled state;
 - on-demand rule-detail loading and cached expansion;
 - confirmed discard through the suppression route;
-- SRS quality harness for supported synthetic pairs.
+- SRS quality harness for supported synthetic pairs, including the
+  encounter-watch diagnostic scenario.
 
 ## Deferred Work
 
@@ -394,7 +398,8 @@ The dashboard is acceptable for MVP when:
   read-only/capped;
 - dashboard discard is covered by focused workflow tests and uses the existing
   suppression route;
-- SRS quality harness still passes after the helper route lands;
+- SRS quality harness still passes after the helper route lands and continues
+  to surface encounter-watch counts in its JSON/Markdown artifacts;
 - the feature-state matrix records dashboard discard separately from
   restore/mastery/release controls;
 - docs do not claim restore/mastery UX is shipped.

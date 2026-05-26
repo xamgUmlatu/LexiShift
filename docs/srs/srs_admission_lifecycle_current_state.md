@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-27 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, admitted-at persistence tests, SRS quality harness with seeded browsing signal, changed-file gate, and feature-state audit
+Last verified: 2026-05-27 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, admitted-at persistence tests, SRS quality harness with seeded browsing signal and encounter-watch scenario, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -217,6 +217,9 @@ Current mitigations:
   gates;
 - newly admitted items persist `admitted_at`, allowing the dashboard to separate
   newly unseen words from stale-unseen words by age threshold;
+- the SRS quality harness now verifies the dashboard encounter-watch contract
+  for fresh unseen, stale unseen, legacy age-unknown, reviewed, and
+  no-enabled-rule active items;
 - the dashboard discard route can remove a specific unwanted active item;
 - passive exposure counts exist and are intentionally non-authoritative for
   scheduling.

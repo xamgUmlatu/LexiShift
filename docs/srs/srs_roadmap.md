@@ -3,7 +3,7 @@
 Status: active mixed roadmap
 Role: Mixed
 Last updated: 2026-05-27
-Last verified: 2026-05-27 en-es admission calibration report, focused calibration test, and generated JSON/Markdown artifacts; roadmap claims not fully re-audited
+Last verified: 2026-05-27 en-es admission calibration report, focused calibration test, generated JSON/Markdown artifacts, and SRS encounter-watch harness update; roadmap claims not fully re-audited
 Purpose: preserve the SRS current-state snapshot, remaining E2E gaps, and roadmap workstreams
 Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/extension code, SRS harnesses, and `docs/developer/feature_state_matrix.md`.
 
@@ -143,8 +143,9 @@ Status key:
 - `[~]` Encounter-starvation diagnostics/policy for rare admitted words that
   receive little or no replacement exposure and therefore cannot easily collect
   learner feedback; dashboard summary visibility and `admitted_at`-based
-  stale-unseen diagnostics exist, while the exact threshold and release/parking
-  policy remain undecided.
+  stale-unseen diagnostics exist and are now covered by the SRS quality harness
+  for fresh/stale/legacy/reviewed/no-rule states, while the exact threshold and
+  release/parking policy remain undecided.
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.

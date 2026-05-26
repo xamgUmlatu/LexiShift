@@ -57,6 +57,16 @@ class TestSrsQualitySummary(unittest.TestCase):
                         }
                     ]
                 },
+                "encounter_watch_scenario": {
+                    "stale_age_days": 7,
+                    "dashboard_summary": {
+                        "active_zero_exposure_zero_feedback": 4,
+                        "active_stale_zero_exposure_zero_feedback": 2,
+                        "active_zero_exposure_zero_feedback_age_unknown": 1,
+                        "active_without_enabled_rules": 1,
+                        "encounter_watch": 4,
+                    },
+                },
                 "findings": [
                     {
                         "level": "PASS",
@@ -83,6 +93,9 @@ class TestSrsQualitySummary(unittest.TestCase):
         self.assertIn("selected=beta, gamma", markdown)
         self.assertIn("feedback_reviewed=alpha", markdown)
         self.assertIn("refresh_added=beta, gamma", markdown)
+        self.assertIn("## Encounter Watch", markdown)
+        self.assertIn("- Stale unseen/no-feedback: 2 over 7d", markdown)
+        self.assertIn("- Active without enabled rules: 1", markdown)
         self.assertIn("None.", markdown)
 
 
