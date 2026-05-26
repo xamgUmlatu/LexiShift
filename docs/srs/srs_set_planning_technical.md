@@ -133,7 +133,10 @@ Policy decision for SRS scheduling:
 ## Planned implementation steps
 
 1. Implement executable `profile_growth` for controlled admission into `S`,
-   beyond the current rebalance-only lane.
+   beyond the current rebalance-only lane. This is MVP-relevant because
+   preference-shaped admission must continue after bootstrap; later refreshes
+   should not fall back to generic frequency order when topic/proficiency/
+   challenge profile signals are available.
 2. Add feedback-window aggregation for `adaptive_refresh`.
 3. Add policy registry by pair/domain to route strategy defaults.
 4. Expand UI diagnostics for profile signal coverage and planner decisions.

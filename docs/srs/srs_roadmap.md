@@ -66,7 +66,10 @@ Ship a non-destructive SRS layer where:
     `profile_bootstrap`
   - requested `profile_bootstrap` now reports and executes as profile-aware
     bootstrap over the frequency seed frontier
-  - `profile_growth` and `adaptive_refresh` remain non-default future strategies
+  - `profile_growth` remains a non-default future strategy for general
+    growth admission, but is now an MVP requirement for keeping later
+    admissions specialized after the initial bootstrap batch
+  - `adaptive_refresh` remains a non-default future strategy
 - Bootstrap admission policy now applies explicit POS buckets with centralized coefficients (non-magic constants).
 - JP stopword filtering is active from helper-owned `srs/stopwords/stopwords-ja.json` (or sibling fallback path).
 
@@ -149,7 +152,10 @@ Status key:
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).
 - `[x]` Initial active subset admission in bootstrap (`initial_active_count`) now mutates persisted `S`.
-- `[ ]` Executable `profile_growth` policy.
+- `[ ]` MVP executable `profile_growth` policy for ongoing specialized
+  admission after bootstrap; later refresh/growth admissions must keep applying
+  profile topic/proficiency/challenge shaping instead of reverting to generic
+  frequency order.
 - `[ ]` Pair-configurable admission coefficients and denylist controls (helper source of truth).
 
 ### Workstream C — Signals and adaptive refresh
@@ -185,6 +191,8 @@ Status key:
 - `[x]` Native messaging `profile_id` wiring for SRS commands (`get_ruleset/get_snapshot/srs_diagnostics/record_feedback/srs_initialize/srs_refresh/srs_reset`).
 - `[x]` Helper SRS files moved to profile-scoped directory structure under `srs/profiles/<profile_id>/`.
 - `[ ]` Profile editor UX (interests/proficiency/objectives/constraints).
+- `[ ]` Future slow proficiency calibration from durable SRS progress
+  evidence; useful later, but not required for MVP specialized admission.
 - `[ ]` Pair-specific planner policy registry.
 
 ### Workstream E — Rulegen and S integration

@@ -1424,6 +1424,9 @@ Use this file when:
   - `core/lexishift_core/helper/use_cases/initialize_set.py`
 - Known gaps:
   - `profile_growth` execution is currently limited to rebalance preview/apply; broader growth admission remains planned.
+  - Broader `profile_growth` is now an MVP product requirement for ongoing
+    specialized admission after bootstrap; implementation and verification are
+    still pending.
   - Pair policy defaults are currently near-identical across active pairs.
   - `core/lexishift_core/srs/profile_bootstrap.py` remains a structural hotspot and should be split in a later health pass rather than folded into admission-contract edits.
 

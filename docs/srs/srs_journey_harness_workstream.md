@@ -212,7 +212,8 @@ Current implemented scenario:
 Current limitation:
 - this lane proves profile-aware bootstrap initialization and the existing
   feedback refresh loop together; executable profile-aware refresh/growth is
-  still a future `profile_growth` policy.
+  still a future `profile_growth` policy and is now considered MVP-relevant
+  because specialized admission must continue after first-run bootstrap.
 
 ## Pair Rollout
 
@@ -758,8 +759,8 @@ Deliverables:
 ## Immediate Next Step
 
 Next useful harness work:
-- decide whether `profile_growth` should become executable or stay deferred
-  until MVP manual refresh behavior is locked
+- add an executable `profile_growth` journey lane once growth admission uses
+  profile-aware candidate scoring after bootstrap
 - add the same kind of profile-preference lane for another LP only after the
   needed topic metadata exists
 - keep the current publication broader-than-due warning visible until product
