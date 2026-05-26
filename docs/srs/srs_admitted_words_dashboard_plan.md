@@ -1,13 +1,14 @@
 # SRS Admitted Words Dashboard Plan
 
 Status: active implementation contract
-Role: Mixed product decision plus current dashboard implementation contract
+Role: Product/UX decision, implementation contract, and verification runbook
 Last updated: 2026-05-26
 Last verified: 2026-05-26 helper/options dashboard tests, local
 search/filter/sort/pagination/meta-control tests, published-rule
 summary/detail tests, durable discard workflow tests, and SRS quality harness
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
-current dashboard lifecycle action contract, and deferred lifecycle actions
+current dashboard lifecycle action contract, module/data boundaries, and
+deferred lifecycle actions
 Source-of-truth: product decision and UI contract live here; executable truth
 lives in helper endpoints, options-page code, tests, and
 `docs/developer/feature_state_matrix.md`.
@@ -17,6 +18,13 @@ lives in helper endpoints, options-page code, tests, and
 The admitted-words viewer is a user-facing learning dashboard, not a developer
 diagnostic panel.
 
+It should answer four learner questions without requiring debug knowledge:
+
+- what words are currently in my SRS path for this profile and language pair?
+- which of those words are active, due, queued, or removed?
+- what page-replacement rules will a word currently produce?
+- how can I remove one specific word that I do not want in my SRS path?
+
 Default view should show useful learner concepts:
 
 - total admitted words for the selected profile/pair;
@@ -25,13 +33,13 @@ Default view should show useful learner concepts:
 - queued admitted words that are not currently active;
 - removed words, including discarded or cleared items;
 - per-word display text, due status, review count, exposure count, and source
-  label.
+  label;
 - per-word published rule count and a compact source-phrase preview, when a
   current helper-published ruleset exists;
 - on-demand published rule details for a selected word, capped to keep the
   normal dashboard payload small;
 - local search, status filtering, sort, page-size, pagination, and clear-filter
-  controls for already-loaded words.
+  controls for already-loaded words;
 - dashboard refresh metadata showing last refresh time, loaded/viewed counts,
   active-inventory source, and current published-ruleset availability.
 
@@ -42,6 +50,62 @@ Technical details belong behind an Advanced details toggle:
 - scheduler state and step;
 - confidence, stability, and difficulty;
 - normalized word-package details when needed later.
+
+The dashboard is not the SRS review UI, not a rulegen debugger, and not the
+primary admission-control surface. Preferences, proficiency, refresh admission,
+and review feedback remain separate workflows.
+
+## User Surface
+
+The options page exposes the dashboard in the SRS settings area for the selected
+profile and language pair.
+
+Top-level controls:
+
+- `Refresh words`: loads a fresh pair/profile payload from the helper.
+- `Advanced details`: toggles technical per-row fields.
+- `Search`: filters the loaded payload by display, lemma, reading, status,
+  source, or rule source phrase.
+- `Status`: filters to all, active, due, queued, or removed words.
+- `Sort`: keeps source order by default, with due-first, word, review-count,
+  and exposure-count alternatives.
+- `Rows`: selects page size for local pagination.
+- `Clear filters`: resets search/status/sort to defaults and returns to page 1.
+
+Summary cards:
+
+- `Active`
+- `Due now`
+- `Due soon`
+- `Queued`
+- `Removed`
+- `Total`
+
+Metadata row:
+
+- `Last refreshed`: timestamp from the latest helper refresh result, not from
+  local filter or pagination renders.
+- `Loaded`: total words in the currently loaded helper payload.
+- `Viewing`: words after local search/status/sort filtering.
+- `Inventory`: active-inventory source reported by the helper.
+- `Ruleset`: published-ruleset state, including rule count when available.
+
+Rows:
+
+- show target display text and reading when distinct;
+- show dashboard status using learner-facing labels;
+- show due timing, review count, exposure count, rule count, and source label;
+- show compact `Matches: ...` source phrases when published-rule summaries are
+  available;
+- expose `Rule details` when the row has helper-published rules;
+- expose `Discard` only for eligible non-removed words.
+
+Advanced row details:
+
+- item id;
+- lifecycle state and reason;
+- scheduler state and step;
+- confidence, stability, and difficulty.
 
 ## Lifecycle UX Policy
 
@@ -60,6 +124,30 @@ Current product direction:
   existing backend `preserve_lifecycle_metadata` flag.
 
 ## Current Implementation Contract
+
+Source files:
+
+- `apps/chrome-extension/options.html` owns the dashboard DOM surface.
+- `apps/chrome-extension/options.css` owns dashboard layout, filterbar, summary,
+  metadata, pagination, row, advanced-detail, rule-detail, and action styling.
+- `apps/chrome-extension/options/core/ui_manager.js` registers DOM ids.
+- `apps/chrome-extension/options/core/bootstrap/controller_graph_elements.js`
+  passes dashboard elements into the controller graph.
+- `apps/chrome-extension/options/controllers/srs/actions_controller.js` and
+  `apps/chrome-extension/options/controllers/srs/actions/workflows.js` forward
+  dashboard dependencies into SRS maintenance workflows.
+- `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_model.js`
+  owns local search/filter/sort semantics.
+- `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_renderer.js`
+  renders summary cards, metadata, rows, pagination, advanced fields, and
+  actions.
+- `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_rule_details.js`
+  renders the on-demand rule detail panel.
+- `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js`
+  owns refresh, pagination state, local control wiring, rule-detail loading, and
+  confirmed discard.
+- `core/lexishift_core/helper/use_cases/srs_items.py` owns helper read models
+  for list and rule-detail payloads.
 
 Read/listing path:
 
@@ -88,6 +176,22 @@ Read/listing path:
   preview.
 - rule details are also read-only and loaded on demand through
   `srs_item_rule_details` for the selected row only.
+
+Payload contract:
+
+- top-level payload includes `status`, `pair`, `profile_id`, store/inventory/
+  ruleset paths and existence flags, `inventory_source`, `rule_summary`,
+  `summary`, and `items`;
+- `summary` includes `active`, `due_now`, `due_soon`, `queued`, `removed`, and
+  `total`;
+- each item includes `item_id`, `lemma`, `display`, `reading`, `pair`, `active`,
+  `status`, `status_label`, due/review/exposure fields, source fields, `pos`,
+  `rule_summary`, and `advanced`;
+- item `rule_summary` includes enabled rule count and capped source-phrase
+  preview;
+- top-level `rule_summary` describes the current published ruleset as a whole;
+- the options workflow adds `dashboard_refreshed_at` when it receives a helper
+  result so local renders can preserve a stable refresh timestamp.
 
 The listing endpoint should not:
 
@@ -127,6 +231,112 @@ Discard path:
   SRS item `discarded`, and removes it from active inventory;
 - the dashboard refreshes after discard so the word appears as removed/
   discarded.
+
+## Interaction Semantics
+
+Local controls never change the helper or SRS store:
+
+- search, status filter, sort, page size, and pagination operate on
+  `latestWordsDashboardData`;
+- changing search/status/sort/page size resets page index to 0;
+- search input updates immediately;
+- Escape clears search and resets to page 1;
+- Clear filters is disabled until search/status/sort differ from defaults;
+- Clear filters does not change page size;
+- page buttons clamp to the available page range after filtering;
+- rule-detail expansion reuses cached detail payloads until the next refresh;
+- refresh clears expanded/loading rule-detail state and resets pagination;
+- discard refreshes the dashboard after the helper mutation succeeds.
+
+Search fields:
+
+- `display`
+- `lemma`
+- `reading`
+- `status_label`
+- `status`
+- `source_label`
+- `source_type`
+- published-rule source phrases
+
+Status filter semantics:
+
+- `all`: every row in the loaded payload;
+- `active`: rows that are neither queued nor removed;
+- `due`: `due_now` or `due_soon`;
+- `queued`: `queued`;
+- `removed`: `discarded`, `cleared`, or `removed`.
+
+Sort semantics:
+
+- `source`: helper payload order;
+- `due`: earliest due first, then queued, then removed;
+- `word`: display/lemma/reading alphabetically;
+- `reviews`: highest review count first;
+- `seen`: highest exposure count first.
+
+## Safety Invariants
+
+This dashboard is intentionally small in authority.
+
+- Listing and rule-detail routes are read-only.
+- Local controls do not admit, schedule, publish, discard, clear, restore, or
+  release words.
+- Rule summaries and details read the helper-published ruleset; they do not run
+  rulegen.
+- Missing or unreadable published rulesets should degrade to zero summaries or a
+  rule-detail warning without blocking SRS item visibility.
+- Discard is the only current dashboard mutation, and it must stay explicit,
+  confirmed, pair/profile scoped, and routed through `srs_admission_suppress`.
+- Discard means durable learner block until SRS reset, not a cooldown.
+- Removed words remain visible so learners can understand state after discard.
+- Restore, mastered/released, and undo policies remain planned, not implicit.
+
+## Verification
+
+Focused implementation tests:
+
+```bash
+python3 -m pytest \
+  core/tests/dev/test_extension_srs_maintenance_workflow_contract.py \
+  core/tests/dev/test_extension_helper_status_profile_contract.py \
+  core/tests/dev/test_helper_browsing_admission_entrypoints.py \
+  core/tests/helper/test_helper_srs_items.py \
+  core/tests/helper/test_helper_admission_suppression.py
+```
+
+Required SRS quality harness for SRS dashboard/helper lifecycle changes:
+
+```bash
+python3 scripts/testing/srs_quality_harness.py \
+  --json-out docs/test_outputs/srs_quality_latest.json
+
+python3 scripts/testing/srs_quality_summary.py \
+  --quality-json docs/test_outputs/srs_quality_latest.json \
+  --markdown-out docs/test_outputs/srs_quality_summary_latest.md
+```
+
+Repository gates used for the latest dashboard control slice:
+
+```bash
+npm --prefix scripts run check:state
+python3 scripts/dev/check_doc_references.py
+git diff --check
+npm --prefix scripts run check:changed:local
+```
+
+Current covered behaviors:
+
+- helper list payload shape, summaries, active/queued/due/removed status, and
+  published-rule summaries;
+- helper rule-detail payload shape and capped rule rows;
+- native-host/helper-manager route plumbing;
+- options dashboard refresh, search, status filter, sort, page-size,
+  pagination, refresh metadata, Escape search clearing, and clear-filter
+  disabled state;
+- on-demand rule-detail loading and cached expansion;
+- confirmed discard through the suppression route;
+- SRS quality harness for supported synthetic pairs.
 
 ## Deferred Work
 
