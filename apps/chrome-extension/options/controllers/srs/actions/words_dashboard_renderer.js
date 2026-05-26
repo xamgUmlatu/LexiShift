@@ -5,6 +5,12 @@
     const opts = options && typeof options === "object" ? options : {};
     const wordsSummaryRoot = opts.wordsSummaryRoot || null;
     const wordsListRoot = opts.wordsListRoot || null;
+    const wordsPaginationRoot = opts.wordsPaginationRoot || null;
+    const wordsPageInfoRoot = opts.wordsPageInfoRoot || null;
+    const wordsFirstPageButton = opts.wordsFirstPageButton || null;
+    const wordsPrevPageButton = opts.wordsPrevPageButton || null;
+    const wordsNextPageButton = opts.wordsNextPageButton || null;
+    const wordsLastPageButton = opts.wordsLastPageButton || null;
     const dashboardModel = opts.dashboardModel && typeof opts.dashboardModel === "object"
       ? opts.dashboardModel
       : { apply: (items) => items, isAdjusted: () => false };
@@ -28,6 +34,12 @@
       ? opts.toggleRuleDetails
       : (() => {});
     const discardWord = typeof opts.discardWord === "function" ? opts.discardWord : (() => {});
+    const getPaginationState = typeof opts.getPaginationState === "function"
+      ? opts.getPaginationState
+      : (() => ({ pageIndex: 0, pageSize: 25 }));
+    const onPaginationRendered = typeof opts.onPaginationRendered === "function"
+      ? opts.onPaginationRendered
+      : (() => {});
 
     function render(data) {
       if (!wordsSummaryRoot || !wordsListRoot) {
@@ -40,6 +52,7 @@
       clearNode(wordsSummaryRoot);
       clearNode(wordsListRoot);
       if (!data) {
+        updatePaginationControls({ total: 0, pageIndex: 0, pageSize: 25, pageCount: 1 });
         showListMessage("Refresh words to load the current SRS dashboard.");
         return;
       }
@@ -76,6 +89,7 @@
       const allItems = Array.isArray(data.items) ? data.items : [];
       const items = dashboardModel.apply(allItems);
       if (!items.length) {
+        updatePaginationControls({ total: 0, pageIndex: 0, pageSize: 25, pageCount: 1 });
         wordsListRoot.appendChild(createNode(
           doc,
           "p",
@@ -86,25 +100,58 @@
         ));
         return;
       }
+      const pagination = resolvePagination(items.length);
       if (dashboardModel.isAdjusted()) {
         wordsListRoot.appendChild(createNode(
           doc,
           "p",
           "srs-words-filter-note",
-          `Showing ${items.length} of ${allItems.length} words.`
+          `Filtered to ${items.length} of ${allItems.length} words.`
         ));
       }
-      items.slice(0, maxRenderedWordRows).forEach((item) => {
+      updatePaginationControls(pagination);
+      items.slice(pagination.startIndex, pagination.endIndex).forEach((item) => {
         wordsListRoot.appendChild(renderWordRow(doc, item));
       });
-      if (items.length > maxRenderedWordRows) {
+      if (pagination.pageSize > maxRenderedWordRows) {
         wordsListRoot.appendChild(createNode(
           doc,
           "p",
           "srs-words-truncated",
-          `Showing ${maxRenderedWordRows} of ${items.length} words.`
+          `Showing ${maxRenderedWordRows} of ${pagination.pageSize} page rows.`
         ));
       }
+    }
+
+    function resolvePagination(total) {
+      const rawState = getPaginationState();
+      const pageSize = normalizePageSize(rawState && rawState.pageSize);
+      const pageCount = Math.max(1, Math.ceil(total / pageSize));
+      const pageIndex = clampPageIndex(rawState && rawState.pageIndex, pageCount);
+      const startIndex = Math.min(total, pageIndex * pageSize);
+      const endIndex = Math.min(total, startIndex + Math.min(pageSize, maxRenderedWordRows));
+      return { total, pageIndex, pageSize, pageCount, startIndex, endIndex };
+    }
+
+    function updatePaginationControls(state) {
+      const total = Math.max(0, Number(state.total || 0));
+      const pageIndex = clampPageIndex(state.pageIndex, state.pageCount);
+      const pageCount = Math.max(1, Number(state.pageCount || 1));
+      const start = total ? Number(state.startIndex || 0) + 1 : 0;
+      const end = total ? Number(state.endIndex || 0) : 0;
+      if (wordsPaginationRoot) {
+        wordsPaginationRoot.hidden = total <= 0;
+      }
+      if (wordsPageInfoRoot) {
+        wordsPageInfoRoot.textContent = total
+          ? `Showing ${start}-${end} of ${total} words`
+          : "Showing 0 words";
+      }
+      setButtonDisabled(wordsFirstPageButton, pageIndex <= 0);
+      setButtonDisabled(wordsPrevPageButton, pageIndex <= 0);
+      setButtonDisabled(wordsNextPageButton, pageIndex >= pageCount - 1);
+      setButtonDisabled(wordsLastPageButton, pageIndex >= pageCount - 1);
+      onPaginationRendered({ ...state, pageIndex, pageCount });
     }
 
     function renderWordRow(doc, item) {
@@ -196,6 +243,29 @@
   function appendIfPresent(parent, child) {
     if (child) {
       parent.appendChild(child);
+    }
+  }
+
+  function normalizePageSize(value) {
+    const parsed = Number.parseInt(value, 10);
+    if (!Number.isFinite(parsed)) {
+      return 25;
+    }
+    return Math.max(1, Math.min(300, parsed));
+  }
+
+  function clampPageIndex(value, pageCount) {
+    const parsed = Number.parseInt(value, 10);
+    const maxPageIndex = Math.max(0, Number(pageCount || 1) - 1);
+    if (!Number.isFinite(parsed)) {
+      return 0;
+    }
+    return Math.max(0, Math.min(maxPageIndex, parsed));
+  }
+
+  function setButtonDisabled(button, disabled) {
+    if (button) {
+      button.disabled = Boolean(disabled);
     }
   }
 

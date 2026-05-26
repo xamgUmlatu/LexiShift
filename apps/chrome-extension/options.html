@@ -251,8 +251,26 @@
                   <option value="seen" data-i18n="option_srs_words_sort_seen">Most seen</option>
                 </select>
               </label>
+              <label>
+                <span data-i18n="label_srs_words_page_size">Rows</span>
+                <select id="srs-words-page-size">
+                  <option value="25" selected>25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </label>
+              <button id="srs-words-clear-filters" type="button" class="srs-words-clear-button" data-i18n="button_srs_words_clear_filters">Clear filters</button>
             </div>
             <div id="srs-words-summary" class="srs-words-summary" role="status"></div>
+            <div id="srs-words-pagination" class="srs-words-pagination" hidden>
+              <span id="srs-words-page-info" class="srs-words-page-info">Showing 0 words</span>
+              <div class="srs-words-page-buttons" aria-label="SRS words pagination">
+                <button id="srs-words-first-page" type="button">First</button>
+                <button id="srs-words-prev-page" type="button">Prev</button>
+                <button id="srs-words-next-page" type="button">Next</button>
+                <button id="srs-words-last-page" type="button">Last</button>
+              </div>
+            </div>
             <div id="srs-words-list" class="srs-words-list"></div>
           </div>
           <div class="actions">

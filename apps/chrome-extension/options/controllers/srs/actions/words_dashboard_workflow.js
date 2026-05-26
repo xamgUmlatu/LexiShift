@@ -21,7 +21,15 @@
     const wordsSearchInput = opts.wordsSearchInput || null;
     const wordsStatusFilterInput = opts.wordsStatusFilterInput || null;
     const wordsSortInput = opts.wordsSortInput || null;
+    const wordsPageSizeInput = opts.wordsPageSizeInput || null;
+    const wordsClearFiltersButton = opts.wordsClearFiltersButton || null;
     const wordsSummaryRoot = opts.wordsSummaryRoot || null;
+    const wordsPaginationRoot = opts.wordsPaginationRoot || null;
+    const wordsPageInfoRoot = opts.wordsPageInfoRoot || null;
+    const wordsFirstPageButton = opts.wordsFirstPageButton || null;
+    const wordsPrevPageButton = opts.wordsPrevPageButton || null;
+    const wordsNextPageButton = opts.wordsNextPageButton || null;
+    const wordsLastPageButton = opts.wordsLastPageButton || null;
     const wordsListRoot = opts.wordsListRoot || null;
     const maxRenderedWordRows = 300;
     const ruleDetailsLimit = 50;
@@ -43,12 +51,21 @@
     let latestWordsDashboardData = null;
     let latestWordsDashboardProfileId = "default";
     let wordsDashboardAdvanced = Boolean(wordsAdvancedInput && wordsAdvancedInput.checked);
+    let wordsDashboardPageIndex = 0;
+    let wordsDashboardPageSize = normalizePageSize(getControlValue(wordsPageSizeInput) || 25);
+    let wordsDashboardPageCount = 1;
     const expandedRuleDetailKeys = new Set();
     const loadingRuleDetailKeys = new Set();
     const ruleDetailsByKey = new Map();
     const dashboardRenderer = dashboardRendererFactory
       ? dashboardRendererFactory({
           wordsSummaryRoot,
+          wordsPaginationRoot,
+          wordsPageInfoRoot,
+          wordsFirstPageButton,
+          wordsPrevPageButton,
+          wordsNextPageButton,
+          wordsLastPageButton,
           wordsListRoot,
           dashboardModel,
           maxRenderedWordRows,
@@ -60,6 +77,14 @@
           canLoadRuleDetails,
           canDiscardItem,
           ruleDetailKey,
+          getPaginationState: () => ({
+            pageIndex: wordsDashboardPageIndex,
+            pageSize: wordsDashboardPageSize
+          }),
+          onPaginationRendered: (state) => {
+            wordsDashboardPageIndex = state.pageIndex;
+            wordsDashboardPageCount = state.pageCount;
+          },
           toggleRuleDetails,
           discardWord
         })
@@ -69,16 +94,35 @@
     dashboardModel.setSortMode(getControlValue(wordsSortInput) || "source");
 
     bindDashboardControl(wordsSearchInput, "input", () => {
+      resetWordsDashboardPage();
       dashboardModel.setSearchQuery(getControlValue(wordsSearchInput));
       renderWordsDashboard(latestWordsDashboardData);
     });
     bindDashboardControl(wordsStatusFilterInput, "change", () => {
+      resetWordsDashboardPage();
       dashboardModel.setStatusFilter(getControlValue(wordsStatusFilterInput) || "all");
       renderWordsDashboard(latestWordsDashboardData);
     });
     bindDashboardControl(wordsSortInput, "change", () => {
+      resetWordsDashboardPage();
       dashboardModel.setSortMode(getControlValue(wordsSortInput) || "source");
       renderWordsDashboard(latestWordsDashboardData);
+    });
+    bindDashboardControl(wordsPageSizeInput, "change", () => {
+      wordsDashboardPageSize = normalizePageSize(getControlValue(wordsPageSizeInput));
+      resetWordsDashboardPage();
+      renderWordsDashboard(latestWordsDashboardData);
+    });
+    bindDashboardControl(wordsClearFiltersButton, "click", clearWordsDashboardFilters);
+    bindDashboardControl(wordsFirstPageButton, "click", () => setWordsDashboardPage(0));
+    bindDashboardControl(wordsPrevPageButton, "click", () => {
+      setWordsDashboardPage(wordsDashboardPageIndex - 1);
+    });
+    bindDashboardControl(wordsNextPageButton, "click", () => {
+      setWordsDashboardPage(wordsDashboardPageIndex + 1);
+    });
+    bindDashboardControl(wordsLastPageButton, "click", () => {
+      setWordsDashboardPage(wordsDashboardPageCount - 1);
     });
 
     function getControlValue(control) {
@@ -90,6 +134,40 @@
         return;
       }
       control.addEventListener(eventName, handler);
+    }
+
+    function normalizePageSize(value) {
+      const parsed = Number.parseInt(value, 10);
+      if (!Number.isFinite(parsed)) {
+        return 25;
+      }
+      return Math.max(1, Math.min(300, parsed));
+    }
+
+    function resetWordsDashboardPage() {
+      wordsDashboardPageIndex = 0;
+    }
+
+    function setWordsDashboardPage(index) {
+      wordsDashboardPageIndex = Math.max(0, Math.min(wordsDashboardPageCount - 1, index));
+      renderWordsDashboard(latestWordsDashboardData);
+    }
+
+    function clearWordsDashboardFilters() {
+      if (wordsSearchInput) {
+        wordsSearchInput.value = "";
+      }
+      if (wordsStatusFilterInput) {
+        wordsStatusFilterInput.value = "all";
+      }
+      if (wordsSortInput) {
+        wordsSortInput.value = "source";
+      }
+      dashboardModel.setSearchQuery("");
+      dashboardModel.setStatusFilter("all");
+      dashboardModel.setSortMode("source");
+      resetWordsDashboardPage();
+      renderWordsDashboard(latestWordsDashboardData);
     }
 
     function renderWordsDashboard(dataArg) {
@@ -140,6 +218,7 @@
         expandedRuleDetailKeys.clear();
         loadingRuleDetailKeys.clear();
         ruleDetailsByKey.clear();
+        resetWordsDashboardPage();
         latestWordsDashboardProfileId = synced.profileId || "default";
         latestWordsDashboardData = result;
         renderWordsDashboard(result);

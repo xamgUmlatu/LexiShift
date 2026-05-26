@@ -44,7 +44,15 @@
     const wordsSearchInput = elements.wordsSearchInput || null;
     const wordsStatusFilterInput = elements.wordsStatusFilterInput || null;
     const wordsSortInput = elements.wordsSortInput || null;
+    const wordsPageSizeInput = elements.wordsPageSizeInput || null;
+    const wordsClearFiltersButton = elements.wordsClearFiltersButton || null;
     const wordsSummaryRoot = elements.wordsSummaryRoot || null;
+    const wordsPaginationRoot = elements.wordsPaginationRoot || null;
+    const wordsPageInfoRoot = elements.wordsPageInfoRoot || null;
+    const wordsFirstPageButton = elements.wordsFirstPageButton || null;
+    const wordsPrevPageButton = elements.wordsPrevPageButton || null;
+    const wordsNextPageButton = elements.wordsNextPageButton || null;
+    const wordsLastPageButton = elements.wordsLastPageButton || null;
     const wordsListRoot = elements.wordsListRoot || null;
     const semanticPackInventoryPathInput = elements.semanticPackInventoryPathInput || null;
     const semanticPackIdInput = elements.semanticPackIdInput || null;
@@ -137,7 +145,15 @@
           wordsSearchInput,
           wordsStatusFilterInput,
           wordsSortInput,
+          wordsPageSizeInput,
+          wordsClearFiltersButton,
           wordsSummaryRoot,
+          wordsPaginationRoot,
+          wordsPageInfoRoot,
+          wordsFirstPageButton,
+          wordsPrevPageButton,
+          wordsNextPageButton,
+          wordsLastPageButton,
           wordsListRoot,
           semanticPackInventoryPathInput,
           semanticPackIdInput,

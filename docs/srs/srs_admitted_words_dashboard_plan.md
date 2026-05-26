@@ -4,8 +4,8 @@ Status: active implementation contract
 Role: Mixed product decision plus current dashboard implementation contract
 Last updated: 2026-05-26
 Last verified: 2026-05-26 helper/options dashboard tests, local
-search/filter/sort tests, published-rule summary/detail tests, durable discard
-workflow tests, and SRS quality harness
+search/filter/sort/pagination tests, published-rule summary/detail tests,
+durable discard workflow tests, and SRS quality harness
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, and deferred lifecycle actions
 Source-of-truth: product decision and UI contract live here; executable truth
@@ -30,7 +30,8 @@ Default view should show useful learner concepts:
   current helper-published ruleset exists;
 - on-demand published rule details for a selected word, capped to keep the
   normal dashboard payload small;
-- local search, status filtering, and sort controls for already-loaded words.
+- local search, status filtering, sort, page-size, pagination, and clear-filter
+  controls for already-loaded words.
 
 Technical details belong behind an Advanced details toggle:
 
@@ -70,9 +71,13 @@ Read/listing path:
 - non-active lifecycle states are visible in the dashboard but remain ineligible
   for active serving elsewhere;
 - options.html exposes a Learning words dashboard with Refresh words, local
-  search, status filter, sort controls, and an Advanced details toggle.
-- search/filter/sort operate only on the already-loaded dashboard payload; they
-  do not call the helper, mutate SRS state, or change serving/admission order.
+  search, status filter, sort controls, page-size controls, pagination, clear
+  filters, and an Advanced details toggle.
+- search/filter/sort/pagination operate only on the already-loaded dashboard
+  payload; they do not call the helper, mutate SRS state, or change serving/
+  admission order.
+- changing search, status, sort, page size, or clearing filters resets the
+  dashboard to page 1.
 - rule summaries are display-only: rule count plus a capped source-phrase
   preview.
 - rule details are also read-only and loaded on demand through
@@ -119,10 +124,10 @@ Discard path:
 
 ## Deferred Work
 
-Next product slices, after dashboard search/filter/sort and discard are stable:
+Next product slices, after dashboard pagination and discard are stable:
 
-1. Pagination or virtualized rendering if admitted sets become too large for
-   the current capped renderer.
+1. Virtualized rendering if admitted sets become too large for page-sized local
+   rendering.
 2. Rich inspection for a selected admitted word, including semantic-admission
    pointers, morphology variants, and deeper rulegen debug metadata.
 3. Optional right-click popup discard affordance, kept discrete beside review
@@ -138,6 +143,8 @@ The dashboard is acceptable for MVP when:
 - the read-only endpoint and options UI are covered by focused tests;
 - dashboard search/filter/sort are covered by focused workflow tests and remain
   local to the loaded payload;
+- dashboard pagination/page-size controls are covered by focused workflow tests
+  and remain local to the loaded payload;
 - published-rule summaries are covered by focused helper/options tests and
   remain read-only;
 - on-demand rule details are covered by focused helper/options tests and remain

@@ -1389,9 +1389,15 @@ textarea {
 
 .srs-words-filterbar {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(130px, 0.45fr) minmax(150px, 0.55fr);
+  grid-template-columns:
+    minmax(180px, 1fr)
+    minmax(130px, 0.45fr)
+    minmax(150px, 0.55fr)
+    minmax(88px, 0.3fr)
+    auto;
   gap: 10px;
   margin-top: 12px;
+  align-items: end;
 }
 
 .srs-words-filterbar label {
@@ -1413,6 +1419,19 @@ textarea {
   color: #2c2a26;
   padding: 6px 8px;
   font-size: 13px;
+}
+
+.srs-words-clear-button {
+  min-height: 34px;
+  border: 1px solid #cfc3b2;
+  background: #fffdf8;
+  color: #4d473f;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.srs-words-clear-button:hover {
+  background: #f8f3ea;
 }
 
 .srs-words-summary {
@@ -1453,6 +1472,49 @@ textarea {
 .srs-words-list {
   margin-top: 10px;
   border-top: 1px solid #ded3c1;
+}
+
+.srs-words-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  color: #5f594f;
+  font-size: 12px;
+}
+
+.srs-words-pagination[hidden] {
+  display: none;
+}
+
+.srs-words-page-info {
+  font-weight: 700;
+}
+
+.srs-words-page-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.srs-words-page-buttons button {
+  min-height: 30px;
+  border: 1px solid #cfc3b2;
+  background: #fffdf8;
+  color: #4d473f;
+  padding: 5px 9px;
+  font-size: 12px;
+}
+
+.srs-words-page-buttons button:hover:not(:disabled) {
+  background: #f8f3ea;
+}
+
+.srs-words-page-buttons button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .srs-words-empty {

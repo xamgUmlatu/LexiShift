@@ -30,13 +30,6 @@
     const diagnosticsButton = opts.diagnosticsButton || null;
     const sampledButton = opts.sampledButton || null;
     const resetButton = opts.resetButton || null;
-    const wordsRefreshButton = opts.wordsRefreshButton || null;
-    const wordsAdvancedInput = opts.wordsAdvancedInput || null;
-    const wordsSearchInput = opts.wordsSearchInput || null;
-    const wordsStatusFilterInput = opts.wordsStatusFilterInput || null;
-    const wordsSortInput = opts.wordsSortInput || null;
-    const wordsSummaryRoot = opts.wordsSummaryRoot || null;
-    const wordsListRoot = opts.wordsListRoot || null;
     const setOutputText = getFunction(opts.setOutputText, () => {});
     const setSampledOutputText = getFunction(opts.setSampledOutputText, setOutputText);
     const markRulesetUpdatedNow = getFunction(opts.markRulesetUpdatedNow, () => Promise.resolve());
@@ -76,6 +69,7 @@
       : null;
     const wordsDashboardWorkflow = wordsDashboardWorkflowFactory
       ? wordsDashboardWorkflowFactory({
+          ...opts,
           settingsManager,
           helperManager,
           translate,
@@ -84,14 +78,7 @@
           syncSelectedProfile,
           confirmFn,
           log,
-          colors,
-          wordsRefreshButton,
-          wordsAdvancedInput,
-          wordsSearchInput,
-          wordsStatusFilterInput,
-          wordsSortInput,
-          wordsSummaryRoot,
-          wordsListRoot
+          colors
         })
       : {
           refreshWordsDashboard: async () => {},

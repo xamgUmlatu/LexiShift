@@ -556,6 +556,17 @@ const statusFilterInput = makeNode("select");
 statusFilterInput.value = "all";
 const sortInput = makeNode("select");
 sortInput.value = "source";
+const pageSizeInput = makeNode("select");
+pageSizeInput.value = "2";
+const clearFiltersButton = makeNode("button");
+const paginationRoot = makeNode("div");
+paginationRoot.ownerDocument = doc;
+const pageInfoRoot = makeNode("span");
+pageInfoRoot.ownerDocument = doc;
+const firstPageButton = makeNode("button");
+const prevPageButton = makeNode("button");
+const nextPageButton = makeNode("button");
+const lastPageButton = makeNode("button");
 const statuses = [];
 const listCalls = [];
 const ruleDetailsCalls = [];
@@ -748,7 +759,15 @@ const workflows = createMaintenanceWorkflows({{
   wordsSearchInput: searchInput,
   wordsStatusFilterInput: statusFilterInput,
   wordsSortInput: sortInput,
+  wordsPageSizeInput: pageSizeInput,
+  wordsClearFiltersButton: clearFiltersButton,
   wordsSummaryRoot: summaryRoot,
+  wordsPaginationRoot: paginationRoot,
+  wordsPageInfoRoot: pageInfoRoot,
+  wordsFirstPageButton: firstPageButton,
+  wordsPrevPageButton: prevPageButton,
+  wordsNextPageButton: nextPageButton,
+  wordsLastPageButton: lastPageButton,
   wordsListRoot: listRoot
 }});
 
@@ -762,7 +781,10 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(summaryRoot.children[0].children[0].textContent, "2");
   assert.equal(summaryRoot.children[3].children[0].textContent, "1");
   assert.equal(summaryRoot.children[5].children[0].textContent, "3");
-  assert.equal(listRoot.children.length, 3);
+  assert.equal(listRoot.children.length, 2);
+  assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
+  assert.equal(prevPageButton.disabled, true);
+  assert.equal(nextPageButton.disabled, false);
   assert.equal(listRoot.children[0].children.length, 5);
   assert.equal(statuses[0].message, "Loaded 3 SRS words.");
   assert.equal(listRoot.children[0].children[2].children[3].textContent, "Rules: 2");
@@ -785,22 +807,38 @@ const workflows = createMaintenanceWorkflows({{
   await listRoot.children[0].children[5].children[0].click();
   assert.equal(listRoot.children[0].children.length, 5);
 
+  await nextPageButton.click();
+  assert.equal(pageInfoRoot.textContent, "Showing 3-3 of 3 words");
+  assert.equal(prevPageButton.disabled, false);
+  assert.equal(nextPageButton.disabled, true);
+  assert.equal(listRoot.children.length, 1);
+  assert.equal(listRoot.children[0].children[0].children[0].textContent, "ave");
+  await prevPageButton.click();
+  assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
+
   searchInput.value = "gat";
   searchInput.listeners.input();
   assert.equal(listRoot.children[0].className, "srs-words-filter-note");
-  assert.equal(listRoot.children[0].textContent, "Showing 1 of 3 words.");
+  assert.equal(listRoot.children[0].textContent, "Filtered to 1 of 3 words.");
   assert.equal(listRoot.children[1].children[0].children[0].textContent, "gato");
+  assert.equal(pageInfoRoot.textContent, "Showing 1-1 of 1 words");
 
   searchInput.value = "hound";
   searchInput.listeners.input();
-  assert.equal(listRoot.children[0].textContent, "Showing 1 of 3 words.");
+  assert.equal(listRoot.children[0].textContent, "Filtered to 1 of 3 words.");
   assert.equal(listRoot.children[1].children[0].children[0].textContent, "perro");
+
+  clearFiltersButton.click();
+  assert.equal(searchInput.value, "");
+  assert.equal(statusFilterInput.value, "all");
+  assert.equal(sortInput.value, "source");
+  assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
 
   searchInput.value = "";
   searchInput.listeners.input();
   statusFilterInput.value = "due";
   statusFilterInput.listeners.change();
-  assert.equal(listRoot.children[0].textContent, "Showing 2 of 3 words.");
+  assert.equal(listRoot.children[0].textContent, "Filtered to 2 of 3 words.");
   sortInput.value = "word";
   sortInput.listeners.change();
   assert.equal(listRoot.children[1].children[0].children[0].textContent, "ave");
@@ -810,11 +848,11 @@ const workflows = createMaintenanceWorkflows({{
   statusFilterInput.listeners.change();
   sortInput.value = "source";
   sortInput.listeners.change();
-  assert.equal(listRoot.children.length, 3);
+  assert.equal(listRoot.children.length, 2);
   assert.equal(listRoot.children[0].children[0].children[0].textContent, "perro");
 
   workflows.setWordsDashboardAdvanced(true);
-  assert.equal(listRoot.children.length, 3);
+  assert.equal(listRoot.children.length, 2);
   assert.equal(listRoot.children[0].children.length, 6);
   assert.equal(listRoot.children[0].children[4].className, "srs-word-advanced");
   assert.equal(listRoot.children[0].children[5].className, "srs-word-actions");
@@ -830,6 +868,7 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(statuses[3].message, "Loaded 1 SRS words.");
   assert.equal(summaryRoot.children[0].children[0].textContent, "0");
   assert.equal(summaryRoot.children[4].children[0].textContent, "1");
+  assert.equal(pageInfoRoot.textContent, "Showing 1-1 of 1 words");
   assert.equal(listRoot.children[0].children[1].textContent, "Discarded");
   assert.equal(listRoot.children[0].children.length, 4);
   assert.equal(listRoot.children[0].children[3].className, "srs-word-advanced");
