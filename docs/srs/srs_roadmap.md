@@ -282,6 +282,9 @@ Status key:
   `mvp_picker_visibility`, the options-page chips are contract-tested against
   `strict_mvp_visible`, and the local admission lab labels all taxonomy families
   with their tester-facing or diagnostic-only visibility state.
+- `[x]` Add en-es SRS beta preflight report/runbook that composes strict-picker
+  checks, taxonomy visibility, latest SRS quality, en-es profile/installed
+  journey evidence, and the remaining manual fresh-install/tester signoff.
 - `[~]` Add E2E checks for post-feedback refresh trigger behavior (manual and
   automatic): helper policy/state tests exist; browser/native E2E remains open.
 

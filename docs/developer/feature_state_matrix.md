@@ -499,6 +499,49 @@ Use this file when:
   - The deterministic and synthetic-resource real-publication lanes are still useful regression surfaces, but installed-resource review currently depends on local data-pack availability and is not yet part of the default required workflow loop.
   - The journey harness artifacts are not the current due-aware runtime serving authority; use the SRS quality harness for the Lane 5 helper-metadata/runtime-gate contract.
 
+## en-es SRS Beta Preflight
+
+- Status: `implemented`, `verified`; `default-on` = `no`
+- Last documented checkpoint: `2026-05-27` read-only en-es SRS beta preflight now
+  composes strict-MVP topic-picker checks, taxonomy visibility validation, latest
+  SRS quality evidence, en-es profile-preference and installed-resource journey
+  evidence, and explicit manual beta signoff checks.
+- Last verified: `2026-05-27` preflight script/report generation, focused
+  preflight tests, rerun en-es profile and installed journey artifacts plus
+  summaries, doc-reference check, state audit, diff check, and changed-file gate.
+- Default behavior:
+  - The preflight is read-only. It does not install packs, mutate helper state,
+    reset SRS data, or mark beta signoff complete.
+  - The generated status is expected to remain `REVIEW` until a human completes
+    the fresh extension/helper smoke checklist.
+  - Automated checks require the options-page topic picker to match
+    `mvp_picker_visibility=strict_mvp_visible`, require beta/hidden/register/
+    legal-gated families to stay out of the ordinary picker, require locale
+    coverage for visible chips, and require latest SRS quality/journey artifacts
+    to have no failing findings.
+  - Current en-es journey warnings are surfaced rather than hidden. Publication
+    broader than due is an observation-mode warning, while the installed-resource
+    `movimiento` due-not-published warning remains a review item for manual beta
+    smoke because it is a rulegen/data coverage symptom, not a picker/admission
+    selector failure.
+- Evidence:
+  - `docs/runbooks/srs_beta_preflight_en_es.md`
+  - `scripts/testing/srs_beta_preflight_en_es.py`
+  - `docs/test_outputs/srs_beta_preflight_en_es_latest.json`
+  - `docs/test_outputs/srs_beta_preflight_en_es_latest.md`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_profile_latest.md`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json`
+  - `docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.md`
+  - `core/tests/dev/test_srs_beta_preflight_en_es.py`
+- Known gaps:
+  - Manual fresh-install/helper connection, runtime replacement, feedback,
+    automatic refresh, discard, and reset smoke still require human beta signoff.
+  - The preflight does not replace Chrome Web Store packaging preflight, full
+    repo safety checks, or build validation.
+  - It reports latest local installed-resource evidence; a tester machine can
+    still differ if required packs are missing or manually installed differently.
+
 ## Development Workflow Safeties
 
 - Status: `implemented`, `default-on`, `verified`

@@ -6,7 +6,7 @@
 - Pair: `en-es`
 - Lane: `profile_preference_journey`
 - Contract mode: `observe_current_behavior`
-- Generated at: `2026-05-26T22:43:21.373312+00:00`
+- Generated at: `2026-05-27T03:42:45.220283+00:00`
 
 ## Phases
 
