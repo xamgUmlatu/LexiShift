@@ -1767,18 +1767,19 @@ Use this file when:
 
 ## SRS Story-Based Options UX
 
-- Status: `implemented`, `default-on`, `verified` for the selected-story shell
-  and dashboard/sampling curtains; full multi-story enumeration and guided
-  new-story initialization modal remain `planned`
-- Last documented checkpoint: `2026-05-27` options SRS controls are grouped
+- Status: `implemented`, `default-on`, `verified` for the selected-story shell,
+  dashboard/sampling curtains, and guided new-story initialization modal; full
+  multi-story enumeration remains `planned`
+- Last documented checkpoint: `2026-05-27` guided-flow checkpoint: controls are grouped
   under a selected profile/pair story block, the admitted-words dashboard and
   admission sample preview are collapsed as story curtains, maintenance actions
   remain behind a collapsed management section, and the start-new-story block
-  records the intended entry point without introducing a second initialization
-  code path.
-- Last verified: `2026-05-27` focused extension SRS settings contract,
-  extension structure/i18n checks, en-es SRS beta preflight, doc-reference
-  check, state audit, changed-file gate, diff check, and local build.
+  opens a guided modal that persists visible profile/language/SRS preferences
+  before calling the existing preview or initialize workflow.
+- Last verified: `2026-05-27` guided new-story flow contract plus focused
+  extension SRS settings contract, extension structure/i18n checks, en-es SRS
+  beta preflight, doc-reference check, state audit, changed-file gate, diff
+  check, and local build.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
     source/target language pair; it does not yet enumerate every persisted SRS
@@ -1792,17 +1793,24 @@ Use this file when:
     curtain is opened.
   - Rebalance, manual refresh/publish, and reset remain available only under
     the collapsed management section.
-  - The dedicated guided new-story popup/modal flow is not implemented yet;
-    initialization still uses the existing options initialize action.
+  - The guided new-story modal uses the same underlying Options controls and
+    helper workflows as the existing page path; it does not introduce a second
+    SRS initialization implementation.
+  - Modal sampling is non-mutating with respect to SRS admission and persists
+    visible preference settings before calling the existing admission preview.
+  - Modal initialization enables SRS for the selected story, persists visible
+    settings, then calls the existing helper-backed initialize path.
 - Evidence:
   - `docs/srs/srs_story_based_options_flow_plan.md`
   - `apps/chrome-extension/options.html`
   - `apps/chrome-extension/options.css`
+  - `apps/chrome-extension/options/controllers/srs/story_flow_controller.js`
   - `core/tests/dev/test_extension_srs_settings_contract.py`
 - Known gaps:
   - The Options page does not yet enumerate all persisted SRS profile/pair
     stores as separate story blocks.
-  - The guided popup/modal for starting a new SRS story is not implemented yet.
+  - The guided modal is a first beta implementation; it is not yet a full
+    multi-step wizard with separate pages or richer pair capability warnings.
   - The technical size and initialization labels have not had their focused
     product-copy pass.
 

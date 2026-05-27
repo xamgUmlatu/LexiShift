@@ -44,6 +44,7 @@ class UIManager {
       "srs-exposure-logging-enabled",
       "srs-admission-preview", "srs-admission-preview-output",
       "srs-initialize-set", "srs-rebalance-preview", "srs-rebalance-apply",
+      "srs-story-dashboard-curtain", "srs-story-sampling-curtain",
       "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
       "srs-words-refresh", "srs-words-advanced", "srs-words-search",
@@ -52,6 +53,13 @@ class UIManager {
       "srs-words-page-info", "srs-words-first-page", "srs-words-prev-page",
       "srs-words-next-page", "srs-words-last-page", "srs-words-meta", "srs-words-list",
       "srs-rulegen-output", "srs-reset", "helper-status",
+      "srs-story-start", "srs-story-flow-backdrop", "srs-story-flow",
+      "srs-story-flow-close", "srs-story-flow-source-language",
+      "srs-story-flow-target-language", "srs-story-flow-profile-id",
+      "srs-story-flow-proficiency-estimate", "srs-story-flow-topic-interests",
+      "srs-story-flow-max-active", "srs-story-flow-bootstrap-top-n",
+      "srs-story-flow-initial-active-count", "srs-story-flow-sample",
+      "srs-story-flow-initialize", "srs-story-flow-preview-output",
       "helper-last-sync", "debug-helper-test",
       "debug-semantic-pack-inventory-path", "debug-semantic-pack-id",
       "debug-semantic-pack-default-data-root", "debug-semantic-pack-data-root",
@@ -90,6 +98,9 @@ class UIManager {
     this.dom.shareCenterTargetInputs = Array.from(document.querySelectorAll("input[name='share-center-target']"));
     this.dom.srsTopicInterestChipButtons = Array.from(
       document.querySelectorAll("[data-srs-topic-interest]")
+    );
+    this.dom.srsStoryTopicInterestChipButtons = Array.from(
+      document.querySelectorAll("[data-srs-story-topic-interest]")
     );
   }
 

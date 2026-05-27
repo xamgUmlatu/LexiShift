@@ -20,6 +20,9 @@ PROFILE_RUNTIME_VALUES_JS = (
 AUTO_REFRESH_SETTINGS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/auto_refresh_settings.js"
 )
+STORY_FLOW_CONTROLLER_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_controller.js"
+)
 SRS_BINDINGS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/events/srs_bindings.js"
 )
@@ -67,14 +70,20 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('class="srs-story-list"', html)
         self.assertIn('id="srs-story-current-heading"', html)
         self.assertIn('id="srs-story-start-heading"', html)
+        self.assertIn('id="srs-story-flow"', html)
+        self.assertIn('id="srs-story-flow-source-language"', html)
+        self.assertIn('id="srs-story-flow-target-language"', html)
+        self.assertIn('id="srs-story-flow-profile-id"', html)
+        self.assertIn('id="srs-story-flow-sample"', html)
+        self.assertIn('id="srs-story-flow-initialize"', html)
         self.assertRegex(
             html,
-            r'(?s)<details class="srs-story-curtain srs-story-dashboard-curtain">'
+            r'(?s)<details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">'
             r'.*?class="srs-words-dashboard"',
         )
         self.assertRegex(
             html,
-            r'(?s)<details class="srs-story-curtain srs-story-sampling-curtain">'
+            r'(?s)<details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">'
             r'.*?id="srs-admission-preview"',
         )
         self.assertRegex(
@@ -94,6 +103,198 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-reset"',
         )
         self.assertIn('class="danger-button"', html)
+
+    def test_story_flow_persists_visible_values_before_initialize(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(STORY_FLOW_CONTROLLER_JS))};
+
+function createClassList() {{
+  const values = new Set();
+  return {{
+    toggle(name, force) {{
+      if (force) {{
+        values.add(name);
+      }} else {{
+        values.delete(name);
+      }}
+    }},
+    contains(name) {{
+      return values.has(name);
+    }}
+  }};
+}}
+
+function createOption(value, text) {{
+  return {{
+    value,
+    textContent: text || value,
+    cloneNode() {{
+      return createOption(this.value, this.textContent);
+    }}
+  }};
+}}
+
+function createSelect(value, optionValues) {{
+  const select = {{
+    value: value || "",
+    options: [],
+    disabled: false,
+    appendChild(option) {{
+      this.options.push(option);
+      if (!this.value) {{
+        this.value = option.value;
+      }}
+      return option;
+    }}
+  }};
+  Object.defineProperty(select, "innerHTML", {{
+    get() {{
+      return "";
+    }},
+    set(_value) {{
+      this.options.length = 0;
+    }}
+  }});
+  (optionValues || []).forEach((entry) => select.appendChild(createOption(entry, entry)));
+  select.value = value || (select.options[0] && select.options[0].value) || "";
+  return select;
+}}
+
+function createButton(attrs) {{
+  const attributes = {{ ...(attrs || {{}}) }};
+  return {{
+    disabled: false,
+    classList: createClassList(),
+    attributes,
+    listeners: {{}},
+    addEventListener(name, handler) {{
+      this.listeners[name] = handler;
+    }},
+    getAttribute(name) {{
+      return attributes[name] || "";
+    }},
+    setAttribute(name, value) {{
+      attributes[name] = String(value);
+    }}
+  }};
+}}
+
+function createInput(value) {{
+  return {{ value: value || "", checked: false }};
+}}
+
+const context = vm.createContext({{
+  console,
+  document: {{
+    body: {{ classList: createClassList() }},
+    createElement(tagName) {{
+      if (tagName !== "option") throw new Error(`Unexpected element: ${{tagName}}`);
+      return createOption("", "");
+    }},
+    addEventListener() {{}}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const calls = [];
+const mainTopicAnimals = createButton({{ "data-srs-topic-interest": "animals" }});
+const modalTopicAnimals = createButton({{ "data-srs-story-topic-interest": "animals" }});
+const mainSamplingCurtain = {{ open: false }};
+const mainDashboardCurtain = {{ open: false }};
+const mainAdmissionPreviewOutput = {{ textContent: "sample output" }};
+const backdrop = {{
+  classList: createClassList(),
+  setAttribute(name, value) {{
+    this[name] = value;
+  }},
+  addEventListener() {{}}
+}};
+const modalRoot = {{ focus() {{ calls.push("focus"); }} }};
+
+const elements = {{
+  startButton: createButton(),
+  backdrop,
+  root: modalRoot,
+  closeButton: createButton(),
+  modalSourceLanguageInput: createSelect("en", ["en", "es"]),
+  modalTargetLanguageInput: createSelect("es", ["en", "es"]),
+  modalProfileIdInput: createSelect("family", ["default", "family"]),
+  modalProficiencyEstimateInput: createInput("70"),
+  modalTopicInterestsInput: createInput("animals"),
+  modalTopicInterestChipButtons: [modalTopicAnimals],
+  modalMaxActiveInput: createInput("30"),
+  modalBootstrapTopNInput: createInput("1000"),
+  modalInitialActiveCountInput: createInput("40"),
+  sampleButton: createButton(),
+  initializeButton: createButton(),
+  previewOutput: {{ textContent: "", style: {{}} }},
+  mainSourceLanguageInput: createSelect("ja", ["ja", "en", "es"]),
+  mainTargetLanguageInput: createSelect("en", ["ja", "en", "es"]),
+  mainProfileIdInput: createSelect("default", ["default", "family"]),
+  mainSrsEnabledInput: {{ checked: false }},
+  mainProficiencyEstimateInput: createInput(""),
+  mainTopicInterestsInput: createInput(""),
+  mainTopicInterestChipButtons: [mainTopicAnimals],
+  mainMaxActiveInput: createInput("20"),
+  mainBootstrapTopNInput: createInput("800"),
+  mainInitialActiveCountInput: createInput("25"),
+  mainSamplingCurtain,
+  mainDashboardCurtain,
+  mainAdmissionPreviewOutput
+}};
+
+const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
+  t: (_key, _args, fallback) => fallback,
+  setStatus: (message) => calls.push(`status:${{message}}`),
+  saveSrsProfileId: async () => calls.push("saveProfile"),
+  saveLanguageSettings: async () => calls.push("saveLanguage"),
+  saveSrsSettings: async () => calls.push("saveSrs"),
+  srsActionsController: {{
+    previewAdmission: async () => calls.push("previewAdmission"),
+    initializeSet: async () => calls.push("initializeSet")
+  }},
+  log: () => {{}},
+  elements
+}});
+
+(async () => {{
+  await controller.persistVisibleSettings();
+  assert.deepEqual(calls, ["saveProfile", "saveLanguage", "saveSrs"]);
+  assert.equal(elements.mainProfileIdInput.value, "family");
+  assert.equal(elements.mainSourceLanguageInput.value, "en");
+  assert.equal(elements.mainTargetLanguageInput.value, "es");
+  assert.equal(elements.mainSrsEnabledInput.checked, true);
+  assert.equal(elements.mainProficiencyEstimateInput.value, "70");
+  assert.equal(elements.mainTopicInterestsInput.value, "animals");
+  assert.equal(elements.mainMaxActiveInput.value, "30");
+  assert.equal(elements.mainBootstrapTopNInput.value, "1000");
+  assert.equal(elements.mainInitialActiveCountInput.value, "40");
+  assert.equal(mainTopicAnimals.attributes["aria-pressed"], "true");
+
+  calls.length = 0;
+  await controller.initializeStory();
+  assert.deepEqual(calls.slice(0, 3), ["saveLanguage", "saveSrs", "initializeSet"]);
+  assert.equal(mainDashboardCurtain.open, true);
+}})().catch((err) => {{
+  console.error(err);
+  process.exitCode = 1;
+}});
+"""
+        _run_node(script)
 
     def test_controller_save_keeps_signal_updates_narrow_and_preserves_nested_siblings(
         self,

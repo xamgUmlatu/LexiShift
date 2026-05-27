@@ -316,7 +316,7 @@
               </div>
             </div>
           </div>
-          <details class="srs-story-curtain srs-story-dashboard-curtain">
+          <details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">
             <summary data-i18n="summary_srs_story_dashboard">Open dashboard</summary>
             <div class="srs-words-dashboard" aria-labelledby="srs-words-dashboard-heading">
             <div class="srs-words-dashboard-header">
@@ -383,7 +383,7 @@
             <div id="srs-words-list" class="srs-words-list"></div>
           </div>
           </details>
-          <details class="srs-story-curtain srs-story-sampling-curtain">
+          <details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">
             <summary data-i18n="summary_srs_story_sampling">Sample possible words</summary>
             <div class="actions srs-primary-actions">
               <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
@@ -418,9 +418,9 @@
                   Choose another profile or language pair, then set preferences before initializing.
                 </p>
               </div>
-              <a class="srs-story-start-link" href="#srs-story-current-heading" data-i18n="button_srs_start_new_story">
+              <button id="srs-story-start" type="button" class="srs-story-start-link" data-i18n="button_srs_start_new_story">
                 Set up selected pair
-              </a>
+              </button>
             </article>
           </div>
         </section>
@@ -911,6 +911,157 @@
         <p id="share-center-import-status" class="hint share-center-inline-status"></p>
       </div>
     </div>
+    <div id="srs-story-flow-backdrop" class="srs-story-flow-backdrop hidden" aria-hidden="true">
+      <div
+        id="srs-story-flow"
+        class="srs-story-flow"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="srs-story-flow-title"
+        tabindex="-1"
+      >
+        <div class="srs-story-flow-header">
+          <div>
+            <h3 id="srs-story-flow-title" data-i18n="heading_srs_story_flow">Set up SRS story</h3>
+            <p class="hint" data-i18n="hint_srs_story_flow">
+              Choose the language pair, preferences, and starting size before initializing.
+            </p>
+          </div>
+          <button id="srs-story-flow-close" type="button" class="srs-story-flow-close" data-i18n="button_close">
+            Close
+          </button>
+        </div>
+        <div class="srs-story-flow-steps" aria-label="SRS story setup steps">
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-pair">
+            <span class="srs-story-flow-step-index">1</span>
+            <div>
+              <h4 id="srs-story-flow-step-pair" data-i18n="heading_srs_story_flow_pair">Choose languages and profile</h4>
+              <div class="field-row">
+                <label for="srs-story-flow-source-language" data-i18n="label_source_language">Source language</label>
+                <select id="srs-story-flow-source-language">
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="ja">日本語</option>
+                  <option value="zh">简体中文</option>
+                  <option value="de">Deutsch</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="srs-story-flow-target-language" data-i18n="label_target_language">Target language</label>
+                <select id="srs-story-flow-target-language">
+                  <option value="en">English</option>
+                  <option value="es">Español</option>
+                  <option value="ja">日本語</option>
+                  <option value="zh">简体中文</option>
+                  <option value="de">Deutsch</option>
+                </select>
+              </div>
+              <div class="field-row">
+                <label for="srs-story-flow-profile-id" data-i18n="label_profile_id">Profile</label>
+                <select id="srs-story-flow-profile-id"></select>
+              </div>
+            </div>
+          </section>
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-preferences">
+            <span class="srs-story-flow-step-index">2</span>
+            <div>
+              <h4 id="srs-story-flow-step-preferences" data-i18n="heading_srs_story_flow_preferences">Set preferences</h4>
+              <div class="field-row">
+                <label for="srs-story-flow-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate (%)</label>
+                <input id="srs-story-flow-proficiency-estimate" type="number" min="0" max="100" step="1" />
+              </div>
+              <p class="hint" data-i18n="hint_srs_proficiency_estimate">
+                0 to 100. Leave blank to keep proficiency neutral.
+              </p>
+              <div class="srs-topic-interest-picker" aria-labelledby="srs-story-flow-topic-label">
+                <div class="srs-topic-interest-picker-heading">
+                  <span
+                    id="srs-story-flow-topic-label"
+                    class="meta-label"
+                    data-i18n="label_srs_topic_interest_presets"
+                  >Suggested topics</span>
+                  <span
+                    class="srs-topic-interest-support"
+                    data-i18n="badge_srs_topic_interest_pair_support"
+                  >Preview support varies by pair</span>
+                </div>
+                <div id="srs-story-flow-topic-chips" class="srs-topic-interest-chips" role="group">
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="medicine_health" aria-pressed="false">
+                    <span data-i18n="topic_srs_medicine_health">Medicine & health</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="finance_business" aria-pressed="false">
+                    <span data-i18n="topic_srs_finance_business">Finance & business</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="sports_fitness" aria-pressed="false">
+                    <span data-i18n="topic_srs_sports_fitness">Sports & fitness</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="games" aria-pressed="false">
+                    <span data-i18n="topic_srs_games">Games</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="music_media_entertainment" aria-pressed="false">
+                    <span data-i18n="topic_srs_music_media_entertainment">Music & media</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="law_politics_civics" aria-pressed="false">
+                    <span data-i18n="topic_srs_law_politics_civics">Law & civics</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="science_technology" aria-pressed="false">
+                    <span data-i18n="topic_srs_science_technology">Science & technology</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="arts_literature_humanities" aria-pressed="false">
+                    <span data-i18n="topic_srs_arts_literature_humanities">Arts & literature</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="animals" aria-pressed="false">
+                    <span data-i18n="topic_srs_animals">Animals</span>
+                  </button>
+                  <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="food_cooking" aria-pressed="false">
+                    <span data-i18n="topic_srs_food_cooking">Food & cooking</span>
+                  </button>
+                </div>
+              </div>
+              <details class="advanced srs-story-flow-advanced-tags">
+                <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
+                <div class="field-row">
+                  <label for="srs-story-flow-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
+                  <input id="srs-story-flow-topic-interests" type="text" />
+                </div>
+              </details>
+            </div>
+          </section>
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-size">
+            <span class="srs-story-flow-step-index">3</span>
+            <div>
+              <h4 id="srs-story-flow-step-size" data-i18n="heading_srs_story_flow_size">Set starting size</h4>
+              <div class="field-row">
+                <label for="srs-story-flow-max-active" data-i18n="label_srs_max_active">Max active words</label>
+                <input id="srs-story-flow-max-active" type="number" min="1" max="200" step="1" />
+              </div>
+              <div class="field-row">
+                <label for="srs-story-flow-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
+                <input id="srs-story-flow-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
+              </div>
+              <div class="field-row">
+                <label for="srs-story-flow-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
+                <input id="srs-story-flow-initial-active-count" type="number" min="1" max="5000" step="1" />
+              </div>
+            </div>
+          </section>
+          <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-review">
+            <span class="srs-story-flow-step-index">4</span>
+            <div>
+              <h4 id="srs-story-flow-step-review" data-i18n="heading_srs_story_flow_review">Sample and initialize</h4>
+              <p class="hint" data-i18n="hint_srs_story_flow_review">
+                Sampling saves these visible settings first, then previews likely words. Initialize saves these settings again before creating the story.
+              </p>
+              <div class="actions srs-story-flow-actions">
+                <button id="srs-story-flow-sample" type="button" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
+                <button id="srs-story-flow-initialize" type="button" data-i18n="button_srs_story_flow_initialize">Initialize story</button>
+              </div>
+              <div id="srs-story-flow-preview-output" class="srs-preview srs-story-flow-preview-output" role="status"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
     <div id="target-language-prefs-modal-backdrop" class="language-pref-modal-backdrop hidden" aria-hidden="true">
       <div
         id="target-language-prefs-modal"
@@ -1002,6 +1153,7 @@
     <script src="options/controllers/srs/actions/maintenance_workflow.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>
     <script src="options/controllers/srs/actions_controller.js"></script>
+    <script src="options/controllers/srs/story_flow_controller.js"></script>
     <script src="options/controllers/rules/profile_rulesets_state.js"></script>
     <script src="options/controllers/rules/profile_rulesets_controller.js"></script>
     <script src="options/controllers/rules/share_center/utils.js"></script>

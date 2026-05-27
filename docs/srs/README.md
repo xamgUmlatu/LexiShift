@@ -31,7 +31,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Admission lifecycle and refresh mutation boundaries | `docs/srs/srs_admission_lifecycle_current_state.md` | Current code-backed audit for initial admission, refresh growth, rebalance, feedback/exposure caveats, and suppression guards. | Claiming discard/suspend UI or full mastered/released lifecycle exists. |
 | SRS resource, storage, and cognitive-load budgets | `docs/srs/srs_resource_budget_and_load_audit.md` | Current-plus-readiness audit for active-set size, page replacement density, extension storage caps, helper artifacts, browsing aggregates, and encounter-starvation diagnostics. | Claiming live Chrome storage bytes have been audited without a browser-profile export. |
 | Admitted-words dashboard and lifecycle UX policy | `docs/srs/srs_admitted_words_dashboard_plan.md` | Product/implementation contract and verification runbook for the admitted-words dashboard, including read-only listing/rule details, local controls, encounter-watch visibility, advanced-details boundary, and confirmed discard. | Claiming restore, mastery/release, or undo controls are shipped. |
-| Story-based Options SRS UX | `docs/srs/srs_story_based_options_flow_plan.md` | Target UX plan for presenting existing SRS journeys as story blocks and moving first-run initialization into a guided linear flow. | Claiming the story flow is implemented or replacing the current feature-state ledger. |
+| Story-based Options SRS UX | `docs/srs/srs_story_based_options_flow_plan.md` | Target UX plan plus current implementation notes for presenting SRS journeys as story blocks and routing first-run initialization through a guided setup flow. | Claiming full multi-story enumeration or replacing the current feature-state ledger. |
 | Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
 | en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |
 | Browsing-based admission | `docs/srs/srs_browsing_based_admission_plan.md` | Planning workstream for opt-in, local-only browsing word signals that can influence future admission within SRS budget/lifecycle gates. | Claiming passive browsing changes scheduling, review state, or current default behavior. |
@@ -65,10 +65,11 @@ Current disposition:
   dashboard decision, mostly read-only listing/rule-detail behavior,
   encounter-watch visibility, confirmed discard policy, and deferred
   restore/mastery lifecycle work.
-- `srs_story_based_options_flow_plan.md` records the target Options-page SRS UX:
-  existing profile/pair journeys should appear as compact story blocks, large
-  dashboard/sampling surfaces should open as curtains, and first-run
-  initialization should move into a guided flow before beta.
+- `srs_story_based_options_flow_plan.md` records the target Options-page SRS UX
+  and current beta implementation notes: existing profile/pair journeys should
+  appear as compact story blocks, large dashboard/sampling surfaces should open
+  as curtains, and first-run initialization uses a guided flow that persists
+  visible settings before sample/initialize.
 - `srs_browsing_based_admission_plan.md` is a planning workstream only; it
   records the intended opt-in word-signal design and the boundary that passive
   browsing must not mutate review scheduling.

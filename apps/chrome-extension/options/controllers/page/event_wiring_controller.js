@@ -29,6 +29,9 @@
     const srsActionsController = opts.srsActionsController && typeof opts.srsActionsController === "object"
       ? opts.srsActionsController
       : null;
+    const srsStoryFlowController = opts.srsStoryFlowController && typeof opts.srsStoryFlowController === "object"
+      ? opts.srsStoryFlowController
+      : null;
     const helperActionsController = opts.helperActionsController && typeof opts.helperActionsController === "object"
       ? opts.helperActionsController
       : null;
@@ -150,6 +153,9 @@
         refreshSrsProfiles,
         elements
       });
+      if (srsStoryFlowController && typeof srsStoryFlowController.bind === "function") {
+        srsStoryFlowController.bind();
+      }
     }
 
     return {

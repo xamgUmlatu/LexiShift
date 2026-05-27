@@ -116,6 +116,42 @@
   "button_srs_start_new_story": {
     "message": "Ausgewähltes Paar einrichten"
   },
+  "heading_srs_story_flow": {
+    "message": "SRS-Story einrichten"
+  },
+  "hint_srs_story_flow": {
+    "message": "Wähle Sprachpaar, Präferenzen und Startgröße vor der Initialisierung."
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "Sprachen und Profil wählen"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "Präferenzen festlegen"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "Startgröße festlegen"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "Testen und initialisieren"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "Der Test speichert zuerst diese sichtbaren Einstellungen und zeigt dann wahrscheinliche Wörter. Initialisieren speichert sie erneut, bevor die Story erstellt wird."
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "Story initialisieren"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "Einstellungen werden gespeichert und mögliche Wörter getestet…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "SRS-Story-Test aktualisiert."
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "Einstellungen werden gespeichert und SRS-Story wird initialisiert…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "SRS-Story initialisiert."
+  },
   "label_srs_pair": {
     "message": "Sprachpaar"
   },

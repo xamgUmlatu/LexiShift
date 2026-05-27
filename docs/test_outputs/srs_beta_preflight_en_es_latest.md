@@ -2,7 +2,7 @@
 
 - Status: `REVIEW`
 - Decision: manual beta signoff is required before external testers.
-- Generated: `2026-05-27T05:38:10.141943+00:00`
+- Generated: `2026-05-27T06:03:07.387166+00:00`
 
 ## Automated Checks
 

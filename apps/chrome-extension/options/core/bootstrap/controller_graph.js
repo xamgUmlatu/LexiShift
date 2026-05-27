@@ -210,6 +210,18 @@
       elements: graphElements.srsActions
     });
 
+    const srsStoryFlowController = requireControllerFactory("optionsSrsStoryFlow")({
+      t,
+      setStatus: uiBridge.setStatus,
+      saveLanguageSettings: controllerAdapters.saveLanguageSettings,
+      saveSrsSettings: controllerAdapters.saveSrsSettings,
+      saveSrsProfileId: controllerAdapters.saveSrsProfileId,
+      srsActionsController,
+      log: logOptions,
+      colors: ui.COLORS,
+      elements: graphElements.srsStoryFlow
+    });
+
     const displayReplacementController = requireControllerFactory("optionsDisplayReplacement")({
       settingsManager,
       t,
@@ -255,6 +267,7 @@
       rulesShareController,
       profileBackgroundController,
       srsActionsController,
+      srsStoryFlowController,
       helperActionsController,
       targetLanguageModalController,
       updateRulesSourceUI: uiBridge.updateRulesSourceUI,

@@ -116,6 +116,42 @@
   "button_srs_start_new_story": {
     "message": "選択中のペアを設定"
   },
+  "heading_srs_story_flow": {
+    "message": "SRSストーリーを設定"
+  },
+  "hint_srs_story_flow": {
+    "message": "初期化前に言語ペア、好み、開始サイズを選びます。"
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "言語とプロフィールを選択"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "好みを設定"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "開始サイズを設定"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "サンプルして初期化"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "サンプルは表示中の設定を保存してから候補語を確認します。初期化も同じ設定を保存してからストーリーを作成します。"
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "ストーリーを初期化"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "設定を保存して候補語をサンプルしています…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "SRSストーリーのサンプルを更新しました。"
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "設定を保存してSRSストーリーを初期化しています…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "SRSストーリーを初期化しました。"
+  },
   "label_srs_pair": {
     "message": "言語ペア"
   },

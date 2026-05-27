@@ -116,6 +116,42 @@
   "button_srs_start_new_story": {
     "message": "设置当前语言对"
   },
+  "heading_srs_story_flow": {
+    "message": "设置 SRS 故事"
+  },
+  "hint_srs_story_flow": {
+    "message": "初始化前选择语言对、偏好和起始规模。"
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "选择语言和配置"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "设置偏好"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "设置起始规模"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "抽样并初始化"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "抽样会先保存这些可见设置，再预览可能出现的词。初始化也会再次保存这些设置，然后创建故事。"
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "初始化故事"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "正在保存设置并抽样可能出现的词…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "SRS 故事抽样已更新。"
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "正在保存设置并初始化 SRS 故事…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "SRS 故事已初始化。"
+  },
   "label_srs_pair": {
     "message": "语言对"
   },

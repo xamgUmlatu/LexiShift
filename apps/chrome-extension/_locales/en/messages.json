@@ -116,6 +116,42 @@
   "button_srs_start_new_story": {
     "message": "Set up selected pair"
   },
+  "heading_srs_story_flow": {
+    "message": "Set up SRS story"
+  },
+  "hint_srs_story_flow": {
+    "message": "Choose the language pair, preferences, and starting size before initializing."
+  },
+  "heading_srs_story_flow_pair": {
+    "message": "Choose languages and profile"
+  },
+  "heading_srs_story_flow_preferences": {
+    "message": "Set preferences"
+  },
+  "heading_srs_story_flow_size": {
+    "message": "Set starting size"
+  },
+  "heading_srs_story_flow_review": {
+    "message": "Sample and initialize"
+  },
+  "hint_srs_story_flow_review": {
+    "message": "Sampling saves these visible settings first, then previews likely words. Initialize saves these settings again before creating the story."
+  },
+  "button_srs_story_flow_initialize": {
+    "message": "Initialize story"
+  },
+  "status_srs_story_flow_previewing": {
+    "message": "Saving settings and sampling possible words…"
+  },
+  "status_srs_story_flow_sampled": {
+    "message": "SRS story sample updated."
+  },
+  "status_srs_story_flow_initializing": {
+    "message": "Saving settings and initializing SRS story…"
+  },
+  "status_srs_story_flow_initialized": {
+    "message": "SRS story initialized."
+  },
   "label_srs_pair": {
     "message": "Language pair"
   },
