@@ -338,81 +338,69 @@
             <div id="srs-words-list" class="srs-words-list"></div>
           </div>
           </details>
-          <details class="advanced srs-maintenance-tools srs-story-settings-tools">
-            <summary data-i18n="summary_srs_story_settings">SRS settings</summary>
-            <p class="hint" data-i18n="hint_srs_story_settings">
-              Display, feedback, refresh, and reset controls for this story.
+          <section class="srs-settings-section srs-appearance-settings">
+            <div class="srs-settings-section-header">
+              <h4 data-i18n="section_srs_display_feedback">Display and feedback</h4>
+            </div>
+            <div class="field-row">
+              <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
+              <input id="srs-highlight-color" type="color" />
+              <input id="srs-highlight-color-text" type="text" class="color-text" />
+            </div>
+            <div class="srs-toggle-grid">
+              <label class="toggle srs-toggle-switch">
+                <input id="srs-feedback-srs-enabled" type="checkbox" />
+                <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                <span data-i18n="toggle_srs_feedback_srs">Show review buttons on learning words</span>
+              </label>
+              <label class="toggle srs-toggle-switch">
+                <input id="srs-feedback-rules-enabled" type="checkbox" />
+                <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                <span data-i18n="toggle_srs_feedback_rules">Show feedback buttons on manual replacements</span>
+              </label>
+              <label class="toggle srs-toggle-switch">
+                <input id="srs-auto-refresh-enabled" type="checkbox" />
+                <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                <span data-i18n="toggle_srs_auto_refresh">Add new learning words automatically</span>
+              </label>
+              <label class="toggle srs-toggle-switch">
+                <input id="srs-sound-enabled" type="checkbox" />
+                <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                <span data-i18n="toggle_srs_sound">Play feedback sound</span>
+              </label>
+            </div>
+          </section>
+          <details class="advanced srs-maintenance-tools srs-story-advanced-tools">
+            <summary data-i18n="summary_srs_story_advanced">Advanced</summary>
+            <p class="hint" data-i18n="hint_srs_story_advanced">
+              Timing and reset controls for this story.
             </p>
-            <section class="srs-settings-section srs-appearance-settings">
-              <div class="srs-settings-section-header">
-                <h4 data-i18n="section_srs_display_feedback">Display and feedback</h4>
-              </div>
-              <div class="field-row">
-                <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
-                <input id="srs-highlight-color" type="color" />
-                <input id="srs-highlight-color-text" type="text" class="color-text" />
-              </div>
-              <div class="srs-toggle-grid">
-                <label class="toggle srs-toggle-switch">
-                  <input id="srs-feedback-srs-enabled" type="checkbox" />
-                  <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
-                  <span data-i18n="toggle_srs_feedback_srs">Enable feedback for SRS words</span>
-                </label>
-                <label class="toggle srs-toggle-switch">
-                  <input id="srs-feedback-rules-enabled" type="checkbox" />
-                  <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
-                  <span data-i18n="toggle_srs_feedback_rules">Enable feedback for ruleset words</span>
-                </label>
-                <label class="toggle srs-toggle-switch">
-                  <input id="srs-auto-refresh-enabled" type="checkbox" />
-                  <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
-                  <span data-i18n="toggle_srs_auto_refresh">Automatically add new SRS words after feedback</span>
-                </label>
-                <label class="toggle srs-toggle-switch">
-                  <input id="srs-sound-enabled" type="checkbox" />
-                  <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
-                  <span data-i18n="toggle_srs_sound">Play feedback sound</span>
-                </label>
-              </div>
-              <details class="advanced srs-auto-refresh-settings">
-                <summary data-i18n="summary_srs_auto_refresh">Automatic refresh thresholds</summary>
-                <div class="srs-field-grid">
-                  <div class="field-row">
-                    <label for="srs-auto-refresh-min-feedback" data-i18n="label_srs_auto_refresh_min_feedback">Minimum feedback events</label>
-                    <input id="srs-auto-refresh-min-feedback" type="number" min="1" max="200" step="1" />
-                  </div>
-                  <div class="field-row">
-                    <label for="srs-auto-refresh-min-good-easy" data-i18n="label_srs_auto_refresh_min_good_easy">Good/Easy needed</label>
-                    <input id="srs-auto-refresh-min-good-easy" type="number" min="1" max="200" step="1" />
-                  </div>
-                  <div class="field-row">
-                    <label for="srs-auto-refresh-repeat-min-good-easy" data-i18n="label_srs_auto_refresh_repeat_min_good_easy">Same-day Good/Easy needed</label>
-                    <input id="srs-auto-refresh-repeat-min-good-easy" type="number" min="1" max="300" step="1" />
-                  </div>
-                  <div class="field-row">
-                    <label for="srs-auto-refresh-cooldown" data-i18n="label_srs_auto_refresh_cooldown">Cooldown minutes</label>
-                    <input id="srs-auto-refresh-cooldown" type="number" min="0" max="1440" step="5" />
-                  </div>
+            <details class="advanced srs-auto-refresh-settings">
+              <summary data-i18n="summary_srs_auto_refresh">When new words are added</summary>
+              <div class="srs-field-grid">
+                <div class="field-row">
+                  <label for="srs-auto-refresh-min-feedback" data-i18n="label_srs_auto_refresh_min_feedback">Minimum feedback events</label>
+                  <input id="srs-auto-refresh-min-feedback" type="number" min="1" max="200" step="1" />
                 </div>
-                <p class="hint" data-i18n="hint_srs_auto_refresh">
-                  The helper checks for new words only after enough feedback; capacity, due pressure, and retention still decide whether anything is added.
-                </p>
-              </details>
-            </section>
-            <div class="srs-maintenance-actions">
-              <p class="hint" data-i18n="hint_srs_maintenance_tools">
-                Retune, refresh, or reset this active story.
+                <div class="field-row">
+                  <label for="srs-auto-refresh-min-good-easy" data-i18n="label_srs_auto_refresh_min_good_easy">Good/Easy needed</label>
+                  <input id="srs-auto-refresh-min-good-easy" type="number" min="1" max="200" step="1" />
+                </div>
+                <div class="field-row">
+                  <label for="srs-auto-refresh-repeat-min-good-easy" data-i18n="label_srs_auto_refresh_repeat_min_good_easy">Same-day Good/Easy needed</label>
+                  <input id="srs-auto-refresh-repeat-min-good-easy" type="number" min="1" max="300" step="1" />
+                </div>
+                <div class="field-row">
+                  <label for="srs-auto-refresh-cooldown" data-i18n="label_srs_auto_refresh_cooldown">Cooldown minutes</label>
+                  <input id="srs-auto-refresh-cooldown" type="number" min="0" max="1440" step="5" />
+                </div>
+              </div>
+              <p class="hint" data-i18n="hint_srs_auto_refresh">
+                The helper checks for new words only after enough feedback; capacity, due pressure, and retention still decide whether anything is added.
               </p>
-              <div class="actions">
-                <button id="srs-rebalance-preview" data-i18n="button_srs_rebalance_preview">Preview active-word update</button>
-                <button id="srs-rebalance-apply" data-i18n="button_srs_rebalance_apply">Apply active-word update…</button>
-              </div>
-              <div class="actions">
-                <button id="srs-refresh-set" data-i18n="button_srs_refresh_set">Refresh learning words</button>
-              </div>
-              <div class="actions srs-danger-actions">
-                <button id="srs-reset" class="danger-button" data-i18n="button_srs_reset">Reset SRS Data</button>
-              </div>
+            </details>
+            <div class="actions srs-danger-actions">
+              <button id="srs-reset" class="danger-button" data-i18n="button_srs_reset">Reset SRS data</button>
             </div>
           </details>
               </div>

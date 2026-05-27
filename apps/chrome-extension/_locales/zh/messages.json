@@ -312,16 +312,16 @@
     "message": "软提示（预留）"
   },
   "toggle_srs_feedback_srs": {
-    "message": "对 SRS 词启用反馈"
+    "message": "在学习词上显示复习按钮"
   },
   "toggle_srs_feedback_rules": {
-    "message": "对规则词启用反馈"
+    "message": "在手动替换词上显示反馈按钮"
   },
   "toggle_srs_auto_refresh": {
-    "message": "反馈后自动添加新的 SRS 词"
+    "message": "自动添加新的学习词"
   },
   "summary_srs_auto_refresh": {
-    "message": "自动刷新阈值"
+    "message": "何时添加新词"
   },
   "label_srs_auto_refresh_min_feedback": {
     "message": "最少反馈事件"
@@ -413,23 +413,11 @@
   "button_srs_save_preferences": {
     "message": "保存偏好"
   },
-  "button_srs_rebalance_preview": {
-    "message": "预览活跃词更新"
+  "summary_srs_story_advanced": {
+    "message": "高级"
   },
-  "button_srs_rebalance_apply": {
-    "message": "应用活跃词更新…"
-  },
-  "button_srs_refresh_set": {
-    "message": "刷新学习词"
-  },
-  "summary_srs_story_settings": {
-    "message": "SRS 设置"
-  },
-  "hint_srs_story_settings": {
-    "message": "此故事的显示、反馈、刷新和重置控制。"
-  },
-  "hint_srs_maintenance_tools": {
-    "message": "调整、刷新或重置这个活跃故事。"
+  "hint_srs_story_advanced": {
+    "message": "此故事的时间和重置控制。"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS 运行时诊断"

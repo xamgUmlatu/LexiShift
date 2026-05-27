@@ -1771,8 +1771,8 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` active story preference-save and
-  section-order polish keeps the
+- Last documented checkpoint: `2026-05-28` active story preference-save,
+  section-order, and Advanced cleanup keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
@@ -1790,8 +1790,11 @@ Use this file when:
   summaries, tentative free-form topic tags and advanced challenge tuning are
   hidden, new-word preference edits require an explicit Save preferences action,
   helper/semantic technical status is not shown inside the active story surface,
-  empty status panels appear only after content is written, SRS settings
-  labels avoid internal `S`/rule-publication/rebalance wording, and the
+  empty status panels appear only after content is written,
+  display/feedback controls stay in the normal story surface, the collapsed
+  `Advanced` section contains only user-tunable new-word timing thresholds plus
+  reset, manual active-word update/learning-word refresh actions are no longer
+  shown in the ordinary story surface, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
@@ -1799,7 +1802,7 @@ Use this file when:
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
-  polished dashboard/sampling/SRS-settings curtain markup and ordering,
+  polished dashboard/sampling/display-feedback/Advanced markup and ordering,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, switch-styled visible toggles, hidden
@@ -1845,8 +1848,14 @@ Use this file when:
     directly after new-word sampling.
   - New-word sampling remains non-mutating and is hidden until the sampling
     curtain is opened from its summary panel.
-  - Active-word update preview/apply, manual learning-word refresh, and reset
-    remain available only under the collapsed SRS settings section.
+  - Display/feedback controls, including highlight color, learning-word review
+    buttons, manual-replacement feedback buttons, automatic new-word addition
+    after feedback, and sound, remain visible in the active story after the
+    dashboard curtain.
+  - The collapsed active-story `Advanced` section exposes only new-word timing
+    thresholds and reset. Active-word update preview/apply and manual
+    learning-word refresh remain backend/dev workflows, but they are not
+    promoted in the ordinary learner Options surface.
   - Helper-backed initialize/refresh status output stays hidden until a message
     is available.
   - The guided new-story modal uses the same underlying Options controls and

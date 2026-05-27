@@ -312,16 +312,16 @@
     "message": "ソフト表示（予約済み）"
   },
   "toggle_srs_feedback_srs": {
-    "message": "SRS単語へのフィードバックを有効化"
+    "message": "学習語に復習ボタンを表示"
   },
   "toggle_srs_feedback_rules": {
-    "message": "ルール単語へのフィードバックを有効化"
+    "message": "手動置換語にフィードバックボタンを表示"
   },
   "toggle_srs_auto_refresh": {
-    "message": "フィードバック後に新しいSRS単語を自動追加"
+    "message": "新しい学習語を自動追加"
   },
   "summary_srs_auto_refresh": {
-    "message": "自動更新のしきい値"
+    "message": "新しい単語を追加するタイミング"
   },
   "label_srs_auto_refresh_min_feedback": {
     "message": "最小フィードバック数"
@@ -413,23 +413,11 @@
   "button_srs_save_preferences": {
     "message": "設定を保存"
   },
-  "button_srs_rebalance_preview": {
-    "message": "アクティブ単語の更新をプレビュー"
+  "summary_srs_story_advanced": {
+    "message": "詳細"
   },
-  "button_srs_rebalance_apply": {
-    "message": "アクティブ単語を更新…"
-  },
-  "button_srs_refresh_set": {
-    "message": "学習語を更新"
-  },
-  "summary_srs_story_settings": {
-    "message": "SRS設定"
-  },
-  "hint_srs_story_settings": {
-    "message": "このストーリーの表示、フィードバック、更新、リセット設定です。"
-  },
-  "hint_srs_maintenance_tools": {
-    "message": "このアクティブなストーリーを調整、更新、リセットします。"
+  "hint_srs_story_advanced": {
+    "message": "このストーリーのタイミングとリセット設定です。"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS実行時診断"

@@ -312,16 +312,16 @@
     "message": "Weiche Andeutung (reserviert)"
   },
   "toggle_srs_feedback_srs": {
-    "message": "Feedback für SRS-Wörter aktivieren"
+    "message": "Review-Schaltflächen für Lernwörter anzeigen"
   },
   "toggle_srs_feedback_rules": {
-    "message": "Feedback für Regeln-Wörter aktivieren"
+    "message": "Feedback-Schaltflächen für manuelle Ersetzungen anzeigen"
   },
   "toggle_srs_auto_refresh": {
-    "message": "Nach Feedback automatisch neue SRS-Wörter hinzufügen"
+    "message": "Neue Lernwörter automatisch hinzufügen"
   },
   "summary_srs_auto_refresh": {
-    "message": "Schwellenwerte für automatische Aktualisierung"
+    "message": "Wann neue Wörter hinzugefügt werden"
   },
   "label_srs_auto_refresh_min_feedback": {
     "message": "Minimale Feedback-Ereignisse"
@@ -413,23 +413,11 @@
   "button_srs_save_preferences": {
     "message": "Einstellungen speichern"
   },
-  "button_srs_rebalance_preview": {
-    "message": "Aktive Wörter als Vorschau anpassen"
+  "summary_srs_story_advanced": {
+    "message": "Erweitert"
   },
-  "button_srs_rebalance_apply": {
-    "message": "Aktive Wörter anpassen…"
-  },
-  "button_srs_refresh_set": {
-    "message": "Lernwörter aktualisieren"
-  },
-  "summary_srs_story_settings": {
-    "message": "SRS-Einstellungen"
-  },
-  "hint_srs_story_settings": {
-    "message": "Anzeige-, Feedback-, Aktualisierungs- und Zurücksetzungsoptionen für diese Story."
-  },
-  "hint_srs_maintenance_tools": {
-    "message": "Diese aktive Story anpassen, aktualisieren oder zurücksetzen."
+  "hint_srs_story_advanced": {
+    "message": "Zeit- und Zurücksetzungsoptionen für diese Story."
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS-Laufzeitdiagnose"

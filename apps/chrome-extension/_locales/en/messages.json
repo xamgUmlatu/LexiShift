@@ -312,16 +312,16 @@
     "message": "Soft affordance (reserved)"
   },
   "toggle_srs_feedback_srs": {
-    "message": "Enable feedback for SRS words"
+    "message": "Show review buttons on learning words"
   },
   "toggle_srs_feedback_rules": {
-    "message": "Enable feedback for ruleset words"
+    "message": "Show feedback buttons on manual replacements"
   },
   "toggle_srs_auto_refresh": {
-    "message": "Automatically add new SRS words after feedback"
+    "message": "Add new learning words automatically"
   },
   "summary_srs_auto_refresh": {
-    "message": "Automatic refresh thresholds"
+    "message": "When new words are added"
   },
   "label_srs_auto_refresh_min_feedback": {
     "message": "Minimum feedback events"
@@ -413,23 +413,11 @@
   "button_srs_save_preferences": {
     "message": "Save preferences"
   },
-  "button_srs_rebalance_preview": {
-    "message": "Preview active-word update"
+  "summary_srs_story_advanced": {
+    "message": "Advanced"
   },
-  "button_srs_rebalance_apply": {
-    "message": "Apply active-word update…"
-  },
-  "button_srs_refresh_set": {
-    "message": "Refresh learning words"
-  },
-  "summary_srs_story_settings": {
-    "message": "SRS settings"
-  },
-  "hint_srs_story_settings": {
-    "message": "Display, feedback, refresh, and reset controls for this story."
-  },
-  "hint_srs_maintenance_tools": {
-    "message": "Retune, refresh, or reset this active story."
+  "hint_srs_story_advanced": {
+    "message": "Timing and reset controls for this story."
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS runtime diagnostics"

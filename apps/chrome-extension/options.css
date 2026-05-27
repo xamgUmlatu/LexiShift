@@ -809,14 +809,8 @@ header p {
   margin-top: 12px;
 }
 
-.srs-story-settings-tools .srs-settings-section {
+.srs-story-advanced-tools .srs-auto-refresh-settings {
   margin-top: 12px;
-}
-
-.srs-maintenance-actions {
-  margin-top: 12px;
-  border-top: 1px solid #eadfce;
-  padding-top: 12px;
 }
 
 .srs-story-list {

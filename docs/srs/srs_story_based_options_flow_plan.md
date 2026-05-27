@@ -16,7 +16,10 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   after the active story's admission-preference controls;
 - the admitted-words dashboard is behind an `Open dashboard` curtain placed
   directly after sampling;
-- display/feedback and maintenance tools remain collapsed under `SRS settings`;
+- display/feedback controls sit in the normal expanded story surface after the
+  dashboard curtain;
+- the collapsed `Advanced` section contains new-word timing thresholds and
+  reset only;
 - active-story new-word preference edits are draft changes until the learner
   presses `Save preferences`;
 - the start-new-story block opens a guided modal for language/profile choice,
@@ -86,8 +89,7 @@ Each story block should provide user-facing actions:
 Each story block may provide advanced actions behind an additional collapsed
 management area:
 
-- rebalance to current preferences
-- manual refresh and rule publication
+- new-word timing thresholds
 - reset SRS data
 - future restore/mastery/release controls
 
@@ -167,9 +169,8 @@ Use the curtain pattern for:
 
 - dashboard
 - sampling
-- SRS settings
 - preference editing if it becomes too large for the compact story block
-- maintenance tools
+- Advanced timing/reset controls
 
 Expected behavior:
 
@@ -195,6 +196,7 @@ Keep in normal story/new-story UX:
 - source language
 - target language
 - SRS enabled/paused state
+- display/feedback settings
 - proficiency estimate
 - topic picker
 - max active words or equivalent active-size control
@@ -209,16 +211,13 @@ Keep visible only after expansion:
 - dashboard table/list
 - dashboard filters, sorting, pagination
 - sample preview output
-- display/feedback settings
 - preference edit form for existing stories if it is large
 
 Keep advanced/collapsed:
 
 - advanced topic tags
 - challenge target
-- automatic refresh thresholds
-- manual refresh and publish
-- active-word update preview/apply
+- new-word timing thresholds
 - reset SRS data
 - debug/runtime diagnostics
 - sampled rulegen
@@ -229,6 +228,7 @@ Do not make these prominent in the ordinary beta learner path:
 
 - internal `S` terminology
 - rule publication details
+- manual active-word update and learning-word refresh controls
 - helper diagnostics
 - helper and sentence-fit technical status inside the active story
 - semantic pack inventory paths
@@ -319,8 +319,8 @@ Requirements:
 
 - compact summary is always visible;
 - full edit form can be collapsed;
-- saving preferences updates future sampling, refresh, rebalance, and
-  automatic growth behavior.
+- saving preferences updates future sampling, refresh, and automatic growth
+  behavior.
 
 ### Slice 6: Remove Old Flat Control Path
 
@@ -343,7 +343,9 @@ Before this UX is considered beta-ready:
 - existing SRS data appears as one or more story blocks;
 - sampling and dashboard are adjacent and collapsed by default;
 - changed new-word preferences have an explicit save point;
-- SRS settings and maintenance actions are reachable but clearly secondary;
+- display/feedback controls are reachable without being buried in Advanced;
+- Advanced contains timing thresholds and reset, not routine/manual
+  active-word operation buttons;
 - reset remains clearly dangerous and profile/pair scoped;
 - no ordinary beta path requires reading `S`, `bootstrap`, `rulegen`,
   `publish`, or helper-diagnostic terminology.

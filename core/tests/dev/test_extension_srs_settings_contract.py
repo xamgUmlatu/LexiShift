@@ -154,17 +154,16 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         )
         sampling_start = current_card_markup.index('id="srs-story-sampling-curtain"')
         dashboard_start = current_card_markup.index('id="srs-story-dashboard-curtain"')
-        story_settings_start = current_card_markup.index(
-            'class="advanced srs-maintenance-tools srs-story-settings-tools"'
-        )
         appearance_start = current_card_markup.index(
-            'class="srs-settings-section srs-appearance-settings"',
-            story_settings_start,
+            'class="srs-settings-section srs-appearance-settings"'
+        )
+        advanced_start = current_card_markup.index(
+            'class="advanced srs-maintenance-tools srs-story-advanced-tools"'
         )
         self.assertLess(admission_start, sampling_start)
         self.assertLess(sampling_start, dashboard_start)
-        self.assertLess(dashboard_start, story_settings_start)
-        self.assertLess(story_settings_start, appearance_start)
+        self.assertLess(dashboard_start, appearance_start)
+        self.assertLess(appearance_start, advanced_start)
         self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
         self.assertRegex(
             html,
@@ -198,19 +197,20 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             r'(?s)<details class="advanced srs-advanced-challenge" hidden>'
             r'.*?id="srs-challenge-target"',
         )
+        self.assertNotIn('data-i18n="summary_srs_story_settings"', current_card_markup)
+        self.assertNotIn('data-i18n="hint_srs_story_settings"', current_card_markup)
+        self.assertNotIn('id="srs-rebalance-preview"', current_card_markup)
+        self.assertNotIn('id="srs-rebalance-apply"', current_card_markup)
+        self.assertNotIn('id="srs-refresh-set"', current_card_markup)
         self.assertRegex(
             html,
-            r'(?s)<details class="advanced srs-maintenance-tools srs-story-settings-tools">'
-            r'.*?data-i18n="summary_srs_story_settings".*?id="srs-rebalance-preview"',
+            r'(?s)<details class="advanced srs-maintenance-tools srs-story-advanced-tools">'
+            r'.*?data-i18n="summary_srs_story_advanced"'
+            r'.*?data-i18n="summary_srs_auto_refresh"',
         )
         self.assertRegex(
             html,
-            r'(?s)<details class="advanced srs-maintenance-tools srs-story-settings-tools">'
-            r'.*?id="srs-refresh-set"',
-        )
-        self.assertRegex(
-            html,
-            r'(?s)<details class="advanced srs-maintenance-tools srs-story-settings-tools">'
+            r'(?s)<details class="advanced srs-maintenance-tools srs-story-advanced-tools">'
             r'.*?id="srs-reset"',
         )
         self.assertIn('class="danger-button"', html)
@@ -218,7 +218,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn(".srs-toggle-switch-ui", css)
         self.assertIn(".srs-active-practice-row", css)
         self.assertIn(".srs-preference-actions", css)
-        self.assertIn(".srs-story-settings-tools", css)
+        self.assertIn(".srs-story-advanced-tools", css)
         self.assertIn(".srs-field-grid", css)
         self.assertIn(".advanced.srs-story-size-advanced", css)
         self.assertIn(".srs-curtain-summary", css)
