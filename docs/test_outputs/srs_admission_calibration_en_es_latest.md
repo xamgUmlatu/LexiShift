@@ -32,6 +32,7 @@
 | music_media_entertainment_interest | music_media_entertainment | 1.000 | 10 | 0.012 | 1.000 | bajo, grupo, música, película, canción, natural, televisión, accidente |
 | law_politics_civics_interest | law_politics_civics | 1.000 | 10 | 0.004 | 1.000 | parte, general, ley, sistema, número, cuerpo, proceso, orden |
 | science_technology_interest | science_technology | 1.000 | 10 | 0.021 | 1.000 | vida, salida, función, cadena, plataforma, cliente, motor, ventana |
+| arts_literature_humanities_interest | arts_literature_humanities | 0.800 | 8 | 0.055 | 1.000 | doble, encanto, tinta, vampiro, metro, manga, apéndice, enano |
 | travel_places_transport_interest | travel_places_transport | 1.000 | 10 | 0.012 | 1.000 | país, ciudad, camino, calle, viaje, hotel, aeropuerto, frontera |
 | animals_high_proficiency | animals | 0.000 | 0 | 0.646 | 0.999 | oh, hola, ésa, nabab, vos, debacle, según, pues |
 | animals_plants_interest | animals, plants_nature | 1.000 | 10 | 0.026 | 1.000 | haya, perro, ganado, animal, gato, árbol, flor, pollo |
@@ -45,6 +46,7 @@
 | animals_interest | 0.000 | 0.000-0.000 | 0.000 | invierno(1), caudillo(1), hindú(1), arado(1), urraca(1), protocolo(1), solo(1), dorsal(1) |
 | animals_light_weight | 0.000 | 0.000-0.000 | 0.000 | fotografía(1), oasis(1), protestante(1), abreviatura(1), trombón(1), realista(1), péndulo(1), evidente(1) |
 | animals_plants_interest | 0.000 | 0.000-0.000 | 0.000 | deuda(1), camarero(1), demolición(1), recado(1), finlandés(1), jurisdicción(1), potasio(1), hall(1) |
+| arts_literature_humanities_interest | 0.000 | 0.000-0.000 | 0.000 | denuncia(1), marroquí(1), charco(1), pichón(1), ostra(1), jorge(1), chapa(1), peligroso(1) |
 | finance_business_interest | 0.000 | 0.000-0.000 | 0.000 | moneda(1), calabaza(1), tranvía(1), cesto(1), indonesio(1), leña(1), pecador(1), horrible(1) |
 | food_cooking_interest | 0.000 | 0.000-0.000 | 0.000 | cliente(1), escopeta(1), zinc(1), urraca(1), rezagado(1), realista(1), fuero(1), evidente(1) |
 | games_interest | 0.033 | 0.000-0.100 | 0.333 | correr(1), notario(1), abeja(1), argelino(1), fisonomía(1), fluido(1), interferencia(1), cargar(1) |
@@ -66,6 +68,7 @@
 | animals_interest | 1.000 | 1.000-1.000 | 10.000 | cuervo(2), sapo(2), faisán(2), atún(2), insecto(2), oveja(2), rana(1), tigre(1) |
 | animals_light_weight | 0.033 | 0.000-0.100 | 0.333 | gobierno(3), caso(2), fin(2), hecho(2), bueno(2), contra(1), bien(1), país(1) |
 | animals_plants_interest | 1.000 | 1.000-1.000 | 10.000 | pino(2), parra(2), gaviota(2), cabra(2), gata(2), elefante(2), araña(1), lobo(1) |
+| arts_literature_humanities_interest | 0.133 | 0.000-0.200 | 1.333 | contra(3), poco(2), gobierno(2), mujer(2), nuevo(2), hecho(2), trabajo(1), este(1) |
 | finance_business_interest | 0.767 | 0.700-0.800 | 7.667 | propulsión(3), cargo(2), revés(2), día(2), radio(2), ejercicio(2), red(1), siete(1) |
 | food_cooking_interest | 0.600 | 0.500-0.700 | 6.000 | tomate(3), uva(2), menú(2), contra(2), sobre(2), maíz(2), patata(1), queso(1) |
 | games_interest | 0.767 | 0.700-0.800 | 7.667 | león(3), túnel(2), plancha(2), año(2), penal(2), palo(2), muerto(2), sencillo(1) |
@@ -95,6 +98,7 @@
 | music_media_entertainment_interest | music_media_entertainment | 0.500 | 5 | 5 | 41 | matches | bajo, grupo, música, película, canción, como, este, sobre |
 | law_politics_civics_interest | law_politics_civics | 0.500 | 5 | 5 | 60 | matches | parte, general, ley, sistema, número, como, este, sobre |
 | science_technology_interest | science_technology | 0.500 | 5 | 5 | 28 | matches | vida, salida, función, cadena, plataforma, como, este, sobre |
+| arts_literature_humanities_interest | arts_literature_humanities | 0.500 | 5 | 5 | 8 | matches | doble, encanto, tinta, vampiro, metro, como, este, sobre |
 | travel_places_transport_interest | travel_places_transport | 0.500 | 5 | 5 | 29 | matches | país, ciudad, camino, calle, viaje, como, este, sobre |
 | animals_high_proficiency | animals | 0.000 | 0 | 0 | 0 | matches | oh, hola, ésa, nabab, vos, debacle, según, pues |
 | animals_plants_interest | animals, plants_nature | 0.500 | 5 | 5 | 60 | matches | haya, perro, ganado, animal, gato, como, este, sobre |
@@ -134,6 +138,9 @@
 
 ### science_technology_interest
 - science_technology: candidates=39, support_mass=30.814, examples=vida, salida, función, cadena, plataforma
+
+### arts_literature_humanities_interest
+- arts_literature_humanities: candidates=8, support_mass=6.616, examples=doble, encanto, tinta, vampiro, enano
 
 ### travel_places_transport_interest
 - travel_places_transport: candidates=30, support_mass=27.727, examples=país, ciudad, camino, calle, viaje

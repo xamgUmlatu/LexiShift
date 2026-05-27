@@ -46,6 +46,11 @@ TOPIC_INTEREST_SCENARIOS: tuple[tuple[str, str, str, str], ...] = (
     ),
     topic_scenario("science_technology_interest", "science_technology", "science/technology"),
     topic_scenario(
+        "arts_literature_humanities_interest",
+        "arts_literature_humanities",
+        "arts/literature/humanities",
+    ),
+    topic_scenario(
         "travel_places_transport_interest",
         "travel_places_transport",
         "travel/place/transport",

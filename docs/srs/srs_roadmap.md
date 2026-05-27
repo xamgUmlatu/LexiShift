@@ -267,6 +267,10 @@ Status key:
     from topic strength, the lane cap, ranked-window topic candidates, and
     full-pool general fill capacity, so sparse coverage can be separated from
     policy failure.
+- `[x]` Add en-es MVP topic recommendation note that classifies ordinary
+  visible topics, beta/optional topics, hidden source-blocked topics, and
+  register/style preferences using the release-readiness and admission
+  calibration artifacts.
 - `[~]` Add E2E checks for post-feedback refresh trigger behavior (manual and
   automatic): helper policy/state tests exist; browser/native E2E remains open.
 

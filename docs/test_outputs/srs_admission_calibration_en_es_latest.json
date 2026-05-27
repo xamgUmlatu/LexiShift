@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-05-27T02:14:42.788768+00:00",
+  "generated_at": "2026-05-27T02:28:57.716733+00:00",
   "pair": "en-es",
   "runtime_scope": "admission_calibration_preview_only",
   "interpretation": {
@@ -23,7 +23,7 @@
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "frequency_db_exists": true,
-    "preview_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-zipf-augmented.sqlite",
+    "preview_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-ubiwd93s/srs-admission-lab-zipf-augmented.sqlite",
     "overlay_source_path": null,
     "overlay_source_paths": [
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
@@ -32,14 +32,14 @@
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json",
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json"
     ],
-    "merged_overlay_source_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-merged-topic-overlay.json",
-    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs/topic_overlays/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+    "merged_overlay_source_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-ubiwd93s/srs-admission-lab-merged-topic-overlay.json",
+    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-ubiwd93s/srs/topic_overlays/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
     "augment_with_zipf_bridge": true,
     "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite"
   },
   "source_summary": {
-    "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-zipf-augmented.sqlite",
+    "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-ubiwd93s/srs-admission-lab-zipf-augmented.sqlite",
     "row_count": 4123,
     "distinct_non_empty_lemma_count": 4123,
     "columns": [
@@ -75,7 +75,7 @@
   "source_augmentation": {
     "status": "applied",
     "runtime_scope": "dev_lab_only",
-    "output_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-zipf-augmented.sqlite",
+    "output_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-ubiwd93s/srs-admission-lab-zipf-augmented.sqlite",
     "base_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -170,11 +170,11 @@
     "pass_count": 6,
     "warn_count": 1,
     "fail_count": 0,
-    "scenario_count": 16,
+    "scenario_count": 17,
     "admission_budget": 10,
     "top_k_window": 60,
     "weighted_seed_count": 3,
-    "source_topic_scenarios_with_ranked_share": 14
+    "source_topic_scenarios_with_ranked_share": 15
   },
   "findings": [
     {
@@ -239,6 +239,7 @@
           "animals_interest": "matches",
           "animals_light_weight": "matches",
           "animals_plants_interest": "matches",
+          "arts_literature_humanities_interest": "matches",
           "finance_business_interest": "matches",
           "food_cooking_interest": "matches",
           "games_interest": "matches",
@@ -300,6 +301,7 @@
       "animals_interest": "matches",
       "animals_light_weight": "matches",
       "animals_plants_interest": "matches",
+      "arts_literature_humanities_interest": "matches",
       "finance_business_interest": "matches",
       "food_cooking_interest": "matches",
       "games_interest": "matches",
@@ -1676,6 +1678,127 @@
       ]
     },
     {
+      "name": "arts_literature_humanities_interest",
+      "description": "Strong explicit arts/literature/humanities interest from source-backed topics.",
+      "active_topics": [
+        "arts_literature_humanities"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 8,
+      "selected_topic_share": 0.8,
+      "topic_mover_counts": {
+        "arts_literature_humanities": 8
+      },
+      "average_difficulty": 0.055016,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 931.3,
+      "top_lemmas": [
+        "doble",
+        "encanto",
+        "tinta",
+        "vampiro",
+        "metro",
+        "manga",
+        "apéndice",
+        "enano",
+        "como",
+        "este"
+      ],
+      "introduced_vs_neutral": [
+        "doble",
+        "encanto",
+        "tinta",
+        "vampiro",
+        "metro",
+        "manga",
+        "apéndice",
+        "enano"
+      ],
+      "neutral_overlap_count": 2,
+      "top_topic_movers": [
+        {
+          "lemma": "doble",
+          "base_rank": 355,
+          "reranked_rank": 1,
+          "rank_delta": 354,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "encanto",
+          "base_rank": 963,
+          "reranked_rank": 2,
+          "rank_delta": 961,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "tinta",
+          "base_rank": 1160,
+          "reranked_rank": 3,
+          "rank_delta": 1157,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "vampiro",
+          "base_rank": 1415,
+          "reranked_rank": 4,
+          "rank_delta": 1411,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "metro",
+          "base_rank": 534,
+          "reranked_rank": 5,
+          "rank_delta": 529,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "manga",
+          "base_rank": 820,
+          "reranked_rank": 6,
+          "rank_delta": 814,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "apéndice",
+          "base_rank": 1623,
+          "reranked_rank": 7,
+          "rank_delta": 1616,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "enano",
+          "base_rank": 2440,
+          "reranked_rank": 8,
+          "rank_delta": 2432,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "arts_literature_humanities",
+          "candidate_count": 8,
+          "support_mass": 6.615666,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "doble",
+            "encanto",
+            "tinta",
+            "vampiro",
+            "enano"
+          ]
+        }
+      ]
+    },
+    {
       "name": "travel_places_transport_interest",
       "description": "Strong explicit travel/place/transport interest from the beta coverage path.",
       "active_topics": [
@@ -2316,6 +2439,53 @@
         },
         {
           "lemma": "hall",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "arts_literature_humanities_interest",
+      "active_topics": [
+        "arts_literature_humanities"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 0.0,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 0,
+      "mean_selected_topic_share": 0.0,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.0,
+      "top_lemma_frequency": [
+        {
+          "lemma": "denuncia",
+          "count": 1
+        },
+        {
+          "lemma": "marroquí",
+          "count": 1
+        },
+        {
+          "lemma": "charco",
+          "count": 1
+        },
+        {
+          "lemma": "pichón",
+          "count": 1
+        },
+        {
+          "lemma": "ostra",
+          "count": 1
+        },
+        {
+          "lemma": "jorge",
+          "count": 1
+        },
+        {
+          "lemma": "chapa",
+          "count": 1
+        },
+        {
+          "lemma": "peligroso",
           "count": 1
         }
       ]
@@ -3554,6 +3724,60 @@
           ]
         },
         {
+          "name": "arts_literature_humanities_interest",
+          "description": "Strong explicit arts/literature/humanities interest from source-backed topics.",
+          "active_topics": [
+            "arts_literature_humanities"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.158654,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 2013.4,
+          "top_lemmas": [
+            "denuncia",
+            "marroquí",
+            "charco",
+            "pichón",
+            "ostra",
+            "jorge",
+            "chapa",
+            "peligroso",
+            "aprender",
+            "resignar"
+          ],
+          "introduced_vs_neutral": [
+            "denuncia",
+            "marroquí",
+            "charco",
+            "pichón",
+            "ostra",
+            "jorge",
+            "chapa",
+            "peligroso"
+          ],
+          "neutral_overlap_count": 2,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "arts_literature_humanities",
+              "candidate_count": 8,
+              "support_mass": 6.615666,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "doble",
+                "encanto",
+                "tinta",
+                "vampiro",
+                "enano"
+              ]
+            }
+          ]
+        },
+        {
           "name": "travel_places_transport_interest",
           "description": "Strong explicit travel/place/transport interest from the beta coverage path.",
           "active_topics": [
@@ -4444,6 +4668,59 @@
                 "función",
                 "cadena",
                 "plataforma"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arts_literature_humanities_interest",
+          "description": "Strong explicit arts/literature/humanities interest from source-backed topics.",
+          "active_topics": [
+            "arts_literature_humanities"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.169192,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1905.4,
+          "top_lemmas": [
+            "domingo",
+            "carga",
+            "variedad",
+            "rosado",
+            "antecedente",
+            "consenso",
+            "rue",
+            "jurar",
+            "acumulativo",
+            "cabecear"
+          ],
+          "introduced_vs_neutral": [
+            "domingo",
+            "carga",
+            "variedad",
+            "rosado",
+            "antecedente",
+            "consenso",
+            "rue"
+          ],
+          "neutral_overlap_count": 3,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "arts_literature_humanities",
+              "candidate_count": 8,
+              "support_mass": 6.615666,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "doble",
+                "encanto",
+                "tinta",
+                "vampiro",
+                "enano"
               ]
             }
           ]
@@ -5348,6 +5625,60 @@
           ]
         },
         {
+          "name": "arts_literature_humanities_interest",
+          "description": "Strong explicit arts/literature/humanities interest from source-backed topics.",
+          "active_topics": [
+            "arts_literature_humanities"
+          ],
+          "selected_count": 10,
+          "selected_topic_count": 0,
+          "selected_topic_share": 0.0,
+          "topic_mover_counts": {},
+          "average_difficulty": 0.153736,
+          "average_readiness": 1.0,
+          "min_readiness": 1.0,
+          "average_base_rank": 1873.4,
+          "top_lemmas": [
+            "odio",
+            "ciencia",
+            "mantequilla",
+            "real",
+            "titular",
+            "cómoda",
+            "ladrido",
+            "severo",
+            "gritar",
+            "afectar"
+          ],
+          "introduced_vs_neutral": [
+            "odio",
+            "ciencia",
+            "mantequilla",
+            "real",
+            "titular",
+            "cómoda",
+            "ladrido",
+            "afectar"
+          ],
+          "neutral_overlap_count": 2,
+          "top_topic_movers": [],
+          "active_topic_support": [
+            {
+              "topic": "arts_literature_humanities",
+              "candidate_count": 8,
+              "support_mass": 6.615666,
+              "scarcity_readiness": "eligible",
+              "top_examples": [
+                "doble",
+                "encanto",
+                "tinta",
+                "vampiro",
+                "enano"
+              ]
+            }
+          ]
+        },
+        {
           "name": "travel_places_transport_interest",
           "description": "Strong explicit travel/place/transport interest from the beta coverage path.",
           "active_topics": [
@@ -5788,6 +6119,53 @@
         },
         {
           "lemma": "lobo",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "arts_literature_humanities_interest",
+      "active_topics": [
+        "arts_literature_humanities"
+      ],
+      "seed_count": 3,
+      "mean_selected_topic_count": 1.333333,
+      "min_selected_topic_count": 0,
+      "max_selected_topic_count": 2,
+      "mean_selected_topic_share": 0.133333,
+      "min_selected_topic_share": 0.0,
+      "max_selected_topic_share": 0.2,
+      "top_lemma_frequency": [
+        {
+          "lemma": "contra",
+          "count": 3
+        },
+        {
+          "lemma": "poco",
+          "count": 2
+        },
+        {
+          "lemma": "gobierno",
+          "count": 2
+        },
+        {
+          "lemma": "mujer",
+          "count": 2
+        },
+        {
+          "lemma": "nuevo",
+          "count": 2
+        },
+        {
+          "lemma": "hecho",
+          "count": 2
+        },
+        {
+          "lemma": "trabajo",
+          "count": 1
+        },
+        {
+          "lemma": "este",
           "count": 1
         }
       ]
@@ -7627,6 +8005,121 @@
         "window_general_candidates": 32,
         "full_topic_candidates": 39,
         "full_general_candidates": 4084,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
+    },
+    {
+      "name": "arts_literature_humanities_interest",
+      "description": "Strong explicit arts/literature/humanities interest from source-backed topics.",
+      "active_topics": [
+        "arts_literature_humanities"
+      ],
+      "selected_count": 10,
+      "selected_topic_count": 5,
+      "selected_topic_share": 0.5,
+      "topic_mover_counts": {
+        "arts_literature_humanities": 5
+      },
+      "average_difficulty": 0.021589,
+      "average_readiness": 1.0,
+      "min_readiness": 1.0,
+      "average_base_rank": 444.2,
+      "top_lemmas": [
+        "doble",
+        "encanto",
+        "tinta",
+        "vampiro",
+        "metro",
+        "como",
+        "este",
+        "sobre",
+        "dos",
+        "bien"
+      ],
+      "introduced_vs_neutral": [
+        "doble",
+        "encanto",
+        "tinta",
+        "vampiro",
+        "metro"
+      ],
+      "neutral_overlap_count": 5,
+      "top_topic_movers": [
+        {
+          "lemma": "doble",
+          "base_rank": 355,
+          "reranked_rank": 1,
+          "rank_delta": 354,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "encanto",
+          "base_rank": 963,
+          "reranked_rank": 2,
+          "rank_delta": 961,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "tinta",
+          "base_rank": 1160,
+          "reranked_rank": 3,
+          "rank_delta": 1157,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "vampiro",
+          "base_rank": 1415,
+          "reranked_rank": 4,
+          "rank_delta": 1411,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        },
+        {
+          "lemma": "metro",
+          "base_rank": 534,
+          "reranked_rank": 5,
+          "rank_delta": 529,
+          "topic_affinity_source": "topic_hint:arts_literature_humanities",
+          "readiness_multiplier": 1.0
+        }
+      ],
+      "active_topic_support": [
+        {
+          "topic": "arts_literature_humanities",
+          "candidate_count": 8,
+          "support_mass": 6.615666,
+          "scarcity_readiness": "eligible",
+          "top_examples": [
+            "doble",
+            "encanto",
+            "tinta",
+            "vampiro",
+            "enano"
+          ]
+        }
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 8,
+        "window_general_candidates": 52,
+        "full_topic_candidates": 8,
+        "full_general_candidates": 4115,
         "full_candidate_count": 4123,
         "source_limited": false,
         "general_limited": false

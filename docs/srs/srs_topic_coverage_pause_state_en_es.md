@@ -6,6 +6,7 @@ Last updated: 2026-05-27
 Last verified: 2026-05-27 by Wikidata natural-taxonomy overlay generation, release-readiness regeneration, SRS admission lab smoke, en-es admission calibration artifact generation, focused tests, SRS quality harness, changed-file gate, and doc-reference check
 Purpose: record the accepted temporary stopping point for en-es topic coverage so future work can resume deliberately without re-litigating this cleanup slice
 Source-of-truth: closeout note only; executable truth lives in SRS/helper code, overlay artifacts, generated readiness reports, tests, and the topic taxonomy fixture.
+Current MVP recommendation: `srs_topic_mvp_recommendations_en_es.md`
 
 ## Current Decision
 
@@ -80,6 +81,7 @@ The wiring lives in:
 The current generated readiness report is:
 
 - `../test_outputs/srs_topic_release_readiness_en_es_latest.md`
+- MVP recommendation note: `srs_topic_mvp_recommendations_en_es.md`
 
 After adding the Wikidata overlay:
 
