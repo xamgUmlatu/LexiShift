@@ -9,6 +9,7 @@ Source-of-truth inputs:
 - `../test_outputs/srs_admission_calibration_en_es_latest.md`
 - `srs_topic_coverage_pause_state_en_es.md`
 - `srs_interest_tailored_admission_algorithm.md`
+- `srs_beta_topic_deep_dive_en_es.md`
 
 ## Recommendation
 
@@ -51,6 +52,8 @@ with limited-depth wording.
 
 These can be exposed only if the UX is comfortable labeling them as limited or
 experimental. They should not be used as proof that all topics are equally deep.
+See `srs_beta_topic_deep_dive_en_es.md` for the detailed failure-risk and
+improvement analysis.
 
 | Topic | Recommendation | Why |
 | --- | --- | --- |

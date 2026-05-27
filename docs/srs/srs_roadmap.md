@@ -271,6 +271,9 @@ Status key:
   visible topics, beta/optional topics, hidden source-blocked topics, and
   register/style preferences using the release-readiness and admission
   calibration artifacts.
+- `[x]` Add beta-topic deep dive for `plants_nature` and
+  `travel_places_transport`, separating selector failure risk from content
+  depth/precision risk and listing promotion thresholds.
 - `[~]` Add E2E checks for post-feedback refresh trigger behavior (manual and
   automatic): helper policy/state tests exist; browser/native E2E remains open.
 

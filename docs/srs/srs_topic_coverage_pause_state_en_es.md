@@ -7,6 +7,7 @@ Last verified: 2026-05-27 by Wikidata natural-taxonomy overlay generation, relea
 Purpose: record the accepted temporary stopping point for en-es topic coverage so future work can resume deliberately without re-litigating this cleanup slice
 Source-of-truth: closeout note only; executable truth lives in SRS/helper code, overlay artifacts, generated readiness reports, tests, and the topic taxonomy fixture.
 Current MVP recommendation: `srs_topic_mvp_recommendations_en_es.md`
+Beta-topic deep dive: `srs_beta_topic_deep_dive_en_es.md`
 
 ## Current Decision
 
