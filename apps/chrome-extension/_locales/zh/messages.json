@@ -239,9 +239,6 @@
   "hint_srs_proficiency_estimate": {
     "message": "将滑块拖到你希望新 SRS 词匹配的水平。"
   },
-  "label_srs_previous_setting": {
-    "message": "已保存设置"
-  },
   "summary_srs_challenge_tuning": {
     "message": "高级挑战调节"
   },
@@ -413,23 +410,26 @@
   "button_srs_initialize": {
     "message": "初始化故事"
   },
+  "button_srs_save_preferences": {
+    "message": "保存偏好"
+  },
   "button_srs_rebalance_preview": {
-    "message": "预览按当前偏好调整"
+    "message": "预览活跃词更新"
   },
   "button_srs_rebalance_apply": {
-    "message": "应用偏好调整…"
+    "message": "应用活跃词更新…"
   },
   "button_srs_refresh_set": {
     "message": "刷新学习词"
   },
-  "summary_srs_maintenance_tools": {
-    "message": "管理 SRS 数据"
+  "summary_srs_story_settings": {
+    "message": "SRS 设置"
+  },
+  "hint_srs_story_settings": {
+    "message": "此故事的显示、反馈、刷新和重置控制。"
   },
   "hint_srs_maintenance_tools": {
     "message": "调整、刷新或重置这个活跃故事。"
-  },
-  "summary_srs_technical_status": {
-    "message": "技术状态"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS 运行时诊断"
@@ -1012,6 +1012,12 @@
   },
   "status_srs_saved": {
     "message": "SRS 设置已保存。"
+  },
+  "status_srs_preferences_saved": {
+    "message": "偏好已保存。"
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "有未保存的更改。"
   },
   "status_srs_save_failed": {
     "message": "无法保存 SRS 设置。"

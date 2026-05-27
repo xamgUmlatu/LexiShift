@@ -239,9 +239,6 @@
   "hint_srs_proficiency_estimate": {
     "message": "新しいSRS単語に合わせたいレベルへスライダーを動かします。"
   },
-  "label_srs_previous_setting": {
-    "message": "保存済み設定"
-  },
   "summary_srs_challenge_tuning": {
     "message": "高度な難度調整"
   },
@@ -413,23 +410,26 @@
   "button_srs_initialize": {
     "message": "ストーリーを初期化"
   },
+  "button_srs_save_preferences": {
+    "message": "設定を保存"
+  },
   "button_srs_rebalance_preview": {
-    "message": "現在の好みに合わせる内容をプレビュー"
+    "message": "アクティブ単語の更新をプレビュー"
   },
   "button_srs_rebalance_apply": {
-    "message": "好みに合わせて調整…"
+    "message": "アクティブ単語を更新…"
   },
   "button_srs_refresh_set": {
     "message": "学習語を更新"
   },
-  "summary_srs_maintenance_tools": {
-    "message": "SRSデータを管理"
+  "summary_srs_story_settings": {
+    "message": "SRS設定"
+  },
+  "hint_srs_story_settings": {
+    "message": "このストーリーの表示、フィードバック、更新、リセット設定です。"
   },
   "hint_srs_maintenance_tools": {
     "message": "このアクティブなストーリーを調整、更新、リセットします。"
-  },
-  "summary_srs_technical_status": {
-    "message": "技術ステータス"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS実行時診断"
@@ -1012,6 +1012,12 @@
   },
   "status_srs_saved": {
     "message": "SRS設定を保存しました。"
+  },
+  "status_srs_preferences_saved": {
+    "message": "設定を保存しました。"
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "未保存の変更があります。"
   },
   "status_srs_save_failed": {
     "message": "SRS設定を保存できませんでした。"

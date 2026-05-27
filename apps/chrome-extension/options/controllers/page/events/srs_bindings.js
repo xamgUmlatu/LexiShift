@@ -35,8 +35,9 @@
       : [];
     const srsProficiencyEstimateInput = elements.srsProficiencyEstimateInput || null;
     const srsProficiencyEstimateValueOutput = elements.srsProficiencyEstimateValueOutput || null;
-    const srsProficiencyEstimateSavedOutput = elements.srsProficiencyEstimateSavedOutput || null;
     const srsChallengeTargetInput = elements.srsChallengeTargetInput || null;
+    const srsSavePreferencesButton = elements.srsSavePreferencesButton || null;
+    const srsPreferencesSaveStatusOutput = elements.srsPreferencesSaveStatusOutput || null;
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
@@ -77,6 +78,37 @@
       }, {
         fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
         logMessage: "SRS settings save failed."
+      });
+    }
+
+    function setSrsPreferenceDirty(isDirty) {
+      if (srsSavePreferencesButton) {
+        srsSavePreferencesButton.disabled = !isDirty;
+      }
+      if (srsPreferencesSaveStatusOutput) {
+        srsPreferencesSaveStatusOutput.textContent = isDirty
+          ? translate("status_srs_preferences_unsaved", null, "Unsaved changes.")
+          : translate("status_srs_preferences_saved", null, "Preferences saved.");
+        if (srsPreferencesSaveStatusOutput.classList
+          && typeof srsPreferencesSaveStatusOutput.classList.toggle === "function") {
+          srsPreferencesSaveStatusOutput.classList.toggle("is-dirty", isDirty);
+        }
+      }
+    }
+
+    function markSrsPreferencesDirty() {
+      setSrsPreferenceDirty(true);
+    }
+
+    function bindSrsPreferenceDraftChange(element, beforeMarkDirty) {
+      if (!element || typeof element.addEventListener !== "function") {
+        return;
+      }
+      element.addEventListener("change", () => {
+        if (typeof beforeMarkDirty === "function" && beforeMarkDirty() === false) {
+          return;
+        }
+        markSrsPreferencesDirty();
       });
     }
 
@@ -139,7 +171,7 @@
       return input.dataset;
     }
 
-    function updateProficiencyDisplay(markActive, updateSaved) {
+    function updateProficiencyDisplay(markActive) {
       if (!srsProficiencyEstimateInput) {
         return;
       }
@@ -150,12 +182,6 @@
       const hasValue = dataset.srsHasValue !== "false";
       if (srsProficiencyEstimateValueOutput) {
         srsProficiencyEstimateValueOutput.textContent = formatProficiencyValue(
-          srsProficiencyEstimateInput.value,
-          hasValue
-        );
-      }
-      if (updateSaved && srsProficiencyEstimateSavedOutput) {
-        srsProficiencyEstimateSavedOutput.textContent = formatProficiencyValue(
           srsProficiencyEstimateInput.value,
           hasValue
         );
@@ -176,7 +202,8 @@
           ? interests.filter((entry) => entry !== topic)
           : [...interests, topic];
         setTopicInterests(nextInterests);
-        return saveSrsSettings();
+        markSrsPreferencesDirty();
+        return Promise.resolve();
       }, {
         fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
         logMessage: "SRS settings save failed."
@@ -192,15 +219,16 @@
       fallbackMessage: () => translate("status_srs_profile_refresh_failed", null, "Failed to refresh helper profiles."),
       logMessage: "SRS profile refresh failed."
     });
-    bindSrsSettingsChange(srsMaxActiveInput);
-    bindSrsSettingsChange(srsBootstrapTopNInput);
-    bindSrsSettingsChange(srsInitialActiveCountInput);
-    bindSrsSettingsChange(srsTopicInterestsInput, () => {
+    bindSrsPreferenceDraftChange(srsMaxActiveInput);
+    bindSrsPreferenceDraftChange(srsBootstrapTopNInput);
+    bindSrsPreferenceDraftChange(srsInitialActiveCountInput);
+    bindSrsPreferenceDraftChange(srsTopicInterestsInput, () => {
       setTopicInterests(srsTopicInterestsInput ? srsTopicInterestsInput.value : "");
     });
     if (srsTopicInterestsInput) {
       srsTopicInterestsInput.addEventListener("input", () => {
         syncTopicInterestChips();
+        markSrsPreferencesDirty();
       });
     }
     srsTopicInterestChipButtons.forEach(bindTopicInterestChip);
@@ -208,19 +236,16 @@
     if (srsProficiencyEstimateInput) {
       srsProficiencyEstimateInput.addEventListener("input", () => {
         updateProficiencyDisplay(true);
+        markSrsPreferencesDirty();
       });
-      bindAsyncListener(srsProficiencyEstimateInput, "change", () => {
+      srsProficiencyEstimateInput.addEventListener("change", () => {
         updateProficiencyDisplay(true);
-        return Promise.resolve(saveSrsSettings()).then(() => {
-          updateProficiencyDisplay(false, true);
-        });
-      }, {
-        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
-        logMessage: "SRS settings save failed."
+        markSrsPreferencesDirty();
       });
     }
     updateProficiencyDisplay(false);
-    bindSrsSettingsChange(srsChallengeTargetInput);
+    setSrsPreferenceDirty(false);
+    bindSrsPreferenceDraftChange(srsChallengeTargetInput);
     bindSrsSettingsChange(srsSoundInput);
     bindSrsSettingsChange(srsHighlightInput, () => {
       if (srsHighlightTextInput) {
@@ -245,6 +270,14 @@
     bindSrsSettingsChange(srsAutoRefreshRepeatMinGoodEasyInput);
     bindSrsSettingsChange(srsAutoRefreshCooldownInput);
     bindSrsSettingsChange(srsExposureLoggingInput);
+    bindAsyncListener(srsSavePreferencesButton, "click", () =>
+      Promise.resolve(saveSrsSettings()).then(() => {
+        updateProficiencyDisplay(false);
+        setSrsPreferenceDirty(false);
+      }), {
+      fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+      logMessage: "SRS settings save failed."
+    });
     bindAsyncListener(srsInitializeSetButton, "click", () => srsActionsController.initializeSet(), {
       fallbackMessage: () => translate("status_srs_set_init_failed", null, "Story setup failed."),
       logMessage: "SRS set init failed."

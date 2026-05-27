@@ -239,9 +239,6 @@
   "hint_srs_proficiency_estimate": {
     "message": "Drag toward the level you want new SRS words to fit."
   },
-  "label_srs_previous_setting": {
-    "message": "Saved setting"
-  },
   "summary_srs_challenge_tuning": {
     "message": "Advanced challenge tuning"
   },
@@ -413,23 +410,26 @@
   "button_srs_initialize": {
     "message": "Initialize story"
   },
+  "button_srs_save_preferences": {
+    "message": "Save preferences"
+  },
   "button_srs_rebalance_preview": {
-    "message": "Preview retune to current preferences"
+    "message": "Preview active-word update"
   },
   "button_srs_rebalance_apply": {
-    "message": "Apply retune…"
+    "message": "Apply active-word update…"
   },
   "button_srs_refresh_set": {
     "message": "Refresh learning words"
   },
-  "summary_srs_maintenance_tools": {
-    "message": "Manage SRS data"
+  "summary_srs_story_settings": {
+    "message": "SRS settings"
+  },
+  "hint_srs_story_settings": {
+    "message": "Display, feedback, refresh, and reset controls for this story."
   },
   "hint_srs_maintenance_tools": {
     "message": "Retune, refresh, or reset this active story."
-  },
-  "summary_srs_technical_status": {
-    "message": "Technical status"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS runtime diagnostics"
@@ -1012,6 +1012,12 @@
   },
   "status_srs_saved": {
     "message": "SRS settings saved."
+  },
+  "status_srs_preferences_saved": {
+    "message": "Preferences saved."
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "Unsaved changes."
   },
   "status_srs_save_failed": {
     "message": "Failed to save SRS settings."

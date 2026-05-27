@@ -718,6 +718,24 @@ header p {
   text-align: right;
 }
 
+.srs-preference-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.srs-preference-actions .hint {
+  margin: 0;
+  font-size: 12px;
+}
+
+.srs-preference-actions .hint.is-dirty {
+  color: #806000;
+  font-weight: 700;
+}
+
 .srs-topic-interest-picker {
   margin-top: 10px;
   border: 1px solid #e0d2bf;
@@ -789,6 +807,16 @@ header p {
 .srs-advanced-challenge,
 .srs-maintenance-tools {
   margin-top: 12px;
+}
+
+.srs-story-settings-tools .srs-settings-section {
+  margin-top: 12px;
+}
+
+.srs-maintenance-actions {
+  margin-top: 12px;
+  border-top: 1px solid #eadfce;
+  padding-top: 12px;
 }
 
 .srs-story-list {

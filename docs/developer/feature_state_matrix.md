@@ -1771,8 +1771,8 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` active story sizing/sampling polish
-  keeps the
+- Last documented checkpoint: `2026-05-28` active story preference-save and
+  section-order polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
@@ -1785,25 +1785,27 @@ Use this file when:
   still keeps it under advanced starting-size controls,
   source/target pair controls and the legacy initialize button remain as hidden
   backing DOM anchors rather than visible active-story controls,
-  sampling now sits next to admission settings, dashboard/sampling curtains use
-  compact title/subtitle/action summaries,
-  tentative free-form topic tags are hidden,
-  helper/semantic technical status is behind the bottom maintenance section,
-  empty status panels appear only after content is written, maintenance
+  sampling now sits next to admission settings, the learning dashboard follows
+  sampling, dashboard/sampling curtains use compact title/subtitle/action
+  summaries, tentative free-form topic tags and advanced challenge tuning are
+  hidden, new-word preference edits require an explicit Save preferences action,
+  helper/semantic technical status is not shown inside the active story surface,
+  empty status panels appear only after content is written, SRS settings
   labels avoid internal `S`/rule-publication/rebalance wording, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
-- Last verified: `2026-05-28` refreshed active-story sizing/sampling extension SRS settings contract covers
+- Last verified: `2026-05-28` refreshed active-story preference-save/order extension SRS settings contract covers
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
-  polished dashboard/sampling curtain markup and ordering, right-aligned
-  active-story badge,
+  polished dashboard/sampling/SRS-settings curtain markup and ordering,
+  explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, switch-styled visible toggles, hidden
-  experimental topic tags, proficiency slider markup, and bottom
-  technical-status placement; extension structure/i18n checks, doc-reference
+  experimental topic tags, hidden advanced challenge tuning, proficiency slider
+  markup, and active-story technical-status removal; extension structure/i18n
+  checks, doc-reference
   check, state audit, changed-file gate, and diff check pass.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
@@ -1824,23 +1826,27 @@ Use this file when:
     still show pair-coverage context.
   - Free-form advanced tags stay present in the DOM for compatibility but hidden
     from the main MVP surface.
-  - The proficiency estimate is presented as a slider with current/saved labels;
-    if no stored estimate exists, the slider remains visually neutral and the
-    runtime save/preview path treats it as unset until the user moves it.
+  - The proficiency estimate is presented as a slider with a current value and an
+    explicit Save preferences action; if no stored estimate exists, the slider
+    remains visually neutral and the runtime save/preview path treats it as unset
+    until the user moves it.
   - The active story surface exposes a learner-facing active-practice size
     control by default. Candidate search depth remains a hidden backing value
     for the current controller path and is only visible in the new-story setup
     flow under advanced starting-size controls. Starting-word count is hidden
     from already-created stories and remains visible only in the initialization
     flow.
-  - Helper and sentence-fit technical status are hidden under the maintenance
-    section rather than occupying the main settings flow.
+  - Advanced challenge tuning remains in the DOM for compatibility but is hidden
+    from the active-story beta surface.
+  - Helper and sentence-fit technical status are not shown inside the active
+    story; runtime diagnostics remain in the bottom Advanced debug tools area.
   - The admitted-words dashboard remains read-only by default and is hidden
-    until the dashboard curtain is opened from its summary panel.
+    until the dashboard curtain is opened from its summary panel; it is ordered
+    directly after new-word sampling.
   - New-word sampling remains non-mutating and is hidden until the sampling
     curtain is opened from its summary panel.
-  - Preference retune, manual learning-word refresh, and reset remain available
-    only under the collapsed management section.
+  - Active-word update preview/apply, manual learning-word refresh, and reset
+    remain available only under the collapsed SRS settings section.
   - Helper-backed initialize/refresh status output stays hidden until a message
     is available.
   - The guided new-story modal uses the same underlying Options controls and

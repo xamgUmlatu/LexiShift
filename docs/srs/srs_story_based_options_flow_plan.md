@@ -12,10 +12,13 @@ Source-of-truth: product UX plan only; implemented/default-on status remains in 
 As of 2026-05-28, the Options page has the beta-facing structural flow:
 
 - selected profile/pair SRS controls are grouped under a selected-story block;
-- the admitted-words dashboard is behind an `Open dashboard` curtain;
 - admission sampling is behind a `Sample next words` curtain placed directly
   after the active story's admission-preference controls;
-- maintenance tools remain collapsed under `Manage SRS data`;
+- the admitted-words dashboard is behind an `Open dashboard` curtain placed
+  directly after sampling;
+- display/feedback and maintenance tools remain collapsed under `SRS settings`;
+- active-story new-word preference edits are draft changes until the learner
+  presses `Save preferences`;
 - the start-new-story block opens a guided modal for language/profile choice,
   proficiency, topics, starting size, sampling, and initialization;
 - modal sampling and initialization copy the visible modal values into the
@@ -149,7 +152,9 @@ Sampling in the new-story flow should:
 
 Sampling in an existing story block should:
 
-- use the story's current persisted preferences;
+- use the story's current visible preferences for preview;
+- require an explicit save action before changed preferences become the saved
+  story defaults for future refresh/growth;
 - be hidden until the user expands the sampling curtain;
 - support repeated sampling without requiring a full page reload.
 
@@ -162,6 +167,7 @@ Use the curtain pattern for:
 
 - dashboard
 - sampling
+- SRS settings
 - preference editing if it becomes too large for the compact story block
 - maintenance tools
 
@@ -192,6 +198,7 @@ Keep in normal story/new-story UX:
 - proficiency estimate
 - topic picker
 - max active words or equivalent active-size control
+- explicit preference save action
 - starting learning words or equivalent initial-size control
 - sample possible words
 - initialize/start learning
@@ -202,6 +209,7 @@ Keep visible only after expansion:
 - dashboard table/list
 - dashboard filters, sorting, pagination
 - sample preview output
+- display/feedback settings
 - preference edit form for existing stories if it is large
 
 Keep advanced/collapsed:
@@ -210,7 +218,7 @@ Keep advanced/collapsed:
 - challenge target
 - automatic refresh thresholds
 - manual refresh and publish
-- rebalance preview/apply
+- active-word update preview/apply
 - reset SRS data
 - debug/runtime diagnostics
 - sampled rulegen
@@ -222,6 +230,7 @@ Do not make these prominent in the ordinary beta learner path:
 - internal `S` terminology
 - rule publication details
 - helper diagnostics
+- helper and sentence-fit technical status inside the active story
 - semantic pack inventory paths
 - raw bootstrap/top-N implementation language
 - candidate-pool depth controls until the data-source/download/storage policy is
@@ -332,8 +341,9 @@ Before this UX is considered beta-ready:
 - the user must see preference controls before initialization;
 - initialization uses the visible preferences;
 - existing SRS data appears as one or more story blocks;
-- dashboard and sampling are available but collapsed by default;
-- maintenance actions are reachable but clearly secondary;
+- sampling and dashboard are adjacent and collapsed by default;
+- changed new-word preferences have an explicit save point;
+- SRS settings and maintenance actions are reachable but clearly secondary;
 - reset remains clearly dangerous and profile/pair scoped;
 - no ordinary beta path requires reading `S`, `bootstrap`, `rulegen`,
   `publish`, or helper-diagnostic terminology.

@@ -122,7 +122,9 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             r'[^>]*data-srs-has-value="false"',
         )
         self.assertIn('id="srs-proficiency-estimate-value"', html)
-        self.assertIn('id="srs-proficiency-estimate-saved"', html)
+        self.assertNotIn('id="srs-proficiency-estimate-saved"', html)
+        self.assertIn('id="srs-save-preferences"', html)
+        self.assertIn('id="srs-preferences-save-status"', html)
         self.assertIn('data-i18n="hint_srs_max_active"', html)
         self.assertIn('<input id="srs-initial-active-count" type="hidden" />', html)
         self.assertIn('<input id="srs-bootstrap-top-n" type="hidden" />', html)
@@ -151,13 +153,18 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             'class="srs-settings-section srs-admission-settings"'
         )
         sampling_start = current_card_markup.index('id="srs-story-sampling-curtain"')
-        appearance_start = current_card_markup.index(
-            'class="srs-settings-section srs-appearance-settings"'
-        )
         dashboard_start = current_card_markup.index('id="srs-story-dashboard-curtain"')
+        story_settings_start = current_card_markup.index(
+            'class="advanced srs-maintenance-tools srs-story-settings-tools"'
+        )
+        appearance_start = current_card_markup.index(
+            'class="srs-settings-section srs-appearance-settings"',
+            story_settings_start,
+        )
         self.assertLess(admission_start, sampling_start)
-        self.assertLess(sampling_start, appearance_start)
-        self.assertLess(appearance_start, dashboard_start)
+        self.assertLess(sampling_start, dashboard_start)
+        self.assertLess(dashboard_start, story_settings_start)
+        self.assertLess(story_settings_start, appearance_start)
         self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
         self.assertRegex(
             html,
@@ -171,14 +178,9 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             r'<input id="srs-auto-refresh-enabled" type="checkbox" />\s*'
             r'<span class="srs-toggle-switch-ui" aria-hidden="true"></span>',
         )
-        self.assertRegex(
-            html,
-            r'(?s)<details class="advanced srs-technical-status">.*?id="helper-status"',
-        )
-        self.assertRegex(
-            html,
-            r'(?s)<details class="advanced srs-technical-status">.*?id="srs-semantic-admission-status"',
-        )
+        self.assertNotIn('class="advanced srs-technical-status"', current_card_markup)
+        self.assertNotIn('id="helper-status"', current_card_markup)
+        self.assertNotIn('id="srs-semantic-admission-status"', current_card_markup)
         self.assertRegex(
             html,
             r'(?s)<details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">'
@@ -193,24 +195,30 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         )
         self.assertRegex(
             html,
-            r'(?s)<details class="advanced srs-advanced-challenge">.*?id="srs-challenge-target"',
+            r'(?s)<details class="advanced srs-advanced-challenge" hidden>'
+            r'.*?id="srs-challenge-target"',
         )
         self.assertRegex(
             html,
-            r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-rebalance-preview"',
+            r'(?s)<details class="advanced srs-maintenance-tools srs-story-settings-tools">'
+            r'.*?data-i18n="summary_srs_story_settings".*?id="srs-rebalance-preview"',
         )
         self.assertRegex(
             html,
-            r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-refresh-set"',
+            r'(?s)<details class="advanced srs-maintenance-tools srs-story-settings-tools">'
+            r'.*?id="srs-refresh-set"',
         )
         self.assertRegex(
             html,
-            r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-reset"',
+            r'(?s)<details class="advanced srs-maintenance-tools srs-story-settings-tools">'
+            r'.*?id="srs-reset"',
         )
         self.assertIn('class="danger-button"', html)
         self.assertIn(".srs-enable-switch-ui", css)
         self.assertIn(".srs-toggle-switch-ui", css)
         self.assertIn(".srs-active-practice-row", css)
+        self.assertIn(".srs-preference-actions", css)
+        self.assertIn(".srs-story-settings-tools", css)
         self.assertIn(".srs-field-grid", css)
         self.assertIn(".advanced.srs-story-size-advanced", css)
         self.assertIn(".srs-curtain-summary", css)
@@ -871,20 +879,23 @@ vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modul
 const bind = context.LexiShift.optionsEventSrsBindings.bind;
 const asyncBindings = [];
 const directBindings = [];
-const settingNames = new Set([
+const autoSaveSettingNames = new Set([
   "enabled",
-  "maxActive",
-  "bootstrapTopN",
-  "initialActiveCount",
-  "topicInterests",
-  "proficiencyEstimate",
-  "challengeTarget",
   "sound",
   "highlight",
   "highlightText",
   "feedbackSrs",
   "feedbackRules",
-  "exposureLogging"
+  "exposureLogging",
+  "savePreferences"
+]);
+const draftSettingNames = new Set([
+  "maxActive",
+  "bootstrapTopN",
+  "initialActiveCount",
+  "topicInterests",
+  "proficiencyEstimate",
+  "challengeTarget"
 ]);
 
 function makeElement(name) {{
@@ -905,13 +916,15 @@ const elements = {{
   srsTopicInterestsInput: makeElement("topicInterests"),
   srsProficiencyEstimateInput: makeElement("proficiencyEstimate"),
   srsChallengeTargetInput: makeElement("challengeTarget"),
-  srsSoundInput: makeElement("sound"),
-  srsHighlightInput: makeElement("highlight"),
-  srsHighlightTextInput: makeElement("highlightText"),
-  srsFeedbackSrsInput: makeElement("feedbackSrs"),
-  srsFeedbackRulesInput: makeElement("feedbackRules"),
-  srsExposureLoggingInput: makeElement("exposureLogging")
-}};
+	  srsSoundInput: makeElement("sound"),
+	  srsHighlightInput: makeElement("highlight"),
+	  srsHighlightTextInput: makeElement("highlightText"),
+	  srsFeedbackSrsInput: makeElement("feedbackSrs"),
+	  srsFeedbackRulesInput: makeElement("feedbackRules"),
+	  srsExposureLoggingInput: makeElement("exposureLogging"),
+	  srsSavePreferencesButton: makeElement("savePreferences"),
+	  srsPreferencesSaveStatusOutput: makeElement("preferencesSaveStatus")
+	}};
 
 bind({{
   bindAsyncListener: (element, eventName, _action, config) => {{
@@ -945,20 +958,30 @@ bind({{
 const settingsBindings = asyncBindings.filter((entry) => entry.logMessage === "SRS settings save failed.");
 assert.deepEqual(
   settingsBindings.map((entry) => entry.name).sort(),
-  Array.from(settingNames).sort()
+  Array.from(autoSaveSettingNames).sort()
 );
 for (const entry of settingsBindings) {{
-  assert.equal(entry.eventName, "change");
+  assert.equal(entry.eventName, entry.name === "savePreferences" ? "click" : "change");
   assert.equal(entry.fallbackMessage, "Failed to save SRS settings.");
 }}
 assert.deepEqual(directBindings, [
+  {{ name: "maxActive", eventName: "change" }},
+  {{ name: "bootstrapTopN", eventName: "change" }},
+  {{ name: "initialActiveCount", eventName: "change" }},
+  {{ name: "topicInterests", eventName: "change" }},
   {{ name: "topicInterests", eventName: "input" }},
-  {{ name: "proficiencyEstimate", eventName: "input" }}
+  {{ name: "proficiencyEstimate", eventName: "input" }},
+  {{ name: "proficiencyEstimate", eventName: "change" }},
+  {{ name: "challengeTarget", eventName: "change" }}
 ]);
+assert.deepEqual(
+  new Set(directBindings.map((entry) => entry.name)),
+  draftSettingNames
+);
 """
         _run_node(script)
 
-    def test_topic_interest_chips_update_interest_signal_input_and_save(self) -> None:
+    def test_topic_interest_chips_update_interest_signal_input_and_require_save(self) -> None:
         script = f"""
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -1025,6 +1048,14 @@ function makeChip(topic) {{
 const topicInput = makeInput("travel, animals");
 const animalsChip = makeChip("animals");
 const foodChip = makeChip("food_cooking");
+const saveButton = makeInput("");
+saveButton.disabled = true;
+const saveStatus = {{
+  textContent: "",
+  classList: {{
+    toggle() {{}}
+  }}
+}};
 
 bind({{
   bindAsyncListener: (element, eventName, action) => {{
@@ -1051,7 +1082,9 @@ bind({{
   }},
   elements: {{
     srsTopicInterestsInput: topicInput,
-    srsTopicInterestChipButtons: [animalsChip, foodChip]
+    srsTopicInterestChipButtons: [animalsChip, foodChip],
+    srsSavePreferencesButton: saveButton,
+    srsPreferencesSaveStatusOutput: saveStatus
   }}
 }});
 
@@ -1062,15 +1095,19 @@ assert.equal(foodChip.attributes["aria-pressed"], "false");
 (async () => {{
   await foodChip.asyncListeners.click();
   assert.equal(topicInput.value, "travel, animals, food_cooking");
-  assert.deepEqual(savedValues, ["travel, animals, food_cooking"]);
+  assert.deepEqual(savedValues, []);
+  assert.equal(saveButton.disabled, false);
+  assert.equal(saveStatus.textContent, "Unsaved changes.");
   assert.equal(foodChip.attributes["aria-pressed"], "true");
+  await saveButton.asyncListeners.click();
+  assert.deepEqual(savedValues, ["travel, animals, food_cooking"]);
+  assert.equal(saveButton.disabled, true);
+  assert.equal(saveStatus.textContent, "Preferences saved.");
 
   await animalsChip.asyncListeners.click();
   assert.equal(topicInput.value, "travel, food_cooking");
-  assert.deepEqual(savedValues, [
-    "travel, animals, food_cooking",
-    "travel, food_cooking"
-  ]);
+  assert.deepEqual(savedValues, ["travel, animals, food_cooking"]);
+  assert.equal(saveButton.disabled, false);
   assert.equal(animalsChip.attributes["aria-pressed"], "false");
 
   topicInput.value = "animals, food_cooking";

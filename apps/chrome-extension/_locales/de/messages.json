@@ -239,9 +239,6 @@
   "hint_srs_proficiency_estimate": {
     "message": "Ziehe den Regler zu dem Niveau, zu dem neue SRS-Wörter passen sollen."
   },
-  "label_srs_previous_setting": {
-    "message": "Gespeicherte Einstellung"
-  },
   "summary_srs_challenge_tuning": {
     "message": "Erweiterte Schwierigkeit"
   },
@@ -413,23 +410,26 @@
   "button_srs_initialize": {
     "message": "Story initialisieren"
   },
+  "button_srs_save_preferences": {
+    "message": "Einstellungen speichern"
+  },
   "button_srs_rebalance_preview": {
-    "message": "Anpassung an aktuelle Präferenzen vorschauen"
+    "message": "Aktive Wörter als Vorschau anpassen"
   },
   "button_srs_rebalance_apply": {
-    "message": "Anpassung anwenden…"
+    "message": "Aktive Wörter anpassen…"
   },
   "button_srs_refresh_set": {
     "message": "Lernwörter aktualisieren"
   },
-  "summary_srs_maintenance_tools": {
-    "message": "SRS-Daten verwalten"
+  "summary_srs_story_settings": {
+    "message": "SRS-Einstellungen"
+  },
+  "hint_srs_story_settings": {
+    "message": "Anzeige-, Feedback-, Aktualisierungs- und Zurücksetzungsoptionen für diese Story."
   },
   "hint_srs_maintenance_tools": {
     "message": "Diese aktive Story anpassen, aktualisieren oder zurücksetzen."
-  },
-  "summary_srs_technical_status": {
-    "message": "Technischer Status"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS-Laufzeitdiagnose"
@@ -1012,6 +1012,12 @@
   },
   "status_srs_saved": {
     "message": "SRS-Einstellungen gespeichert."
+  },
+  "status_srs_preferences_saved": {
+    "message": "Einstellungen gespeichert."
+  },
+  "status_srs_preferences_unsaved": {
+    "message": "Nicht gespeicherte Änderungen."
   },
   "status_srs_save_failed": {
     "message": "SRS-Einstellungen konnten nicht gespeichert werden."
