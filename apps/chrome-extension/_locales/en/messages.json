@@ -92,9 +92,6 @@
   "hint_srs_dataset": {
     "message": "Uses installed language data for SRS stories."
   },
-  "hint_srs_current_story": {
-    "message": "Preferences, dashboard, and maintenance for this active story."
-  },
   "badge_srs_active_story": {
     "message": "Active"
   },
@@ -174,10 +171,10 @@
     "message": "The most SRS words LexiShift keeps in active rotation."
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Candidate pool size"
+    "message": "Candidate search depth"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "How many candidate words LexiShift prepares for this story."
+    "message": "How far LexiShift looks through ranked vocabulary when sampling or adding words. Leave at default unless samples feel too narrow."
   },
   "label_srs_initial_active_count": {
     "message": "Starting words"
@@ -192,10 +189,7 @@
     "message": "Advanced starting size"
   },
   "section_srs_admission_preferences": {
-    "message": "New-word preferences"
-  },
-  "hint_srs_admission_preferences": {
-    "message": "Adjust the mix of new words LexiShift may introduce next."
+    "message": "Next words"
   },
   "label_srs_topic_interest_presets": {
     "message": "Topic priorities"
@@ -235,9 +229,6 @@
   },
   "topic_srs_plants_nature": {
     "message": "Plants & nature"
-  },
-  "hint_srs_topic_interest_presets": {
-    "message": "Topic choices nudge the mix toward your interests; they do not limit practice to only those words."
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Advanced tags"

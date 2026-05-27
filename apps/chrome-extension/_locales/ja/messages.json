@@ -92,9 +92,6 @@
   "hint_srs_dataset": {
     "message": "SRSストーリーにはインストール済みの言語データを使用します。"
   },
-  "hint_srs_current_story": {
-    "message": "このアクティブなストーリーの好み、ダッシュボード、メンテナンスです。"
-  },
   "badge_srs_active_story": {
     "message": "アクティブ"
   },
@@ -174,10 +171,10 @@
     "message": "LexiShiftがアクティブな復習対象として保つSRS単語数の上限です。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "候補プールサイズ"
+    "message": "候補検索の深さ"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "このストーリー用にLexiShiftが準備する候補語数です。"
+    "message": "サンプルや新規追加のときに、頻度順の語彙をどこまで見に行くかです。サンプルが狭すぎると感じるまでは既定値のままにしてください。"
   },
   "label_srs_initial_active_count": {
     "message": "開始時の単語数"
@@ -192,10 +189,7 @@
     "message": "高度な開始サイズ"
   },
   "section_srs_admission_preferences": {
-    "message": "新しい単語の好み"
-  },
-  "hint_srs_admission_preferences": {
-    "message": "LexiShiftが次に出す新しい単語の傾向を調整します。"
+    "message": "次の単語"
   },
   "label_srs_topic_interest_presets": {
     "message": "トピック優先度"
@@ -235,9 +229,6 @@
   },
   "topic_srs_plants_nature": {
     "message": "植物・自然"
-  },
-  "hint_srs_topic_interest_presets": {
-    "message": "トピックは興味に近い単語を出やすくしますが、その単語だけに限定しません。"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高度なタグ"

@@ -94,10 +94,7 @@
                 <span class="srs-story-badge" data-i18n="badge_srs_active_story">Active</span>
               </summary>
               <div class="srs-story-body">
-                <p class="hint" data-i18n="hint_srs_current_story">
-                  Preferences, dashboard, and maintenance for this active story.
-                </p>
-              <div class="srs-story-preferences">
+                <div class="srs-story-preferences">
                 <section class="srs-settings-section srs-story-core-settings">
                   <div class="srs-field-grid">
                     <div class="field-row">
@@ -111,10 +108,10 @@
                       <summary data-i18n="summary_srs_story_pool_advanced">Advanced word pool</summary>
                       <div class="srs-field-grid">
                         <div class="field-row">
-                          <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate pool size</label>
+                          <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate search depth</label>
                           <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
                           <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
-                            How many candidate words LexiShift prepares for this story.
+                            How far LexiShift looks through ranked vocabulary when sampling or adding words. Leave at default unless samples feel too narrow.
                           </span>
                         </div>
                       </div>
@@ -123,10 +120,7 @@
                 </section>
                 <section class="srs-settings-section srs-admission-settings">
                   <div class="srs-settings-section-header">
-                    <h4 data-i18n="section_srs_admission_preferences">New-word preferences</h4>
-                    <p class="hint" data-i18n="hint_srs_admission_preferences">
-                      Adjust the mix of new words LexiShift may introduce next.
-                    </p>
+                    <h4 data-i18n="section_srs_admission_preferences">Next words</h4>
                   </div>
                   <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
                     <div class="srs-topic-interest-picker-heading">
@@ -135,10 +129,6 @@
                         class="meta-label"
                         data-i18n="label_srs_topic_interest_presets"
                       >Topic priorities</span>
-                      <span
-                        class="srs-topic-interest-support"
-                        data-i18n="badge_srs_topic_interest_pair_support"
-                      >Coverage varies by pair</span>
                     </div>
                     <div id="srs-topic-interest-chips" class="srs-topic-interest-chips" role="group">
                       <button
@@ -222,9 +212,6 @@
                         <span data-i18n="topic_srs_food_cooking">Food & cooking</span>
                       </button>
                     </div>
-                    <p class="hint" data-i18n="hint_srs_topic_interest_presets">
-                      Topic choices nudge the mix toward your interests; they do not limit practice to only those words.
-                    </p>
                   </div>
                   <details class="advanced srs-advanced-topic-tags" hidden>
                     <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
@@ -1102,10 +1089,10 @@
                 <summary data-i18n="summary_srs_starting_size_advanced">Advanced starting size</summary>
                 <div class="srs-field-grid">
                   <div class="field-row">
-                    <label for="srs-story-flow-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate pool size</label>
+                    <label for="srs-story-flow-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate search depth</label>
                     <input id="srs-story-flow-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
                     <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
-                      How many candidate words LexiShift prepares for this story.
+                      How far LexiShift looks through ranked vocabulary when sampling or adding words. Leave at default unless samples feel too narrow.
                     </span>
                   </div>
                   <div class="field-row">

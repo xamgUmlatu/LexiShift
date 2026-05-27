@@ -92,9 +92,6 @@
   "hint_srs_dataset": {
     "message": "Verwendet installierte Sprachdaten für SRS-Storys."
   },
-  "hint_srs_current_story": {
-    "message": "Präferenzen, Dashboard und Wartung für diese aktive Story."
-  },
   "badge_srs_active_story": {
     "message": "Aktiv"
   },
@@ -174,10 +171,10 @@
     "message": "Die höchste Anzahl von SRS-Wörtern, die LexiShift aktiv hält."
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Kandidatenpool-Größe"
+    "message": "Kandidatensuchtiefe"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "Wie viele Kandidatenwörter LexiShift für diese Story vorbereitet."
+    "message": "Wie tief LexiShift beim Testen oder Hinzufügen in der gerankten Wortliste sucht. Belasse den Standard, solange die Tests nicht zu eng wirken."
   },
   "label_srs_initial_active_count": {
     "message": "Startwörter"
@@ -192,10 +189,7 @@
     "message": "Erweiterte Startgröße"
   },
   "section_srs_admission_preferences": {
-    "message": "Präferenzen für neue Wörter"
-  },
-  "hint_srs_admission_preferences": {
-    "message": "Passe die Mischung neuer Wörter an, die LexiShift als Nächstes einführen kann."
+    "message": "Nächste Wörter"
   },
   "label_srs_topic_interest_presets": {
     "message": "Themenprioritäten"
@@ -235,9 +229,6 @@
   },
   "topic_srs_plants_nature": {
     "message": "Pflanzen & Natur"
-  },
-  "hint_srs_topic_interest_presets": {
-    "message": "Themen lenken die Mischung zu deinen Interessen, begrenzen die Übung aber nicht nur auf diese Wörter."
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Erweiterte Tags"

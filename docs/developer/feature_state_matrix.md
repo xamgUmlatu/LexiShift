@@ -1771,14 +1771,15 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` SRS story control polish keeps the
+- Last documented checkpoint: `2026-05-28` SRS story surface polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
-  active badge, the visible new-word preference controls are grouped into clearer
-  subsections, topic controls render as a contained probability-priority chip
-  panel, the proficiency estimate is a slider that preserves the unset stored
-  state until the user changes it, candidate-pool sizing is advanced on the
-  active story while starting-word sizing is only visible in new-story setup,
+  right-aligned active badge, the visible next-word controls are grouped into
+  clearer subsections without repeated explanatory copy, topic controls render
+  as a contained probability-priority chip panel, the proficiency estimate is a
+  slider that preserves the unset stored state until the user changes it,
+  candidate search depth remains advanced on the active story while
+  starting-word sizing is only visible in new-story setup,
   source/target pair controls and the legacy initialize button remain as hidden
   backing DOM anchors rather than visible active-story controls,
   dashboard/sampling curtains use compact title/subtitle/action summaries,
@@ -1789,11 +1790,12 @@ Use this file when:
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
-- Last verified: `2026-05-28` refreshed story-control extension SRS settings contract covers
+- Last verified: `2026-05-28` refreshed story-surface extension SRS settings contract covers
   controller-graph construction order, collapsed selected-story markup,
   active-story word-pool controls, initialization-only starting-word controls,
   hidden backing source/target/initialize controls, polished
-  dashboard/sampling curtain markup, generalized empty preview hiding,
+  dashboard/sampling curtain markup, right-aligned active-story badge,
+  generalized empty preview hiding,
   lazy rulegen status output, switch-styled visible toggles, hidden
   experimental topic tags, proficiency slider markup, and bottom
   technical-status placement; extension structure/i18n checks, doc-reference
@@ -1806,19 +1808,23 @@ Use this file when:
     that is collapsed by default to the language-pair summary and active-pair
     badge; expanding it reveals grouped settings, dashboard, sampling, and
     maintenance for the same visible journey.
+  - The active story does not repeat a generic explanatory sentence above its
+    controls; the summary row carries the pair identity and active badge.
   - Source/target language and legacy initialize controls are retained only as
     hidden backing controls for the current controller path; users change
     profile/pair through the guided new-story modal instead of editing an
     already-created active story in place.
-  - Topic preferences are visible as probability-priority chips, while
-    free-form advanced tags stay present in the DOM for compatibility but hidden
+  - Topic preferences are visible as probability-priority chips without an
+    always-visible caveat in the active-story card; the one-time setup flow can
+    still show pair-coverage context.
+  - Free-form advanced tags stay present in the DOM for compatibility but hidden
     from the main MVP surface.
   - The proficiency estimate is presented as a slider with current/saved labels;
     if no stored estimate exists, the slider remains visually neutral and the
     runtime save/preview path treats it as unset until the user moves it.
   - The active story surface exposes the active word limit by default and keeps
-    candidate pool size under advanced word-pool tuning; starting-word count is
-    hidden from already-created stories and remains visible only in the
+    candidate search depth under advanced word-pool tuning; starting-word count
+    is hidden from already-created stories and remains visible only in the
     initialization flow.
   - Helper and sentence-fit technical status are hidden under the maintenance
     section rather than occupying the main settings flow.

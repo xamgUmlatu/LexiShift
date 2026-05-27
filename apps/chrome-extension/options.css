@@ -806,6 +806,8 @@ header p {
 .srs-story-summary-copy {
   display: grid;
   gap: 4px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .srs-story-summary::-webkit-details-marker {
@@ -830,10 +832,6 @@ header p {
 .srs-story-body {
   border-top: 1px solid #ede1d2;
   padding: 0 14px 14px;
-}
-
-.srs-story-body > .hint:first-child {
-  margin: 12px 0 14px;
 }
 
 .srs-story-summary h3,
@@ -862,6 +860,7 @@ header p {
 }
 
 .srs-story-badge {
+  margin-left: auto;
   border: 1px solid #b9a98f;
   border-radius: 999px;
   background: #f8f1e4;

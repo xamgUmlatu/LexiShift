@@ -92,9 +92,6 @@
   "hint_srs_dataset": {
     "message": "SRS 故事使用已安装的语言数据。"
   },
-  "hint_srs_current_story": {
-    "message": "这个活跃故事的偏好、仪表板和维护操作。"
-  },
   "badge_srs_active_story": {
     "message": "活跃"
   },
@@ -174,10 +171,10 @@
     "message": "LexiShift 保持在活跃轮换中的 SRS 词数量上限。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "候选池大小"
+    "message": "候选搜索深度"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "LexiShift 为这个故事预先准备的候选词数量。"
+    "message": "抽样或添加新词时，LexiShift 会在排序词表中向下查找多深。除非抽样感觉范围太窄，否则请保持默认值。"
   },
   "label_srs_initial_active_count": {
     "message": "起始词数"
@@ -192,10 +189,7 @@
     "message": "高级起始规模"
   },
   "section_srs_admission_preferences": {
-    "message": "新词偏好"
-  },
-  "hint_srs_admission_preferences": {
-    "message": "调整 LexiShift 接下来可能介绍的新词组合。"
+    "message": "下一批词"
   },
   "label_srs_topic_interest_presets": {
     "message": "主题优先级"
@@ -235,9 +229,6 @@
   },
   "topic_srs_plants_nature": {
     "message": "植物与自然"
-  },
-  "hint_srs_topic_interest_presets": {
-    "message": "主题会把词汇组合推向你的兴趣，但不会把练习限制为这些词。"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高级标签"
