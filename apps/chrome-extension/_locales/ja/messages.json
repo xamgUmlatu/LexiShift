@@ -165,10 +165,10 @@
     "message": "すべてのペア"
   },
   "label_srs_max_active": {
-    "message": "アクティブ語数の上限"
+    "message": "アクティブ練習中の単語"
   },
   "hint_srs_max_active": {
-    "message": "LexiShiftがアクティブな復習対象として保つSRS単語数の上限です。"
+    "message": "LexiShiftが同時に練習対象として保つ学習単語数です。"
   },
   "label_srs_bootstrap_top_n": {
     "message": "候補検索の深さ"
@@ -182,14 +182,8 @@
   "hint_srs_initial_active_count": {
     "message": "設定直後から表示されうる準備済み単語の数です。"
   },
-  "summary_srs_story_pool_advanced": {
-    "message": "高度な単語プール"
-  },
   "summary_srs_starting_size_advanced": {
     "message": "高度な開始サイズ"
-  },
-  "section_srs_admission_preferences": {
-    "message": "次の単語"
   },
   "label_srs_topic_interest_presets": {
     "message": "トピック優先度"

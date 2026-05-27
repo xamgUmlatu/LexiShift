@@ -81,6 +81,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn("Preferences, dashboard, and maintenance", html)
         self.assertNotIn("Admission preferences", html)
         self.assertNotIn("New-word preferences", html)
+        self.assertNotIn("Next words", html)
         self.assertNotIn("Preview rebalance to current preferences", html)
         self.assertNotIn("heading_srs_current_story", html)
         self.assertNotIn("badge_srs_selected_story", html)
@@ -124,7 +125,9 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-proficiency-estimate-saved"', html)
         self.assertIn('data-i18n="hint_srs_max_active"', html)
         self.assertIn('<input id="srs-initial-active-count" type="hidden" />', html)
-        self.assertIn('data-i18n="summary_srs_story_pool_advanced"', html)
+        self.assertIn('<input id="srs-bootstrap-top-n" type="hidden" />', html)
+        self.assertNotIn('data-i18n="summary_srs_story_pool_advanced"', html)
+        self.assertNotIn('data-i18n="section_srs_admission_preferences"', html)
         self.assertIn('data-i18n="summary_srs_starting_size_advanced"', html)
         current_card_start = html.index('<details id="srs-story-current-card"')
         start_card_start = html.index('<article class="srs-story-start-card"', current_card_start)
@@ -137,16 +140,24 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn('for="target-language"', current_card_markup)
         self.assertNotIn('id="target-language-gear"', current_card_markup)
         self.assertNotIn('for="srs-initial-active-count"', current_card_markup)
-        self.assertRegex(
-            html,
-            r'(?s)<details class="advanced srs-story-size-advanced">.*?id="srs-bootstrap-top-n"',
-        )
+        self.assertNotIn('for="srs-bootstrap-top-n"', current_card_markup)
         self.assertRegex(
             html,
             r'(?s)<details class="advanced srs-story-size-advanced srs-story-flow-size-advanced">'
             r'.*?id="srs-story-flow-bootstrap-top-n"'
             r'.*?for="srs-story-flow-initial-active-count"',
         )
+        admission_start = current_card_markup.index(
+            'class="srs-settings-section srs-admission-settings"'
+        )
+        sampling_start = current_card_markup.index('id="srs-story-sampling-curtain"')
+        appearance_start = current_card_markup.index(
+            'class="srs-settings-section srs-appearance-settings"'
+        )
+        dashboard_start = current_card_markup.index('id="srs-story-dashboard-curtain"')
+        self.assertLess(admission_start, sampling_start)
+        self.assertLess(sampling_start, appearance_start)
+        self.assertLess(appearance_start, dashboard_start)
         self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
         self.assertRegex(
             html,
@@ -199,6 +210,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('class="danger-button"', html)
         self.assertIn(".srs-enable-switch-ui", css)
         self.assertIn(".srs-toggle-switch-ui", css)
+        self.assertIn(".srs-active-practice-row", css)
         self.assertIn(".srs-field-grid", css)
         self.assertIn(".advanced.srs-story-size-advanced", css)
         self.assertIn(".srs-curtain-summary", css)

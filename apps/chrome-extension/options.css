@@ -694,6 +694,30 @@ header p {
   line-height: 1.35;
 }
 
+.srs-active-practice-row {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.srs-active-practice-row .srs-field-copy {
+  display: grid;
+  flex: 1 1 220px;
+  gap: 4px;
+  min-width: min(100%, 220px);
+}
+
+.srs-active-practice-row .field-hint {
+  flex: none;
+  margin-top: 0;
+}
+
+.srs-active-practice-row input[type="number"] {
+  flex: 0 0 92px;
+  width: 92px;
+  text-align: right;
+}
+
 .srs-topic-interest-picker {
   margin-top: 10px;
   border: 1px solid #e0d2bf;

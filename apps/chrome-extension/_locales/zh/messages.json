@@ -165,10 +165,10 @@
     "message": "全部语言对"
   },
   "label_srs_max_active": {
-    "message": "活跃词上限"
+    "message": "活跃练习词数"
   },
   "hint_srs_max_active": {
-    "message": "LexiShift 保持在活跃轮换中的 SRS 词数量上限。"
+    "message": "LexiShift 同时保留在练习轮换中的学习词数量。"
   },
   "label_srs_bootstrap_top_n": {
     "message": "候选搜索深度"
@@ -182,14 +182,8 @@
   "hint_srs_initial_active_count": {
     "message": "设置完成后可立即出现的已准备词数量。"
   },
-  "summary_srs_story_pool_advanced": {
-    "message": "高级词池"
-  },
   "summary_srs_starting_size_advanced": {
     "message": "高级起始规模"
-  },
-  "section_srs_admission_preferences": {
-    "message": "下一批词"
   },
   "label_srs_topic_interest_presets": {
     "message": "主题优先级"

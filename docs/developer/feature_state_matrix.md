@@ -1771,18 +1771,22 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` SRS story surface polish keeps the
+- Last documented checkpoint: `2026-05-28` active story sizing/sampling polish
+  keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
-  clearer subsections without repeated explanatory copy, topic controls render
+  clearer subsections without repeated explanatory copy or a redundant heading,
+  topic controls render
   as a contained probability-priority chip panel, the proficiency estimate is a
   slider that preserves the unset stored state until the user changes it,
-  candidate search depth remains advanced on the active story while
-  starting-word sizing is only visible in new-story setup,
+  active-size copy now uses learner-facing practice wording, active-story
+  candidate search depth is hidden as a backing control while the setup flow
+  still keeps it under advanced starting-size controls,
   source/target pair controls and the legacy initialize button remain as hidden
   backing DOM anchors rather than visible active-story controls,
-  dashboard/sampling curtains use compact title/subtitle/action summaries,
+  sampling now sits next to admission settings, dashboard/sampling curtains use
+  compact title/subtitle/action summaries,
   tentative free-form topic tags are hidden,
   helper/semantic technical status is behind the bottom maintenance section,
   empty status panels appear only after content is written, maintenance
@@ -1790,11 +1794,12 @@ Use this file when:
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
-- Last verified: `2026-05-28` refreshed story-surface extension SRS settings contract covers
+- Last verified: `2026-05-28` refreshed active-story sizing/sampling extension SRS settings contract covers
   controller-graph construction order, collapsed selected-story markup,
-  active-story word-pool controls, initialization-only starting-word controls,
-  hidden backing source/target/initialize controls, polished
-  dashboard/sampling curtain markup, right-aligned active-story badge,
+  hidden active-story word-pool backing controls, initialization-only
+  starting-word controls, hidden backing source/target/initialize controls,
+  polished dashboard/sampling curtain markup and ordering, right-aligned
+  active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, switch-styled visible toggles, hidden
   experimental topic tags, proficiency slider markup, and bottom
@@ -1822,10 +1827,12 @@ Use this file when:
   - The proficiency estimate is presented as a slider with current/saved labels;
     if no stored estimate exists, the slider remains visually neutral and the
     runtime save/preview path treats it as unset until the user moves it.
-  - The active story surface exposes the active word limit by default and keeps
-    candidate search depth under advanced word-pool tuning; starting-word count
-    is hidden from already-created stories and remains visible only in the
-    initialization flow.
+  - The active story surface exposes a learner-facing active-practice size
+    control by default. Candidate search depth remains a hidden backing value
+    for the current controller path and is only visible in the new-story setup
+    flow under advanced starting-size controls. Starting-word count is hidden
+    from already-created stories and remains visible only in the initialization
+    flow.
   - Helper and sentence-fit technical status are hidden under the maintenance
     section rather than occupying the main settings flow.
   - The admitted-words dashboard remains read-only by default and is hidden
@@ -1843,6 +1850,10 @@ Use this file when:
     visible preference settings before calling the existing admission preview.
   - Modal initialization enables SRS for the selected story, persists visible
     settings, then calls the existing helper-backed initialize path.
+  - Browsing-based admission still has no promoted user-facing opt-in in this
+    story surface. The current implementation keeps the hidden
+    `srsBrowsingAdmissionSignalsEnabled` flag default-off until production
+    admission actually consumes browsing aggregates.
 - Evidence:
   - `docs/srs/srs_story_based_options_flow_plan.md`
   - `apps/chrome-extension/options.html`

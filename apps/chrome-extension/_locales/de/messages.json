@@ -165,10 +165,10 @@
     "message": "Alle Paare"
   },
   "label_srs_max_active": {
-    "message": "Limit aktiver Wörter"
+    "message": "Wörter in aktiver Übung"
   },
   "hint_srs_max_active": {
-    "message": "Die höchste Anzahl von SRS-Wörtern, die LexiShift aktiv hält."
+    "message": "Wie viele Lernwörter LexiShift gleichzeitig in der Übungsrotation hält."
   },
   "label_srs_bootstrap_top_n": {
     "message": "Kandidatensuchtiefe"
@@ -182,14 +182,8 @@
   "hint_srs_initial_active_count": {
     "message": "Wie viele vorbereitete Wörter direkt nach der Einrichtung erscheinen können."
   },
-  "summary_srs_story_pool_advanced": {
-    "message": "Erweiterter Wortpool"
-  },
   "summary_srs_starting_size_advanced": {
     "message": "Erweiterte Startgröße"
-  },
-  "section_srs_admission_preferences": {
-    "message": "Nächste Wörter"
   },
   "label_srs_topic_interest_presets": {
     "message": "Themenprioritäten"

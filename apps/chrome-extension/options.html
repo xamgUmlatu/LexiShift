@@ -80,6 +80,7 @@
             Modules
           </button>
           <input id="srs-initial-active-count" type="hidden" />
+          <input id="srs-bootstrap-top-n" type="hidden" />
           <button id="srs-initialize-set" type="button" data-i18n="button_srs_initialize" hidden>
             Initialize story
           </button>
@@ -97,31 +98,18 @@
                 <div class="srs-story-preferences">
                 <section class="srs-settings-section srs-story-core-settings">
                   <div class="srs-field-grid">
-                    <div class="field-row">
-                      <label for="srs-max-active" data-i18n="label_srs_max_active">Active word limit</label>
-                      <input id="srs-max-active" type="number" min="1" max="200" step="1" />
-                      <span class="field-hint" data-i18n="hint_srs_max_active">
-                        The most SRS words LexiShift keeps in active rotation.
+                    <div class="field-row srs-active-practice-row">
+                      <span class="srs-field-copy">
+                        <label for="srs-max-active" data-i18n="label_srs_max_active">Words in active practice</label>
+                        <span class="field-hint" data-i18n="hint_srs_max_active">
+                          How many learning words LexiShift keeps in rotation at once.
+                        </span>
                       </span>
+                      <input id="srs-max-active" type="number" min="1" max="200" step="1" />
                     </div>
-                    <details class="advanced srs-story-size-advanced">
-                      <summary data-i18n="summary_srs_story_pool_advanced">Advanced word pool</summary>
-                      <div class="srs-field-grid">
-                        <div class="field-row">
-                          <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate search depth</label>
-                          <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
-                          <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
-                            How far LexiShift looks through ranked vocabulary when sampling or adding words. Leave at default unless samples feel too narrow.
-                          </span>
-                        </div>
-                      </div>
-                    </details>
                   </div>
                 </section>
                 <section class="srs-settings-section srs-admission-settings">
-                  <div class="srs-settings-section-header">
-                    <h4 data-i18n="section_srs_admission_preferences">Next words</h4>
-                  </div>
                   <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
                     <div class="srs-topic-interest-picker-heading">
                       <span
@@ -253,6 +241,21 @@
                     </p>
                   </details>
                 </section>
+                <details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">
+                  <summary class="srs-curtain-summary">
+                    <span class="srs-curtain-copy">
+                      <span class="srs-curtain-title" data-i18n="summary_srs_story_sampling">Sample next words</span>
+                      <span class="srs-curtain-subtitle" data-i18n="hint_srs_story_sampling_curtain">
+                        Preview words your current preferences may suggest next.
+                      </span>
+                    </span>
+                    <span class="srs-curtain-action" data-i18n="action_srs_open_panel">Open</span>
+                  </summary>
+                  <div class="actions srs-primary-actions">
+                    <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
+                  </div>
+                  <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
+                </details>
                 <section class="srs-settings-section srs-appearance-settings">
                   <div class="srs-settings-section-header">
                     <h4 data-i18n="section_srs_display_feedback">Display and feedback</h4>
@@ -385,21 +388,6 @@
             </div>
             <div id="srs-words-list" class="srs-words-list"></div>
           </div>
-          </details>
-          <details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">
-            <summary class="srs-curtain-summary">
-              <span class="srs-curtain-copy">
-                <span class="srs-curtain-title" data-i18n="summary_srs_story_sampling">Sample next words</span>
-                <span class="srs-curtain-subtitle" data-i18n="hint_srs_story_sampling_curtain">
-                  Preview words your current preferences may suggest next.
-                </span>
-              </span>
-              <span class="srs-curtain-action" data-i18n="action_srs_open_panel">Open</span>
-            </summary>
-            <div class="actions srs-primary-actions">
-              <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
-            </div>
-            <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
           </details>
           <details class="advanced srs-maintenance-tools">
             <summary data-i18n="summary_srs_maintenance_tools">Manage SRS data</summary>
@@ -1078,12 +1066,14 @@
             <span class="srs-story-flow-step-index">3</span>
             <div>
               <h4 id="srs-story-flow-step-size" data-i18n="heading_srs_story_flow_size">Choose starting pace</h4>
-              <div class="field-row">
-                <label for="srs-story-flow-max-active" data-i18n="label_srs_max_active">Active word limit</label>
-                <input id="srs-story-flow-max-active" type="number" min="1" max="200" step="1" />
-                <span class="field-hint" data-i18n="hint_srs_max_active">
-                  The most SRS words LexiShift keeps in active rotation.
+              <div class="field-row srs-active-practice-row">
+                <span class="srs-field-copy">
+                  <label for="srs-story-flow-max-active" data-i18n="label_srs_max_active">Words in active practice</label>
+                  <span class="field-hint" data-i18n="hint_srs_max_active">
+                    How many learning words LexiShift keeps in rotation at once.
+                  </span>
                 </span>
+                <input id="srs-story-flow-max-active" type="number" min="1" max="200" step="1" />
               </div>
               <details class="advanced srs-story-size-advanced srs-story-flow-size-advanced">
                 <summary data-i18n="summary_srs_starting_size_advanced">Advanced starting size</summary>

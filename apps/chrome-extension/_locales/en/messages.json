@@ -165,10 +165,10 @@
     "message": "All pairs"
   },
   "label_srs_max_active": {
-    "message": "Active word limit"
+    "message": "Words in active practice"
   },
   "hint_srs_max_active": {
-    "message": "The most SRS words LexiShift keeps in active rotation."
+    "message": "How many learning words LexiShift keeps in rotation at once."
   },
   "label_srs_bootstrap_top_n": {
     "message": "Candidate search depth"
@@ -182,14 +182,8 @@
   "hint_srs_initial_active_count": {
     "message": "How many prepared words can appear immediately after setup."
   },
-  "summary_srs_story_pool_advanced": {
-    "message": "Advanced word pool"
-  },
   "summary_srs_starting_size_advanced": {
     "message": "Advanced starting size"
-  },
-  "section_srs_admission_preferences": {
-    "message": "Next words"
   },
   "label_srs_topic_interest_presets": {
     "message": "Topic priorities"

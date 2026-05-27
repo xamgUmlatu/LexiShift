@@ -2,18 +2,19 @@
 
 Status: active target UX plan
 Role: Planning
-Last updated: 2026-05-27
-Last verified: 2026-05-27 selected-story shell, curtains, and guided new-story modal through focused extension/options tests
+Last updated: 2026-05-28
+Last verified: 2026-05-28 selected-story shell, curtains, hidden active-story pool backing control, and guided new-story modal through focused extension/options tests
 Purpose: define the target Options-page SRS UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
 
 ## Current Implementation State
 
-As of 2026-05-27, the Options page has the beta-facing structural flow:
+As of 2026-05-28, the Options page has the beta-facing structural flow:
 
 - selected profile/pair SRS controls are grouped under a selected-story block;
 - the admitted-words dashboard is behind an `Open dashboard` curtain;
-- admission sampling is behind a `Sample possible words` curtain;
+- admission sampling is behind a `Sample next words` curtain placed directly
+  after the active story's admission-preference controls;
 - maintenance tools remain collapsed under `Manage SRS data`;
 - the start-new-story block opens a guided modal for language/profile choice,
   proficiency, topics, starting size, sampling, and initialization;
@@ -25,7 +26,9 @@ Not implemented yet:
 
 - full story enumeration across all profile/pair SRS stores;
 - persisted story summary counts outside the dashboard payload;
-- final user-facing naming for the technical size/initialization labels.
+- final user-facing policy for whether candidate-pool depth belongs in learner
+  settings, setup-only advanced controls, or a future data-source/download model;
+- user-facing browsing-data opt-in controls for browsing-based admission.
 
 ## Decision
 
@@ -221,10 +224,12 @@ Do not make these prominent in the ordinary beta learner path:
 - helper diagnostics
 - semantic pack inventory paths
 - raw bootstrap/top-N implementation language
+- candidate-pool depth controls until the data-source/download/storage policy is
+  decided
 
 ## Naming Boundary
 
-Final user-facing labels for the current size controls are intentionally not
+Final user-facing labels for some technical controls are intentionally not
 decided here.
 
 The naming problem needs a focused pass because the current labels are
@@ -235,12 +240,20 @@ technically accurate but not product-level:
 - `Initialize S for this pair`
 - `Refresh S + publish rules`
 
+The active-practice size control has a beta-facing label: `Words in active
+practice`. It means how many learning words LexiShift keeps in active rotation
+at once.
+
 Until that pass is complete:
 
 - do not rename these casually;
 - do not introduce a second competing vocabulary;
 - keep internal docs explicit that these are implementation labels, not final UX
   copy.
+
+Candidate-pool depth is no longer visible in existing story blocks. It remains a
+hidden backing value for current controllers and a setup-only advanced control
+until the broader source-pack/cloud/local-storage question is resolved.
 
 ## Implementation Plan
 
@@ -340,7 +353,12 @@ This plan does not require:
 ## Open Questions
 
 - Final public name for "SRS story".
-- Final labels for active size, initial size, candidate pool, and start action.
+- Final labels for initial size, candidate pool, and start action.
+- Whether candidate-pool depth should stay setup-only, move to a future advanced
+  data-source control, or disappear from user settings entirely.
+- Where the eventual browsing-data opt-in belongs once browsing aggregates are
+  consumed by production admission, likely near admission preferences rather than
+  under generic logging.
 - Whether the story flow should be modal, drawer, or inline stepper.
 - Whether a user can have multiple stories for the same language pair under the
   same profile, or exactly one story per profile/pair.
