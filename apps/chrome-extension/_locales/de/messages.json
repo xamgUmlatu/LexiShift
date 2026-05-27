@@ -179,6 +179,9 @@
   "hint_srs_proficiency_estimate": {
     "message": "0 bis 100. Leer lassen, um die Kompetenz neutral zu halten."
   },
+  "summary_srs_challenge_tuning": {
+    "message": "Erweiterte Schwierigkeit"
+  },
   "label_srs_challenge_target": {
     "message": "Zielschwierigkeit (%)"
   },
@@ -352,6 +355,12 @@
   },
   "button_srs_refresh_set": {
     "message": "S aktualisieren + Regeln veröffentlichen"
+  },
+  "summary_srs_maintenance_tools": {
+    "message": "SRS-Daten verwalten"
+  },
+  "hint_srs_maintenance_tools": {
+    "message": "Wartungsaktionen zum Nachjustieren, manuellen Aktualisieren oder Neustarten für das ausgewählte Profil und Sprachpaar."
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS-Laufzeitdiagnose"

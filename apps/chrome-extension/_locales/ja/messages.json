@@ -179,6 +179,9 @@
   "hint_srs_proficiency_estimate": {
     "message": "0 から 100。空欄のままだと習熟度は中立のままです。"
   },
+  "summary_srs_challenge_tuning": {
+    "message": "高度な難度調整"
+  },
   "label_srs_challenge_target": {
     "message": "目標難度 (%)"
   },
@@ -352,6 +355,12 @@
   },
   "button_srs_refresh_set": {
     "message": "Sを更新してルールを反映"
+  },
+  "summary_srs_maintenance_tools": {
+    "message": "SRSデータを管理"
+  },
+  "hint_srs_maintenance_tools": {
+    "message": "選択中のプロフィールと言語ペアについて、再調整、手動更新、最初からやり直すためのメンテナンス操作です。"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS実行時診断"

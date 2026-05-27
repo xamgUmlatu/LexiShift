@@ -223,13 +223,16 @@
           <p class="hint" data-i18n="hint_srs_proficiency_estimate">
             0 to 100. Leave blank to keep proficiency neutral.
           </p>
-          <div class="field-row">
-            <label for="srs-challenge-target" data-i18n="label_srs_challenge_target">Challenge target (%)</label>
-            <input id="srs-challenge-target" type="number" min="0" max="100" step="1" />
-          </div>
-          <p class="hint" data-i18n="hint_srs_challenge_target">
-            0 to 100. Leave blank to keep challenge preference neutral.
-          </p>
+          <details class="advanced srs-advanced-challenge">
+            <summary data-i18n="summary_srs_challenge_tuning">Advanced challenge tuning</summary>
+            <div class="field-row">
+              <label for="srs-challenge-target" data-i18n="label_srs_challenge_target">Challenge target (%)</label>
+              <input id="srs-challenge-target" type="number" min="0" max="100" step="1" />
+            </div>
+            <p class="hint" data-i18n="hint_srs_challenge_target">
+              0 to 100. Leave blank to keep challenge preference neutral.
+            </p>
+          </details>
           <div class="field-row">
             <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
             <input id="srs-highlight-color" type="color" />
@@ -364,23 +367,29 @@
             </div>
             <div id="srs-words-list" class="srs-words-list"></div>
           </div>
-          <div class="actions">
+          <div class="actions srs-primary-actions">
             <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
           </div>
           <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
-          <div class="actions">
+          <div class="actions srs-primary-actions">
             <button id="srs-initialize-set" data-i18n="button_srs_initialize">Initialize S for this pair</button>
           </div>
-          <div class="actions">
-            <button id="srs-rebalance-preview" data-i18n="button_srs_rebalance_preview">Preview rebalance to current preferences</button>
-            <button id="srs-rebalance-apply" data-i18n="button_srs_rebalance_apply">Apply rebalance…</button>
-          </div>
-          <div class="actions">
-            <button id="srs-refresh-set" data-i18n="button_srs_refresh_set">Refresh S + publish rules</button>
-          </div>
-          <div class="actions">
-            <button id="srs-reset" data-i18n="button_srs_reset" style="color: #b42318;">Reset SRS Data</button>
-          </div>
+          <details class="advanced srs-maintenance-tools">
+            <summary data-i18n="summary_srs_maintenance_tools">Manage SRS data</summary>
+            <p class="hint" data-i18n="hint_srs_maintenance_tools">
+              Maintenance actions for retuning, manual refresh, or starting over for the selected profile and language pair.
+            </p>
+            <div class="actions">
+              <button id="srs-rebalance-preview" data-i18n="button_srs_rebalance_preview">Preview rebalance to current preferences</button>
+              <button id="srs-rebalance-apply" data-i18n="button_srs_rebalance_apply">Apply rebalance…</button>
+            </div>
+            <div class="actions">
+              <button id="srs-refresh-set" data-i18n="button_srs_refresh_set">Refresh S + publish rules</button>
+            </div>
+            <div class="actions srs-danger-actions">
+              <button id="srs-reset" class="danger-button" data-i18n="button_srs_reset">Reset SRS Data</button>
+            </div>
+          </details>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
         </section>
         <section class="card card-group span-2">

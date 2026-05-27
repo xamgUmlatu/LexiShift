@@ -179,6 +179,9 @@
   "hint_srs_proficiency_estimate": {
     "message": "0 到 100。留空则保持熟练度中性。"
   },
+  "summary_srs_challenge_tuning": {
+    "message": "高级挑战调节"
+  },
   "label_srs_challenge_target": {
     "message": "挑战目标 (%)"
   },
@@ -352,6 +355,12 @@
   },
   "button_srs_refresh_set": {
     "message": "刷新 S 并发布规则"
+  },
+  "summary_srs_maintenance_tools": {
+    "message": "管理 SRS 数据"
+  },
+  "hint_srs_maintenance_tools": {
+    "message": "用于重新调整、手动刷新，或为所选资料和语言对重新开始的维护操作。"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS 运行时诊断"

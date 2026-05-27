@@ -179,6 +179,9 @@
   "hint_srs_proficiency_estimate": {
     "message": "0 to 100. Leave blank to keep proficiency neutral."
   },
+  "summary_srs_challenge_tuning": {
+    "message": "Advanced challenge tuning"
+  },
   "label_srs_challenge_target": {
     "message": "Challenge target (%)"
   },
@@ -352,6 +355,12 @@
   },
   "button_srs_refresh_set": {
     "message": "Refresh S + publish rules"
+  },
+  "summary_srs_maintenance_tools": {
+    "message": "Manage SRS data"
+  },
+  "hint_srs_maintenance_tools": {
+    "message": "Maintenance actions for retuning, manual refresh, or starting over for the selected profile and language pair."
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS runtime diagnostics"

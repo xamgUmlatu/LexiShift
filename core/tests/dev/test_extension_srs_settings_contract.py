@@ -61,6 +61,27 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn("plants_nature", actual_topic_ids)
         self.assertNotIn("travel_places_transport", actual_topic_ids)
 
+    def test_srs_maintenance_and_challenge_controls_are_collapsed(self) -> None:
+        html = OPTIONS_HTML.read_text(encoding="utf-8")
+
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-advanced-challenge">.*?id="srs-challenge-target"',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-rebalance-preview"',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-refresh-set"',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-reset"',
+        )
+        self.assertIn('class="danger-button"', html)
+
     def test_controller_save_keeps_signal_updates_narrow_and_preserves_nested_siblings(
         self,
     ) -> None:

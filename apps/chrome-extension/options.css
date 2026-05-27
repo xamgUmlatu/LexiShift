@@ -660,6 +660,38 @@ header p {
   width: min(420px, 100%);
 }
 
+.srs-advanced-challenge,
+.srs-maintenance-tools {
+  margin-top: 12px;
+}
+
+.srs-maintenance-tools .hint {
+  margin: 0 0 8px;
+}
+
+.srs-maintenance-tools .actions {
+  flex-wrap: wrap;
+}
+
+.srs-primary-actions {
+  flex-wrap: wrap;
+}
+
+.srs-danger-actions {
+  padding-top: 8px;
+  border-top: 1px solid #ead9d9;
+}
+
+.danger-button {
+  border: 1px solid #cbb8b8;
+  background: #fff8f8;
+  color: #8c3d3d;
+}
+
+.danger-button:hover {
+  background: #f8ecec;
+}
+
 .target-language-controls {
   display: inline-flex;
   align-items: center;
