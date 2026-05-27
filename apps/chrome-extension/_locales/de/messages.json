@@ -102,10 +102,19 @@
     "message": "Ausgewählt"
   },
   "summary_srs_story_dashboard": {
-    "message": "Dashboard öffnen"
+    "message": "Lern-Dashboard"
+  },
+  "hint_srs_story_dashboard_curtain": {
+    "message": "Aktive, fällige, wartende und entfernte Wörter prüfen."
   },
   "summary_srs_story_sampling": {
-    "message": "Mögliche Wörter testen"
+    "message": "Nächste Wörter testen"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "Vorschau auf Wörter, die mit den aktuellen Präferenzen wahrscheinlich aufgenommen werden."
+  },
+  "action_srs_open_panel": {
+    "message": "Öffnen"
   },
   "heading_srs_start_new_story": {
     "message": "Neue SRS-Story starten"
@@ -129,7 +138,7 @@
     "message": "Präferenzen festlegen"
   },
   "heading_srs_story_flow_size": {
-    "message": "Startgröße festlegen"
+    "message": "Starttempo wählen"
   },
   "heading_srs_story_flow_review": {
     "message": "Testen und initialisieren"
@@ -162,19 +171,25 @@
     "message": "Alle Paare"
   },
   "label_srs_max_active": {
-    "message": "Max. aktive Wörter"
+    "message": "Limit aktiver Wörter"
+  },
+  "hint_srs_max_active": {
+    "message": "Die höchste Anzahl von SRS-Wörtern, die LexiShift aktiv hält."
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Bootstrap-S-Größe (Top N)"
+    "message": "Kandidatenpool-Größe"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "Gesamtzahl der Wörter, die beim initialen S-Bootstrap aufgenommen werden."
+    "message": "Wie viele Kandidatenwörter LexiShift für diese Story vorbereitet."
   },
   "label_srs_initial_active_count": {
-    "message": "Initiale aktive Teilmenge"
+    "message": "Startwörter"
   },
   "hint_srs_initial_active_count": {
-    "message": "Anzahl der anfänglich nicht-null/aktiven Wörter aus der Bootstrap-Liste."
+    "message": "Wie viele vorbereitete Wörter direkt nach der Einrichtung erscheinen können."
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "Erweiterte Startgröße"
   },
   "section_srs_admission_preferences": {
     "message": "Aufnahmepräferenzen"

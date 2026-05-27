@@ -106,23 +106,31 @@
                       </div>
                     </div>
                     <div class="field-row">
-                      <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
+                      <label for="srs-max-active" data-i18n="label_srs_max_active">Active word limit</label>
                       <input id="srs-max-active" type="number" min="1" max="200" step="1" />
-                    </div>
-                    <div class="field-row">
-                      <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
-                      <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
-                      <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
-                        Total words admitted during initial S bootstrap.
+                      <span class="field-hint" data-i18n="hint_srs_max_active">
+                        The most SRS words LexiShift keeps in active rotation.
                       </span>
                     </div>
-                    <div class="field-row">
-                      <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
-                      <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
-                      <span class="field-hint" data-i18n="hint_srs_initial_active_count">
-                        Initial active words selected from the bootstrap list.
-                      </span>
-                    </div>
+                    <details class="advanced srs-story-size-advanced">
+                      <summary data-i18n="summary_srs_starting_size_advanced">Advanced starting size</summary>
+                      <div class="srs-field-grid">
+                        <div class="field-row">
+                          <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate pool size</label>
+                          <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
+                          <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
+                            How many candidate words LexiShift prepares for this story.
+                          </span>
+                        </div>
+                        <div class="field-row">
+                          <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Starting words</label>
+                          <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
+                          <span class="field-hint" data-i18n="hint_srs_initial_active_count">
+                            How many prepared words can appear immediately after setup.
+                          </span>
+                        </div>
+                      </div>
+                    </details>
                   </div>
                 </section>
                 <section class="srs-settings-section srs-admission-settings">
@@ -328,7 +336,15 @@
                 </section>
               </div>
           <details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">
-            <summary data-i18n="summary_srs_story_dashboard">Open dashboard</summary>
+            <summary class="srs-curtain-summary">
+              <span class="srs-curtain-copy">
+                <span class="srs-curtain-title" data-i18n="summary_srs_story_dashboard">Learning dashboard</span>
+                <span class="srs-curtain-subtitle" data-i18n="hint_srs_story_dashboard_curtain">
+                  Review active, due, queued, and removed words.
+                </span>
+              </span>
+              <span class="srs-curtain-action" data-i18n="action_srs_open_panel">Open</span>
+            </summary>
             <div class="srs-words-dashboard" aria-labelledby="srs-words-dashboard-heading">
             <div class="srs-words-dashboard-header">
               <div>
@@ -396,7 +412,15 @@
           </div>
           </details>
           <details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">
-            <summary data-i18n="summary_srs_story_sampling">Sample possible words</summary>
+            <summary class="srs-curtain-summary">
+              <span class="srs-curtain-copy">
+                <span class="srs-curtain-title" data-i18n="summary_srs_story_sampling">Sample next words</span>
+                <span class="srs-curtain-subtitle" data-i18n="hint_srs_story_sampling_curtain">
+                  Preview words your current preferences are likely to admit.
+                </span>
+              </span>
+              <span class="srs-curtain-action" data-i18n="action_srs_open_panel">Open</span>
+            </summary>
             <div class="actions srs-primary-actions">
               <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
             </div>
@@ -1083,17 +1107,31 @@
             <div>
               <h4 id="srs-story-flow-step-size" data-i18n="heading_srs_story_flow_size">Set starting size</h4>
               <div class="field-row">
-                <label for="srs-story-flow-max-active" data-i18n="label_srs_max_active">Max active words</label>
+                <label for="srs-story-flow-max-active" data-i18n="label_srs_max_active">Active word limit</label>
                 <input id="srs-story-flow-max-active" type="number" min="1" max="200" step="1" />
+                <span class="field-hint" data-i18n="hint_srs_max_active">
+                  The most SRS words LexiShift keeps in active rotation.
+                </span>
               </div>
-              <div class="field-row">
-                <label for="srs-story-flow-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
-                <input id="srs-story-flow-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
-              </div>
-              <div class="field-row">
-                <label for="srs-story-flow-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
-                <input id="srs-story-flow-initial-active-count" type="number" min="1" max="5000" step="1" />
-              </div>
+              <details class="advanced srs-story-size-advanced srs-story-flow-size-advanced">
+                <summary data-i18n="summary_srs_starting_size_advanced">Advanced starting size</summary>
+                <div class="srs-field-grid">
+                  <div class="field-row">
+                    <label for="srs-story-flow-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate pool size</label>
+                    <input id="srs-story-flow-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
+                    <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
+                      How many candidate words LexiShift prepares for this story.
+                    </span>
+                  </div>
+                  <div class="field-row">
+                    <label for="srs-story-flow-initial-active-count" data-i18n="label_srs_initial_active_count">Starting words</label>
+                    <input id="srs-story-flow-initial-active-count" type="number" min="1" max="5000" step="1" />
+                    <span class="field-hint" data-i18n="hint_srs_initial_active_count">
+                      How many prepared words can appear immediately after setup.
+                    </span>
+                  </div>
+                </div>
+              </details>
             </div>
           </section>
           <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-review">

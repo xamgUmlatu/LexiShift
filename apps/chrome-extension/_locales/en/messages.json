@@ -102,10 +102,19 @@
     "message": "Selected"
   },
   "summary_srs_story_dashboard": {
-    "message": "Open dashboard"
+    "message": "Learning dashboard"
+  },
+  "hint_srs_story_dashboard_curtain": {
+    "message": "Review active, due, queued, and removed words."
   },
   "summary_srs_story_sampling": {
-    "message": "Sample possible words"
+    "message": "Sample next words"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "Preview words your current preferences are likely to admit."
+  },
+  "action_srs_open_panel": {
+    "message": "Open"
   },
   "heading_srs_start_new_story": {
     "message": "Start a new SRS story"
@@ -129,7 +138,7 @@
     "message": "Set preferences"
   },
   "heading_srs_story_flow_size": {
-    "message": "Set starting size"
+    "message": "Choose starting pace"
   },
   "heading_srs_story_flow_review": {
     "message": "Sample and initialize"
@@ -162,19 +171,25 @@
     "message": "All pairs"
   },
   "label_srs_max_active": {
-    "message": "Max active words"
+    "message": "Active word limit"
+  },
+  "hint_srs_max_active": {
+    "message": "The most SRS words LexiShift keeps in active rotation."
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Bootstrap S size (top N)"
+    "message": "Candidate pool size"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "Total number of words admitted during initial S bootstrap."
+    "message": "How many candidate words LexiShift prepares for this story."
   },
   "label_srs_initial_active_count": {
-    "message": "Initial active subset"
+    "message": "Starting words"
   },
   "hint_srs_initial_active_count": {
-    "message": "Initial non-zero/active words selected from the bootstrap list."
+    "message": "How many prepared words can appear immediately after setup."
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "Advanced starting size"
   },
   "section_srs_admission_preferences": {
     "message": "Admission preferences"

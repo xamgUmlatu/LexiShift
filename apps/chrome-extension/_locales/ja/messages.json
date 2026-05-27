@@ -102,10 +102,19 @@
     "message": "選択中"
   },
   "summary_srs_story_dashboard": {
-    "message": "ダッシュボードを開く"
+    "message": "学習ダッシュボード"
+  },
+  "hint_srs_story_dashboard_curtain": {
+    "message": "アクティブ、復習期限、待機中、除外済みの単語を確認します。"
   },
   "summary_srs_story_sampling": {
-    "message": "候補語をサンプル"
+    "message": "次の単語をサンプル"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "現在の好みで採用されやすい単語をプレビューします。"
+  },
+  "action_srs_open_panel": {
+    "message": "開く"
   },
   "heading_srs_start_new_story": {
     "message": "新しいSRSストーリーを開始"
@@ -129,7 +138,7 @@
     "message": "好みを設定"
   },
   "heading_srs_story_flow_size": {
-    "message": "開始サイズを設定"
+    "message": "開始ペースを選択"
   },
   "heading_srs_story_flow_review": {
     "message": "サンプルして初期化"
@@ -162,19 +171,25 @@
     "message": "すべてのペア"
   },
   "label_srs_max_active": {
-    "message": "同時にアクティブな語数"
+    "message": "アクティブ語数の上限"
+  },
+  "hint_srs_max_active": {
+    "message": "LexiShiftがアクティブな復習対象として保つSRS単語数の上限です。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Sブートストラップサイズ（上位N）"
+    "message": "候補プールサイズ"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "初期Sブートストラップで取り込む総語数です。"
+    "message": "このストーリー用にLexiShiftが準備する候補語数です。"
   },
   "label_srs_initial_active_count": {
-    "message": "初期アクティブ部分集合"
+    "message": "開始時の単語数"
   },
   "hint_srs_initial_active_count": {
-    "message": "ブートストラップ候補から最初に非ゼロ/アクティブ化する語数です。"
+    "message": "設定直後から表示されうる準備済み単語の数です。"
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "高度な開始サイズ"
   },
   "section_srs_admission_preferences": {
     "message": "採用設定"

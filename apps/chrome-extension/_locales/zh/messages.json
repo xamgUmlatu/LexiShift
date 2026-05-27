@@ -102,10 +102,19 @@
     "message": "已选"
   },
   "summary_srs_story_dashboard": {
-    "message": "打开仪表板"
+    "message": "学习仪表板"
+  },
+  "hint_srs_story_dashboard_curtain": {
+    "message": "查看活跃、到期、排队和已移除的词。"
   },
   "summary_srs_story_sampling": {
-    "message": "抽样可能出现的词"
+    "message": "抽样下一批词"
+  },
+  "hint_srs_story_sampling_curtain": {
+    "message": "预览当前偏好最可能纳入的词。"
+  },
+  "action_srs_open_panel": {
+    "message": "打开"
   },
   "heading_srs_start_new_story": {
     "message": "开始新的 SRS 故事"
@@ -129,7 +138,7 @@
     "message": "设置偏好"
   },
   "heading_srs_story_flow_size": {
-    "message": "设置起始规模"
+    "message": "选择起始节奏"
   },
   "heading_srs_story_flow_review": {
     "message": "抽样并初始化"
@@ -162,19 +171,25 @@
     "message": "全部语言对"
   },
   "label_srs_max_active": {
-    "message": "最大激活词数"
+    "message": "活跃词上限"
+  },
+  "hint_srs_max_active": {
+    "message": "LexiShift 保持在活跃轮换中的 SRS 词数量上限。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "S 引导规模（Top N）"
+    "message": "候选池大小"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "初始 S 引导阶段纳入的词总数。"
+    "message": "LexiShift 为这个故事预先准备的候选词数量。"
   },
   "label_srs_initial_active_count": {
-    "message": "初始活跃子集"
+    "message": "起始词数"
   },
   "hint_srs_initial_active_count": {
-    "message": "从引导列表中首批设为非零/活跃的词数。"
+    "message": "设置完成后可立即出现的已准备词数量。"
+  },
+  "summary_srs_starting_size_advanced": {
+    "message": "高级起始规模"
   },
   "section_srs_admission_preferences": {
     "message": "纳入偏好"

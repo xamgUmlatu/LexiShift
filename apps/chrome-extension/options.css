@@ -687,6 +687,7 @@ header p {
 
 .field-hint {
   display: block;
+  flex: 1 1 100%;
   margin-top: 4px;
   color: #6d6559;
   font-size: 12px;
@@ -920,6 +921,29 @@ header p {
   gap: 10px 14px;
 }
 
+.advanced.srs-story-size-advanced {
+  grid-column: 1 / -1;
+  border-style: solid;
+  border-color: #eadfce;
+  border-radius: 8px;
+  background: #fffbf4;
+  padding: 9px 10px;
+}
+
+.advanced.srs-story-size-advanced summary {
+  margin-bottom: 0;
+  color: #5b5246;
+  font-size: 13px;
+}
+
+.advanced.srs-story-size-advanced[open] summary {
+  margin-bottom: 10px;
+}
+
+.advanced.srs-story-size-advanced .srs-field-grid {
+  gap: 8px 12px;
+}
+
 .srs-range-field {
   display: grid;
   gap: 8px;
@@ -969,23 +993,69 @@ header p {
   border: 1px solid #ded3c1;
   border-radius: 8px;
   background: #fffcf6;
-  padding: 10px 12px;
+  overflow: hidden;
 }
 
-.srs-story-curtain summary {
+.srs-curtain-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  list-style: none;
+  padding: 12px;
   cursor: pointer;
-  font-weight: 700;
-  color: #4d473f;
 }
 
-.srs-story-curtain[open] summary {
-  margin-bottom: 8px;
+.srs-curtain-summary::-webkit-details-marker {
+  display: none;
+}
+
+.srs-story-curtain[open] .srs-curtain-summary {
+  border-bottom: 1px solid #eadfce;
+}
+
+.srs-curtain-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.srs-curtain-title {
+  color: #3f382f;
+  font-weight: 700;
+}
+
+.srs-curtain-subtitle {
+  color: #6c675f;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.srs-curtain-action {
+  flex: 0 0 auto;
+  border: 1px solid #b9a98f;
+  border-radius: 999px;
+  background: #f8f1e4;
+  color: #574a38;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .srs-story-curtain .srs-words-dashboard {
   margin-top: 0;
-  padding-top: 0;
+  padding: 12px;
   border-top: none;
+}
+
+.srs-story-sampling-curtain .srs-primary-actions {
+  padding: 12px 12px 0;
+}
+
+.srs-story-sampling-curtain .srs-preview {
+  margin: 10px 12px 12px;
 }
 
 .srs-story-start-link {

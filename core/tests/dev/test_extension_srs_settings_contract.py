@@ -108,6 +108,17 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         )
         self.assertIn('id="srs-proficiency-estimate-value"', html)
         self.assertIn('id="srs-proficiency-estimate-saved"', html)
+        self.assertIn('data-i18n="hint_srs_max_active"', html)
+        self.assertIn('data-i18n="summary_srs_starting_size_advanced"', html)
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-story-size-advanced">.*?id="srs-bootstrap-top-n"',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-story-size-advanced srs-story-flow-size-advanced">'
+            r'.*?id="srs-story-flow-bootstrap-top-n"',
+        )
         self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
         self.assertRegex(
             html,
@@ -132,12 +143,14 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertRegex(
             html,
             r'(?s)<details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">'
-            r'.*?class="srs-words-dashboard"',
+            r'.*?class="srs-curtain-summary".*?data-i18n="hint_srs_story_dashboard_curtain"'
+            r'.*?class="srs-curtain-action".*?class="srs-words-dashboard"',
         )
         self.assertRegex(
             html,
             r'(?s)<details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">'
-            r'.*?id="srs-admission-preview"',
+            r'.*?class="srs-curtain-summary".*?data-i18n="hint_srs_story_sampling_curtain"'
+            r'.*?class="srs-curtain-action".*?id="srs-admission-preview"',
         )
         self.assertRegex(
             html,
@@ -159,6 +172,9 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn(".srs-enable-switch-ui", css)
         self.assertIn(".srs-toggle-switch-ui", css)
         self.assertIn(".srs-field-grid", css)
+        self.assertIn(".advanced.srs-story-size-advanced", css)
+        self.assertIn(".srs-curtain-summary", css)
+        self.assertIn(".srs-curtain-action", css)
         self.assertIn(".srs-range-field", css)
         self.assertIn("#srs-rulegen-output:empty", css)
         self.assertIn("#srs-rulegen-output:not(:empty)", css)
