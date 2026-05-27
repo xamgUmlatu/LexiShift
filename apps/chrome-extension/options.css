@@ -1198,17 +1198,6 @@ header p {
   background: #f8ecec;
 }
 
-.target-language-controls {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.target-language-modules-button {
-  padding: 6px 12px;
-  white-space: nowrap;
-}
-
 .language-pref-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -1909,11 +1898,11 @@ textarea {
   line-height: 1.5;
 }
 
-#srs-rulegen-output:empty {
+.srs-preview:empty {
   display: none;
 }
 
-#srs-rulegen-output:not(:empty) {
+.srs-preview:not(:empty) {
   animation: srs-preview-appear 140ms ease-out;
 }
 

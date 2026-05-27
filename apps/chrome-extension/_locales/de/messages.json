@@ -90,10 +90,10 @@
     "message": "SRS-Übungsmodus aktivieren"
   },
   "hint_srs_dataset": {
-    "message": "Verwendet vorerst einen festen Testdatensatz (keine externen Downloads)."
+    "message": "Verwendet installierte Sprachdaten für SRS-Storys."
   },
   "hint_srs_current_story": {
-    "message": "Einstellungen, Dashboard und Wartung für das ausgewählte Profil und Sprachpaar."
+    "message": "Präferenzen, Dashboard und Wartung für diese aktive Story."
   },
   "badge_srs_active_story": {
     "message": "Aktiv"
@@ -108,7 +108,7 @@
     "message": "Nächste Wörter testen"
   },
   "hint_srs_story_sampling_curtain": {
-    "message": "Vorschau auf Wörter, die mit den aktuellen Präferenzen wahrscheinlich aufgenommen werden."
+    "message": "Vorschau auf Wörter, die deine aktuellen Präferenzen als Nächstes vorschlagen könnten."
   },
   "action_srs_open_panel": {
     "message": "Öffnen"
@@ -117,16 +117,16 @@
     "message": "Neue SRS-Story starten"
   },
   "hint_srs_start_new_story": {
-    "message": "Wähle ein anderes Profil oder Sprachpaar und lege vor der Initialisierung Präferenzen fest."
+    "message": "Wähle Profil und Sprachpaar und stimme die Präferenzen vor der Initialisierung ab."
   },
   "button_srs_start_new_story": {
-    "message": "Ausgewähltes Paar einrichten"
+    "message": "Einrichtung starten"
   },
   "heading_srs_story_flow": {
     "message": "SRS-Story einrichten"
   },
   "hint_srs_story_flow": {
-    "message": "Wähle Sprachpaar, Präferenzen und Startgröße vor der Initialisierung."
+    "message": "Wähle Sprachen, Präferenzen und Starttempo vor der Einrichtung."
   },
   "heading_srs_story_flow_pair": {
     "message": "Sprachen und Profil wählen"
@@ -141,7 +141,7 @@
     "message": "Testen und initialisieren"
   },
   "hint_srs_story_flow_review": {
-    "message": "Der Test speichert zuerst diese sichtbaren Einstellungen und zeigt dann wahrscheinliche Wörter. Initialisieren speichert sie erneut, bevor die Story erstellt wird."
+    "message": "Teste Wörter, bis die Mischung passt, und initialisiere dann die Story."
   },
   "button_srs_story_flow_initialize": {
     "message": "Story initialisieren"
@@ -150,7 +150,7 @@
     "message": "Einstellungen werden gespeichert und mögliche Wörter getestet…"
   },
   "status_srs_story_flow_sampled": {
-    "message": "SRS-Story-Test aktualisiert."
+    "message": "Probe aktualisiert."
   },
   "status_srs_story_flow_initializing": {
     "message": "Einstellungen werden gespeichert und SRS-Story wird initialisiert…"
@@ -192,7 +192,7 @@
     "message": "Erweiterte Startgröße"
   },
   "section_srs_admission_preferences": {
-    "message": "Aufnahmepräferenzen"
+    "message": "Präferenzen für neue Wörter"
   },
   "hint_srs_admission_preferences": {
     "message": "Passe die Mischung neuer Wörter an, die LexiShift als Nächstes einführen kann."
@@ -426,22 +426,22 @@
     "message": "10 passende Wörter testen…"
   },
   "button_srs_initialize": {
-    "message": "S für dieses Paar initialisieren"
+    "message": "Story initialisieren"
   },
   "button_srs_rebalance_preview": {
-    "message": "Neugewichtung mit aktuellen Präferenzen vorschauen"
+    "message": "Anpassung an aktuelle Präferenzen vorschauen"
   },
   "button_srs_rebalance_apply": {
-    "message": "Neugewichtung anwenden…"
+    "message": "Anpassung anwenden…"
   },
   "button_srs_refresh_set": {
-    "message": "S aktualisieren + Regeln veröffentlichen"
+    "message": "Lernwörter aktualisieren"
   },
   "summary_srs_maintenance_tools": {
     "message": "SRS-Daten verwalten"
   },
   "hint_srs_maintenance_tools": {
-    "message": "Wartungsaktionen zum Nachjustieren, manuellen Aktualisieren oder Neustarten für das ausgewählte Profil und Sprachpaar."
+    "message": "Diese aktive Story anpassen, aktualisieren oder zurücksetzen."
   },
   "summary_srs_technical_status": {
     "message": "Technischer Status"
@@ -537,19 +537,19 @@
     "message": "Stichproben-Regelgen: $1 Wörter, $2 Ziele, $3 Regeln ($4s)"
   },
   "status_srs_set_init_running": {
-    "message": "S wird initialisiert…"
+    "message": "Story wird initialisiert…"
   },
   "status_srs_refresh_running": {
-    "message": "S wird aktualisiert und Regeln werden veröffentlicht…"
+    "message": "Lernwörter werden aktualisiert…"
   },
   "status_srs_refresh_success": {
-    "message": "S für $1 aktualisiert: +$2 neue Wörter."
+    "message": "Lernwörter für $1 aktualisiert: +$2 neue Wörter."
   },
   "status_srs_refresh_noop": {
-    "message": "S-Aktualisierung für $1: keine neuen Wörter hinzugefügt."
+    "message": "Lernwörter für $1 aktualisiert: keine neuen Wörter hinzugefügt."
   },
   "status_srs_refresh_failed": {
-    "message": "S-Aktualisierung fehlgeschlagen."
+    "message": "Aktualisierung der Lernwörter fehlgeschlagen."
   },
   "status_srs_diagnostics_running": {
     "message": "SRS-Laufzeitdiagnose wird gesammelt…"
@@ -564,19 +564,19 @@
     "message": "SRS-Diagnose konnte nicht erfasst werden."
   },
   "status_srs_set_init_result": {
-    "message": "S für $3 initialisiert: +$1 Einträge (gesamt $2)."
+    "message": "Story für $3 initialisiert: +$1 Lernwörter (gesamt $2)."
   },
   "status_srs_set_plan_result": {
-    "message": "S-Plan für $1 erstellt."
+    "message": "Story-Einrichtung für $1 geprüft."
   },
   "status_srs_set_init_success": {
-    "message": "S für $1 initialisiert."
+    "message": "Story für $1 initialisiert."
   },
   "status_srs_set_plan_only": {
-    "message": "S-Plan für $1 erstellt (keine Änderungen angewendet)."
+    "message": "Story-Einrichtung für $1 geprüft (keine Änderungen angewendet)."
   },
   "status_srs_set_init_failed": {
-    "message": "S-Initialisierung fehlgeschlagen."
+    "message": "Story-Einrichtung fehlgeschlagen."
   },
   "status_srs_sample_empty": {
     "message": "Keine Wörter verfügbar."

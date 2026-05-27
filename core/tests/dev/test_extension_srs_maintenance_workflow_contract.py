@@ -185,11 +185,11 @@ const workflows = createMaintenanceWorkflows({{
     constraints: {{ max_active_items: 24 }},
     sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
   }});
-  assert.equal(outputs[0], "Initializing S…");
+  assert.equal(outputs[0], "Initializing story…");
   assert.equal(outputs[1], "init:true:4:true");
   assert.equal(
     statuses[0].message,
-    "S initialized for en-ja."
+    "Story initialized for en-ja."
   );
   assert.equal(statuses[0].color, "#3c5a2a");
   assert.equal(rulesetUpdatedCount, 1);
@@ -198,11 +198,11 @@ const workflows = createMaintenanceWorkflows({{
 
   assert.equal(initializeButton.disabled, false);
   assert.equal(helperCalls.length, 2);
-  assert.equal(outputs[2], "Initializing S…");
+  assert.equal(outputs[2], "Initializing story…");
   assert.equal(outputs[3], "init:false:0:false");
   assert.equal(
     statuses[1].message,
-    "S planning completed for en-ja; no changes were applied."
+    "Story setup checked for en-ja; no changes were applied."
   );
   assert.equal(statuses[1].color, "#6c675f");
   assert.equal(rulesetUpdatedCount, 1);
@@ -335,9 +335,9 @@ const workflows = createMaintenanceWorkflows({{
   assert.deepEqual(normalize(preflightCalls[0]), {{
     pair: "en-ja",
     profileId: "travel",
-    actionLabel: "S refresh"
+    actionLabel: "learning word refresh"
   }});
-  assert.equal(outputs[0], "Refreshing S and publishing rules…");
+  assert.equal(outputs[0], "Refreshing learning words…");
   assert.equal(outputs[1], "blocked: missing resources");
   assert.equal(statuses[0].message, "Missing resources for en-ja. Add the required files and try again.");
   assert.equal(rulesetUpdatedCount, 0);
@@ -358,11 +358,11 @@ const workflows = createMaintenanceWorkflows({{
     interests: ["animals"],
     constraints: {{ max_active_items: 24 }}
   }});
-  assert.equal(outputs[2], "Refreshing S and publishing rules…");
+  assert.equal(outputs[2], "Refreshing learning words…");
   assert.equal(outputs[3], "refresh:false:0:true");
   assert.equal(
     statuses[1].message,
-    "S refresh for en-ja: no new admissions."
+    "Learning words refreshed for en-ja: no new words added."
   );
   assert.equal(statuses[1].color, "#6c675f");
   assert.equal(rulesetUpdatedCount, 1);

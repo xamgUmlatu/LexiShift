@@ -90,10 +90,10 @@
     "message": "SRS練習モードを有効にする"
   },
   "hint_srs_dataset": {
-    "message": "現時点では固定のテストデータセットを使用します（外部ダウンロードなし）。"
+    "message": "SRSストーリーにはインストール済みの言語データを使用します。"
   },
   "hint_srs_current_story": {
-    "message": "選択中のプロフィールと言語ペアの設定、ダッシュボード、メンテナンスです。"
+    "message": "このアクティブなストーリーの好み、ダッシュボード、メンテナンスです。"
   },
   "badge_srs_active_story": {
     "message": "アクティブ"
@@ -108,7 +108,7 @@
     "message": "次の単語をサンプル"
   },
   "hint_srs_story_sampling_curtain": {
-    "message": "現在の好みで採用されやすい単語をプレビューします。"
+    "message": "現在の好みで次に出やすい単語をプレビューします。"
   },
   "action_srs_open_panel": {
     "message": "開く"
@@ -117,16 +117,16 @@
     "message": "新しいSRSストーリーを開始"
   },
   "hint_srs_start_new_story": {
-    "message": "別のプロフィールまたは言語ペアを選び、初期化前に好みを設定します。"
+    "message": "プロフィールと言語ペアを選び、初期化前に好みを調整します。"
   },
   "button_srs_start_new_story": {
-    "message": "選択中のペアを設定"
+    "message": "設定を開始"
   },
   "heading_srs_story_flow": {
     "message": "SRSストーリーを設定"
   },
   "hint_srs_story_flow": {
-    "message": "初期化前に言語ペア、好み、開始サイズを選びます。"
+    "message": "初期化前に言語、好み、開始ペースを選びます。"
   },
   "heading_srs_story_flow_pair": {
     "message": "言語とプロフィールを選択"
@@ -141,7 +141,7 @@
     "message": "サンプルして初期化"
   },
   "hint_srs_story_flow_review": {
-    "message": "サンプルは表示中の設定を保存してから候補語を確認します。初期化も同じ設定を保存してからストーリーを作成します。"
+    "message": "単語をサンプルして組み合わせを確認し、よければストーリーを初期化します。"
   },
   "button_srs_story_flow_initialize": {
     "message": "ストーリーを初期化"
@@ -150,7 +150,7 @@
     "message": "設定を保存して候補語をサンプルしています…"
   },
   "status_srs_story_flow_sampled": {
-    "message": "SRSストーリーのサンプルを更新しました。"
+    "message": "サンプルを更新しました。"
   },
   "status_srs_story_flow_initializing": {
     "message": "設定を保存してSRSストーリーを初期化しています…"
@@ -192,7 +192,7 @@
     "message": "高度な開始サイズ"
   },
   "section_srs_admission_preferences": {
-    "message": "採用設定"
+    "message": "新しい単語の好み"
   },
   "hint_srs_admission_preferences": {
     "message": "LexiShiftが次に出す新しい単語の傾向を調整します。"
@@ -426,22 +426,22 @@
     "message": "好みに合う10語をサンプル…"
   },
   "button_srs_initialize": {
-    "message": "このペアのSを初期化"
+    "message": "ストーリーを初期化"
   },
   "button_srs_rebalance_preview": {
-    "message": "現在の設定で再配分をプレビュー"
+    "message": "現在の好みに合わせる内容をプレビュー"
   },
   "button_srs_rebalance_apply": {
-    "message": "再配分を適用…"
+    "message": "好みに合わせて調整…"
   },
   "button_srs_refresh_set": {
-    "message": "Sを更新してルールを反映"
+    "message": "学習語を更新"
   },
   "summary_srs_maintenance_tools": {
     "message": "SRSデータを管理"
   },
   "hint_srs_maintenance_tools": {
-    "message": "選択中のプロフィールと言語ペアについて、再調整、手動更新、最初からやり直すためのメンテナンス操作です。"
+    "message": "このアクティブなストーリーを調整、更新、リセットします。"
   },
   "summary_srs_technical_status": {
     "message": "技術ステータス"
@@ -537,19 +537,19 @@
     "message": "サンプルルール生成: 単語$1件, ターゲット$2件, ルール$3件（$4秒）"
   },
   "status_srs_set_init_running": {
-    "message": "Sを初期化中…"
+    "message": "ストーリーを初期化中…"
   },
   "status_srs_refresh_running": {
-    "message": "Sを更新してルールを反映中…"
+    "message": "学習語を更新中…"
   },
   "status_srs_refresh_success": {
-    "message": "$1 のSを更新しました: 新しい単語 +$2件。"
+    "message": "$1 の学習語を更新しました: 新しい単語 +$2件。"
   },
   "status_srs_refresh_noop": {
-    "message": "$1 のS更新: 新しい単語の追加はありません。"
+    "message": "$1 の学習語を更新しました: 新しい単語の追加はありません。"
   },
   "status_srs_refresh_failed": {
-    "message": "Sの更新に失敗しました。"
+    "message": "学習語の更新に失敗しました。"
   },
   "status_srs_diagnostics_running": {
     "message": "SRS実行時診断を収集中…"
@@ -564,19 +564,19 @@
     "message": "SRS診断の収集に失敗しました。"
   },
   "status_srs_set_init_result": {
-    "message": "$3 のSを初期化しました: +$1件（合計$2件）。"
+    "message": "$3 のストーリーを初期化しました: 学習単語 +$1件（合計$2件）。"
   },
   "status_srs_set_plan_result": {
-    "message": "$1 のS計画を作成しました。"
+    "message": "$1 のストーリー設定を確認しました。"
   },
   "status_srs_set_init_success": {
-    "message": "$1 のSを初期化しました。"
+    "message": "$1 のストーリーを初期化しました。"
   },
   "status_srs_set_plan_only": {
-    "message": "$1 のS計画を作成しました（変更は未適用）。"
+    "message": "$1 のストーリー設定を確認しました（変更は未適用）。"
   },
   "status_srs_set_init_failed": {
-    "message": "Sの初期化に失敗しました。"
+    "message": "ストーリー設定に失敗しました。"
   },
   "status_srs_sample_empty": {
     "message": "候補がありません。"

@@ -157,12 +157,12 @@
       ? translate(
           "status_srs_set_init_result",
           [added, total, srsPair],
-          `S initialized for ${srsPair}: +${added} items (total ${total}).`
+          `Story initialized for ${srsPair}: +${added} learning words (total ${total}).`
         )
       : translate(
           "status_srs_set_plan_result",
           [srsPair],
-          `S planning completed for ${srsPair}.`
+          `Story setup checked for ${srsPair}.`
         );
     return [
       header,

@@ -90,10 +90,10 @@
     "message": "Enable SRS practice mode"
   },
   "hint_srs_dataset": {
-    "message": "Uses a fixed test dataset for now (no external downloads)."
+    "message": "Uses installed language data for SRS stories."
   },
   "hint_srs_current_story": {
-    "message": "Settings, dashboard, and maintenance for the selected profile and language pair."
+    "message": "Preferences, dashboard, and maintenance for this active story."
   },
   "badge_srs_active_story": {
     "message": "Active"
@@ -108,7 +108,7 @@
     "message": "Sample next words"
   },
   "hint_srs_story_sampling_curtain": {
-    "message": "Preview words your current preferences are likely to admit."
+    "message": "Preview words your current preferences may suggest next."
   },
   "action_srs_open_panel": {
     "message": "Open"
@@ -117,16 +117,16 @@
     "message": "Start a new SRS story"
   },
   "hint_srs_start_new_story": {
-    "message": "Choose another profile or language pair, then set preferences before initializing."
+    "message": "Choose a profile and language pair, then tune preferences before initializing."
   },
   "button_srs_start_new_story": {
-    "message": "Set up selected pair"
+    "message": "Start setup"
   },
   "heading_srs_story_flow": {
     "message": "Set up SRS story"
   },
   "hint_srs_story_flow": {
-    "message": "Choose the language pair, preferences, and starting size before initializing."
+    "message": "Choose languages, preferences, and starting pace before setup."
   },
   "heading_srs_story_flow_pair": {
     "message": "Choose languages and profile"
@@ -141,7 +141,7 @@
     "message": "Sample and initialize"
   },
   "hint_srs_story_flow_review": {
-    "message": "Sampling saves these visible settings first, then previews likely words. Initialize saves these settings again before creating the story."
+    "message": "Sample words until the mix looks right, then initialize the story."
   },
   "button_srs_story_flow_initialize": {
     "message": "Initialize story"
@@ -150,7 +150,7 @@
     "message": "Saving settings and sampling possible words…"
   },
   "status_srs_story_flow_sampled": {
-    "message": "SRS story sample updated."
+    "message": "Sample updated."
   },
   "status_srs_story_flow_initializing": {
     "message": "Saving settings and initializing SRS story…"
@@ -192,7 +192,7 @@
     "message": "Advanced starting size"
   },
   "section_srs_admission_preferences": {
-    "message": "Admission preferences"
+    "message": "New-word preferences"
   },
   "hint_srs_admission_preferences": {
     "message": "Adjust the mix of new words LexiShift may introduce next."
@@ -426,22 +426,22 @@
     "message": "Sample 10 preference-matched words…"
   },
   "button_srs_initialize": {
-    "message": "Initialize S for this pair"
+    "message": "Initialize story"
   },
   "button_srs_rebalance_preview": {
-    "message": "Preview rebalance to current preferences"
+    "message": "Preview retune to current preferences"
   },
   "button_srs_rebalance_apply": {
-    "message": "Apply rebalance…"
+    "message": "Apply retune…"
   },
   "button_srs_refresh_set": {
-    "message": "Refresh S + publish rules"
+    "message": "Refresh learning words"
   },
   "summary_srs_maintenance_tools": {
     "message": "Manage SRS data"
   },
   "hint_srs_maintenance_tools": {
-    "message": "Maintenance actions for retuning, manual refresh, or starting over for the selected profile and language pair."
+    "message": "Retune, refresh, or reset this active story."
   },
   "summary_srs_technical_status": {
     "message": "Technical status"
@@ -537,19 +537,19 @@
     "message": "Sampled rulegen: $1 words, $2 targets, $3 rules ($4s)"
   },
   "status_srs_set_init_running": {
-    "message": "Initializing S…"
+    "message": "Initializing story…"
   },
   "status_srs_refresh_running": {
-    "message": "Refreshing S and publishing rules…"
+    "message": "Refreshing learning words…"
   },
   "status_srs_refresh_success": {
-    "message": "S refreshed for $1: +$2 new words."
+    "message": "Learning words refreshed for $1: +$2 new words."
   },
   "status_srs_refresh_noop": {
-    "message": "S refresh for $1: no new words added."
+    "message": "Learning words refreshed for $1: no new words added."
   },
   "status_srs_refresh_failed": {
-    "message": "S refresh failed."
+    "message": "Learning words refresh failed."
   },
   "status_srs_diagnostics_running": {
     "message": "Collecting SRS runtime diagnostics…"
@@ -564,19 +564,19 @@
     "message": "Failed to collect SRS diagnostics."
   },
   "status_srs_set_init_result": {
-    "message": "S initialized for $3: +$1 items (total $2)."
+    "message": "Story initialized for $3: +$1 learning words (total $2)."
   },
   "status_srs_set_plan_result": {
-    "message": "S planning completed for $1."
+    "message": "Story setup checked for $1."
   },
   "status_srs_set_init_success": {
-    "message": "S initialized for $1."
+    "message": "Story initialized for $1."
   },
   "status_srs_set_plan_only": {
-    "message": "S planning completed for $1; no changes were applied."
+    "message": "Story setup checked for $1; no changes were applied."
   },
   "status_srs_set_init_failed": {
-    "message": "S initialization failed."
+    "message": "Story setup failed."
   },
   "status_srs_sample_empty": {
     "message": "No words available."

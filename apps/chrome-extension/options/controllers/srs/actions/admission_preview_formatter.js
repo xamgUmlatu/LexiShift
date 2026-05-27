@@ -145,7 +145,7 @@
           preview.admitted_count ?? 0,
           srsPair
         ],
-        `Admission sample: ${preview.sample_count_effective ?? admittedWords.length} shown / ${preview.admitted_count ?? 0} admitted words for ${srsPair}.`
+        `Next-word sample: ${preview.sample_count_effective ?? admittedWords.length} shown / ${preview.admitted_count ?? 0} possible words for ${srsPair}.`
       )
     ];
     if (plan.can_execute && admittedWords.length) {

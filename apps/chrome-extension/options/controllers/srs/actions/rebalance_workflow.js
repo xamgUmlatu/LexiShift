@@ -49,7 +49,7 @@
       setOutputText(translate(
         "status_srs_rebalance_preview_running",
         [srsPair],
-        `Preparing rebalance preview for ${srsPair}…`
+        `Preparing preference retune preview for ${srsPair}…`
       ));
 
       try {
@@ -58,7 +58,7 @@
         const canProceed = await preflightSrsPairResources(
           srsPair,
           synced.profileId,
-          "S rebalance preview"
+          "preference retune preview"
         );
         if (!canProceed) {
           return;
@@ -83,8 +83,8 @@
         }));
         setStatus(
           result.plan && result.plan.can_execute === true
-            ? translate("status_srs_rebalance_ready", [srsPair], `Rebalance preview ready for ${srsPair}.`)
-            : translate("status_srs_rebalance_blocked", [srsPair], `Rebalance is not ready for ${srsPair}.`),
+            ? translate("status_srs_rebalance_ready", [srsPair], `Preference retune preview ready for ${srsPair}.`)
+            : translate("status_srs_rebalance_blocked", [srsPair], `Preference retune is not ready for ${srsPair}.`),
           result.plan && result.plan.can_execute === true ? colors.SUCCESS : colors.DEFAULT
         );
         log("SRS rebalance preview", {
@@ -96,7 +96,7 @@
       } catch (err) {
         const msg = err && err.message
           ? err.message
-          : translate("status_srs_rebalance_preview_failed", null, "SRS rebalance preview failed.");
+          : translate("status_srs_rebalance_preview_failed", null, "Preference retune preview failed.");
         setOutputText(msg);
         setStatus(msg, colors.ERROR);
         log("SRS rebalance preview failed.", err);
@@ -114,7 +114,7 @@
       setOutputText(translate(
         "status_srs_rebalance_apply_running",
         [srsPair],
-        `Preparing rebalance apply for ${srsPair}…`
+        `Preparing preference retune for ${srsPair}…`
       ));
 
       try {
@@ -123,7 +123,7 @@
         const canProceed = await preflightSrsPairResources(
           srsPair,
           synced.profileId,
-          "S rebalance apply"
+          "preference retune"
         );
         if (!canProceed) {
           return;
@@ -151,7 +151,7 @@
         }));
         if (!previewResult.plan || previewResult.plan.can_execute !== true) {
           setStatus(
-            translate("status_srs_rebalance_blocked", [srsPair], `Rebalance is not ready for ${srsPair}.`),
+            translate("status_srs_rebalance_blocked", [srsPair], `Preference retune is not ready for ${srsPair}.`),
             colors.DEFAULT
           );
           return;
@@ -166,17 +166,17 @@
           translate(
             "confirm_srs_rebalance_title",
             [srsPair],
-            `Rebalance the active SRS set for ${srsPair} using current preferences?`
+            `Retune active words for ${srsPair} using current preferences?`
           ),
           translate(
             "confirm_srs_rebalance_body_counts",
             [keepCount, parkCount, activateCount],
-            `${keepCount} protected words will stay active, ${parkCount} low-commitment words will leave the active set, and ${activateCount} words will be activated. Review history will be preserved.`
+            `${keepCount} protected words will stay active, ${parkCount} low-commitment words will move out of active practice, and ${activateCount} words will move in. Review history will be preserved.`
           )
         ].join("\n\n");
         if (!confirmFn(confirmMessage)) {
           setStatus(
-            translate("status_srs_rebalance_cancelled", [srsPair], `Rebalance cancelled for ${srsPair}.`),
+            translate("status_srs_rebalance_cancelled", [srsPair], `Preference retune cancelled for ${srsPair}.`),
             colors.DEFAULT
           );
           return;
@@ -197,8 +197,8 @@
         }
         setStatus(
           result.applied
-            ? translate("status_srs_rebalance_applied", [srsPair], `Rebalance applied for ${srsPair}.`)
-            : translate("status_srs_rebalance_noop", [srsPair], `Rebalance for ${srsPair} required no active-set changes.`),
+            ? translate("status_srs_rebalance_applied", [srsPair], `Preference retune applied for ${srsPair}.`)
+            : translate("status_srs_rebalance_noop", [srsPair], `Preference retune for ${srsPair} did not need active-word changes.`),
           result.applied ? colors.SUCCESS : colors.DEFAULT
         );
         log("SRS rebalance apply", {
@@ -210,7 +210,7 @@
       } catch (err) {
         const msg = err && err.message
           ? err.message
-          : translate("status_srs_rebalance_apply_failed", null, "SRS rebalance apply failed.");
+          : translate("status_srs_rebalance_apply_failed", null, "Preference retune failed.");
         setOutputText(msg);
         setStatus(msg, colors.ERROR);
         log("SRS rebalance apply failed.", err);

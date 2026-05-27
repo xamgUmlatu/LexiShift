@@ -78,6 +78,8 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-story-current-pair"', html)
         self.assertNotIn("Selected SRS story", html)
         self.assertNotIn("Current SRS story", html)
+        self.assertNotIn("Admission preferences", html)
+        self.assertNotIn("Preview rebalance to current preferences", html)
         self.assertNotIn("heading_srs_current_story", html)
         self.assertNotIn("badge_srs_selected_story", html)
         self.assertIn('data-i18n="badge_srs_active_story"', html)
@@ -88,6 +90,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-story-flow-profile-id"', html)
         self.assertIn('id="srs-story-flow-sample"', html)
         self.assertIn('id="srs-story-flow-initialize"', html)
+        self.assertIn('<select id="source-language" hidden aria-hidden="true">', html)
+        self.assertIn('<select id="target-language" hidden aria-hidden="true">', html)
+        self.assertRegex(
+            html,
+            r'(?s)<button\s+id="srs-initialize-set"[^>]*hidden[^>]*>',
+        )
         self.assertRegex(
             html,
             r'(?s)<label class="toggle srs-enable-switch">\s*'
@@ -119,6 +127,9 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         current_card_start = html.index('<details id="srs-story-current-card"')
         start_card_start = html.index('<article class="srs-story-start-card"', current_card_start)
         current_card_markup = html[current_card_start:start_card_start]
+        self.assertNotIn('for="source-language"', current_card_markup)
+        self.assertNotIn('for="target-language"', current_card_markup)
+        self.assertNotIn('id="target-language-gear"', current_card_markup)
         self.assertNotIn('for="srs-initial-active-count"', current_card_markup)
         self.assertRegex(
             html,
@@ -187,8 +198,8 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn(".srs-curtain-summary", css)
         self.assertIn(".srs-curtain-action", css)
         self.assertIn(".srs-range-field", css)
-        self.assertIn("#srs-rulegen-output:empty", css)
-        self.assertIn("#srs-rulegen-output:not(:empty)", css)
+        self.assertIn(".srs-preview:empty", css)
+        self.assertIn(".srs-preview:not(:empty)", css)
 
     def test_story_flow_persists_visible_values_before_initialize(self) -> None:
         script = f"""

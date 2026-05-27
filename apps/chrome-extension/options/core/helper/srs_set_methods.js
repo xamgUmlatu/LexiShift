@@ -37,7 +37,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_set_init_failed",
-            "S initialization failed."
+            "Story setup failed."
           )
         );
       }
@@ -73,7 +73,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_set_init_failed",
-            "S planning failed."
+            "Story setup failed."
           )
         );
       }
@@ -117,7 +117,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_admission_preview_failed",
-            "Admission preview failed."
+            "Word sample failed."
           )
         );
       }
@@ -157,8 +157,8 @@
         throw new Error(
           this.normalizeHelperErrorMessage(
             response && response.error,
-            "status_srs_set_init_failed",
-            "SRS refresh failed."
+            "status_srs_refresh_failed",
+            "Learning words refresh failed."
           )
         );
       }
@@ -261,7 +261,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_rebalance_preview_failed",
-            "SRS rebalance preview failed."
+            "Preference retune preview failed."
           )
         );
       }
@@ -292,7 +292,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_rebalance_apply_failed",
-            "SRS rebalance apply failed."
+            "Preference retune failed."
           )
         );
       }

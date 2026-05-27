@@ -1771,25 +1771,29 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` SRS copy/sizing polish keeps the
+- Last documented checkpoint: `2026-05-28` SRS story control polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
-  active badge, the visible admission controls are grouped into clearer
+  active badge, the visible new-word preference controls are grouped into clearer
   subsections, topic controls render as a contained probability-priority chip
   panel, the proficiency estimate is a slider that preserves the unset stored
   state until the user changes it, candidate-pool sizing is advanced on the
   active story while starting-word sizing is only visible in new-story setup,
+  source/target pair controls and the legacy initialize button remain as hidden
+  backing DOM anchors rather than visible active-story controls,
   dashboard/sampling curtains use compact title/subtitle/action summaries,
   tentative free-form topic tags are hidden,
   helper/semantic technical status is behind the bottom maintenance section,
-  rulegen status output appears only after content is written, and the
+  empty status panels appear only after content is written, maintenance
+  labels avoid internal `S`/rule-publication/rebalance wording, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
-- Last verified: `2026-05-28` refreshed copy/sizing extension SRS settings contract covers
+- Last verified: `2026-05-28` refreshed story-control extension SRS settings contract covers
   controller-graph construction order, collapsed selected-story markup,
   active-story word-pool controls, initialization-only starting-word controls,
-  polished dashboard/sampling curtain markup,
+  hidden backing source/target/initialize controls, polished
+  dashboard/sampling curtain markup, generalized empty preview hiding,
   lazy rulegen status output, switch-styled visible toggles, hidden
   experimental topic tags, proficiency slider markup, and bottom
   technical-status placement; extension structure/i18n checks, doc-reference
@@ -1802,6 +1806,10 @@ Use this file when:
     that is collapsed by default to the language-pair summary and active-pair
     badge; expanding it reveals grouped settings, dashboard, sampling, and
     maintenance for the same visible journey.
+  - Source/target language and legacy initialize controls are retained only as
+    hidden backing controls for the current controller path; users change
+    profile/pair through the guided new-story modal instead of editing an
+    already-created active story in place.
   - Topic preferences are visible as probability-priority chips, while
     free-form advanced tags stay present in the DOM for compatibility but hidden
     from the main MVP surface.
@@ -1816,10 +1824,10 @@ Use this file when:
     section rather than occupying the main settings flow.
   - The admitted-words dashboard remains read-only by default and is hidden
     until the dashboard curtain is opened from its summary panel.
-  - Admission sampling remains non-mutating and is hidden until the sampling
+  - New-word sampling remains non-mutating and is hidden until the sampling
     curtain is opened from its summary panel.
-  - Rebalance, manual refresh/publish, and reset remain available only under
-    the collapsed management section.
+  - Preference retune, manual learning-word refresh, and reset remain available
+    only under the collapsed management section.
   - Helper-backed initialize/refresh status output stays hidden until a message
     is available.
   - The guided new-story modal uses the same underlying Options controls and
@@ -1840,8 +1848,8 @@ Use this file when:
     stores as separate story blocks.
   - The guided modal is a first beta implementation; it is not yet a full
     multi-step wizard with separate pages or richer pair capability warnings.
-  - The technical size and initialization labels have not had their focused
-    product-copy pass.
+  - The technical size labels, advanced preview details, and diagnostic outputs
+    have not had their focused product-copy pass.
 
 ## Pair-Local Active Inventory
 

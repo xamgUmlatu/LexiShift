@@ -246,11 +246,11 @@
     bindSrsSettingsChange(srsAutoRefreshCooldownInput);
     bindSrsSettingsChange(srsExposureLoggingInput);
     bindAsyncListener(srsInitializeSetButton, "click", () => srsActionsController.initializeSet(), {
-      fallbackMessage: () => translate("status_srs_set_init_failed", null, "S initialization failed."),
+      fallbackMessage: () => translate("status_srs_set_init_failed", null, "Story setup failed."),
       logMessage: "SRS set init failed."
     });
     bindAsyncListener(srsAdmissionPreviewButton, "click", () => srsActionsController.previewAdmission(), {
-      fallbackMessage: () => translate("status_srs_admission_preview_failed", null, "Admission preview failed."),
+      fallbackMessage: () => translate("status_srs_admission_preview_failed", null, "Word sample failed."),
       logMessage: "SRS admission preview failed.",
       onError: (message) => {
         if (srsAdmissionPreviewOutput) {
@@ -281,7 +281,7 @@
       }
     });
     bindAsyncListener(srsRefreshSetButton, "click", () => srsActionsController.refreshSetNow(), {
-      fallbackMessage: () => translate("status_srs_refresh_failed", null, "S refresh failed."),
+      fallbackMessage: () => translate("status_srs_refresh_failed", null, "Learning words refresh failed."),
       logMessage: "SRS set refresh failed."
     });
     bindAsyncListener(srsRuntimeDiagnosticsButton, "click", () => srsActionsController.runRuntimeDiagnostics(), {

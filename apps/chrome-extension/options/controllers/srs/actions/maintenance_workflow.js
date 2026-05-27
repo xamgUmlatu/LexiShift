@@ -91,7 +91,7 @@
       }
       const srsPair = resolvePair();
       initializeButton.disabled = true;
-      setOutputText(translate("status_srs_set_init_running", null, "Initializing S…"));
+      setOutputText(translate("status_srs_set_init_running", null, "Initializing story…"));
 
       try {
         const items = await settingsManager.load();
@@ -99,7 +99,7 @@
         const canProceed = await preflightSrsPairResources(
           srsPair,
           synced.profileId,
-          "S initialization"
+          "story initialization"
         );
         if (!canProceed) {
           return;
@@ -162,8 +162,8 @@
         }
         await refreshSemanticAdmissionStatus(srsPair, synced.profileId);
         const statusMessage = applied
-          ? translate("status_srs_set_init_success", [srsPair], `S initialized for ${srsPair}.`)
-          : translate("status_srs_set_plan_only", [srsPair], `S planning completed for ${srsPair}; no changes were applied.`);
+          ? translate("status_srs_set_init_success", [srsPair], `Story initialized for ${srsPair}.`)
+          : translate("status_srs_set_plan_only", [srsPair], `Story setup checked for ${srsPair}; no changes were applied.`);
         setStatus(statusMessage, applied ? colors.SUCCESS : colors.DEFAULT);
         log("SRS set initialized", {
           pair: srsPair,
@@ -177,7 +177,7 @@
           requestProfileContextMeta: planningState.contextMeta
         });
       } catch (err) {
-        const msg = err && err.message ? err.message : translate("status_srs_set_init_failed", null, "S initialization failed.");
+        const msg = err && err.message ? err.message : translate("status_srs_set_init_failed", null, "Story setup failed.");
         setOutputText(msg);
         setStatus(msg, colors.ERROR);
         log("SRS set init failed.", err);
@@ -195,7 +195,7 @@
       setOutputText(translate(
         "status_srs_refresh_running",
         null,
-        "Refreshing S and publishing rules…"
+        "Refreshing learning words…"
       ));
 
       try {
@@ -204,7 +204,7 @@
         const canProceed = await preflightSrsPairResources(
           srsPair,
           synced.profileId,
-          "S refresh"
+          "learning word refresh"
         );
         if (!canProceed) {
           return;
@@ -242,8 +242,8 @@
         await refreshSemanticAdmissionStatus(srsPair, synced.profileId);
         setStatus(
           applied
-            ? translate("status_srs_refresh_success", [srsPair, added], `S refreshed for ${srsPair}: +${added} admitted.`)
-            : translate("status_srs_refresh_noop", [srsPair], `S refresh for ${srsPair}: no new admissions.`),
+            ? translate("status_srs_refresh_success", [srsPair, added], `Learning words refreshed for ${srsPair}: +${added} new words.`)
+            : translate("status_srs_refresh_noop", [srsPair], `Learning words refreshed for ${srsPair}: no new words added.`),
           applied ? colors.SUCCESS : colors.DEFAULT
         );
         log("SRS set refreshed", {
@@ -252,7 +252,7 @@
           requestProfileContextMeta: planningState.contextMeta
         });
       } catch (err) {
-        const msg = err && err.message ? err.message : translate("status_srs_refresh_failed", null, "S refresh failed.");
+        const msg = err && err.message ? err.message : translate("status_srs_refresh_failed", null, "Learning words refresh failed.");
         setOutputText(msg);
         setStatus(msg, colors.ERROR);
         log("SRS set refresh failed.", err);

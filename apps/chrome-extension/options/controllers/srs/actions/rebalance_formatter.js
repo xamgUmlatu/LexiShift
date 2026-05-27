@@ -66,17 +66,17 @@
           ? translate(
               "status_srs_rebalance_apply_result",
               [srsPair, keepCount, parkCount, activateCount],
-              `Rebalance applied for ${srsPair}: keep ${keepCount}, park ${parkCount}, activate ${activateCount}.`
+              `Preference retune applied for ${srsPair}: kept ${keepCount}, paused ${parkCount}, added ${activateCount}.`
             )
           : translate(
               "status_srs_rebalance_noop",
               [srsPair],
-              `Rebalance for ${srsPair} required no active-set changes.`
+              `Preference retune for ${srsPair} did not need active-word changes.`
             ))
       : translate(
           "status_srs_rebalance_preview_header",
           [srsPair, keepCount, parkCount, activateCount],
-          `Rebalance preview for ${srsPair}: keep ${keepCount}, park ${parkCount}, activate ${activateCount}.`
+          `Preference retune preview for ${srsPair}: keep ${keepCount}, pause ${parkCount}, add ${activateCount}.`
         );
     const lines = [
       header,
@@ -108,10 +108,10 @@
     }
     const noteLines = Array.isArray(plan.notes) ? plan.notes.map((note) => `- ${note}`) : [];
     const sectionLines = [];
-    sectionLines.push(...buildRebalanceSection("Protected items:", protectedItems));
-    sectionLines.push(...buildRebalanceSection("Swappable items:", swappableItems));
-    sectionLines.push(...buildRebalanceSection("Proposed parks:", proposedParks));
-    sectionLines.push(...buildRebalanceSection("Proposed activations:", proposedActivations));
+    sectionLines.push(...buildRebalanceSection("Kept words:", protectedItems));
+    sectionLines.push(...buildRebalanceSection("Words that can move:", swappableItems));
+    sectionLines.push(...buildRebalanceSection("Would pause:", proposedParks));
+    sectionLines.push(...buildRebalanceSection("Would add:", proposedActivations));
     if (noteLines.length) {
       sectionLines.push("Plan notes:");
       sectionLines.push(...noteLines);

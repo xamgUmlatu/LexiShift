@@ -320,11 +320,11 @@
           previewOutput.textContent = mainAdmissionPreviewOutput.textContent || "";
           previewOutput.style.color = "";
         }
-        setStatus(translate("status_srs_story_flow_sampled", null, "SRS story sample updated."), colors.SUCCESS);
+        setStatus(translate("status_srs_story_flow_sampled", null, "Sample updated."), colors.SUCCESS);
       } catch (err) {
         const message = err && err.message
           ? err.message
-          : translate("status_srs_admission_preview_failed", null, "Admission preview failed.");
+          : translate("status_srs_admission_preview_failed", null, "Word sample failed.");
         setPreviewText(message, colors.ERROR);
         throw err;
       } finally {
@@ -352,7 +352,7 @@
       } catch (err) {
         const message = err && err.message
           ? err.message
-          : translate("status_srs_set_init_failed", null, "S initialization failed.");
+          : translate("status_srs_set_init_failed", null, "Story setup failed.");
         setPreviewText(message, colors.ERROR);
         throw err;
       } finally {

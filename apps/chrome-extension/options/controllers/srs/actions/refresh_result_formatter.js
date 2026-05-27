@@ -57,12 +57,12 @@
       ? translate(
           "status_srs_refresh_success",
           [srsPair, added],
-          `S refreshed for ${srsPair}: +${added} admitted.`
+          `Learning words refreshed for ${srsPair}: +${added} new words.`
         )
       : translate(
           "status_srs_refresh_noop",
           [srsPair],
-          `S refresh for ${srsPair}: no new admissions.`
+          `Learning words refreshed for ${srsPair}: no new words added.`
         );
     return [
       header,

@@ -237,7 +237,7 @@ const installHelperBaseMethods = context.LexiShift.installHelperBaseMethods;
 const installHelperSrsSetMethods = context.LexiShift.installHelperSrsSetMethods;
 const messages = {{
   status_helper_missing: "Helper unavailable.",
-  status_srs_admission_preview_failed: "Admission preview failed.",
+  status_srs_admission_preview_failed: "Word sample failed.",
   status_helper_native_messaging_failed: "Localized bridge failure."
 }};
 const proto = {{

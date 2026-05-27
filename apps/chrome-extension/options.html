@@ -53,9 +53,36 @@
             <span data-i18n="toggle_srs_enabled">Enable SRS practice mode</span>
           </label>
           <p class="hint" data-i18n="hint_srs_dataset">
-            Uses a fixed test dataset for now (no external downloads).
+            Uses installed language data for SRS stories.
           </p>
+          <select id="source-language" hidden aria-hidden="true">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="ja">日本語</option>
+            <option value="zh">简体中文</option>
+            <option value="de">Deutsch</option>
+          </select>
+          <select id="target-language" hidden aria-hidden="true">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="ja">日本語</option>
+            <option value="zh">简体中文</option>
+            <option value="de">Deutsch</option>
+          </select>
+          <button
+            id="target-language-gear"
+            type="button"
+            data-i18n="button_modules"
+            aria-label="Modules"
+            title="Modules"
+            hidden
+          >
+            Modules
+          </button>
           <input id="srs-initial-active-count" type="hidden" />
+          <button id="srs-initialize-set" type="button" data-i18n="button_srs_initialize" hidden>
+            Initialize story
+          </button>
           <div class="srs-story-list">
             <details id="srs-story-current-card" class="srs-story-card" aria-labelledby="srs-story-current-heading">
               <summary class="srs-story-summary">
@@ -68,43 +95,11 @@
               </summary>
               <div class="srs-story-body">
                 <p class="hint" data-i18n="hint_srs_current_story">
-                  Settings, dashboard, and maintenance for the selected profile and language pair.
+                  Preferences, dashboard, and maintenance for this active story.
                 </p>
               <div class="srs-story-preferences">
                 <section class="srs-settings-section srs-story-core-settings">
                   <div class="srs-field-grid">
-                    <div class="field-row">
-                      <label for="source-language" data-i18n="label_source_language">Source language</label>
-                      <select id="source-language">
-                        <option value="en">English</option>
-                        <option value="es">Español</option>
-                        <option value="ja">日本語</option>
-                        <option value="zh">简体中文</option>
-                        <option value="de">Deutsch</option>
-                      </select>
-                    </div>
-                    <div class="field-row">
-                      <label for="target-language" data-i18n="label_target_language">Target language</label>
-                      <div class="target-language-controls">
-                        <select id="target-language">
-                          <option value="en">English</option>
-                          <option value="es">Español</option>
-                          <option value="ja">日本語</option>
-                          <option value="zh">简体中文</option>
-                          <option value="de">Deutsch</option>
-                        </select>
-                        <button
-                          id="target-language-gear"
-                          type="button"
-                          class="target-language-modules-button"
-                          data-i18n="button_modules"
-                          aria-label="Modules"
-                          title="Modules"
-                        >
-                          Modules
-                        </button>
-                      </div>
-                    </div>
                     <div class="field-row">
                       <label for="srs-max-active" data-i18n="label_srs_max_active">Active word limit</label>
                       <input id="srs-max-active" type="number" min="1" max="200" step="1" />
@@ -128,7 +123,7 @@
                 </section>
                 <section class="srs-settings-section srs-admission-settings">
                   <div class="srs-settings-section-header">
-                    <h4 data-i18n="section_srs_admission_preferences">Admission preferences</h4>
+                    <h4 data-i18n="section_srs_admission_preferences">New-word preferences</h4>
                     <p class="hint" data-i18n="hint_srs_admission_preferences">
                       Adjust the mix of new words LexiShift may introduce next.
                     </p>
@@ -409,7 +404,7 @@
               <span class="srs-curtain-copy">
                 <span class="srs-curtain-title" data-i18n="summary_srs_story_sampling">Sample next words</span>
                 <span class="srs-curtain-subtitle" data-i18n="hint_srs_story_sampling_curtain">
-                  Preview words your current preferences are likely to admit.
+                  Preview words your current preferences may suggest next.
                 </span>
               </span>
               <span class="srs-curtain-action" data-i18n="action_srs_open_panel">Open</span>
@@ -419,20 +414,17 @@
             </div>
             <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
           </details>
-          <div class="actions srs-primary-actions">
-            <button id="srs-initialize-set" data-i18n="button_srs_initialize">Initialize S for this pair</button>
-          </div>
           <details class="advanced srs-maintenance-tools">
             <summary data-i18n="summary_srs_maintenance_tools">Manage SRS data</summary>
             <p class="hint" data-i18n="hint_srs_maintenance_tools">
-              Maintenance actions for retuning, manual refresh, or starting over for the selected profile and language pair.
+              Retune, refresh, or reset this active story.
             </p>
             <div class="actions">
-              <button id="srs-rebalance-preview" data-i18n="button_srs_rebalance_preview">Preview rebalance to current preferences</button>
-              <button id="srs-rebalance-apply" data-i18n="button_srs_rebalance_apply">Apply rebalance…</button>
+              <button id="srs-rebalance-preview" data-i18n="button_srs_rebalance_preview">Preview retune to current preferences</button>
+              <button id="srs-rebalance-apply" data-i18n="button_srs_rebalance_apply">Apply retune…</button>
             </div>
             <div class="actions">
-              <button id="srs-refresh-set" data-i18n="button_srs_refresh_set">Refresh S + publish rules</button>
+              <button id="srs-refresh-set" data-i18n="button_srs_refresh_set">Refresh learning words</button>
             </div>
             <div class="actions srs-danger-actions">
               <button id="srs-reset" class="danger-button" data-i18n="button_srs_reset">Reset SRS Data</button>
@@ -475,11 +467,11 @@
               <div>
                 <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start a new SRS story</h3>
                 <p class="hint" data-i18n="hint_srs_start_new_story">
-                  Choose another profile or language pair, then set preferences before initializing.
+                  Choose a profile and language pair, then tune preferences before initializing.
                 </p>
               </div>
               <button id="srs-story-start" type="button" class="srs-story-start-link" data-i18n="button_srs_start_new_story">
-                Set up selected pair
+                Start setup
               </button>
             </article>
           </div>
@@ -984,7 +976,7 @@
           <div>
             <h3 id="srs-story-flow-title" data-i18n="heading_srs_story_flow">Set up SRS story</h3>
             <p class="hint" data-i18n="hint_srs_story_flow">
-              Choose the language pair, preferences, and starting size before initializing.
+              Choose languages, preferences, and starting pace before setup.
             </p>
           </div>
           <button id="srs-story-flow-close" type="button" class="srs-story-flow-close" data-i18n="button_close">
@@ -1098,7 +1090,7 @@
           <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-size">
             <span class="srs-story-flow-step-index">3</span>
             <div>
-              <h4 id="srs-story-flow-step-size" data-i18n="heading_srs_story_flow_size">Set starting size</h4>
+              <h4 id="srs-story-flow-step-size" data-i18n="heading_srs_story_flow_size">Choose starting pace</h4>
               <div class="field-row">
                 <label for="srs-story-flow-max-active" data-i18n="label_srs_max_active">Active word limit</label>
                 <input id="srs-story-flow-max-active" type="number" min="1" max="200" step="1" />
@@ -1132,7 +1124,7 @@
             <div>
               <h4 id="srs-story-flow-step-review" data-i18n="heading_srs_story_flow_review">Sample and initialize</h4>
               <p class="hint" data-i18n="hint_srs_story_flow_review">
-                Sampling saves these visible settings first, then previews likely words. Initialize saves these settings again before creating the story.
+                Sample words until the mix looks right, then initialize the story.
               </p>
               <div class="actions srs-story-flow-actions">
                 <button id="srs-story-flow-sample" type="button" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>

@@ -44,7 +44,7 @@ const vm = require("node:vm");
 
 const modulePath = {json.dumps(str(LOCALIZATION_SERVICE_JS))};
 const heading = {{
-  textContent: "Admission preferences",
+  textContent: "New-word preferences",
   getAttribute(name) {{
     return name === "data-i18n" ? "section_srs_admission_preferences" : null;
   }}
@@ -90,7 +90,7 @@ assert.equal(i18n.t("missing_key"), "missing_key");
 
 i18n.apply();
 
-assert.equal(heading.textContent, "Admission preferences");
+assert.equal(heading.textContent, "New-word preferences");
 assert.deepEqual(placeholderNode.attributes, {{}});
 assert.equal(context.document.title, "Options");
 """

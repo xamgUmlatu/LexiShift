@@ -110,7 +110,7 @@
           "srs-words-empty",
           allItems.length
             ? "No SRS words match these filters."
-            : "No SRS words are admitted for this pair yet."
+            : "No learning words are in this story yet."
         ));
         return emptyPagination;
       }

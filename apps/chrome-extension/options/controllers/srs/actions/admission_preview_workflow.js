@@ -48,7 +48,7 @@
       setAdmissionPreviewOutputText(translate(
         "status_srs_admission_preview_running",
         [previewCount],
-        `Generating admitted words sample (${previewCount})…`
+        `Sampling possible next words (${previewCount})…`
       ));
 
       try {
@@ -57,7 +57,7 @@
         const canProceed = await preflightSrsPairResources(
           srsPair,
           synced.profileId,
-          "S admission preview",
+          "word sampling",
           { setOutputText: setAdmissionPreviewOutputText }
         );
         if (!canProceed) {
@@ -104,7 +104,7 @@
       } catch (err) {
         const msg = err && err.message
           ? err.message
-          : translate("status_srs_admission_preview_failed", null, "Admission preview failed.");
+          : translate("status_srs_admission_preview_failed", null, "Word sample failed.");
         setAdmissionPreviewOutputText(msg);
         log("SRS admission preview failed.", err);
       } finally {

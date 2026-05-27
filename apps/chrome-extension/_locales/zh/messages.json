@@ -90,10 +90,10 @@
     "message": "启用 SRS 练习模式"
   },
   "hint_srs_dataset": {
-    "message": "目前使用固定测试数据集（无需外部下载）。"
+    "message": "SRS 故事使用已安装的语言数据。"
   },
   "hint_srs_current_story": {
-    "message": "所选配置和语言对的设置、仪表板和维护操作。"
+    "message": "这个活跃故事的偏好、仪表板和维护操作。"
   },
   "badge_srs_active_story": {
     "message": "活跃"
@@ -108,7 +108,7 @@
     "message": "抽样下一批词"
   },
   "hint_srs_story_sampling_curtain": {
-    "message": "预览当前偏好最可能纳入的词。"
+    "message": "预览当前偏好接下来可能推荐的词。"
   },
   "action_srs_open_panel": {
     "message": "打开"
@@ -117,16 +117,16 @@
     "message": "开始新的 SRS 故事"
   },
   "hint_srs_start_new_story": {
-    "message": "选择另一个配置或语言对，并在初始化前设置偏好。"
+    "message": "选择配置和语言对，并在初始化前调整偏好。"
   },
   "button_srs_start_new_story": {
-    "message": "设置当前语言对"
+    "message": "开始设置"
   },
   "heading_srs_story_flow": {
     "message": "设置 SRS 故事"
   },
   "hint_srs_story_flow": {
-    "message": "初始化前选择语言对、偏好和起始规模。"
+    "message": "初始化前选择语言、偏好和起始节奏。"
   },
   "heading_srs_story_flow_pair": {
     "message": "选择语言和配置"
@@ -141,7 +141,7 @@
     "message": "抽样并初始化"
   },
   "hint_srs_story_flow_review": {
-    "message": "抽样会先保存这些可见设置，再预览可能出现的词。初始化也会再次保存这些设置，然后创建故事。"
+    "message": "先抽样查看词汇组合，满意后再初始化故事。"
   },
   "button_srs_story_flow_initialize": {
     "message": "初始化故事"
@@ -150,7 +150,7 @@
     "message": "正在保存设置并抽样可能出现的词…"
   },
   "status_srs_story_flow_sampled": {
-    "message": "SRS 故事抽样已更新。"
+    "message": "抽样已更新。"
   },
   "status_srs_story_flow_initializing": {
     "message": "正在保存设置并初始化 SRS 故事…"
@@ -192,7 +192,7 @@
     "message": "高级起始规模"
   },
   "section_srs_admission_preferences": {
-    "message": "纳入偏好"
+    "message": "新词偏好"
   },
   "hint_srs_admission_preferences": {
     "message": "调整 LexiShift 接下来可能介绍的新词组合。"
@@ -426,22 +426,22 @@
     "message": "抽样 10 个匹配偏好的词…"
   },
   "button_srs_initialize": {
-    "message": "为该语言对初始化 S"
+    "message": "初始化故事"
   },
   "button_srs_rebalance_preview": {
-    "message": "预览按当前偏好重新平衡"
+    "message": "预览按当前偏好调整"
   },
   "button_srs_rebalance_apply": {
-    "message": "应用重新平衡…"
+    "message": "应用偏好调整…"
   },
   "button_srs_refresh_set": {
-    "message": "刷新 S 并发布规则"
+    "message": "刷新学习词"
   },
   "summary_srs_maintenance_tools": {
     "message": "管理 SRS 数据"
   },
   "hint_srs_maintenance_tools": {
-    "message": "用于重新调整、手动刷新，或为所选资料和语言对重新开始的维护操作。"
+    "message": "调整、刷新或重置这个活跃故事。"
   },
   "summary_srs_technical_status": {
     "message": "技术状态"
@@ -537,19 +537,19 @@
     "message": "采样规则生成：$1 个词，$2 个目标，$3 条规则（$4秒）"
   },
   "status_srs_set_init_running": {
-    "message": "正在初始化 S…"
+    "message": "正在初始化故事…"
   },
   "status_srs_refresh_running": {
-    "message": "正在刷新 S 并发布规则…"
+    "message": "正在刷新学习词…"
   },
   "status_srs_refresh_success": {
-    "message": "已刷新 $1 的 S：新增 $2 个词。"
+    "message": "已刷新 $1 的学习词：新增 $2 个词。"
   },
   "status_srs_refresh_noop": {
-    "message": "$1 的 S 刷新完成：没有新增词。"
+    "message": "已刷新 $1 的学习词：没有新增词。"
   },
   "status_srs_refresh_failed": {
-    "message": "S 刷新失败。"
+    "message": "学习词刷新失败。"
   },
   "status_srs_diagnostics_running": {
     "message": "正在收集 SRS 运行时诊断…"
@@ -564,19 +564,19 @@
     "message": "收集 SRS 诊断失败。"
   },
   "status_srs_set_init_result": {
-    "message": "已为 $3 初始化 S：+$1 项（总计 $2）。"
+    "message": "已为 $3 初始化故事：+$1 个学习词（总计 $2）。"
   },
   "status_srs_set_plan_result": {
-    "message": "已完成 $1 的 S 规划。"
+    "message": "已检查 $1 的故事设置。"
   },
   "status_srs_set_init_success": {
-    "message": "已为 $1 初始化 S。"
+    "message": "已为 $1 初始化故事。"
   },
   "status_srs_set_plan_only": {
-    "message": "已完成 $1 的 S 规划（未应用变更）。"
+    "message": "已检查 $1 的故事设置（未应用变更）。"
   },
   "status_srs_set_init_failed": {
-    "message": "初始化 S 失败。"
+    "message": "故事设置失败。"
   },
   "status_srs_sample_empty": {
     "message": "暂无可用词。"
