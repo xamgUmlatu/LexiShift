@@ -47,6 +47,7 @@ class UIManager {
       "srs-story-dashboard-curtain", "srs-story-sampling-curtain",
       "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
+      "srs-story-current-pair",
       "srs-words-refresh", "srs-words-advanced", "srs-words-search",
       "srs-words-status-filter", "srs-words-sort", "srs-words-page-size",
       "srs-words-clear-filters", "srs-words-summary", "srs-words-pagination",
@@ -102,6 +103,29 @@ class UIManager {
     this.dom.srsStoryTopicInterestChipButtons = Array.from(
       document.querySelectorAll("[data-srs-story-topic-interest]")
     );
+    this.updateSrsStorySummary();
+  }
+
+  getSelectedOptionLabel(select, fallback) {
+    if (!select) {
+      return fallback;
+    }
+    const option = select.options && select.selectedIndex >= 0
+      ? select.options[select.selectedIndex]
+      : null;
+    const label = option
+      ? String(option.textContent || option.label || option.value || "").trim()
+      : "";
+    return label || String(select.value || fallback || "").trim();
+  }
+
+  updateSrsStorySummary() {
+    if (!this.dom.srsStoryCurrentPair) {
+      return;
+    }
+    const sourceLabel = this.getSelectedOptionLabel(this.dom.sourceLanguage, "Source");
+    const targetLabel = this.getSelectedOptionLabel(this.dom.targetLanguage, "Target");
+    this.dom.srsStoryCurrentPair.textContent = `${sourceLabel} -> ${targetLabel}`;
   }
 
   normalizeSrsTopicInterestList(value) {
@@ -252,6 +276,7 @@ class UIManager {
     if (this.dom.srsAutoRefreshCooldown) {
       this.dom.srsAutoRefreshCooldown.value = String(profile.srsAutoRefreshCooldownMinutes);
     }
+    this.updateSrsStorySummary();
   }
 
   updateProfileBackgroundInputs(prefs) {

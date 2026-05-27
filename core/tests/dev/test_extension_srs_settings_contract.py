@@ -30,6 +30,7 @@ SRS_BINDINGS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/events/srs_bindings.js"
 )
 OPTIONS_HTML = PROJECT_ROOT / "apps/chrome-extension/options.html"
+OPTIONS_CSS = PROJECT_ROOT / "apps/chrome-extension/options.css"
 TOPIC_TAXONOMY_JSON = PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxonomy_en_es.json"
 SETTINGS_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/base_methods.js"
 SIGNALS_METHODS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/signals_methods.js"
@@ -69,9 +70,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
 
     def test_srs_maintenance_and_challenge_controls_are_collapsed(self) -> None:
         html = OPTIONS_HTML.read_text(encoding="utf-8")
+        css = OPTIONS_CSS.read_text(encoding="utf-8")
 
         self.assertIn('class="srs-story-list"', html)
+        self.assertIn('id="srs-story-current-card"', html)
         self.assertIn('id="srs-story-current-heading"', html)
+        self.assertIn('id="srs-story-current-pair"', html)
         self.assertIn('id="srs-story-start-heading"', html)
         self.assertIn('id="srs-story-flow"', html)
         self.assertIn('id="srs-story-flow-source-language"', html)
@@ -79,6 +83,23 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-story-flow-profile-id"', html)
         self.assertIn('id="srs-story-flow-sample"', html)
         self.assertIn('id="srs-story-flow-initialize"', html)
+        self.assertRegex(
+            html,
+            r'(?s)<label class="toggle srs-enable-switch">\s*'
+            r'<input id="srs-enabled" type="checkbox" />\s*'
+            r'<span class="srs-enable-switch-ui" aria-hidden="true"></span>',
+        )
+        current_story_open_tag = re.search(
+            r'<details id="srs-story-current-card" class="srs-story-card"[^>]*>',
+            html,
+        )
+        self.assertIsNotNone(current_story_open_tag)
+        self.assertNotIn(" open", current_story_open_tag.group(0))
+        self.assertRegex(
+            html,
+            r'(?s)<details id="srs-story-current-card" class="srs-story-card"'
+            r'.*?<summary class="srs-story-summary">.*?class="srs-story-badge"',
+        )
         self.assertRegex(
             html,
             r'(?s)<details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">'
@@ -106,6 +127,9 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             r'(?s)<details class="advanced srs-maintenance-tools">.*?id="srs-reset"',
         )
         self.assertIn('class="danger-button"', html)
+        self.assertIn(".srs-enable-switch-ui", css)
+        self.assertIn("#srs-rulegen-output:empty", css)
+        self.assertIn("#srs-rulegen-output:not(:empty)", css)
 
     def test_story_flow_persists_visible_values_before_initialize(self) -> None:
         script = f"""

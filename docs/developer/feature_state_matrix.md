@@ -1768,32 +1768,39 @@ Use this file when:
 ## SRS Story-Based Options UX
 
 - Status: `implemented`, `default-on`, `verified` for the selected-story shell,
-  dashboard/sampling curtains, and guided new-story initialization modal; full
-  multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` bootstrap-order fix preserves the
-  guided-flow checkpoint: controls are grouped
-  under a selected profile/pair story block, the admitted-words dashboard and
-  admission sample preview are collapsed as story curtains, maintenance actions
-  remain behind a collapsed management section, and the start-new-story block
-  opens a guided modal that persists visible profile/language/SRS preferences
-  before calling the existing preview or initialize workflow.
+  dashboard/sampling curtains, enable toggle styling, lazy status output, and
+  guided new-story initialization modal; full multi-story enumeration remains
+  `planned`
+- Last documented checkpoint: `2026-05-28` selected-story polish preserves the
+  guided-flow checkpoint: controls are grouped under a selected profile/pair
+  story block, that block is collapsed by default to a pair summary plus
+  selected-pair badge, the admitted-words dashboard and admission sample preview
+  are collapsed as story curtains, maintenance actions remain behind a collapsed
+  management section, rulegen status output appears only after content is
+  written, and the start-new-story block opens a guided modal that persists
+  visible profile/language/SRS preferences before calling the existing preview
+  or initialize workflow.
 - Last verified: `2026-05-28` focused extension SRS settings contract covers
-  controller-graph construction order so the guided story-flow controller is
-  built only after controller adapters exist; extension structure/i18n checks,
-  doc-reference check, state audit, changed-file gate, and diff check pass.
+  controller-graph construction order, collapsed selected-story markup, lazy
+  rulegen status output, and the styled SRS enable toggle; extension
+  structure/i18n checks, doc-reference check, state audit, changed-file gate,
+  and diff check pass.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
     source/target language pair; it does not yet enumerate every persisted SRS
     profile/pair store.
   - The selected profile/pair SRS controls render inside a story-shaped block
-    so preferences, dashboard, sampling, and maintenance belong to the same
-    visible journey.
+    that is collapsed by default to the language-pair summary and selected-pair
+    badge; expanding it reveals preferences, dashboard, sampling, and
+    maintenance for the same visible journey.
   - The admitted-words dashboard remains read-only by default and is hidden
     until the dashboard curtain is opened.
   - Admission sampling remains non-mutating and is hidden until the sampling
     curtain is opened.
   - Rebalance, manual refresh/publish, and reset remain available only under
     the collapsed management section.
+  - Helper-backed initialize/refresh status output stays hidden until a message
+    is available.
   - The guided new-story modal uses the same underlying Options controls and
     helper workflows as the existing page path; it does not introduce a second
     SRS initialization implementation.

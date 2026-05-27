@@ -47,24 +47,27 @@
         </section>
         <section class="card">
           <h2 data-i18n="section_srs">SRS Practice</h2>
-          <label class="toggle">
+          <label class="toggle srs-enable-switch">
             <input id="srs-enabled" type="checkbox" />
+            <span class="srs-enable-switch-ui" aria-hidden="true"></span>
             <span data-i18n="toggle_srs_enabled">Enable SRS practice mode</span>
           </label>
           <p class="hint" data-i18n="hint_srs_dataset">
             Uses a fixed test dataset for now (no external downloads).
           </p>
           <div class="srs-story-list">
-            <article class="srs-story-card" aria-labelledby="srs-story-current-heading">
-              <div class="srs-story-header">
+            <details id="srs-story-current-card" class="srs-story-card" aria-labelledby="srs-story-current-heading">
+              <summary class="srs-story-summary">
                 <div>
                   <h3 id="srs-story-current-heading" data-i18n="heading_srs_current_story">Selected SRS story</h3>
-                  <p class="hint" data-i18n="hint_srs_current_story">
-                    Settings, dashboard, and maintenance for the selected profile and language pair.
-                  </p>
+                  <span id="srs-story-current-pair" class="srs-story-pair-label">English -> Spanish</span>
                 </div>
                 <span class="srs-story-badge" data-i18n="badge_srs_selected_story">Selected pair</span>
-              </div>
+              </summary>
+              <div class="srs-story-body">
+                <p class="hint" data-i18n="hint_srs_current_story">
+                  Settings, dashboard, and maintenance for the selected profile and language pair.
+                </p>
               <div class="srs-story-preferences">
                 <div class="field-row">
                   <label for="source-language" data-i18n="label_source_language">Source language</label>
@@ -410,7 +413,8 @@
             </div>
           </details>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
-            </article>
+              </div>
+            </details>
             <article class="srs-story-start-card" aria-labelledby="srs-story-start-heading">
               <div>
                 <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start a new SRS story</h3>
