@@ -92,14 +92,11 @@
   "hint_srs_dataset": {
     "message": "Uses a fixed test dataset for now (no external downloads)."
   },
-  "heading_srs_current_story": {
-    "message": "Current SRS story"
-  },
   "hint_srs_current_story": {
     "message": "Settings, dashboard, and maintenance for the selected profile and language pair."
   },
-  "badge_srs_selected_story": {
-    "message": "Selected"
+  "badge_srs_active_story": {
+    "message": "Active"
   },
   "summary_srs_story_dashboard": {
     "message": "Learning dashboard"

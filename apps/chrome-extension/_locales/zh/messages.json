@@ -92,14 +92,11 @@
   "hint_srs_dataset": {
     "message": "目前使用固定测试数据集（无需外部下载）。"
   },
-  "heading_srs_current_story": {
-    "message": "当前 SRS 故事"
-  },
   "hint_srs_current_story": {
     "message": "所选配置和语言对的设置、仪表板和维护操作。"
   },
-  "badge_srs_selected_story": {
-    "message": "已选"
+  "badge_srs_active_story": {
+    "message": "活跃"
   },
   "summary_srs_story_dashboard": {
     "message": "学习仪表板"

@@ -92,14 +92,11 @@
   "hint_srs_dataset": {
     "message": "現時点では固定のテストデータセットを使用します（外部ダウンロードなし）。"
   },
-  "heading_srs_current_story": {
-    "message": "現在のSRSストーリー"
-  },
   "hint_srs_current_story": {
     "message": "選択中のプロフィールと言語ペアの設定、ダッシュボード、メンテナンスです。"
   },
-  "badge_srs_selected_story": {
-    "message": "選択中"
+  "badge_srs_active_story": {
+    "message": "アクティブ"
   },
   "summary_srs_story_dashboard": {
     "message": "学習ダッシュボード"

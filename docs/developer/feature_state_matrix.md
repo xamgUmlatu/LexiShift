@@ -1774,7 +1774,7 @@ Use this file when:
 - Last documented checkpoint: `2026-05-28` SRS visual polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
-  selected badge, the visible admission controls are grouped into clearer
+  active badge, the visible admission controls are grouped into clearer
   subsections, topic controls render as a contained probability-priority chip
   panel, the proficiency estimate is a slider that preserves the unset stored
   state until the user changes it, candidate-pool and starting-word sizing
@@ -1797,7 +1797,7 @@ Use this file when:
     source/target language pair; it does not yet enumerate every persisted SRS
     profile/pair store.
   - The selected profile/pair SRS controls render inside a story-shaped block
-    that is collapsed by default to the language-pair summary and selected-pair
+    that is collapsed by default to the language-pair summary and active-pair
     badge; expanding it reveals grouped settings, dashboard, sampling, and
     maintenance for the same visible journey.
   - Topic preferences are visible as probability-priority chips, while

@@ -92,14 +92,11 @@
   "hint_srs_dataset": {
     "message": "Verwendet vorerst einen festen Testdatensatz (keine externen Downloads)."
   },
-  "heading_srs_current_story": {
-    "message": "Aktuelle SRS-Story"
-  },
   "hint_srs_current_story": {
     "message": "Einstellungen, Dashboard und Wartung für das ausgewählte Profil und Sprachpaar."
   },
-  "badge_srs_selected_story": {
-    "message": "Ausgewählt"
+  "badge_srs_active_story": {
+    "message": "Aktiv"
   },
   "summary_srs_story_dashboard": {
     "message": "Lern-Dashboard"
