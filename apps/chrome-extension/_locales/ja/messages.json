@@ -93,13 +93,13 @@
     "message": "現時点では固定のテストデータセットを使用します（外部ダウンロードなし）。"
   },
   "heading_srs_current_story": {
-    "message": "選択中のSRSストーリー"
+    "message": "現在のSRSストーリー"
   },
   "hint_srs_current_story": {
     "message": "選択中のプロフィールと言語ペアの設定、ダッシュボード、メンテナンスです。"
   },
   "badge_srs_selected_story": {
-    "message": "選択中のペア"
+    "message": "選択中"
   },
   "summary_srs_story_dashboard": {
     "message": "ダッシュボードを開く"
@@ -180,13 +180,13 @@
     "message": "採用設定"
   },
   "hint_srs_admission_preferences": {
-    "message": "これらの値は、選択したプロファイルと言語ペアに対する初期S採用順位を再調整します。"
+    "message": "これらの値で、このストーリーに次に採用される単語を調整します。"
   },
   "label_srs_topic_interest_presets": {
-    "message": "おすすめトピック"
+    "message": "トピック優先度"
   },
   "badge_srs_topic_interest_pair_support": {
-    "message": "プレビュー対応は言語ペアで変わります"
+    "message": "カバレッジはペアで変わります"
   },
   "topic_srs_medicine_health": {
     "message": "医療・健康"
@@ -222,7 +222,7 @@
     "message": "植物・自然"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "採用で優先したいトピックを選びます。現在の言語ペアで対応できる範囲はプレビューで確認できます。"
+    "message": "優先したいトピックを選びます。専用リストではなく、採用確率を調整します。"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高度なタグ"
@@ -234,10 +234,13 @@
     "message": "実験用、または上にないトピック用に、カンマ区切りのタグを追加できます。"
   },
   "label_srs_proficiency_estimate": {
-    "message": "習熟度の推定 (%)"
+    "message": "習熟度の推定"
   },
   "hint_srs_proficiency_estimate": {
-    "message": "0 から 100。空欄のままだと習熟度は中立のままです。"
+    "message": "新しいSRS単語に合わせたいレベルへスライダーを動かします。"
+  },
+  "label_srs_previous_setting": {
+    "message": "保存済み設定"
   },
   "summary_srs_challenge_tuning": {
     "message": "高度な難度調整"
@@ -251,20 +254,23 @@
   "label_srs_highlight_color": {
     "message": "SRSハイライト色"
   },
+  "section_srs_display_feedback": {
+    "message": "表示とフィードバック"
+  },
   "label_srs_semantic_admission_status": {
-    "message": "意味アドミッション"
+    "message": "文への適合チェック"
   },
   "status_srs_semantic_capability_checking": {
     "message": "確認中…"
   },
   "hint_srs_semantic_capability_checking": {
-    "message": "意味アドミッションの状態を確認しています…"
+    "message": "文への適合チェックの状態を確認しています…"
   },
   "status_srs_semantic_capability_active": {
-    "message": "自動"
+    "message": "オン"
   },
   "hint_srs_semantic_capability_active": {
-    "message": "このペア/プロファイルでは、ヘルパー側の文ベース veto が自動で有効になります。"
+    "message": "LexiShiftは、選ばれたSRS置換が文に合うかを表示前に確認します。"
   },
   "status_srs_semantic_capability_published_unready": {
     "message": "まだ利用不可"
@@ -288,7 +294,7 @@
     "message": "状態を確認できません"
   },
   "hint_srs_semantic_capability_unknown": {
-    "message": "意味アドミッションの状態を今は確認できません。"
+    "message": "文への適合チェックの状態を今は確認できません。"
   },
   "toggle_srs_semantic_admission": {
     "message": "意味アドミッションを有効化（実験的）"
@@ -421,6 +427,9 @@
   },
   "hint_srs_maintenance_tools": {
     "message": "選択中のプロフィールと言語ペアについて、再調整、手動更新、最初からやり直すためのメンテナンス操作です。"
+  },
+  "summary_srs_technical_status": {
+    "message": "技術ステータス"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS実行時診断"

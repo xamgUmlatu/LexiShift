@@ -99,7 +99,7 @@
     "message": "所选配置和语言对的设置、仪表板和维护操作。"
   },
   "badge_srs_selected_story": {
-    "message": "当前语言对"
+    "message": "已选"
   },
   "summary_srs_story_dashboard": {
     "message": "打开仪表板"
@@ -180,13 +180,13 @@
     "message": "纳入偏好"
   },
   "hint_srs_admission_preferences": {
-    "message": "这些值会重新排序所选配置和语言对的初始 S 纳入结果。"
+    "message": "这些值会调整这个故事接下来纳入哪些词。"
   },
   "label_srs_topic_interest_presets": {
-    "message": "推荐主题"
+    "message": "主题优先级"
   },
   "badge_srs_topic_interest_pair_support": {
-    "message": "预览支持因语言对而异"
+    "message": "覆盖因语言对而异"
   },
   "topic_srs_medicine_health": {
     "message": "医学与健康"
@@ -222,7 +222,7 @@
     "message": "植物与自然"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "选择想在纳入时优先的主题。预览会显示当前语言对实际可支持的范围。"
+    "message": "选择想优先的主题。这会改变概率，而不是变成专属词表。"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高级标签"
@@ -234,10 +234,13 @@
     "message": "可为实验或上方未列出的主题添加逗号分隔标签。"
   },
   "label_srs_proficiency_estimate": {
-    "message": "熟练度估计 (%)"
+    "message": "熟练度估计"
   },
   "hint_srs_proficiency_estimate": {
-    "message": "0 到 100。留空则保持熟练度中性。"
+    "message": "将滑块拖到你希望新 SRS 词匹配的水平。"
+  },
+  "label_srs_previous_setting": {
+    "message": "已保存设置"
   },
   "summary_srs_challenge_tuning": {
     "message": "高级挑战调节"
@@ -251,20 +254,23 @@
   "label_srs_highlight_color": {
     "message": "SRS 高亮颜色"
   },
+  "section_srs_display_feedback": {
+    "message": "显示与反馈"
+  },
   "label_srs_semantic_admission_status": {
-    "message": "语义准入"
+    "message": "句子适配检查"
   },
   "status_srs_semantic_capability_checking": {
     "message": "检查中…"
   },
   "hint_srs_semantic_capability_checking": {
-    "message": "正在检查语义准入状态…"
+    "message": "正在检查句子适配状态…"
   },
   "status_srs_semantic_capability_active": {
-    "message": "自动"
+    "message": "开启"
   },
   "hint_srs_semantic_capability_active": {
-    "message": "此语言对/配置档会自动启用助手端句子级 veto。"
+    "message": "LexiShift 会在显示前检查选中的 SRS 替换是否适合该句子。"
   },
   "status_srs_semantic_capability_published_unready": {
     "message": "尚未可用"
@@ -288,7 +294,7 @@
     "message": "状态不可用"
   },
   "hint_srs_semantic_capability_unknown": {
-    "message": "目前无法检查语义准入状态。"
+    "message": "目前无法检查句子适配状态。"
   },
   "toggle_srs_semantic_admission": {
     "message": "启用语义准入（实验性）"
@@ -421,6 +427,9 @@
   },
   "hint_srs_maintenance_tools": {
     "message": "用于重新调整、手动刷新，或为所选资料和语言对重新开始的维护操作。"
+  },
+  "summary_srs_technical_status": {
+    "message": "技术状态"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS 运行时诊断"

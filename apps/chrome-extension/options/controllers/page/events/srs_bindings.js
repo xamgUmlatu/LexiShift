@@ -34,6 +34,8 @@
       ? elements.srsTopicInterestChipButtons
       : [];
     const srsProficiencyEstimateInput = elements.srsProficiencyEstimateInput || null;
+    const srsProficiencyEstimateValueOutput = elements.srsProficiencyEstimateValueOutput || null;
+    const srsProficiencyEstimateSavedOutput = elements.srsProficiencyEstimateSavedOutput || null;
     const srsChallengeTargetInput = elements.srsChallengeTargetInput || null;
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
@@ -119,6 +121,47 @@
       syncTopicInterestChips();
     }
 
+    function formatProficiencyValue(value, hasValue) {
+      if (!hasValue) {
+        return "Not set";
+      }
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) {
+        return "Not set";
+      }
+      return `${Math.round(Math.min(100, Math.max(0, numeric)))}%`;
+    }
+
+    function ensureDataset(input) {
+      if (!input.dataset) {
+        input.dataset = {};
+      }
+      return input.dataset;
+    }
+
+    function updateProficiencyDisplay(markActive, updateSaved) {
+      if (!srsProficiencyEstimateInput) {
+        return;
+      }
+      const dataset = ensureDataset(srsProficiencyEstimateInput);
+      if (markActive) {
+        dataset.srsHasValue = "true";
+      }
+      const hasValue = dataset.srsHasValue !== "false";
+      if (srsProficiencyEstimateValueOutput) {
+        srsProficiencyEstimateValueOutput.textContent = formatProficiencyValue(
+          srsProficiencyEstimateInput.value,
+          hasValue
+        );
+      }
+      if (updateSaved && srsProficiencyEstimateSavedOutput) {
+        srsProficiencyEstimateSavedOutput.textContent = formatProficiencyValue(
+          srsProficiencyEstimateInput.value,
+          hasValue
+        );
+      }
+    }
+
     function bindTopicInterestChip(button) {
       if (!button || !srsTopicInterestsInput) {
         return;
@@ -162,7 +205,21 @@
     }
     srsTopicInterestChipButtons.forEach(bindTopicInterestChip);
     syncTopicInterestChips();
-    bindSrsSettingsChange(srsProficiencyEstimateInput);
+    if (srsProficiencyEstimateInput) {
+      srsProficiencyEstimateInput.addEventListener("input", () => {
+        updateProficiencyDisplay(true);
+      });
+      bindAsyncListener(srsProficiencyEstimateInput, "change", () => {
+        updateProficiencyDisplay(true);
+        return Promise.resolve(saveSrsSettings()).then(() => {
+          updateProficiencyDisplay(false, true);
+        });
+      }, {
+        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+        logMessage: "SRS settings save failed."
+      });
+    }
+    updateProficiencyDisplay(false);
     bindSrsSettingsChange(srsChallengeTargetInput);
     bindSrsSettingsChange(srsSoundInput);
     bindSrsSettingsChange(srsHighlightInput, () => {

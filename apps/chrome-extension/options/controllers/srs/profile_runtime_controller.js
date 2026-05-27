@@ -100,6 +100,8 @@
       parseOptionalPercent
     } = profileValuesSupport;
 
+    const ensureDataset = (input) => { if (input && !input.dataset) input.dataset = {}; return input && input.dataset ? input.dataset : {}; };
+    const inputHasExplicitRangeValue = (input) => !(input && input.type === "range" && ensureDataset(input).srsHasValue === "false");
     async function refreshSemanticAdmissionStatus(pairKey, profileId) {
       if (!semanticAdmissionStatusSupport) {
         return "unknown";
@@ -236,9 +238,9 @@
         if (srsHighlightTextInput) srsHighlightTextInput.value = srsHighlightColor;
         autoRefreshSettingsSupport.syncInputs(autoRefreshSettings);
         const interests = parseInterestList(srsTopicInterestsInput ? srsTopicInterestsInput.value : "");
-        const proficiencyEstimate = parseOptionalPercent(
-          srsProficiencyEstimateInput ? srsProficiencyEstimateInput.value : ""
-        );
+        const proficiencyEstimate = inputHasExplicitRangeValue(srsProficiencyEstimateInput)
+          ? parseOptionalPercent(srsProficiencyEstimateInput ? srsProficiencyEstimateInput.value : "")
+          : null;
         const challengeTarget = parseOptionalPercent(
           srsChallengeTargetInput ? srsChallengeTargetInput.value : ""
         );
@@ -246,7 +248,10 @@
           srsTopicInterestsInput.value = interests.join(", ");
         }
         if (srsProficiencyEstimateInput) {
-          srsProficiencyEstimateInput.value = formatOptionalPercentValue(proficiencyEstimate);
+          if (proficiencyEstimate !== null) {
+            srsProficiencyEstimateInput.value = formatOptionalPercentValue(proficiencyEstimate);
+          }
+          ensureDataset(srsProficiencyEstimateInput).srsHasValue = proficiencyEstimate === null ? "false" : "true";
         }
         if (srsChallengeTargetInput) {
           srsChallengeTargetInput.value = formatOptionalPercentValue(challengeTarget);

@@ -84,6 +84,7 @@
     const modalTargetLanguageInput = elements.modalTargetLanguageInput || null;
     const modalProfileIdInput = elements.modalProfileIdInput || null;
     const modalProficiencyEstimateInput = elements.modalProficiencyEstimateInput || null;
+    const modalProficiencyEstimateValueOutput = elements.modalProficiencyEstimateValueOutput || null;
     const modalTopicInterestsInput = elements.modalTopicInterestsInput || null;
     const modalTopicInterestChipButtons = Array.isArray(elements.modalTopicInterestChipButtons)
       ? elements.modalTopicInterestChipButtons
@@ -119,6 +120,40 @@
       }
       previewOutput.textContent = message || "";
       previewOutput.style.color = color || "";
+    }
+
+    const hasExplicitProficiencyValue = (input) => !(input && input.type === "range" && (input.dataset || {}).srsHasValue === "false");
+
+    function formatProficiencyValue(value, hasValue) {
+      if (!hasValue) {
+        return "Not set";
+      }
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) {
+        return "Not set";
+      }
+      return `${Math.round(Math.min(100, Math.max(0, numeric)))}%`;
+    }
+
+    function updateModalProficiencyOutput() {
+      if (!modalProficiencyEstimateInput || !modalProficiencyEstimateValueOutput) {
+        return;
+      }
+      modalProficiencyEstimateValueOutput.textContent = formatProficiencyValue(
+        modalProficiencyEstimateInput.value,
+        hasExplicitProficiencyValue(modalProficiencyEstimateInput)
+      );
+    }
+
+    function setProficiencyInput(input, value, hasValue) {
+      if (!input) {
+        return;
+      }
+      if (!input.dataset) {
+        input.dataset = {};
+      }
+      input.value = hasValue ? String(value || "50") : "50";
+      input.dataset.srsHasValue = hasValue ? "true" : "false";
     }
 
     function syncTopicChips(buttons, interests) {
@@ -160,7 +195,11 @@
         sourceLanguage: modalSourceLanguageInput ? modalSourceLanguageInput.value : "",
         targetLanguage: modalTargetLanguageInput ? modalTargetLanguageInput.value : "",
         profileId: modalProfileIdInput ? modalProfileIdInput.value : "",
-        proficiencyEstimate: modalProficiencyEstimateInput ? modalProficiencyEstimateInput.value : "",
+        proficiencyEstimate: (
+          modalProficiencyEstimateInput && hasExplicitProficiencyValue(modalProficiencyEstimateInput)
+        )
+          ? modalProficiencyEstimateInput.value
+          : "",
         interests: normalizeInterestList(modalTopicInterestsInput ? modalTopicInterestsInput.value : ""),
         maxActive: modalMaxActiveInput ? modalMaxActiveInput.value : "",
         bootstrapTopN: modalBootstrapTopNInput ? modalBootstrapTopNInput.value : "",
@@ -174,8 +213,10 @@
       setSelectValue(modalTargetLanguageInput, mainTargetLanguageInput ? mainTargetLanguageInput.value : "es", "es");
       setSelectValue(modalProfileIdInput, mainProfileIdInput ? mainProfileIdInput.value : "default", "default");
       if (modalProficiencyEstimateInput && mainProficiencyEstimateInput) {
-        modalProficiencyEstimateInput.value = mainProficiencyEstimateInput.value || "";
+        const hasValue = hasExplicitProficiencyValue(mainProficiencyEstimateInput);
+        setProficiencyInput(modalProficiencyEstimateInput, mainProficiencyEstimateInput.value || "50", hasValue);
       }
+      updateModalProficiencyOutput();
       if (modalMaxActiveInput && mainMaxActiveInput) {
         modalMaxActiveInput.value = mainMaxActiveInput.value || "";
       }
@@ -220,7 +261,8 @@
         mainSrsEnabledInput.checked = true;
       }
       if (mainProficiencyEstimateInput) {
-        mainProficiencyEstimateInput.value = values.proficiencyEstimate;
+        const hasValue = String(values.proficiencyEstimate || "").trim() !== "";
+        setProficiencyInput(mainProficiencyEstimateInput, values.proficiencyEstimate || "50", hasValue);
       }
       if (mainMaxActiveInput) {
         mainMaxActiveInput.value = values.maxActive;
@@ -353,6 +395,13 @@
           syncTopicChips(modalTopicInterestChipButtons, modalTopicInterestsInput.value);
         });
       }
+      if (modalProficiencyEstimateInput) {
+        modalProficiencyEstimateInput.addEventListener("input", () => {
+          setProficiencyInput(modalProficiencyEstimateInput, modalProficiencyEstimateInput.value, true);
+          updateModalProficiencyOutput();
+        });
+      }
+      updateModalProficiencyOutput();
       modalTopicInterestChipButtons.forEach((button) => {
         button.addEventListener("click", () => {
           toggleModalTopic(button);

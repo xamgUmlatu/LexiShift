@@ -93,13 +93,13 @@
     "message": "Verwendet vorerst einen festen Testdatensatz (keine externen Downloads)."
   },
   "heading_srs_current_story": {
-    "message": "Ausgewählte SRS-Story"
+    "message": "Aktuelle SRS-Story"
   },
   "hint_srs_current_story": {
     "message": "Einstellungen, Dashboard und Wartung für das ausgewählte Profil und Sprachpaar."
   },
   "badge_srs_selected_story": {
-    "message": "Ausgewähltes Paar"
+    "message": "Ausgewählt"
   },
   "summary_srs_story_dashboard": {
     "message": "Dashboard öffnen"
@@ -180,13 +180,13 @@
     "message": "Aufnahmepräferenzen"
   },
   "hint_srs_admission_preferences": {
-    "message": "Diese Werte gewichten die Bootstrap-Aufnahme für das ausgewählte Profil und Sprachpaar neu."
+    "message": "Diese Werte steuern, welche Wörter als Nächstes in diese Story aufgenommen werden."
   },
   "label_srs_topic_interest_presets": {
-    "message": "Vorgeschlagene Themen"
+    "message": "Themenprioritäten"
   },
   "badge_srs_topic_interest_pair_support": {
-    "message": "Vorschau-Unterstützung variiert je Sprachpaar"
+    "message": "Abdeckung variiert je Paar"
   },
   "topic_srs_medicine_health": {
     "message": "Medizin & Gesundheit"
@@ -222,7 +222,7 @@
     "message": "Pflanzen & Natur"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "Wähle Themen aus, die bei der Aufnahme bevorzugt werden. Die Vorschau zeigt, was das ausgewählte Sprachpaar unterstützen kann."
+    "message": "Wähle Themen, die bevorzugt werden sollen. Das ändert die Wahrscheinlichkeit, nicht die Wortliste exklusiv."
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Erweiterte Tags"
@@ -234,10 +234,13 @@
     "message": "Füge kommagetrennte Tags für Experimente oder oben nicht aufgeführte Themen hinzu."
   },
   "label_srs_proficiency_estimate": {
-    "message": "Kompetenzeinschätzung (%)"
+    "message": "Kompetenzeinschätzung"
   },
   "hint_srs_proficiency_estimate": {
-    "message": "0 bis 100. Leer lassen, um die Kompetenz neutral zu halten."
+    "message": "Ziehe den Regler zu dem Niveau, zu dem neue SRS-Wörter passen sollen."
+  },
+  "label_srs_previous_setting": {
+    "message": "Gespeicherte Einstellung"
   },
   "summary_srs_challenge_tuning": {
     "message": "Erweiterte Schwierigkeit"
@@ -251,20 +254,23 @@
   "label_srs_highlight_color": {
     "message": "SRS-Hervorhebungsfarbe"
   },
+  "section_srs_display_feedback": {
+    "message": "Anzeige und Feedback"
+  },
   "label_srs_semantic_admission_status": {
-    "message": "Semantische Zulassung"
+    "message": "Satz-Passung prüfen"
   },
   "status_srs_semantic_capability_checking": {
     "message": "Wird geprüft…"
   },
   "hint_srs_semantic_capability_checking": {
-    "message": "Status der semantischen Zulassung wird geprüft…"
+    "message": "Status der Satz-Passung wird geprüft…"
   },
   "status_srs_semantic_capability_active": {
-    "message": "Automatisch"
+    "message": "Ein"
   },
   "hint_srs_semantic_capability_active": {
-    "message": "Das satzbasierte Veto des Helpers läuft für dieses Sprachpaar/Profil automatisch."
+    "message": "LexiShift prüft vor der Anzeige, ob ausgewählte SRS-Ersetzungen zum Satz passen."
   },
   "status_srs_semantic_capability_published_unready": {
     "message": "Noch nicht verfügbar"
@@ -288,7 +294,7 @@
     "message": "Status nicht verfügbar"
   },
   "hint_srs_semantic_capability_unknown": {
-    "message": "Der Status der semantischen Zulassung konnte gerade nicht geprüft werden."
+    "message": "Der Status der Satz-Passung konnte gerade nicht geprüft werden."
   },
   "toggle_srs_semantic_admission": {
     "message": "Semantische Zulassung aktivieren (experimentell)"
@@ -421,6 +427,9 @@
   },
   "hint_srs_maintenance_tools": {
     "message": "Wartungsaktionen zum Nachjustieren, manuellen Aktualisieren oder Neustarten für das ausgewählte Profil und Sprachpaar."
+  },
+  "summary_srs_technical_status": {
+    "message": "Technischer Status"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS-Laufzeitdiagnose"

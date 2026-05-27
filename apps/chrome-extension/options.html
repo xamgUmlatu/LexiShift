@@ -58,267 +58,275 @@
           <div class="srs-story-list">
             <details id="srs-story-current-card" class="srs-story-card" aria-labelledby="srs-story-current-heading">
               <summary class="srs-story-summary">
-                <div>
-                  <h3 id="srs-story-current-heading" data-i18n="heading_srs_current_story">Selected SRS story</h3>
-                  <span id="srs-story-current-pair" class="srs-story-pair-label">English -> Spanish</span>
+                <div class="srs-story-summary-copy">
+                  <span class="srs-story-eyebrow" data-i18n="heading_srs_current_story">Current SRS story</span>
+                  <h3 id="srs-story-current-heading">
+                    <span id="srs-story-current-pair" class="srs-story-pair-label">English -> Spanish</span>
+                  </h3>
                 </div>
-                <span class="srs-story-badge" data-i18n="badge_srs_selected_story">Selected pair</span>
+                <span class="srs-story-badge" data-i18n="badge_srs_selected_story">Selected</span>
               </summary>
               <div class="srs-story-body">
                 <p class="hint" data-i18n="hint_srs_current_story">
                   Settings, dashboard, and maintenance for the selected profile and language pair.
                 </p>
               <div class="srs-story-preferences">
-                <div class="field-row">
-                  <label for="source-language" data-i18n="label_source_language">Source language</label>
-                  <select id="source-language">
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="ja">日本語</option>
-                    <option value="zh">简体中文</option>
-                    <option value="de">Deutsch</option>
-                  </select>
-                </div>
-                <div class="field-row">
-                  <label for="target-language" data-i18n="label_target_language">Target language</label>
-                  <div class="target-language-controls">
-                    <select id="target-language">
-                      <option value="en">English</option>
-                      <option value="es">Español</option>
-                      <option value="ja">日本語</option>
-                      <option value="zh">简体中文</option>
-                      <option value="de">Deutsch</option>
-                    </select>
-                    <button
-                      id="target-language-gear"
-                      type="button"
-                      class="target-language-modules-button"
-                      data-i18n="button_modules"
-                      aria-label="Modules"
-                      title="Modules"
-                    >
-                      Modules
-                    </button>
+                <section class="srs-settings-section srs-story-core-settings">
+                  <div class="srs-field-grid">
+                    <div class="field-row">
+                      <label for="source-language" data-i18n="label_source_language">Source language</label>
+                      <select id="source-language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh">简体中文</option>
+                        <option value="de">Deutsch</option>
+                      </select>
+                    </div>
+                    <div class="field-row">
+                      <label for="target-language" data-i18n="label_target_language">Target language</label>
+                      <div class="target-language-controls">
+                        <select id="target-language">
+                          <option value="en">English</option>
+                          <option value="es">Español</option>
+                          <option value="ja">日本語</option>
+                          <option value="zh">简体中文</option>
+                          <option value="de">Deutsch</option>
+                        </select>
+                        <button
+                          id="target-language-gear"
+                          type="button"
+                          class="target-language-modules-button"
+                          data-i18n="button_modules"
+                          aria-label="Modules"
+                          title="Modules"
+                        >
+                          Modules
+                        </button>
+                      </div>
+                    </div>
+                    <div class="field-row">
+                      <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
+                      <input id="srs-max-active" type="number" min="1" max="200" step="1" />
+                    </div>
+                    <div class="field-row">
+                      <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
+                      <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
+                      <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
+                        Total words admitted during initial S bootstrap.
+                      </span>
+                    </div>
+                    <div class="field-row">
+                      <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
+                      <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
+                      <span class="field-hint" data-i18n="hint_srs_initial_active_count">
+                        Initial active words selected from the bootstrap list.
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div class="field-row">
-                  <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
-                  <input id="srs-max-active" type="number" min="1" max="200" step="1" />
-                </div>
-                <div class="field-row">
-                  <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
-                  <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
-                </div>
-                <p class="hint" data-i18n="hint_srs_bootstrap_top_n">
-                  Total number of words admitted during initial S bootstrap.
-                </p>
-                <div class="field-row">
-                  <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
-                  <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
-                </div>
-                <p class="hint" data-i18n="hint_srs_initial_active_count">
-                  Initial non-zero/active words selected from the bootstrap list.
-                </p>
-                <h3 data-i18n="section_srs_admission_preferences">Admission preferences</h3>
-                <p class="hint" data-i18n="hint_srs_admission_preferences">
-                  These values rerank bootstrap admission for the selected profile and pair.
-                </p>
-          <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
-            <div class="srs-topic-interest-picker-heading">
-              <span
-                id="srs-topic-interest-picker-label"
-                class="meta-label"
-                data-i18n="label_srs_topic_interest_presets"
-              >Suggested topics</span>
-              <span
-                class="srs-topic-interest-support"
-                data-i18n="badge_srs_topic_interest_pair_support"
-              >Preview support varies by pair</span>
-            </div>
-            <div id="srs-topic-interest-chips" class="srs-topic-interest-chips" role="group">
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="medicine_health"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_medicine_health">Medicine & health</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="finance_business"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_finance_business">Finance & business</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="sports_fitness"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_sports_fitness">Sports & fitness</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="games"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_games">Games</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="music_media_entertainment"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_music_media_entertainment">Music & media</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="law_politics_civics"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_law_politics_civics">Law & civics</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="science_technology"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_science_technology">Science & technology</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="arts_literature_humanities"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_arts_literature_humanities">Arts & literature</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="animals"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_animals">Animals</span>
-              </button>
-              <button
-                type="button"
-                class="srs-topic-interest-chip"
-                data-srs-topic-interest="food_cooking"
-                aria-pressed="false"
-              >
-                <span data-i18n="topic_srs_food_cooking">Food & cooking</span>
-              </button>
-            </div>
-            <p class="hint" data-i18n="hint_srs_topic_interest_presets">
-              Choose topics to favor in admission. Preview shows what the selected pair can support.
-            </p>
-          </div>
-          <details class="advanced srs-advanced-topic-tags">
-            <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
-            <div class="field-row">
-              <label for="srs-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
-              <input id="srs-topic-interests" type="text" />
-            </div>
-            <p class="hint" data-i18n="hint_srs_topic_interests">
-              Add comma-separated tags for experiments or topics not listed above.
-            </p>
-          </details>
-          <div class="field-row">
-            <label for="srs-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate (%)</label>
-            <input id="srs-proficiency-estimate" type="number" min="0" max="100" step="1" />
-          </div>
-          <p class="hint" data-i18n="hint_srs_proficiency_estimate">
-            0 to 100. Leave blank to keep proficiency neutral.
-          </p>
-          <details class="advanced srs-advanced-challenge">
-            <summary data-i18n="summary_srs_challenge_tuning">Advanced challenge tuning</summary>
-            <div class="field-row">
-              <label for="srs-challenge-target" data-i18n="label_srs_challenge_target">Challenge target (%)</label>
-              <input id="srs-challenge-target" type="number" min="0" max="100" step="1" />
-            </div>
-            <p class="hint" data-i18n="hint_srs_challenge_target">
-              0 to 100. Leave blank to keep challenge preference neutral.
-            </p>
-          </details>
-          <div class="field-row">
-            <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
-            <input id="srs-highlight-color" type="color" />
-            <input id="srs-highlight-color-text" type="text" class="color-text" />
-          </div>
-          <div class="field-row">
-            <span data-i18n="label_srs_semantic_admission_status">Semantic admission</span>
-            <span
-              id="srs-semantic-admission-status"
-              class="meta-value"
-              data-i18n="status_srs_semantic_capability_checking"
-            >Checking…</span>
-          </div>
-          <p
-            id="srs-semantic-admission-status-detail"
-            class="hint"
-            data-i18n="hint_srs_semantic_capability_checking"
-          >
-            Checking semantic admission status…
-          </p>
-          <label class="toggle">
-            <input id="srs-feedback-srs-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_feedback_srs">Enable feedback for SRS words</span>
-          </label>
-          <label class="toggle">
-            <input id="srs-feedback-rules-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_feedback_rules">Enable feedback for ruleset words</span>
-          </label>
-          <label class="toggle">
-            <input id="srs-auto-refresh-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_auto_refresh">Automatically add new SRS words after feedback</span>
-          </label>
-          <details class="advanced">
-            <summary data-i18n="summary_srs_auto_refresh">Automatic refresh thresholds</summary>
-            <div class="field-row">
-              <label for="srs-auto-refresh-min-feedback" data-i18n="label_srs_auto_refresh_min_feedback">Minimum feedback events</label>
-              <input id="srs-auto-refresh-min-feedback" type="number" min="1" max="200" step="1" />
-            </div>
-            <div class="field-row">
-              <label for="srs-auto-refresh-min-good-easy" data-i18n="label_srs_auto_refresh_min_good_easy">Good/Easy needed</label>
-              <input id="srs-auto-refresh-min-good-easy" type="number" min="1" max="200" step="1" />
-            </div>
-            <div class="field-row">
-              <label for="srs-auto-refresh-repeat-min-good-easy" data-i18n="label_srs_auto_refresh_repeat_min_good_easy">Same-day Good/Easy needed</label>
-              <input id="srs-auto-refresh-repeat-min-good-easy" type="number" min="1" max="300" step="1" />
-            </div>
-            <div class="field-row">
-              <label for="srs-auto-refresh-cooldown" data-i18n="label_srs_auto_refresh_cooldown">Cooldown minutes</label>
-              <input id="srs-auto-refresh-cooldown" type="number" min="0" max="1440" step="5" />
-            </div>
-            <p class="hint" data-i18n="hint_srs_auto_refresh">
-              The helper only attempts refresh after enough feedback; capacity, due pressure, and retention gates still decide whether new words are admitted.
-            </p>
-          </details>
-          <label class="toggle">
-            <input id="srs-sound-enabled" type="checkbox" />
-            <span data-i18n="toggle_srs_sound">Play feedback sound</span>
-          </label>
-          </div>
-          <div class="helper-status">
-            <div class="meta-row">
-              <div>
-                <span class="meta-label" data-i18n="label_helper_status">Helper status</span>
-                <span id="helper-status" class="meta-value">—</span>
+                </section>
+                <section class="srs-settings-section srs-admission-settings">
+                  <div class="srs-settings-section-header">
+                    <h4 data-i18n="section_srs_admission_preferences">Admission preferences</h4>
+                    <p class="hint" data-i18n="hint_srs_admission_preferences">
+                      These values shape which words are admitted next for this story.
+                    </p>
+                  </div>
+                  <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
+                    <div class="srs-topic-interest-picker-heading">
+                      <span
+                        id="srs-topic-interest-picker-label"
+                        class="meta-label"
+                        data-i18n="label_srs_topic_interest_presets"
+                      >Topic priorities</span>
+                      <span
+                        class="srs-topic-interest-support"
+                        data-i18n="badge_srs_topic_interest_pair_support"
+                      >Coverage varies by pair</span>
+                    </div>
+                    <div id="srs-topic-interest-chips" class="srs-topic-interest-chips" role="group">
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="medicine_health"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_medicine_health">Medicine & health</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="finance_business"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_finance_business">Finance & business</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="sports_fitness"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_sports_fitness">Sports & fitness</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="games"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_games">Games</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="music_media_entertainment"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_music_media_entertainment">Music & media</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="law_politics_civics"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_law_politics_civics">Law & civics</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="science_technology"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_science_technology">Science & technology</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="arts_literature_humanities"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_arts_literature_humanities">Arts & literature</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="animals"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_animals">Animals</span>
+                      </button>
+                      <button
+                        type="button"
+                        class="srs-topic-interest-chip"
+                        data-srs-topic-interest="food_cooking"
+                        aria-pressed="false"
+                      >
+                        <span data-i18n="topic_srs_food_cooking">Food & cooking</span>
+                      </button>
+                    </div>
+                    <p class="hint" data-i18n="hint_srs_topic_interest_presets">
+                      Choose topics to favor. This changes probability, not an exclusive word list.
+                    </p>
+                  </div>
+                  <details class="advanced srs-advanced-topic-tags" hidden>
+                    <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
+                    <div class="field-row">
+                      <label for="srs-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>
+                      <input id="srs-topic-interests" type="text" />
+                    </div>
+                    <p class="hint" data-i18n="hint_srs_topic_interests">
+                      Add comma-separated tags for experiments or topics not listed above.
+                    </p>
+                  </details>
+                  <div class="srs-range-field">
+                    <div class="srs-range-label-row">
+                      <label for="srs-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate</label>
+                      <output id="srs-proficiency-estimate-value" for="srs-proficiency-estimate">50%</output>
+                    </div>
+                    <input
+                      id="srs-proficiency-estimate"
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value="50"
+                      data-srs-has-value="false"
+                    />
+                    <p class="hint srs-saved-setting">
+                      <span data-i18n="label_srs_previous_setting">Saved setting</span>:
+                      <span id="srs-proficiency-estimate-saved">Not set</span>
+                    </p>
+                  </div>
+                  <details class="advanced srs-advanced-challenge">
+                    <summary data-i18n="summary_srs_challenge_tuning">Advanced challenge tuning</summary>
+                    <div class="field-row">
+                      <label for="srs-challenge-target" data-i18n="label_srs_challenge_target">Challenge target (%)</label>
+                      <input id="srs-challenge-target" type="number" min="0" max="100" step="1" />
+                    </div>
+                    <p class="hint" data-i18n="hint_srs_challenge_target">
+                      0 to 100. Leave blank to keep challenge preference neutral.
+                    </p>
+                  </details>
+                </section>
+                <section class="srs-settings-section srs-appearance-settings">
+                  <div class="srs-settings-section-header">
+                    <h4 data-i18n="section_srs_display_feedback">Display and feedback</h4>
+                  </div>
+                  <div class="field-row">
+                    <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
+                    <input id="srs-highlight-color" type="color" />
+                    <input id="srs-highlight-color-text" type="text" class="color-text" />
+                  </div>
+                  <div class="srs-toggle-grid">
+                    <label class="toggle srs-toggle-switch">
+                      <input id="srs-feedback-srs-enabled" type="checkbox" />
+                      <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                      <span data-i18n="toggle_srs_feedback_srs">Enable feedback for SRS words</span>
+                    </label>
+                    <label class="toggle srs-toggle-switch">
+                      <input id="srs-feedback-rules-enabled" type="checkbox" />
+                      <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                      <span data-i18n="toggle_srs_feedback_rules">Enable feedback for ruleset words</span>
+                    </label>
+                    <label class="toggle srs-toggle-switch">
+                      <input id="srs-auto-refresh-enabled" type="checkbox" />
+                      <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                      <span data-i18n="toggle_srs_auto_refresh">Automatically add new SRS words after feedback</span>
+                    </label>
+                    <label class="toggle srs-toggle-switch">
+                      <input id="srs-sound-enabled" type="checkbox" />
+                      <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
+                      <span data-i18n="toggle_srs_sound">Play feedback sound</span>
+                    </label>
+                  </div>
+                  <details class="advanced srs-auto-refresh-settings">
+                    <summary data-i18n="summary_srs_auto_refresh">Automatic refresh thresholds</summary>
+                    <div class="srs-field-grid">
+                      <div class="field-row">
+                        <label for="srs-auto-refresh-min-feedback" data-i18n="label_srs_auto_refresh_min_feedback">Minimum feedback events</label>
+                        <input id="srs-auto-refresh-min-feedback" type="number" min="1" max="200" step="1" />
+                      </div>
+                      <div class="field-row">
+                        <label for="srs-auto-refresh-min-good-easy" data-i18n="label_srs_auto_refresh_min_good_easy">Good/Easy needed</label>
+                        <input id="srs-auto-refresh-min-good-easy" type="number" min="1" max="200" step="1" />
+                      </div>
+                      <div class="field-row">
+                        <label for="srs-auto-refresh-repeat-min-good-easy" data-i18n="label_srs_auto_refresh_repeat_min_good_easy">Same-day Good/Easy needed</label>
+                        <input id="srs-auto-refresh-repeat-min-good-easy" type="number" min="1" max="300" step="1" />
+                      </div>
+                      <div class="field-row">
+                        <label for="srs-auto-refresh-cooldown" data-i18n="label_srs_auto_refresh_cooldown">Cooldown minutes</label>
+                        <input id="srs-auto-refresh-cooldown" type="number" min="0" max="1440" step="5" />
+                      </div>
+                    </div>
+                    <p class="hint" data-i18n="hint_srs_auto_refresh">
+                      The helper only attempts refresh after enough feedback; capacity, due pressure, and retention gates still decide whether new words are admitted.
+                    </p>
+                  </details>
+                </section>
               </div>
-              <div>
-                <span class="meta-label" data-i18n="label_helper_last_sync">Last sync</span>
-                <span id="helper-last-sync" class="meta-value">—</span>
-              </div>
-            </div>
-          </div>
           <details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">
             <summary data-i18n="summary_srs_story_dashboard">Open dashboard</summary>
             <div class="srs-words-dashboard" aria-labelledby="srs-words-dashboard-heading">
@@ -331,8 +339,9 @@
               </div>
               <div class="srs-words-dashboard-controls">
                 <button id="srs-words-refresh" type="button" data-i18n="button_srs_words_refresh">Refresh words</button>
-                <label class="toggle srs-words-advanced-toggle">
+                <label class="toggle srs-toggle-switch srs-words-advanced-toggle">
                   <input id="srs-words-advanced" type="checkbox" />
+                  <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
                   <span data-i18n="toggle_srs_words_advanced">Advanced details</span>
                 </label>
               </div>
@@ -411,6 +420,36 @@
             <div class="actions srs-danger-actions">
               <button id="srs-reset" class="danger-button" data-i18n="button_srs_reset">Reset SRS Data</button>
             </div>
+            <details class="advanced srs-technical-status">
+              <summary data-i18n="summary_srs_technical_status">Technical status</summary>
+              <div class="field-row">
+                <span data-i18n="label_srs_semantic_admission_status">Sentence fit check</span>
+                <span
+                  id="srs-semantic-admission-status"
+                  class="meta-value"
+                  data-i18n="status_srs_semantic_capability_checking"
+                >Checking…</span>
+              </div>
+              <p
+                id="srs-semantic-admission-status-detail"
+                class="hint"
+                data-i18n="hint_srs_semantic_capability_checking"
+              >
+                Checking sentence-fit status…
+              </p>
+              <div class="helper-status">
+                <div class="meta-row">
+                  <div>
+                    <span class="meta-label" data-i18n="label_helper_status">Helper status</span>
+                    <span id="helper-status" class="meta-value">—</span>
+                  </div>
+                  <div>
+                    <span class="meta-label" data-i18n="label_helper_last_sync">Last sync</span>
+                    <span id="helper-last-sync" class="meta-value">—</span>
+                  </div>
+                </div>
+              </div>
+            </details>
           </details>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
               </div>
@@ -970,24 +1009,32 @@
             <span class="srs-story-flow-step-index">2</span>
             <div>
               <h4 id="srs-story-flow-step-preferences" data-i18n="heading_srs_story_flow_preferences">Set preferences</h4>
-              <div class="field-row">
-                <label for="srs-story-flow-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate (%)</label>
-                <input id="srs-story-flow-proficiency-estimate" type="number" min="0" max="100" step="1" />
+              <div class="srs-range-field">
+                <div class="srs-range-label-row">
+                  <label for="srs-story-flow-proficiency-estimate" data-i18n="label_srs_proficiency_estimate">Proficiency estimate</label>
+                  <output id="srs-story-flow-proficiency-estimate-value" for="srs-story-flow-proficiency-estimate">50%</output>
+                </div>
+                <input
+                  id="srs-story-flow-proficiency-estimate"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="50"
+                  data-srs-has-value="false"
+                />
               </div>
-              <p class="hint" data-i18n="hint_srs_proficiency_estimate">
-                0 to 100. Leave blank to keep proficiency neutral.
-              </p>
               <div class="srs-topic-interest-picker" aria-labelledby="srs-story-flow-topic-label">
                 <div class="srs-topic-interest-picker-heading">
                   <span
                     id="srs-story-flow-topic-label"
                     class="meta-label"
                     data-i18n="label_srs_topic_interest_presets"
-                  >Suggested topics</span>
+                  >Topic priorities</span>
                   <span
                     class="srs-topic-interest-support"
                     data-i18n="badge_srs_topic_interest_pair_support"
-                  >Preview support varies by pair</span>
+                  >Coverage varies by pair</span>
                 </div>
                 <div id="srs-story-flow-topic-chips" class="srs-topic-interest-chips" role="group">
                   <button type="button" class="srs-topic-interest-chip" data-srs-story-topic-interest="medicine_health" aria-pressed="false">
@@ -1022,7 +1069,7 @@
                   </button>
                 </div>
               </div>
-              <details class="advanced srs-story-flow-advanced-tags">
+              <details class="advanced srs-story-flow-advanced-tags" hidden>
                 <summary data-i18n="summary_srs_advanced_topic_tags">Advanced tags</summary>
                 <div class="field-row">
                   <label for="srs-story-flow-topic-interests" data-i18n="label_srs_topic_interests">Topic interests</label>

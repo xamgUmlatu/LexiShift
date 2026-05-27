@@ -72,6 +72,10 @@
 
     function resolveNormalizedValue(input, storedValue) {
       if (input) {
+        const dataset = input.dataset || {};
+        if (input.type === "range" && dataset.srsHasValue === "false") {
+          return null;
+        }
         return parseOptionalPercent(input.value);
       }
       return clampNormalizedValue(storedValue);

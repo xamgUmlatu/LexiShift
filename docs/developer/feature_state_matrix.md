@@ -1768,31 +1768,43 @@ Use this file when:
 ## SRS Story-Based Options UX
 
 - Status: `implemented`, `default-on`, `verified` for the selected-story shell,
-  dashboard/sampling curtains, enable toggle styling, lazy status output, and
-  guided new-story initialization modal; full multi-story enumeration remains
-  `planned`
-- Last documented checkpoint: `2026-05-28` selected-story polish preserves the
+  dashboard/sampling curtains, switch styling, proficiency slider presentation,
+  lazy status output, and guided new-story initialization modal; full
+  multi-story enumeration remains `planned`
+- Last documented checkpoint: `2026-05-28` SRS settings polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
-  selected-pair badge, the admitted-words dashboard and admission sample preview
-  are collapsed as story curtains, maintenance actions remain behind a collapsed
-  management section, rulegen status output appears only after content is
-  written, and the start-new-story block opens a guided modal that persists
-  visible profile/language/SRS preferences before calling the existing preview
-  or initialize workflow.
-- Last verified: `2026-05-28` focused extension SRS settings contract covers
+  selected badge, the visible admission controls are grouped into clearer
+  subsections, topic controls render as a contained probability-priority chip
+  panel, the proficiency estimate is a slider that preserves the unset stored
+  state until the user changes it, tentative free-form topic tags are hidden,
+  helper/semantic technical status is behind the bottom maintenance section,
+  rulegen status output appears only after content is written, and the
+  start-new-story block opens a guided modal that persists visible
+  profile/language/SRS preferences before calling the existing preview or
+  initialize workflow.
+- Last verified: `2026-05-28` refreshed extension SRS settings contract covers
   controller-graph construction order, collapsed selected-story markup, lazy
-  rulegen status output, and the styled SRS enable toggle; extension
-  structure/i18n checks, doc-reference check, state audit, changed-file gate,
-  and diff check pass.
+  rulegen status output, switch-styled visible toggles, hidden experimental
+  topic tags, proficiency slider markup, and bottom technical-status placement;
+  extension structure/i18n checks, doc-reference check, state audit,
+  changed-file gate, and diff check pass.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
     source/target language pair; it does not yet enumerate every persisted SRS
     profile/pair store.
   - The selected profile/pair SRS controls render inside a story-shaped block
     that is collapsed by default to the language-pair summary and selected-pair
-    badge; expanding it reveals preferences, dashboard, sampling, and
+    badge; expanding it reveals grouped settings, dashboard, sampling, and
     maintenance for the same visible journey.
+  - Topic preferences are visible as probability-priority chips, while
+    free-form advanced tags stay present in the DOM for compatibility but hidden
+    from the main MVP surface.
+  - The proficiency estimate is presented as a slider with current/saved labels;
+    if no stored estimate exists, the slider remains visually neutral and the
+    runtime save/preview path treats it as unset until the user moves it.
+  - Helper and sentence-fit technical status are hidden under the maintenance
+    section rather than occupying the main settings flow.
   - The admitted-words dashboard remains read-only by default and is hidden
     until the dashboard curtain is opened.
   - Admission sampling remains non-mutating and is hidden until the sampling

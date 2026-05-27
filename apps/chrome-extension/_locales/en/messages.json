@@ -93,13 +93,13 @@
     "message": "Uses a fixed test dataset for now (no external downloads)."
   },
   "heading_srs_current_story": {
-    "message": "Selected SRS story"
+    "message": "Current SRS story"
   },
   "hint_srs_current_story": {
     "message": "Settings, dashboard, and maintenance for the selected profile and language pair."
   },
   "badge_srs_selected_story": {
-    "message": "Selected pair"
+    "message": "Selected"
   },
   "summary_srs_story_dashboard": {
     "message": "Open dashboard"
@@ -180,13 +180,13 @@
     "message": "Admission preferences"
   },
   "hint_srs_admission_preferences": {
-    "message": "These values rerank bootstrap admission for the selected profile and pair."
+    "message": "These values shape which words are admitted next for this story."
   },
   "label_srs_topic_interest_presets": {
-    "message": "Suggested topics"
+    "message": "Topic priorities"
   },
   "badge_srs_topic_interest_pair_support": {
-    "message": "Preview support varies by pair"
+    "message": "Coverage varies by pair"
   },
   "topic_srs_medicine_health": {
     "message": "Medicine & health"
@@ -222,7 +222,7 @@
     "message": "Plants & nature"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "Choose topics to favor in admission. Preview shows what the selected pair can support."
+    "message": "Choose topics to favor. This changes probability, not an exclusive word list."
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Advanced tags"
@@ -234,10 +234,13 @@
     "message": "Add comma-separated tags for experiments or topics not listed above."
   },
   "label_srs_proficiency_estimate": {
-    "message": "Proficiency estimate (%)"
+    "message": "Proficiency estimate"
   },
   "hint_srs_proficiency_estimate": {
-    "message": "0 to 100. Leave blank to keep proficiency neutral."
+    "message": "Drag toward the level you want new SRS words to fit."
+  },
+  "label_srs_previous_setting": {
+    "message": "Saved setting"
   },
   "summary_srs_challenge_tuning": {
     "message": "Advanced challenge tuning"
@@ -251,20 +254,23 @@
   "label_srs_highlight_color": {
     "message": "SRS highlight color"
   },
+  "section_srs_display_feedback": {
+    "message": "Display and feedback"
+  },
   "label_srs_semantic_admission_status": {
-    "message": "Semantic admission"
+    "message": "Sentence fit check"
   },
   "status_srs_semantic_capability_checking": {
     "message": "Checking…"
   },
   "hint_srs_semantic_capability_checking": {
-    "message": "Checking semantic admission status…"
+    "message": "Checking sentence-fit status…"
   },
   "status_srs_semantic_capability_active": {
-    "message": "Automatic"
+    "message": "On"
   },
   "hint_srs_semantic_capability_active": {
-    "message": "Helper-side sentence veto runs automatically for this pair/profile."
+    "message": "LexiShift checks whether selected SRS replacements fit the sentence before showing them."
   },
   "status_srs_semantic_capability_published_unready": {
     "message": "Not yet available"
@@ -288,7 +294,7 @@
     "message": "Status unavailable"
   },
   "hint_srs_semantic_capability_unknown": {
-    "message": "Semantic admission status could not be checked right now."
+    "message": "Sentence-fit status could not be checked right now."
   },
   "toggle_srs_semantic_admission": {
     "message": "Enable semantic admission (experimental)"
@@ -421,6 +427,9 @@
   },
   "hint_srs_maintenance_tools": {
     "message": "Maintenance actions for retuning, manual refresh, or starting over for the selected profile and language pair."
+  },
+  "summary_srs_technical_status": {
+    "message": "Technical status"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS runtime diagnostics"

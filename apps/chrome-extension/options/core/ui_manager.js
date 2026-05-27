@@ -35,6 +35,7 @@ class UIManager {
       "profile-card-theme-reset",
       "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-topic-interests", "srs-proficiency-estimate", "srs-challenge-target",
+      "srs-proficiency-estimate-value", "srs-proficiency-estimate-saved",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-semantic-admission-status", "srs-semantic-admission-status-detail",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
@@ -58,6 +59,7 @@ class UIManager {
       "srs-story-flow-close", "srs-story-flow-source-language",
       "srs-story-flow-target-language", "srs-story-flow-profile-id",
       "srs-story-flow-proficiency-estimate", "srs-story-flow-topic-interests",
+      "srs-story-flow-proficiency-estimate-value",
       "srs-story-flow-max-active", "srs-story-flow-bootstrap-top-n",
       "srs-story-flow-initial-active-count", "srs-story-flow-sample",
       "srs-story-flow-initialize", "srs-story-flow-preview-output",
@@ -126,6 +128,30 @@ class UIManager {
     const sourceLabel = this.getSelectedOptionLabel(this.dom.sourceLanguage, "Source");
     const targetLabel = this.getSelectedOptionLabel(this.dom.targetLanguage, "Target");
     this.dom.srsStoryCurrentPair.textContent = `${sourceLabel} -> ${targetLabel}`;
+  }
+
+  formatSrsProficiencyLabel(value, hasValue) {
+    if (!hasValue) {
+      return "Not set";
+    }
+    const numeric = Number(value);
+    if (!Number.isFinite(numeric)) {
+      return "Not set";
+    }
+    return `${Math.round(Math.min(100, Math.max(0, numeric)))}%`;
+  }
+
+  updateSrsProficiencyDisplays(value, hasValue) {
+    const label = this.formatSrsProficiencyLabel(value, hasValue);
+    if (this.dom.srsProficiencyEstimateValue) {
+      this.dom.srsProficiencyEstimateValue.textContent = label;
+    }
+    if (this.dom.srsProficiencyEstimateSaved) {
+      this.dom.srsProficiencyEstimateSaved.textContent = label;
+    }
+    if (this.dom.srsStoryFlowProficiencyEstimateValue) {
+      this.dom.srsStoryFlowProficiencyEstimateValue.textContent = label;
+    }
   }
 
   normalizeSrsTopicInterestList(value) {
@@ -216,10 +242,12 @@ class UIManager {
   updateSrsInputs(profile, signals) {
     const signalState = signals && typeof signals === "object" ? signals : {};
     const interests = Array.isArray(signalState.interests) ? signalState.interests : [];
-    const proficiencyEstimate = signalState.proficiency
+    const hasProficiencyEstimate = Boolean(signalState.proficiency
       && Number.isFinite(Number(signalState.proficiency.estimated_value))
+    );
+    const proficiencyEstimate = hasProficiencyEstimate
       ? Math.round(Math.min(1, Math.max(0, Number(signalState.proficiency.estimated_value))) * 100)
-      : "";
+      : 50;
     const challengeTarget = signalState.difficultyPreferences
       && Number.isFinite(Number(signalState.difficultyPreferences.target_challenge_center))
       ? Math.round(Math.min(1, Math.max(0, Number(signalState.difficultyPreferences.target_challenge_center))) * 100)
@@ -238,8 +266,10 @@ class UIManager {
     }
     this.syncSrsTopicInterestChips(interests);
     if (this.dom.srsProficiencyEstimate) {
-      this.dom.srsProficiencyEstimate.value = proficiencyEstimate === "" ? "" : String(proficiencyEstimate);
+      this.dom.srsProficiencyEstimate.value = String(proficiencyEstimate);
+      this.dom.srsProficiencyEstimate.dataset.srsHasValue = hasProficiencyEstimate ? "true" : "false";
     }
+    this.updateSrsProficiencyDisplays(proficiencyEstimate, hasProficiencyEstimate);
     if (this.dom.srsChallengeTarget) {
       this.dom.srsChallengeTarget.value = challengeTarget === "" ? "" : String(challengeTarget);
     }

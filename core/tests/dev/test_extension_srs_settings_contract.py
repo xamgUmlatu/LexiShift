@@ -76,6 +76,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-story-current-card"', html)
         self.assertIn('id="srs-story-current-heading"', html)
         self.assertIn('id="srs-story-current-pair"', html)
+        self.assertNotIn("Selected SRS story", html)
         self.assertIn('id="srs-story-start-heading"', html)
         self.assertIn('id="srs-story-flow"', html)
         self.assertIn('id="srs-story-flow-source-language"', html)
@@ -99,6 +100,34 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             html,
             r'(?s)<details id="srs-story-current-card" class="srs-story-card"'
             r'.*?<summary class="srs-story-summary">.*?class="srs-story-badge"',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<input\s+[^>]*id="srs-proficiency-estimate"[^>]*type="range"'
+            r'[^>]*data-srs-has-value="false"',
+        )
+        self.assertIn('id="srs-proficiency-estimate-value"', html)
+        self.assertIn('id="srs-proficiency-estimate-saved"', html)
+        self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
+        self.assertRegex(
+            html,
+            r'(?s)<label class="toggle srs-toggle-switch">\s*'
+            r'<input id="srs-feedback-srs-enabled" type="checkbox" />\s*'
+            r'<span class="srs-toggle-switch-ui" aria-hidden="true"></span>',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<label class="toggle srs-toggle-switch">\s*'
+            r'<input id="srs-auto-refresh-enabled" type="checkbox" />\s*'
+            r'<span class="srs-toggle-switch-ui" aria-hidden="true"></span>',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-technical-status">.*?id="helper-status"',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<details class="advanced srs-technical-status">.*?id="srs-semantic-admission-status"',
         )
         self.assertRegex(
             html,
@@ -128,6 +157,9 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         )
         self.assertIn('class="danger-button"', html)
         self.assertIn(".srs-enable-switch-ui", css)
+        self.assertIn(".srs-toggle-switch-ui", css)
+        self.assertIn(".srs-field-grid", css)
+        self.assertIn(".srs-range-field", css)
         self.assertIn("#srs-rulegen-output:empty", css)
         self.assertIn("#srs-rulegen-output:not(:empty)", css)
 
@@ -211,7 +243,14 @@ function createButton(attrs) {{
 }}
 
 function createInput(value) {{
-  return {{ value: value || "", checked: false }};
+  const hasValue = String(value || "").trim() !== "";
+  return {{
+    value: value || "",
+    checked: false,
+    type: "range",
+    dataset: {{ srsHasValue: hasValue ? "true" : "false" }},
+    addEventListener() {{}}
+  }};
 }}
 
 const context = vm.createContext({{
@@ -856,7 +895,10 @@ for (const entry of settingsBindings) {{
   assert.equal(entry.eventName, "change");
   assert.equal(entry.fallbackMessage, "Failed to save SRS settings.");
 }}
-assert.deepEqual(directBindings, [{{ name: "topicInterests", eventName: "input" }}]);
+assert.deepEqual(directBindings, [
+  {{ name: "topicInterests", eventName: "input" }},
+  {{ name: "proficiencyEstimate", eventName: "input" }}
+]);
 """
         _run_node(script)
 
