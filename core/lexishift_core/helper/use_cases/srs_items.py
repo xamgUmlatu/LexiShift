@@ -185,6 +185,13 @@ def _item_payload(
     review_count = len(item.history)
     rule_summary = _rule_summary_for_item(rules_by_lemma, item.lemma)
     admitted_age_days = _age_days(item.admitted_at, now=now)
+    serving, serving_state, serving_label = _serving_state(
+        active=active,
+        status=status,
+        rule_summary=rule_summary,
+        next_due_dt=next_due_dt,
+        now=now,
+    )
 
     return {
         "item_id": item.item_id,
@@ -204,6 +211,9 @@ def _item_payload(
         "exposures": exposures,
         "review_count": review_count,
         "last_rating": last_history.rating if last_history else None,
+        "serving": serving,
+        "serving_state": serving_state,
+        "serving_label": serving_label,
         "source_type": item.source_type,
         "source_label": source_label,
         "pos": word_package.get("pos_canonical") or word_package.get("pos") or "",
@@ -331,6 +341,27 @@ def _rule_summary_for_item(
             "source_preview_truncated": False,
         },
     )
+
+
+def _serving_state(
+    *,
+    active: bool,
+    status: str,
+    rule_summary: Mapping[str, object],
+    next_due_dt: datetime | None,
+    now: datetime,
+) -> tuple[bool, str, str]:
+    if not active:
+        if status == "queued":
+            return False, "queued", "Queued"
+        if status in {"discarded", "cleared", "removed"}:
+            return False, "removed", "Removed"
+        return False, "inactive", "Inactive"
+    if int(rule_summary.get("enabled_rule_count") or 0) <= 0:
+        return False, "no_enabled_rules", "No rules"
+    if next_due_dt is None or next_due_dt <= now:
+        return True, "replacing_now", "Now"
+    return False, "not_due", "Not due"
 
 
 def _empty_rule_summary(path: Path) -> dict[str, object]:
@@ -465,6 +496,13 @@ def _summary(items: list[dict[str, object]], *, inventory_active_count: int) -> 
             summary[status] += 1
         if status in {"discarded", "cleared", "removed"}:
             summary["removed"] += 1
+        serving_state = str(item.get("serving_state") or "")
+        if item.get("serving") is True:
+            summary["serving_now"] += 1
+        elif serving_state == "not_due":
+            summary["serving_not_due"] += 1
+        elif serving_state == "no_enabled_rules":
+            summary["serving_without_enabled_rules"] += 1
         encounter_state = item.get("encounter_state")
         if isinstance(encounter_state, Mapping):
             if encounter_state.get("zero_exposure") is True:
@@ -549,6 +587,9 @@ def _empty_summary() -> dict[str, int]:
         "removed": 0,
         "with_word_package": 0,
         "inventory_active_count": 0,
+        "serving_now": 0,
+        "serving_not_due": 0,
+        "serving_without_enabled_rules": 0,
         "active_zero_exposure": 0,
         "active_zero_feedback": 0,
         "active_zero_exposure_zero_feedback": 0,

@@ -34,6 +34,8 @@ Default view should show useful learner concepts:
 - total admitted words for the selected profile/pair;
 - active words;
 - due now and due soon words;
+- words currently eligible for page replacement (`active` plus due/no due date
+  plus at least one enabled published rule);
 - queued admitted words that are not currently active;
 - active words that are still unseen and have no review feedback;
 - removed words, including discarded or cleared items;
@@ -103,7 +105,8 @@ Rows:
 
 - show target display text and reading when distinct;
 - show dashboard status using learner-facing labels;
-- show due timing, review count, exposure count, rule count, and source label;
+- show due timing, current replacement eligibility, review count, exposure
+  count, rule count, and source label;
 - show a compact watch note when an active row has zero exposure plus zero
   feedback, crosses the diagnostic age threshold, has unknown admission age, or
   has no enabled published rules;
@@ -195,7 +198,8 @@ Payload contract:
   ruleset paths and existence flags, `inventory_source`, `rule_summary`,
   `summary`, and `items`;
 - `summary` includes `active`, `due_now`, `due_soon`, `queued`, `removed`, and
-  `total`, plus encounter-watch counters:
+  `total`, current replacement counters `serving_now`, `serving_not_due`, and
+  `serving_without_enabled_rules`, plus encounter-watch counters:
   `active_zero_exposure`, `active_zero_feedback`,
   `active_zero_exposure_zero_feedback`,
   `active_zero_exposure_zero_feedback_age_unknown`,
@@ -204,12 +208,17 @@ Payload contract:
   `encounter_stale_age_days`;
 - each item includes `item_id`, `lemma`, `display`, `reading`, `pair`, `active`,
   `status`, `status_label`, admitted timestamp/age, due/review/exposure fields,
+  current replacement fields `serving`, `serving_state`, and `serving_label`,
   source fields, `pos`, `rule_summary`, `encounter_state`, and `advanced`;
 - item `rule_summary` includes enabled rule count and capped source-phrase
   preview;
 - top-level `rule_summary` describes the current published ruleset as a whole;
 - the options workflow adds `dashboard_refreshed_at` when it receives a helper
   result so local renders can preserve a stable refresh timestamp.
+- replacement eligibility is a read-only dashboard projection of the runtime
+  gate's first-order conditions: the row must be active, due now or missing a
+  due date, and backed by at least one enabled helper-published rule. The
+  dashboard does not itself decide replacements.
 
 The listing endpoint should not:
 
@@ -346,7 +355,7 @@ npm --prefix scripts run check:changed:local
 Current covered behaviors:
 
 - helper list payload shape, summaries, active/queued/due/removed status, and
-  published-rule summaries;
+  published-rule summaries plus current replacement eligibility;
 - `admitted_at` persistence for newly admitted items, legacy age-unknown
   handling, and encounter-watch summary counters/options rendering for active
   words with zero exposure plus zero feedback; the SRS quality harness now
@@ -392,6 +401,8 @@ The dashboard is acceptable for MVP when:
 - encounter-watch counters include age-aware stale-unseen visibility and are
   visible enough for tester review without implying automatic stale-clear or
   release behavior;
+- the dashboard shows which loaded words can currently replace text, without
+  changing runtime serving or admission order;
 - published-rule summaries are covered by focused helper/options tests and
   remain read-only;
 - on-demand rule details are covered by focused helper/options tests and remain

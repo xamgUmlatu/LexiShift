@@ -175,6 +175,9 @@ class TestHelperSrsItems(unittest.TestCase):
                     "removed": 0,
                     "with_word_package": 3,
                     "inventory_active_count": 3,
+                    "serving_now": 3,
+                    "serving_not_due": 0,
+                    "serving_without_enabled_rules": 0,
                     "active_zero_exposure": 3,
                     "active_zero_feedback": 3,
                     "active_zero_exposure_zero_feedback": 3,
@@ -312,6 +315,9 @@ class TestHelperSrsItems(unittest.TestCase):
                     "removed": 1,
                     "with_word_package": 4,
                     "inventory_active_count": 2,
+                    "serving_now": 1,
+                    "serving_not_due": 1,
+                    "serving_without_enabled_rules": 0,
                     "active_zero_exposure": 1,
                     "active_zero_feedback": 2,
                     "active_zero_exposure_zero_feedback": 1,
@@ -327,6 +333,13 @@ class TestHelperSrsItems(unittest.TestCase):
             self.assertEqual(by_lemma["gato"]["status"], "due_soon")
             self.assertEqual(by_lemma["mesa"]["status"], "queued")
             self.assertEqual(by_lemma["planta"]["status"], "discarded")
+            self.assertTrue(by_lemma["perro"]["serving"])
+            self.assertEqual(by_lemma["perro"]["serving_state"], "replacing_now")
+            self.assertEqual(by_lemma["perro"]["serving_label"], "Now")
+            self.assertFalse(by_lemma["gato"]["serving"])
+            self.assertEqual(by_lemma["gato"]["serving_state"], "not_due")
+            self.assertEqual(by_lemma["mesa"]["serving_state"], "queued")
+            self.assertEqual(by_lemma["planta"]["serving_state"], "removed")
             self.assertEqual(by_lemma["perro"]["source_label"], "freq-es-cde")
             self.assertEqual(by_lemma["perro"]["pos"], "noun")
             self.assertEqual(by_lemma["perro"]["rule_summary"]["enabled_rule_count"], 2)

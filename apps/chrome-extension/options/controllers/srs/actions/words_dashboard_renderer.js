@@ -80,6 +80,7 @@
         ["Active", summary.active || 0],
         ["Due now", summary.due_now || 0],
         ["Due soon", summary.due_soon || 0],
+        ["Replacing", summary.serving_now || 0],
         ["Queued", summary.queued || 0],
         ["Unseen", summary.active_zero_exposure_zero_feedback || 0],
         ["Removed", summary.removed || 0],
@@ -117,24 +118,14 @@
       pagination.allTotal = allItems.length;
       pagination.filteredTotal = items.length;
       if (dashboardModel.isAdjusted()) {
-        wordsListRoot.appendChild(createNode(
-          doc,
-          "p",
-          "srs-words-filter-note",
-          `Filtered to ${items.length} of ${allItems.length} words.`
-        ));
+        wordsListRoot.appendChild(createNode(doc, "p", "srs-words-filter-note", `Filtered to ${items.length} of ${allItems.length} words.`));
       }
       updatePaginationControls(pagination);
       items.slice(pagination.startIndex, pagination.endIndex).forEach((item) => {
         wordsListRoot.appendChild(renderWordRow(doc, item));
       });
       if (pagination.pageSize > maxRenderedWordRows) {
-        wordsListRoot.appendChild(createNode(
-          doc,
-          "p",
-          "srs-words-truncated",
-          `Showing ${maxRenderedWordRows} of ${pagination.pageSize} page rows.`
-        ));
+        wordsListRoot.appendChild(createNode(doc, "p", "srs-words-truncated", `Showing ${maxRenderedWordRows} of ${pagination.pageSize} page rows.`));
       }
       return pagination;
     }
@@ -154,6 +145,7 @@
         `Last refreshed: ${formatRefreshTime(data)}`,
         `Loaded: ${formatWordCount(loadedCount)}`,
         `Viewing: ${formatWordCount(viewingCount)}`,
+        `Replacing now: ${formatWordCount(Number(summary.serving_now || 0))}`,
         formatEncounterWatchSummary(summary),
         `Inventory: ${formatSource(data.inventory_source || "unknown")}`,
         formatRulesetState(data, ruleSummary)
@@ -232,7 +224,8 @@
         `Reviews: ${Number(item.review_count || 0)}`,
         `Seen: ${Number(item.exposures || 0)}`,
         formatRuleCount(item),
-        `Source: ${item.source_label || item.source_type || "srs"}`
+        `Source: ${item.source_label || item.source_type || "srs"}`,
+        `Replacing: ${String(item && item.serving_label || "").trim() || (item && item.serving ? "Now" : "Not now")}`
       ];
       const encounterWatch = formatEncounterWatchItem(item);
       if (encounterWatch) rows.push(encounterWatch);

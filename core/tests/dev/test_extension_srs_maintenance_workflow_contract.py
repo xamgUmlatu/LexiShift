@@ -609,7 +609,10 @@ const workflows = createMaintenanceWorkflows({{
             active_stale_zero_exposure_zero_feedback: 0,
             active_without_enabled_rules: 0,
             encounter_watch: 0,
-            encounter_stale_age_days: 7
+            encounter_stale_age_days: 7,
+            serving_now: 0,
+            serving_not_due: 0,
+            serving_without_enabled_rules: 0
           }},
           items: [
             {{
@@ -621,6 +624,9 @@ const workflows = createMaintenanceWorkflows({{
               status_label: "Discarded",
               review_count: 2,
               exposures: 3,
+              serving: false,
+              serving_state: "removed",
+              serving_label: "Removed",
               source_label: "freq-es-cde",
               advanced: {{
                 lifecycle_state: "discarded",
@@ -651,7 +657,10 @@ const workflows = createMaintenanceWorkflows({{
           active_stale_zero_exposure_zero_feedback: 1,
           active_without_enabled_rules: 0,
           encounter_watch: 1,
-          encounter_stale_age_days: 7
+          encounter_stale_age_days: 7,
+          serving_now: 1,
+          serving_not_due: 1,
+          serving_without_enabled_rules: 0
         }},
         items: [
           {{
@@ -664,6 +673,9 @@ const workflows = createMaintenanceWorkflows({{
             due_in_seconds: -60,
             review_count: 2,
             exposures: 3,
+            serving: true,
+            serving_state: "replacing_now",
+            serving_label: "Now",
             source_label: "freq-es-cde",
             encounter_state: {{
               zero_exposure: false,
@@ -698,6 +710,9 @@ const workflows = createMaintenanceWorkflows({{
             status_label: "Queued",
             review_count: 0,
             exposures: 1,
+            serving: false,
+            serving_state: "queued",
+            serving_label: "Queued",
             source_label: "freq-es-cde",
             encounter_state: {{
               zero_exposure: false,
@@ -729,6 +744,9 @@ const workflows = createMaintenanceWorkflows({{
             due_in_seconds: 3600,
             review_count: 0,
             exposures: 0,
+            serving: false,
+            serving_state: "not_due",
+            serving_label: "Not due",
             source_label: "freq-es-cde",
             encounter_state: {{
               zero_exposure: true,
@@ -839,11 +857,12 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.deepEqual(JSON.parse(JSON.stringify(listCalls)), [
     {{ pair: "en-es", options: {{ profileId: "alpha" }} }}
   ]);
-  assert.equal(summaryRoot.children.length, 7);
+  assert.equal(summaryRoot.children.length, 8);
   assert.equal(summaryRoot.children[0].children[0].textContent, "2");
   assert.equal(summaryRoot.children[3].children[0].textContent, "1");
   assert.equal(summaryRoot.children[4].children[0].textContent, "1");
-  assert.equal(summaryRoot.children[6].children[0].textContent, "3");
+  assert.equal(summaryRoot.children[5].children[0].textContent, "1");
+  assert.equal(summaryRoot.children[7].children[0].textContent, "3");
   assert.equal(listRoot.children.length, 2);
   assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
   assert.equal(prevPageButton.disabled, true);
@@ -851,6 +870,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(metaText().includes("Last refreshed:"), true);
   assert.equal(metaText().includes("Loaded: 3 words"), true);
   assert.equal(metaText().includes("Viewing: 3 words"), true);
+  assert.equal(metaText().includes("Replacing now: 1 word"), true);
   assert.equal(metaText().includes("Encounter watch: 1 word (1 unseen/no feedback, 1 over 7d)"), true);
   assert.equal(metaText().includes("Inventory: inventory"), true);
   assert.equal(metaText().includes("Ruleset: 4 rules"), true);
@@ -858,6 +878,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(listRoot.children[0].children.length, 5);
   assert.equal(statuses[0].message, "Loaded 3 SRS words.");
   assert.equal(listRoot.children[0].children[2].children[3].textContent, "Rules: 2");
+  assert.equal(listRoot.children[0].children[2].children[5].textContent, "Replacing: Now");
   assert.equal(listRoot.children[0].children[3].textContent, "Matches: dog, hound");
   assert.equal(listRoot.children[0].children[4].className, "srs-word-actions");
   assert.equal(listRoot.children[0].children[4].children[0].textContent, "Rule details");
@@ -883,7 +904,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(nextPageButton.disabled, true);
   assert.equal(listRoot.children.length, 1);
   assert.equal(listRoot.children[0].children[0].children[0].textContent, "ave");
-  assert.equal(listRoot.children[0].children[2].children[5].textContent, "Watch: unseen/no feedback >7d");
+  assert.equal(listRoot.children[0].children[2].children[6].textContent, "Watch: unseen/no feedback >7d");
   await prevPageButton.click();
   assert.equal(pageInfoRoot.textContent, "Showing 1-2 of 3 words");
 
@@ -950,7 +971,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(statuses[2].message, "Discarded perro.");
   assert.equal(statuses[3].message, "Loaded 1 SRS words.");
   assert.equal(summaryRoot.children[0].children[0].textContent, "0");
-  assert.equal(summaryRoot.children[5].children[0].textContent, "1");
+  assert.equal(summaryRoot.children[6].children[0].textContent, "1");
   assert.equal(pageInfoRoot.textContent, "Showing 1-1 of 1 words");
   assert.equal(metaText().includes("Loaded: 1 word"), true);
   assert.equal(metaText().includes("Encounter watch: none"), true);

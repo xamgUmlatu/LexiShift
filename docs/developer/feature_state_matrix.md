@@ -1588,12 +1588,13 @@ Use this file when:
   local dashboard search/filter/sort/pagination, read-only published-rule
   summaries, capped on-demand rule details, and confirmed durable dashboard
   discard; restore/mastery/release controls remain `planned`
-- Last documented checkpoint: `2026-05-27` admitted-words dashboard bridge/control
-  polish, options UI, local review controls, published-rule summaries/details,
-  first durable lifecycle action, profile-bootstrap bridge coverage, and
-  encounter-watch visibility:
+- Last documented checkpoint: `2026-05-27` admitted-words dashboard replacement
+  eligibility projection, bridge/control polish, options UI, local review
+  controls, published-rule summaries/details, first durable lifecycle action,
+  profile-bootstrap bridge coverage, and encounter-watch visibility:
   helper/native-host can list pair/profile SRS items, summarize active/queued/
   due/removed states, surface active zero-exposure/zero-feedback watch counts,
+  project which active rows are currently eligible for page replacement,
   persist `admitted_at` for newly admitted items, and expose scheduler/lifecycle
   details behind an advanced toggle in options; the dashboard can locally
   search/filter/sort already-loaded
@@ -1605,6 +1606,7 @@ Use this file when:
   coverage now verifies profile-bootstrap initialization through rule publication
   and dashboard listing
 - Last verified: `2026-05-27` admitted-at dashboard encounter diagnostics,
+  replacement-eligibility dashboard projection,
   bridge/meta-control, rule-summary/detail, search/filter/sort/pagination,
   confirmed discard route, stale-unseen encounter-watch counters/rendering, and
   profile-bootstrap initialize-to-dashboard bridge tests; focused helper
@@ -1635,6 +1637,10 @@ Use this file when:
     SRS items persist `admitted_at`; legacy rows without it are treated as age
     unknown. These are diagnostics only and do not clear, release, or park
     words.
+  - The dashboard exposes a read-only `Replacing` summary card, metadata count,
+    and per-row `Replacing` label derived from active inventory, due state, and
+    enabled published-rule availability. This is observability only; runtime
+    replacement decisions still live in the extension runtime gate.
   - Each row can show read-only published-rule count plus a capped source-phrase
     preview from the current helper-published ruleset artifact. Missing or
     unreadable rulesets do not block item listing.

@@ -44,6 +44,9 @@
         item.reading,
         item.status_label,
         item.status,
+        item.serving_label,
+        item.serving_state,
+        item.serving ? "replacing now" : "",
         item.source_label,
         item.source_type,
         ...ruleSourcePhrases(item)
