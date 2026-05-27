@@ -303,6 +303,11 @@ def refresh_srs_set(
     refresh_payload["selection_policy"] = refresh_policy.selector_config.selection_policy
     if profile_growth_diagnostics:
         refresh_payload["profile_growth"] = _profile_growth_payload(profile_growth_diagnostics)
+        if _has_active_profile_signals(profile_growth_diagnostics):
+            refresh_payload["selected_preferred_topic"] = _selected_preferred_topic_payload(
+                refresh_result.selected_lemmas,
+                selector_candidates,
+            )
     refresh_payload["weight_terms"] = {
         "admission_weight": "Entry/growth score for adding words into S.",
         "serving_priority": "Due/scheduler-derived priority for selecting words already in S.",
@@ -431,6 +436,49 @@ def _profile_growth_payload(diagnostics: Mapping[str, object]) -> dict[str, obje
             else:
                 payload[key] = diagnostics[key]
     return payload
+
+
+def _has_active_profile_signals(diagnostics: Mapping[str, object]) -> bool:
+    profile_context = diagnostics.get("profile_context")
+    if not isinstance(profile_context, Mapping):
+        return False
+    active_signals = profile_context.get("active_signals")
+    return bool(active_signals)
+
+
+def _selected_preferred_topic_payload(
+    selected_lemmas: Sequence[str],
+    candidates: Sequence[SelectorCandidate],
+) -> dict[str, object]:
+    selected = [str(lemma or "").strip() for lemma in selected_lemmas if str(lemma or "").strip()]
+    selected_set = set(selected)
+    preferred = {
+        candidate.lemma
+        for candidate in candidates
+        if str(candidate.lemma or "").strip() in selected_set
+        and _candidate_has_topic_lift(candidate)
+    }
+    selected_count = len(selected)
+    preferred_count = len(preferred)
+    return {
+        "selected_count": selected_count,
+        "preferred_count": preferred_count,
+        "share": round(preferred_count / selected_count, 6) if selected_count else 0.0,
+        "lemmas": [lemma for lemma in selected if lemma in preferred],
+    }
+
+
+def _candidate_has_topic_lift(candidate: SelectorCandidate) -> bool:
+    if float(candidate.topic_bias or 0.0) > 0.0:
+        return True
+    metadata = candidate.metadata if isinstance(candidate.metadata, Mapping) else {}
+    signals = metadata.get("profile_bootstrap_signals")
+    if not isinstance(signals, Mapping):
+        return False
+    try:
+        return float(signals.get("preference_affinity") or 0.0) > 0.0
+    except (TypeError, ValueError):
+        return False
 
 
 def _compact_profile_growth_ranking_preview(value: object) -> list[dict[str, object]]:

@@ -663,7 +663,10 @@ Primary computation points:
   - profile and inventory state are current inputs;
   - current implementation uses `profile_growth`, which reuses the same
     profile-aware utility signals as `profile_bootstrap` against the current
-    eligible frontier, then admits only within the normal refresh budget.
+    eligible frontier, then admits only within the normal refresh budget;
+  - refresh payloads report realized preferred-topic share for the selected
+    new admissions, allowing deterministic product-loop tests to assert a
+    rough share band without requiring an exact lemma list.
 
 - profile or source changes:
   - if interests, proficiency, source pack, rulegen coverage, or blocked terms

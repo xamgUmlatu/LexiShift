@@ -249,7 +249,7 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
             }
 
             save_srs_settings(
-                SrsSettings(max_active_items=8, max_new_items_per_day=2),
+                SrsSettings(max_active_items=8, max_new_items_per_day=4),
                 paths.srs_settings_path,
             )
 
@@ -339,24 +339,31 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
                         set_top_n=50,
                         feedback_window_size=8,
                         max_active_items=8,
-                        max_new_items=2,
+                        max_new_items=4,
                         profile_context=profile_context,
                     ),
                 )
 
             refresh_payload = refreshed["admission_refresh"]
             selected_lemmas = set(refresh_payload["selected_lemmas"])
+            selected_preferred_topic = refresh_payload["selected_preferred_topic"]
+            selected_topic_share = float(selected_preferred_topic["share"])
             self.assertTrue(refreshed["applied"])
-            self.assertEqual(refreshed["added_items"], 2)
+            self.assertEqual(refreshed["added_items"], 4)
             self.assertEqual(refresh_payload["reason_code"], "normal")
             self.assertEqual(refresh_payload["selection_strategy_effective"], "profile_growth")
             self.assertEqual(refresh_payload["selection_policy"], "reserved_topic_lane")
-            self.assertGreaterEqual(len(selected_lemmas & animal_lemmas), 1)
+            self.assertGreaterEqual(selected_topic_share, 0.45)
+            self.assertLessEqual(selected_topic_share, 0.55)
+            self.assertEqual(
+                selected_preferred_topic["preferred_count"],
+                len(selected_lemmas & animal_lemmas),
+            )
             self.assertTrue(refreshed["rulegen"]["published"])
 
             store = load_srs_store(paths.srs_store_path_for(profile_id))
             pair_items = [item for item in store.items if item.language_pair == pair]
-            self.assertEqual(len(pair_items), 6)
+            self.assertEqual(len(pair_items), 8)
 
             diagnostics = get_srs_runtime_diagnostics(paths, pair=pair, profile_id=profile_id)
             self.assertEqual(diagnostics["missing_inputs"], [])
@@ -364,19 +371,19 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
             self.assertTrue(diagnostics["snapshot_exists"])
             self.assertTrue(diagnostics["publication_manifest_exists"])
             self.assertTrue(diagnostics["publication_manifest_family_valid"])
-            self.assertEqual(diagnostics["ruleset_rules_count"], 6)
-            self.assertEqual(diagnostics["snapshot_target_count"], 6)
-            self.assertEqual(diagnostics["inventory_active_items_for_pair"], 6)
+            self.assertEqual(diagnostics["ruleset_rules_count"], 8)
+            self.assertEqual(diagnostics["snapshot_target_count"], 8)
+            self.assertEqual(diagnostics["inventory_active_items_for_pair"], 8)
 
             ruleset_path = Path(refreshed["rulegen"]["ruleset_path"])
             rules = _ruleset_rules(ruleset_path)
-            self.assertEqual(_srs_due_metadata_count(rules), 6)
+            self.assertEqual(_srs_due_metadata_count(rules), 8)
 
             gate_payload = _run_srs_gate_stats(ruleset_path)
             stats = gate_payload["stats"]
             self.assertEqual(stats["mode"], "helper_ruleset")
             self.assertEqual(stats["servingMode"], "due_metadata")
-            self.assertEqual(stats["srsCount"], 6)
+            self.assertEqual(stats["srsCount"], 8)
             self.assertGreater(stats["srsActiveCount"], 0)
             self.assertLessEqual(stats["srsActiveCount"], stats["srsCount"])
             self.assertGreaterEqual(stats["srsDueFilteredCount"], 1)

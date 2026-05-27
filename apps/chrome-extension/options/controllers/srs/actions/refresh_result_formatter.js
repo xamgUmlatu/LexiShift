@@ -44,6 +44,10 @@
       && typeof result.browsing_admission_preview === "object"
       ? result.browsing_admission_preview
       : null;
+    const selectedPreferredTopic = admission.selected_preferred_topic
+      && typeof admission.selected_preferred_topic === "object"
+      ? admission.selected_preferred_topic
+      : null;
     const browsingBalanced = resolveBrowsingSimulation(browsingPreview, "balanced");
     const browsingStrong = resolveBrowsingSimulation(browsingPreview, "strong");
     const activeUnseen = admission.active_zero_exposure_zero_feedback;
@@ -80,6 +84,9 @@
       `- reason_code: ${admission.reason_code || "n/a"}`,
       `- feedback_count: ${feedbackWindow.feedback_count ?? "n/a"}`,
       `- retention_ratio: ${feedbackWindow.retention_ratio ?? "n/a"}`,
+      selectedPreferredTopic
+        ? `- selected_preferred_topic_share: ${selectedPreferredTopic.share ?? "n/a"} (${selectedPreferredTopic.preferred_count ?? 0}/${selectedPreferredTopic.selected_count ?? 0})`
+        : null,
       selectedLemmas.length ? `- selected_lemmas: ${formatLimitedList(selectedLemmas, 12)}` : null,
       `- rulegen_published: ${publishedRulegen ? publishedRulegen.published !== false : false}`,
       publishedRulegen ? `- rulegen_targets: ${publishedRulegen.targets ?? "n/a"}` : null,

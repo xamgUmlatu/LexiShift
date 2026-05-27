@@ -87,6 +87,12 @@ const output = context.LexiShift.optionsSrsActionFormatters.buildRefreshResultOu
     base_admission_budget: 8,
     admission_budget: 2,
     reason_code: "normal",
+    selected_preferred_topic: {{
+      selected_count: 2,
+      preferred_count: 1,
+      share: 0.5,
+      lemmas: ["perro"]
+    }},
     selected_lemmas: ["perro", "gato"],
     feedback_window: {{
       feedback_count: 12,
@@ -107,6 +113,7 @@ assert.equal(output.includes("- active_stale_unseen_no_feedback: 1 >7d"), true);
 assert.equal(output.includes("- due_count: 3"), true);
 assert.equal(output.includes("- capacity_budget: 20"), true);
 assert.equal(output.includes("- admission_budget: 2"), true);
+assert.equal(output.includes("- selected_preferred_topic_share: 0.5 (1/2)"), true);
 assert.equal(output.includes("- selected_lemmas: perro, gato"), true);
 assert.equal(output.includes("- browsing_preview_status: ok"), true);
 assert.equal(output.includes("- browsing_signal_matches: 2 / 5"), true);

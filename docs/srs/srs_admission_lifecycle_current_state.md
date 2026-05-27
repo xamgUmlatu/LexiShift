@@ -101,7 +101,10 @@ Candidate selection defaults to `profile_growth`: frequency seeds are converted
 through the profile-aware admission scorer, then selected by the same growth
 planner used by ordinary SRS admission. Existing lemmas are filtered by
 `grow_srs_store`, so refresh does not duplicate already admitted lemmas for the
-same pair.
+same pair. When profile-growth diagnostics are active, refresh output includes
+the realized preferred-topic share for the selected new admissions. That makes
+later admission waves testable as a share band without requiring an exact lemma
+list.
 
 ## Automatic Refresh Trigger
 
