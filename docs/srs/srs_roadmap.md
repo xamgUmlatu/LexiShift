@@ -150,7 +150,8 @@ Status key:
   receive little or no replacement exposure and therefore cannot easily collect
   learner feedback; dashboard summary visibility and `admitted_at`-based
   stale-unseen diagnostics exist and are now covered by the SRS quality harness
-  for fresh/stale/legacy/reviewed/no-rule states, while the exact threshold and
+  for fresh/stale/legacy/reviewed/no-rule states, refresh no-op output now
+  reports stale-unseen active capacity pressure, while the exact threshold and
   release/parking policy remain undecided.
 - `[x]` POS-aware admission biasing/filtering (explicit default order: noun > adjective > verb > adverb > other).
 - `[x]` Helper-side stopword filtering for bootstrap candidates (strict JSON-array format).

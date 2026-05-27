@@ -25,7 +25,11 @@ from lexishift_core.srs.scheduler import (
 from lexishift_core.srs.selector import SelectorCandidate, SelectorConfig, SelectorWeights
 from lexishift_core.srs.signal_queue import SIGNAL_FEEDBACK, SrsSignalEvent
 from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST
-from lexishift_core.srs.time import now_utc
+from lexishift_core.srs.time import now_utc, parse_ts
+
+
+STALE_ACTIVE_AGE_DAYS = 7
+SECONDS_PER_DAY = 24 * 60 * 60
 
 
 @dataclass(frozen=True)
@@ -82,6 +86,10 @@ class AdmissionRefreshDecision:
     max_active_items: int
     max_new_items_per_day: int
     active_count: int
+    active_zero_exposure_zero_feedback: int
+    active_zero_exposure_zero_feedback_age_unknown: int
+    active_stale_zero_exposure_zero_feedback: int
+    stale_active_age_days: int
     due_count: int
     due_pressure: float
     capacity_budget: int
@@ -283,6 +291,12 @@ def plan_admission_refresh(
     due_count = len(due_items)
     due_pressure = due_count / float(max_active_items) if max_active_items > 0 else 1.0
     active_count = _count_active_items_for_pair(store, pair=pair)
+    active_capacity_diagnostics = _active_capacity_diagnostics_for_pair(
+        store,
+        pair=pair,
+        now=now,
+        stale_age_days=STALE_ACTIVE_AGE_DAYS,
+    )
 
     capacity_budget = max(0, max_active_items - active_count)
     base_budget = min(max_new_items, capacity_budget)
@@ -300,6 +314,12 @@ def plan_admission_refresh(
         admission_budget = 0
         reason_code = "capacity_exhausted"
         notes.append("No admission capacity remains under max_active_items.")
+        stale_count = active_capacity_diagnostics["active_stale_zero_exposure_zero_feedback"]
+        if stale_count > 0:
+            notes.append(
+                "Some active items are stale, unseen, and unreviewed; use dashboard "
+                "diagnostics before adding an automatic release policy."
+            )
     elif due_pressure > policy.thresholds.due_pressure_high:
         admission_budget = 0
         reason_code = "due_pressure_high"
@@ -324,6 +344,16 @@ def plan_admission_refresh(
         max_active_items=max_active_items,
         max_new_items_per_day=max_new_items,
         active_count=active_count,
+        active_zero_exposure_zero_feedback=active_capacity_diagnostics[
+            "active_zero_exposure_zero_feedback"
+        ],
+        active_zero_exposure_zero_feedback_age_unknown=active_capacity_diagnostics[
+            "active_zero_exposure_zero_feedback_age_unknown"
+        ],
+        active_stale_zero_exposure_zero_feedback=active_capacity_diagnostics[
+            "active_stale_zero_exposure_zero_feedback"
+        ],
+        stale_active_age_days=STALE_ACTIVE_AGE_DAYS,
         due_count=due_count,
         due_pressure=round(due_pressure, 6),
         capacity_budget=capacity_budget,
@@ -448,6 +478,14 @@ def admission_refresh_result_to_dict(result: AdmissionRefreshResult) -> dict[str
         "max_active_items": decision.max_active_items,
         "max_new_items_per_day": decision.max_new_items_per_day,
         "active_count": decision.active_count,
+        "active_zero_exposure_zero_feedback": decision.active_zero_exposure_zero_feedback,
+        "active_zero_exposure_zero_feedback_age_unknown": (
+            decision.active_zero_exposure_zero_feedback_age_unknown
+        ),
+        "active_stale_zero_exposure_zero_feedback": (
+            decision.active_stale_zero_exposure_zero_feedback
+        ),
+        "stale_active_age_days": decision.stale_active_age_days,
         "due_count": decision.due_count,
         "due_pressure": decision.due_pressure,
         "capacity_budget": decision.capacity_budget,
@@ -493,6 +531,36 @@ def _resolve_non_negative_int(value: Optional[int], *, fallback: int) -> int:
 
 def _count_active_items_for_pair(store: SrsStore, *, pair: str) -> int:
     return sum(1 for item in store.items if item.language_pair == pair and srs_item_is_active(item))
+
+
+def _active_capacity_diagnostics_for_pair(
+    store: SrsStore,
+    *,
+    pair: str,
+    now: datetime,
+    stale_age_days: int,
+) -> dict[str, int]:
+    zero_unseen = 0
+    age_unknown = 0
+    stale_unseen = 0
+    stale_seconds = max(0, int(stale_age_days)) * SECONDS_PER_DAY
+    for item in store.items:
+        if item.language_pair != pair or not srs_item_is_active(item):
+            continue
+        if int(item.exposures or 0) > 0 or len(item.history or ()) > 0:
+            continue
+        zero_unseen += 1
+        admitted_at = parse_ts(item.admitted_at)
+        if admitted_at is None:
+            age_unknown += 1
+            continue
+        if (now - admitted_at).total_seconds() >= stale_seconds:
+            stale_unseen += 1
+    return {
+        "active_zero_exposure_zero_feedback": zero_unseen,
+        "active_zero_exposure_zero_feedback_age_unknown": age_unknown,
+        "active_stale_zero_exposure_zero_feedback": stale_unseen,
+    }
 
 
 def _normalize_allowed_pos(value: Optional[IterableCollection[str]]) -> set[str]:

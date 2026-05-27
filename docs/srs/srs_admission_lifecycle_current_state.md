@@ -87,6 +87,16 @@ Refresh budget is controlled by:
 - mid-retention partial admission below `0.70`
 - optional request overrides for max active, max new, feedback window, and POS
 
+Refresh output now also carries active-capacity encounter diagnostics:
+
+- active words with zero replacement exposure plus zero feedback;
+- those same words whose admission age is unknown;
+- those same words whose known `admitted_at` is at least `7` days old.
+
+These diagnostics are intentionally non-mutating. They explain capacity pressure
+when refresh returns `capacity_exhausted`, but they do not clear, park, release,
+or mark any word as learned.
+
 Candidate selection defaults to `profile_growth`: frequency seeds are converted
 through the profile-aware admission scorer, then selected by the same growth
 planner used by ordinary SRS admission. Existing lemmas are filtered by
@@ -257,11 +267,15 @@ Current mitigations:
 - the dashboard discard route can remove a specific unwanted active item;
 - passive exposure counts exist and are intentionally non-authoritative for
   scheduling.
+- refresh admission results report the same first-order stale-unseen capacity
+  pressure, so a no-op refresh can distinguish ordinary full capacity from
+  capacity held by stale, unseen, unreviewed active words.
 
 Current gap:
 
 - there is no automatic stale-active policy that clears, releases, or parks a
-  low-exposure item in a way that frees refresh capacity;
+  low-exposure item in a way that frees refresh capacity; refresh/dashboard
+  diagnostics make the pressure visible first;
 - rebalance can change active inventory membership, but refresh capacity is
   currently counted from active lifecycle store items for the pair, so inventory
   parking alone is not enough to solve starvation;

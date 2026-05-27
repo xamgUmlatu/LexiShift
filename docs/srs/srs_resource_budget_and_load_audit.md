@@ -98,6 +98,9 @@ items now persist `admitted_at` so the dashboard can distinguish unseen words
 that are merely new from unseen words older than the current `7` day diagnostic
 threshold. Legacy rows without `admitted_at` are counted as age unknown. This is
 only an observability surface: it does not clear, release, or park active words.
+Refresh result output also reports zero-exposure/zero-feedback active capacity
+and stale-unseen active capacity, so a `capacity_exhausted` refresh can be
+diagnosed without opening the dashboard first.
 The SRS quality harness now checks the same diagnostic contract against a
 synthetic mix of fresh unseen, stale unseen, legacy age-unknown, reviewed, and
 no-enabled-rule active items; its Markdown summary reports the encounter-watch

@@ -96,6 +96,73 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
         self.assertEqual(decision.base_admission_budget, 0)
         self.assertEqual(decision.admission_budget, 0)
         self.assertEqual(decision.reason_code, "capacity_exhausted")
+        self.assertEqual(decision.active_zero_exposure_zero_feedback, 3)
+        self.assertEqual(decision.active_zero_exposure_zero_feedback_age_unknown, 3)
+        self.assertEqual(decision.active_stale_zero_exposure_zero_feedback, 0)
+
+    def test_plan_reports_stale_unseen_active_capacity_pressure(self) -> None:
+        now = datetime(2026, 5, 26, tzinfo=timezone.utc)
+        store = SrsStore(
+            items=(
+                SrsItem(
+                    item_id="en-ja:stale",
+                    lemma="stale",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    admitted_at=(now - timedelta(days=9)).isoformat(),
+                ),
+                SrsItem(
+                    item_id="en-ja:fresh",
+                    lemma="fresh",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    admitted_at=(now - timedelta(days=1)).isoformat(),
+                ),
+                SrsItem(
+                    item_id="en-ja:legacy",
+                    lemma="legacy",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                ),
+                SrsItem(
+                    item_id="en-ja:seen",
+                    lemma="seen",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    admitted_at=(now - timedelta(days=12)).isoformat(),
+                    exposures=2,
+                ),
+            ),
+            version=1,
+        )
+        decision = plan_admission_refresh(
+            store=store,
+            settings=SrsSettings(max_active_items=4, max_new_items_per_day=4),
+            pair="en-ja",
+            events=[],
+            policy=AdmissionRefreshPolicy(feedback_window_size=100),
+            now=now,
+        )
+
+        self.assertEqual(decision.reason_code, "capacity_exhausted")
+        self.assertEqual(decision.active_zero_exposure_zero_feedback, 3)
+        self.assertEqual(decision.active_zero_exposure_zero_feedback_age_unknown, 1)
+        self.assertEqual(decision.active_stale_zero_exposure_zero_feedback, 1)
+        self.assertEqual(decision.stale_active_age_days, 7)
+        self.assertIn("stale, unseen, and unreviewed", " ".join(decision.notes))
+        payload = admission_refresh_result_to_dict(
+            apply_admission_refresh(
+                store=store,
+                settings=SrsSettings(max_active_items=4, max_new_items_per_day=4),
+                pair="en-ja",
+                candidates=_build_candidates(),
+                events=[],
+                policy=AdmissionRefreshPolicy(feedback_window_size=100),
+                now=now,
+            )[1]
+        )
+        self.assertEqual(payload["active_stale_zero_exposure_zero_feedback"], 1)
+        self.assertEqual(payload["active_zero_exposure_zero_feedback_age_unknown"], 1)
 
     def test_plan_reduces_budget_for_mid_retention(self) -> None:
         store = SrsStore(

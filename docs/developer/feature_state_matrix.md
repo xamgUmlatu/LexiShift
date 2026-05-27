@@ -1461,7 +1461,7 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-26` SRS lifecycle, active-budget, and manual refresh diagnostics update:
+- Last documented checkpoint: `2026-05-27` SRS lifecycle, active-budget, stale-unseen capacity, and manual refresh diagnostics update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
@@ -1474,9 +1474,10 @@ Use this file when:
   now excluded from active inventory, due selection, growth capacity, and
   rulegen publication; refresh capacity now uses total active store load for
   the pair rather than the smaller due-only subset; options refresh output now
-  surfaces active budget, selected lemmas, and preview-only browsing comparison
-  diagnostics for manual SRS testing
-- Last verified: `2026-05-26` lifecycle marker, active-budget, manual refresh diagnostics,
+  surfaces active budget, stale-unseen capacity pressure, selected lemmas, and
+  preview-only browsing comparison diagnostics for manual SRS testing
+- Last verified: `2026-05-27` lifecycle marker, active-budget, stale-unseen capacity,
+  manual refresh diagnostics,
   and active-inventory
   filtering tests, lifecycle-aware scheduler/growth/rulegen tests, admission
   suppression writer tests, reset suppression-metadata tests, fractional
@@ -1511,6 +1512,7 @@ Use this file when:
     for the same candidate pool and budget; the diagnostics do not affect the
     persisted refresh selection.
   - Options refresh output displays active count, due count, capacity budget,
+    active zero-exposure/zero-feedback counts, stale-unseen active capacity,
     final admission budget, selected lemmas, and neutral vs `Balanced`/`Strong`
     browsing preview selections when available.
   - The preview uses fractional small-budget realization so `Balanced` can show

@@ -78,6 +78,9 @@ const output = context.LexiShift.optionsSrsActionFormatters.buildRefreshResultOu
   }},
   admission: {{
     active_count: 20,
+    active_zero_exposure_zero_feedback: 2,
+    active_stale_zero_exposure_zero_feedback: 1,
+    stale_active_age_days: 7,
     due_count: 3,
     due_pressure: 0.075,
     capacity_budget: 20,
@@ -99,6 +102,8 @@ const output = context.LexiShift.optionsSrsActionFormatters.buildRefreshResultOu
 }});
 
 assert.equal(output.includes("- active_count: 20"), true);
+assert.equal(output.includes("- active_unseen_no_feedback: 2"), true);
+assert.equal(output.includes("- active_stale_unseen_no_feedback: 1 >7d"), true);
 assert.equal(output.includes("- due_count: 3"), true);
 assert.equal(output.includes("- capacity_budget: 20"), true);
 assert.equal(output.includes("- admission_budget: 2"), true);

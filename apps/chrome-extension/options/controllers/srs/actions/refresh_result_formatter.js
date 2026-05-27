@@ -46,6 +46,9 @@
       : null;
     const browsingBalanced = resolveBrowsingSimulation(browsingPreview, "balanced");
     const browsingStrong = resolveBrowsingSimulation(browsingPreview, "strong");
+    const activeUnseen = admission.active_zero_exposure_zero_feedback;
+    const staleUnseen = admission.active_stale_zero_exposure_zero_feedback;
+    const staleDays = admission.stale_active_age_days;
     const header = applied
       ? translate(
           "status_srs_refresh_success",
@@ -65,6 +68,10 @@
       `- max_active_items: ${result.max_active_items ?? "n/a"}`,
       `- max_new_items_per_day: ${result.max_new_items_per_day ?? "n/a"}`,
       `- active_count: ${admission.active_count ?? "n/a"}`,
+      activeUnseen !== undefined ? `- active_unseen_no_feedback: ${activeUnseen}` : null,
+      staleUnseen !== undefined
+        ? `- active_stale_unseen_no_feedback: ${staleUnseen}${staleDays !== undefined ? ` >${staleDays}d` : ""}`
+        : null,
       `- due_count: ${admission.due_count ?? "n/a"}`,
       `- due_pressure: ${admission.due_pressure ?? "n/a"}`,
       `- capacity_budget: ${admission.capacity_budget ?? "n/a"}`,
