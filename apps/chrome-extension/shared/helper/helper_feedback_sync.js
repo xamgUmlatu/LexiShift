@@ -282,15 +282,21 @@
       }
     }
 
-    async _runAutoRefresh(reason, handled) {
-      if (!this._maybeAutoRefresh || this._autoRefreshInFlight || handled <= 0) {
+    async _runAutoRefresh(reason, handled, synced) {
+      if (
+        !this._maybeAutoRefresh
+        || this._autoRefreshInFlight
+        || handled <= 0
+        || synced <= 0
+      ) {
         return;
       }
       this._autoRefreshInFlight = true;
       try {
         const result = await Promise.resolve(this._maybeAutoRefresh({
           reason,
-          handled
+          handled,
+          synced
         }));
         if (result && typeof result === "object") {
           const payload = result.data && typeof result.data === "object" ? result.data : result;
@@ -316,6 +322,7 @@
       }
       this._flushInFlight = true;
       let handledCount = 0;
+      let syncedCount = 0;
       try {
         const locked = await this._acquireLock();
         if (!locked) {
@@ -339,11 +346,13 @@
         const updates = new Map();
         const removeIds = new Set();
         let handled = 0;
+        let synced = 0;
         for (const item of due) {
           const response = await this._send(item.payload);
           if (response && response.ok === true) {
             removeIds.add(item.id);
             handled += 1;
+            synced += 1;
             await this._renewLock();
             continue;
           }
@@ -392,15 +401,18 @@
         }
 
         if (handled > 0) {
-          this._debug(`Flushed feedback queue (${handled} item(s), reason=${reason}).`);
+          this._debug(
+            `Flushed feedback queue (${handled} item(s), ${synced} synced, reason=${reason}).`
+          );
         }
         handledCount = handled;
+        syncedCount = synced;
         return handled > 0;
       } finally {
         await this._releaseLock();
         this._flushInFlight = false;
         if (handledCount > 0) {
-          await this._runAutoRefresh(reason, handledCount);
+          await this._runAutoRefresh(reason, handledCount, syncedCount);
         }
       }
     }

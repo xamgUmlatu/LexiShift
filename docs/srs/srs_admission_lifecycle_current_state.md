@@ -99,10 +99,11 @@ Automatic refresh is a trigger layer around the same `profile_growth`
 `srs_refresh` path. It does not change FSRS review scheduling and it does not
 admit words directly.
 
-The extension feedback sync queue calls `srs_auto_refresh` after a successful
-helper feedback flush. The helper reads `srs_signal_queue.json`, compares the
-new feedback since the last automatic attempt against the profile/pair policy,
-and only then attempts the normal refresh path.
+The extension feedback sync queue calls `srs_auto_refresh` after one or more
+feedback items successfully sync to the helper. Retry-only flushes do not run
+the refresh check. The helper reads `srs_signal_queue.json`, compares the new
+feedback since the last automatic attempt against the profile/pair policy, and
+only then attempts the normal refresh path.
 
 Default trigger policy:
 

@@ -1387,8 +1387,8 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met.
-- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, automatic refresh policy/state tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check.
+- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
@@ -1402,8 +1402,10 @@ Use this file when:
     existing refresh admission gates before persistence/publication.
   - Automatic post-feedback refresh is implemented as a trigger layer for
     `profile_growth`: the extension runs a best-effort `srs_auto_refresh`
-    check after successful helper feedback flushes, and the helper persists
-    per-profile/pair attempt state before running the normal refresh path.
+    check after one or more feedback items successfully sync to the helper,
+    and the helper persists per-profile/pair attempt state before running the
+    normal refresh path. Retry-only feedback flushes do not run the refresh
+    check.
   - `profile_growth` remains executable for the dedicated rebalance
     preview/apply lane.
   - `adaptive_refresh` still falls back to planning-only behavior.
@@ -1429,6 +1431,7 @@ Use this file when:
   - `core/tests/srs/test_srs_growth.py`
   - `core/tests/srs/test_srs_auto_refresh.py`
   - `core/tests/helper/test_helper_auto_refresh_set.py`
+  - `core/tests/dev/test_extension_helper_feedback_sync_auto_refresh.py`
   - `core/tests/helper/test_helper_engine.py`
   - `core/tests/dev/test_srs_planner_strategy_contract.py`
   - `core/tests/dev/test_helper_translation_dict_entrypoints.py`

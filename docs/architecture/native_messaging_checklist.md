@@ -64,7 +64,8 @@ Status key:
 - `[x]` Fallback to cached ruleset if helper offline.
 - `[x]` Persistent feedback sync queue with retry/backoff for `record_feedback`.
 - `[x]` Feedback sync queue now runs a best-effort `srs_auto_refresh` check
-  after successful helper feedback flushes.
+  after one or more feedback items successfully sync to the helper; retry-only
+  flushes do not trigger the refresh check.
 - `[x]` Scope helper cache + feedback payloads by `profile_id` to avoid cross-profile leakage.
 - `[x]` Support Windows native-messaging manifest + registry installation from the GUI helper flow.
 
@@ -95,6 +96,7 @@ Status key:
 - `[x]` Add helper-side integration test coverage for feedback-driven admission refresh decisions.
   - `core/tests/srs/test_srs_feedback_simulation.py` now simulates multi-phase feedback and asserts S growth + ruleset publication behavior.
 - `[x]` Add helper policy/state tests for threshold-based automatic refresh from aggregated feedback.
+- `[x]` Add extension feedback-sync contract tests for successful-sync auto-refresh triggering and failed-send retry suppression.
 - `[ ]` Add browser/native E2E test for feedback sync -> automatic refresh ->
   ruleset update.
 - `[ ]` Add explicit service-worker bridge roundtrip tests (options + content runtime request paths).
