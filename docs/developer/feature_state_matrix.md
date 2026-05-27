@@ -1388,7 +1388,7 @@ Use this file when:
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
 - Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check.
-- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, options SRS bridge contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
@@ -1408,6 +1408,9 @@ Use this file when:
     check. Content-runtime bridge contract coverage now verifies that synced
     feedback routes through `record_feedback`, then `srs_auto_refresh`, to the
     background native-messaging bridge with the expected profile-growth payload.
+    Options bridge contract coverage verifies SRS initialize, plan, preview,
+    and refresh actions route through the same background native-messaging
+    bridge with the expected profile-aware payloads.
   - `profile_growth` remains executable for the dedicated rebalance
     preview/apply lane.
   - `adaptive_refresh` still falls back to planning-only behavior.
@@ -1433,6 +1436,7 @@ Use this file when:
   - `core/tests/srs/test_srs_growth.py`
   - `core/tests/srs/test_srs_auto_refresh.py`
   - `core/tests/dev/test_extension_feedback_auto_refresh_bridge_contract.py`
+  - `core/tests/dev/test_extension_options_srs_bridge_contract.py`
   - `core/tests/helper/test_helper_auto_refresh_set.py`
   - `core/tests/dev/test_extension_helper_feedback_sync_auto_refresh.py`
   - `core/tests/helper/test_helper_engine.py`

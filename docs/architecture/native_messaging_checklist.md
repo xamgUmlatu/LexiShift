@@ -101,10 +101,10 @@ Status key:
   sync -> `record_feedback` -> `srs_auto_refresh`.
 - `[ ]` Add browser/native E2E test for feedback sync -> automatic refresh ->
   ruleset update.
-- `[~]` Add explicit service-worker bridge roundtrip tests (options + content
+- `[x]` Add explicit service-worker bridge roundtrip tests (options + content
   runtime request paths).
-  - Content feedback sync -> native auto-refresh bridge path is covered; options
-    request paths still need explicit bridge coverage.
+  - Content feedback sync -> native auto-refresh bridge path is covered.
+  - Options SRS initialize, plan, preview, and refresh request paths are covered.
 
 ## Open Questions
 - `[x]` Choose SRS store format for current helper implementation (JSON in `srs/`).
