@@ -665,6 +665,99 @@ header p {
   margin-top: 12px;
 }
 
+.srs-story-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.srs-story-card,
+.srs-story-start-card {
+  border: 1px solid #ded3c1;
+  border-radius: 8px;
+  background: #fffdf8;
+  padding: 14px;
+}
+
+.srs-story-header,
+.srs-story-start-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.srs-story-header h3,
+.srs-story-start-card h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: #4d473f;
+}
+
+.srs-story-header .hint,
+.srs-story-start-card .hint {
+  margin: 0;
+}
+
+.srs-story-badge {
+  border: 1px solid #b9a98f;
+  border-radius: 999px;
+  background: #f8f1e4;
+  color: #574a38;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.srs-story-preferences {
+  margin-top: 8px;
+}
+
+.srs-story-curtain {
+  margin-top: 12px;
+  border: 1px solid #ded3c1;
+  border-radius: 8px;
+  background: #fffcf6;
+  padding: 10px 12px;
+}
+
+.srs-story-curtain summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #4d473f;
+}
+
+.srs-story-curtain[open] summary {
+  margin-bottom: 8px;
+}
+
+.srs-story-curtain .srs-words-dashboard {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.srs-story-start-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border-radius: 6px;
+  background: #2c2a26;
+  color: #fef8ee;
+  padding: 8px 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.srs-story-start-link:hover {
+  background: #1c1a17;
+}
+
 .srs-maintenance-tools .hint {
   margin: 0 0 8px;
 }

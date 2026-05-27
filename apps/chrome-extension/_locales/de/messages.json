@@ -92,6 +92,30 @@
   "hint_srs_dataset": {
     "message": "Verwendet vorerst einen festen Testdatensatz (keine externen Downloads)."
   },
+  "heading_srs_current_story": {
+    "message": "Ausgewählte SRS-Story"
+  },
+  "hint_srs_current_story": {
+    "message": "Einstellungen, Dashboard und Wartung für das ausgewählte Profil und Sprachpaar."
+  },
+  "badge_srs_selected_story": {
+    "message": "Ausgewähltes Paar"
+  },
+  "summary_srs_story_dashboard": {
+    "message": "Dashboard öffnen"
+  },
+  "summary_srs_story_sampling": {
+    "message": "Mögliche Wörter testen"
+  },
+  "heading_srs_start_new_story": {
+    "message": "Neue SRS-Story starten"
+  },
+  "hint_srs_start_new_story": {
+    "message": "Wähle ein anderes Profil oder Sprachpaar und lege vor der Initialisierung Präferenzen fest."
+  },
+  "button_srs_start_new_story": {
+    "message": "Ausgewähltes Paar einrichten"
+  },
   "label_srs_pair": {
     "message": "Sprachpaar"
   },

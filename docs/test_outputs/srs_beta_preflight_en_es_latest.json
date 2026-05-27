@@ -67,7 +67,7 @@
       "message": "en-es installed-resource journey latest artifact has review-only warnings."
     }
   ],
-  "generated_at": "2026-05-27T05:20:20.494344+00:00",
+  "generated_at": "2026-05-27T05:38:10.141943+00:00",
   "inputs": {
     "installed_journey_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json",
     "locale_root": "/Users/takeyayuki/Documents/projects/LexiShift/apps/chrome-extension/_locales",

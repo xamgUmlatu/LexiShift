@@ -3,9 +3,26 @@
 Status: active target UX plan
 Role: Planning
 Last updated: 2026-05-27
-Last verified: not implemented; documented from product decision discussion
+Last verified: 2026-05-27 partial selected-story shell and curtain markup through focused extension/options tests; full new-story popup not implemented
 Purpose: define the target Options-page SRS UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
+
+## Current Implementation State
+
+As of 2026-05-27, the Options page has the first structural slice only:
+
+- selected profile/pair SRS controls are grouped under a selected-story block;
+- the admitted-words dashboard is behind an `Open dashboard` curtain;
+- admission sampling is behind a `Sample possible words` curtain;
+- maintenance tools remain collapsed under `Manage SRS data`;
+- a simple start-new-story block points the user back to selected-pair setup.
+
+Not implemented yet:
+
+- full story enumeration across all profile/pair SRS stores;
+- modal/drawer guided new-story flow;
+- persisted story summary counts outside the dashboard payload;
+- final user-facing naming for the technical size/initialization labels.
 
 ## Decision
 

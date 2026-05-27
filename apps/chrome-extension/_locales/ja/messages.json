@@ -92,6 +92,30 @@
   "hint_srs_dataset": {
     "message": "現時点では固定のテストデータセットを使用します（外部ダウンロードなし）。"
   },
+  "heading_srs_current_story": {
+    "message": "選択中のSRSストーリー"
+  },
+  "hint_srs_current_story": {
+    "message": "選択中のプロフィールと言語ペアの設定、ダッシュボード、メンテナンスです。"
+  },
+  "badge_srs_selected_story": {
+    "message": "選択中のペア"
+  },
+  "summary_srs_story_dashboard": {
+    "message": "ダッシュボードを開く"
+  },
+  "summary_srs_story_sampling": {
+    "message": "候補語をサンプル"
+  },
+  "heading_srs_start_new_story": {
+    "message": "新しいSRSストーリーを開始"
+  },
+  "hint_srs_start_new_story": {
+    "message": "別のプロフィールまたは言語ペアを選び、初期化前に好みを設定します。"
+  },
+  "button_srs_start_new_story": {
+    "message": "選択中のペアを設定"
+  },
   "label_srs_pair": {
     "message": "言語ペア"
   },

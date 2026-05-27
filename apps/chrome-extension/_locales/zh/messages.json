@@ -92,6 +92,30 @@
   "hint_srs_dataset": {
     "message": "目前使用固定测试数据集（无需外部下载）。"
   },
+  "heading_srs_current_story": {
+    "message": "当前 SRS 故事"
+  },
+  "hint_srs_current_story": {
+    "message": "所选配置和语言对的设置、仪表板和维护操作。"
+  },
+  "badge_srs_selected_story": {
+    "message": "当前语言对"
+  },
+  "summary_srs_story_dashboard": {
+    "message": "打开仪表板"
+  },
+  "summary_srs_story_sampling": {
+    "message": "抽样可能出现的词"
+  },
+  "heading_srs_start_new_story": {
+    "message": "开始新的 SRS 故事"
+  },
+  "hint_srs_start_new_story": {
+    "message": "选择另一个配置或语言对，并在初始化前设置偏好。"
+  },
+  "button_srs_start_new_story": {
+    "message": "设置当前语言对"
+  },
   "label_srs_pair": {
     "message": "语言对"
   },

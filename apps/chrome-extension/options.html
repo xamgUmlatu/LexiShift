@@ -54,60 +54,72 @@
           <p class="hint" data-i18n="hint_srs_dataset">
             Uses a fixed test dataset for now (no external downloads).
           </p>
-          <div class="field-row">
-            <label for="source-language" data-i18n="label_source_language">Source language</label>
-            <select id="source-language">
-              <option value="en">English</option>
-              <option value="es">Español</option>
-              <option value="ja">日本語</option>
-              <option value="zh">简体中文</option>
-              <option value="de">Deutsch</option>
-            </select>
-          </div>
-          <div class="field-row">
-            <label for="target-language" data-i18n="label_target_language">Target language</label>
-            <div class="target-language-controls">
-              <select id="target-language">
-                <option value="en">English</option>
-                <option value="es">Español</option>
-                <option value="ja">日本語</option>
-                <option value="zh">简体中文</option>
-                <option value="de">Deutsch</option>
-              </select>
-              <button
-                id="target-language-gear"
-                type="button"
-                class="target-language-modules-button"
-                data-i18n="button_modules"
-                aria-label="Modules"
-                title="Modules"
-              >
-                Modules
-              </button>
-            </div>
-          </div>
-          <div class="field-row">
-            <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
-            <input id="srs-max-active" type="number" min="1" max="200" step="1" />
-          </div>
-          <div class="field-row">
-            <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
-            <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
-          </div>
-          <p class="hint" data-i18n="hint_srs_bootstrap_top_n">
-            Total number of words admitted during initial S bootstrap.
-          </p>
-          <div class="field-row">
-            <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
-            <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
-          </div>
-          <p class="hint" data-i18n="hint_srs_initial_active_count">
-            Initial non-zero/active words selected from the bootstrap list.
-          </p>
-          <h3 data-i18n="section_srs_admission_preferences">Admission preferences</h3>
-          <p class="hint" data-i18n="hint_srs_admission_preferences">
-            These values rerank bootstrap admission for the selected profile and pair.
-          </p>
+          <div class="srs-story-list">
+            <article class="srs-story-card" aria-labelledby="srs-story-current-heading">
+              <div class="srs-story-header">
+                <div>
+                  <h3 id="srs-story-current-heading" data-i18n="heading_srs_current_story">Selected SRS story</h3>
+                  <p class="hint" data-i18n="hint_srs_current_story">
+                    Settings, dashboard, and maintenance for the selected profile and language pair.
+                  </p>
+                </div>
+                <span class="srs-story-badge" data-i18n="badge_srs_selected_story">Selected pair</span>
+              </div>
+              <div class="srs-story-preferences">
+                <div class="field-row">
+                  <label for="source-language" data-i18n="label_source_language">Source language</label>
+                  <select id="source-language">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="ja">日本語</option>
+                    <option value="zh">简体中文</option>
+                    <option value="de">Deutsch</option>
+                  </select>
+                </div>
+                <div class="field-row">
+                  <label for="target-language" data-i18n="label_target_language">Target language</label>
+                  <div class="target-language-controls">
+                    <select id="target-language">
+                      <option value="en">English</option>
+                      <option value="es">Español</option>
+                      <option value="ja">日本語</option>
+                      <option value="zh">简体中文</option>
+                      <option value="de">Deutsch</option>
+                    </select>
+                    <button
+                      id="target-language-gear"
+                      type="button"
+                      class="target-language-modules-button"
+                      data-i18n="button_modules"
+                      aria-label="Modules"
+                      title="Modules"
+                    >
+                      Modules
+                    </button>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <label for="srs-max-active" data-i18n="label_srs_max_active">Max active words</label>
+                  <input id="srs-max-active" type="number" min="1" max="200" step="1" />
+                </div>
+                <div class="field-row">
+                  <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Bootstrap S size (top N)</label>
+                  <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
+                </div>
+                <p class="hint" data-i18n="hint_srs_bootstrap_top_n">
+                  Total number of words admitted during initial S bootstrap.
+                </p>
+                <div class="field-row">
+                  <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Initial active subset</label>
+                  <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
+                </div>
+                <p class="hint" data-i18n="hint_srs_initial_active_count">
+                  Initial non-zero/active words selected from the bootstrap list.
+                </p>
+                <h3 data-i18n="section_srs_admission_preferences">Admission preferences</h3>
+                <p class="hint" data-i18n="hint_srs_admission_preferences">
+                  These values rerank bootstrap admission for the selected profile and pair.
+                </p>
           <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
             <div class="srs-topic-interest-picker-heading">
               <span
@@ -291,6 +303,7 @@
             <input id="srs-sound-enabled" type="checkbox" />
             <span data-i18n="toggle_srs_sound">Play feedback sound</span>
           </label>
+          </div>
           <div class="helper-status">
             <div class="meta-row">
               <div>
@@ -303,7 +316,9 @@
               </div>
             </div>
           </div>
-          <div class="srs-words-dashboard" aria-labelledby="srs-words-dashboard-heading">
+          <details class="srs-story-curtain srs-story-dashboard-curtain">
+            <summary data-i18n="summary_srs_story_dashboard">Open dashboard</summary>
+            <div class="srs-words-dashboard" aria-labelledby="srs-words-dashboard-heading">
             <div class="srs-words-dashboard-header">
               <div>
                 <h3 id="srs-words-dashboard-heading" data-i18n="heading_srs_words_dashboard">Learning words</h3>
@@ -367,10 +382,14 @@
             </div>
             <div id="srs-words-list" class="srs-words-list"></div>
           </div>
-          <div class="actions srs-primary-actions">
-            <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
-          </div>
-          <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
+          </details>
+          <details class="srs-story-curtain srs-story-sampling-curtain">
+            <summary data-i18n="summary_srs_story_sampling">Sample possible words</summary>
+            <div class="actions srs-primary-actions">
+              <button id="srs-admission-preview" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
+            </div>
+            <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
+          </details>
           <div class="actions srs-primary-actions">
             <button id="srs-initialize-set" data-i18n="button_srs_initialize">Initialize S for this pair</button>
           </div>
@@ -391,6 +410,19 @@
             </div>
           </details>
           <div id="srs-rulegen-output" class="srs-preview" role="status"></div>
+            </article>
+            <article class="srs-story-start-card" aria-labelledby="srs-story-start-heading">
+              <div>
+                <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start a new SRS story</h3>
+                <p class="hint" data-i18n="hint_srs_start_new_story">
+                  Choose another profile or language pair, then set preferences before initializing.
+                </p>
+              </div>
+              <a class="srs-story-start-link" href="#srs-story-current-heading" data-i18n="button_srs_start_new_story">
+                Set up selected pair
+              </a>
+            </article>
+          </div>
         </section>
         <section class="card card-group span-2">
           <h2 data-i18n="section_manual_rules">Manual Rules</h2>

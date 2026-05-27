@@ -92,6 +92,30 @@
   "hint_srs_dataset": {
     "message": "Uses a fixed test dataset for now (no external downloads)."
   },
+  "heading_srs_current_story": {
+    "message": "Selected SRS story"
+  },
+  "hint_srs_current_story": {
+    "message": "Settings, dashboard, and maintenance for the selected profile and language pair."
+  },
+  "badge_srs_selected_story": {
+    "message": "Selected pair"
+  },
+  "summary_srs_story_dashboard": {
+    "message": "Open dashboard"
+  },
+  "summary_srs_story_sampling": {
+    "message": "Sample possible words"
+  },
+  "heading_srs_start_new_story": {
+    "message": "Start a new SRS story"
+  },
+  "hint_srs_start_new_story": {
+    "message": "Choose another profile or language pair, then set preferences before initializing."
+  },
+  "button_srs_start_new_story": {
+    "message": "Set up selected pair"
+  },
   "label_srs_pair": {
     "message": "Language pair"
   },

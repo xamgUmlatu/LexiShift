@@ -64,6 +64,19 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
     def test_srs_maintenance_and_challenge_controls_are_collapsed(self) -> None:
         html = OPTIONS_HTML.read_text(encoding="utf-8")
 
+        self.assertIn('class="srs-story-list"', html)
+        self.assertIn('id="srs-story-current-heading"', html)
+        self.assertIn('id="srs-story-start-heading"', html)
+        self.assertRegex(
+            html,
+            r'(?s)<details class="srs-story-curtain srs-story-dashboard-curtain">'
+            r'.*?class="srs-words-dashboard"',
+        )
+        self.assertRegex(
+            html,
+            r'(?s)<details class="srs-story-curtain srs-story-sampling-curtain">'
+            r'.*?id="srs-admission-preview"',
+        )
         self.assertRegex(
             html,
             r'(?s)<details class="advanced srs-advanced-challenge">.*?id="srs-challenge-target"',
