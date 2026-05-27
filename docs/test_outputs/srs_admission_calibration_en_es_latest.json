@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "generated_at": "2026-05-26T17:42:33.816603+00:00",
+  "schema_version": 2,
+  "generated_at": "2026-05-27T02:14:42.788768+00:00",
   "pair": "en-es",
   "runtime_scope": "admission_calibration_preview_only",
   "interpretation": {
@@ -12,6 +12,7 @@
     "set_top_n": 10000,
     "admission_budget": 10,
     "top_k_window": 60,
+    "topic_lane_expectation_window": 60,
     "weighted_seeds": [
       11,
       23,
@@ -22,7 +23,7 @@
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "frequency_db_exists": true,
-    "preview_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-zipf-augmented.sqlite",
+    "preview_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-zipf-augmented.sqlite",
     "overlay_source_path": null,
     "overlay_source_paths": [
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
@@ -31,14 +32,14 @@
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_source_topic_overlay_en_es_spalex_10k_latest.json",
       "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_obvious_topic_miss_overlay_en_es_spalex_10k_latest.json"
     ],
-    "merged_overlay_source_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-merged-topic-overlay.json",
-    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs/topic_overlays/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
+    "merged_overlay_source_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-merged-topic-overlay.json",
+    "copied_overlay_path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs/topic_overlays/srs_animals_plants_topic_overlay_en_es_spalex_10k_latest.json",
     "augment_with_zipf_bridge": true,
     "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite"
   },
   "source_summary": {
-    "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-zipf-augmented.sqlite",
+    "path": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-zipf-augmented.sqlite",
     "row_count": 4123,
     "distinct_non_empty_lemma_count": 4123,
     "columns": [
@@ -74,7 +75,7 @@
   "source_augmentation": {
     "status": "applied",
     "runtime_scope": "dev_lab_only",
-    "output_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-trs6_vjj/srs-admission-lab-zipf-augmented.sqlite",
+    "output_frequency_db": "/var/folders/4d/050gvyq54p97jbx1nh5rlhk00000gn/T/lexishift-srs-pref-preview-44oxsczc/srs-admission-lab-zipf-augmented.sqlite",
     "base_frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "zipf_bridge_path": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/semantic_veto_srs_zipf_bridge_en_es_spalex_10k_full_rulegen_latest.json",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -166,7 +167,7 @@
   },
   "summary": {
     "status": "WARN",
-    "pass_count": 5,
+    "pass_count": 6,
     "warn_count": 1,
     "fail_count": 0,
     "scenario_count": 16,
@@ -230,6 +231,32 @@
     },
     {
       "level": "PASS",
+      "code": "RESERVED_TOPIC_LANE_MATCHES_EXPECTED_CAPACITY",
+      "message": "Reserved topic-lane observed counts match the policy expectation derived from topic strength and ranked-window topic capacity.",
+      "details": {
+        "statuses": {
+          "animals_high_proficiency": "matches",
+          "animals_interest": "matches",
+          "animals_light_weight": "matches",
+          "animals_plants_interest": "matches",
+          "finance_business_interest": "matches",
+          "food_cooking_interest": "matches",
+          "games_interest": "matches",
+          "law_politics_civics_interest": "matches",
+          "medicine_health_interest": "matches",
+          "music_media_entertainment_interest": "matches",
+          "neutral": "matches",
+          "plants_nature_interest": "matches",
+          "science_technology_interest": "matches",
+          "sports_fitness_interest": "matches",
+          "travel_places_transport_interest": "matches",
+          "weighted_plants_over_animals": "matches"
+        },
+        "source_limited_scenarios": []
+      }
+    },
+    {
+      "level": "PASS",
       "code": "HIGH_PROFICIENCY_TRADEOFF_VISIBLE",
       "message": "High-proficiency animals calibration exposes whether readiness suppresses too-easy topic items.",
       "details": {
@@ -268,6 +295,26 @@
     ],
     "topic_lane_animals_strength_monotonic": true,
     "topic_lane_animals_strong_mixed": true,
+    "topic_lane_expectation_statuses": {
+      "animals_high_proficiency": "matches",
+      "animals_interest": "matches",
+      "animals_light_weight": "matches",
+      "animals_plants_interest": "matches",
+      "finance_business_interest": "matches",
+      "food_cooking_interest": "matches",
+      "games_interest": "matches",
+      "law_politics_civics_interest": "matches",
+      "medicine_health_interest": "matches",
+      "music_media_entertainment_interest": "matches",
+      "neutral": "matches",
+      "plants_nature_interest": "matches",
+      "science_technology_interest": "matches",
+      "sports_fitness_interest": "matches",
+      "travel_places_transport_interest": "matches",
+      "weighted_plants_over_animals": "matches"
+    },
+    "topic_lane_expectations_match": true,
+    "topic_lane_source_limited_scenarios": [],
     "high_proficiency_animals": {
       "strong_topic_share": 1.0,
       "high_proficiency_topic_share": 0.0,
@@ -6337,7 +6384,28 @@
       "introduced_vs_neutral": [],
       "neutral_overlap_count": 10,
       "top_topic_movers": [],
-      "active_topic_support": []
+      "active_topic_support": [],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 0,
+        "expected_topic_count": 0,
+        "expected_topic_share": 0.0,
+        "selected_count": 10,
+        "topic_budget": 0,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 0.0,
+        "window_size": 60,
+        "window_topic_candidates": 0,
+        "window_general_candidates": 60,
+        "full_topic_candidates": 0,
+        "full_general_candidates": 4123,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 0,
+      "expected_topic_share": 0.0,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "animals_interest",
@@ -6431,7 +6499,28 @@
             "pollo"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 60,
+        "window_general_candidates": 0,
+        "full_topic_candidates": 80,
+        "full_general_candidates": 4043,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "animals_light_weight",
@@ -6489,7 +6578,28 @@
             "pollo"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 1,
+        "expected_topic_count": 1,
+        "expected_topic_share": 0.1,
+        "selected_count": 10,
+        "topic_budget": 1,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 0.1,
+        "window_size": 60,
+        "window_topic_candidates": 5,
+        "window_general_candidates": 55,
+        "full_topic_candidates": 80,
+        "full_general_candidates": 4043,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 1,
+      "expected_topic_share": 0.1,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "plants_nature_interest",
@@ -6583,7 +6693,28 @@
             "col"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 27,
+        "window_general_candidates": 33,
+        "full_topic_candidates": 28,
+        "full_general_candidates": 4095,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "food_cooking_interest",
@@ -6677,7 +6808,28 @@
             "leche"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 33,
+        "window_general_candidates": 27,
+        "full_topic_candidates": 35,
+        "full_general_candidates": 4088,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "medicine_health_interest",
@@ -6771,7 +6923,28 @@
             "boca"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 60,
+        "window_general_candidates": 0,
+        "full_topic_candidates": 90,
+        "full_general_candidates": 4033,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "finance_business_interest",
@@ -6865,7 +7038,28 @@
             "capital"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 46,
+        "window_general_candidates": 14,
+        "full_topic_candidates": 51,
+        "full_general_candidates": 4072,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "sports_fitness_interest",
@@ -6959,7 +7153,28 @@
             "campo"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 60,
+        "window_general_candidates": 0,
+        "full_topic_candidates": 103,
+        "full_general_candidates": 4020,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "games_interest",
@@ -7053,7 +7268,28 @@
             "muerto"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 41,
+        "window_general_candidates": 19,
+        "full_topic_candidates": 56,
+        "full_general_candidates": 4067,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "music_media_entertainment_interest",
@@ -7147,7 +7383,28 @@
             "canción"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 41,
+        "window_general_candidates": 19,
+        "full_topic_candidates": 44,
+        "full_general_candidates": 4079,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "law_politics_civics_interest",
@@ -7240,7 +7497,28 @@
             "número"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 60,
+        "window_general_candidates": 0,
+        "full_topic_candidates": 108,
+        "full_general_candidates": 4015,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "science_technology_interest",
@@ -7334,7 +7612,28 @@
             "plataforma"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 28,
+        "window_general_candidates": 32,
+        "full_topic_candidates": 39,
+        "full_general_candidates": 4084,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "travel_places_transport_interest",
@@ -7428,7 +7727,28 @@
             "viaje"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 29,
+        "window_general_candidates": 31,
+        "full_topic_candidates": 30,
+        "full_general_candidates": 4093,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "animals_high_proficiency",
@@ -7484,7 +7804,28 @@
             "pollo"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 0,
+        "expected_topic_count": 0,
+        "expected_topic_share": 0.0,
+        "selected_count": 10,
+        "topic_budget": 0,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 0.0,
+        "window_size": 60,
+        "window_topic_candidates": 0,
+        "window_general_candidates": 60,
+        "full_topic_candidates": 80,
+        "full_general_candidates": 4043,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 0,
+      "expected_topic_share": 0.0,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "animals_plants_interest",
@@ -7593,7 +7934,28 @@
             "col"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 60,
+        "window_general_candidates": 0,
+        "full_topic_candidates": 108,
+        "full_general_candidates": 4015,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     },
     {
       "name": "weighted_plants_over_animals",
@@ -7701,7 +8063,28 @@
             "pollo"
           ]
         }
-      ]
+      ],
+      "topic_lane_policy_expectation": {
+        "status": "matches",
+        "selected_topic_count": 5,
+        "expected_topic_count": 5,
+        "expected_topic_share": 0.5,
+        "selected_count": 10,
+        "topic_budget": 5,
+        "topic_lane_max_share": 0.5,
+        "max_topic_strength_in_window": 1.0,
+        "window_size": 60,
+        "window_topic_candidates": 55,
+        "window_general_candidates": 5,
+        "full_topic_candidates": 108,
+        "full_general_candidates": 4015,
+        "full_candidate_count": 4123,
+        "source_limited": false,
+        "general_limited": false
+      },
+      "expected_topic_count": 5,
+      "expected_topic_share": 0.5,
+      "topic_lane_expectation_status": "matches"
     }
   ]
 }

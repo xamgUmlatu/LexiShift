@@ -118,14 +118,24 @@ class TestSrsAdmissionCalibrationReportEnEs(unittest.TestCase):
         self.assertEqual(top_k_rows["animals_interest"]["seed_count"], 2)
         self.assertIn("mean_selected_topic_share", top_k_rows["animals_interest"])
         self.assertGreater(topic_lane_rows["animals_interest"]["selected_topic_share"], 0.0)
+        self.assertEqual(
+            topic_lane_rows["animals_interest"]["topic_lane_expectation_status"],
+            "matches",
+        )
+        self.assertEqual(
+            topic_lane_rows["animals_interest"]["expected_topic_count"],
+            topic_lane_rows["animals_interest"]["selected_topic_count"],
+        )
         self.assertTrue(report["comparisons"]["ranked_animals_strength_monotonic"])
         self.assertIn("topic_lane_animals_strength_shares", report["comparisons"])
+        self.assertTrue(report["comparisons"]["topic_lane_expectations_match"])
 
         markdown = render_markdown(report)
         self.assertIn("## Ranked Admission Batch Shares", markdown)
         self.assertIn("## Weighted Admission Batch Shares", markdown)
         self.assertIn("## Top-K Weighted Admission Shares", markdown)
         self.assertIn("## Reserved Topic-Lane Policy", markdown)
+        self.assertIn("Window topic candidates", markdown)
 
 
 if __name__ == "__main__":

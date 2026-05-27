@@ -497,6 +497,13 @@ it compares topic top-N counts, first-draw selection mass, proficiency-driven
 difficulty shift, and high-proficiency topic pressure on a controlled synthetic
 frontier.
 
+The en-es admission calibration report also computes expected reserved-lane
+topic count for each scenario. That expected count is derived from the active
+topic strength, the selector's topic-lane cap, topic candidates available in
+the ranked lane window, and general candidates available in the full ranked
+pool. This makes a low realized share interpretable: it can be a correct
+source/readiness-capacity result rather than an admission-policy failure.
+
 ## Encounterability Constraint
 
 A word should not enter active SRS only because it is topically interesting. It

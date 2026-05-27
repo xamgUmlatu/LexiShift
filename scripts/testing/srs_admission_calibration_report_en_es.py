@@ -10,10 +10,14 @@ import sys
 from typing import Any, Mapping, Sequence
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CORE_ROOT = PROJECT_ROOT / "core"
 SCRIPT_ROOT = PROJECT_ROOT / "scripts" / "testing"
+if str(CORE_ROOT) not in sys.path:
+    sys.path.insert(0, str(CORE_ROOT))
 if str(SCRIPT_ROOT) not in sys.path:
     sys.path.insert(0, str(SCRIPT_ROOT))
 
+from lexishift_core.srs.profile_bootstrap import DEFAULT_PROFILE_BOOTSTRAP_POLICY  # noqa: E402
 from srs_admission_preference_preview_en_es import (  # noqa: E402
     DEFAULT_PAIR,
     DEFAULT_SET_TOP_N,
@@ -21,8 +25,9 @@ from srs_admission_preference_preview_en_es import (  # noqa: E402
     build_report as build_preference_preview_report,
 )
 from srs_admission_calibration_markdown import render_markdown, write_report  # noqa: E402,F401
+from srs_admission_topic_lane_expectation import with_topic_lane_expectations  # noqa: E402
 
-REPORT_SCHEMA_VERSION = 1
+REPORT_SCHEMA_VERSION = 2
 DEFAULT_WEIGHTED_SEEDS = (11, 23, 37)
 DEFAULT_ADMISSION_BUDGET = 10
 DEFAULT_TOP_K_WINDOW = 60
@@ -50,6 +55,11 @@ def build_report(
     kaikki_forward_db: Path | None = None,
 ) -> dict[str, Any]:
     budget = max(1, int(admission_budget))
+    top_k_window_effective = max(budget, int(top_k_window))
+    topic_lane_window = max(
+        top_k_window_effective,
+        int(DEFAULT_PROFILE_BOOTSTRAP_POLICY.selector_config.topic_lane_min_window),
+    )
     ranked_preview = build_preference_preview_report(
         pair=pair,
         frequency_db=frequency_db,
@@ -87,13 +97,31 @@ def build_report(
         overlay_source_path=overlay_source_path,
         overlay_source_paths=overlay_source_paths,
         set_top_n=set_top_n,
-        initial_active_count=max(budget, int(top_k_window)),
-        preview_count=max(budget, int(top_k_window)),
+        initial_active_count=top_k_window_effective,
+        preview_count=top_k_window_effective,
         preview_sampling_mode="ranked",
         preview_seed=None,
         augment_with_zipf_bridge=augment_with_zipf_bridge,
         zipf_bridge_path=zipf_bridge_path,
         kaikki_forward_db=kaikki_forward_db,
+    )
+    topic_lane_window_preview = (
+        ranked_window_preview
+        if topic_lane_window == top_k_window_effective
+        else build_preference_preview_report(
+            pair=pair,
+            frequency_db=frequency_db,
+            overlay_source_path=overlay_source_path,
+            overlay_source_paths=overlay_source_paths,
+            set_top_n=set_top_n,
+            initial_active_count=topic_lane_window,
+            preview_count=topic_lane_window,
+            preview_sampling_mode="ranked",
+            preview_seed=None,
+            augment_with_zipf_bridge=augment_with_zipf_bridge,
+            zipf_bridge_path=zipf_bridge_path,
+            kaikki_forward_db=kaikki_forward_db,
+        )
     )
     topic_lane_preview = build_preference_preview_report(
         pair=pair,
@@ -122,7 +150,10 @@ def build_report(
         weighted_seeds=weighted_seeds,
     )
     top_k_summary_rows = _weighted_summary_rows(top_k_rows_by_seed)
-    topic_lane_rows = _scenario_rows(topic_lane_preview)
+    topic_lane_rows = with_topic_lane_expectations(
+        _scenario_rows(topic_lane_preview),
+        topic_lane_window_preview,
+    )
     comparisons = _build_comparisons(
         ranked_rows=ranked_rows,
         weighted_rows=weighted_summary_rows,
@@ -139,7 +170,7 @@ def build_report(
         {
             "scenario_count": len(ranked_rows),
             "admission_budget": budget,
-            "top_k_window": max(budget, int(top_k_window)),
+            "top_k_window": top_k_window_effective,
             "weighted_seed_count": len(tuple(weighted_seeds)),
             "source_topic_scenarios_with_ranked_share": sum(
                 1
@@ -167,7 +198,8 @@ def build_report(
         "parameters": {
             "set_top_n": int(set_top_n),
             "admission_budget": budget,
-            "top_k_window": max(budget, int(top_k_window)),
+            "top_k_window": top_k_window_effective,
+            "topic_lane_expectation_window": topic_lane_window,
             "weighted_seeds": [int(seed) for seed in weighted_seeds],
             "augment_with_zipf_bridge": bool(augment_with_zipf_bridge),
         },
@@ -469,6 +501,15 @@ def _build_comparisons(
         _row_share(topic_lane, "animals_light_weight"),
         _row_share(topic_lane, "animals_interest"),
     ]
+    topic_lane_expectation_statuses = {
+        name: str(dict(row.get("topic_lane_policy_expectation") or {}).get("status") or "missing")
+        for name, row in sorted(topic_lane.items())
+    }
+    topic_lane_source_limited = [
+        name
+        for name, row in sorted(topic_lane.items())
+        if bool(dict(row.get("topic_lane_policy_expectation") or {}).get("source_limited"))
+    ]
     strong_animals = ranked.get("animals_interest", {})
     high_animals = ranked.get("animals_high_proficiency", {})
     return {
@@ -487,6 +528,11 @@ def _build_comparisons(
         "topic_lane_animals_strength_shares": topic_lane_strength,
         "topic_lane_animals_strength_monotonic": topic_lane_strength == sorted(topic_lane_strength),
         "topic_lane_animals_strong_mixed": 0.0 < topic_lane_strength[-1] < 1.0,
+        "topic_lane_expectation_statuses": topic_lane_expectation_statuses,
+        "topic_lane_expectations_match": all(
+            status == "matches" for status in topic_lane_expectation_statuses.values()
+        ),
+        "topic_lane_source_limited_scenarios": topic_lane_source_limited,
         "high_proficiency_animals": {
             "strong_topic_share": _row_share(ranked, "animals_interest"),
             "high_proficiency_topic_share": _row_share(ranked, "animals_high_proficiency"),
@@ -573,6 +619,22 @@ def _build_findings(
                 else "Reserved topic-lane policy did not produce the intended mixed batch."
             ),
             comparisons.get("topic_lane_animals_strength_shares"),
+        )
+    )
+    findings.append(
+        _finding(
+            "PASS" if comparisons.get("topic_lane_expectations_match") else "WARN",
+            "RESERVED_TOPIC_LANE_MATCHES_EXPECTED_CAPACITY",
+            (
+                "Reserved topic-lane observed counts match the policy expectation derived from "
+                "topic strength and ranked-window topic capacity."
+                if comparisons.get("topic_lane_expectations_match")
+                else "Reserved topic-lane observed counts diverged from expected capacity."
+            ),
+            {
+                "statuses": comparisons.get("topic_lane_expectation_statuses"),
+                "source_limited_scenarios": comparisons.get("topic_lane_source_limited_scenarios"),
+            },
         )
     )
     high = dict(comparisons.get("high_proficiency_animals") or {})

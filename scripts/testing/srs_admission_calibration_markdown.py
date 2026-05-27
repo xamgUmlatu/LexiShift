@@ -24,6 +24,7 @@ def render_markdown(report: Mapping[str, Any]) -> str:
         "- Full-pool weighted share samples from the whole candidate pool and is diagnostic only.",
         "- Top-k weighted share samples from the ranked window, preserving variety without using the whole pool.",
         "- Reserved lane share uses the real profile-bootstrap policy with topic slots plus general slots.",
+        "- Reserved lane expected count is derived from topic strength, lane cap, and ranked-window topic capacity.",
         "- These values are calibration diagnostics, not hard product guarantees.",
         "",
         "## Ranked Admission Batch Shares",
@@ -101,20 +102,23 @@ def render_markdown(report: Mapping[str, Any]) -> str:
             "",
             "## Reserved Topic-Lane Policy",
             "",
-            "| Scenario | Active topics | Topic share | Topic count | Avg difficulty | Top lemmas |",
-            "| --- | --- | ---: | ---: | ---: | --- |",
+            "| Scenario | Active topics | Topic share | Topic count | Expected | Window topic candidates | Status | Top lemmas |",
+            "| --- | --- | ---: | ---: | ---: | ---: | --- | --- |",
         ]
     )
     for row in report.get("topic_lane_rows", ()):
         if not isinstance(row, Mapping):
             continue
+        expectation = dict(row.get("topic_lane_policy_expectation") or {})
         lines.append(
             "| "
             f"{row.get('name')} | "
             f"{_join(row.get('active_topics'))} | "
             f"{_format_float(row.get('selected_topic_share'))} | "
             f"{row.get('selected_topic_count')} | "
-            f"{_format_float(row.get('average_difficulty'))} | "
+            f"{expectation.get('expected_topic_count', 0)} | "
+            f"{expectation.get('window_topic_candidates', 0)} | "
+            f"{expectation.get('status', 'missing')} | "
             f"{_join(list(row.get('top_lemmas') or [])[:8])} |"
         )
     lines.extend(["", "## Topic Support", ""])

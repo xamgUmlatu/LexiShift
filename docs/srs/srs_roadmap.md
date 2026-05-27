@@ -262,7 +262,11 @@ Status key:
     that full-pool weighted sampling is too diffuse for topic preferences;
   - top-k weighted diagnostics and the real reserved topic-lane policy are now
     reported so MVP policy choices can be compared against realized topic shares
-    without mutating production SRS state.
+    without mutating production SRS state;
+  - reserved topic-lane rows now include expected topic count/status derived
+    from topic strength, the lane cap, ranked-window topic candidates, and
+    full-pool general fill capacity, so sparse coverage can be separated from
+    policy failure.
 - `[~]` Add E2E checks for post-feedback refresh trigger behavior (manual and
   automatic): helper policy/state tests exist; browser/native E2E remains open.
 

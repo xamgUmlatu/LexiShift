@@ -1,7 +1,7 @@
 # SRS Admission Calibration - en-es
 
 - Status: WARN
-- Findings: pass=5 warn=1 fail=0
+- Findings: pass=6 warn=1 fail=0
 - Admission budget: 10
 - Top-k window: 60
 - Weighted seeds: 11, 23, 37
@@ -13,6 +13,7 @@
 - Full-pool weighted share samples from the whole candidate pool and is diagnostic only.
 - Top-k weighted share samples from the ranked window, preserving variety without using the whole pool.
 - Reserved lane share uses the real profile-bootstrap policy with topic slots plus general slots.
+- Reserved lane expected count is derived from topic strength, lane cap, and ranked-window topic capacity.
 - These values are calibration diagnostics, not hard product guarantees.
 
 ## Ranked Admission Batch Shares
@@ -80,24 +81,24 @@
 
 ## Reserved Topic-Lane Policy
 
-| Scenario | Active topics | Topic share | Topic count | Avg difficulty | Top lemmas |
-| --- | --- | ---: | ---: | ---: | --- |
-| neutral | none | 0.000 | 0 | 0.000 | como, este, sobre, dos, bien, hacer, nada, parte |
-| animals_interest | animals | 0.500 | 5 | 0.011 | perro, ganado, animal, gato, pollo, como, este, sobre |
-| animals_light_weight | animals | 0.100 | 1 | 0.002 | perro, como, este, sobre, dos, bien, hacer, nada |
-| plants_nature_interest | plants_nature | 0.500 | 5 | 0.017 | haya, árbol, flor, hierba, col, como, este, sobre |
-| food_cooking_interest | food_cooking | 0.500 | 5 | 0.006 | agua, comida, carne, pan, leche, como, este, sobre |
-| medicine_health_interest | medicine_health | 0.500 | 5 | 0.003 | mano, cabeza, cara, media, boca, como, este, sobre |
-| finance_business_interest | finance_business | 0.500 | 5 | 0.002 | punto, derecho, seguro, tierra, capital, como, este, sobre |
-| sports_fitness_interest | sports_fitness | 0.500 | 5 | 0.003 | final, largo, escuela, serie, campo, como, este, sobre |
-| games_interest | games | 0.500 | 5 | 0.004 | juego, rey, comer, color, muerto, como, este, sobre |
-| music_media_entertainment_interest | music_media_entertainment | 0.500 | 5 | 0.003 | bajo, grupo, música, película, canción, como, este, sobre |
-| law_politics_civics_interest | law_politics_civics | 0.500 | 5 | 0.001 | parte, general, ley, sistema, número, como, este, sobre |
-| science_technology_interest | science_technology | 0.500 | 5 | 0.007 | vida, salida, función, cadena, plataforma, como, este, sobre |
-| travel_places_transport_interest | travel_places_transport | 0.500 | 5 | 0.002 | país, ciudad, camino, calle, viaje, como, este, sobre |
-| animals_high_proficiency | animals | 0.000 | 0 | 0.646 | oh, hola, ésa, nabab, vos, debacle, según, pues |
-| animals_plants_interest | animals, plants_nature | 0.500 | 5 | 0.008 | haya, perro, ganado, animal, gato, como, este, sobre |
-| weighted_plants_over_animals | animals, plants_nature | 0.500 | 5 | 0.017 | haya, árbol, flor, hierba, col, como, este, sobre |
+| Scenario | Active topics | Topic share | Topic count | Expected | Window topic candidates | Status | Top lemmas |
+| --- | --- | ---: | ---: | ---: | ---: | --- | --- |
+| neutral | none | 0.000 | 0 | 0 | 0 | matches | como, este, sobre, dos, bien, hacer, nada, parte |
+| animals_interest | animals | 0.500 | 5 | 5 | 60 | matches | perro, ganado, animal, gato, pollo, como, este, sobre |
+| animals_light_weight | animals | 0.100 | 1 | 1 | 5 | matches | perro, como, este, sobre, dos, bien, hacer, nada |
+| plants_nature_interest | plants_nature | 0.500 | 5 | 5 | 27 | matches | haya, árbol, flor, hierba, col, como, este, sobre |
+| food_cooking_interest | food_cooking | 0.500 | 5 | 5 | 33 | matches | agua, comida, carne, pan, leche, como, este, sobre |
+| medicine_health_interest | medicine_health | 0.500 | 5 | 5 | 60 | matches | mano, cabeza, cara, media, boca, como, este, sobre |
+| finance_business_interest | finance_business | 0.500 | 5 | 5 | 46 | matches | punto, derecho, seguro, tierra, capital, como, este, sobre |
+| sports_fitness_interest | sports_fitness | 0.500 | 5 | 5 | 60 | matches | final, largo, escuela, serie, campo, como, este, sobre |
+| games_interest | games | 0.500 | 5 | 5 | 41 | matches | juego, rey, comer, color, muerto, como, este, sobre |
+| music_media_entertainment_interest | music_media_entertainment | 0.500 | 5 | 5 | 41 | matches | bajo, grupo, música, película, canción, como, este, sobre |
+| law_politics_civics_interest | law_politics_civics | 0.500 | 5 | 5 | 60 | matches | parte, general, ley, sistema, número, como, este, sobre |
+| science_technology_interest | science_technology | 0.500 | 5 | 5 | 28 | matches | vida, salida, función, cadena, plataforma, como, este, sobre |
+| travel_places_transport_interest | travel_places_transport | 0.500 | 5 | 5 | 29 | matches | país, ciudad, camino, calle, viaje, como, este, sobre |
+| animals_high_proficiency | animals | 0.000 | 0 | 0 | 0 | matches | oh, hola, ésa, nabab, vos, debacle, según, pues |
+| animals_plants_interest | animals, plants_nature | 0.500 | 5 | 5 | 60 | matches | haya, perro, ganado, animal, gato, como, este, sobre |
+| weighted_plants_over_animals | animals, plants_nature | 0.500 | 5 | 5 | 55 | matches | haya, árbol, flor, hierba, col, como, este, sobre |
 
 ## Topic Support
 
@@ -155,4 +156,5 @@
 - WARN: `WEIGHTED_TOPIC_STRENGTH_MONOTONIC` - Weighted animals topic share did not become visible in the seeded samples; the full-pool weighted policy may be too diffuse for topic preferences.
 - PASS: `TOP_K_WEIGHTED_TOPIC_SIGNAL_VISIBLE` - Top-k weighted sampling makes the animals preference visible.
 - PASS: `RESERVED_TOPIC_LANE_PRODUCES_MIXED_TOPIC_BATCH` - Reserved topic-lane policy produces a meaningful but mixed animals batch.
+- PASS: `RESERVED_TOPIC_LANE_MATCHES_EXPECTED_CAPACITY` - Reserved topic-lane observed counts match the policy expectation derived from topic strength and ranked-window topic capacity.
 - PASS: `HIGH_PROFICIENCY_TRADEOFF_VISIBLE` - High-proficiency animals calibration exposes whether readiness suppresses too-easy topic items.
