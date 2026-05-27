@@ -97,9 +97,14 @@ Status key:
   - `core/tests/srs/test_srs_feedback_simulation.py` now simulates multi-phase feedback and asserts S growth + ruleset publication behavior.
 - `[x]` Add helper policy/state tests for threshold-based automatic refresh from aggregated feedback.
 - `[x]` Add extension feedback-sync contract tests for successful-sync auto-refresh triggering and failed-send retry suppression.
+- `[x]` Add content-runtime/background bridge contract coverage for feedback
+  sync -> `record_feedback` -> `srs_auto_refresh`.
 - `[ ]` Add browser/native E2E test for feedback sync -> automatic refresh ->
   ruleset update.
-- `[ ]` Add explicit service-worker bridge roundtrip tests (options + content runtime request paths).
+- `[~]` Add explicit service-worker bridge roundtrip tests (options + content
+  runtime request paths).
+  - Content feedback sync -> native auto-refresh bridge path is covered; options
+    request paths still need explicit bridge coverage.
 
 ## Open Questions
 - `[x]` Choose SRS store format for current helper implementation (JSON in `srs/`).
