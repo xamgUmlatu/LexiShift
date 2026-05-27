@@ -11,6 +11,7 @@ Related design:
 - `docs/srs/README.md`
 - `docs/srs/srs_hybrid_model_technical.md`
 - `docs/srs/srs_admitted_words_dashboard_plan.md`
+- `docs/srs/srs_story_based_options_flow_plan.md`
 - `docs/srs/srs_browsing_based_admission_plan.md`
 - `docs/architecture/srs_lp_architecture.md`
 
@@ -131,6 +132,9 @@ Status key:
   sort, pagination, refresh metadata, published-rule summaries/details, and
   confirmed discard plus encounter-watch visibility; restore/mastery actions
   remain planned).
+- `[ ]` Story-based Options UX: existing profile/pair SRS journeys should appear
+  as compact story blocks, dashboard/sampling should open as curtains, and new
+  SRS initialization should move into a guided linear flow before beta.
 - `[x]` Refresh budget hardening (`max_active` caps total active SRS items for
   the pair; `max_new_per_day` caps each refresh admission).
 - `[ ]` Calendar-day quota ledger if `max_new_per_day` must remain strict
