@@ -224,6 +224,27 @@
   "toggle_srs_feedback_rules": {
     "message": "对规则词启用反馈"
   },
+  "toggle_srs_auto_refresh": {
+    "message": "反馈后自动添加新的 SRS 词"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "自动刷新阈值"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "最少反馈事件"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "需要的 Good/Easy 数"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "同日再次刷新需要的 Good/Easy 数"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "冷却分钟数"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "Helper 只会在足够反馈后尝试刷新；容量、到期压力和留存门槛仍决定是否录入新词。"
+  },
   "toggle_srs_sound": {
     "message": "播放反馈音效"
   },

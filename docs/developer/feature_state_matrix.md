@@ -1387,8 +1387,8 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes.
-- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met.
+- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, automatic refresh policy/state tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
@@ -1400,6 +1400,10 @@ Use this file when:
     transforms the seed frontier through profile-aware scoring, applies the
     capped reserved topic-lane selector where relevant, and then uses the
     existing refresh admission gates before persistence/publication.
+  - Automatic post-feedback refresh is implemented as a trigger layer for
+    `profile_growth`: the extension runs a best-effort `srs_auto_refresh`
+    check after successful helper feedback flushes, and the helper persists
+    per-profile/pair attempt state before running the normal refresh path.
   - `profile_growth` remains executable for the dedicated rebalance
     preview/apply lane.
   - `adaptive_refresh` still falls back to planning-only behavior.
@@ -1410,6 +1414,8 @@ Use this file when:
   - `core/lexishift_core/srs/profile_bootstrap_support.py`
   - `core/lexishift_core/helper/use_cases/admission_preview.py`
   - `core/lexishift_core/helper/use_cases/refresh_set.py`
+  - `core/lexishift_core/helper/use_cases/auto_refresh_set.py`
+  - `core/lexishift_core/srs/auto_refresh.py`
   - `core/lexishift_core/srs/growth.py`
   - `core/lexishift_core/srs/set_planner.py`
   - `core/lexishift_core/srs/selector.py`
@@ -1421,6 +1427,8 @@ Use this file when:
   - `core/tests/dev/test_srs_admission_lab_server.py`
   - `core/tests/srs/test_srs_set_planner.py`
   - `core/tests/srs/test_srs_growth.py`
+  - `core/tests/srs/test_srs_auto_refresh.py`
+  - `core/tests/helper/test_helper_auto_refresh_set.py`
   - `core/tests/helper/test_helper_engine.py`
   - `core/tests/dev/test_srs_planner_strategy_contract.py`
   - `core/tests/dev/test_helper_translation_dict_entrypoints.py`
@@ -1744,7 +1752,8 @@ Use this file when:
 - Known gaps:
   - No dedicated due-only helper ruleset publication artifact is currently tracked here.
   - Legacy metadata-free cached helper rules are intentionally permissive until the helper ruleset is regenerated.
-  - Automatic refresh triggering after feedback remains planned.
+  - Browser/native E2E coverage for automatic feedback-triggered refresh remains
+    open beyond helper policy/state tests.
   - `0` remains available as an explicit unlimited override for page and
     per-lemma replacement caps.
   - No durable mastered/released flag is fully implemented yet.

@@ -250,7 +250,20 @@
       srsSemanticAdmissionFallbackPolicy: "abstain_on_unavailable",
       srsFeedbackSrsEnabled: nextPairProfile.srsFeedbackSrsEnabled !== false,
       srsFeedbackRulesEnabled: nextPairProfile.srsFeedbackRulesEnabled === true,
-      srsExposureLoggingEnabled: nextPairProfile.srsExposureLoggingEnabled !== false
+      srsExposureLoggingEnabled: nextPairProfile.srsExposureLoggingEnabled !== false,
+      srsAutoRefreshEnabled: nextPairProfile.srsAutoRefreshEnabled !== false,
+      srsAutoRefreshMinFeedbackEvents: Number.isFinite(Number(nextPairProfile.srsAutoRefreshMinFeedbackEvents))
+        ? Number(nextPairProfile.srsAutoRefreshMinFeedbackEvents)
+        : (this.settingsManager.defaults.srsAutoRefreshMinFeedbackEvents || 8),
+      srsAutoRefreshMinGoodEasy: Number.isFinite(Number(nextPairProfile.srsAutoRefreshMinGoodEasy))
+        ? Number(nextPairProfile.srsAutoRefreshMinGoodEasy)
+        : (this.settingsManager.defaults.srsAutoRefreshMinGoodEasy || 6),
+      srsAutoRefreshRepeatMinGoodEasy: Number.isFinite(Number(nextPairProfile.srsAutoRefreshRepeatMinGoodEasy))
+        ? Number(nextPairProfile.srsAutoRefreshRepeatMinGoodEasy)
+        : (this.settingsManager.defaults.srsAutoRefreshRepeatMinGoodEasy || 12),
+      srsAutoRefreshCooldownMinutes: Number.isFinite(Number(nextPairProfile.srsAutoRefreshCooldownMinutes))
+        ? Number(nextPairProfile.srsAutoRefreshCooldownMinutes)
+        : (this.settingsManager.defaults.srsAutoRefreshCooldownMinutes || 90)
     };
 
     const helperSnapshot = this._isObject(srsPairData && srsPairData.helperSnapshot)

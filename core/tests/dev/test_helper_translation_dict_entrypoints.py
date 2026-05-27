@@ -339,6 +339,44 @@ class TestHelperTranslationDictEntrypoints(unittest.TestCase):
         self.assertEqual(config.strategy, "profile_growth")
         self.assertEqual(config.profile_context, {"interests": ["animals"]})
 
+    def test_native_host_routes_srs_auto_refresh_policy(self) -> None:
+        module = _load_module("lexishift_native_host_auto_refresh_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            with (
+                patch.object(module, "build_helper_paths", return_value=paths),
+                patch.object(
+                    module,
+                    "maybe_auto_refresh_srs_set",
+                    return_value={"kind": "auto_refresh", "pair": "en-ja"},
+                ) as auto_refresh,
+            ):
+                response = module._handle_request(
+                    "srs_auto_refresh",
+                    {
+                        "pair": "en-ja",
+                        "profile_id": "default",
+                        "strategy": "profile_growth",
+                        "profile_context": {"interests": ["animals"]},
+                        "auto_refresh_min_feedback_events": 9,
+                        "auto_refresh_min_good_easy": 7,
+                        "auto_refresh_repeat_min_good_easy": 13,
+                        "auto_refresh_cooldown_minutes": 45,
+                    },
+                )
+
+        self.assertEqual(response["kind"], "auto_refresh")
+        config = auto_refresh.call_args.kwargs["config"]
+        self.assertEqual(config.pair, "en-ja")
+        self.assertEqual(config.profile_id, "default")
+        self.assertEqual(config.strategy, "profile_growth")
+        self.assertEqual(config.profile_context, {"interests": ["animals"]})
+        self.assertEqual(config.auto_refresh_min_feedback_events, 9)
+        self.assertEqual(config.auto_refresh_min_good_easy, 7)
+        self.assertEqual(config.auto_refresh_repeat_min_good_easy, 13)
+        self.assertEqual(config.auto_refresh_cooldown_minutes, 45)
+
     def test_native_host_routes_semantic_admit_batch(self) -> None:
         module = _load_module("lexishift_native_host_semantic_admit_batch_test", NATIVE_HOST_SCRIPT)
 

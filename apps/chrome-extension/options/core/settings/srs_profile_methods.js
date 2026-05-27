@@ -69,6 +69,19 @@
         },
         this.defaults
       );
+      const autoRefreshMinGoodEasy = this._normalizeInt(
+        rawProfile.srsAutoRefreshMinGoodEasy,
+        this.defaults.srsAutoRefreshMinGoodEasy,
+        1
+      );
+      const autoRefreshRepeatMinGoodEasy = Math.max(
+        autoRefreshMinGoodEasy,
+        this._normalizeInt(
+          rawProfile.srsAutoRefreshRepeatMinGoodEasy,
+          this.defaults.srsAutoRefreshRepeatMinGoodEasy,
+          1
+        )
+      );
 
       return {
         profileId,
@@ -88,7 +101,22 @@
         srsFeedbackRulesEnabled: rawProfile.srsFeedbackRulesEnabled === true,
         srsExposureLoggingEnabled: rawProfile.srsExposureLoggingEnabled !== undefined
           ? rawProfile.srsExposureLoggingEnabled === true
-          : (this.defaults.srsExposureLoggingEnabled !== false)
+          : (this.defaults.srsExposureLoggingEnabled !== false),
+        srsAutoRefreshEnabled: rawProfile.srsAutoRefreshEnabled !== undefined
+          ? rawProfile.srsAutoRefreshEnabled === true
+          : (this.defaults.srsAutoRefreshEnabled !== false),
+        srsAutoRefreshMinFeedbackEvents: this._normalizeInt(
+          rawProfile.srsAutoRefreshMinFeedbackEvents,
+          this.defaults.srsAutoRefreshMinFeedbackEvents,
+          1
+        ),
+        srsAutoRefreshMinGoodEasy: autoRefreshMinGoodEasy,
+        srsAutoRefreshRepeatMinGoodEasy: autoRefreshRepeatMinGoodEasy,
+        srsAutoRefreshCooldownMinutes: this._normalizeInt(
+          rawProfile.srsAutoRefreshCooldownMinutes,
+          this.defaults.srsAutoRefreshCooldownMinutes,
+          0
+        )
       };
     };
 
@@ -155,6 +183,15 @@
         srsFeedbackSrsEnabled: runtimeProfile.srsFeedbackSrsEnabled !== false,
         srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
         srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,
+        srsAutoRefreshEnabled: runtimeProfile.srsAutoRefreshEnabled !== false,
+        srsAutoRefreshMinFeedbackEvents: runtimeProfile.srsAutoRefreshMinFeedbackEvents
+          || this.defaults.srsAutoRefreshMinFeedbackEvents,
+        srsAutoRefreshMinGoodEasy: runtimeProfile.srsAutoRefreshMinGoodEasy
+          || this.defaults.srsAutoRefreshMinGoodEasy,
+        srsAutoRefreshRepeatMinGoodEasy: runtimeProfile.srsAutoRefreshRepeatMinGoodEasy
+          || this.defaults.srsAutoRefreshRepeatMinGoodEasy,
+        srsAutoRefreshCooldownMinutes: runtimeProfile.srsAutoRefreshCooldownMinutes
+          ?? this.defaults.srsAutoRefreshCooldownMinutes,
         ...(this._isObject(extraUpdates) ? extraUpdates : {})
       };
       await this.save(updates);

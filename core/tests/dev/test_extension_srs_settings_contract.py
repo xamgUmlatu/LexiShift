@@ -13,6 +13,12 @@ SEMANTIC_STATUS_JS = (
 PROFILE_RUNTIME_CONTROLLER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/profile_runtime_controller.js"
 )
+PROFILE_RUNTIME_VALUES_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/profile_runtime_values.js"
+)
+AUTO_REFRESH_SETTINGS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/auto_refresh_settings.js"
+)
 SRS_BINDINGS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/events/srs_bindings.js"
 )
@@ -47,6 +53,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const semanticStatusPath = {json.dumps(str(SEMANTIC_STATUS_JS))};
+const profileValuesPath = {json.dumps(str(PROFILE_RUNTIME_VALUES_JS))};
+const autoRefreshSettingsPath = {json.dumps(str(AUTO_REFRESH_SETTINGS_JS))};
 const modulePath = {json.dumps(str(PROFILE_RUNTIME_CONTROLLER_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -60,6 +68,8 @@ context.LexiShift = {{
   }}
 }};
 vm.runInContext(fs.readFileSync(semanticStatusPath, "utf8"), context, {{ filename: semanticStatusPath }});
+vm.runInContext(fs.readFileSync(profileValuesPath, "utf8"), context, {{ filename: profileValuesPath }});
+vm.runInContext(fs.readFileSync(autoRefreshSettingsPath, "utf8"), context, {{ filename: autoRefreshSettingsPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const createController = context.LexiShift.optionsSrsProfileRuntime.createController;
@@ -197,6 +207,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const semanticStatusPath = {json.dumps(str(SEMANTIC_STATUS_JS))};
+const profileValuesPath = {json.dumps(str(PROFILE_RUNTIME_VALUES_JS))};
+const autoRefreshSettingsPath = {json.dumps(str(AUTO_REFRESH_SETTINGS_JS))};
 const modulePath = {json.dumps(str(PROFILE_RUNTIME_CONTROLLER_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -210,6 +222,8 @@ context.LexiShift = {{
   }}
 }};
 vm.runInContext(fs.readFileSync(semanticStatusPath, "utf8"), context, {{ filename: semanticStatusPath }});
+vm.runInContext(fs.readFileSync(profileValuesPath, "utf8"), context, {{ filename: profileValuesPath }});
+vm.runInContext(fs.readFileSync(autoRefreshSettingsPath, "utf8"), context, {{ filename: autoRefreshSettingsPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const createController = context.LexiShift.optionsSrsProfileRuntime.createController;
@@ -662,6 +676,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const semanticStatusPath = {json.dumps(str(SEMANTIC_STATUS_JS))};
+const profileValuesPath = {json.dumps(str(PROFILE_RUNTIME_VALUES_JS))};
+const autoRefreshSettingsPath = {json.dumps(str(AUTO_REFRESH_SETTINGS_JS))};
 const modulePath = {json.dumps(str(PROFILE_RUNTIME_CONTROLLER_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -675,6 +691,8 @@ context.LexiShift = {{
   }}
 }};
 vm.runInContext(fs.readFileSync(semanticStatusPath, "utf8"), context, {{ filename: semanticStatusPath }});
+vm.runInContext(fs.readFileSync(profileValuesPath, "utf8"), context, {{ filename: profileValuesPath }});
+vm.runInContext(fs.readFileSync(autoRefreshSettingsPath, "utf8"), context, {{ filename: autoRefreshSettingsPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const createController = context.LexiShift.optionsSrsProfileRuntime.createController;

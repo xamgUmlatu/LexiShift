@@ -214,7 +214,33 @@ Policy for this architecture:
 
 ---
 
-## 7) Export/import bundle
+## 7) Automatic Refresh State
+
+Helper-owned automatic refresh trigger state is scoped by profile:
+
+`srs/profiles/<profile_id>/srs_auto_refresh_state.json`
+
+```json
+{
+  "version": 1,
+  "pairs": {
+    "en-ja": {
+      "last_attempted_at": "2026-05-27T12:00:00Z",
+      "last_applied_at": "2026-05-27T12:00:00Z",
+      "last_result_reason": "normal",
+      "attempt_count": 1,
+      "applied_count": 1
+    }
+  }
+}
+```
+
+This state gates automatic refresh attempts only. It does not alter item review
+scheduling; feedback remains the authoritative scheduling input.
+
+---
+
+## 8) Export/import bundle
 
 ```json
 {

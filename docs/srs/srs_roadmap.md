@@ -94,7 +94,10 @@ Ship a non-destructive SRS layer where:
 - Complete deterministic E2E assertion flow:
   - bootstrap/initialize -> observe replacements -> submit feedback -> verify helper scheduling fields changed -> refresh/admit -> verify serving distribution changed.
 - Decide whether a dedicated due-only publication artifact is still needed now that runtime gating uses helper SRS due metadata.
-- Add automatic refresh policy trigger from aggregated feedback thresholds (today refresh is explicit/manual).
+- Automatic refresh trigger now exists for successful helper feedback flushes:
+  the helper requires thresholded feedback plus Good/Easy counts, tracks
+  per-profile/pair attempt state, and then runs the normal `profile_growth`
+  refresh path. Full E2E browser assertion coverage is still pending.
 - Add stronger observability for feedback effects:
   - before/after snapshots of `next_due`, `stability`, `difficulty`, selected
     lemmas, and active item counts are now emitted by the SRS quality harness.
@@ -164,7 +167,9 @@ Status key:
 - `[x]` Browsing-based admission planning doc for opt-in, local-only word signals.
 - `[~]` Event aggregation design for refresh decisions.
 - `[~]` Feedback-window aggregation for admission updates (separate from due scheduling).
-- `[ ]` Persist aggregated admission feedback state (per pair, versioned).
+- `[x]` Persist automatic feedback-trigger state per profile/pair in
+  `srs_auto_refresh_state.json`; broader adaptive aggregate modeling remains
+  future work.
 - `[~]` Persist browsing admission aggregate state (core decayed/bounded store, opt-in helper dev ingest, and hidden dev extension replacement-exposure packet builder exist; broad page capture is not wired).
 - `[~]` Preview-only browsing relevance boost with neutral-vs-browsing diagnostics (backend probability diagnostics, offline helper/core text probes, refresh-path browsing preview, small-budget `Balanced` fractional lane realization, and options refresh output diagnostics exist; dedicated controls are not wired).
 - `[x]` Realized-share simulation for browsing strength presets (`Off`, `Balanced`, `Strong`) under new-word budgets.
@@ -174,7 +179,11 @@ Status key:
   policy remain open).
 - `[~]` Lifecycle audit for admission triggers, mastered/released state, and durable discard/block behavior (code-backed audit exists; refresh admission, scheduler due selection, active inventory, and rulegen publication respect non-active lifecycle states; backend `user_blocked` writer marks existing items `discarded` and removes active inventory; user-facing lifecycle controls remain open).
 - `[ ]` Opt-in gated browsing relevance boost for actual admission refresh.
-- `[ ]` Automatic `adaptive_refresh` trigger policy.
+- `[x]` Automatic feedback-threshold trigger for the existing `profile_growth`
+  refresh path, with options controls for enablement, feedback thresholds,
+  same-day repeat threshold, and cooldown.
+- `[ ]` Automatic `adaptive_refresh` trigger policy beyond the current
+  feedback-threshold `profile_growth` trigger.
 - `[~]` Explicit policy gate for any non-feedback signals (browsing helper ingest and extension replacement-exposure packet builder require opt-in; production capture policy is not wired).
 - `[x]` Manual/explicit helper refresh action (`srs_refresh`) for feedback-driven admissions.
 
@@ -247,7 +256,8 @@ Status key:
   - top-k weighted diagnostics and the real reserved topic-lane policy are now
     reported so MVP policy choices can be compared against realized topic shares
     without mutating production SRS state.
-- `[ ]` Add E2E checks for post-feedback refresh trigger behavior (manual and future automatic).
+- `[~]` Add E2E checks for post-feedback refresh trigger behavior (manual and
+  automatic): helper policy/state tests exist; browser/native E2E remains open.
 
 ### Workstream H — LP parity and de-hardcoding (`en-de`/`en-es` vs `en-ja`)
 Current parity snapshot (as of 2026-02-14):

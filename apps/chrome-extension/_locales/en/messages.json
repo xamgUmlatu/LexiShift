@@ -224,6 +224,27 @@
   "toggle_srs_feedback_rules": {
     "message": "Enable feedback for ruleset words"
   },
+  "toggle_srs_auto_refresh": {
+    "message": "Automatically add new SRS words after feedback"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "Automatic refresh thresholds"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "Minimum feedback events"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "Good/Easy needed"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "Same-day Good/Easy needed"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "Cooldown minutes"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "The helper only attempts refresh after enough feedback; capacity, due pressure, and retention gates still decide whether new words are admitted."
+  },
   "toggle_srs_sound": {
     "message": "Play feedback sound"
   },

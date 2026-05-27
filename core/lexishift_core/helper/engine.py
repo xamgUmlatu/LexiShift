@@ -36,6 +36,9 @@ from lexishift_core.helper.use_cases.signals import (
 from lexishift_core.helper.use_cases.admission_suppression import (
     suppress_srs_admission as _suppress_srs_admission_use_case,
 )
+from lexishift_core.helper.use_cases.auto_refresh_set import (
+    maybe_auto_refresh_srs_set as _maybe_auto_refresh_srs_set_use_case,
+)
 from lexishift_core.helper.use_cases.browsing_admission import (
     ingest_browsing_admission_signals as _ingest_browsing_admission_signals_use_case,
 )
@@ -245,6 +248,29 @@ class SrsRefreshJobConfig:
     persist_store: bool = True
     trigger: str = "manual"
     profile_context: Optional[Mapping[str, object]] = None
+
+
+@dataclass(frozen=True)
+class SrsAutoRefreshJobConfig:
+    pair: str
+    jmdict_path: Optional[Path] = None
+    translation_dict_path: Optional[Path] = None
+    set_source_db: Optional[Path] = None
+    profile_id: str = "default"
+    strategy: str = STRATEGY_PROFILE_GROWTH
+    set_top_n: Optional[int] = None
+    feedback_window_size: Optional[int] = None
+    max_active_items: Optional[int] = None
+    max_new_items: Optional[int] = None
+    allowed_pos: Optional[Sequence[str]] = None
+    persist_store: bool = True
+    trigger: str = "auto_feedback_threshold"
+    profile_context: Optional[Mapping[str, object]] = None
+    auto_refresh_enabled: bool = True
+    auto_refresh_min_feedback_events: Optional[int] = None
+    auto_refresh_min_good_easy: Optional[int] = None
+    auto_refresh_repeat_min_good_easy: Optional[int] = None
+    auto_refresh_cooldown_minutes: Optional[int] = None
 
 
 @dataclass(frozen=True)
@@ -595,6 +621,38 @@ def refresh_srs_set(
         run_rulegen_for_pair_fn=run_rulegen_for_pair,
         write_rulegen_outputs_fn=write_rulegen_outputs,
         update_status_fn=_update_status,
+    )
+
+
+def maybe_auto_refresh_srs_set(
+    paths: HelperPaths,
+    *,
+    config: SrsAutoRefreshJobConfig,
+) -> dict:
+    def build_refresh_config(source_config, *, pair: str, profile_id: str, trigger: str):
+        return SrsRefreshJobConfig(
+            pair=pair,
+            jmdict_path=source_config.jmdict_path,
+            translation_dict_path=source_config.translation_dict_path,
+            set_source_db=source_config.set_source_db,
+            profile_id=profile_id,
+            strategy=source_config.strategy,
+            set_top_n=source_config.set_top_n,
+            feedback_window_size=source_config.feedback_window_size,
+            max_active_items=source_config.max_active_items,
+            max_new_items=source_config.max_new_items,
+            allowed_pos=source_config.allowed_pos,
+            persist_store=source_config.persist_store,
+            trigger=trigger,
+            profile_context=source_config.profile_context,
+        )
+
+    return _maybe_auto_refresh_srs_set_use_case(
+        paths,
+        config=config,
+        resolve_profile_id_fn=_resolve_profile_id,
+        build_refresh_config_fn=build_refresh_config,
+        refresh_srs_set_fn=refresh_srs_set,
     )
 
 

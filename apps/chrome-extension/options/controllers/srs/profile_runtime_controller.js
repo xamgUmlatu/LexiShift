@@ -51,8 +51,6 @@
           DEFAULT: "#6c675f"
         };
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
-    const sourceLanguageInput = elements.sourceLanguageInput || null;
-    const targetLanguageInput = elements.targetLanguageInput || null;
     const srsEnabledInput = elements.srsEnabledInput || null;
     const srsMaxActiveInput = elements.srsMaxActiveInput || null;
     const srsBootstrapTopNInput = elements.srsBootstrapTopNInput || null;
@@ -79,57 +77,34 @@
           detailOutput: srsSemanticAdmissionStatusDetailOutput
         })
       : null;
+    const autoRefreshSettingsSupport = root.optionsSrsAutoRefreshSettings
+      && typeof root.optionsSrsAutoRefreshSettings.createSupport === "function"
+      ? root.optionsSrsAutoRefreshSettings.createSupport({
+          settingsManager,
+          elements
+        })
+      : {
+          composeRuntimeProfileContext: (pairKey, _profile, _signals, profileId) => ({ pair: pairKey, profile_id: profileId || "default" }),
+          readSettings: () => ({}),
+          syncInputs: () => {}
+        };
+    const profileValuesSupport = root.optionsSrsProfileRuntimeValues.createSupport({
+      settingsManager,
+      elements
+    });
+    const {
+      currentSourceLanguage,
+      currentTargetLanguage,
+      formatOptionalPercentValue,
+      parseInterestList,
+      parseOptionalPercent
+    } = profileValuesSupport;
 
     async function refreshSemanticAdmissionStatus(pairKey, profileId) {
       if (!semanticAdmissionStatusSupport) {
         return "unknown";
       }
       return semanticAdmissionStatusSupport.refresh(pairKey, profileId);
-    }
-
-    function currentSourceLanguage() {
-      return sourceLanguageInput
-        ? (sourceLanguageInput.value || settingsManager.defaults.sourceLanguage || "en")
-        : (settingsManager.defaults.sourceLanguage || "en");
-    }
-
-    function currentTargetLanguage() {
-      return targetLanguageInput
-        ? (targetLanguageInput.value || settingsManager.defaults.targetLanguage || "en")
-        : (settingsManager.defaults.targetLanguage || "en");
-    }
-
-    function parseInterestList(rawValue) {
-      const seen = new Set();
-      return String(rawValue || "")
-        .split(",")
-        .map((entry) => entry.trim())
-        .filter((entry) => {
-          if (!entry || seen.has(entry)) {
-            return false;
-          }
-          seen.add(entry);
-          return true;
-        });
-    }
-
-    function parseOptionalPercent(rawValue) {
-      const trimmed = String(rawValue || "").trim();
-      if (!trimmed) {
-        return null;
-      }
-      const parsed = Number.parseFloat(trimmed);
-      if (!Number.isFinite(parsed)) {
-        return null;
-      }
-      return Math.min(100, Math.max(0, parsed)) / 100;
-    }
-
-    function formatOptionalPercentValue(normalizedValue) {
-      if (!Number.isFinite(Number(normalizedValue))) {
-        return "";
-      }
-      return String(Math.round(Math.min(1, Math.max(0, Number(normalizedValue))) * 100));
     }
 
     const resolveEffectiveSrsPlanningState = createPlanningStateResolver
@@ -167,7 +142,13 @@
         sourceLanguage: currentSourceLanguage(),
         targetLanguage: currentTargetLanguage(),
         srsPairAuto: true,
-        srsSelectedProfileId: synced.profileId
+        srsSelectedProfileId: synced.profileId,
+        srsProfileContext: autoRefreshSettingsSupport.composeRuntimeProfileContext(
+          pairKey,
+          profile,
+          signals,
+          synced.profileId
+        )
       }, {
         profileId: synced.profileId
       });
@@ -223,6 +204,7 @@
         const srsExposureLoggingEnabled = srsExposureLoggingInput
           ? srsExposureLoggingInput.checked
           : true;
+        const autoRefreshSettings = autoRefreshSettingsSupport.readSettings();
         const sizing = settingsManager.resolveSrsSetSizing(
           {
             srsMaxActive,
@@ -242,7 +224,8 @@
           srsSemanticAdmissionFallbackPolicy,
           srsFeedbackSrsEnabled,
           srsFeedbackRulesEnabled,
-          srsExposureLoggingEnabled
+          srsExposureLoggingEnabled,
+          ...autoRefreshSettings
         };
         const sourceLanguage = currentSourceLanguage();
         const targetLanguage = currentTargetLanguage();
@@ -251,6 +234,7 @@
         if (srsInitialActiveCountInput) srsInitialActiveCountInput.value = String(sizing.srsInitialActiveCount);
         if (srsHighlightInput) srsHighlightInput.value = srsHighlightColor;
         if (srsHighlightTextInput) srsHighlightTextInput.value = srsHighlightColor;
+        autoRefreshSettingsSupport.syncInputs(autoRefreshSettings);
         const interests = parseInterestList(srsTopicInterestsInput ? srsTopicInterestsInput.value : "");
         const proficiencyEstimate = parseOptionalPercent(
           srsProficiencyEstimateInput ? srsProficiencyEstimateInput.value : ""
@@ -277,15 +261,6 @@
           profileId: selectedProfileId
         });
         partialSave = true;
-        savePhase = "runtime";
-        await settingsManager.publishSrsRuntimeProfile(pairKey, profile, {
-          sourceLanguage,
-          targetLanguage,
-          srsPairAuto: true,
-          srsSelectedProfileId: selectedProfileId
-        }, {
-          profileId: selectedProfileId
-        });
         const nextProficiency = existingSignals.proficiency && typeof existingSignals.proficiency === "object"
           ? { ...existingSignals.proficiency }
           : {};
@@ -304,6 +279,27 @@
         } else {
           nextDifficultyPreferences.target_challenge_center = Number(challengeTarget.toFixed(2));
         }
+        const nextSignalsForContext = {
+          ...existingSignals,
+          interests,
+          proficiency: nextProficiency,
+          difficultyPreferences: nextDifficultyPreferences
+        };
+        savePhase = "runtime";
+        await settingsManager.publishSrsRuntimeProfile(pairKey, profile, {
+          sourceLanguage,
+          targetLanguage,
+          srsPairAuto: true,
+          srsSelectedProfileId: selectedProfileId,
+          srsProfileContext: autoRefreshSettingsSupport.composeRuntimeProfileContext(
+            pairKey,
+            profile,
+            nextSignalsForContext,
+            selectedProfileId
+          )
+        }, {
+          profileId: selectedProfileId
+        });
         savePhase = "signals";
         await settingsManager.updateSrsProfileSignals(pairKey, {
           interests,
@@ -332,7 +328,8 @@
           srsSemanticAdmissionFallbackPolicy,
           srsFeedbackSrsEnabled,
           srsFeedbackRulesEnabled,
-          srsExposureLoggingEnabled
+          srsExposureLoggingEnabled,
+          ...autoRefreshSettings
         });
       } catch (err) {
         const fallbackMessage = translate("status_srs_save_failed", null, "Failed to save SRS settings.");

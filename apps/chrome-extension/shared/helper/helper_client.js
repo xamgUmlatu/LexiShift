@@ -3,6 +3,7 @@
 
   const DEFAULT_TIMEOUT_MS = 4000;
   const INSTALL_SEMANTIC_PACK_TIMEOUT_MS = 60000;
+  const SRS_REFRESH_TIMEOUT_MS = 60000;
 
   class HelperClient {
     constructor(transport) {
@@ -118,6 +119,14 @@
 
     refreshSrsSet(payload, timeoutMs) {
       return this.send("srs_refresh", payload, timeoutMs);
+    }
+
+    autoRefreshSrsSet(payload, timeoutMs = SRS_REFRESH_TIMEOUT_MS) {
+      return this.send(
+        "srs_auto_refresh",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
     }
 
     planSrsRebalance(payload, timeoutMs) {

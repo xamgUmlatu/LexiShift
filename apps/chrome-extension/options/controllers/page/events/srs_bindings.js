@@ -40,6 +40,11 @@
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
     const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
+    const srsAutoRefreshEnabledInput = elements.srsAutoRefreshEnabledInput || null;
+    const srsAutoRefreshMinFeedbackInput = elements.srsAutoRefreshMinFeedbackInput || null;
+    const srsAutoRefreshMinGoodEasyInput = elements.srsAutoRefreshMinGoodEasyInput || null;
+    const srsAutoRefreshRepeatMinGoodEasyInput = elements.srsAutoRefreshRepeatMinGoodEasyInput || null;
+    const srsAutoRefreshCooldownInput = elements.srsAutoRefreshCooldownInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
     const srsAdmissionPreviewButton = elements.srsAdmissionPreviewButton || null;
     const srsInitializeSetButton = elements.srsInitializeSetButton || null;
@@ -177,6 +182,11 @@
     });
     bindSrsSettingsChange(srsFeedbackSrsInput);
     bindSrsSettingsChange(srsFeedbackRulesInput);
+    bindSrsSettingsChange(srsAutoRefreshEnabledInput);
+    bindSrsSettingsChange(srsAutoRefreshMinFeedbackInput);
+    bindSrsSettingsChange(srsAutoRefreshMinGoodEasyInput);
+    bindSrsSettingsChange(srsAutoRefreshRepeatMinGoodEasyInput);
+    bindSrsSettingsChange(srsAutoRefreshCooldownInput);
     bindSrsSettingsChange(srsExposureLoggingInput);
     bindAsyncListener(srsInitializeSetButton, "click", () => srsActionsController.initializeSet(), {
       fallbackMessage: () => translate("status_srs_set_init_failed", null, "S initialization failed."),

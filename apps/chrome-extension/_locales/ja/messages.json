@@ -224,6 +224,27 @@
   "toggle_srs_feedback_rules": {
     "message": "ルール単語へのフィードバックを有効化"
   },
+  "toggle_srs_auto_refresh": {
+    "message": "フィードバック後に新しいSRS単語を自動追加"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "自動更新のしきい値"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "最小フィードバック数"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "必要なGood/Easy数"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "同日2回目以降に必要なGood/Easy数"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "クールダウン（分）"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "十分なフィードバック後にのみヘルパーが更新を試行します。新しい単語を入れるかどうかは、容量、期限圧、定着率ゲートが引き続き判断します。"
+  },
   "toggle_srs_sound": {
     "message": "フィードバック音を再生"
   },

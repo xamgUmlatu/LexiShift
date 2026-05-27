@@ -69,6 +69,7 @@ try:
         SetAdmissionPreviewJobConfig,
         get_srs_runtime_diagnostics,
         RulegenJobConfig,
+        SrsAutoRefreshJobConfig,
         SrsRebalanceJobConfig,
         SrsRefreshJobConfig,
         SetInitializationJobConfig,
@@ -83,6 +84,7 @@ try:
         load_semantic_inventory,
         load_ruleset,
         load_snapshot,
+        maybe_auto_refresh_srs_set,
         plan_srs_rebalance,
         plan_srs_set,
         preview_srs_admission,
@@ -520,6 +522,48 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
                 profile_context=payload.get("profile_context")
                 if isinstance(payload.get("profile_context"), dict)
                 else None,
+            ),
+        )
+    if msg_type == "srs_auto_refresh":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        jmdict_path, translation_dict_path, set_source_db = _resolve_pair_resource_paths(
+            paths,
+            pair=pair,
+            payload=payload,
+        )
+        return maybe_auto_refresh_srs_set(
+            paths,
+            config=SrsAutoRefreshJobConfig(
+                pair=pair,
+                jmdict_path=jmdict_path,
+                translation_dict_path=translation_dict_path,
+                set_source_db=set_source_db,
+                profile_id=profile_id or "default",
+                strategy=str(payload.get("strategy", "profile_growth")),
+                set_top_n=_optional_int(payload, "set_top_n"),
+                feedback_window_size=_optional_int(payload, "feedback_window_size"),
+                max_active_items=_optional_int(payload, "max_active_items"),
+                max_new_items=_optional_int(payload, "max_new_items"),
+                allowed_pos=_optional_string_list(payload, "allowed_pos"),
+                persist_store=bool(payload.get("persist_store", True)),
+                trigger=str(payload.get("trigger", "auto_feedback_threshold")),
+                profile_context=payload.get("profile_context")
+                if isinstance(payload.get("profile_context"), dict)
+                else None,
+                auto_refresh_enabled=_optional_bool(payload, "auto_refresh_enabled") is not False,
+                auto_refresh_min_feedback_events=_optional_int(
+                    payload,
+                    "auto_refresh_min_feedback_events",
+                ),
+                auto_refresh_min_good_easy=_optional_int(payload, "auto_refresh_min_good_easy"),
+                auto_refresh_repeat_min_good_easy=_optional_int(
+                    payload,
+                    "auto_refresh_repeat_min_good_easy",
+                ),
+                auto_refresh_cooldown_minutes=_optional_int(
+                    payload,
+                    "auto_refresh_cooldown_minutes",
+                ),
             ),
         )
     if msg_type == "srs_rebalance_plan":

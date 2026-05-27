@@ -38,6 +38,9 @@ class UIManager {
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-semantic-admission-status", "srs-semantic-admission-status-detail",
       "srs-feedback-srs-enabled", "srs-feedback-rules-enabled",
+      "srs-auto-refresh-enabled", "srs-auto-refresh-min-feedback",
+      "srs-auto-refresh-min-good-easy", "srs-auto-refresh-repeat-min-good-easy",
+      "srs-auto-refresh-cooldown",
       "srs-exposure-logging-enabled",
       "srs-admission-preview", "srs-admission-preview-output",
       "srs-initialize-set", "srs-rebalance-preview", "srs-rebalance-apply",
@@ -222,6 +225,21 @@ class UIManager {
     }
     if (this.dom.srsExposureLoggingEnabled) {
       this.dom.srsExposureLoggingEnabled.checked = profile.srsExposureLoggingEnabled;
+    }
+    if (this.dom.srsAutoRefreshEnabled) {
+      this.dom.srsAutoRefreshEnabled.checked = profile.srsAutoRefreshEnabled !== false;
+    }
+    if (this.dom.srsAutoRefreshMinFeedback) {
+      this.dom.srsAutoRefreshMinFeedback.value = String(profile.srsAutoRefreshMinFeedbackEvents);
+    }
+    if (this.dom.srsAutoRefreshMinGoodEasy) {
+      this.dom.srsAutoRefreshMinGoodEasy.value = String(profile.srsAutoRefreshMinGoodEasy);
+    }
+    if (this.dom.srsAutoRefreshRepeatMinGoodEasy) {
+      this.dom.srsAutoRefreshRepeatMinGoodEasy.value = String(profile.srsAutoRefreshRepeatMinGoodEasy);
+    }
+    if (this.dom.srsAutoRefreshCooldown) {
+      this.dom.srsAutoRefreshCooldown.value = String(profile.srsAutoRefreshCooldownMinutes);
     }
   }
 

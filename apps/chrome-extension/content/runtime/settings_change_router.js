@@ -69,6 +69,14 @@
       "highlightColor",
       "srsHighlightColor"
     ];
+    const passiveSettingKeys = [
+      "srsAutoRefreshEnabled",
+      "srsAutoRefreshMinFeedbackEvents",
+      "srsAutoRefreshMinGoodEasy",
+      "srsAutoRefreshRepeatMinGoodEasy",
+      "srsAutoRefreshCooldownMinutes",
+      "srsProfileContext"
+    ];
 
     function mergeSettings(nextSettings) {
       const merged = { ...getCurrentSettings(), ...nextSettings };
@@ -125,6 +133,9 @@
         if (applyChangedKey(nextSettings, changes, key)) {
           needsHighlight = true;
         }
+      }
+      for (const key of passiveSettingKeys) {
+        applyChangedKey(nextSettings, changes, key);
       }
 
       if (changes.srsSoundEnabled) {

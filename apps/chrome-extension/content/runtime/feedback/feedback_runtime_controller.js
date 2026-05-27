@@ -37,6 +37,7 @@
     const log = typeof opts.log === "function" ? opts.log : (() => {});
     const ruleOriginSrs = String(opts.ruleOriginSrs || "srs");
     const ruleOriginRuleset = String(opts.ruleOriginRuleset || "ruleset");
+    const autoRefreshTimeoutMs = 60000;
 
     let feedbackSync = null;
 
@@ -50,6 +51,80 @@
         return "";
       }
       return String(parts[1] || "").trim().toLowerCase();
+    }
+
+    function normalizePositiveInt(value, fallback, minimum = 1) {
+      const parsed = Number.parseInt(value, 10);
+      if (!Number.isFinite(parsed)) {
+        return Math.max(minimum, Number.parseInt(fallback, 10) || minimum);
+      }
+      return Math.max(minimum, parsed);
+    }
+
+    function buildAutoRefreshPayload(settings) {
+      const current = settings && typeof settings === "object" ? settings : {};
+      if (current.srsEnabled !== true || current.srsAutoRefreshEnabled === false) {
+        return null;
+      }
+      const pair = String(current.srsPair || "").trim().toLowerCase();
+      if (!pair || pair === "all") {
+        return null;
+      }
+      const profileId = normalizeProfileId(current.srsProfileId);
+      const profileContext = current.srsProfileContext && typeof current.srsProfileContext === "object"
+        ? current.srsProfileContext
+        : { pair, profile_id: profileId };
+      return {
+        pair,
+        profile_id: profileId,
+        strategy: "profile_growth",
+        set_top_n: normalizePositiveInt(current.srsBootstrapTopN, 800, 1),
+        max_active_items: normalizePositiveInt(current.srsMaxActive, 40, 1),
+        auto_refresh_enabled: current.srsAutoRefreshEnabled !== false,
+        auto_refresh_min_feedback_events: normalizePositiveInt(
+          current.srsAutoRefreshMinFeedbackEvents,
+          8,
+          1
+        ),
+        auto_refresh_min_good_easy: normalizePositiveInt(
+          current.srsAutoRefreshMinGoodEasy,
+          6,
+          1
+        ),
+        auto_refresh_repeat_min_good_easy: normalizePositiveInt(
+          current.srsAutoRefreshRepeatMinGoodEasy,
+          12,
+          1
+        ),
+        auto_refresh_cooldown_minutes: normalizePositiveInt(
+          current.srsAutoRefreshCooldownMinutes,
+          90,
+          0
+        ),
+        profile_context: profileContext,
+        trigger: "auto_feedback_threshold"
+      };
+    }
+
+    async function maybeAutoRefreshAfterFeedbackFlush(meta) {
+      const helperClient = getHelperClient();
+      if (!helperClient || typeof helperClient.autoRefreshSrsSet !== "function") {
+        return null;
+      }
+      const payload = buildAutoRefreshPayload(getCurrentSettings());
+      if (!payload) {
+        return null;
+      }
+      const response = await helperClient.autoRefreshSrsSet(payload, autoRefreshTimeoutMs);
+      const settings = getCurrentSettings();
+      if (settings && settings.debugEnabled) {
+        log("SRS auto-refresh checked after feedback flush.", {
+          reason: meta && meta.reason,
+          handled: meta && meta.handled,
+          response
+        });
+      }
+      return response;
     }
 
     function ensureSync() {
@@ -71,6 +146,7 @@
             error: { code: "transport_missing", message: "Helper client unavailable." }
           });
         },
+        maybeAutoRefresh: maybeAutoRefreshAfterFeedbackFlush,
         log: (...args) => {
           const settings = getCurrentSettings();
           if (settings && settings.debugEnabled) {

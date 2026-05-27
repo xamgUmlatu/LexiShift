@@ -195,6 +195,32 @@
             <span data-i18n="toggle_srs_feedback_rules">Enable feedback for ruleset words</span>
           </label>
           <label class="toggle">
+            <input id="srs-auto-refresh-enabled" type="checkbox" />
+            <span data-i18n="toggle_srs_auto_refresh">Automatically add new SRS words after feedback</span>
+          </label>
+          <details class="advanced">
+            <summary data-i18n="summary_srs_auto_refresh">Automatic refresh thresholds</summary>
+            <div class="field-row">
+              <label for="srs-auto-refresh-min-feedback" data-i18n="label_srs_auto_refresh_min_feedback">Minimum feedback events</label>
+              <input id="srs-auto-refresh-min-feedback" type="number" min="1" max="200" step="1" />
+            </div>
+            <div class="field-row">
+              <label for="srs-auto-refresh-min-good-easy" data-i18n="label_srs_auto_refresh_min_good_easy">Good/Easy needed</label>
+              <input id="srs-auto-refresh-min-good-easy" type="number" min="1" max="200" step="1" />
+            </div>
+            <div class="field-row">
+              <label for="srs-auto-refresh-repeat-min-good-easy" data-i18n="label_srs_auto_refresh_repeat_min_good_easy">Same-day Good/Easy needed</label>
+              <input id="srs-auto-refresh-repeat-min-good-easy" type="number" min="1" max="300" step="1" />
+            </div>
+            <div class="field-row">
+              <label for="srs-auto-refresh-cooldown" data-i18n="label_srs_auto_refresh_cooldown">Cooldown minutes</label>
+              <input id="srs-auto-refresh-cooldown" type="number" min="0" max="1440" step="5" />
+            </div>
+            <p class="hint" data-i18n="hint_srs_auto_refresh">
+              The helper only attempts refresh after enough feedback; capacity, due pressure, and retention gates still decide whether new words are admitted.
+            </p>
+          </details>
+          <label class="toggle">
             <input id="srs-sound-enabled" type="checkbox" />
             <span data-i18n="toggle_srs_sound">Play feedback sound</span>
           </label>
@@ -890,6 +916,8 @@
     <script src="options/controllers/rules/share_controller.js"></script>
     <script src="options/controllers/helper/actions_controller.js"></script>
     <script src="options/controllers/srs/semantic_admission_status.js"></script>
+    <script src="options/controllers/srs/profile_runtime_values.js"></script>
+    <script src="options/controllers/srs/auto_refresh_settings.js"></script>
     <script src="options/controllers/srs/profile_runtime_controller.js"></script>
     <script src="options/controllers/page/init_controller.js"></script>
     <script src="options/controllers/page/events/general/rules_bindings.js"></script>

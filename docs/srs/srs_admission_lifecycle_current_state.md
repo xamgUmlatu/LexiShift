@@ -93,6 +93,37 @@ planner used by ordinary SRS admission. Existing lemmas are filtered by
 `grow_srs_store`, so refresh does not duplicate already admitted lemmas for the
 same pair.
 
+## Automatic Refresh Trigger
+
+Automatic refresh is a trigger layer around the same `profile_growth`
+`srs_refresh` path. It does not change FSRS review scheduling and it does not
+admit words directly.
+
+The extension feedback sync queue calls `srs_auto_refresh` after a successful
+helper feedback flush. The helper reads `srs_signal_queue.json`, compares the
+new feedback since the last automatic attempt against the profile/pair policy,
+and only then attempts the normal refresh path.
+
+Default trigger policy:
+
+- automatic refresh enabled
+- at least `8` feedback events since the last automatic attempt
+- at least `6` `good`/`easy` events for the first attempt on a UTC day
+- at least `12` new `good`/`easy` events for another attempt on the same UTC day
+- `90` minute cooldown between automatic attempts
+
+These values are exposed in the SRS options UI. The same refresh safety gates
+still apply after the trigger is eligible: active capacity, due pressure,
+retention, POS/lifecycle filtering, suppression, source readiness, and rulegen
+publication. `max_new_items_per_day` is still a per-refresh cap unless a future
+calendar-day ledger is added.
+
+Helper-owned automatic trigger state lives at
+`srs/profiles/<profile_id>/srs_auto_refresh_state.json` and is reset with SRS
+data for the selected profile/pair. The state records attempts and successful
+applications so the helper does not repeatedly run heavy refresh work for the
+same feedback window.
+
 Current lifecycle guard:
 
 - `refresh_srs_set` loads the profile suppression store from

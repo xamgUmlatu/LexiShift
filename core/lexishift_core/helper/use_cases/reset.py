@@ -18,6 +18,11 @@ from lexishift_core.srs.admission_suppression import (
     load_admission_suppression_store,
     save_admission_suppression_store,
 )
+from lexishift_core.srs.auto_refresh import (
+    load_auto_refresh_state,
+    remove_auto_refresh_pair_state,
+    save_auto_refresh_state,
+)
 from lexishift_core.srs.time import format_ts, now_utc
 
 
@@ -43,6 +48,7 @@ def reset_srs_data(
     profile_srs_dir = paths.profile_srs_dir(normalized_profile_id)
     profile_status_path = paths.srs_status_path_for(normalized_profile_id)
     suppression_path = paths.srs_admission_suppression_store_path_for(normalized_profile_id)
+    auto_refresh_state_path = paths.srs_auto_refresh_state_path_for(normalized_profile_id)
 
     removed_items = 0
     remaining_items = 0
@@ -112,6 +118,10 @@ def reset_srs_data(
             suppression_path,
             pair=scoped_pair,
         )
+    removed_auto_refresh_state_entries, removed_auto_refresh_state_file = _reset_auto_refresh_state(
+        auto_refresh_state_path,
+        pair=scoped_pair,
+    )
 
     status = load_status(profile_status_path)
     save_status(
@@ -140,6 +150,8 @@ def reset_srs_data(
         "removed_publication_manifests": removed_publication_manifests,
         "removed_suppression_entries": removed_suppression_entries,
         "removed_suppression_file": removed_suppression_file,
+        "removed_auto_refresh_state_entries": removed_auto_refresh_state_entries,
+        "removed_auto_refresh_state_file": removed_auto_refresh_state_file,
         "preserved_lifecycle_metadata": bool(preserve_lifecycle_metadata),
     }
 
@@ -171,3 +183,23 @@ def _reset_suppression_store(path: Path, *, pair: Optional[str]) -> tuple[int, i
         path,
     )
     return removed_entries, 0
+
+
+def _reset_auto_refresh_state(path: Path, *, pair: Optional[str]) -> tuple[int, int]:
+    if not path.exists():
+        return 0, 0
+    state = load_auto_refresh_state(path)
+    if pair is None:
+        removed_entries = len(dict(state.pairs or {}))
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_entries, removed_file
+
+    existing_pairs = dict(state.pairs or {})
+    if pair not in existing_pairs:
+        return 0, 0
+    updated_state = remove_auto_refresh_pair_state(state, pair=pair)
+    if not dict(updated_state.pairs or {}):
+        removed_file = 1 if _remove_file(path) else 0
+        return 1, removed_file
+    save_auto_refresh_state(updated_state, path)
+    return 1, 0

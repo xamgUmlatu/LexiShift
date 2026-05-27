@@ -224,6 +224,27 @@
   "toggle_srs_feedback_rules": {
     "message": "Feedback für Regeln-Wörter aktivieren"
   },
+  "toggle_srs_auto_refresh": {
+    "message": "Nach Feedback automatisch neue SRS-Wörter hinzufügen"
+  },
+  "summary_srs_auto_refresh": {
+    "message": "Schwellenwerte für automatische Aktualisierung"
+  },
+  "label_srs_auto_refresh_min_feedback": {
+    "message": "Minimale Feedback-Ereignisse"
+  },
+  "label_srs_auto_refresh_min_good_easy": {
+    "message": "Benötigte Gut/Einfach-Bewertungen"
+  },
+  "label_srs_auto_refresh_repeat_min_good_easy": {
+    "message": "Benötigte Gut/Einfach-Bewertungen am selben Tag"
+  },
+  "label_srs_auto_refresh_cooldown": {
+    "message": "Cooldown in Minuten"
+  },
+  "hint_srs_auto_refresh": {
+    "message": "Der Helper versucht eine Aktualisierung erst nach genug Feedback; Kapazität, Fälligkeitsdruck und Behaltensrate entscheiden weiterhin, ob neue Wörter aufgenommen werden."
+  },
   "toggle_srs_sound": {
     "message": "Feedback-Sound abspielen"
   },
