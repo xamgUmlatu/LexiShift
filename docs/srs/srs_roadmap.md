@@ -246,8 +246,9 @@ Status key:
 - `[x]` Add deterministic journey harness lane for preference-aware en-es
   bootstrap plus feedback-driven growth/pause/resume continuity.
 - `[x]` Add post-feedback `profile_growth` topic-share contract coverage: a
-  fixed en-es preference loop now asserts the next admission wave lands in a
-  bounded preferred-topic share band instead of only checking one matching word.
+  fixed en-es preference loop now asserts the next strong-preference admission
+  wave lands in a bounded preferred-topic share band, and a weaker-preference
+  comparison lands in a lower band instead of only checking one matching word.
 - `[x]` Surface refresh budget, selected lemmas, and preview-only browsing
   comparison in the options refresh output for manual SRS testing.
 - `[x]` Add diagnostics snapshots for before/after feedback cycles (store,

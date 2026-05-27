@@ -226,6 +226,98 @@ context.LexiShift.srsGate.buildSrsGate({{ srsEnabled: true }}, taggedRules, () =
     return json.loads(result.stdout)
 
 
+def _run_animal_profile_growth_share_probe(
+    topic_weight: float, *, profile_id: str
+) -> dict[str, object]:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        paths = build_helper_paths(root)
+        pair = "en-es"
+        source_db = _create_frequency_db(paths.frequency_packs_dir / "freq-es-cde.sqlite")
+        translation_dict = paths.language_packs_dir / "wiktionary-es-en.sqlite"
+        translation_dict.parent.mkdir(parents=True, exist_ok=True)
+        translation_dict.write_text("{}\n", encoding="utf-8")
+        profile_context = {
+            "topic_weights": {"animals": topic_weight},
+            "proficiency_estimate": 0.25,
+            "challenge_target": 0.30,
+        }
+        animal_lemmas = {
+            seed.lemma
+            for seed in _build_seed_candidates()
+            if "animals" in set(seed.metadata.get("topics", []))
+        }
+
+        save_srs_settings(
+            SrsSettings(max_active_items=8, max_new_items_per_day=4),
+            paths.srs_settings_path,
+        )
+
+        with (
+            patch(
+                "lexishift_core.helper.rulegen.build_seed_candidates",
+                return_value=_build_seed_candidates(),
+            ),
+            patch(
+                "lexishift_core.helper.engine.build_seed_candidates",
+                return_value=_build_seed_candidates(),
+            ),
+            patch(
+                "lexishift_core.helper.engine.run_rulegen_for_pair",
+                side_effect=_stub_run_rulegen_for_pair,
+            ),
+        ):
+            initialized = initialize_srs_set(
+                paths,
+                config=SetInitializationJobConfig(
+                    pair=pair,
+                    set_source_db=source_db,
+                    translation_dict_path=translation_dict,
+                    profile_id=profile_id,
+                    strategy="profile_bootstrap",
+                    set_top_n=50,
+                    initial_active_count=4,
+                    profile_context=profile_context,
+                ),
+            )
+            initialized_active = set(initialized["bootstrap_diagnostics"]["initial_active_preview"])
+            reviewed_lemma = sorted(initialized_active & animal_lemmas)[0]
+            for rating in ("good", "easy", "good", "easy", "good", "easy", "good", "easy"):
+                apply_feedback(
+                    paths,
+                    pair=pair,
+                    lemma=reviewed_lemma,
+                    rating=rating,
+                    profile_id=profile_id,
+                )
+
+            refreshed = refresh_srs_set(
+                paths,
+                config=SrsRefreshJobConfig(
+                    pair=pair,
+                    set_source_db=source_db,
+                    translation_dict_path=translation_dict,
+                    profile_id=profile_id,
+                    strategy="profile_growth",
+                    set_top_n=50,
+                    feedback_window_size=8,
+                    max_active_items=8,
+                    max_new_items=4,
+                    profile_context=profile_context,
+                ),
+            )
+
+    payload = refreshed["admission_refresh"]
+    topic = payload["selected_preferred_topic"]
+    return {
+        "selected_lemmas": list(payload["selected_lemmas"]),
+        "share": float(topic["share"]),
+        "preferred_count": int(topic["preferred_count"]),
+        "selected_count": int(topic["selected_count"]),
+        "preferred_lemmas": list(topic["lemmas"]),
+    }
+
+
 class TestSrsPreferenceProductLoop(unittest.TestCase):
     def test_profile_preferences_survive_preview_feedback_refresh_and_runtime_serving(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -388,6 +480,27 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
             self.assertLessEqual(stats["srsActiveCount"], stats["srsCount"])
             self.assertGreaterEqual(stats["srsDueFilteredCount"], 1)
             self.assertNotIn(reviewed_lemma, set(gate_payload["activeLemmas"]))
+
+    def test_weaker_topic_preference_reduces_post_feedback_growth_topic_share(self) -> None:
+        strong = _run_animal_profile_growth_share_probe(
+            1.0,
+            profile_id="animal-strong-profile",
+        )
+        medium = _run_animal_profile_growth_share_probe(
+            0.5,
+            profile_id="animal-medium-profile",
+        )
+
+        self.assertEqual(strong["selected_count"], 4)
+        self.assertGreaterEqual(strong["share"], 0.45)
+        self.assertLessEqual(strong["share"], 0.55)
+        self.assertEqual(strong["preferred_count"], 2)
+
+        self.assertEqual(medium["selected_count"], 4)
+        self.assertGreaterEqual(medium["share"], 0.20)
+        self.assertLessEqual(medium["share"], 0.30)
+        self.assertEqual(medium["preferred_count"], 1)
+        self.assertLess(medium["share"], strong["share"])
 
 
 if __name__ == "__main__":

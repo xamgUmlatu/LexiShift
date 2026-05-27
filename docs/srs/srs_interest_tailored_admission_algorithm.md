@@ -666,7 +666,9 @@ Primary computation points:
     eligible frontier, then admits only within the normal refresh budget;
   - refresh payloads report realized preferred-topic share for the selected
     new admissions, allowing deterministic product-loop tests to assert a
-    rough share band without requiring an exact lemma list.
+    rough share band without requiring an exact lemma list. The current en-es
+    fixture checks both a strong topic preference and a weaker topic preference
+    so the expected share can move down when the user signal is weaker.
 
 - profile or source changes:
   - if interests, proficiency, source pack, rulegen coverage, or blocked terms
