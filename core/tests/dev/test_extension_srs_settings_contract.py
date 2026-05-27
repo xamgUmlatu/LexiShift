@@ -23,6 +23,9 @@ AUTO_REFRESH_SETTINGS_JS = (
 STORY_FLOW_CONTROLLER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_controller.js"
 )
+CONTROLLER_GRAPH_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/controller_graph.js"
+)
 SRS_BINDINGS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/events/srs_bindings.js"
 )
@@ -293,6 +296,160 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   console.error(err);
   process.exitCode = 1;
 }});
+"""
+        _run_node(script)
+
+    def test_controller_graph_constructs_story_flow_after_controller_adapters(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(CONTROLLER_GRAPH_JS))};
+const calls = [];
+const context = vm.createContext({{ console, globalThis: {{}} }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }},
+  optionsControllerGraphElements: {{
+    buildElements() {{
+      return {{
+        profileBackground: {{}},
+        profileRulesets: {{}},
+        srsActions: {{}},
+        srsStoryFlow: {{}},
+        rulesShare: {{}},
+        shareCenter: {{}},
+        helperActions: {{}},
+        srsProfileRuntime: {{}},
+        displayReplacement: {{}},
+        pageInit: {{}},
+        eventWiring: {{}}
+      }};
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const controllerAdapters = {{
+  saveLanguageSettings: async () => {{}},
+  saveSrsSettings: async () => {{}},
+  saveSrsProfileId: async () => {{}},
+  saveDisplaySettings: async () => {{}},
+  saveReplacementSettings: async () => {{}},
+  loadSrsProfileForPair: async () => {{}},
+  applyTargetLanguagePrefsLocalization: () => {{}},
+  renderSrsProfileStatus: () => {{}},
+  renderProfileBackgroundStatus: () => {{}},
+  setSrsProfileStatusLocalized: () => {{}},
+  refreshSrsProfiles: async () => {{}},
+  setTargetLanguagePrefsModalOpen: () => {{}},
+  updateTargetLanguagePrefsModalVisibility: () => {{}}
+}};
+
+function createGenericController(moduleKey) {{
+  calls.push(moduleKey);
+  if (moduleKey === "optionsProfileStatus") {{
+    return {{
+      setLocalized: () => {{}},
+      setMessage: () => {{}}
+    }};
+  }}
+  if (moduleKey === "optionsTargetLanguageModal") {{
+    return {{
+      syncVisibility: () => {{}},
+      refreshModulePrefs: async () => {{}}
+    }};
+  }}
+  if (moduleKey === "optionsSrsProfileSelector") {{
+    return {{
+      syncSelected: async (items) => ({{ items, profileId: "default" }}),
+      clearCache: () => {{}}
+    }};
+  }}
+  if (moduleKey === "optionsProfileRulesets" || moduleKey === "optionsShareCenter") {{
+    return {{
+      syncForProfile: async () => {{}}
+    }};
+  }}
+  if (moduleKey === "optionsProfileBackground") {{
+    return {{
+      syncForLoadedPrefs: async () => {{}}
+    }};
+  }}
+  if (moduleKey === "optionsSrsProfileRuntime") {{
+    return {{
+      resolveEffectiveSrsPlanningState: () => null,
+      refreshSemanticAdmissionStatus: async () => "unknown",
+      loadSrsProfileForPair: async () => {{}},
+      refreshSrsProfiles: async () => {{}}
+    }};
+  }}
+  if (moduleKey === "optionsSrsActions") {{
+    return {{
+      previewAdmission: async () => {{}},
+      initializeSet: async () => {{}}
+    }};
+  }}
+  if (moduleKey === "optionsSrsStoryFlow") {{
+    assert.equal(typeof this.saveLanguageSettings, "function");
+    assert.equal(typeof this.saveSrsSettings, "function");
+    assert.equal(typeof this.saveSrsProfileId, "function");
+    return {{ bind: () => {{}} }};
+  }}
+  if (moduleKey === "optionsPageInit" || moduleKey === "optionsEventWiring") {{
+    return {{ load: async () => {{}}, bind: () => {{}} }};
+  }}
+  return {{}};
+}}
+
+const graph = context.LexiShift.optionsControllerGraph.createControllerGraph({{
+  settingsManager: {{
+    getSelectedSrsProfileId: () => "default",
+    getProfileLanguagePrefs: () => ({{ sourceLanguage: "en", targetLanguage: "es" }}),
+    publishProfileLanguagePrefs: async () => {{}}
+  }},
+  i18n: {{}},
+  t: (_key, _args, fallback) => fallback,
+  rulesManager: {{}},
+  ui: {{
+    COLORS: {{ SUCCESS: "green", ERROR: "red", DEFAULT: "gray" }}
+  }},
+  helperManager: {{}},
+  uiBridge: {{
+    setStatus: () => {{}},
+    setHelperStatus: () => {{}},
+    updateRulesSourceUI: () => {{}},
+    updateRulesMeta: () => {{}}
+  }},
+  requireControllerFactory(moduleKey) {{
+    return function controllerFactory(options) {{
+      return createGenericController.call(options || {{}}, moduleKey);
+    }};
+  }},
+  languagePrefsAdapterFactory() {{
+    return {{
+      resolveCurrentTargetLanguage: () => "es",
+      resolvePairFromInputs: () => "en-es",
+      applyLanguagePrefsToInputs: () => "en-es"
+    }};
+  }},
+  controllerAdaptersFactory() {{
+    calls.push("optionsControllerAdapters");
+    return controllerAdapters;
+  }},
+  dom: {{}}
+}});
+
+assert.equal(typeof graph.pageInitController.load, "function");
+assert.equal(typeof graph.eventWiringController.bind, "function");
+assert.ok(calls.indexOf("optionsControllerAdapters") < calls.indexOf("optionsSrsStoryFlow"));
 """
         _run_node(script)
 

@@ -1770,16 +1770,17 @@ Use this file when:
 - Status: `implemented`, `default-on`, `verified` for the selected-story shell,
   dashboard/sampling curtains, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-27` guided-flow checkpoint: controls are grouped
+- Last documented checkpoint: `2026-05-28` bootstrap-order fix preserves the
+  guided-flow checkpoint: controls are grouped
   under a selected profile/pair story block, the admitted-words dashboard and
   admission sample preview are collapsed as story curtains, maintenance actions
   remain behind a collapsed management section, and the start-new-story block
   opens a guided modal that persists visible profile/language/SRS preferences
   before calling the existing preview or initialize workflow.
-- Last verified: `2026-05-27` guided new-story flow contract plus focused
-  extension SRS settings contract, extension structure/i18n checks, en-es SRS
-  beta preflight, doc-reference check, state audit, changed-file gate, diff
-  check, and local build.
+- Last verified: `2026-05-28` focused extension SRS settings contract covers
+  controller-graph construction order so the guided story-flow controller is
+  built only after controller adapters exist; extension structure/i18n checks,
+  doc-reference check, state audit, changed-file gate, and diff check pass.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
     source/target language pair; it does not yet enumerate every persisted SRS
