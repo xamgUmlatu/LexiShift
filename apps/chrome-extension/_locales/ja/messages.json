@@ -185,6 +185,9 @@
   "hint_srs_initial_active_count": {
     "message": "設定直後から表示されうる準備済み単語の数です。"
   },
+  "summary_srs_story_pool_advanced": {
+    "message": "高度な単語プール"
+  },
   "summary_srs_starting_size_advanced": {
     "message": "高度な開始サイズ"
   },
@@ -192,7 +195,7 @@
     "message": "採用設定"
   },
   "hint_srs_admission_preferences": {
-    "message": "これらの値で、このストーリーに次に採用される単語を調整します。"
+    "message": "LexiShiftが次に出す新しい単語の傾向を調整します。"
   },
   "label_srs_topic_interest_presets": {
     "message": "トピック優先度"
@@ -234,7 +237,7 @@
     "message": "植物・自然"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "優先したいトピックを選びます。専用リストではなく、採用確率を調整します。"
+    "message": "トピックは興味に近い単語を出やすくしますが、その単語だけに限定しません。"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高度なタグ"
@@ -351,7 +354,7 @@
     "message": "クールダウン（分）"
   },
   "hint_srs_auto_refresh": {
-    "message": "十分なフィードバック後にのみヘルパーが更新を試行します。新しい単語を入れるかどうかは、容量、期限圧、定着率ゲートが引き続き判断します。"
+    "message": "十分なフィードバック後にのみヘルパーが新しい単語を確認します。追加するかどうかは、容量、期限圧、定着率が引き続き判断します。"
   },
   "toggle_srs_sound": {
     "message": "フィードバック音を再生"
@@ -459,7 +462,7 @@
     "message": "学習中の語"
   },
   "hint_srs_words_dashboard": {
-    "message": "このプロファイルと言語ペアで現在登録されている語を確認します。"
+    "message": "このSRSストーリーに現在入っている語を確認します。"
   },
   "button_srs_words_refresh": {
     "message": "語を更新"
@@ -540,10 +543,10 @@
     "message": "Sを更新してルールを反映中…"
   },
   "status_srs_refresh_success": {
-    "message": "$1 のSを更新しました: +$2件を追加。"
+    "message": "$1 のSを更新しました: 新しい単語 +$2件。"
   },
   "status_srs_refresh_noop": {
-    "message": "$1 のS更新: 新規追加はありません。"
+    "message": "$1 のS更新: 新しい単語の追加はありません。"
   },
   "status_srs_refresh_failed": {
     "message": "Sの更新に失敗しました。"

@@ -185,6 +185,9 @@
   "hint_srs_initial_active_count": {
     "message": "设置完成后可立即出现的已准备词数量。"
   },
+  "summary_srs_story_pool_advanced": {
+    "message": "高级词池"
+  },
   "summary_srs_starting_size_advanced": {
     "message": "高级起始规模"
   },
@@ -192,7 +195,7 @@
     "message": "纳入偏好"
   },
   "hint_srs_admission_preferences": {
-    "message": "这些值会调整这个故事接下来纳入哪些词。"
+    "message": "调整 LexiShift 接下来可能介绍的新词组合。"
   },
   "label_srs_topic_interest_presets": {
     "message": "主题优先级"
@@ -234,7 +237,7 @@
     "message": "植物与自然"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "选择想优先的主题。这会改变概率，而不是变成专属词表。"
+    "message": "主题会把词汇组合推向你的兴趣，但不会把练习限制为这些词。"
   },
   "summary_srs_advanced_topic_tags": {
     "message": "高级标签"
@@ -351,7 +354,7 @@
     "message": "冷却分钟数"
   },
   "hint_srs_auto_refresh": {
-    "message": "Helper 只会在足够反馈后尝试刷新；容量、到期压力和留存门槛仍决定是否录入新词。"
+    "message": "Helper 只会在足够反馈后检查新词；容量、到期压力和留存门槛仍决定是否添加。"
   },
   "toggle_srs_sound": {
     "message": "播放反馈音效"
@@ -459,7 +462,7 @@
     "message": "学习词"
   },
   "hint_srs_words_dashboard": {
-    "message": "查看当前为此档案和语言对加入的词。"
+    "message": "查看当前在这个 SRS 故事中的词。"
   },
   "button_srs_words_refresh": {
     "message": "刷新词"
@@ -540,10 +543,10 @@
     "message": "正在刷新 S 并发布规则…"
   },
   "status_srs_refresh_success": {
-    "message": "已刷新 $1 的 S：新增 $2 项。"
+    "message": "已刷新 $1 的 S：新增 $2 个词。"
   },
   "status_srs_refresh_noop": {
-    "message": "$1 的 S 刷新完成：没有新增项。"
+    "message": "$1 的 S 刷新完成：没有新增词。"
   },
   "status_srs_refresh_failed": {
     "message": "S 刷新失败。"

@@ -185,6 +185,9 @@
   "hint_srs_initial_active_count": {
     "message": "How many prepared words can appear immediately after setup."
   },
+  "summary_srs_story_pool_advanced": {
+    "message": "Advanced word pool"
+  },
   "summary_srs_starting_size_advanced": {
     "message": "Advanced starting size"
   },
@@ -192,7 +195,7 @@
     "message": "Admission preferences"
   },
   "hint_srs_admission_preferences": {
-    "message": "These values shape which words are admitted next for this story."
+    "message": "Adjust the mix of new words LexiShift may introduce next."
   },
   "label_srs_topic_interest_presets": {
     "message": "Topic priorities"
@@ -234,7 +237,7 @@
     "message": "Plants & nature"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "Choose topics to favor. This changes probability, not an exclusive word list."
+    "message": "Topic choices nudge the mix toward your interests; they do not limit practice to only those words."
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Advanced tags"
@@ -351,7 +354,7 @@
     "message": "Cooldown minutes"
   },
   "hint_srs_auto_refresh": {
-    "message": "The helper only attempts refresh after enough feedback; capacity, due pressure, and retention gates still decide whether new words are admitted."
+    "message": "The helper checks for new words only after enough feedback; capacity, due pressure, and retention still decide whether anything is added."
   },
   "toggle_srs_sound": {
     "message": "Play feedback sound"
@@ -459,7 +462,7 @@
     "message": "Learning words"
   },
   "hint_srs_words_dashboard": {
-    "message": "Review the words currently admitted for this profile and language pair."
+    "message": "Review the words currently in this SRS story."
   },
   "button_srs_words_refresh": {
     "message": "Refresh words"
@@ -540,10 +543,10 @@
     "message": "Refreshing S and publishing rules…"
   },
   "status_srs_refresh_success": {
-    "message": "S refreshed for $1: +$2 admitted."
+    "message": "S refreshed for $1: +$2 new words."
   },
   "status_srs_refresh_noop": {
-    "message": "S refresh for $1: no new admissions."
+    "message": "S refresh for $1: no new words added."
   },
   "status_srs_refresh_failed": {
     "message": "S refresh failed."

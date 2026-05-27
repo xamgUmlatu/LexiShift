@@ -185,6 +185,9 @@
   "hint_srs_initial_active_count": {
     "message": "Wie viele vorbereitete Wörter direkt nach der Einrichtung erscheinen können."
   },
+  "summary_srs_story_pool_advanced": {
+    "message": "Erweiterter Wortpool"
+  },
   "summary_srs_starting_size_advanced": {
     "message": "Erweiterte Startgröße"
   },
@@ -192,7 +195,7 @@
     "message": "Aufnahmepräferenzen"
   },
   "hint_srs_admission_preferences": {
-    "message": "Diese Werte steuern, welche Wörter als Nächstes in diese Story aufgenommen werden."
+    "message": "Passe die Mischung neuer Wörter an, die LexiShift als Nächstes einführen kann."
   },
   "label_srs_topic_interest_presets": {
     "message": "Themenprioritäten"
@@ -234,7 +237,7 @@
     "message": "Pflanzen & Natur"
   },
   "hint_srs_topic_interest_presets": {
-    "message": "Wähle Themen, die bevorzugt werden sollen. Das ändert die Wahrscheinlichkeit, nicht die Wortliste exklusiv."
+    "message": "Themen lenken die Mischung zu deinen Interessen, begrenzen die Übung aber nicht nur auf diese Wörter."
   },
   "summary_srs_advanced_topic_tags": {
     "message": "Erweiterte Tags"
@@ -351,7 +354,7 @@
     "message": "Cooldown in Minuten"
   },
   "hint_srs_auto_refresh": {
-    "message": "Der Helper versucht eine Aktualisierung erst nach genug Feedback; Kapazität, Fälligkeitsdruck und Behaltensrate entscheiden weiterhin, ob neue Wörter aufgenommen werden."
+    "message": "Der Helper sucht erst nach genug Feedback nach neuen Wörtern; Kapazität, Fälligkeit und Behaltensrate entscheiden weiterhin, ob etwas hinzugefügt wird."
   },
   "toggle_srs_sound": {
     "message": "Feedback-Sound abspielen"
@@ -459,7 +462,7 @@
     "message": "Lernwörter"
   },
   "hint_srs_words_dashboard": {
-    "message": "Sieh dir die Wörter an, die aktuell für dieses Profil und Sprachpaar zugelassen sind."
+    "message": "Sieh dir die Wörter an, die aktuell in dieser SRS-Story sind."
   },
   "button_srs_words_refresh": {
     "message": "Wörter aktualisieren"
@@ -540,10 +543,10 @@
     "message": "S wird aktualisiert und Regeln werden veröffentlicht…"
   },
   "status_srs_refresh_success": {
-    "message": "S für $1 aktualisiert: +$2 neu aufgenommen."
+    "message": "S für $1 aktualisiert: +$2 neue Wörter."
   },
   "status_srs_refresh_noop": {
-    "message": "S-Aktualisierung für $1: keine neuen Aufnahmen."
+    "message": "S-Aktualisierung für $1: keine neuen Wörter hinzugefügt."
   },
   "status_srs_refresh_failed": {
     "message": "S-Aktualisierung fehlgeschlagen."

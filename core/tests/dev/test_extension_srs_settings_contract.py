@@ -113,7 +113,13 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-proficiency-estimate-value"', html)
         self.assertIn('id="srs-proficiency-estimate-saved"', html)
         self.assertIn('data-i18n="hint_srs_max_active"', html)
+        self.assertIn('<input id="srs-initial-active-count" type="hidden" />', html)
+        self.assertIn('data-i18n="summary_srs_story_pool_advanced"', html)
         self.assertIn('data-i18n="summary_srs_starting_size_advanced"', html)
+        current_card_start = html.index('<details id="srs-story-current-card"')
+        start_card_start = html.index('<article class="srs-story-start-card"', current_card_start)
+        current_card_markup = html[current_card_start:start_card_start]
+        self.assertNotIn('for="srs-initial-active-count"', current_card_markup)
         self.assertRegex(
             html,
             r'(?s)<details class="advanced srs-story-size-advanced">.*?id="srs-bootstrap-top-n"',
@@ -121,7 +127,8 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertRegex(
             html,
             r'(?s)<details class="advanced srs-story-size-advanced srs-story-flow-size-advanced">'
-            r'.*?id="srs-story-flow-bootstrap-top-n"',
+            r'.*?id="srs-story-flow-bootstrap-top-n"'
+            r'.*?for="srs-story-flow-initial-active-count"',
         )
         self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
         self.assertRegex(

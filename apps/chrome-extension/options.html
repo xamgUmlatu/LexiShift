@@ -55,6 +55,7 @@
           <p class="hint" data-i18n="hint_srs_dataset">
             Uses a fixed test dataset for now (no external downloads).
           </p>
+          <input id="srs-initial-active-count" type="hidden" />
           <div class="srs-story-list">
             <details id="srs-story-current-card" class="srs-story-card" aria-labelledby="srs-story-current-heading">
               <summary class="srs-story-summary">
@@ -112,20 +113,13 @@
                       </span>
                     </div>
                     <details class="advanced srs-story-size-advanced">
-                      <summary data-i18n="summary_srs_starting_size_advanced">Advanced starting size</summary>
+                      <summary data-i18n="summary_srs_story_pool_advanced">Advanced word pool</summary>
                       <div class="srs-field-grid">
                         <div class="field-row">
                           <label for="srs-bootstrap-top-n" data-i18n="label_srs_bootstrap_top_n">Candidate pool size</label>
                           <input id="srs-bootstrap-top-n" type="number" min="200" max="50000" step="10" />
                           <span class="field-hint" data-i18n="hint_srs_bootstrap_top_n">
                             How many candidate words LexiShift prepares for this story.
-                          </span>
-                        </div>
-                        <div class="field-row">
-                          <label for="srs-initial-active-count" data-i18n="label_srs_initial_active_count">Starting words</label>
-                          <input id="srs-initial-active-count" type="number" min="1" max="5000" step="1" />
-                          <span class="field-hint" data-i18n="hint_srs_initial_active_count">
-                            How many prepared words can appear immediately after setup.
                           </span>
                         </div>
                       </div>
@@ -136,7 +130,7 @@
                   <div class="srs-settings-section-header">
                     <h4 data-i18n="section_srs_admission_preferences">Admission preferences</h4>
                     <p class="hint" data-i18n="hint_srs_admission_preferences">
-                      These values shape which words are admitted next for this story.
+                      Adjust the mix of new words LexiShift may introduce next.
                     </p>
                   </div>
                   <div class="srs-topic-interest-picker" aria-labelledby="srs-topic-interest-picker-label">
@@ -234,7 +228,7 @@
                       </button>
                     </div>
                     <p class="hint" data-i18n="hint_srs_topic_interest_presets">
-                      Choose topics to favor. This changes probability, not an exclusive word list.
+                      Topic choices nudge the mix toward your interests; they do not limit practice to only those words.
                     </p>
                   </div>
                   <details class="advanced srs-advanced-topic-tags" hidden>
@@ -329,7 +323,7 @@
                       </div>
                     </div>
                     <p class="hint" data-i18n="hint_srs_auto_refresh">
-                      The helper only attempts refresh after enough feedback; capacity, due pressure, and retention gates still decide whether new words are admitted.
+                      The helper checks for new words only after enough feedback; capacity, due pressure, and retention still decide whether anything is added.
                     </p>
                   </details>
                 </section>
@@ -349,7 +343,7 @@
               <div>
                 <h3 id="srs-words-dashboard-heading" data-i18n="heading_srs_words_dashboard">Learning words</h3>
                 <p class="hint" data-i18n="hint_srs_words_dashboard">
-                  Review the words currently admitted for this profile and language pair.
+                  Review the words currently in this SRS story.
                 </p>
               </div>
               <div class="srs-words-dashboard-controls">

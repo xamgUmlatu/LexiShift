@@ -1771,23 +1771,25 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` SRS visual polish keeps the
+- Last documented checkpoint: `2026-05-28` SRS copy/sizing polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   active badge, the visible admission controls are grouped into clearer
   subsections, topic controls render as a contained probability-priority chip
   panel, the proficiency estimate is a slider that preserves the unset stored
-  state until the user changes it, candidate-pool and starting-word sizing
-  controls are present but advanced, dashboard/sampling curtains use compact
-  title/subtitle/action summaries, tentative free-form topic tags are hidden,
+  state until the user changes it, candidate-pool sizing is advanced on the
+  active story while starting-word sizing is only visible in new-story setup,
+  dashboard/sampling curtains use compact title/subtitle/action summaries,
+  tentative free-form topic tags are hidden,
   helper/semantic technical status is behind the bottom maintenance section,
   rulegen status output appears only after content is written, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
-- Last verified: `2026-05-28` refreshed extension SRS settings contract covers
+- Last verified: `2026-05-28` refreshed copy/sizing extension SRS settings contract covers
   controller-graph construction order, collapsed selected-story markup,
-  advanced starting-size controls, polished dashboard/sampling curtain markup,
+  active-story word-pool controls, initialization-only starting-word controls,
+  polished dashboard/sampling curtain markup,
   lazy rulegen status output, switch-styled visible toggles, hidden
   experimental topic tags, proficiency slider markup, and bottom
   technical-status placement; extension structure/i18n checks, doc-reference
@@ -1806,9 +1808,10 @@ Use this file when:
   - The proficiency estimate is presented as a slider with current/saved labels;
     if no stored estimate exists, the slider remains visually neutral and the
     runtime save/preview path treats it as unset until the user moves it.
-  - The main setup surface exposes the active word limit by default; candidate
-    pool size and starting-word count remain available under advanced starting
-    size for tuning and reproducible testing.
+  - The active story surface exposes the active word limit by default and keeps
+    candidate pool size under advanced word-pool tuning; starting-word count is
+    hidden from already-created stories and remains visible only in the
+    initialization flow.
   - Helper and sentence-fit technical status are hidden under the maintenance
     section rather than occupying the main settings flow.
   - The admitted-words dashboard remains read-only by default and is hidden
