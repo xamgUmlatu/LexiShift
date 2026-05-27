@@ -20,6 +20,9 @@ Neither beta topic currently looks like an admission-algorithm failure.
 Product decision: strict MVP only. These beta topics should stay out of the
 first tester-facing topic picker. They remain future candidates after targeted
 coverage/depth work or after a deliberate beta-topic UX exists.
+The taxonomy encodes that product decision as
+`mvp_picker_visibility=future_beta_hidden` for both families, so diagnostic
+tools can keep sampling them without making them ordinary picker choices.
 
 Both beta topics match the reserved topic-lane expectation in the latest
 calibration report:

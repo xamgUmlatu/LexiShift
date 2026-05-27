@@ -287,8 +287,8 @@ Current posture:
 | Family Group | Families | Coverage Posture | Next Work |
 | --- | --- | --- | --- |
 | Source-ready utility topics | `medicine_health`, `finance_business`, `sports_fitness`, `games`, `law_politics_civics`, `music_media_entertainment`, `science_technology` | Enough trusted/source-topic support to keep validating profile lift. | Add per-family depth/precision diagnostics over the 10k frontier before product claims. |
-| Partial parent topics | `travel_places_transport`, `arts_literature_humanities` | Plausible parent coverage, but likely needs aliases/overlays for satisfying UX. | Audit examples and decide whether to expose parent-only or wait for enrichment. |
-| P0 enrichment topics | `animals`, `plants_nature`, `food_cooking`, `anime_manga_pop_culture`, `hobbies_crafts` | Product-important but not sufficiently covered by trusted labels alone. | Build or source overlays/inference, then rerun depth/precision checks. |
+| Partial parent topics | `arts_literature_humanities`, `travel_places_transport` | `arts_literature_humanities` is strict-MVP visible after calibration; `travel_places_transport` stays hidden as a future beta candidate despite selector correctness. | Keep travel documented for follow-up; do not expose it in the first tester-facing picker. |
+| P0 enrichment topics | `animals`, `food_cooking`, `plants_nature`, `anime_manga_pop_culture`, `hobbies_crafts` | `animals` and `food_cooking` are strict-MVP visible because overlays make them product-useful; `plants_nature` stays hidden beta; anime/hobbies remain source-blocked. | Build or source overlays/inference, then rerun depth/precision checks before promoting hidden families. |
 | Register/style preferences | `casual_slang_register`, `formal_professional_register` | UX-relevant but should start review-only because current trusted coverage comes from topic labels, not register-safe signals. | Inventory allowlisted register signals separately, sample precision, then decide whether to enable. |
 | Legal/source gated | `sat_toefl_exam_prep` | Product-aligned but unavailable until allowed data is identified. | Resolve legal source path before surfacing as a preference. |
 
@@ -386,8 +386,8 @@ Suggested initial confidence pattern:
 
 ## Suggested v0 Decision
 
-Adopt these first as user-facing or near-user-facing preferences with current
-source support:
+The current strict-MVP picker should expose only taxonomy families with
+`mvp_picker_visibility=strict_mvp_visible`:
 
 - `medicine_health`
 - `finance_business`
@@ -396,17 +396,17 @@ source support:
 - `law_politics_civics`
 - `music_media_entertainment`
 - `science_technology`
-- `travel_places_transport`
 - `arts_literature_humanities`
-
-Treat these as P0 product goals that need enrichment before strong admission
-lift:
-
-- `food_cooking`
 - `animals`
+- `food_cooking`
+
+Treat these as P0 product goals that remain hidden from the ordinary first
+picker until coverage or UX posture improves:
+
 - `plants_nature`
 - `anime_manga_pop_culture`
 - `hobbies_crafts`
+- `travel_places_transport`
 
 Keep these as planned but not current-CDE-ready:
 

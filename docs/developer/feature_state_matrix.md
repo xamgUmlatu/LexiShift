@@ -1387,12 +1387,20 @@ Use this file when:
   - `profile_bootstrap`: `implemented`, `verified`; `default-on` = `no`
   - `profile_growth`: `implemented`, `default-on` for refresh, `verified`
   - `adaptive_refresh`: `scaffolded`
-- Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes with expected-vs-observed reserved-lane topic counts. Refresh payloads now report realized preferred-topic share for selected new admissions, and the preference product-loop test derives expected post-feedback topic share from topic strength, the capped topic lane, and remaining eligible topic capacity, including sparse medicine/technology cases. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check.
-- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, preference-shaped product-loop tests with derived strong/weaker/sparse post-feedback topic-share assertions, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, options SRS bridge contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
+- Last documented checkpoint: `2026-05-27` refresh admission defaults to `profile_growth`, which reuses the profile-bootstrap utility model for ongoing growth while preserving refresh capacity, due-pressure, retention, POS, and lifecycle gates. `profile_bootstrap` still uses a capped `reserved_topic_lane` selector by default when requested, options initialize/admission preview request it with current profile context, the preference sanity report includes a deterministic strength/proficiency matrix, and the en-es calibration report compares ranked, full-pool weighted, top-k weighted, and reserved topic-lane admission shapes with expected-vs-observed reserved-lane topic counts. Refresh payloads now report realized preferred-topic share for selected new admissions, and the preference product-loop test derives expected post-feedback topic share from topic strength, the capped topic lane, and remaining eligible topic capacity, including sparse medicine/technology cases. Automatic post-feedback refresh now triggers the same `profile_growth` refresh path only after helper-persisted feedback thresholds are met, and extension retry-only feedback flushes do not run the refresh check. The en-es topic taxonomy now records `mvp_picker_visibility`, the options-page topic chips exactly mirror `strict_mvp_visible`, and the dev admission lab surfaces beta/hidden/register visibility metadata without removing diagnostic scenarios.
+- Last verified: `2026-05-27` focused profile-growth refresh/helper/native-host/options tests, preference-shaped product-loop tests with derived strong/weaker/sparse post-feedback topic-share assertions, automatic refresh policy/state tests, extension feedback-sync auto-refresh contract tests, content-runtime/background bridge auto-refresh contract tests, options SRS bridge contract tests, profile-bootstrap reserved-topic-lane selector/helper/options tests, strict-MVP options topic-picker contract tests, taxonomy visibility validation, preference sanity artifact generation, en-es admission calibration artifact generation, SRS quality harness, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - No-strategy helper bootstrap execution remains frequency bootstrap.
   - Options initialize and admission preview request `profile_bootstrap`, which applies implemented normalization, scoring, diagnostics, a proficiency readiness multiplier, and capped reserved topic-lane selection over the frequency seed frontier before initial active selection.
+  - The ordinary options-page topic picker exposes only en-es taxonomy families
+    marked `mvp_picker_visibility=strict_mvp_visible`; beta, hidden,
+    legal-gated, and register families stay out of that picker while remaining
+    available to diagnostics and the advanced manual-tag field.
   - The local SRS admission lab may create a temporary EN-ES Zipf-bridge augmented frequency DB from committed test artifacts plus installed Kaikki POS data; this is dev-lab-only and does not install, mutate, or promote a production frequency pack.
+  - The local SRS admission lab still lists all taxonomy families for internal
+    sampling, but now labels strict-MVP, beta-hidden, source-hidden,
+    register-hidden, and legal-gated visibility so diagnostic controls cannot be
+    mistaken for tester-facing picker scope.
   - The calibration report is preview-only, but the reserved topic-lane row now
     exercises the real profile-bootstrap selection policy and reports expected
     topic count/status from lane cap plus source capacity. Full-pool weighted
@@ -1430,6 +1438,8 @@ Use this file when:
   - `core/lexishift_core/srs/growth.py`
   - `core/lexishift_core/srs/set_planner.py`
   - `core/lexishift_core/srs/selector.py`
+  - `docs/test_inputs/srs_topic_preference_taxonomy_en_es.json`
+  - `apps/chrome-extension/options.html`
   - `scripts/dev/srs_admission_lab_server.py`
   - `scripts/dev/srs_admission_lab_static.html`
   - `core/lexishift_core/helper/use_cases/rebalance_set.py`
@@ -1442,6 +1452,7 @@ Use this file when:
   - `core/tests/srs/test_srs_preference_product_loop.py`
   - `core/tests/dev/test_extension_feedback_auto_refresh_bridge_contract.py`
   - `core/tests/dev/test_extension_options_srs_bridge_contract.py`
+  - `core/tests/dev/test_extension_srs_settings_contract.py`
   - `core/tests/helper/test_helper_auto_refresh_set.py`
   - `core/tests/dev/test_extension_helper_feedback_sync_auto_refresh.py`
   - `core/tests/helper/test_helper_engine.py`
@@ -1450,6 +1461,7 @@ Use this file when:
   - `core/tests/dev/test_extension_srs_maintenance_workflow_contract.py`
   - `core/tests/dev/test_srs_admission_preference_sanity.py`
   - `core/tests/dev/test_srs_admission_calibration_report_en_es.py`
+  - `core/tests/dev/test_srs_topic_preference_taxonomy_en_es.py`
   - `core/tests/dev/test_srs_frequency_topic_coverage.py`
   - `scripts/testing/srs_admission_preference_sanity.py`
   - `scripts/testing/srs_admission_calibration_report_en_es.py`

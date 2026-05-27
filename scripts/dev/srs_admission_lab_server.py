@@ -166,6 +166,7 @@ def load_topic_options(path: Path | None = DEFAULT_TOPIC_TAXONOMY_PATH) -> list[
                 "readiness_state": str(family.get("readiness_state") or "unknown"),
                 "product_priority": str(family.get("product_priority") or ""),
                 "pair_scope": str(family.get("pair_scope") or ""),
+                "mvp_picker_visibility": str(family.get("mvp_picker_visibility") or ""),
                 "runtime_aliases": sorted(aliases_by_family.get(family_id, set())),
             }
         )

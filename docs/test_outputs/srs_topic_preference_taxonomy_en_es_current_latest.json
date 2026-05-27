@@ -1331,6 +1331,11 @@
       "message": "Every family declares an internal axis, UX group, and pair scope."
     },
     {
+      "code": "family_mvp_picker_visibility_valid",
+      "level": "PASS",
+      "message": "Every family declares explicit strict-MVP picker visibility."
+    },
+    {
       "code": "source_label_mappings_valid",
       "level": "PASS",
       "message": "Source-label mappings reference known families and valid weights."
@@ -1371,7 +1376,7 @@
       "message": "Current installed sources provide some plants/nature seed coverage."
     }
   ],
-  "generated_at": "2026-05-19T22:39:15+00:00",
+  "generated_at": "2026-05-27T02:51:40+00:00",
   "inputs": {
     "frequency_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/frequency_packs/freq-es-cde.sqlite",
     "kaikki_forward_db": "/Users/takeyayuki/Library/Application Support/LexiShift/LexiShift/language_packs/wiktionary-es-en.sqlite",
@@ -1388,7 +1393,7 @@
   "status": "ok",
   "summary": {
     "finding_counts": {
-      "PASS": 12
+      "PASS": 13
     },
     "issues": [],
     "warnings": []
@@ -1398,6 +1403,7 @@
       {
         "axis": "topic",
         "id": "medicine_health",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "source_ready",
@@ -1406,6 +1412,7 @@
       {
         "axis": "topic",
         "id": "finance_business",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "source_ready",
@@ -1414,6 +1421,7 @@
       {
         "axis": "topic",
         "id": "sports_fitness",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "source_ready",
@@ -1422,6 +1430,7 @@
       {
         "axis": "topic",
         "id": "games",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "source_ready",
@@ -1430,6 +1439,7 @@
       {
         "axis": "topic",
         "id": "music_media_entertainment",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "source_ready",
@@ -1438,6 +1448,7 @@
       {
         "axis": "topic",
         "id": "law_politics_civics",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "source_ready",
@@ -1446,6 +1457,7 @@
       {
         "axis": "topic",
         "id": "science_technology",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "source_ready",
@@ -1454,6 +1466,7 @@
       {
         "axis": "topic",
         "id": "travel_places_transport",
+        "mvp_picker_visibility": "future_beta_hidden",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "partial",
@@ -1462,6 +1475,7 @@
       {
         "axis": "topic",
         "id": "arts_literature_humanities",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "partial",
@@ -1470,6 +1484,7 @@
       {
         "axis": "topic",
         "id": "animals",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "p0_enrichment",
@@ -1478,6 +1493,7 @@
       {
         "axis": "topic",
         "id": "plants_nature",
+        "mvp_picker_visibility": "future_beta_hidden",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "p0_enrichment",
@@ -1486,6 +1502,7 @@
       {
         "axis": "topic",
         "id": "food_cooking",
+        "mvp_picker_visibility": "strict_mvp_visible",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "p0_enrichment",
@@ -1494,6 +1511,7 @@
       {
         "axis": "topic",
         "id": "anime_manga_pop_culture",
+        "mvp_picker_visibility": "hidden_source_required",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "p0_enrichment",
@@ -1502,6 +1520,7 @@
       {
         "axis": "topic",
         "id": "hobbies_crafts",
+        "mvp_picker_visibility": "hidden_source_required",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "p0_enrichment",
@@ -1510,6 +1529,7 @@
       {
         "axis": "register",
         "id": "casual_slang_register",
+        "mvp_picker_visibility": "future_register_hidden",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "review_only",
@@ -1518,6 +1538,7 @@
       {
         "axis": "register",
         "id": "formal_professional_register",
+        "mvp_picker_visibility": "future_register_hidden",
         "pair_scope": "all_supported_pairs",
         "product_priority": "p0",
         "readiness_state": "review_only",
@@ -1526,6 +1547,7 @@
       {
         "axis": "topic",
         "id": "sat_toefl_exam_prep",
+        "mvp_picker_visibility": "legal_source_gated_hidden",
         "pair_scope": "target_language:en",
         "product_priority": "p0",
         "readiness_state": "legal_source_gated",

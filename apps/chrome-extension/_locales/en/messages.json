@@ -128,8 +128,35 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "Preview support varies by pair"
   },
+  "topic_srs_medicine_health": {
+    "message": "Medicine & health"
+  },
+  "topic_srs_finance_business": {
+    "message": "Finance & business"
+  },
+  "topic_srs_sports_fitness": {
+    "message": "Sports & fitness"
+  },
+  "topic_srs_games": {
+    "message": "Games"
+  },
+  "topic_srs_music_media_entertainment": {
+    "message": "Music & media"
+  },
+  "topic_srs_law_politics_civics": {
+    "message": "Law & civics"
+  },
+  "topic_srs_science_technology": {
+    "message": "Science & technology"
+  },
+  "topic_srs_arts_literature_humanities": {
+    "message": "Arts & literature"
+  },
   "topic_srs_animals": {
     "message": "Animals"
+  },
+  "topic_srs_food_cooking": {
+    "message": "Food & cooking"
   },
   "topic_srs_plants_nature": {
     "message": "Plants & nature"

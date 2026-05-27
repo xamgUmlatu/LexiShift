@@ -128,8 +128,35 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "预览支持因语言对而异"
   },
+  "topic_srs_medicine_health": {
+    "message": "医学与健康"
+  },
+  "topic_srs_finance_business": {
+    "message": "金融与商业"
+  },
+  "topic_srs_sports_fitness": {
+    "message": "运动与健身"
+  },
+  "topic_srs_games": {
+    "message": "游戏"
+  },
+  "topic_srs_music_media_entertainment": {
+    "message": "音乐与媒体"
+  },
+  "topic_srs_law_politics_civics": {
+    "message": "法律与公民"
+  },
+  "topic_srs_science_technology": {
+    "message": "科学与技术"
+  },
+  "topic_srs_arts_literature_humanities": {
+    "message": "艺术与文学"
+  },
   "topic_srs_animals": {
     "message": "动物"
+  },
+  "topic_srs_food_cooking": {
+    "message": "食物与烹饪"
   },
   "topic_srs_plants_nature": {
     "message": "植物与自然"

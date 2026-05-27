@@ -277,6 +277,11 @@ Status key:
 - `[x]` Record strict-MVP topic-picker decision: first tester-facing picker
   excludes beta topics; `plants_nature` and `travel_places_transport` remain
   hidden until beta UX or coverage promotion work is explicit.
+- `[x]` Wire strict-MVP topic visibility into peripheral code:
+  `srs_topic_preference_taxonomy_en_es.json` now carries
+  `mvp_picker_visibility`, the options-page chips are contract-tested against
+  `strict_mvp_visible`, and the local admission lab labels all taxonomy families
+  with their tester-facing or diagnostic-only visibility state.
 - `[~]` Add E2E checks for post-feedback refresh trigger behavior (manual and
   automatic): helper policy/state tests exist; browser/native E2E remains open.
 

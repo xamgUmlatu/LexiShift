@@ -2,7 +2,7 @@
 
 - Status: `ok`
 - Decision: `srs_topic_preference_taxonomy_validated`
-- Generated: `2026-05-19T22:39:15+00:00`
+- Generated: `2026-05-27T02:51:40+00:00`
 - Rows measured: `1984`
 - Unique lemmas measured: `1984`
 
@@ -12,6 +12,7 @@
 - `PASS` `family_ids_unique`: Product topic family ids are unique.
 - `PASS` `preference_ids_append_only`: Preference ids are explicitly append-only after release.
 - `PASS` `family_axis_metadata_valid`: Every family declares an internal axis, UX group, and pair scope.
+- `PASS` `family_mvp_picker_visibility_valid`: Every family declares explicit strict-MVP picker visibility.
 - `PASS` `source_label_mappings_valid`: Source-label mappings reference known families and valid weights.
 - `PASS` `excluded_labels_not_mapped_positive`: Excluded broad labels are not positively mapped.
 - `PASS` `animals_seed_labels_present`: Animals includes the current trusted CDE seed labels.

@@ -26,7 +26,8 @@
       "data_strategy": "sense_topics_then_domain_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "finance_business",
@@ -36,7 +37,8 @@
       "data_strategy": "sense_topics_then_alias_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "sports_fitness",
@@ -46,7 +48,8 @@
       "data_strategy": "sense_topics_then_alias_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "games",
@@ -56,7 +59,8 @@
       "data_strategy": "sense_topics_then_alias_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "music_media_entertainment",
@@ -66,7 +70,8 @@
       "data_strategy": "sense_topics_then_media_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "law_politics_civics",
@@ -76,7 +81,8 @@
       "data_strategy": "sense_topics_then_civics_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "science_technology",
@@ -86,7 +92,8 @@
       "data_strategy": "sense_topics_then_stem_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "travel_places_transport",
@@ -96,7 +103,8 @@
       "data_strategy": "geography_transport_labels_then_travel_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "future_beta_hidden"
     },
     {
       "id": "arts_literature_humanities",
@@ -106,7 +114,8 @@
       "data_strategy": "sense_topics_then_literature_art_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "animals",
@@ -116,7 +125,8 @@
       "data_strategy": "trusted_sense_topics_plus_categories_glosses_then_curated_animal_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "plants_nature",
@@ -126,7 +136,8 @@
       "data_strategy": "trusted_botany_topics_plus_categories_glosses_then_curated_plant_overlay",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "future_beta_hidden"
     },
     {
       "id": "food_cooking",
@@ -136,7 +147,8 @@
       "data_strategy": "curated_food_overlay_then_embedding_inference",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "strict_mvp_visible"
     },
     {
       "id": "anime_manga_pop_culture",
@@ -146,7 +158,8 @@
       "data_strategy": "legally_usable_seed_lists_then_embedding_inference",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "hidden_source_required"
     },
     {
       "id": "hobbies_crafts",
@@ -156,7 +169,8 @@
       "data_strategy": "curated_activity_overlay_then_reviewed_broad_labels",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "all_supported_pairs"
+      "pair_scope": "all_supported_pairs",
+      "mvp_picker_visibility": "hidden_source_required"
     },
     {
       "id": "casual_slang_register",
@@ -166,7 +180,8 @@
       "ux_group": "interests_style",
       "pair_scope": "all_supported_pairs",
       "readiness_state": "review_only",
-      "data_strategy": "allowlisted_register_tags_then_reviewed_overlay"
+      "data_strategy": "allowlisted_register_tags_then_reviewed_overlay",
+      "mvp_picker_visibility": "future_register_hidden"
     },
     {
       "id": "formal_professional_register",
@@ -176,7 +191,8 @@
       "ux_group": "interests_style",
       "pair_scope": "all_supported_pairs",
       "readiness_state": "review_only",
-      "data_strategy": "allowlisted_formal_register_tags_then_reviewed_overlay"
+      "data_strategy": "allowlisted_formal_register_tags_then_reviewed_overlay",
+      "mvp_picker_visibility": "future_register_hidden"
     },
     {
       "id": "sat_toefl_exam_prep",
@@ -186,7 +202,8 @@
       "data_strategy": "allowed_exam_prep_vocabulary_or_internal_skill_taxonomy",
       "axis": "topic",
       "ux_group": "interests_style",
-      "pair_scope": "target_language:en"
+      "pair_scope": "target_language:en",
+      "mvp_picker_visibility": "legal_source_gated_hidden"
     }
   ],
   "source_label_mappings": [

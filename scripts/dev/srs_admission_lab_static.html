@@ -458,23 +458,23 @@
       ["challengeSpread", "challengeSpreadOut"]
     ];
     const fallbackTopicOptions = [
-      { id: "medicine_health", display_name: "Medicine & Health", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["medicine", "anatomy", "healthcare"] },
-      { id: "finance_business", display_name: "Finance & Business", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["finance", "business", "economics"] },
-      { id: "sports_fitness", display_name: "Sports & Fitness", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["sports", "athletics"] },
-      { id: "games", display_name: "Games", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["games", "gaming"] },
-      { id: "music_media_entertainment", display_name: "Music, Media & Entertainment", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["music", "entertainment"] },
-      { id: "law_politics_civics", display_name: "Law, Politics & Civics", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["law", "politics", "government"] },
-      { id: "science_technology", display_name: "Science & Technology", readiness_state: "source_ready", axis: "topic", runtime_aliases: ["science", "technology"] },
-      { id: "travel_places_transport", display_name: "Travel, Places & Transport", readiness_state: "partial", axis: "topic", runtime_aliases: ["travel", "transport", "geography"] },
-      { id: "arts_literature_humanities", display_name: "Arts, Literature & Humanities", readiness_state: "partial", axis: "topic", runtime_aliases: ["art", "literature", "humanities"] },
-      { id: "animals", display_name: "Animals", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["zoology", "wildlife", "pets"] },
-      { id: "plants_nature", display_name: "Plants & Nature", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["botany", "plants", "nature"] },
-      { id: "food_cooking", display_name: "Food & Cooking", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["food", "cooking"] },
-      { id: "anime_manga_pop_culture", display_name: "Anime, Manga & Pop Culture", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["anime", "manga"] },
-      { id: "hobbies_crafts", display_name: "Hobbies & Crafts", readiness_state: "p0_enrichment", axis: "topic", runtime_aliases: ["hobbies", "crafts"] },
-      { id: "casual_slang_register", display_name: "Casual & Slang", readiness_state: "review_only", axis: "register", runtime_aliases: ["slang", "colloquial"] },
-      { id: "formal_professional_register", display_name: "Formal & Professional", readiness_state: "review_only", axis: "register", runtime_aliases: ["formal", "professional"] },
-      { id: "sat_toefl_exam_prep", display_name: "SAT & TOEFL Prep", readiness_state: "legal_source_gated", axis: "topic", runtime_aliases: ["sat", "toefl"] }
+      { id: "medicine_health", display_name: "Medicine & Health", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["medicine", "anatomy", "healthcare"] },
+      { id: "finance_business", display_name: "Finance & Business", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["finance", "business", "economics"] },
+      { id: "sports_fitness", display_name: "Sports & Fitness", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["sports", "athletics"] },
+      { id: "games", display_name: "Games", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["games", "gaming"] },
+      { id: "music_media_entertainment", display_name: "Music, Media & Entertainment", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["music", "entertainment"] },
+      { id: "law_politics_civics", display_name: "Law, Politics & Civics", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["law", "politics", "government"] },
+      { id: "science_technology", display_name: "Science & Technology", readiness_state: "source_ready", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["science", "technology"] },
+      { id: "travel_places_transport", display_name: "Travel, Places & Transport", readiness_state: "partial", axis: "topic", mvp_picker_visibility: "future_beta_hidden", runtime_aliases: ["travel", "transport", "geography"] },
+      { id: "arts_literature_humanities", display_name: "Arts, Literature & Humanities", readiness_state: "partial", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["art", "literature", "humanities"] },
+      { id: "animals", display_name: "Animals", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["zoology", "wildlife", "pets"] },
+      { id: "plants_nature", display_name: "Plants & Nature", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "future_beta_hidden", runtime_aliases: ["botany", "plants", "nature"] },
+      { id: "food_cooking", display_name: "Food & Cooking", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "strict_mvp_visible", runtime_aliases: ["food", "cooking"] },
+      { id: "anime_manga_pop_culture", display_name: "Anime, Manga & Pop Culture", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "hidden_source_required", runtime_aliases: ["anime", "manga"] },
+      { id: "hobbies_crafts", display_name: "Hobbies & Crafts", readiness_state: "p0_enrichment", axis: "topic", mvp_picker_visibility: "hidden_source_required", runtime_aliases: ["hobbies", "crafts"] },
+      { id: "casual_slang_register", display_name: "Casual & Slang", readiness_state: "review_only", axis: "register", mvp_picker_visibility: "future_register_hidden", runtime_aliases: ["slang", "colloquial"] },
+      { id: "formal_professional_register", display_name: "Formal & Professional", readiness_state: "review_only", axis: "register", mvp_picker_visibility: "future_register_hidden", runtime_aliases: ["formal", "professional"] },
+      { id: "sat_toefl_exam_prep", display_name: "SAT & TOEFL Prep", readiness_state: "legal_source_gated", axis: "topic", mvp_picker_visibility: "legal_source_gated_hidden", runtime_aliases: ["sat", "toefl"] }
     ];
     let topicOptions = fallbackTopicOptions;
 
@@ -628,6 +628,7 @@
         const display = escapeHtml(topic.display_name || topic.id);
         const axis = escapeHtml(topic.axis || "topic");
         const readiness = escapeHtml((topic.readiness_state || "unknown").replaceAll("_", " "));
+        const visibility = escapeHtml((topic.mvp_picker_visibility || "unclassified").replaceAll("_", " "));
         const aliases = Array.isArray(topic.runtime_aliases) && topic.runtime_aliases.length
           ? "aliases: " + topic.runtime_aliases.slice(0, 6).join(", ")
           : "direct topic id only";
@@ -638,6 +639,7 @@
           + display
           + '</label>'
           + '<span class="badge">' + readiness + '</span>'
+          + '<span class="badge">' + visibility + '</span>'
           + '</div>'
           + '<div class="topic-control-meta">' + axis + " · " + escapeHtml(aliases) + '</div>'
           + '<div class="row">'

@@ -22,6 +22,9 @@ Current product decision: strict MVP only. The first tester-facing topic picker
 should exclude beta topics (`plants_nature` and `travel_places_transport`) until
 we intentionally add a beta/limited topic affordance or improve their coverage
 enough for ordinary visibility.
+The en-es preference taxonomy now records that with `mvp_picker_visibility`, and
+the options-page picker is contract-tested against only the
+`strict_mvp_visible` families.
 
 The key product conclusion is:
 

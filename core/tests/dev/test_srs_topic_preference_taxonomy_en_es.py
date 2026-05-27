@@ -47,6 +47,7 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
             self.assertIn("plants_nature_seed_labels_present", findings)
             self.assertIn("excluded_labels_not_mapped_positive", findings)
             self.assertIn("exam_prep_target_english_scoped", findings)
+            self.assertIn("family_mvp_picker_visibility_valid", findings)
             family_by_id = {row["family"]: row for row in report["coverage"]["families"]}
             animals = family_by_id["animals"]
             self.assertEqual(animals["row_count"], 2)
@@ -109,6 +110,7 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
         findings = {row["code"]: row for row in validate_taxonomy(taxonomy)}
         self.assertEqual(findings["preference_ids_append_only"]["level"], "PASS")
         self.assertEqual(findings["family_axis_metadata_valid"]["level"], "PASS")
+        self.assertEqual(findings["family_mvp_picker_visibility_valid"]["level"], "PASS")
         self.assertEqual(findings["exam_prep_legal_gated"]["level"], "PASS")
         self.assertEqual(findings["exam_prep_target_english_scoped"]["level"], "PASS")
 
@@ -126,6 +128,22 @@ class SrsTopicPreferenceTaxonomyTests(unittest.TestCase):
         self.assertEqual(
             family_by_id["sat_toefl_exam_prep"]["pair_scope"],
             "target_language:en",
+        )
+        visible_ids = [
+            family["id"]
+            for family in taxonomy["families"]
+            if family["mvp_picker_visibility"] == "strict_mvp_visible"
+        ]
+        self.assertIn("animals", visible_ids)
+        self.assertIn("food_cooking", visible_ids)
+        self.assertNotIn("plants_nature", visible_ids)
+        self.assertEqual(
+            family_by_id["plants_nature"]["mvp_picker_visibility"],
+            "future_beta_hidden",
+        )
+        self.assertEqual(
+            family_by_id["travel_places_transport"]["mvp_picker_visibility"],
+            "future_beta_hidden",
         )
         mapped_pairs = {
             (row["source_label"], row["target_family"])
@@ -220,6 +238,7 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
                     "axis": "topic",
                     "ux_group": "interests_style",
                     "pair_scope": "all_supported_pairs",
+                    "mvp_picker_visibility": "strict_mvp_visible",
                 },
                 {
                     "id": "plants_nature",
@@ -227,6 +246,7 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
                     "axis": "topic",
                     "ux_group": "interests_style",
                     "pair_scope": "all_supported_pairs",
+                    "mvp_picker_visibility": "future_beta_hidden",
                 },
                 {
                     "id": "sat_toefl_exam_prep",
@@ -234,6 +254,7 @@ def _taxonomy_json(*, extra_mapping: dict[str, object] | None = None) -> str:
                     "axis": "topic",
                     "ux_group": "interests_style",
                     "pair_scope": "target_language:en",
+                    "mvp_picker_visibility": "legal_source_gated_hidden",
                 },
             ],
             "source_label_mappings": mappings,

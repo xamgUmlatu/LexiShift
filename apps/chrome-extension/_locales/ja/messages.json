@@ -128,8 +128,35 @@
   "badge_srs_topic_interest_pair_support": {
     "message": "プレビュー対応は言語ペアで変わります"
   },
+  "topic_srs_medicine_health": {
+    "message": "医療・健康"
+  },
+  "topic_srs_finance_business": {
+    "message": "金融・ビジネス"
+  },
+  "topic_srs_sports_fitness": {
+    "message": "スポーツ・フィットネス"
+  },
+  "topic_srs_games": {
+    "message": "ゲーム"
+  },
+  "topic_srs_music_media_entertainment": {
+    "message": "音楽・メディア"
+  },
+  "topic_srs_law_politics_civics": {
+    "message": "法律・社会"
+  },
+  "topic_srs_science_technology": {
+    "message": "科学・技術"
+  },
+  "topic_srs_arts_literature_humanities": {
+    "message": "芸術・文学"
+  },
   "topic_srs_animals": {
     "message": "動物"
+  },
+  "topic_srs_food_cooking": {
+    "message": "食べ物・料理"
   },
   "topic_srs_plants_nature": {
     "message": "植物・自然"

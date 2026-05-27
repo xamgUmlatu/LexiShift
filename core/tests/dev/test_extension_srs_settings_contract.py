@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import unittest
 from pathlib import Path
@@ -22,6 +23,8 @@ AUTO_REFRESH_SETTINGS_JS = (
 SRS_BINDINGS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/page/events/srs_bindings.js"
 )
+OPTIONS_HTML = PROJECT_ROOT / "apps/chrome-extension/options.html"
+TOPIC_TAXONOMY_JSON = PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxonomy_en_es.json"
 SETTINGS_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/base_methods.js"
 SIGNALS_METHODS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/signals_methods.js"
 
@@ -44,6 +47,20 @@ def _run_node(script: str) -> None:
 
 
 class TestExtensionSrsSettingsContract(unittest.TestCase):
+    def test_topic_interest_picker_matches_strict_mvp_taxonomy_visibility(self) -> None:
+        taxonomy = json.loads(TOPIC_TAXONOMY_JSON.read_text(encoding="utf-8"))
+        expected_topic_ids = [
+            str(family["id"])
+            for family in taxonomy["families"]
+            if family.get("mvp_picker_visibility") == "strict_mvp_visible"
+        ]
+        html = OPTIONS_HTML.read_text(encoding="utf-8")
+        actual_topic_ids = re.findall(r'data-srs-topic-interest="([^"]+)"', html)
+
+        self.assertEqual(actual_topic_ids, expected_topic_ids)
+        self.assertNotIn("plants_nature", actual_topic_ids)
+        self.assertNotIn("travel_places_transport", actual_topic_ids)
+
     def test_controller_save_keeps_signal_updates_narrow_and_preserves_nested_siblings(
         self,
     ) -> None:
@@ -493,7 +510,7 @@ function makeChip(topic) {{
 
 const topicInput = makeInput("travel, animals");
 const animalsChip = makeChip("animals");
-const plantsChip = makeChip("plants_nature");
+const foodChip = makeChip("food_cooking");
 
 bind({{
   bindAsyncListener: (element, eventName, action) => {{
@@ -520,32 +537,32 @@ bind({{
   }},
   elements: {{
     srsTopicInterestsInput: topicInput,
-    srsTopicInterestChipButtons: [animalsChip, plantsChip]
+    srsTopicInterestChipButtons: [animalsChip, foodChip]
   }}
 }});
 
 assert.equal(animalsChip.attributes["aria-pressed"], "true");
 assert.equal(animalsChip.classList.contains("is-selected"), true);
-assert.equal(plantsChip.attributes["aria-pressed"], "false");
+assert.equal(foodChip.attributes["aria-pressed"], "false");
 
 (async () => {{
-  await plantsChip.asyncListeners.click();
-  assert.equal(topicInput.value, "travel, animals, plants_nature");
-  assert.deepEqual(savedValues, ["travel, animals, plants_nature"]);
-  assert.equal(plantsChip.attributes["aria-pressed"], "true");
+  await foodChip.asyncListeners.click();
+  assert.equal(topicInput.value, "travel, animals, food_cooking");
+  assert.deepEqual(savedValues, ["travel, animals, food_cooking"]);
+  assert.equal(foodChip.attributes["aria-pressed"], "true");
 
   await animalsChip.asyncListeners.click();
-  assert.equal(topicInput.value, "travel, plants_nature");
+  assert.equal(topicInput.value, "travel, food_cooking");
   assert.deepEqual(savedValues, [
-    "travel, animals, plants_nature",
-    "travel, plants_nature"
+    "travel, animals, food_cooking",
+    "travel, food_cooking"
   ]);
   assert.equal(animalsChip.attributes["aria-pressed"], "false");
 
-  topicInput.value = "animals, plants_nature";
+  topicInput.value = "animals, food_cooking";
   topicInput.listeners.input();
   assert.equal(animalsChip.attributes["aria-pressed"], "true");
-  assert.equal(plantsChip.attributes["aria-pressed"], "true");
+  assert.equal(foodChip.attributes["aria-pressed"], "true");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

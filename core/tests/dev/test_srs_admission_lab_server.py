@@ -195,6 +195,14 @@ class TestSrsAdmissionLabServer(unittest.TestCase):
         self.assertIn("medicine_health", topic_by_id)
         self.assertIn("sat_toefl_exam_prep", topic_by_id)
         self.assertEqual(topic_by_id["food_cooking"]["display_name"], "Food & Cooking")
+        self.assertEqual(
+            topic_by_id["animals"]["mvp_picker_visibility"],
+            "strict_mvp_visible",
+        )
+        self.assertEqual(
+            topic_by_id["plants_nature"]["mvp_picker_visibility"],
+            "future_beta_hidden",
+        )
         self.assertIn("medicine", topic_by_id["medicine_health"]["runtime_aliases"])
 
     def test_build_profile_context_from_lab_controls(self) -> None:

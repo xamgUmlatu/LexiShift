@@ -229,6 +229,10 @@ Current product-owned taxonomy artifact:
   family on an explicit internal axis. Topics and registers can share the
   user-facing `Interests & Style` section, but source policy and tests keep the
   distinction visible.
+- The taxonomy also declares `mvp_picker_visibility`: only
+  `strict_mvp_visible` families belong in the first ordinary options-page topic
+  picker, while beta/hidden/register/legal-gated families remain available to
+  diagnostics or advanced manual tags until promoted.
 - The first register-style families are `casual_slang_register` and
   `formal_professional_register`. They are review-only until allowlisted source
   signals and precision samples support admission lift.

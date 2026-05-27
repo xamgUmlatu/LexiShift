@@ -10,6 +10,7 @@ Source-of-truth inputs:
 - `srs_topic_coverage_pause_state_en_es.md`
 - `srs_interest_tailored_admission_algorithm.md`
 - `srs_beta_topic_deep_dive_en_es.md`
+- `../test_inputs/srs_topic_preference_taxonomy_en_es.json`
 
 ## Recommendation
 
@@ -20,6 +21,12 @@ Product decision: strict MVP only for the first tester-facing picker. Do not
 expose beta topics in the initial topic picker. Keep beta candidates documented
 for follow-up, but ship only the ordinary MVP-visible set until a beta/limited
 UX affordance is intentionally designed.
+
+Implementation contract: the taxonomy marks this with
+`mvp_picker_visibility`. The ordinary options-page topic chips must match
+families marked `strict_mvp_visible`; beta, hidden, legal-gated, and register
+families remain available only to internal diagnostics or the advanced manual
+tag field until explicitly promoted.
 
 The selector behavior is coherent enough for MVP. The current blocker is not
 the admission algorithm. The remaining risk is topic inventory quality: some
@@ -110,8 +117,8 @@ Before external testers evaluate this flow:
 
 1. Use the local admission lab to manually inspect the visible topics at a few
    proficiency values.
-2. Confirm the first topic picker includes only the ordinary MVP-visible topic
-   set and does not expose beta topics.
+2. Keep the first topic picker contract test green: options-page topic chips
+   must exactly match the taxonomy families marked `strict_mvp_visible`.
 3. Keep register/style controls out of the ordinary topic list unless a
    separate UX section is implemented.
 4. Treat any complaint about "not enough topic words" as a coverage issue first

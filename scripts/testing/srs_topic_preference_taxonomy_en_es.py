@@ -39,6 +39,13 @@ FREQUENCY_VALUE_COLUMNS = (
 )
 TRUSTED_SOURCE_CHANNELS = ("sense_topics",)
 ALLOWED_FAMILY_AXES = {"topic", "register"}
+ALLOWED_MVP_PICKER_VISIBILITY = {
+    "strict_mvp_visible",
+    "future_beta_hidden",
+    "hidden_source_required",
+    "future_register_hidden",
+    "legal_source_gated_hidden",
+}
 
 
 def _parse_args() -> argparse.Namespace:
@@ -196,6 +203,29 @@ def validate_taxonomy(taxonomy: Mapping[str, object]) -> list[dict[str, object]]
                 "PASS",
                 "family_axis_metadata_valid",
                 "Every family declares an internal axis, UX group, and pair scope.",
+            )
+        )
+    visibility_failures: list[str] = []
+    for index, row in enumerate(families):
+        family_id = _normalize_token(row.get("id"))
+        visibility = _normalize_token(row.get("mvp_picker_visibility"))
+        if visibility not in ALLOWED_MVP_PICKER_VISIBILITY:
+            visibility_failures.append(f"families[{index}].mvp_picker_visibility:{family_id}")
+    if visibility_failures:
+        findings.append(
+            _finding(
+                "FAIL",
+                "family_mvp_picker_visibility_invalid",
+                "Family MVP picker visibility metadata is missing or invalid.",
+                details=", ".join(visibility_failures),
+            )
+        )
+    else:
+        findings.append(
+            _finding(
+                "PASS",
+                "family_mvp_picker_visibility_valid",
+                "Every family declares explicit strict-MVP picker visibility.",
             )
         )
     mappings = _mapping_rows(taxonomy.get("source_label_mappings"))
@@ -546,6 +576,7 @@ def _public_taxonomy_summary(taxonomy: Mapping[str, object]) -> dict[str, object
                 "axis": _normalize_token(row.get("axis")),
                 "ux_group": _normalize_token(row.get("ux_group")),
                 "pair_scope": str(row.get("pair_scope") or ""),
+                "mvp_picker_visibility": _normalize_token(row.get("mvp_picker_visibility")),
             }
             for row in families
         ],
