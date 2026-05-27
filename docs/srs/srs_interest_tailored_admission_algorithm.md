@@ -667,8 +667,11 @@ Primary computation points:
   - refresh payloads report realized preferred-topic share for the selected
     new admissions, allowing deterministic product-loop tests to assert a
     rough share band without requiring an exact lemma list. The current en-es
-    fixture checks both a strong topic preference and a weaker topic preference
-    so the expected share can move down when the user signal is weaker.
+    fixture computes the expected preferred-topic count from the selector's
+    capped topic lane, the user topic strength, and the remaining eligible
+    topic candidates. It checks strong and weaker animal preferences, plus
+    sparse medicine and technology topics whose single matching candidate may
+    already be consumed by the initial active set.
 
 - profile or source changes:
   - if interests, proficiency, source pack, rulegen coverage, or blocked terms

@@ -104,7 +104,10 @@ planner used by ordinary SRS admission. Existing lemmas are filtered by
 same pair. When profile-growth diagnostics are active, refresh output includes
 the realized preferred-topic share for the selected new admissions. That makes
 later admission waves testable as a share band without requiring an exact lemma
-list.
+list. The product-loop test now derives the expected preferred-topic count from
+the selector's capped topic lane plus the remaining eligible topic candidates,
+so sparse topics can correctly produce a low or zero refresh share after their
+few matching candidates have already been admitted.
 
 ## Automatic Refresh Trigger
 

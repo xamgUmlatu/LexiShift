@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import sqlite3
 import subprocess
 import sys
@@ -30,6 +31,7 @@ from lexishift_core.helper.rulegen import annotate_rules_with_srs_serving_metada
 from lexishift_core.lexicon.word_package import build_word_package  # noqa: E402
 from lexishift_core.replacement.core import RuleMetadata, VocabRule  # noqa: E402
 from lexishift_core.srs import SrsSettings, load_srs_store, save_srs_settings  # noqa: E402
+from lexishift_core.srs.profile_bootstrap import DEFAULT_PROFILE_BOOTSTRAP_POLICY  # noqa: E402
 from lexishift_core.srs.seed import SeedWord  # noqa: E402
 
 SRS_GATE_JS = PROJECT_ROOT / "apps/chrome-extension/shared/srs/srs_gate.js"
@@ -114,6 +116,41 @@ def _build_seed_candidates() -> list[SeedWord]:
         _seed("algoritmo", rank=11, weight=0.50, topics=("technology",)),
         _seed("jirafa", rank=12, weight=0.42, topics=("animals", "wildlife")),
     ]
+
+
+def _seed_topic_lemmas(topic_id: str) -> set[str]:
+    normalized_topic = str(topic_id or "").strip()
+    return {
+        seed.lemma
+        for seed in _build_seed_candidates()
+        if normalized_topic
+        in {str(topic or "").strip() for topic in seed.metadata.get("topics", [])}
+    }
+
+
+def _reserved_topic_lane_expectation(
+    *,
+    selected_count: int,
+    topic_weight: float,
+    remaining_topic_count: int,
+) -> dict[str, object]:
+    lane_max_share = DEFAULT_PROFILE_BOOTSTRAP_POLICY.selector_config.topic_lane_max_share
+    bounded_weight = max(0.0, min(1.0, float(topic_weight)))
+    bounded_lane_share = max(0.0, min(1.0, float(lane_max_share)))
+    if selected_count <= 0 or bounded_weight <= 0.0:
+        topic_budget = 0
+    else:
+        topic_budget = min(
+            selected_count,
+            math.ceil(selected_count * bounded_weight * bounded_lane_share),
+        )
+    expected_count = min(topic_budget, max(0, remaining_topic_count), selected_count)
+    return {
+        "topic_budget": topic_budget,
+        "expected_preferred_count": expected_count,
+        "source_limited": 0 < topic_budget and remaining_topic_count < topic_budget,
+        "topic_lane_max_share": bounded_lane_share,
+    }
 
 
 def _stub_run_rulegen_for_pair(*, store, pair, **kwargs):
@@ -226,8 +263,11 @@ context.LexiShift.srsGate.buildSrsGate({{ srsEnabled: true }}, taggedRules, () =
     return json.loads(result.stdout)
 
 
-def _run_animal_profile_growth_share_probe(
-    topic_weight: float, *, profile_id: str
+def _run_profile_growth_share_probe(
+    topic_id: str,
+    topic_weight: float,
+    *,
+    profile_id: str,
 ) -> dict[str, object]:
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
@@ -238,15 +278,11 @@ def _run_animal_profile_growth_share_probe(
         translation_dict.parent.mkdir(parents=True, exist_ok=True)
         translation_dict.write_text("{}\n", encoding="utf-8")
         profile_context = {
-            "topic_weights": {"animals": topic_weight},
+            "topic_weights": {topic_id: topic_weight},
             "proficiency_estimate": 0.25,
             "challenge_target": 0.30,
         }
-        animal_lemmas = {
-            seed.lemma
-            for seed in _build_seed_candidates()
-            if "animals" in set(seed.metadata.get("topics", []))
-        }
+        topic_lemmas = _seed_topic_lemmas(topic_id)
 
         save_srs_settings(
             SrsSettings(max_active_items=8, max_new_items_per_day=4),
@@ -281,7 +317,10 @@ def _run_animal_profile_growth_share_probe(
                 ),
             )
             initialized_active = set(initialized["bootstrap_diagnostics"]["initial_active_preview"])
-            reviewed_lemma = sorted(initialized_active & animal_lemmas)[0]
+            topic_initialized = sorted(initialized_active & topic_lemmas)
+            reviewed_lemma = (
+                topic_initialized[0] if topic_initialized else sorted(initialized_active)[0]
+            )
             for rating in ("good", "easy", "good", "easy", "good", "easy", "good", "easy"):
                 apply_feedback(
                     paths,
@@ -309,12 +348,26 @@ def _run_animal_profile_growth_share_probe(
 
     payload = refreshed["admission_refresh"]
     topic = payload["selected_preferred_topic"]
+    selected_count = int(topic["selected_count"])
+    initialized_topic_count = len(initialized_active & topic_lemmas)
+    remaining_topic_count = len(topic_lemmas - initialized_active)
+    expectation = _reserved_topic_lane_expectation(
+        selected_count=selected_count,
+        topic_weight=topic_weight,
+        remaining_topic_count=remaining_topic_count,
+    )
     return {
+        "topic_id": topic_id,
+        "topic_weight": topic_weight,
         "selected_lemmas": list(payload["selected_lemmas"]),
         "share": float(topic["share"]),
         "preferred_count": int(topic["preferred_count"]),
-        "selected_count": int(topic["selected_count"]),
+        "selected_count": selected_count,
         "preferred_lemmas": list(topic["lemmas"]),
+        "topic_candidate_count": len(topic_lemmas),
+        "initialized_topic_count": initialized_topic_count,
+        "remaining_topic_count": remaining_topic_count,
+        **expectation,
     }
 
 
@@ -481,26 +534,47 @@ class TestSrsPreferenceProductLoop(unittest.TestCase):
             self.assertGreaterEqual(stats["srsDueFilteredCount"], 1)
             self.assertNotIn(reviewed_lemma, set(gate_payload["activeLemmas"]))
 
-    def test_weaker_topic_preference_reduces_post_feedback_growth_topic_share(self) -> None:
-        strong = _run_animal_profile_growth_share_probe(
-            1.0,
-            profile_id="animal-strong-profile",
+    def test_profile_growth_topic_share_matches_policy_strength_and_source_capacity(self) -> None:
+        scenarios = (
+            ("animals_strong", "animals", 1.0),
+            ("animals_medium", "animals", 0.5),
+            ("medicine_sparse", "medicine", 1.0),
+            ("technology_sparse", "technology", 1.0),
         )
-        medium = _run_animal_profile_growth_share_probe(
-            0.5,
-            profile_id="animal-medium-profile",
-        )
+        results = {
+            name: _run_profile_growth_share_probe(
+                topic_id,
+                topic_weight,
+                profile_id=f"{name}-profile",
+            )
+            for name, topic_id, topic_weight in scenarios
+        }
 
-        self.assertEqual(strong["selected_count"], 4)
-        self.assertGreaterEqual(strong["share"], 0.45)
-        self.assertLessEqual(strong["share"], 0.55)
+        for name, result in results.items():
+            with self.subTest(name=name):
+                self.assertEqual(result["selected_count"], 4)
+                self.assertLessEqual(result["preferred_count"], result["remaining_topic_count"])
+                self.assertEqual(
+                    result["preferred_count"],
+                    result["expected_preferred_count"],
+                    msg=f"unexpected policy share result: {result}",
+                )
+                self.assertAlmostEqual(
+                    result["share"],
+                    result["preferred_count"] / result["selected_count"],
+                    places=6,
+                )
+
+        strong = results["animals_strong"]
+        medium = results["animals_medium"]
         self.assertEqual(strong["preferred_count"], 2)
-
-        self.assertEqual(medium["selected_count"], 4)
-        self.assertGreaterEqual(medium["share"], 0.20)
-        self.assertLessEqual(medium["share"], 0.30)
         self.assertEqual(medium["preferred_count"], 1)
         self.assertLess(medium["share"], strong["share"])
+
+        for sparse_name in ("medicine_sparse", "technology_sparse"):
+            sparse = results[sparse_name]
+            self.assertTrue(sparse["source_limited"])
+            self.assertLess(sparse["share"], strong["share"])
 
 
 if __name__ == "__main__":
