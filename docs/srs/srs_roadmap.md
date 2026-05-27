@@ -274,6 +274,9 @@ Status key:
 - `[x]` Add beta-topic deep dive for `plants_nature` and
   `travel_places_transport`, separating selector failure risk from content
   depth/precision risk and listing promotion thresholds.
+- `[x]` Record strict-MVP topic-picker decision: first tester-facing picker
+  excludes beta topics; `plants_nature` and `travel_places_transport` remain
+  hidden until beta UX or coverage promotion work is explicit.
 - `[~]` Add E2E checks for post-feedback refresh trigger behavior (manual and
   automatic): helper policy/state tests exist; browser/native E2E remains open.
 

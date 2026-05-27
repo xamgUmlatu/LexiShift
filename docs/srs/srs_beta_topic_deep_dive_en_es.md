@@ -17,6 +17,10 @@ Inputs:
 
 Neither beta topic currently looks like an admission-algorithm failure.
 
+Product decision: strict MVP only. These beta topics should stay out of the
+first tester-facing topic picker. They remain future candidates after targeted
+coverage/depth work or after a deliberate beta-topic UX exists.
+
 Both beta topics match the reserved topic-lane expectation in the latest
 calibration report:
 
@@ -47,8 +51,10 @@ Use these definitions when deciding whether beta topics can ship:
 
 ## Plants / Nature
 
-Recommendation: keep as beta/optional unless the picker can clearly label it as
-limited. Do not present it as a fully polished nature or gardening catalogue.
+Recommendation: hide from the strict MVP picker. Reconsider only after coverage
+work moves it out of beta-limited status, or after the product explicitly adds a
+beta/limited topic affordance. Do not present it as a fully polished nature or
+gardening catalogue.
 
 Evidence:
 
@@ -112,9 +118,10 @@ Promotion target:
 
 ## Travel / Places / Transport
 
-Recommendation: beta/optional is reasonable if beta topics are exposed. If the
-first tester experience should be conservative, keep it hidden until a direct
-travel overlay is expanded and broad source-label noise is reduced.
+Recommendation: hide from the strict MVP picker. It is the stronger future beta
+candidate if beta topics are later exposed, but the first tester experience is
+now conservative, so keep it hidden until a direct travel overlay is expanded
+and broad source-label noise is reduced.
 
 Evidence:
 
@@ -182,10 +189,10 @@ Promotion target:
 ## Recommendations
 
 1. Do not classify either beta topic as a selector failure.
-2. Keep both out of the default polished topic set unless the UI has a beta or
-   limited-depth affordance.
-3. If only one beta topic is exposed, expose `travel_places_transport` first.
-   Its first-batch examples are more obviously aligned with user expectations.
+2. Keep both out of the strict MVP topic picker.
+3. If beta topics are introduced later, expose `travel_places_transport` before
+   `plants_nature`. Its first-batch examples are more obviously aligned with
+   user expectations.
 4. Do not expose `plants_nature` as an ordinary topic until it has at least
    limited-release depth. It is important, but still too shallow for confident
    normal exposure.

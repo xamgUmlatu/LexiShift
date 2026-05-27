@@ -16,6 +16,11 @@ Source-of-truth inputs:
 Ship topic preferences for en-es as an MVP-quality personalization control, not
 as a complete topical vocabulary catalogue.
 
+Product decision: strict MVP only for the first tester-facing picker. Do not
+expose beta topics in the initial topic picker. Keep beta candidates documented
+for follow-up, but ship only the ordinary MVP-visible set until a beta/limited
+UX affordance is intentionally designed.
+
 The selector behavior is coherent enough for MVP. The current blocker is not
 the admission algorithm. The remaining risk is topic inventory quality: some
 topics have shallow difficulty depth, clumpy examples, or source gaps. UX copy
@@ -48,17 +53,16 @@ with limited-depth wording.
 | `animals` | show | Product-important and user-delight topic; admission calibration matches expected `5/10`; inventory is useful but incomplete. |
 | `food_cooking` | show | Limited-release count; admission calibration matches expected `5/10`; examples may still feel clumpy. |
 
-### Beta Or Optional
+### Exclude From Strict MVP
 
-These can be exposed only if the UX is comfortable labeling them as limited or
-experimental. They should not be used as proof that all topics are equally deep.
-See `srs_beta_topic_deep_dive_en_es.md` for the detailed failure-risk and
-improvement analysis.
+These are not part of the first tester-facing picker. Keep them as documented
+future beta candidates. See `srs_beta_topic_deep_dive_en_es.md` for the
+detailed failure-risk and improvement analysis.
 
 | Topic | Recommendation | Why |
 | --- | --- | --- |
-| `plants_nature` | beta/optional | Product-important, but only one source difficulty band and thin depth. Calibration matches expected `5/10`, so the selector is not the issue. |
-| `travel_places_transport` | beta/optional | Useful topic, but release-readiness marks it beta-limited with only one band and a small runtime overlay. Calibration matches expected `5/10`. |
+| `plants_nature` | hide from strict MVP | Product-important, but only one source difficulty band and thin depth. Calibration matches expected `5/10`, so the selector is not the issue. |
+| `travel_places_transport` | hide from strict MVP | Useful future beta candidate, but release-readiness marks it beta-limited with only one band and a small runtime overlay. Calibration matches expected `5/10`. |
 
 ### Keep Hidden
 
@@ -106,8 +110,8 @@ Before external testers evaluate this flow:
 
 1. Use the local admission lab to manually inspect the visible topics at a few
    proficiency values.
-2. Confirm the topic picker can visually distinguish ordinary topics from
-   beta/optional topics if beta topics are exposed.
+2. Confirm the first topic picker includes only the ordinary MVP-visible topic
+   set and does not expose beta topics.
 3. Keep register/style controls out of the ordinary topic list unless a
    separate UX section is implemented.
 4. Treat any complaint about "not enough topic words" as a coverage issue first

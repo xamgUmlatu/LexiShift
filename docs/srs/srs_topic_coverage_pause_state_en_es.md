@@ -18,6 +18,11 @@ admission concept, but it is not comprehensive content coverage. We should not
 continue polishing individual topic inventories until higher-priority product
 work is handled.
 
+Current product decision: strict MVP only. The first tester-facing topic picker
+should exclude beta topics (`plants_nature` and `travel_places_transport`) until
+we intentionally add a beta/limited topic affordance or improve their coverage
+enough for ordinary visibility.
+
 The key product conclusion is:
 
 - topic preference strength can visibly move matching words in admission
@@ -95,8 +100,12 @@ After adding the Wikidata overlay:
 Interpretation:
 
 - `animals` is acceptable for MVP lab validation with limited-depth copy.
-- `plants_nature` is usable only as beta/limited if exposed; it still has thin
+- `plants_nature` remains hidden for the strict MVP; it is usable only as
+  beta/limited if a future beta affordance is added, because it still has thin
   depth and only one source difficulty band.
+- `travel_places_transport` remains hidden for the strict MVP; it is the safer
+  future beta candidate, but it still has shallow depth and broad-label
+  precision risk.
 - `food_cooking` is acceptable for MVP lab validation, but still clumpy and
   sparse compared with an ideal user-delight topic.
 - `anime_manga_pop_culture` and `hobbies_crafts` remain hidden/source-blocked.
