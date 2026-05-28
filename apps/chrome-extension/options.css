@@ -1011,7 +1011,30 @@ header p {
 }
 
 .srs-saved-setting {
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: -2px 0 0;
+  color: #5f594f;
+  font-size: 13px;
+}
+
+.srs-saved-setting output {
+  font-weight: 700;
+  color: #3f5b45;
+}
+
+.srs-saved-setting button {
+  padding: 4px 9px;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.srs-auto-refresh-settings h4 {
+  margin: 0 0 10px;
+  color: #3a372f;
+  font-size: 14px;
 }
 
 .srs-toggle-grid {

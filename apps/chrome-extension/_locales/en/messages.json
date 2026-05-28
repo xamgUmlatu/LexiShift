@@ -236,6 +236,12 @@
   "label_srs_proficiency_estimate": {
     "message": "Proficiency estimate"
   },
+  "label_srs_proficiency_previous": {
+    "message": "Previous setting:"
+  },
+  "button_srs_proficiency_restore": {
+    "message": "Restore"
+  },
   "hint_srs_proficiency_estimate": {
     "message": "Drag toward the level you want new SRS words to fit."
   },
@@ -415,9 +421,6 @@
   },
   "summary_srs_story_advanced": {
     "message": "Advanced"
-  },
-  "hint_srs_story_advanced": {
-    "message": "Timing and reset controls for this story."
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS runtime diagnostics"

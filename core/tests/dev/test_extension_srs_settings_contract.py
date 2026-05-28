@@ -122,7 +122,8 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             r'[^>]*data-srs-has-value="false"',
         )
         self.assertIn('id="srs-proficiency-estimate-value"', html)
-        self.assertNotIn('id="srs-proficiency-estimate-saved"', html)
+        self.assertIn('id="srs-proficiency-estimate-saved"', html)
+        self.assertIn('id="srs-proficiency-estimate-restore"', html)
         self.assertIn('id="srs-save-preferences"', html)
         self.assertIn('id="srs-preferences-save-status"', html)
         self.assertIn('data-i18n="hint_srs_max_active"', html)
@@ -199,6 +200,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         )
         self.assertNotIn('data-i18n="summary_srs_story_settings"', current_card_markup)
         self.assertNotIn('data-i18n="hint_srs_story_settings"', current_card_markup)
+        self.assertNotIn('data-i18n="hint_srs_story_advanced"', current_card_markup)
         self.assertNotIn('id="srs-rebalance-preview"', current_card_markup)
         self.assertNotIn('id="srs-rebalance-apply"', current_card_markup)
         self.assertNotIn('id="srs-refresh-set"', current_card_markup)
@@ -206,7 +208,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             html,
             r'(?s)<details class="advanced srs-maintenance-tools srs-story-advanced-tools">'
             r'.*?data-i18n="summary_srs_story_advanced"'
+            r'.*?<section class="srs-auto-refresh-settings"'
             r'.*?data-i18n="summary_srs_auto_refresh"',
+        )
+        self.assertNotRegex(
+            current_card_markup,
+            r'<details class="advanced srs-auto-refresh-settings"',
         )
         self.assertRegex(
             html,
@@ -224,6 +231,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn(".srs-curtain-summary", css)
         self.assertIn(".srs-curtain-action", css)
         self.assertIn(".srs-range-field", css)
+        self.assertIn(".srs-saved-setting", css)
         self.assertIn(".srs-preview:empty", css)
         self.assertIn(".srs-preview:not(:empty)", css)
 
@@ -1114,6 +1122,114 @@ assert.equal(foodChip.attributes["aria-pressed"], "false");
   topicInput.listeners.input();
   assert.equal(animalsChip.attributes["aria-pressed"], "true");
   assert.equal(foodChip.attributes["aria-pressed"], "true");
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_proficiency_previous_setting_restore_is_draft_until_save(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(SRS_BINDINGS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const bind = context.LexiShift.optionsEventSrsBindings.bind;
+const savedValues = [];
+
+function makeElement(value = "") {{
+  return {{
+    value,
+    textContent: "",
+    disabled: false,
+    dataset: {{}},
+    listeners: {{}},
+    asyncListeners: {{}},
+    classList: {{
+      toggle() {{}}
+    }},
+    addEventListener(eventName, handler) {{
+      this.listeners[eventName] = handler;
+    }}
+  }};
+}}
+
+const proficiencyInput = makeElement("80");
+proficiencyInput.dataset.srsHasValue = "true";
+const currentOutput = makeElement();
+const previousOutput = makeElement();
+previousOutput.dataset.srsSavedHasValue = "true";
+previousOutput.dataset.srsSavedValue = "25";
+const restoreButton = makeElement();
+const saveButton = makeElement();
+saveButton.disabled = true;
+const saveStatus = makeElement();
+
+bind({{
+  bindAsyncListener: (element, eventName, action) => {{
+    if (!element) {{
+      return;
+    }}
+    element.asyncListeners[eventName] = action;
+  }},
+  saveSrsSettings: async () => {{
+    savedValues.push(proficiencyInput.value);
+  }},
+  saveSrsProfileId: async () => {{}},
+  refreshSrsProfiles: async () => {{}},
+  helperActionsController: {{}},
+  srsActionsController: {{
+    initializeSet: async () => {{}},
+    previewAdmission: async () => {{}},
+    previewRebalance: async () => {{}},
+    applyRebalance: async () => {{}},
+    refreshSetNow: async () => {{}},
+    runRuntimeDiagnostics: async () => {{}},
+    previewSampledRulegen: async () => {{}},
+    resetSrsData: async () => {{}}
+  }},
+  elements: {{
+    srsProficiencyEstimateInput: proficiencyInput,
+    srsProficiencyEstimateValueOutput: currentOutput,
+    srsProficiencyEstimateSavedOutput: previousOutput,
+    srsProficiencyEstimateRestoreButton: restoreButton,
+    srsSavePreferencesButton: saveButton,
+    srsPreferencesSaveStatusOutput: saveStatus
+  }}
+}});
+
+assert.equal(currentOutput.textContent, "80%");
+assert.equal(saveButton.disabled, true);
+
+(async () => {{
+  await restoreButton.asyncListeners.click();
+  assert.equal(proficiencyInput.value, "25");
+  assert.equal(currentOutput.textContent, "25%");
+  assert.equal(saveButton.disabled, false);
+  assert.equal(saveStatus.textContent, "Unsaved changes.");
+  assert.deepEqual(savedValues, []);
+
+  await saveButton.asyncListeners.click();
+  assert.deepEqual(savedValues, ["25"]);
+  assert.equal(previousOutput.textContent, "25%");
+  assert.equal(previousOutput.dataset.srsSavedValue, "25");
+  assert.equal(saveButton.disabled, true);
+  assert.equal(saveStatus.textContent, "Preferences saved.");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

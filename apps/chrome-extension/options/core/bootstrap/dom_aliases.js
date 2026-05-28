@@ -54,6 +54,8 @@
       srsTopicInterestChipButtons: source.srsTopicInterestChipButtons || [],
       srsProficiencyEstimateInput: source.srsProficiencyEstimate || null,
       srsProficiencyEstimateValueOutput: source.srsProficiencyEstimateValue || null,
+      srsProficiencyEstimateSavedOutput: source.srsProficiencyEstimateSaved || null,
+      srsProficiencyEstimateRestoreButton: source.srsProficiencyEstimateRestore || null,
       srsChallengeTargetInput: source.srsChallengeTarget || null,
       srsSavePreferencesButton: source.srsSavePreferences || null,
       srsPreferencesSaveStatusOutput: source.srsPreferencesSaveStatus || null,

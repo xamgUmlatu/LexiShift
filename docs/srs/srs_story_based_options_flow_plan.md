@@ -18,10 +18,12 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   directly after sampling;
 - display/feedback controls sit in the normal expanded story surface after the
   dashboard curtain;
-- the collapsed `Advanced` section contains new-word timing thresholds and
-  reset only;
+- the collapsed `Advanced` section contains same-level new-word timing
+  thresholds and reset only;
 - active-story new-word preference edits are draft changes until the learner
   presses `Save preferences`;
+- the active-story proficiency slider shows its previous saved setting and has a
+  restore action;
 - the start-new-story block opens a guided modal for language/profile choice,
   proficiency, topics, starting size, sampling, and initialization;
 - modal sampling and initialization copy the visible modal values into the
@@ -343,6 +345,8 @@ Before this UX is considered beta-ready:
 - existing SRS data appears as one or more story blocks;
 - sampling and dashboard are adjacent and collapsed by default;
 - changed new-word preferences have an explicit save point;
+- proficiency edits show the previous saved setting and can be restored before
+  saving;
 - display/feedback controls are reachable without being buried in Advanced;
 - Advanced contains timing thresholds and reset, not routine/manual
   active-word operation buttons;

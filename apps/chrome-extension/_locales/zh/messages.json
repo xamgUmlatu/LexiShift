@@ -236,6 +236,12 @@
   "label_srs_proficiency_estimate": {
     "message": "熟练度估计"
   },
+  "label_srs_proficiency_previous": {
+    "message": "上一次设置："
+  },
+  "button_srs_proficiency_restore": {
+    "message": "恢复"
+  },
   "hint_srs_proficiency_estimate": {
     "message": "将滑块拖到你希望新 SRS 词匹配的水平。"
   },
@@ -415,9 +421,6 @@
   },
   "summary_srs_story_advanced": {
     "message": "高级"
-  },
-  "hint_srs_story_advanced": {
-    "message": "此故事的时间和重置控制。"
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS 运行时诊断"

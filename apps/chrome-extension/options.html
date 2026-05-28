@@ -225,6 +225,18 @@
                       value="50"
                       data-srs-has-value="false"
                     />
+                    <div class="srs-saved-setting">
+                      <span>
+                        <span data-i18n="label_srs_proficiency_previous">Previous setting:</span>
+                        <output id="srs-proficiency-estimate-saved" for="srs-proficiency-estimate">Not set</output>
+                      </span>
+                      <button
+                        id="srs-proficiency-estimate-restore"
+                        type="button"
+                        data-i18n="button_srs_proficiency_restore"
+                        disabled
+                      >Restore</button>
+                    </div>
                   </div>
                   <details class="advanced srs-advanced-challenge" hidden>
                     <summary data-i18n="summary_srs_challenge_tuning">Advanced challenge tuning</summary>
@@ -372,11 +384,8 @@
           </section>
           <details class="advanced srs-maintenance-tools srs-story-advanced-tools">
             <summary data-i18n="summary_srs_story_advanced">Advanced</summary>
-            <p class="hint" data-i18n="hint_srs_story_advanced">
-              Timing and reset controls for this story.
-            </p>
-            <details class="advanced srs-auto-refresh-settings">
-              <summary data-i18n="summary_srs_auto_refresh">When new words are added</summary>
+            <section class="srs-auto-refresh-settings" aria-labelledby="srs-auto-refresh-settings-heading">
+              <h4 id="srs-auto-refresh-settings-heading" data-i18n="summary_srs_auto_refresh">When new words are added</h4>
               <div class="srs-field-grid">
                 <div class="field-row">
                   <label for="srs-auto-refresh-min-feedback" data-i18n="label_srs_auto_refresh_min_feedback">Minimum feedback events</label>
@@ -398,7 +407,7 @@
               <p class="hint" data-i18n="hint_srs_auto_refresh">
                 The helper checks for new words only after enough feedback; capacity, due pressure, and retention still decide whether anything is added.
               </p>
-            </details>
+            </section>
             <div class="actions srs-danger-actions">
               <button id="srs-reset" class="danger-button" data-i18n="button_srs_reset">Reset SRS data</button>
             </div>

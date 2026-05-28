@@ -236,6 +236,12 @@
   "label_srs_proficiency_estimate": {
     "message": "Kompetenzeinschätzung"
   },
+  "label_srs_proficiency_previous": {
+    "message": "Vorherige Einstellung:"
+  },
+  "button_srs_proficiency_restore": {
+    "message": "Wiederherstellen"
+  },
   "hint_srs_proficiency_estimate": {
     "message": "Ziehe den Regler zu dem Niveau, zu dem neue SRS-Wörter passen sollen."
   },
@@ -415,9 +421,6 @@
   },
   "summary_srs_story_advanced": {
     "message": "Erweitert"
-  },
-  "hint_srs_story_advanced": {
-    "message": "Zeit- und Zurücksetzungsoptionen für diese Story."
   },
   "button_srs_runtime_diagnostics": {
     "message": "SRS-Laufzeitdiagnose"

@@ -35,7 +35,7 @@ class UIManager {
       "profile-card-theme-reset",
       "srs-bootstrap-top-n", "srs-initial-active-count",
       "srs-topic-interests", "srs-proficiency-estimate", "srs-challenge-target",
-      "srs-proficiency-estimate-value",
+      "srs-proficiency-estimate-value", "srs-proficiency-estimate-saved", "srs-proficiency-estimate-restore",
       "srs-save-preferences", "srs-preferences-save-status",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-semantic-admission-status", "srs-semantic-admission-status-detail",
@@ -144,11 +144,17 @@ class UIManager {
 
   updateSrsProficiencyDisplays(value, hasValue) {
     const label = this.formatSrsProficiencyLabel(value, hasValue);
+    const savedValue = hasValue ? String(Math.round(Math.min(100, Math.max(0, Number(value))))) : "";
     if (this.dom.srsProficiencyEstimateValue) {
       this.dom.srsProficiencyEstimateValue.textContent = label;
     }
     if (this.dom.srsProficiencyEstimateSaved) {
       this.dom.srsProficiencyEstimateSaved.textContent = label;
+      this.dom.srsProficiencyEstimateSaved.dataset.srsSavedHasValue = hasValue ? "true" : "false";
+      this.dom.srsProficiencyEstimateSaved.dataset.srsSavedValue = savedValue;
+    }
+    if (this.dom.srsProficiencyEstimateRestore) {
+      this.dom.srsProficiencyEstimateRestore.disabled = !hasValue;
     }
     if (this.dom.srsStoryFlowProficiencyEstimateValue) {
       this.dom.srsStoryFlowProficiencyEstimateValue.textContent = label;

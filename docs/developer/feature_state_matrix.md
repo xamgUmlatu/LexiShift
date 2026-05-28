@@ -1771,15 +1771,16 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` active story preference-save,
-  section-order, and Advanced cleanup keeps the
+- Last documented checkpoint: `2026-05-28` active story preference-save/restore,
+  flattened Advanced cleanup, and section-order polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
   clearer subsections without repeated explanatory copy or a redundant heading,
   topic controls render
   as a contained probability-priority chip panel, the proficiency estimate is a
-  slider that preserves the unset stored state until the user changes it,
+  slider that preserves the unset stored state until the user changes it and
+  shows the previous saved value with a restore action,
   active-size copy now uses learner-facing practice wording, active-story
   candidate search depth is hidden as a backing control while the setup flow
   still keeps it under advanced starting-size controls,
@@ -1792,9 +1793,9 @@ Use this file when:
   helper/semantic technical status is not shown inside the active story surface,
   empty status panels appear only after content is written,
   display/feedback controls stay in the normal story surface, the collapsed
-  `Advanced` section contains only user-tunable new-word timing thresholds plus
-  reset, manual active-word update/learning-word refresh actions are no longer
-  shown in the ordinary story surface, and the
+  `Advanced` section contains only same-level user-tunable new-word timing
+  thresholds plus reset, manual active-word update/learning-word refresh actions
+  are no longer shown in the ordinary story surface, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
@@ -1803,6 +1804,7 @@ Use this file when:
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
   polished dashboard/sampling/display-feedback/Advanced markup and ordering,
+  previous-proficiency restore binding,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, switch-styled visible toggles, hidden
@@ -1830,9 +1832,10 @@ Use this file when:
   - Free-form advanced tags stay present in the DOM for compatibility but hidden
     from the main MVP surface.
   - The proficiency estimate is presented as a slider with a current value and an
-    explicit Save preferences action; if no stored estimate exists, the slider
-    remains visually neutral and the runtime save/preview path treats it as unset
-    until the user moves it.
+    explicit Save preferences action; the saved value appears as a Previous
+    setting row with a restore action, and if no stored estimate exists, the
+    slider remains visually neutral while the runtime save/preview path treats it
+    as unset until the user moves it.
   - The active story surface exposes a learner-facing active-practice size
     control by default. Candidate search depth remains a hidden backing value
     for the current controller path and is only visible in the new-story setup
@@ -1852,8 +1855,9 @@ Use this file when:
     buttons, manual-replacement feedback buttons, automatic new-word addition
     after feedback, and sound, remain visible in the active story after the
     dashboard curtain.
-  - The collapsed active-story `Advanced` section exposes only new-word timing
-    thresholds and reset. Active-word update preview/apply and manual
+  - The collapsed active-story `Advanced` section exposes new-word timing
+    thresholds as same-level controls, followed by reset. Active-word update
+    preview/apply and manual
     learning-word refresh remain backend/dev workflows, but they are not
     promoted in the ordinary learner Options surface.
   - Helper-backed initialize/refresh status output stays hidden until a message

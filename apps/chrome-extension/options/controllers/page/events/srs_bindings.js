@@ -35,6 +35,8 @@
       : [];
     const srsProficiencyEstimateInput = elements.srsProficiencyEstimateInput || null;
     const srsProficiencyEstimateValueOutput = elements.srsProficiencyEstimateValueOutput || null;
+    const srsProficiencyEstimateSavedOutput = elements.srsProficiencyEstimateSavedOutput || null;
+    const srsProficiencyEstimateRestoreButton = elements.srsProficiencyEstimateRestoreButton || null;
     const srsChallengeTargetInput = elements.srsChallengeTargetInput || null;
     const srsSavePreferencesButton = elements.srsSavePreferencesButton || null;
     const srsPreferencesSaveStatusOutput = elements.srsPreferencesSaveStatusOutput || null;
@@ -188,6 +190,42 @@
       }
     }
 
+    function updateSavedProficiencyDisplayFromCurrent() {
+      if (!srsProficiencyEstimateInput || !srsProficiencyEstimateSavedOutput) {
+        return;
+      }
+      const dataset = ensureDataset(srsProficiencyEstimateInput);
+      const hasValue = dataset.srsHasValue !== "false";
+      const text = formatProficiencyValue(srsProficiencyEstimateInput.value, hasValue);
+      const savedDataset = ensureDataset(srsProficiencyEstimateSavedOutput);
+      srsProficiencyEstimateSavedOutput.textContent = text;
+      savedDataset.srsSavedHasValue = hasValue ? "true" : "false";
+      savedDataset.srsSavedValue = hasValue
+        ? String(Math.round(Math.min(100, Math.max(0, Number(srsProficiencyEstimateInput.value)))))
+        : "";
+      if (srsProficiencyEstimateRestoreButton) {
+        srsProficiencyEstimateRestoreButton.disabled = !hasValue;
+      }
+    }
+
+    function restoreSavedProficiencyDisplay() {
+      if (!srsProficiencyEstimateInput || !srsProficiencyEstimateSavedOutput) {
+        return;
+      }
+      const savedDataset = ensureDataset(srsProficiencyEstimateSavedOutput);
+      if (savedDataset.srsSavedHasValue === "false") {
+        return;
+      }
+      const savedValue = Number(savedDataset.srsSavedValue);
+      if (!Number.isFinite(savedValue)) {
+        return;
+      }
+      srsProficiencyEstimateInput.value = String(Math.round(Math.min(100, Math.max(0, savedValue))));
+      ensureDataset(srsProficiencyEstimateInput).srsHasValue = "true";
+      updateProficiencyDisplay(false);
+      markSrsPreferencesDirty();
+    }
+
     function bindTopicInterestChip(button) {
       if (!button || !srsTopicInterestsInput) {
         return;
@@ -245,6 +283,13 @@
     }
     updateProficiencyDisplay(false);
     setSrsPreferenceDirty(false);
+    bindAsyncListener(srsProficiencyEstimateRestoreButton, "click", () => {
+      restoreSavedProficiencyDisplay();
+      return Promise.resolve();
+    }, {
+      fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+      logMessage: "SRS proficiency restore failed."
+    });
     bindSrsPreferenceDraftChange(srsChallengeTargetInput);
     bindSrsSettingsChange(srsSoundInput);
     bindSrsSettingsChange(srsHighlightInput, () => {
@@ -273,6 +318,7 @@
     bindAsyncListener(srsSavePreferencesButton, "click", () =>
       Promise.resolve(saveSrsSettings()).then(() => {
         updateProficiencyDisplay(false);
+        updateSavedProficiencyDisplayFromCurrent();
         setSrsPreferenceDirty(false);
       }), {
       fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
