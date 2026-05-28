@@ -1771,10 +1771,10 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` visible SRS enable-switch removal,
-  story-scoped delete-story copy, active story preference-save/restore,
-  flattened Advanced cleanup, theme-aware SRS story surfaces, and section-order
-  polish extend the
+- Last documented checkpoint: `2026-05-28` generic installed-data hint removal,
+  visible SRS enable-switch removal, story-scoped delete-story copy, active
+  story preference-save/restore, flattened Advanced cleanup, theme-aware SRS
+  story surfaces, and section-order polish extend the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
@@ -1797,9 +1797,10 @@ Use this file when:
   display/feedback controls stay in the normal story surface, the collapsed
   `Advanced` section contains only same-level user-tunable new-word timing
   thresholds plus the story-scoped delete action, the visible SRS enable switch
-  is removed because the guided initialization flow is the learner-facing enable
-  action, manual active-word update/learning-word refresh actions are no longer
-  shown in the ordinary story surface, SRS story cards, topic
+  and generic installed-data hint are removed because the guided initialization
+  flow is the learner-facing enable/readiness path, manual active-word
+  update/learning-word refresh actions are no longer shown in the ordinary story
+  surface, SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that persists visible
@@ -1814,7 +1815,8 @@ Use this file when:
   SRS story theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
-  lazy rulegen status output, hidden SRS enable backing control,
+  lazy rulegen status output, hidden SRS enable backing control, removed
+  generic installed-data copy,
   story-scoped delete-story copy, switch-styled visible toggles, hidden
   experimental topic tags, hidden advanced challenge tuning, proficiency slider
   markup, and active-story technical-status removal; extension structure/i18n
@@ -1832,6 +1834,9 @@ Use this file when:
     variable path instead of fixed beige surfaces.
   - The active story does not repeat a generic explanatory sentence above its
     controls; the summary row carries the pair identity and active badge.
+  - The main SRS shell does not show generic installed-data copy; language-data
+    readiness messaging should appear in setup, diagnostics, and actionable
+    error/status states.
   - Source/target language and legacy initialize controls are retained only as
     hidden backing controls for the current controller path; users change
     profile/pair through the guided new-story modal instead of editing an

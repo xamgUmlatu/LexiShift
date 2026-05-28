@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS 练习"
   },
-  "hint_srs_dataset": {
-    "message": "SRS 故事使用已安装的语言数据。"
-  },
   "badge_srs_active_story": {
     "message": "活跃"
   },

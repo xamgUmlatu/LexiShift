@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS練習"
   },
-  "hint_srs_dataset": {
-    "message": "SRSストーリーにはインストール済みの言語データを使用します。"
-  },
   "badge_srs_active_story": {
     "message": "アクティブ"
   },

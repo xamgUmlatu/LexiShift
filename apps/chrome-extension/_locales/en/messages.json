@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS Practice"
   },
-  "hint_srs_dataset": {
-    "message": "Uses installed language data for SRS stories."
-  },
   "badge_srs_active_story": {
     "message": "Active"
   },

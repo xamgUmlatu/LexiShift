@@ -82,6 +82,8 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn("Admission preferences", html)
         self.assertNotIn("New-word preferences", html)
         self.assertNotIn("Next words", html)
+        self.assertNotIn("Uses installed language data for SRS stories.", html)
+        self.assertNotIn('data-i18n="hint_srs_dataset"', html)
         self.assertNotIn("Preview rebalance to current preferences", html)
         self.assertNotIn("heading_srs_current_story", html)
         self.assertNotIn("badge_srs_selected_story", html)

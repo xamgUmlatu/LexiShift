@@ -24,6 +24,8 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   same card-theme CSS-variable path as the rest of the Options page;
 - active-story new-word preference edits are draft changes until the learner
   presses `Save preferences`;
+- the main SRS shell does not show generic installed-data copy; language-data
+  readiness belongs in setup, diagnostics, or actionable error/status states;
 - there is no visible SRS enable switch in the ordinary story surface; starting
   a story through initialization is the learner-facing enable action, while the
   legacy `srs-enabled` input remains hidden as a controller backing field;

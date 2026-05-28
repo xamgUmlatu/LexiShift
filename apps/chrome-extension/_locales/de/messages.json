@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS-Training"
   },
-  "hint_srs_dataset": {
-    "message": "Verwendet installierte Sprachdaten für SRS-Storys."
-  },
   "badge_srs_active_story": {
     "message": "Aktiv"
   },
