@@ -1220,6 +1220,40 @@ header p {
   margin-top: 10px;
 }
 
+.srs-story-flow-resource-check {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+  border: 1px solid rgba(180, 35, 24, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 245, 242, 0.86);
+  padding: 10px;
+}
+
+.srs-story-flow-resource-copy {
+  display: grid;
+  gap: 5px;
+}
+
+.srs-story-flow-resource-check .hint {
+  margin: 0;
+  color: #6e3027;
+}
+
+.srs-story-flow-resource-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 18px;
+  color: #51332e;
+  font-size: 13px;
+}
+
+.srs-story-flow-resource-actions {
+  flex-wrap: wrap;
+  margin: 0;
+}
+
 .srs-story-flow-preview-output {
   margin-top: 10px;
 }

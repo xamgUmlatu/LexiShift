@@ -25,6 +25,20 @@
       output.textContent = text;
     }
 
+    function dispatchPreflightBlocked(detail) {
+      if (
+        !globalThis.document
+        || typeof globalThis.document.dispatchEvent !== "function"
+        || typeof globalThis.CustomEvent !== "function"
+      ) {
+        return;
+      }
+      globalThis.document.dispatchEvent(new globalThis.CustomEvent(
+        "lexishift:srs-preflight-blocked",
+        { detail }
+      ));
+    }
+
     async function markRulesetUpdatedNow() {
       await new Promise((resolve) => {
         chrome.storage.local.set(
@@ -71,6 +85,13 @@
         actionLabel,
         pair,
         profileId,
+        helperData: helperDataForOutput
+      });
+      dispatchPreflightBlocked({
+        actionLabel,
+        pair,
+        profileId,
+        missingInputs,
         helperData: helperDataForOutput
       });
       setOutputTextOverride(lines.join("\n"));

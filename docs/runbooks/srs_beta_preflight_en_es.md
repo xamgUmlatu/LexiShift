@@ -1,7 +1,7 @@
 # en-es SRS Beta Preflight Runbook
 
 Status: active beta-preflight runbook
-Last updated: 2026-05-27
+Last updated: 2026-05-28
 Scope: en-es SRS preference beta readiness
 Source of truth:
 
@@ -53,7 +53,7 @@ Run these on a throwaway beta profile. Do not use a real learner profile.
 | Check | Required result |
 | --- | --- |
 | Fresh install/helper connection | Options can refresh profiles and show understandable helper/profile state. |
-| Data-pack readiness | en-es frequency/dictionary/topic resources resolve, or the missing-pack error is clear enough for a tester. |
+| Data-pack readiness | en-es frequency/dictionary/topic resources resolve. If frequency/dictionary data is missing, the guided SRS setup modal names the missing resources, opens LexiShift GUI Resource settings through the helper, and retrying after install uses the same setup flow. |
 | Strict topic picker | The ordinary picker shows only the strict MVP topics and excludes Plants/Nature and Travel. |
 | Fresh SRS initialize | A new profile can initialize SRS and populate Learning words. |
 | Dashboard visibility | Learning words shows active/queued/due/removed counts, rule summaries, and advanced details when toggled. |

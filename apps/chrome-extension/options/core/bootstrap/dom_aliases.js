@@ -104,6 +104,12 @@
       srsStoryFlowSampleButton: source.srsStoryFlowSample || null,
       srsStoryFlowInitializeButton: source.srsStoryFlowInitialize || null,
       srsStoryFlowPreviewOutput: source.srsStoryFlowPreviewOutput || null,
+      srsStoryFlowResourceCheck: source.srsStoryFlowResourceCheck || null,
+      srsStoryFlowResourceMessage: source.srsStoryFlowResourceMessage || null,
+      srsStoryFlowResourceList: source.srsStoryFlowResourceList || null,
+      srsStoryFlowOpenResourceSettingsButton:
+        source.srsStoryFlowOpenResourceSettings || null,
+      srsStoryFlowRetryResourcesButton: source.srsStoryFlowRetryResources || null,
       debugSemanticPackInventoryPathInput: source.debugSemanticPackInventoryPath || null,
       debugSemanticPackIdInput: source.debugSemanticPackId || null,
       debugSemanticPackDefaultDataRootInput: source.debugSemanticPackDefaultDataRoot || null,

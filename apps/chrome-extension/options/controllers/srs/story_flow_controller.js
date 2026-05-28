@@ -1,55 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-
-  function normalizeInterestList(value) {
-    const source = Array.isArray(value)
-      ? value
-      : String(value || "").split(",");
-    const seen = new Set();
-    return source
-      .map((entry) => String(entry || "").trim())
-      .filter((entry) => {
-        if (!entry || seen.has(entry)) {
-          return false;
-        }
-        seen.add(entry);
-        return true;
-      });
-  }
-
-  function setSelectValue(select, value, fallbackText) {
-    if (!select) {
-      return;
-    }
-    const nextValue = String(value || "").trim();
-    if (!nextValue) {
-      return;
-    }
-    const options = Array.from(select.options || []);
-    if (!options.some((option) => option.value === nextValue)) {
-      const option = globalThis.document.createElement("option");
-      option.value = nextValue;
-      option.textContent = fallbackText || nextValue;
-      select.appendChild(option);
-    }
-    select.value = nextValue;
-  }
-
-  function copySelectOptions(source, target, fallbackValue) {
-    if (!target) {
-      return;
-    }
-    target.innerHTML = "";
-    const options = source ? Array.from(source.options || []) : [];
-    options.forEach((option) => {
-      target.appendChild(option.cloneNode(true));
-    });
-    if (!target.options.length && fallbackValue) {
-      setSelectValue(target, fallbackValue, fallbackValue);
-    }
-    const nextValue = source && source.value ? source.value : fallbackValue;
-    setSelectValue(target, nextValue, nextValue);
-  }
+  const { copySelectOptions, formatProficiencyValue, hasExplicitProficiencyValue, normalizeInterestList, setProficiencyInput, setSelectValue, syncTopicChips } = root.optionsSrsStoryFlowUtils;
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -67,6 +18,9 @@
       : (() => Promise.resolve());
     const srsActionsController = opts.srsActionsController && typeof opts.srsActionsController === "object"
       ? opts.srsActionsController
+      : null;
+    const helperManager = opts.helperManager && typeof opts.helperManager === "object"
+      ? opts.helperManager
       : null;
     const colors = opts.colors && typeof opts.colors === "object"
       ? opts.colors
@@ -95,6 +49,8 @@
     const sampleButton = elements.sampleButton || null;
     const initializeButton = elements.initializeButton || null;
     const previewOutput = elements.previewOutput || null;
+    const resourceOpenButton = elements.resourceOpenButton || null;
+    const resourceRetryButton = elements.resourceRetryButton || null;
     const mainSourceLanguageInput = elements.mainSourceLanguageInput || null;
     const mainTargetLanguageInput = elements.mainTargetLanguageInput || null;
     const mainProfileIdInput = elements.mainProfileIdInput || null;
@@ -122,17 +78,33 @@
       previewOutput.style.color = color || "";
     }
 
-    const hasExplicitProficiencyValue = (input) => !(input && input.type === "range" && (input.dataset || {}).srsHasValue === "false");
+    function currentPair() {
+      const source = modalSourceLanguageInput ? String(modalSourceLanguageInput.value || "").trim() : "en";
+      const target = modalTargetLanguageInput ? String(modalTargetLanguageInput.value || "").trim() : "es";
+      return `${source || "en"}-${target || "es"}`;
+    }
 
-    function formatProficiencyValue(value, hasValue) {
-      if (!hasValue) {
-        return "Not set";
-      }
-      const numeric = Number(value);
-      if (!Number.isFinite(numeric)) {
-        return "Not set";
-      }
-      return `${Math.round(Math.min(100, Math.max(0, numeric)))}%`;
+    const resourceCheck = root.optionsSrsStoryFlowResourceCheck.createController({
+      translate,
+      helperManager,
+      elements: {
+        resourceCheckRoot: elements.resourceCheckRoot,
+        resourceMessage: elements.resourceMessage,
+        resourceList: elements.resourceList,
+        resourceOpenButton: elements.resourceOpenButton
+      },
+      getCurrentPair: currentPair,
+      getProfileId: () => readVisibleValues().profileId,
+      setPreviewText,
+      colors
+    });
+
+    function clearResourceCheck() {
+      resourceCheck.clear();
+    }
+
+    function handleResourcePreflightBlocked(event) {
+      resourceCheck.handlePreflightBlocked(event, isOpen);
     }
 
     function updateModalProficiencyOutput() {
@@ -143,35 +115,6 @@
         modalProficiencyEstimateInput.value,
         hasExplicitProficiencyValue(modalProficiencyEstimateInput)
       );
-    }
-
-    function setProficiencyInput(input, value, hasValue) {
-      if (!input) {
-        return;
-      }
-      if (!input.dataset) {
-        input.dataset = {};
-      }
-      input.value = hasValue ? String(value || "50") : "50";
-      input.dataset.srsHasValue = hasValue ? "true" : "false";
-    }
-
-    function syncTopicChips(buttons, interests) {
-      const selected = new Set(normalizeInterestList(interests));
-      buttons.forEach((button) => {
-        const topic = String(
-          button.getAttribute("data-srs-story-topic-interest")
-            || button.getAttribute("data-srs-topic-interest")
-            || ""
-        ).trim();
-        const isSelected = Boolean(topic && selected.has(topic));
-        if (button.classList && typeof button.classList.toggle === "function") {
-          button.classList.toggle("is-selected", isSelected);
-        }
-        if (typeof button.setAttribute === "function") {
-          button.setAttribute("aria-pressed", isSelected ? "true" : "false");
-        }
-      });
     }
 
     function setModalInterests(interests) {
@@ -228,6 +171,7 @@
       }
       setModalInterests(mainTopicInterestsInput ? mainTopicInterestsInput.value : "");
       setPreviewText("");
+      clearResourceCheck();
     }
 
     function setOpen(nextOpen) {
@@ -311,11 +255,19 @@
         colors.DEFAULT
       );
       try {
+        clearResourceCheck();
         await persistVisibleSettings();
         if (mainSamplingCurtain) {
           mainSamplingCurtain.open = true;
         }
         await srsActionsController.previewAdmission();
+        if (resourceCheck.latestBlock()) {
+          setPreviewText(
+            translate("status_srs_language_data_check_required", null, "Install the required language data, then retry."),
+            colors.ERROR
+          );
+          return;
+        }
         if (previewOutput && mainAdmissionPreviewOutput) {
           previewOutput.textContent = mainAdmissionPreviewOutput.textContent || "";
           previewOutput.style.color = "";
@@ -342,8 +294,16 @@
         colors.DEFAULT
       );
       try {
+        clearResourceCheck();
         await persistVisibleSettings();
         await srsActionsController.initializeSet();
+        if (resourceCheck.latestBlock()) {
+          setPreviewText(
+            translate("status_srs_language_data_check_required", null, "Install the required language data, then retry."),
+            colors.ERROR
+          );
+          return;
+        }
         if (mainDashboardCurtain) {
           mainDashboardCurtain.open = true;
         }
@@ -358,6 +318,14 @@
       } finally {
         setActionBusy(false);
       }
+    }
+
+    async function openResourceSettings() {
+      await resourceCheck.openSettings();
+    }
+
+    async function retryResourceCheck() {
+      await previewAdmission();
     }
 
     function toggleModalTopic(button) {
@@ -401,6 +369,11 @@
           updateModalProficiencyOutput();
         });
       }
+      [modalSourceLanguageInput, modalTargetLanguageInput, modalProfileIdInput].forEach((input) => {
+        if (input && typeof input.addEventListener === "function") {
+          input.addEventListener("change", clearResourceCheck);
+        }
+      });
       updateModalProficiencyOutput();
       modalTopicInterestChipButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -421,7 +394,25 @@
           });
         });
       }
+      if (resourceOpenButton) {
+        resourceOpenButton.addEventListener("click", () => {
+          openResourceSettings().catch((err) => {
+            log("SRS story setup open resource settings failed.", err);
+          });
+        });
+      }
+      if (resourceRetryButton) {
+        resourceRetryButton.addEventListener("click", () => {
+          retryResourceCheck().catch((err) => {
+            log("SRS story setup retry data check failed.", err);
+          });
+        });
+      }
       if (globalThis.document && typeof globalThis.document.addEventListener === "function") {
+        globalThis.document.addEventListener(
+          "lexishift:srs-preflight-blocked",
+          handleResourcePreflightBlocked
+        );
         globalThis.document.addEventListener("keydown", (event) => {
           if (isOpen && event.key === "Escape") {
             close();
@@ -437,7 +428,10 @@
       persistVisibleSettings,
       previewAdmission,
       initializeStory,
-      readVisibleValues
+      readVisibleValues,
+      handleResourcePreflightBlocked,
+      openResourceSettings,
+      retryResourceCheck
     };
   }
 

@@ -134,6 +134,36 @@
   "hint_srs_story_flow_review": {
     "message": "Sample words until the mix looks right, then initialize the story."
   },
+  "label_srs_language_data": {
+    "message": "Language data"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "Open LexiShift resource settings"
+  },
+  "button_srs_retry_data_check": {
+    "message": "Retry check"
+  },
+  "status_srs_language_data_missing": {
+    "message": "LexiShift needs language data for $1 before it can sample or initialize this story."
+  },
+  "status_srs_language_data_check_required": {
+    "message": "Install the required language data, then retry."
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "Opening LexiShift resource settings…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "After installing the required packs, return here and retry the check."
+  },
+  "label_srs_frequency_data": {
+    "message": "Frequency data"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "Translation dictionary"
+  },
+  "label_srs_jmdict_data": {
+    "message": "JMDict data"
+  },
   "button_srs_story_flow_initialize": {
     "message": "Initialize story"
   },
@@ -393,6 +423,12 @@
     "message": "Opened: $1"
   },
   "status_helper_open_failed": {
+    "message": "Open failed: $1"
+  },
+  "status_helper_open_resource_settings_opened": {
+    "message": "Opened LexiShift resource settings."
+  },
+  "status_helper_open_resource_settings_failed": {
     "message": "Open failed: $1"
   },
   "toggle_exposure_logging": {

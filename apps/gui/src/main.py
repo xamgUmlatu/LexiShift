@@ -22,6 +22,7 @@ from PySide6.QtCore import (
     QSettings,
     QSortFilterProxyModel,
     Qt,
+    QTimer,
 )
 from PySide6.QtGui import QColor, QTextCharFormat, QTextCursor
 from PySide6.QtWidgets import (
@@ -73,7 +74,9 @@ from main_runtime import (
     acquire_singleton_server,
     bind_activation_handler,
     handle_startup_cli_flags,
+    startup_activation_message,
     install_exception_hook,
+    OPEN_RESOURCE_SETTINGS_MESSAGE,
     prime_theme_assets,
     run_helper_daemon_if_requested,
     singleton_socket_name,
@@ -587,10 +590,11 @@ class MainWindow(
             return
         self.state.update_settings(replace(current_settings, synonyms=updated_synonyms))
 
-    def _open_settings(self) -> None:
+    def _open_settings(self, initial_tab: str | None = None) -> None:
         dialog = SettingsDialog(
             app_settings=self.state.settings,
             dataset_settings=self.state.dataset.settings,
+            initial_tab=initial_tab,
             parent=self,
         )
         if dialog.exec() != QDialog.DialogCode.Accepted:
@@ -605,6 +609,9 @@ class MainWindow(
         self._refresh_srs_growth()
         self._refresh_helper_menu_label()
         self._refresh_empty_locale_button_label()
+
+    def _open_settings_resources(self) -> None:
+        self._open_settings(initial_tab="resources")
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
@@ -728,7 +735,8 @@ def main() -> None:
     startup_logger.log("QApplication created")
 
     # Singleton check: ensure only one GUI window runs
-    server = acquire_singleton_server(singleton_socket_name())
+    activation_message = startup_activation_message(sys.argv)
+    server = acquire_singleton_server(singleton_socket_name(), activation_message)
     if server is None:
         sys.exit(0)
     startup_logger.log("single-instance server ready")
@@ -746,6 +754,8 @@ def main() -> None:
     bind_activation_handler(server, window)
 
     window.show()
+    if activation_message == OPEN_RESOURCE_SETTINGS_MESSAGE:
+        QTimer.singleShot(0, window._open_settings_resources)
     startup_logger.log("window shown")
     sys.exit(app.exec())
 

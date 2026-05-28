@@ -134,6 +134,36 @@
   "hint_srs_story_flow_review": {
     "message": "Teste Wörter, bis die Mischung passt, und initialisiere dann die Story."
   },
+  "label_srs_language_data": {
+    "message": "Sprachdaten"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "LexiShift-Ressourceneinstellungen öffnen"
+  },
+  "button_srs_retry_data_check": {
+    "message": "Erneut prüfen"
+  },
+  "status_srs_language_data_missing": {
+    "message": "LexiShift benötigt Sprachdaten für $1, bevor diese Story getestet oder initialisiert werden kann."
+  },
+  "status_srs_language_data_check_required": {
+    "message": "Installiere die erforderlichen Sprachdaten und prüfe erneut."
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "LexiShift-Ressourceneinstellungen werden geöffnet…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "Installiere die erforderlichen Pakete und kehre dann hierher zurück, um erneut zu prüfen."
+  },
+  "label_srs_frequency_data": {
+    "message": "Frequenzdaten"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "Übersetzungswörterbuch"
+  },
+  "label_srs_jmdict_data": {
+    "message": "JMDict-Daten"
+  },
   "button_srs_story_flow_initialize": {
     "message": "Story initialisieren"
   },
@@ -393,6 +423,12 @@
     "message": "Geöffnet: $1"
   },
   "status_helper_open_failed": {
+    "message": "Öffnen fehlgeschlagen: $1"
+  },
+  "status_helper_open_resource_settings_opened": {
+    "message": "LexiShift-Ressourceneinstellungen geöffnet."
+  },
+  "status_helper_open_resource_settings_failed": {
     "message": "Öffnen fehlgeschlagen: $1"
   },
   "toggle_exposure_logging": {

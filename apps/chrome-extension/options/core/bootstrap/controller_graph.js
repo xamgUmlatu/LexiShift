@@ -235,6 +235,7 @@
       saveLanguageSettings: controllerAdapters.saveLanguageSettings,
       saveSrsSettings: controllerAdapters.saveSrsSettings,
       saveSrsProfileId: controllerAdapters.saveSrsProfileId,
+      helperManager,
       srsActionsController,
       log: logOptions,
       colors: ui.COLORS,

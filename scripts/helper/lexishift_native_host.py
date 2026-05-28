@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import struct
+import subprocess
 import sys
 import traceback
 from typing import Any, Dict, Optional
@@ -115,6 +116,110 @@ except Exception as exc:  # noqa: BLE001
 
 PROTOCOL_VERSION = 1
 HELPER_VERSION = "0.1.0"
+OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
+MACOS_MAIN_BUNDLE_ID = "com.lexishift.app"
+MAIN_APP_BUNDLE_NAME = "LexiShift.app"
+MAIN_WINDOWS_DIR_NAME = "LexiShift"
+MAIN_WINDOWS_EXE_NAME = "LexiShift.exe"
+
+
+def _native_host_log_line(message: str) -> None:
+    log_path = _native_host_log_path()
+    if log_path is None:
+        return
+    try:
+        timestamp = datetime.now(timezone.utc).isoformat()
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(f"[{timestamp}] {message}\n")
+    except OSError:
+        return
+
+
+def _resolve_windows_sibling_executable(current_executable: Path) -> Path | None:
+    exe_path = current_executable.resolve()
+    parent = exe_path.parent
+    grandparent = parent.parent
+    candidates = [
+        parent / MAIN_WINDOWS_EXE_NAME,
+        parent / MAIN_WINDOWS_DIR_NAME / MAIN_WINDOWS_EXE_NAME,
+        grandparent / MAIN_WINDOWS_DIR_NAME / MAIN_WINDOWS_EXE_NAME,
+        grandparent / MAIN_WINDOWS_EXE_NAME,
+        *sorted(parent.glob(f"*/{MAIN_WINDOWS_EXE_NAME}")),
+        *sorted(grandparent.glob(f"*/{MAIN_WINDOWS_EXE_NAME}")),
+    ]
+    seen: set[Path] = set()
+    for candidate in candidates:
+        resolved = candidate.resolve()
+        if resolved == exe_path or resolved in seen:
+            continue
+        seen.add(resolved)
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _resolve_macos_bundle_from_host_script() -> Path | None:
+    for parent in SCRIPT_DIR.parents:
+        if parent.suffix == ".app":
+            return parent
+    return None
+
+
+def _resource_settings_launch_command() -> tuple[list[str], str]:
+    env_python = os.environ.get("LEXISHIFT_GUI_PYTHON")
+    env_entry = os.environ.get("LEXISHIFT_GUI_ENTRY")
+    if env_entry:
+        return [
+            env_python or sys.executable,
+            str(Path(env_entry).expanduser()),
+            OPEN_RESOURCE_SETTINGS_FLAG,
+        ], "env_gui_entry"
+
+    dev_entry = PROJECT_ROOT / "apps" / "gui" / "src" / "main.py"
+    if dev_entry.exists():
+        return [sys.executable, str(dev_entry), OPEN_RESOURCE_SETTINGS_FLAG], "dev_gui_entry"
+
+    if getattr(sys, "frozen", False) and sys.platform.startswith("win"):
+        main_executable = _resolve_windows_sibling_executable(Path(sys.executable))
+        if main_executable is not None:
+            return [str(main_executable), OPEN_RESOURCE_SETTINGS_FLAG], "windows_sibling_exe"
+
+    if sys.platform == "darwin":
+        main_bundle = _resolve_macos_bundle_from_host_script()
+        if main_bundle is not None:
+            return [
+                "open",
+                "-n",
+                str(main_bundle),
+                "--args",
+                OPEN_RESOURCE_SETTINGS_FLAG,
+            ], "macos_host_bundle"
+        return [
+            "open",
+            "-n",
+            "-b",
+            MACOS_MAIN_BUNDLE_ID,
+            "--args",
+            OPEN_RESOURCE_SETTINGS_FLAG,
+        ], "macos_bundle_id"
+
+    raise RuntimeError("LexiShift app launch target could not be resolved.")
+
+
+def _open_resource_settings(payload: dict) -> dict:
+    command, launch_mode = _resource_settings_launch_command()
+    env = dict(os.environ)
+    for key in ("_MEIPASS2", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"):
+        env.pop(key, None)
+    subprocess.Popen(command, close_fds=True, env=env)
+    _native_host_log_line(
+        f"opened_resource_settings mode={launch_mode} pair={payload.get('pair', '')!s}"
+    )
+    return {
+        "opened": True,
+        "target": "resource_settings",
+        "launch_mode": launch_mode,
+    }
 
 
 def _read_message() -> Optional[dict]:
@@ -631,6 +736,8 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
     if msg_type == "open_data_dir":
         open_path(paths.data_root)
         return {"opened": str(paths.data_root)}
+    if msg_type == "open_resource_settings":
+        return _open_resource_settings(payload)
     if msg_type == "profiles_get":
         return get_profiles_snapshot(paths)
     if msg_type == "profile_rulesets_get":

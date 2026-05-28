@@ -186,20 +186,29 @@ const profileContext = {{
     trigger: "unit_refresh",
     profileContext
   }});
+  await manager.openResourceSettings("en-es", {{
+    profileId: "alpha profile",
+    missingInputs: [
+      {{ type: "set_source_db", path: "/missing/freq-es-cde.sqlite" }}
+    ]
+  }});
 
   assert.deepEqual(bridgeMessages.map((message) => message.requestType), [
     "srs_initialize",
     "srs_plan_set",
     "srs_preview_admission",
-    "srs_refresh"
+    "srs_refresh",
+    "open_resource_settings"
   ]);
   assert.deepEqual(bridgeMessages.map((message) => message.timeoutMs), [
     30000,
     15000,
     30000,
-    30000
+    30000,
+    4000
   ]);
   assert.deepEqual(nativeRequests.map((entry) => entry.host), [
+    "com.lexishift.helper",
     "com.lexishift.helper",
     "com.lexishift.helper",
     "com.lexishift.helper",
@@ -209,7 +218,8 @@ const profileContext = {{
     "srs_initialize",
     "srs_plan_set",
     "srs_preview_admission",
-    "srs_refresh"
+    "srs_refresh",
+    "open_resource_settings"
   ]);
 
   assert.deepEqual(normalize(nativeRequests[0].request.payload), {{
@@ -264,6 +274,13 @@ const profileContext = {{
     strategy: "profile_growth",
     trigger: "unit_refresh",
     profile_context: profileContext
+  }});
+  assert.deepEqual(normalize(nativeRequests[4].request.payload), {{
+    pair: "en-es",
+    profile_id: "alpha profile",
+    missing_inputs: [
+      {{ type: "set_source_db", path: "/missing/freq-es-cde.sqlite" }}
+    ]
   }});
 }})().catch((error) => {{
   console.error(error);

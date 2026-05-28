@@ -112,6 +112,18 @@ def test_open_settings_persists_resource_links_on_cancel() -> None:
     assert "freq-en-coca" not in synonyms.frequency_pack_paths
 
 
+def test_open_settings_resources_starts_on_resource_tab() -> None:
+    called_kwargs: list[dict] = []
+
+    dummy = SimpleNamespace()
+    dummy._open_settings = lambda **kwargs: called_kwargs.append(kwargs)
+
+    MainWindow._open_settings_resources(dummy)
+
+    assert called_kwargs
+    assert called_kwargs[0]["initial_tab"] == "resources"
+
+
 def test_resolve_frequency_pack_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)

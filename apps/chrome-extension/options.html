@@ -1074,6 +1074,34 @@
               <p class="hint" data-i18n="hint_srs_story_flow_review">
                 Sample words until the mix looks right, then initialize the story.
               </p>
+              <div
+                id="srs-story-flow-resource-check"
+                class="srs-story-flow-resource-check hidden"
+                role="status"
+                aria-live="polite"
+              >
+                <div class="srs-story-flow-resource-copy">
+                  <span class="meta-label" data-i18n="label_srs_language_data">Language data</span>
+                  <p id="srs-story-flow-resource-message" class="hint"></p>
+                  <ul id="srs-story-flow-resource-list" class="srs-story-flow-resource-list"></ul>
+                </div>
+                <div class="actions srs-story-flow-resource-actions">
+                  <button
+                    id="srs-story-flow-open-resource-settings"
+                    type="button"
+                    data-i18n="button_srs_open_resource_settings"
+                  >
+                    Open LexiShift resource settings
+                  </button>
+                  <button
+                    id="srs-story-flow-retry-resources"
+                    type="button"
+                    data-i18n="button_srs_retry_data_check"
+                  >
+                    Retry check
+                  </button>
+                </div>
+              </div>
               <div class="actions srs-story-flow-actions">
                 <button id="srs-story-flow-sample" type="button" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
                 <button id="srs-story-flow-initialize" type="button" data-i18n="button_srs_story_flow_initialize">Initialize story</button>
@@ -1175,6 +1203,8 @@
     <script src="options/controllers/srs/actions/maintenance_workflow.js"></script>
     <script src="options/controllers/srs/actions/workflows.js"></script>
     <script src="options/controllers/srs/actions_controller.js"></script>
+    <script src="options/controllers/srs/story_flow_utils.js"></script>
+    <script src="options/controllers/srs/story_flow_resource_check.js"></script>
     <script src="options/controllers/srs/story_flow_controller.js"></script>
     <script src="options/controllers/rules/profile_rulesets_state.js"></script>
     <script src="options/controllers/rules/profile_rulesets_controller.js"></script>

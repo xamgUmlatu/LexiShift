@@ -27,6 +27,18 @@ def test_settings_has_dedicated_resources_tab() -> None:
     assert tabs.tabText(1) == t("language_packs.title")
 
 
+def test_settings_can_open_directly_to_resources_tab() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+    )
+
+    assert dialog._tabs.currentIndex() == 1
+
+
 def test_settings_app_tab_no_longer_contains_language_pack_panel() -> None:
     _app()
     set_locale("en")

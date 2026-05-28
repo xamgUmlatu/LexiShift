@@ -134,6 +134,36 @@
   "hint_srs_story_flow_review": {
     "message": "先抽样查看词汇组合，满意后再初始化故事。"
   },
+  "label_srs_language_data": {
+    "message": "语言数据"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "打开 LexiShift 资源设置"
+  },
+  "button_srs_retry_data_check": {
+    "message": "重新检查"
+  },
+  "status_srs_language_data_missing": {
+    "message": "LexiShift 需要 $1 的语言数据，之后才能抽样或初始化这个故事。"
+  },
+  "status_srs_language_data_check_required": {
+    "message": "请安装所需语言数据，然后重试。"
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "正在打开 LexiShift 资源设置…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "安装所需包后，回到这里重新检查。"
+  },
+  "label_srs_frequency_data": {
+    "message": "频率数据"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "翻译词典"
+  },
+  "label_srs_jmdict_data": {
+    "message": "JMDict 数据"
+  },
   "button_srs_story_flow_initialize": {
     "message": "初始化故事"
   },
@@ -393,6 +423,12 @@
     "message": "已打开：$1"
   },
   "status_helper_open_failed": {
+    "message": "打开失败：$1"
+  },
+  "status_helper_open_resource_settings_opened": {
+    "message": "已打开 LexiShift 资源设置。"
+  },
+  "status_helper_open_resource_settings_failed": {
     "message": "打开失败：$1"
   },
   "toggle_exposure_logging": {

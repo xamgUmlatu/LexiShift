@@ -1769,12 +1769,14 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified` for the selected-story shell,
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
-  lazy status output, and guided new-story initialization modal; full
-  multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` generic installed-data hint removal,
-  visible SRS enable-switch removal, story-scoped delete-story copy, active
-  story preference-save/restore, flattened Advanced cleanup, theme-aware SRS
-  story surfaces, and section-order polish extend the
+  lazy status output, guided new-story initialization modal, and helper-backed
+  missing-language-data setup recovery; full multi-story enumeration remains
+  `planned`
+- Last documented checkpoint: `2026-05-28` resource-readiness setup recovery,
+  generic installed-data hint removal, visible SRS enable-switch removal,
+  story-scoped delete-story copy, active story preference-save/restore,
+  flattened Advanced cleanup, theme-aware SRS story surfaces, and
+  section-order polish extend the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
@@ -1800,13 +1802,15 @@ Use this file when:
   and generic installed-data hint are removed because the guided initialization
   flow is the learner-facing enable/readiness path, manual active-word
   update/learning-word refresh actions are no longer shown in the ordinary story
-  surface, SRS story cards, topic
+  surface, guided setup now turns missing language-data preflight failures into
+  an inline resource-readiness panel that can open the GUI Resource settings tab
+  through the native helper and retry the same setup check, SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
-- Last verified: `2026-05-28` refreshed active-story preference-save/order extension SRS settings contract covers
+- Last verified: `2026-05-28` focused resource-readiness setup, active-story preference-save/order, and bridge/GUI routing tests cover
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
@@ -1819,8 +1823,9 @@ Use this file when:
   generic installed-data copy,
   story-scoped delete-story copy, switch-styled visible toggles, hidden
   experimental topic tags, hidden advanced challenge tuning, proficiency slider
-  markup, and active-story technical-status removal; extension structure/i18n
-  checks, doc-reference
+  markup, active-story technical-status removal, missing-resource setup panel
+  markup/controller behavior, native-host resource-settings launch routing, and
+  GUI resource-tab activation routing; extension structure/i18n checks, doc-reference
   check, state audit, changed-file gate, and diff check pass.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
@@ -1837,6 +1842,13 @@ Use this file when:
   - The main SRS shell does not show generic installed-data copy; language-data
     readiness messaging should appear in setup, diagnostics, and actionable
     error/status states.
+  - If setup sampling or initialization is blocked because required
+    language-data resources are missing, the guided modal shows a
+    language-data panel with the missing input types/paths, offers to open the
+    LexiShift GUI Resource settings tab via the native helper, and keeps the
+    learner in the same setup flow for retry. The extension does not download
+    or import packs directly; GUI resource management remains the app-owned
+    source of truth for MVP.
   - Source/target language and legacy initialize controls are retained only as
     hidden backing controls for the current controller path; users change
     profile/pair through the guided new-story modal instead of editing an
@@ -1898,7 +1910,20 @@ Use this file when:
   - `apps/chrome-extension/options.html`
   - `apps/chrome-extension/options.css`
   - `apps/chrome-extension/options/controllers/srs/story_flow_controller.js`
+  - `apps/chrome-extension/options/controllers/srs/story_flow_resource_check.js`
+  - `apps/chrome-extension/options/controllers/srs/story_flow_utils.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/shared.js`
+  - `apps/chrome-extension/options/core/helper/base_methods.js`
+  - `apps/chrome-extension/shared/helper/helper_client.js`
+  - `scripts/helper/lexishift_native_host.py`
+  - `apps/gui/src/main_runtime.py`
+  - `apps/gui/src/main.py`
   - `core/tests/dev/test_extension_srs_settings_contract.py`
+  - `core/tests/dev/test_extension_options_srs_bridge_contract.py`
+  - `core/tests/dev/test_native_host_resource_settings.py`
+  - `apps/gui/tests/test_main_runtime_activation.py`
+  - `apps/gui/tests/test_settings_resources_tab.py`
+  - `apps/gui/tests/test_main_settings_resource_persistence.py`
 - Known gaps:
   - The Options page does not yet enumerate all persisted SRS profile/pair
     stores as separate story blocks.

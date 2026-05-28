@@ -3,7 +3,7 @@
 Status: active target UX plan
 Role: Planning
 Last updated: 2026-05-28
-Last verified: 2026-05-28 selected-story shell, curtains, hidden active-story pool backing control, and guided new-story modal through focused extension/options tests
+Last verified: 2026-05-28 selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, and missing-language-data setup panel through focused extension/options tests
 Purpose: define the target Options-page SRS UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
 
@@ -35,7 +35,12 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   proficiency, topics, starting size, sampling, and initialization;
 - modal sampling and initialization copy the visible modal values into the
   existing Options controls, persist profile/language/SRS settings, and then
-  call the existing preview or initialize workflow.
+  call the existing preview or initialize workflow;
+- if helper preflight reports missing language data during modal sampling or
+  initialization, the setup modal shows an inline data-readiness panel with the
+  missing resource list, an action to open LexiShift's GUI Resource settings
+  tab, and a retry action. The extension still does not download language data
+  directly.
 
 Not implemented yet:
 

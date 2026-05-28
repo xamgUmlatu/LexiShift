@@ -78,6 +78,13 @@
       return this.send("open_data_dir");
     }
 
+    openResourceSettings(payload) {
+      return this.send(
+        "open_resource_settings",
+        payload && typeof payload === "object" ? payload : {}
+      );
+    }
+
     recordFeedback(payload) {
       return this.send("record_feedback", payload);
     }

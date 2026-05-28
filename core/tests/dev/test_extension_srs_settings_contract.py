@@ -23,6 +23,12 @@ AUTO_REFRESH_SETTINGS_JS = (
 STORY_FLOW_CONTROLLER_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_controller.js"
 )
+STORY_FLOW_RESOURCE_CHECK_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_resource_check.js"
+)
+STORY_FLOW_UTILS_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_utils.js"
+)
 CONTROLLER_GRAPH_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/core/bootstrap/controller_graph.js"
 )
@@ -95,6 +101,15 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-story-flow-profile-id"', html)
         self.assertIn('id="srs-story-flow-sample"', html)
         self.assertIn('id="srs-story-flow-initialize"', html)
+        self.assertIn('id="srs-story-flow-resource-check"', html)
+        self.assertIn('id="srs-story-flow-resource-message"', html)
+        self.assertIn('id="srs-story-flow-resource-list"', html)
+        self.assertIn('id="srs-story-flow-open-resource-settings"', html)
+        self.assertIn('id="srs-story-flow-retry-resources"', html)
+        self.assertLess(html.index("story_flow_utils.js"), html.index("story_flow_controller.js"))
+        self.assertLess(
+            html.index("story_flow_resource_check.js"), html.index("story_flow_controller.js")
+        )
         self.assertIn('<select id="source-language" hidden aria-hidden="true">', html)
         self.assertIn('<select id="target-language" hidden aria-hidden="true">', html)
         self.assertRegex(
@@ -266,6 +281,8 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const modulePath = {json.dumps(str(STORY_FLOW_CONTROLLER_JS))};
+const resourcePath = {json.dumps(str(STORY_FLOW_RESOURCE_CHECK_JS))};
+const utilsPath = {json.dumps(str(STORY_FLOW_UTILS_JS))};
 
 function createClassList() {{
   const values = new Set();
@@ -370,6 +387,8 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(utilsPath, "utf8"), context, {{ filename: utilsPath }});
+vm.runInContext(fs.readFileSync(resourcePath, "utf8"), context, {{ filename: resourcePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const calls = [];
@@ -454,6 +473,235 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
 }})().catch((err) => {{
   console.error(err);
   process.exitCode = 1;
+}});
+"""
+        _run_node(script)
+
+    def test_story_flow_surfaces_missing_resources_and_opens_gui_settings(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const modulePath = {json.dumps(str(STORY_FLOW_CONTROLLER_JS))};
+const resourcePath = {json.dumps(str(STORY_FLOW_RESOURCE_CHECK_JS))};
+const utilsPath = {json.dumps(str(STORY_FLOW_UTILS_JS))};
+
+function createClassList(initialValues) {{
+  const values = new Set(initialValues || []);
+  return {{
+    toggle(name, force) {{
+      if (force) {{
+        values.add(name);
+      }} else {{
+        values.delete(name);
+      }}
+    }},
+    contains(name) {{
+      return values.has(name);
+    }}
+  }};
+}}
+
+function createOption(value, text) {{
+  return {{
+    value,
+    textContent: text || value,
+    cloneNode() {{
+      return createOption(this.value, this.textContent);
+    }}
+  }};
+}}
+
+function createSelect(value, optionValues) {{
+  const select = {{
+    value: value || "",
+    options: [],
+    appendChild(option) {{
+      this.options.push(option);
+      if (!this.value) {{
+        this.value = option.value;
+      }}
+      return option;
+    }}
+  }};
+  Object.defineProperty(select, "innerHTML", {{
+    get() {{
+      return "";
+    }},
+    set(_value) {{
+      this.options.length = 0;
+    }}
+  }});
+  (optionValues || []).forEach((entry) => select.appendChild(createOption(entry, entry)));
+  select.value = value || (select.options[0] && select.options[0].value) || "";
+  return select;
+}}
+
+function createInput(value) {{
+  const hasValue = String(value || "").trim() !== "";
+  return {{
+    value: value || "",
+    checked: false,
+    type: "range",
+    dataset: {{ srsHasValue: hasValue ? "true" : "false" }},
+    addEventListener() {{}}
+  }};
+}}
+
+function createButton(attrs) {{
+  const attributes = {{ ...(attrs || {{}}) }};
+  return {{
+    disabled: false,
+    classList: createClassList(),
+    addEventListener() {{}},
+    getAttribute(name) {{
+      return attributes[name] || "";
+    }},
+    setAttribute(name, value) {{
+      attributes[name] = String(value);
+    }}
+  }};
+}}
+
+const resourceList = {{
+  children: [],
+  appendChild(item) {{
+    this.children.push(item);
+    return item;
+  }}
+}};
+Object.defineProperty(resourceList, "innerHTML", {{
+  get() {{
+    return "";
+  }},
+  set(_value) {{
+    resourceList.children.length = 0;
+  }}
+}});
+
+const context = vm.createContext({{
+  console,
+  document: {{
+    body: {{ classList: createClassList() }},
+    createElement(tagName) {{
+      if (tagName === "option") return createOption("", "");
+      if (tagName === "li") return {{ textContent: "" }};
+      throw new Error(`Unexpected element: ${{tagName}}`);
+    }},
+    addEventListener() {{}}
+  }}
+}});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(utilsPath, "utf8"), context, {{ filename: utilsPath }});
+vm.runInContext(fs.readFileSync(resourcePath, "utf8"), context, {{ filename: resourcePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const captured = [];
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+const resourceCheckRoot = {{ classList: createClassList(["hidden"]) }};
+const resourceMessage = {{ textContent: "" }};
+const resourceOpenButton = createButton();
+const backdrop = {{
+  classList: createClassList(["hidden"]),
+  setAttribute(name, value) {{
+    this[name] = value;
+  }},
+  addEventListener() {{}}
+}};
+const modalRoot = {{ focus() {{}} }};
+
+const elements = {{
+  startButton: createButton(),
+  backdrop,
+  root: modalRoot,
+  closeButton: createButton(),
+  modalSourceLanguageInput: createSelect("en", ["en", "es"]),
+  modalTargetLanguageInput: createSelect("es", ["en", "es"]),
+  modalProfileIdInput: createSelect("family", ["default", "family"]),
+  modalProficiencyEstimateInput: createInput(""),
+  modalTopicInterestsInput: createInput("animals"),
+  modalTopicInterestChipButtons: [],
+  modalMaxActiveInput: createInput("40"),
+  modalBootstrapTopNInput: createInput("1000"),
+  modalInitialActiveCountInput: createInput("40"),
+  sampleButton: createButton(),
+  initializeButton: createButton(),
+  previewOutput: {{ textContent: "", style: {{}} }},
+  resourceCheckRoot,
+  resourceMessage,
+  resourceList,
+  resourceOpenButton,
+  resourceRetryButton: createButton(),
+  mainSourceLanguageInput: createSelect("en", ["en", "es"]),
+  mainTargetLanguageInput: createSelect("es", ["en", "es"]),
+  mainProfileIdInput: createSelect("family", ["default", "family"]),
+  mainSrsEnabledInput: {{ checked: false }},
+  mainProficiencyEstimateInput: createInput(""),
+  mainTopicInterestsInput: createInput("animals"),
+  mainTopicInterestChipButtons: [],
+  mainMaxActiveInput: createInput("40"),
+  mainBootstrapTopNInput: createInput("1000"),
+  mainInitialActiveCountInput: createInput("40")
+}};
+
+const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
+  t: (_key, _args, fallback) => fallback,
+  setStatus: () => {{}},
+  saveSrsProfileId: async () => {{}},
+  saveLanguageSettings: async () => {{}},
+  saveSrsSettings: async () => {{}},
+  helperManager: {{
+    async openResourceSettings(pair, options) {{
+      captured.push({{ pair, options }});
+      return "Opened LexiShift resource settings.";
+    }}
+  }},
+  log: () => {{}},
+  elements
+}});
+
+(async () => {{
+  controller.open();
+  controller.handleResourcePreflightBlocked({{
+    detail: {{
+      pair: "en-es",
+      profileId: "family",
+      missingInputs: [
+        {{ type: "set_source_db", path: "/missing/freq-es-cde.sqlite" }}
+      ]
+    }}
+  }});
+
+  assert.equal(resourceCheckRoot.classList.contains("hidden"), false);
+  assert.match(resourceMessage.textContent, /en-es/);
+  assert.equal(resourceList.children.length, 1);
+  assert.match(resourceList.children[0].textContent, /Frequency data/);
+  assert.match(resourceList.children[0].textContent, /freq-es-cde\\.sqlite/);
+
+  await controller.openResourceSettings();
+  assert.equal(resourceOpenButton.disabled, false);
+  assert.equal(captured.length, 1);
+  assert.equal(captured[0].pair, "en-es");
+  assert.deepEqual(normalize(captured[0].options), {{
+    profileId: "family",
+    missingInputs: [
+      {{ type: "set_source_db", path: "/missing/freq-es-cde.sqlite" }}
+    ]
+  }});
+  assert.match(resourceMessage.textContent, /After installing/);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
 }});
 """
         _run_node(script)

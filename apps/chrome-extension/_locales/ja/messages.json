@@ -134,6 +134,36 @@
   "hint_srs_story_flow_review": {
     "message": "単語をサンプルして組み合わせを確認し、よければストーリーを初期化します。"
   },
+  "label_srs_language_data": {
+    "message": "言語データ"
+  },
+  "button_srs_open_resource_settings": {
+    "message": "LexiShiftのリソース設定を開く"
+  },
+  "button_srs_retry_data_check": {
+    "message": "再チェック"
+  },
+  "status_srs_language_data_missing": {
+    "message": "$1 の言語データが必要です。インストール後に、このストーリーをサンプルまたは初期化できます。"
+  },
+  "status_srs_language_data_check_required": {
+    "message": "必要な言語データをインストールしてから再試行してください。"
+  },
+  "status_srs_opening_resource_settings": {
+    "message": "LexiShiftのリソース設定を開いています…"
+  },
+  "hint_srs_retry_after_data_install": {
+    "message": "必要なパックをインストールしたら、ここに戻って再チェックしてください。"
+  },
+  "label_srs_frequency_data": {
+    "message": "頻度データ"
+  },
+  "label_srs_translation_dictionary": {
+    "message": "翻訳辞書"
+  },
+  "label_srs_jmdict_data": {
+    "message": "JMDictデータ"
+  },
   "button_srs_story_flow_initialize": {
     "message": "ストーリーを初期化"
   },
@@ -393,6 +423,12 @@
     "message": "開きました: $1"
   },
   "status_helper_open_failed": {
+    "message": "開けませんでした: $1"
+  },
+  "status_helper_open_resource_settings_opened": {
+    "message": "LexiShiftのリソース設定を開きました。"
+  },
+  "status_helper_open_resource_settings_failed": {
     "message": "開けませんでした: $1"
   },
   "toggle_exposure_logging": {

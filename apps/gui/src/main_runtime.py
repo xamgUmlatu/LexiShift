@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable
 
+from PySide6.QtCore import QTimer
 from PySide6.QtNetwork import QLocalServer, QLocalSocket
 
 from main_paths import _app_data_dir
@@ -34,6 +35,19 @@ class StartupLogger:
             except OSError:
                 continue
         print(message)
+
+
+OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
+ACTIVATION_MESSAGE = "ACTIVATE"
+OPEN_RESOURCE_SETTINGS_MESSAGE = "OPEN_SETTINGS:resources"
+
+
+def startup_activation_message(argv: list[str]) -> str:
+    return (
+        OPEN_RESOURCE_SETTINGS_MESSAGE
+        if OPEN_RESOURCE_SETTINGS_FLAG in argv
+        else ACTIVATION_MESSAGE
+    )
 
 
 def handle_startup_cli_flags(argv: list[str], startup_logs: list[Path]) -> bool:
@@ -72,11 +86,14 @@ def singleton_socket_name() -> str:
     return f"LexiShiftGUI_{getpass.getuser()}"
 
 
-def acquire_singleton_server(socket_name: str) -> QLocalServer | None:
+def acquire_singleton_server(
+    socket_name: str,
+    activation_message: str = ACTIVATION_MESSAGE,
+) -> QLocalServer | None:
     socket = QLocalSocket()
     socket.connectToServer(socket_name)
     if socket.waitForConnected(500):
-        socket.write(b"ACTIVATE")
+        socket.write(str(activation_message or ACTIVATION_MESSAGE).encode("utf-8"))
         socket.waitForBytesWritten(1000)
         socket.disconnectFromServer()
         return None
@@ -92,10 +109,17 @@ def bind_activation_handler(server: QLocalServer, window) -> None:
         client = server.nextPendingConnection()
         if client:
             client.waitForReadyRead(100)
+            message = bytes(client.readAll()).decode("utf-8", errors="ignore")
             window.show()
             window.raise_()
             window.activateWindow()
+            should_open_resources = message == OPEN_RESOURCE_SETTINGS_MESSAGE and hasattr(
+                window,
+                "_open_settings_resources",
+            )
             client.disconnectFromServer()
+            if should_open_resources:
+                QTimer.singleShot(0, window._open_settings_resources)
 
     server.newConnection.connect(handle_activation)
 

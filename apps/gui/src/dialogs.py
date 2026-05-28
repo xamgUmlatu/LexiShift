@@ -174,6 +174,7 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         self,
         app_settings: AppSettings,
         dataset_settings: Optional[VocabSettings],
+        initial_tab: str | None = None,
         parent=None,
     ) -> None:
         super().__init__(parent)
@@ -201,11 +202,18 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         self.language_pack_panel = LanguagePackPanel(parent=self)
         tabs = QTabWidget()
         self._tabs = tabs
-        tabs.addTab(self._wrap_tab(self._build_app_tab()), t("tabs.app"))
-        tabs.addTab(self._wrap_tab(self._build_resources_tab()), t("language_packs.title"))
-        tabs.addTab(self._wrap_tab(self._build_appearance_tab()), t("tabs.appearance"))
-        tabs.addTab(self._wrap_tab(self._build_dataset_tab()), t("tabs.dataset"))
-        tabs.addTab(self._wrap_tab(self._build_integrations_tab()), t("tabs.integrations"))
+        app_tab = self._wrap_tab(self._build_app_tab())
+        resources_tab = self._wrap_tab(self._build_resources_tab())
+        appearance_tab = self._wrap_tab(self._build_appearance_tab())
+        dataset_tab = self._wrap_tab(self._build_dataset_tab())
+        integrations_tab = self._wrap_tab(self._build_integrations_tab())
+        tabs.addTab(app_tab, t("tabs.app"))
+        tabs.addTab(resources_tab, t("language_packs.title"))
+        tabs.addTab(appearance_tab, t("tabs.appearance"))
+        tabs.addTab(dataset_tab, t("tabs.dataset"))
+        tabs.addTab(integrations_tab, t("tabs.integrations"))
+        if initial_tab == "resources":
+            tabs.setCurrentWidget(resources_tab)
 
         self._apply_import_export(self._import_settings)
         self._apply_inflections(inflections)
