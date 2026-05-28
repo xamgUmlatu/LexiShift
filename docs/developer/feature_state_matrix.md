@@ -1772,7 +1772,8 @@ Use this file when:
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
 - Last documented checkpoint: `2026-05-28` active story preference-save/restore,
-  flattened Advanced cleanup, and section-order polish keeps the
+  flattened Advanced cleanup, theme-aware SRS story surfaces, and section-order
+  polish keeps the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
@@ -1795,7 +1796,9 @@ Use this file when:
   display/feedback controls stay in the normal story surface, the collapsed
   `Advanced` section contains only same-level user-tunable new-word timing
   thresholds plus reset, manual active-word update/learning-word refresh actions
-  are no longer shown in the ordinary story surface, and the
+  are no longer shown in the ordinary story surface, SRS story cards, topic
+  panels, curtains, and dashboard surfaces use the same card-theme CSS variable
+  path as the rest of Options, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
   initialize workflow.
@@ -1805,6 +1808,7 @@ Use this file when:
   starting-word controls, hidden backing source/target/initialize controls,
   polished dashboard/sampling/display-feedback/Advanced markup and ordering,
   previous-proficiency restore binding,
+  SRS story theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, switch-styled visible toggles, hidden
@@ -1819,7 +1823,9 @@ Use this file when:
   - The selected profile/pair SRS controls render inside a story-shaped block
     that is collapsed by default to the language-pair summary and active-pair
     badge; expanding it reveals grouped settings, dashboard, sampling, and
-    maintenance for the same visible journey.
+    maintenance for the same visible journey. Inner SRS story surfaces, topic
+    panels, curtains, and dashboard panels use the Options card-theme CSS
+    variable path instead of fixed beige surfaces.
   - The active story does not repeat a generic explanatory sentence above its
     controls; the summary row carries the pair identity and active badge.
   - Source/target language and legacy initialize controls are retained only as

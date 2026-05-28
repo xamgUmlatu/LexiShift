@@ -228,6 +228,24 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn(".srs-story-advanced-tools", css)
         self.assertIn(".srs-field-grid", css)
         self.assertIn(".advanced.srs-story-size-advanced", css)
+        self.assertRegex(
+            css,
+            r"(?s)\.srs-story-card,\s*\.srs-story-start-card\s*\{"
+            r".*?border: 1px solid var\(--ls-group-subcard-separator\);"
+            r".*?background: var\(--ls-group-subcard-bg\);",
+        )
+        self.assertRegex(
+            css,
+            r"(?s)\.srs-topic-interest-picker\s*\{"
+            r".*?border: 1px solid var\(--ls-group-subcard-separator\);"
+            r".*?background: var\(--ls-group-subcard-bg\);",
+        )
+        self.assertRegex(
+            css,
+            r"(?s)\.srs-story-curtain\s*\{"
+            r".*?border: 1px solid var\(--ls-group-subcard-separator\);"
+            r".*?background: var\(--ls-srs-preview-bg\);",
+        )
         self.assertIn(".srs-curtain-summary", css)
         self.assertIn(".srs-curtain-action", css)
         self.assertIn(".srs-range-field", css)

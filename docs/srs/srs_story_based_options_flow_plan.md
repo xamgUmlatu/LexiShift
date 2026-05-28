@@ -20,6 +20,8 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   dashboard curtain;
 - the collapsed `Advanced` section contains same-level new-word timing
   thresholds and reset only;
+- SRS story cards, topic panels, curtains, and dashboard surfaces follow the
+  same card-theme CSS-variable path as the rest of the Options page;
 - active-story new-word preference edits are draft changes until the learner
   presses `Save preferences`;
 - the active-story proficiency slider shows its previous saved setting and has a
