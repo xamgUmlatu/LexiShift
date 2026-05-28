@@ -47,11 +47,7 @@
         </section>
         <section class="card">
           <h2 data-i18n="section_srs">SRS Practice</h2>
-          <label class="toggle srs-enable-switch">
-            <input id="srs-enabled" type="checkbox" />
-            <span class="srs-enable-switch-ui" aria-hidden="true"></span>
-            <span data-i18n="toggle_srs_enabled">Enable SRS practice mode</span>
-          </label>
+          <input id="srs-enabled" type="checkbox" hidden aria-hidden="true" />
           <p class="hint" data-i18n="hint_srs_dataset">
             Uses installed language data for SRS stories.
           </p>
@@ -409,7 +405,7 @@
               </p>
             </section>
             <div class="actions srs-danger-actions">
-              <button id="srs-reset" class="danger-button" data-i18n="button_srs_reset">Reset SRS data</button>
+              <button id="srs-delete-story" class="danger-button" data-i18n="button_srs_delete_story">Delete SRS story</button>
             </div>
           </details>
               </div>

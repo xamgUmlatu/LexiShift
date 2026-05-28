@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS-Training"
   },
-  "toggle_srs_enabled": {
-    "message": "SRS-Übungsmodus aktivieren"
-  },
   "hint_srs_dataset": {
     "message": "Verwendet installierte Sprachdaten für SRS-Storys."
   },
@@ -431,8 +428,8 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "Stichproben-Regelgen (5)…"
   },
-  "button_srs_reset": {
-    "message": "SRS-Daten zurücksetzen"
+  "button_srs_delete_story": {
+    "message": "SRS-Story löschen"
   },
   "heading_srs_words_dashboard": {
     "message": "Lernwörter"
@@ -492,10 +489,10 @@
     "message": "Filter löschen"
   },
   "confirm_srs_reset_1": {
-    "message": "Möchtest du den gesamten SRS-Fortschritt für dieses Sprachpaar wirklich zurücksetzen? Dies kann nicht rückgängig gemacht werden."
+    "message": "Diese SRS-Story für das aktuelle Profil und Sprachpaar löschen? Dies kann nicht rückgängig gemacht werden."
   },
   "confirm_srs_reset_2": {
-    "message": "Lernverlauf für dieses Paar wirklich löschen und neu beginnen?"
+    "message": "Wirklich die Lernwörter, den Wiederholungsverlauf und die Verwerfungsdaten dieser Story löschen?"
   },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
@@ -594,16 +591,16 @@
     "message": "Lösung:"
   },
   "status_srs_resetting": {
-    "message": "SRS-Daten werden zurückgesetzt…"
+    "message": "SRS-Story wird gelöscht…"
   },
   "status_srs_reset_success": {
-    "message": "SRS-Daten wurden erfolgreich zurückgesetzt."
+    "message": "SRS-Story gelöscht."
   },
   "status_srs_reset_failed": {
-    "message": "SRS-Zurücksetzen fehlgeschlagen."
+    "message": "SRS-Story konnte nicht gelöscht werden."
   },
   "status_srs_reset_outdated": {
-    "message": "Helper veraltet: Befehl nicht gefunden. Helper neu starten?"
+    "message": "Löschen fehlgeschlagen: Helper-Befehl nicht gefunden. Helper neu starten?"
   },
   "section_share_center": {
     "message": "Share Center"

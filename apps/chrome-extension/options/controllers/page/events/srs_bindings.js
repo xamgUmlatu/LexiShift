@@ -385,8 +385,8 @@
       logMessage: "Semantic pack install failed."
     });
     bindAsyncListener(srsResetButton, "click", () => srsActionsController.resetSrsData(), {
-      fallbackMessage: () => translate("status_srs_reset_failed", null, "SRS reset failed."),
-      logMessage: "[Reset] Failed:"
+      fallbackMessage: () => translate("status_srs_reset_failed", null, "SRS story deletion failed."),
+      logMessage: "[DeleteStory] Failed:"
     });
     bindAsyncListener(srsWordsRefreshButton, "click", () => srsActionsController.refreshWordsDashboard(), {
       fallbackMessage: () => translate("status_srs_items_list_failed", null, "Failed to load SRS words."),

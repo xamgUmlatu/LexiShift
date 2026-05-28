@@ -511,7 +511,7 @@ Use this file when:
   summaries, doc-reference check, state audit, diff check, and changed-file gate.
 - Default behavior:
   - The preflight is read-only. It does not install packs, mutate helper state,
-    reset SRS data, or mark beta signoff complete.
+    delete SRS stories, or mark beta signoff complete.
   - The generated status is expected to remain `REVIEW` until a human completes
     the fresh extension/helper smoke checklist.
   - Automated checks require the options-page topic picker to match
@@ -1771,9 +1771,10 @@ Use this file when:
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, and guided new-story initialization modal; full
   multi-story enumeration remains `planned`
-- Last documented checkpoint: `2026-05-28` active story preference-save/restore,
+- Last documented checkpoint: `2026-05-28` visible SRS enable-switch removal,
+  story-scoped delete-story copy, active story preference-save/restore,
   flattened Advanced cleanup, theme-aware SRS story surfaces, and section-order
-  polish keeps the
+  polish extend the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
   right-aligned active badge, the visible next-word controls are grouped into
@@ -1795,8 +1796,10 @@ Use this file when:
   empty status panels appear only after content is written,
   display/feedback controls stay in the normal story surface, the collapsed
   `Advanced` section contains only same-level user-tunable new-word timing
-  thresholds plus reset, manual active-word update/learning-word refresh actions
-  are no longer shown in the ordinary story surface, SRS story cards, topic
+  thresholds plus the story-scoped delete action, the visible SRS enable switch
+  is removed because the guided initialization flow is the learner-facing enable
+  action, manual active-word update/learning-word refresh actions are no longer
+  shown in the ordinary story surface, SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that persists visible
@@ -1811,7 +1814,8 @@ Use this file when:
   SRS story theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
-  lazy rulegen status output, switch-styled visible toggles, hidden
+  lazy rulegen status output, hidden SRS enable backing control,
+  story-scoped delete-story copy, switch-styled visible toggles, hidden
   experimental topic tags, hidden advanced challenge tuning, proficiency slider
   markup, and active-story technical-status removal; extension structure/i18n
   checks, doc-reference
@@ -1832,6 +1836,9 @@ Use this file when:
     hidden backing controls for the current controller path; users change
     profile/pair through the guided new-story modal instead of editing an
     already-created active story in place.
+  - The legacy SRS enable checkbox is retained only as a hidden backing control;
+    users enable a story by completing guided initialization, not by toggling a
+    standalone switch.
   - Topic preferences are visible as probability-priority chips without an
     always-visible caveat in the active-story card; the one-time setup flow can
     still show pair-coverage context.
@@ -1862,8 +1869,10 @@ Use this file when:
     after feedback, and sound, remain visible in the active story after the
     dashboard curtain.
   - The collapsed active-story `Advanced` section exposes new-word timing
-    thresholds as same-level controls, followed by reset. Active-word update
-    preview/apply and manual
+    thresholds as same-level controls, followed by `Delete SRS story`. The
+    delete action uses the existing helper reset route but is presented and
+    confirmed as deleting only the selected profile/language-pair story.
+    Active-word update preview/apply and manual
     learning-word refresh remain backend/dev workflows, but they are not
     promoted in the ordinary learner Options surface.
   - Helper-backed initialize/refresh status output stays hidden until a message

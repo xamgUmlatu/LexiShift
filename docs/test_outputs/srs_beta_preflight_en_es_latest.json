@@ -67,7 +67,7 @@
       "message": "en-es installed-resource journey latest artifact has review-only warnings."
     }
   ],
-  "generated_at": "2026-05-27T06:03:07.387166+00:00",
+  "generated_at": "2026-05-28T00:41:57.665810+00:00",
   "inputs": {
     "installed_journey_json": "/Users/takeyayuki/Documents/projects/LexiShift/docs/test_outputs/srs_journey/srs_journey_en_es_installed_latest.json",
     "locale_root": "/Users/takeyayuki/Documents/projects/LexiShift/apps/chrome-extension/_locales",
@@ -104,9 +104,9 @@
     },
     {
       "check": "Tester recovery paths are understandable.",
-      "id": "reset_discard_recovery",
+      "id": "delete_story_discard_recovery",
       "status": "PENDING",
-      "verification": "Discard one dashboard word, then reset SRS data for the throwaway profile and confirm the dashboard/replacement state recovers."
+      "verification": "Discard one dashboard word, then delete the throwaway profile's en-es SRS story and confirm the profile can initialize again cleanly."
     }
   ],
   "picker_topics": [

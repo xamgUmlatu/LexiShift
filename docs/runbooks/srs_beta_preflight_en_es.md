@@ -61,7 +61,7 @@ Run these on a throwaway beta profile. Do not use a real learner profile.
 | Feedback sync | Good/Easy feedback reaches the helper and is reflected after refreshing the dashboard. |
 | Auto refresh | After enough Good/Easy feedback, automatic refresh can admit new profile-shaped words. |
 | Discard recovery | Dashboard discard removes a word from active inventory and prevents immediate readmission. |
-| Reset recovery | Reset SRS data for the throwaway profile leaves the profile ready to initialize again. |
+| Delete recovery | Delete the throwaway profile's en-es SRS story and confirm the profile is ready to initialize again. |
 
 ## Final Gate Commands
 

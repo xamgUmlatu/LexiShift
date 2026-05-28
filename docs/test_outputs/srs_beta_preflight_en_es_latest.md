@@ -2,7 +2,7 @@
 
 - Status: `REVIEW`
 - Decision: manual beta signoff is required before external testers.
-- Generated: `2026-05-27T06:03:07.387166+00:00`
+- Generated: `2026-05-28T00:41:57.665810+00:00`
 
 ## Automated Checks
 
@@ -42,7 +42,7 @@ The ordinary options-page picker should expose exactly these topics:
 | `PENDING` | Fresh en-es profile can initialize SRS and populate the dashboard. | Use a throwaway beta profile, choose proficiency/topics, initialize S, and refresh Learning words. |
 | `PENDING` | Published rules replace page text and feedback syncs. | Open a simple English page, confirm due SRS replacements, submit Good/Easy feedback, and refresh the dashboard. |
 | `PENDING` | Post-feedback auto-refresh can admit more profile-shaped words. | After enough successful Good/Easy feedback, confirm refresh output shows capacity, selected lemmas, and preferred-topic share. |
-| `PENDING` | Tester recovery paths are understandable. | Discard one dashboard word, then reset SRS data for the throwaway profile and confirm the dashboard/replacement state recovers. |
+| `PENDING` | Tester recovery paths are understandable. | Discard one dashboard word, then delete the throwaway profile's en-es SRS story and confirm the profile can initialize again cleanly. |
 
 ## Deferred From Beta
 

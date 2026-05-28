@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS Practice"
   },
-  "toggle_srs_enabled": {
-    "message": "Enable SRS practice mode"
-  },
   "hint_srs_dataset": {
     "message": "Uses installed language data for SRS stories."
   },
@@ -431,8 +428,8 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "Run sampled rulegen (5)…"
   },
-  "button_srs_reset": {
-    "message": "Reset SRS data"
+  "button_srs_delete_story": {
+    "message": "Delete SRS story"
   },
   "heading_srs_words_dashboard": {
     "message": "Learning words"
@@ -492,10 +489,10 @@
     "message": "Clear filters"
   },
   "confirm_srs_reset_1": {
-    "message": "Are you sure you want to reset all SRS progress for this language pair? This cannot be undone."
+    "message": "Delete this SRS story for the current profile and language pair? This cannot be undone."
   },
   "confirm_srs_reset_2": {
-    "message": "Really delete all learning history and start over for this pair?"
+    "message": "Really delete this story's learning words, review history, and discard data?"
   },
   "status_srs_sampling": {
     "message": "Sampling…"
@@ -594,16 +591,16 @@
     "message": "Fix:"
   },
   "status_srs_resetting": {
-    "message": "Resetting SRS data…"
+    "message": "Deleting SRS story…"
   },
   "status_srs_reset_success": {
-    "message": "SRS data reset successfully."
+    "message": "SRS story deleted."
   },
   "status_srs_reset_failed": {
-    "message": "SRS reset failed."
+    "message": "SRS story deletion failed."
   },
   "status_srs_reset_outdated": {
-    "message": "Helper outdated: command not found. Restart helper?"
+    "message": "Delete failed: helper command not found. Restart helper?"
   },
   "section_share_center": {
     "message": "Share Center"

@@ -86,7 +86,7 @@
       srsRulegenSampledButton: source.srsRulegenSampledPreview || null,
       srsRulegenSampledOutput: source.srsRulegenSampledOutput || null,
       srsRulegenOutput: source.srsRulegenOutput || null,
-      srsResetButton: source.srsReset || null,
+      srsResetButton: source.srsDeleteStory || null,
       srsStoryStartButton: source.srsStoryStart || null,
       srsStoryFlowBackdrop: source.srsStoryFlowBackdrop || null,
       srsStoryFlowRoot: source.srsStoryFlow || null,

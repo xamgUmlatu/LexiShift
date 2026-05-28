@@ -99,12 +99,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             html,
             r'(?s)<button\s+id="srs-initialize-set"[^>]*hidden[^>]*>',
         )
-        self.assertRegex(
+        self.assertIn(
+            '<input id="srs-enabled" type="checkbox" hidden aria-hidden="true" />',
             html,
-            r'(?s)<label class="toggle srs-enable-switch">\s*'
-            r'<input id="srs-enabled" type="checkbox" />\s*'
-            r'<span class="srs-enable-switch-ui" aria-hidden="true"></span>',
         )
+        self.assertNotIn('class="toggle srs-enable-switch"', html)
+        self.assertNotIn("srs-enable-switch-ui", html)
         current_story_open_tag = re.search(
             r'<details id="srs-story-current-card" class="srs-story-card"[^>]*>',
             html,
@@ -218,10 +218,14 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertRegex(
             html,
             r'(?s)<details class="advanced srs-maintenance-tools srs-story-advanced-tools">'
-            r'.*?id="srs-reset"',
+            r'.*?id="srs-delete-story"',
         )
+        self.assertIn('data-i18n="button_srs_delete_story"', current_card_markup)
+        self.assertNotIn('id="srs-reset"', current_card_markup)
+        self.assertNotIn('data-i18n="button_srs_reset"', current_card_markup)
         self.assertIn('class="danger-button"', html)
-        self.assertIn(".srs-enable-switch-ui", css)
+        self.assertNotIn(".srs-enable-switch", css)
+        self.assertNotIn(".srs-enable-switch-ui", css)
         self.assertIn(".srs-toggle-switch-ui", css)
         self.assertIn(".srs-active-practice-row", css)
         self.assertIn(".srs-preference-actions", css)

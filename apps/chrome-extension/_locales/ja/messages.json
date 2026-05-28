@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS練習"
   },
-  "toggle_srs_enabled": {
-    "message": "SRS練習モードを有効にする"
-  },
   "hint_srs_dataset": {
     "message": "SRSストーリーにはインストール済みの言語データを使用します。"
   },
@@ -431,8 +428,8 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "サンプル5件でルール生成…"
   },
-  "button_srs_reset": {
-    "message": "SRSデータをリセット"
+  "button_srs_delete_story": {
+    "message": "SRSストーリーを削除"
   },
   "heading_srs_words_dashboard": {
     "message": "学習中の語"
@@ -492,10 +489,10 @@
     "message": "フィルターをクリア"
   },
   "confirm_srs_reset_1": {
-    "message": "この言語ペアのSRS進捗をすべてリセットしますか？この操作は元に戻せません。"
+    "message": "現在のプロフィールと言語ペアのこのSRSストーリーを削除しますか？この操作は元に戻せません。"
   },
   "confirm_srs_reset_2": {
-    "message": "このペアの学習履歴を本当に削除して最初からやり直しますか？"
+    "message": "このストーリーの学習語、復習履歴、破棄データを本当に削除しますか？"
   },
   "status_srs_sampling": {
     "message": "サンプリング中…"
@@ -594,16 +591,16 @@
     "message": "対処:"
   },
   "status_srs_resetting": {
-    "message": "SRSデータをリセット中…"
+    "message": "SRSストーリーを削除中…"
   },
   "status_srs_reset_success": {
-    "message": "SRSデータをリセットしました。"
+    "message": "SRSストーリーを削除しました。"
   },
   "status_srs_reset_failed": {
-    "message": "SRSリセットに失敗しました。"
+    "message": "SRSストーリーの削除に失敗しました。"
   },
   "status_srs_reset_outdated": {
-    "message": "ヘルパーが古いためコマンドが見つかりません。ヘルパーを再起動してください。"
+    "message": "削除に失敗しました: Helperコマンドが見つかりません。Helperを再起動しますか？"
   },
   "section_share_center": {
     "message": "共有センター"

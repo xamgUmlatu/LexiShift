@@ -133,9 +133,9 @@ Current product direction:
 - if a learner dislikes a specific word, the dashboard can durably discard it
   and block it from refresh admission;
 - discard should be rare and explicit, not a routine temporary cooldown flow;
-- reset SRS data clears discard/block suppression metadata by default, matching
-  a fresh start;
-- a later reset confirmation may offer "keep discarded words" by using the
+- deleting an SRS story clears discard/block suppression metadata by default,
+  matching a fresh start for that profile/language pair;
+- a later delete confirmation may offer "keep discarded words" by using the
   existing backend `preserve_lifecycle_metadata` flag.
 
 ## Current Implementation Contract
@@ -315,7 +315,8 @@ This dashboard is intentionally small in authority.
   rule-detail warning without blocking SRS item visibility.
 - Discard is the only current dashboard mutation, and it must stay explicit,
   confirmed, pair/profile scoped, and routed through `srs_admission_suppress`.
-- Discard means durable learner block until SRS reset, not a cooldown.
+- Discard means durable learner block until the story is deleted/reset, not a
+  cooldown.
 - Removed words remain visible so learners can understand state after discard.
 - Restore, mastered/released, and undo policies remain planned, not implicit.
 

@@ -55,7 +55,7 @@ class UIManager {
       "srs-words-clear-filters", "srs-words-summary", "srs-words-pagination",
       "srs-words-page-info", "srs-words-first-page", "srs-words-prev-page",
       "srs-words-next-page", "srs-words-last-page", "srs-words-meta", "srs-words-list",
-      "srs-rulegen-output", "srs-reset", "helper-status",
+      "srs-rulegen-output", "srs-delete-story", "helper-status",
       "srs-story-start", "srs-story-flow-backdrop", "srs-story-flow",
       "srs-story-flow-close", "srs-story-flow-source-language",
       "srs-story-flow-target-language", "srs-story-flow-profile-id",

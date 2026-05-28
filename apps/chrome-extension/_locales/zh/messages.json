@@ -86,9 +86,6 @@
   "section_srs": {
     "message": "SRS 练习"
   },
-  "toggle_srs_enabled": {
-    "message": "启用 SRS 练习模式"
-  },
   "hint_srs_dataset": {
     "message": "SRS 故事使用已安装的语言数据。"
   },
@@ -431,8 +428,8 @@
   "button_srs_rulegen_sampled_preview": {
     "message": "运行采样规则生成（5）…"
   },
-  "button_srs_reset": {
-    "message": "重置 SRS 数据"
+  "button_srs_delete_story": {
+    "message": "删除 SRS 故事"
   },
   "heading_srs_words_dashboard": {
     "message": "学习词"
@@ -492,10 +489,10 @@
     "message": "清除筛选"
   },
   "confirm_srs_reset_1": {
-    "message": "确定要重置此语言对的所有 SRS 进度吗？此操作无法撤销。"
+    "message": "删除当前资料和语言对的这个 SRS 故事？此操作无法撤销。"
   },
   "confirm_srs_reset_2": {
-    "message": "确定要删除此语言对的全部学习历史并重新开始吗？"
+    "message": "真的要删除这个故事的学习词、复习历史和丢弃数据吗？"
   },
   "status_srs_sampling": {
     "message": "正在抽样…"
@@ -594,16 +591,16 @@
     "message": "修复："
   },
   "status_srs_resetting": {
-    "message": "正在重置 SRS 数据…"
+    "message": "正在删除 SRS 故事…"
   },
   "status_srs_reset_success": {
-    "message": "SRS 数据已重置。"
+    "message": "SRS 故事已删除。"
   },
   "status_srs_reset_failed": {
-    "message": "重置 SRS 失败。"
+    "message": "SRS 故事删除失败。"
   },
   "status_srs_reset_outdated": {
-    "message": "Helper 版本过旧：找不到命令。请重启 Helper。"
+    "message": "删除失败：找不到 Helper 命令。要重启 Helper 吗？"
   },
   "section_share_center": {
     "message": "分享中心"

@@ -533,7 +533,6 @@ header p {
   align-items: center;
 }
 
-.srs-enable-switch,
 .srs-toggle-switch {
   position: relative;
   width: fit-content;
@@ -555,7 +554,6 @@ header p {
   line-height: 1.25;
 }
 
-.srs-enable-switch input,
 .srs-toggle-switch input {
   position: absolute;
   width: 1px;
@@ -563,7 +561,6 @@ header p {
   opacity: 0;
 }
 
-.srs-enable-switch-ui,
 .srs-toggle-switch-ui {
   position: relative;
   flex: 0 0 auto;
@@ -580,7 +577,6 @@ header p {
   height: 20px;
 }
 
-.srs-enable-switch-ui::after,
 .srs-toggle-switch-ui::after {
   content: "";
   position: absolute;
@@ -599,21 +595,15 @@ header p {
   height: 14px;
 }
 
-.srs-enable-switch input:checked + .srs-enable-switch-ui,
 .srs-toggle-switch input:checked + .srs-toggle-switch-ui {
   background: #2d5f44;
   box-shadow: inset 0 1px 3px rgba(22, 52, 36, 0.32);
-}
-
-.srs-enable-switch input:checked + .srs-enable-switch-ui::after {
-  transform: translateX(18px);
 }
 
 .srs-toggle-switch input:checked + .srs-toggle-switch-ui::after {
   transform: translateX(16px);
 }
 
-.srs-enable-switch input:focus-visible + .srs-enable-switch-ui,
 .srs-toggle-switch input:focus-visible + .srs-toggle-switch-ui {
   outline: 2px solid #2d5f44;
   outline-offset: 3px;

@@ -460,15 +460,21 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(resetButton.disabled, false);
   assert.equal(
     statuses[0].message,
-    "Resetting SRS data…"
+    "Deleting SRS story…"
   );
   assert.equal(
     statuses[1].message,
-    "Helper outdated: command not found. Restart helper?"
+    "Delete failed: helper command not found. Restart helper?"
   );
   assert.equal(statuses[1].color, "#b42318");
   assert.equal(output.textContent, "stale output");
-  assert.equal(confirmMessages.length, 5);
+  assert.deepEqual(confirmMessages, [
+    "Delete this SRS story for the current profile and language pair? This cannot be undone.",
+    "Delete this SRS story for the current profile and language pair? This cannot be undone.",
+    "Really delete this story's learning words, review history, and discard data?",
+    "Delete this SRS story for the current profile and language pair? This cannot be undone.",
+    "Really delete this story's learning words, review history, and discard data?"
+  ]);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);

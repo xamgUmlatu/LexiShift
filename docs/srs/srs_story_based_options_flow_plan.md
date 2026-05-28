@@ -19,11 +19,14 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
 - display/feedback controls sit in the normal expanded story surface after the
   dashboard curtain;
 - the collapsed `Advanced` section contains same-level new-word timing
-  thresholds and reset only;
+  thresholds and a story-scoped delete action only;
 - SRS story cards, topic panels, curtains, and dashboard surfaces follow the
   same card-theme CSS-variable path as the rest of the Options page;
 - active-story new-word preference edits are draft changes until the learner
   presses `Save preferences`;
+- there is no visible SRS enable switch in the ordinary story surface; starting
+  a story through initialization is the learner-facing enable action, while the
+  legacy `srs-enabled` input remains hidden as a controller backing field;
 - the active-story proficiency slider shows its previous saved setting and has a
   restore action;
 - the start-new-story block opens a guided modal for language/profile choice,
@@ -94,7 +97,7 @@ Each story block may provide advanced actions behind an additional collapsed
 management area:
 
 - new-word timing thresholds
-- reset SRS data
+- delete SRS story for the current profile/language pair
 - future restore/mastery/release controls
 
 Dashboard and sampling must not be permanently expanded on the main page. They
@@ -222,7 +225,7 @@ Keep advanced/collapsed:
 - advanced topic tags
 - challenge target
 - new-word timing thresholds
-- reset SRS data
+- delete SRS story
 - debug/runtime diagnostics
 - sampled rulegen
 - semantic pack installation/debug inputs

@@ -380,30 +380,30 @@
       if (!resetButton) {
         return;
       }
-      if (!confirmFn(translate("confirm_srs_reset_1", null, "Are you sure you want to reset all SRS progress for this language pair? This cannot be undone."))) {
+      if (!confirmFn(translate("confirm_srs_reset_1", null, "Delete this SRS story for the current profile and language pair? This cannot be undone."))) {
         return;
       }
-      if (!confirmFn(translate("confirm_srs_reset_2", null, "Really delete all learning history and start over for this pair?"))) {
+      if (!confirmFn(translate("confirm_srs_reset_2", null, "Really delete this story's learning words, review history, and discard data?"))) {
         return;
       }
 
       const srsPair = resolvePair();
       const items = await settingsManager.load();
       const profileId = settingsManager.getSelectedSrsProfileId(items);
-      log(`[Reset] User confirmed reset for pair: ${srsPair} (profile=${profileId})`);
+      log(`[DeleteStory] User confirmed delete for pair: ${srsPair} (profile=${profileId})`);
       resetButton.disabled = true;
-      setStatus(translate("status_srs_resetting", null, "Resetting SRS data…"), colors.DEFAULT);
+      setStatus(translate("status_srs_resetting", null, "Deleting SRS story…"), colors.DEFAULT);
 
       try {
         await helperManager.resetSrs(srsPair, { profileId });
-        log("[Reset] Helper returned success.");
-        setStatus(translate("status_srs_reset_success", null, "SRS data reset successfully."), colors.SUCCESS);
+        log("[DeleteStory] Helper returned success.");
+        setStatus(translate("status_srs_reset_success", null, "SRS story deleted."), colors.SUCCESS);
         setOutputText("");
       } catch (err) {
-        log("[Reset] Failed:", err);
-        let msg = err && err.message ? err.message : translate("status_srs_reset_failed", null, "SRS reset failed.");
+        log("[DeleteStory] Failed:", err);
+        let msg = err && err.message ? err.message : translate("status_srs_reset_failed", null, "SRS story deletion failed.");
         if (msg.includes("Unknown command")) {
-          msg = translate("status_srs_reset_outdated", null, "Helper outdated: command not found. Restart helper?");
+          msg = translate("status_srs_reset_outdated", null, "Delete failed: helper command not found. Restart helper?");
         }
         setStatus(msg, colors.ERROR);
       } finally {

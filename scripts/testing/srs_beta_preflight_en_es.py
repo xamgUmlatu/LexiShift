@@ -74,12 +74,12 @@ MANUAL_CHECKS = (
         ),
     },
     {
-        "id": "reset_discard_recovery",
+        "id": "delete_story_discard_recovery",
         "status": "PENDING",
         "check": "Tester recovery paths are understandable.",
         "verification": (
-            "Discard one dashboard word, then reset SRS data for the throwaway profile "
-            "and confirm the dashboard/replacement state recovers."
+            "Discard one dashboard word, then delete the throwaway profile's en-es SRS "
+            "story and confirm the profile can initialize again cleanly."
         ),
     },
 )

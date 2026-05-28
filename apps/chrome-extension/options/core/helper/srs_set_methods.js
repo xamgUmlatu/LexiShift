@@ -319,7 +319,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_reset_failed",
-            "SRS reset failed."
+            "SRS story deletion failed."
           )
         );
       }
