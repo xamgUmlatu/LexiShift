@@ -110,6 +110,25 @@ def _seed_store_and_outputs(root: Path) -> HelperPaths:
     paths.semantic_inventory_path("en-en").write_text("{}", encoding="utf-8")
     paths.publication_manifest_path("en-ja").write_text("{}", encoding="utf-8")
     paths.publication_manifest_path("en-en").write_text("{}", encoding="utf-8")
+    save_signal_events(
+        paths.srs_signal_queue_path_for("default"),
+        (
+            SrsSignalEvent(
+                event_type="feedback",
+                pair="en-ja",
+                lemma="alpha",
+                source_type="extension",
+                rating="good",
+            ),
+            SrsSignalEvent(
+                event_type="feedback",
+                pair="en-en",
+                lemma="beta",
+                source_type="extension",
+                rating="easy",
+            ),
+        ),
+    )
     return paths
 
 
@@ -269,6 +288,8 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertTrue(paths.ruleset_path("en-en").exists())
             self.assertTrue(paths.semantic_inventory_path("en-en").exists())
             self.assertTrue(paths.publication_manifest_path("en-en").exists())
+            signal_events = load_signal_events(paths.srs_signal_queue_path_for("default"))
+            self.assertEqual(tuple(event.pair for event in signal_events), ("en-en",))
             inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
             self.assertEqual(tuple(inventory.pairs.keys()), ("en-en",))
             self.assertEqual(
@@ -285,6 +306,8 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertEqual(result["removed_inventory_pairs"], 1)
             self.assertEqual(result["removed_semantic_inventories"], 1)
             self.assertEqual(result["removed_publication_manifests"], 1)
+            self.assertEqual(result["removed_signal_events"], 1)
+            self.assertEqual(result["removed_signal_queue_file"], 0)
 
     def test_reset_all_removes_all_pairs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -303,6 +326,7 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertFalse(paths.publication_manifest_path("en-ja").exists())
             self.assertFalse(paths.publication_manifest_path("en-en").exists())
             self.assertFalse(paths.srs_inventory_path_for("default").exists())
+            self.assertFalse(paths.srs_signal_queue_path_for("default").exists())
 
             self.assertEqual(result["pair"], "all")
             self.assertEqual(result["removed_items"], 2)
@@ -313,6 +337,8 @@ class TestHelperEngineReset(unittest.TestCase):
             self.assertEqual(result["removed_inventory_pairs"], 2)
             self.assertEqual(result["removed_semantic_inventories"], 2)
             self.assertEqual(result["removed_publication_manifests"], 2)
+            self.assertEqual(result["removed_signal_events"], 2)
+            self.assertEqual(result["removed_signal_queue_file"], 1)
 
     def test_reset_pair_removes_matching_suppression_metadata_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

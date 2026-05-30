@@ -1,7 +1,7 @@
 # SRS Admission Lifecycle Current State
 
 Status: current audit
-Last verified: 2026-05-27 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata tests, lifecycle-aware scheduler/growth/rulegen tests, admitted-at persistence tests, SRS quality harness with seeded browsing signal and encounter-watch scenario, changed-file gate, and feature-state audit
+Last verified: 2026-05-31 by source audit, active-capacity refresh tests, browsing refresh preview tests, fractional browsing-budget tests, SRS lifecycle marker tests, SRS reset suppression-metadata and signal-queue tests, lifecycle-aware scheduler/growth/rulegen tests, admitted-at persistence tests, SRS quality harness with seeded browsing signal and encounter-watch scenario, changed-file gate, and feature-state audit
 Purpose: record executable truth for how words enter, remain in, and leave the active SRS path before browsing-based admission can mutate real admission
 Source-of-truth: this is a code-backed audit; executable truth lives in the referenced helper/core modules and tests.
 
@@ -228,10 +228,11 @@ Current related mechanisms:
 - `core/lexishift_core/srs/scheduler.py`, `core/lexishift_core/srs/growth.py`,
   and `core/lexishift_core/helper/rulegen.py` all treat non-active lifecycle
   states as ineligible for active serving.
-- `reset_srs_data` clears suppression metadata by default when resetting a pair
-  or all SRS data. A backend `preserve_lifecycle_metadata` flag exists for a
-  future confirmation UX that lets the learner keep durable discard/block
-  metadata during reset.
+- `reset_srs_data` clears helper signal-queue feedback/exposure events and
+  suppression metadata by default when resetting a pair or all SRS data. A
+  backend `preserve_lifecycle_metadata` flag exists for a future confirmation UX
+  that lets the learner keep durable discard/block metadata during reset, but
+  signal-queue events are scoped story lifecycle data and are still reset.
 
 Current visibility/action surface: the options page can list admitted SRS words
 for the selected pair/profile through the read-only `srs_items_list`

@@ -1520,7 +1520,11 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-27` SRS lifecycle, active-budget, stale-unseen capacity, and manual refresh diagnostics update:
+- Last documented checkpoint: `2026-05-31` reset now treats the helper signal
+  queue as story-scoped lifecycle state; pair reset removes that pair's
+  feedback/exposure events and all-story reset removes the queue file. This
+  extends the `2026-05-27` SRS lifecycle, active-budget, stale-unseen capacity,
+  and manual refresh diagnostics update:
   browsing signal aggregation has an opt-in helper dev ingest path, persisted
   profile-scoped aggregate store, and hidden dev extension packet builder for
   replacement exposures; refresh admission also respects active suppression
@@ -1535,7 +1539,8 @@ Use this file when:
   the pair rather than the smaller due-only subset; options refresh output now
   surfaces active budget, stale-unseen capacity pressure, selected lemmas, and
   preview-only browsing comparison diagnostics for manual SRS testing
-- Last verified: `2026-05-27` lifecycle marker, active-budget, stale-unseen capacity,
+- Last verified: `2026-05-31` reset signal-queue cleanup tests extend
+  lifecycle marker, active-budget, stale-unseen capacity,
   manual refresh diagnostics,
   and active-inventory
   filtering tests, lifecycle-aware scheduler/growth/rulegen tests, admission
@@ -1563,8 +1568,11 @@ Use this file when:
     `cleared`; non-active lifecycle states are filtered out of active-inventory
     fallback, stale-inventory resolution, scheduler due selection, refresh
     growth admission, and helper rulegen publication.
-  - `srs_reset` clears matching suppression metadata by default. A backend
-    `preserve_lifecycle_metadata` flag exists for a future confirmation UX.
+  - `srs_reset` clears matching signal-queue feedback/exposure events and
+    suppression metadata by default. A backend `preserve_lifecycle_metadata`
+    flag exists for a future confirmation UX that keeps durable discard/block
+    metadata, but signal-queue events are story lifecycle data and are still
+    reset.
   - The SRS feedback popup remains a review-feedback surface only; it does not
     expose a cooldown action.
   - Manual refresh responses include preview-only browsing admission diagnostics

@@ -23,6 +23,7 @@ from lexishift_core.srs.auto_refresh import (
     remove_auto_refresh_pair_state,
     save_auto_refresh_state,
 )
+from lexishift_core.srs.signal_queue import load_signal_events, save_signal_events
 from lexishift_core.srs.time import format_ts, now_utc
 
 
@@ -47,6 +48,7 @@ def reset_srs_data(
     profile_inventory_path = paths.srs_inventory_path_for(normalized_profile_id)
     profile_srs_dir = paths.profile_srs_dir(normalized_profile_id)
     profile_status_path = paths.srs_status_path_for(normalized_profile_id)
+    signal_queue_path = paths.srs_signal_queue_path_for(normalized_profile_id)
     suppression_path = paths.srs_admission_suppression_store_path_for(normalized_profile_id)
     auto_refresh_state_path = paths.srs_auto_refresh_state_path_for(normalized_profile_id)
 
@@ -122,6 +124,10 @@ def reset_srs_data(
         auto_refresh_state_path,
         pair=scoped_pair,
     )
+    removed_signal_events, removed_signal_queue_file = _reset_signal_queue(
+        signal_queue_path,
+        pair=scoped_pair,
+    )
 
     status = load_status(profile_status_path)
     save_status(
@@ -152,6 +158,8 @@ def reset_srs_data(
         "removed_suppression_file": removed_suppression_file,
         "removed_auto_refresh_state_entries": removed_auto_refresh_state_entries,
         "removed_auto_refresh_state_file": removed_auto_refresh_state_file,
+        "removed_signal_events": removed_signal_events,
+        "removed_signal_queue_file": removed_signal_queue_file,
         "preserved_lifecycle_metadata": bool(preserve_lifecycle_metadata),
     }
 
@@ -203,3 +211,23 @@ def _reset_auto_refresh_state(path: Path, *, pair: Optional[str]) -> tuple[int, 
         return 1, removed_file
     save_auto_refresh_state(updated_state, path)
     return 1, 0
+
+
+def _reset_signal_queue(path: Path, *, pair: Optional[str]) -> tuple[int, int]:
+    if not path.exists():
+        return 0, 0
+    events = load_signal_events(path)
+    if pair is None:
+        removed_events = len(events)
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_events, removed_file
+
+    kept_events = tuple(event for event in events if event.pair != pair)
+    removed_events = len(events) - len(kept_events)
+    if removed_events <= 0:
+        return 0, 0
+    if not kept_events:
+        removed_file = 1 if _remove_file(path) else 0
+        return removed_events, removed_file
+    save_signal_events(path, kept_events)
+    return removed_events, 0
