@@ -1,6 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
-  const { copySelectOptions, formatProficiencyValue, hasExplicitProficiencyValue, normalizeInterestList, setProficiencyInput, setSelectValue, syncTopicChips } = root.optionsSrsStoryFlowUtils;
+  const { copySelectOptions, DEFAULT_STORY_FLOW_PROFICIENCY, formatProficiencyValue, hasExplicitProficiencyValue, matchesStoryContext, normalizeInterestList, readStoryContext, readStoryFlowValues, setProficiencyInput, setSelectValue, syncTopicChips } = root.optionsSrsStoryFlowUtils;
 
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -69,6 +69,8 @@
 
     let bound = false;
     let isOpen = false;
+    let openedStoryContext = null;
+    const readVisibleValues = () => readStoryFlowValues(elements);
 
     function setPreviewText(message, color) {
       if (!previewOutput) {
@@ -133,31 +135,19 @@
       syncTopicChips(mainTopicInterestChipButtons, normalized);
     }
 
-    function readVisibleValues() {
-      return {
-        sourceLanguage: modalSourceLanguageInput ? modalSourceLanguageInput.value : "",
-        targetLanguage: modalTargetLanguageInput ? modalTargetLanguageInput.value : "",
-        profileId: modalProfileIdInput ? modalProfileIdInput.value : "",
-        proficiencyEstimate: (
-          modalProficiencyEstimateInput && hasExplicitProficiencyValue(modalProficiencyEstimateInput)
-        )
-          ? modalProficiencyEstimateInput.value
-          : "",
-        interests: normalizeInterestList(modalTopicInterestsInput ? modalTopicInterestsInput.value : ""),
-        maxActive: modalMaxActiveInput ? modalMaxActiveInput.value : "",
-        bootstrapTopN: modalBootstrapTopNInput ? modalBootstrapTopNInput.value : "",
-        initialActiveCount: modalInitialActiveCountInput ? modalInitialActiveCountInput.value : ""
-      };
-    }
-
     function loadFromCurrentStory() {
+      openedStoryContext = readStoryContext(elements);
       copySelectOptions(mainProfileIdInput, modalProfileIdInput, "default");
       setSelectValue(modalSourceLanguageInput, mainSourceLanguageInput ? mainSourceLanguageInput.value : "en", "en");
       setSelectValue(modalTargetLanguageInput, mainTargetLanguageInput ? mainTargetLanguageInput.value : "es", "es");
       setSelectValue(modalProfileIdInput, mainProfileIdInput ? mainProfileIdInput.value : "default", "default");
       if (modalProficiencyEstimateInput && mainProficiencyEstimateInput) {
         const hasValue = hasExplicitProficiencyValue(mainProficiencyEstimateInput);
-        setProficiencyInput(modalProficiencyEstimateInput, mainProficiencyEstimateInput.value || "50", hasValue);
+        setProficiencyInput(
+          modalProficiencyEstimateInput,
+          hasValue ? mainProficiencyEstimateInput.value : DEFAULT_STORY_FLOW_PROFICIENCY,
+          true
+        );
       }
       updateModalProficiencyOutput();
       if (modalMaxActiveInput && mainMaxActiveInput) {
@@ -198,15 +188,26 @@
       setOpen(false);
     }
 
-    function writeMainValues(values) {
+    function writeMainValues(values, optionsArg) {
+      const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
+      const shouldActivateStory = options.activateStory === true;
+      const sourceContext = openedStoryContext || readStoryContext(elements);
       setSelectValue(mainSourceLanguageInput, values.sourceLanguage, values.sourceLanguage);
       setSelectValue(mainTargetLanguageInput, values.targetLanguage, values.targetLanguage);
       if (mainSrsEnabledInput) {
-        mainSrsEnabledInput.checked = true;
+        if (shouldActivateStory) {
+          mainSrsEnabledInput.checked = true;
+        } else {
+          mainSrsEnabledInput.checked = sourceContext.srsEnabled && matchesStoryContext(values, sourceContext);
+        }
       }
       if (mainProficiencyEstimateInput) {
         const hasValue = String(values.proficiencyEstimate || "").trim() !== "";
-        setProficiencyInput(mainProficiencyEstimateInput, values.proficiencyEstimate || "50", hasValue);
+        setProficiencyInput(
+          mainProficiencyEstimateInput,
+          values.proficiencyEstimate || DEFAULT_STORY_FLOW_PROFICIENCY,
+          hasValue
+        );
       }
       if (mainMaxActiveInput) {
         mainMaxActiveInput.value = values.maxActive;
@@ -220,7 +221,8 @@
       setMainInterests(values.interests);
     }
 
-    async function persistVisibleSettings() {
+    async function persistVisibleSettings(optionsArg) {
+      const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
       const values = readVisibleValues();
       const nextProfileId = String(values.profileId || "default").trim() || "default";
       const currentProfileId = mainProfileIdInput
@@ -230,9 +232,9 @@
         setSelectValue(mainProfileIdInput, nextProfileId, nextProfileId);
         await saveSrsProfileId();
       }
-      writeMainValues(values);
+      writeMainValues(values, options);
       await saveLanguageSettings();
-      writeMainValues(values);
+      writeMainValues(values, options);
       await saveSrsSettings();
       return values;
     }
@@ -256,7 +258,7 @@
       );
       try {
         clearResourceCheck();
-        await persistVisibleSettings();
+        await persistVisibleSettings({ activateStory: false });
         if (mainSamplingCurtain) {
           mainSamplingCurtain.open = true;
         }
@@ -295,7 +297,7 @@
       );
       try {
         clearResourceCheck();
-        await persistVisibleSettings();
+        await persistVisibleSettings({ activateStory: true });
         await srsActionsController.initializeSet();
         if (resourceCheck.latestBlock()) {
           setPreviewText(

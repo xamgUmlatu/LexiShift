@@ -33,9 +33,17 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   restore action;
 - the start-new-story block opens a guided modal for language/profile choice,
   proficiency, topics, starting size, sampling, and initialization;
-- modal sampling and initialization copy the visible modal values into the
-  existing Options controls, persist profile/language/SRS settings, and then
-  call the existing preview or initialize workflow;
+- the new-story proficiency slider starts at an explicit beginner value (`0%`)
+  when there is no existing proficiency value to copy into the flow;
+- modal sampling copies the visible modal values into the existing Options
+  controls, may persist draft profile/language/SRS preference inputs, and then
+  calls the existing read-only preview workflow without activating the story;
+- modal initialization copies and persists the visible modal values with the
+  hidden story-enabled backing field set, then calls the existing initialize
+  workflow;
+- the advanced setup-only vocabulary search range controls how broad a ranked
+  candidate pool sampling and new-word selection may inspect. It remains hidden
+  behind advanced setup controls because ordinary learners should not need it;
 - if helper preflight reports missing language data during modal sampling or
   initialization, the setup modal shows an inline data-readiness panel with the
   missing resource list, an action to open LexiShift's GUI Resource settings

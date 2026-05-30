@@ -195,10 +195,10 @@
     "message": "How many learning words LexiShift keeps in rotation at once."
   },
   "label_srs_bootstrap_top_n": {
-    "message": "Candidate search depth"
+    "message": "Vocabulary search range"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "How far LexiShift looks through ranked vocabulary when sampling or adding words. Leave at default unless samples feel too narrow."
+    "message": "Broadens the ranked word pool used for samples and new-word selection. Leave at default unless samples feel too narrow."
   },
   "label_srs_initial_active_count": {
     "message": "Starting words"

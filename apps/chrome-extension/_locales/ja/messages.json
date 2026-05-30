@@ -195,10 +195,10 @@
     "message": "LexiShiftが同時に練習対象として保つ学習単語数です。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "候補検索の深さ"
+    "message": "語彙検索範囲"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "サンプルや新規追加のときに、頻度順の語彙をどこまで見に行くかです。サンプルが狭すぎると感じるまでは既定値のままにしてください。"
+    "message": "サンプルや新規単語選択で使う頻度順の単語プールを広げます。サンプルが狭すぎると感じるまでは既定値のままにしてください。"
   },
   "label_srs_initial_active_count": {
     "message": "開始時の単語数"

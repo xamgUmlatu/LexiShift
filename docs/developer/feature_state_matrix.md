@@ -1816,10 +1816,11 @@ Use this file when:
   through the native helper and retry the same setup check, SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
-  start-new-story block opens a guided modal that persists visible
-  profile/language/SRS preferences before calling the existing preview or
-  initialize workflow. Successful delete-story handling now also clears the
-  selected profile/pair story profile and signals, publishes runtime
+  start-new-story block opens a guided modal that defaults missing proficiency
+  to an explicit beginner value, lets sampling persist draft preferences without
+  activating the story, and reserves story activation for the initialize
+  workflow. Successful delete-story handling now also clears the selected
+  profile/pair story profile and signals, publishes runtime
   `srsEnabled: false`, reloads the active profile, and hides the current story
   card when the loaded profile is inactive so the deleted story does not
   reappear after refresh.
@@ -1828,7 +1829,8 @@ Use this file when:
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
   polished dashboard/sampling/display-feedback/Advanced markup and ordering,
-  previous-proficiency restore binding,
+  previous-proficiency restore binding, beginner-default setup proficiency,
+  non-activating setup sampling,
   SRS story theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
@@ -1882,7 +1884,7 @@ Use this file when:
     slider remains visually neutral while the runtime save/preview path treats it
     as unset until the user moves it.
   - The active story surface exposes a learner-facing active-practice size
-    control by default. Candidate search depth remains a hidden backing value
+    control by default. Vocabulary search range remains a hidden backing value
     for the current controller path and is only visible in the new-story setup
     flow under advanced starting-size controls. Starting-word count is hidden
     from already-created stories and remains visible only in the initialization

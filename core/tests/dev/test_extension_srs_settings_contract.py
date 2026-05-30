@@ -420,6 +420,7 @@ const elements = {{
   modalTargetLanguageInput: createSelect("es", ["en", "es"]),
   modalProfileIdInput: createSelect("family", ["default", "family"]),
   modalProficiencyEstimateInput: createInput("70"),
+  modalProficiencyEstimateValueOutput: {{ textContent: "" }},
   modalTopicInterestsInput: createInput("animals"),
   modalTopicInterestChipButtons: [modalTopicAnimals],
   modalMaxActiveInput: createInput("30"),
@@ -431,7 +432,7 @@ const elements = {{
   mainSourceLanguageInput: createSelect("ja", ["ja", "en", "es"]),
   mainTargetLanguageInput: createSelect("en", ["ja", "en", "es"]),
   mainProfileIdInput: createSelect("default", ["default", "family"]),
-  mainSrsEnabledInput: {{ checked: false }},
+  mainSrsEnabledInput: {{ checked: true }},
   mainProficiencyEstimateInput: createInput(""),
   mainTopicInterestsInput: createInput(""),
   mainTopicInterestChipButtons: [mainTopicAnimals],
@@ -458,12 +459,27 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
 }});
 
 (async () => {{
+  controller.open();
+  assert.equal(elements.modalProficiencyEstimateInput.value, "0");
+  assert.equal(elements.modalProficiencyEstimateInput.dataset.srsHasValue, "true");
+  assert.equal(elements.modalProficiencyEstimateValueOutput.textContent, "0%");
+  elements.modalSourceLanguageInput.value = "en";
+  elements.modalTargetLanguageInput.value = "es";
+  elements.modalProfileIdInput.value = "family";
+  elements.modalProficiencyEstimateInput.value = "70";
+  elements.modalProficiencyEstimateInput.dataset.srsHasValue = "true";
+  elements.modalTopicInterestsInput.value = "animals";
+  elements.modalMaxActiveInput.value = "30";
+  elements.modalBootstrapTopNInput.value = "1000";
+  elements.modalInitialActiveCountInput.value = "40";
+  calls.length = 0;
+
   await controller.persistVisibleSettings();
   assert.deepEqual(calls, ["saveProfile", "saveLanguage", "saveSrs"]);
   assert.equal(elements.mainProfileIdInput.value, "family");
   assert.equal(elements.mainSourceLanguageInput.value, "en");
   assert.equal(elements.mainTargetLanguageInput.value, "es");
-  assert.equal(elements.mainSrsEnabledInput.checked, true);
+  assert.equal(elements.mainSrsEnabledInput.checked, false);
   assert.equal(elements.mainProficiencyEstimateInput.value, "70");
   assert.equal(elements.mainTopicInterestsInput.value, "animals");
   assert.equal(elements.mainMaxActiveInput.value, "30");
@@ -472,8 +488,16 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   assert.equal(mainTopicAnimals.attributes["aria-pressed"], "true");
 
   calls.length = 0;
+  await controller.previewAdmission();
+  assert.deepEqual(calls.slice(0, 3), ["saveLanguage", "saveSrs", "previewAdmission"]);
+  assert.equal(elements.mainSrsEnabledInput.checked, false);
+  assert.equal(mainSamplingCurtain.open, true);
+  assert.equal(elements.previewOutput.textContent, "sample output");
+
+  calls.length = 0;
   await controller.initializeStory();
   assert.deepEqual(calls.slice(0, 3), ["saveLanguage", "saveSrs", "initializeSet"]);
+  assert.equal(elements.mainSrsEnabledInput.checked, true);
   assert.equal(mainDashboardCurtain.open, true);
 }})().catch((err) => {{
   console.error(err);

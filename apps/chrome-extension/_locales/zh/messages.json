@@ -195,10 +195,10 @@
     "message": "LexiShift 同时保留在练习轮换中的学习词数量。"
   },
   "label_srs_bootstrap_top_n": {
-    "message": "候选搜索深度"
+    "message": "词汇搜索范围"
   },
   "hint_srs_bootstrap_top_n": {
-    "message": "抽样或添加新词时，LexiShift 会在排序词表中向下查找多深。除非抽样感觉范围太窄，否则请保持默认值。"
+    "message": "扩大用于抽样和新词选择的排序词池。除非样本感觉太窄，否则请保持默认值。"
   },
   "label_srs_initial_active_count": {
     "message": "起始词数"

@@ -1,5 +1,6 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const DEFAULT_STORY_FLOW_PROFICIENCY = "0";
 
   function normalizeInterestList(value) {
     const source = Array.isArray(value) ? value : String(value || "").split(",");
@@ -71,8 +72,46 @@
     if (!input.dataset) {
       input.dataset = {};
     }
-    input.value = hasValue ? String(value || "50") : "50";
+    input.value = hasValue ? String(value || DEFAULT_STORY_FLOW_PROFICIENCY) : DEFAULT_STORY_FLOW_PROFICIENCY;
     input.dataset.srsHasValue = hasValue ? "true" : "false";
+  }
+
+  function readStoryFlowValues(elements) {
+    const source = elements && typeof elements === "object" ? elements : {};
+    const proficiencyInput = source.modalProficiencyEstimateInput || null;
+    return {
+      sourceLanguage: source.modalSourceLanguageInput ? source.modalSourceLanguageInput.value : "",
+      targetLanguage: source.modalTargetLanguageInput ? source.modalTargetLanguageInput.value : "",
+      profileId: source.modalProfileIdInput ? source.modalProfileIdInput.value : "",
+      proficiencyEstimate: proficiencyInput && hasExplicitProficiencyValue(proficiencyInput)
+        ? proficiencyInput.value
+        : "",
+      interests: normalizeInterestList(source.modalTopicInterestsInput ? source.modalTopicInterestsInput.value : ""),
+      maxActive: source.modalMaxActiveInput ? source.modalMaxActiveInput.value : "",
+      bootstrapTopN: source.modalBootstrapTopNInput ? source.modalBootstrapTopNInput.value : "",
+      initialActiveCount: source.modalInitialActiveCountInput ? source.modalInitialActiveCountInput.value : ""
+    };
+  }
+
+  function readStoryContext(elements) {
+    const source = elements && typeof elements === "object" ? elements : {};
+    const profileId = source.mainProfileIdInput
+      ? String(source.mainProfileIdInput.value || "default").trim() || "default"
+      : "default";
+    return {
+      sourceLanguage: source.mainSourceLanguageInput ? String(source.mainSourceLanguageInput.value || "").trim() : "",
+      targetLanguage: source.mainTargetLanguageInput ? String(source.mainTargetLanguageInput.value || "").trim() : "",
+      profileId,
+      srsEnabled: source.mainSrsEnabledInput ? source.mainSrsEnabledInput.checked === true : false
+    };
+  }
+
+  function matchesStoryContext(values, context) {
+    if (!context) return false;
+    const profileId = String(values.profileId || "default").trim() || "default";
+    return String(values.sourceLanguage || "").trim() === context.sourceLanguage
+      && String(values.targetLanguage || "").trim() === context.targetLanguage
+      && profileId === context.profileId;
   }
 
   function syncTopicChips(buttons, interests) {
@@ -95,9 +134,13 @@
 
   root.optionsSrsStoryFlowUtils = {
     copySelectOptions,
+    DEFAULT_STORY_FLOW_PROFICIENCY,
     formatProficiencyValue,
     hasExplicitProficiencyValue,
+    matchesStoryContext,
     normalizeInterestList,
+    readStoryContext,
+    readStoryFlowValues,
     setProficiencyInput,
     setSelectValue,
     syncTopicChips
