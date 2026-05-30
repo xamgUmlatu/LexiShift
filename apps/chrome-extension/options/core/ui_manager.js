@@ -49,7 +49,7 @@ class UIManager {
       "srs-story-dashboard-curtain", "srs-story-sampling-curtain",
       "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
-      "srs-story-current-pair",
+      "srs-story-current-card", "srs-story-current-pair",
       "srs-words-refresh", "srs-words-advanced", "srs-words-search",
       "srs-words-status-filter", "srs-words-sort", "srs-words-page-size",
       "srs-words-clear-filters", "srs-words-summary", "srs-words-pagination",
@@ -111,35 +111,34 @@ class UIManager {
   }
 
   getSelectedOptionLabel(select, fallback) {
-    if (!select) {
-      return fallback;
-    }
+    if (!select) return fallback;
     const option = select.options && select.selectedIndex >= 0
       ? select.options[select.selectedIndex]
       : null;
-    const label = option
-      ? String(option.textContent || option.label || option.value || "").trim()
-      : "";
+    const label = option ? String(option.textContent || option.label || option.value || "").trim() : "";
     return label || String(select.value || fallback || "").trim();
   }
 
   updateSrsStorySummary() {
-    if (!this.dom.srsStoryCurrentPair) {
-      return;
-    }
+    const pairOutput = this.dom.srsStoryCurrentPair;
+    if (!pairOutput) return;
     const sourceLabel = this.getSelectedOptionLabel(this.dom.sourceLanguage, "Source");
     const targetLabel = this.getSelectedOptionLabel(this.dom.targetLanguage, "Target");
-    this.dom.srsStoryCurrentPair.textContent = `${sourceLabel} -> ${targetLabel}`;
+    pairOutput.textContent = `${sourceLabel} -> ${targetLabel}`;
+  }
+
+  updateSrsStoryVisibility(profile) {
+    const card = this.dom.srsStoryCurrentCard;
+    if (!card) return;
+    const isActive = Boolean(profile && profile.srsEnabled === true);
+    card.hidden = !isActive;
+    if (!isActive && "open" in card) card.open = false;
   }
 
   formatSrsProficiencyLabel(value, hasValue) {
-    if (!hasValue) {
-      return "Not set";
-    }
+    if (!hasValue) return "Not set";
     const numeric = Number(value);
-    if (!Number.isFinite(numeric)) {
-      return "Not set";
-    }
+    if (!Number.isFinite(numeric)) return "Not set";
     return `${Math.round(Math.min(100, Math.max(0, numeric)))}%`;
   }
 
@@ -248,6 +247,7 @@ class UIManager {
   }
 
   updateSrsInputs(profile, signals) {
+    this.updateSrsStoryVisibility(profile);
     const signalState = signals && typeof signals === "object" ? signals : {};
     const interests = Array.isArray(signalState.interests) ? signalState.interests : [];
     const hasProficiencyEstimate = Boolean(signalState.proficiency

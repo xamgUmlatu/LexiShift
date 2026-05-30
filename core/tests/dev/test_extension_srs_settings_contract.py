@@ -38,7 +38,11 @@ SRS_BINDINGS_JS = (
 OPTIONS_HTML = PROJECT_ROOT / "apps/chrome-extension/options.html"
 OPTIONS_CSS = PROJECT_ROOT / "apps/chrome-extension/options.css"
 TOPIC_TAXONOMY_JSON = PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxonomy_en_es.json"
+UI_MANAGER_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/ui_manager.js"
 SETTINGS_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/base_methods.js"
+SETTINGS_SRS_PROFILE_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/settings/srs_profile_methods.js"
+)
 SIGNALS_METHODS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/signals_methods.js"
 
 
@@ -110,6 +114,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertLess(
             html.index("story_flow_resource_check.js"), html.index("story_flow_controller.js")
         )
+        self.assertLess(html.index("delete_story_state.js"), html.index("maintenance_workflow.js"))
         self.assertIn('<select id="source-language" hidden aria-hidden="true">', html)
         self.assertIn('<select id="target-language" hidden aria-hidden="true">', html)
         self.assertRegex(
@@ -1620,6 +1625,149 @@ const manager = new SettingsManager();
   console.error(error);
   process.exit(1);
 }});
+"""
+        _run_node(script)
+
+    def test_delete_srs_profile_pair_removes_story_state_and_runtime_enablement(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const settingsBasePath = {json.dumps(str(SETTINGS_BASE_JS))};
+const settingsProfilePath = {json.dumps(str(SETTINGS_SRS_PROFILE_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(settingsBasePath, "utf8"), context, {{ filename: settingsBasePath }});
+vm.runInContext(fs.readFileSync(settingsProfilePath, "utf8"), context, {{ filename: settingsProfilePath }});
+
+const installBaseMethods = context.LexiShift.optionsSettingsInstallBaseMethods;
+const installSrsProfileMethods = context.LexiShift.optionsSettingsInstallSrsProfileMethods;
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+
+function SettingsManager() {{
+  this._items = {{
+    srsSelectedProfileId: "suisui",
+    srsProfiles: {{
+      suisui: {{
+        languagePrefs: {{ sourceLanguage: "en", targetLanguage: "es" }},
+        srsByPair: {{
+          "en-es": {{ srsEnabled: true, srsMaxActive: 40 }},
+          "en-ja": {{ srsEnabled: true, srsMaxActive: 20 }}
+        }},
+        srsSignalsByPair: {{
+          "en-es": {{ interests: ["animals"] }},
+          "en-ja": {{ interests: ["games"] }}
+        }}
+      }}
+    }}
+  }};
+}}
+
+SettingsManager.prototype.DEFAULT_PROFILE_ID = "default";
+SettingsManager.prototype.defaults = {{
+  srsPair: "en-en",
+  srsMaxActive: 40,
+  srsBootstrapTopN: 800,
+  srsInitialActiveCount: 40,
+  srsSoundEnabled: true,
+  srsHighlightColor: "#2F74D0",
+  srsFeedbackSrsEnabled: true,
+  srsFeedbackRulesEnabled: false,
+  srsExposureLoggingEnabled: true,
+  srsAutoRefreshEnabled: true,
+  srsAutoRefreshMinFeedbackEvents: 4,
+  srsAutoRefreshMinGoodEasy: 2,
+  srsAutoRefreshRepeatMinGoodEasy: 4,
+  srsAutoRefreshCooldownMinutes: 0
+}};
+SettingsManager.prototype.load = async function load() {{
+  return normalize(this._items);
+}};
+SettingsManager.prototype.save = async function save(updates) {{
+  this._items = {{
+    ...this._items,
+    ...updates
+  }};
+}};
+
+installBaseMethods(SettingsManager);
+installSrsProfileMethods(SettingsManager);
+
+const manager = new SettingsManager();
+
+(async () => {{
+  const result = await manager.deleteSrsProfilePair("en-es", {{
+    profileId: "suisui"
+  }});
+
+  assert.deepEqual(normalize(result), {{ pairKey: "en-es", profileId: "suisui" }});
+  const savedProfile = manager._items.srsProfiles.suisui;
+  assert.equal(Object.hasOwn(savedProfile.srsByPair, "en-es"), false);
+  assert.equal(Object.hasOwn(savedProfile.srsSignalsByPair, "en-es"), false);
+  assert.deepEqual(normalize(savedProfile.srsByPair["en-ja"]), {{
+    srsEnabled: true,
+    srsMaxActive: 20
+  }});
+  assert.deepEqual(normalize(savedProfile.srsSignalsByPair["en-ja"]), {{
+    interests: ["games"]
+  }});
+  assert.equal(manager._items.srsSelectedProfileId, "suisui");
+  assert.equal(manager._items.srsProfileId, "suisui");
+  assert.equal(manager._items.srsPair, "en-es");
+  assert.equal(manager._items.srsEnabled, false);
+
+  const deletedProfile = manager.getSrsProfile(manager._items, "en-es", {{
+    profileId: "suisui"
+  }});
+  assert.equal(deletedProfile.srsEnabled, false);
+  assert.equal(deletedProfile.srsMaxActive, 40);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_srs_story_card_visibility_tracks_loaded_profile_enablement(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
+const storyCard = {{ hidden: false, open: true }};
+const context = vm.createContext({{
+  console,
+  document: {{
+    getElementById(id) {{
+      return id === "srs-story-current-card" ? storyCard : null;
+    }},
+    querySelectorAll() {{
+      return [];
+    }}
+  }},
+  setTimeout(callback) {{
+    callback();
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(
+  `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
+  context,
+  {{ filename: uiManagerPath }}
+);
+
+const ui = new context.__UIManager();
+
+ui.updateSrsInputs({{ srsEnabled: false }}, {{}});
+assert.equal(storyCard.hidden, true);
+assert.equal(storyCard.open, false);
+
+ui.updateSrsInputs({{ srsEnabled: true }}, {{}});
+assert.equal(storyCard.hidden, false);
+assert.equal(storyCard.open, false);
 """
         _run_node(script)
 

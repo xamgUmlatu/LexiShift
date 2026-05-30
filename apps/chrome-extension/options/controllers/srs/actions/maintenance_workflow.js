@@ -51,6 +51,7 @@
         profileId: "default"
       })
     );
+    const loadSrsProfileForPair = getFunction(opts.loadSrsProfileForPair, null);
     const resolvePlanningState = getFunction(opts.resolvePlanningState, () => null);
     const refreshSemanticAdmissionStatus = getFunction(
       opts.refreshSemanticAdmissionStatus,
@@ -63,6 +64,10 @@
     const semanticPackWorkflow = semanticPackWorkflowFactory
       ? semanticPackWorkflowFactory(opts)
       : { installSemanticPack: async () => {} };
+    const syncDeletedStoryState = root.optionsSrsDeleteStoryState
+      && typeof root.optionsSrsDeleteStoryState.syncDeletedStoryState === "function"
+      ? root.optionsSrsDeleteStoryState.syncDeletedStoryState
+      : null;
     const wordsDashboardWorkflowFactory = root.optionsSrsWordsDashboardWorkflow
       && typeof root.optionsSrsWordsDashboardWorkflow.createWordsDashboardWorkflow === "function"
       ? root.optionsSrsWordsDashboardWorkflow.createWordsDashboardWorkflow
@@ -397,6 +402,16 @@
       try {
         await helperManager.resetSrs(srsPair, { profileId });
         log("[DeleteStory] Helper returned success.");
+        if (!syncDeletedStoryState) {
+          throw new Error("Delete-story state sync is unavailable.");
+        }
+        await syncDeletedStoryState({
+          settingsManager,
+          loadSrsProfileForPair,
+          srsPair,
+          profileId,
+          items
+        });
         setStatus(translate("status_srs_reset_success", null, "SRS story deleted."), colors.SUCCESS);
         setOutputText("");
       } catch (err) {

@@ -201,6 +201,9 @@
       resolveEffectiveSrsPlanningState: (items, pairKey, options) => (
         srsProfileRuntimeController.resolveEffectiveSrsPlanningState(items, pairKey, options)
       ),
+      loadSrsProfileForPair: (items, pairKey, options) => (
+        srsProfileRuntimeController.loadSrsProfileForPair(items, pairKey, options)
+      ),
       refreshSemanticAdmissionStatus: (pairKey, profileId) => (
         srsProfileRuntimeController.refreshSemanticAdmissionStatus(pairKey, profileId)
       ),

@@ -1770,9 +1770,10 @@ Use this file when:
 - Status: `implemented`, `default-on`, `verified` for the selected-story shell,
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, guided new-story initialization modal, and helper-backed
-  missing-language-data setup recovery; full multi-story enumeration remains
-  `planned`
-- Last documented checkpoint: `2026-05-28` resource-readiness setup recovery,
+  missing-language-data setup recovery, and delete-story state cleanup; full
+  multi-story enumeration remains `planned`
+- Last documented checkpoint: `2026-05-31` delete-story state cleanup extends
+  the `2026-05-28` resource-readiness setup recovery,
   generic installed-data hint removal, visible SRS enable-switch removal,
   story-scoped delete-story copy, active story preference-save/restore,
   flattened Advanced cleanup, theme-aware SRS story surfaces, and
@@ -1809,8 +1810,12 @@ Use this file when:
   path as the rest of Options, and the
   start-new-story block opens a guided modal that persists visible
   profile/language/SRS preferences before calling the existing preview or
-  initialize workflow.
-- Last verified: `2026-05-28` focused resource-readiness setup, active-story preference-save/order, and bridge/GUI routing tests cover
+  initialize workflow. Successful delete-story handling now also clears the
+  selected profile/pair story profile and signals, publishes runtime
+  `srsEnabled: false`, reloads the active profile, and hides the current story
+  card when the loaded profile is inactive so the deleted story does not
+  reappear after refresh.
+- Last verified: `2026-05-31` focused delete-story, resource-readiness setup, active-story preference-save/order, and bridge/GUI routing tests cover
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
@@ -1825,8 +1830,10 @@ Use this file when:
   experimental topic tags, hidden advanced challenge tuning, proficiency slider
   markup, active-story technical-status removal, missing-resource setup panel
   markup/controller behavior, native-host resource-settings launch routing, and
-  GUI resource-tab activation routing; extension structure/i18n checks, doc-reference
-  check, state audit, changed-file gate, and diff check pass.
+  GUI resource-tab activation routing, persisted selected-pair story deletion,
+  inactive-profile current-card hiding, and delete-workflow UI reload after
+  helper reset; extension structure/i18n checks, doc-reference check, state
+  audit, changed-file gate, and diff check pass.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
     source/target language pair; it does not yet enumerate every persisted SRS
@@ -1888,8 +1895,12 @@ Use this file when:
   - The collapsed active-story `Advanced` section exposes new-word timing
     thresholds as same-level controls, followed by `Delete SRS story`. The
     delete action uses the existing helper reset route but is presented and
-    confirmed as deleting only the selected profile/language-pair story.
-    Active-word update preview/apply and manual
+    confirmed as deleting only the selected profile/language-pair story. On
+    helper reset success, Options removes the selected pair's persisted SRS
+    profile and signal state for the selected profile, publishes runtime
+    `srsEnabled: false`, reloads the active profile, and hides the active-story
+    card so the deleted story stays gone after refresh. Active-word update
+    preview/apply and manual
     learning-word refresh remain backend/dev workflows, but they are not
     promoted in the ordinary learner Options surface.
   - Helper-backed initialize/refresh status output stays hidden until a message
@@ -1912,7 +1923,11 @@ Use this file when:
   - `apps/chrome-extension/options/controllers/srs/story_flow_controller.js`
   - `apps/chrome-extension/options/controllers/srs/story_flow_resource_check.js`
   - `apps/chrome-extension/options/controllers/srs/story_flow_utils.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/delete_story_state.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js`
   - `apps/chrome-extension/options/controllers/srs/actions/shared.js`
+  - `apps/chrome-extension/options/core/settings/srs_profile_methods.js`
+  - `apps/chrome-extension/options/core/ui_manager.js`
   - `apps/chrome-extension/options/core/helper/base_methods.js`
   - `apps/chrome-extension/shared/helper/helper_client.js`
   - `scripts/helper/lexishift_native_host.py`

@@ -178,6 +178,7 @@
             }
             shared.setOutputText(text);
           },
+          loadSrsProfileForPair: opts.loadSrsProfileForPair,
           resolveEffectiveSrsPlanningState: opts.resolveEffectiveSrsPlanningState,
           refreshSemanticAdmissionStatus: opts.refreshSemanticAdmissionStatus,
           markRulesetUpdatedNow: shared.markRulesetUpdatedNow,

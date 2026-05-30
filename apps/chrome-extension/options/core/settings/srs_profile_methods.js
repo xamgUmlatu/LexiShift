@@ -162,6 +162,37 @@
       return { pairKey: resolvedPair, profileId };
     };
 
+    SettingsManager.prototype.deleteSrsProfilePair = async function deleteSrsProfilePair(pairKey, options) {
+      const items = await this.load();
+      const opts = options && typeof options === "object" ? options : {};
+      const resolvedPair = this._normalizePairKey(pairKey);
+      const profileId = this.normalizeSrsProfileId(
+        opts.profileId !== undefined ? opts.profileId : this.getSelectedSrsProfileId(items)
+      );
+      const profilesRoot = this._getProfilesRoot(items);
+      const profileEntry = this._getProfileEntry(items, profileId);
+      const nextSrsByPair = { ...profileEntry.srsByPair };
+      const nextSignalsByPair = { ...profileEntry.srsSignalsByPair };
+      delete nextSrsByPair[resolvedPair];
+      delete nextSignalsByPair[resolvedPair];
+      const nextProfileEntry = {
+        ...profileEntry,
+        srsByPair: nextSrsByPair,
+        srsSignalsByPair: nextSignalsByPair
+      };
+      await this.save({
+        srsProfiles: {
+          ...profilesRoot,
+          [profileId]: nextProfileEntry
+        },
+        srsSelectedProfileId: profileId,
+        srsProfileId: profileId,
+        srsPair: resolvedPair,
+        srsEnabled: false
+      });
+      return { pairKey: resolvedPair, profileId };
+    };
+
     SettingsManager.prototype.publishSrsRuntimeProfile = async function publishSrsRuntimeProfile(pairKey, profile, extraUpdates, options) {
       const opts = options && typeof options === "object" ? options : {};
       const runtimeProfile = this._isObject(profile) ? profile : {};

@@ -175,6 +175,9 @@
             : setOutputText,
           markRulesetUpdatedNow,
           preflightSrsPairResources,
+          loadSrsProfileForPair: typeof opts.loadSrsProfileForPair === "function"
+            ? opts.loadSrsProfileForPair
+            : null,
           buildInitializeResultOutput: typeof opts.buildInitializeResultOutput === "function"
             ? opts.buildInitializeResultOutput
             : (_options) => "",

@@ -10,6 +10,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 MAINTENANCE_WORKFLOW_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/maintenance_workflow.js"
 )
+DELETE_STORY_STATE_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/delete_story_state.js"
+)
 WORDS_DASHBOARD_WORKFLOW_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js"
@@ -379,6 +382,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const vm = require("node:vm");
 
+const deleteStatePath = {json.dumps(str(DELETE_STORY_STATE_JS))};
 const modulePath = {json.dumps(str(MAINTENANCE_WORKFLOW_JS))};
 const context = vm.createContext({{ console }});
 context.globalThis = context;
@@ -391,6 +395,7 @@ context.LexiShift = {{
     }}
   }}
 }};
+vm.runInContext(fs.readFileSync(deleteStatePath, "utf8"), context, {{ filename: deleteStatePath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const createMaintenanceWorkflows =
@@ -475,6 +480,121 @@ const workflows = createMaintenanceWorkflows({{
     "Delete this SRS story for the current profile and language pair? This cannot be undone.",
     "Really delete this story's learning words, review history, and discard data?"
   ]);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_reset_workflow_deletes_local_story_state_and_reloads_profile(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const deleteStatePath = {json.dumps(str(DELETE_STORY_STATE_JS))};
+const modulePath = {json.dumps(str(MAINTENANCE_WORKFLOW_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{
+  optionsTranslateResolver: {{
+    resolveTranslate(translate) {{
+      return typeof translate === "function"
+        ? translate
+        : ((_key, _args, fallback) => fallback);
+    }}
+  }}
+}};
+vm.runInContext(fs.readFileSync(deleteStatePath, "utf8"), context, {{ filename: deleteStatePath }});
+vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
+
+const createMaintenanceWorkflows =
+  context.LexiShift.optionsSrsActionMaintenanceWorkflow.createMaintenanceWorkflows;
+const resetButton = {{ disabled: false }};
+const output = {{ textContent: "stale output" }};
+const statuses = [];
+const helperCalls = [];
+const deleteCalls = [];
+const publishCalls = [];
+const reloadCalls = [];
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+let loadCount = 0;
+
+const workflows = createMaintenanceWorkflows({{
+  settingsManager: {{
+    async load() {{
+      loadCount += 1;
+      return {{ loadCount }};
+    }},
+    getSelectedSrsProfileId() {{
+      return "suisui";
+    }},
+    async deleteSrsProfilePair(pair, options) {{
+      deleteCalls.push({{ pair, options }});
+    }},
+    async publishSrsRuntimeProfile(pair, profile, extraUpdates, options) {{
+      publishCalls.push({{ pair, profile, extraUpdates, options }});
+    }}
+  }},
+  helperManager: {{
+    async resetSrs(pair, options) {{
+      helperCalls.push({{ pair, options }});
+      return {{ deleted: true }};
+    }}
+  }},
+  translate: null,
+  setStatus: (message, color) => {{
+    statuses.push({{ message, color }});
+  }},
+  resolvePair: () => "en-es",
+  confirmFn: () => true,
+  log: () => {{}},
+  colors: {{
+    SUCCESS: "#3c5a2a",
+    ERROR: "#b42318",
+    DEFAULT: "#6c675f"
+  }},
+  output,
+  resetButton,
+  setOutputText: (text) => {{
+    output.textContent = text;
+  }},
+  loadSrsProfileForPair: async (items, pair, options) => {{
+    reloadCalls.push({{ items, pair, options }});
+  }}
+}});
+
+(async () => {{
+  await workflows.resetSrsData();
+
+  assert.equal(resetButton.disabled, false);
+  assert.equal(loadCount, 2);
+  assert.deepEqual(normalize(helperCalls), [
+    {{ pair: "en-es", options: {{ profileId: "suisui" }} }}
+  ]);
+  assert.deepEqual(normalize(deleteCalls), [
+    {{ pair: "en-es", options: {{ profileId: "suisui" }} }}
+  ]);
+  assert.deepEqual(normalize(publishCalls), [
+    {{
+      pair: "en-es",
+      profile: {{ srsEnabled: false }},
+      extraUpdates: {{ srsSelectedProfileId: "suisui" }},
+      options: {{ profileId: "suisui" }}
+    }}
+  ]);
+  assert.deepEqual(normalize(reloadCalls), [
+    {{
+      items: {{ loadCount: 2 }},
+      pair: "en-es",
+      options: {{ profileId: "suisui", forceHelperRefresh: true }}
+    }}
+  ]);
+  assert.equal(statuses[0].message, "Deleting SRS story…");
+  assert.equal(statuses[1].message, "SRS story deleted.");
+  assert.equal(statuses[1].color, "#3c5a2a");
+  assert.equal(output.textContent, "");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
