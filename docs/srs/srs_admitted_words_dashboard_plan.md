@@ -318,7 +318,11 @@ This dashboard is intentionally small in authority.
 - Discard means durable learner block until the story is deleted/reset, not a
   cooldown.
 - Removed words remain visible so learners can understand state after discard.
-- Restore, mastered/released, and undo policies remain planned, not implicit.
+- Automatic refresh may park mature review words out of active inventory when
+  the active-size target is full, but the dashboard does not directly clear,
+  restore, release, or mark words mastered.
+- Restore, mastered/released lifecycle UX, and undo policies remain planned, not
+  implicit.
 
 ## Verification
 
@@ -385,8 +389,8 @@ Next product slices, after dashboard pagination and discard are stable:
    with a discrete three-dots control. This is deferred until the dashboard
    discard path and SRS testing path are stable.
 4. A confirmed restore/undo policy if discarded items should ever return.
-5. Full mastered/released lifecycle semantics, if normal FSRS feedback is not
-   enough for known-word dropoff.
+5. Full mastered/released lifecycle semantics and restore UX, separate from the
+   backend active-inventory parking used by refresh capacity.
 
 ## Release Boundary
 
@@ -402,8 +406,9 @@ The dashboard is acceptable for MVP when:
 - encounter-watch counters include age-aware stale-unseen visibility and are
   visible enough for tester review without implying automatic stale-clear or
   release behavior;
-- the dashboard shows which loaded words can currently replace text, without
-  changing runtime serving or admission order;
+- the dashboard shows which loaded words can currently replace text, while
+  automatic refresh remains responsible for active-inventory parking and new
+  admission;
 - published-rule summaries are covered by focused helper/options tests and
   remain read-only;
 - on-demand rule details are covered by focused helper/options tests and remain

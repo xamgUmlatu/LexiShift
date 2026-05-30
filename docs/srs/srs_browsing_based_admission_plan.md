@@ -540,9 +540,9 @@ B = min(max_new_items_per_day, max_active_items - active_count)
 ```
 
 Then the refresh policy may reduce `B` to zero under high due pressure or low
-retention. `active_count` is the total active store load for the pair, while
-`due_count` remains a review-pressure signal. Browsing only acts after this
-point.
+retention. `active_count` is the resolved active inventory after automatic
+active-rotation release, while `due_count` remains a review-pressure signal.
+Browsing only acts after this point.
 
 ### Option A: Score-Only Boost
 

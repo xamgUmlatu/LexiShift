@@ -61,6 +61,7 @@ class AdmissionRefreshPolicy:
     thresholds: AdmissionRefreshThresholds = field(default_factory=AdmissionRefreshThresholds)
     max_active_items_override: Optional[int] = None
     max_new_items_override: Optional[int] = None
+    active_item_ids: Optional[Sequence[str]] = None
     allowed_pos: Optional[set[str]] = None
     selector_config: SelectorConfig = field(
         default_factory=lambda: SelectorConfig(
@@ -282,18 +283,25 @@ def plan_admission_refresh(
         policy.max_new_items_override,
         fallback=settings.max_new_items_per_day,
     )
+    active_item_id_set = _normalize_active_item_id_set(policy.active_item_ids)
+    capacity_items = _active_capacity_items_for_pair(
+        store,
+        pair=pair,
+        active_item_ids=active_item_id_set,
+    )
     due_items = select_active_items(
-        store.items,
+        capacity_items,
         now=now,
         max_active=max_active_items,
         allowed_pairs=[pair],
     )
     due_count = len(due_items)
     due_pressure = due_count / float(max_active_items) if max_active_items > 0 else 1.0
-    active_count = _count_active_items_for_pair(store, pair=pair)
+    active_count = len(capacity_items)
     active_capacity_diagnostics = _active_capacity_diagnostics_for_pair(
         store,
         pair=pair,
+        active_item_ids=active_item_id_set,
         now=now,
         stale_age_days=STALE_ACTIVE_AGE_DAYS,
     )
@@ -529,14 +537,34 @@ def _resolve_non_negative_int(value: Optional[int], *, fallback: int) -> int:
     return max(0, parsed)
 
 
-def _count_active_items_for_pair(store: SrsStore, *, pair: str) -> int:
-    return sum(1 for item in store.items if item.language_pair == pair and srs_item_is_active(item))
+def _normalize_active_item_id_set(value: Optional[Sequence[str]]) -> Optional[set[str]]:
+    if value is None:
+        return None
+    if isinstance(value, (str, bytes, bytearray)):
+        return set()
+    return {str(item_id or "").strip() for item_id in value if str(item_id or "").strip()}
+
+
+def _active_capacity_items_for_pair(
+    store: SrsStore,
+    *,
+    pair: str,
+    active_item_ids: Optional[set[str]],
+) -> tuple:
+    return tuple(
+        item
+        for item in store.items
+        if item.language_pair == pair
+        and srs_item_is_active(item)
+        and (active_item_ids is None or item.item_id in active_item_ids)
+    )
 
 
 def _active_capacity_diagnostics_for_pair(
     store: SrsStore,
     *,
     pair: str,
+    active_item_ids: Optional[set[str]],
     now: datetime,
     stale_age_days: int,
 ) -> dict[str, int]:
@@ -546,6 +574,8 @@ def _active_capacity_diagnostics_for_pair(
     stale_seconds = max(0, int(stale_age_days)) * SECONDS_PER_DAY
     for item in store.items:
         if item.language_pair != pair or not srs_item_is_active(item):
+            continue
+        if active_item_ids is not None and item.item_id not in active_item_ids:
             continue
         if int(item.exposures or 0) > 0 or len(item.history or ()) > 0:
             continue

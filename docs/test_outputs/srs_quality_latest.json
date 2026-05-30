@@ -406,6 +406,19 @@
             "candidate_pool_effective": 70
           },
           "applied": true,
+          "active_rotation_release": {
+            "pair": "en-ja",
+            "active_count_before": 40,
+            "active_count_after": 40,
+            "released_count": 0,
+            "released_item_ids": [],
+            "released_lemmas": [],
+            "policy": {
+              "min_history_count": 4,
+              "min_future_due_days": 7,
+              "require_review_state": true
+            }
+          },
           "selection_strategy_requested": "profile_growth",
           "selection_strategy_effective": "profile_growth",
           "selection_policy": "reserved_topic_lane",
@@ -1687,6 +1700,19 @@
             "candidate_pool_effective": 70
           },
           "applied": true,
+          "active_rotation_release": {
+            "pair": "en-de",
+            "active_count_before": 40,
+            "active_count_after": 40,
+            "released_count": 0,
+            "released_item_ids": [],
+            "released_lemmas": [],
+            "policy": {
+              "min_history_count": 4,
+              "min_future_due_days": 7,
+              "require_review_state": true
+            }
+          },
           "selection_strategy_requested": "profile_growth",
           "selection_strategy_effective": "profile_growth",
           "selection_policy": "reserved_topic_lane",

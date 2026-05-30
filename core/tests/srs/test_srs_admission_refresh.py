@@ -100,6 +100,43 @@ class TestSrsAdmissionRefresh(unittest.TestCase):
         self.assertEqual(decision.active_zero_exposure_zero_feedback_age_unknown, 3)
         self.assertEqual(decision.active_stale_zero_exposure_zero_feedback, 0)
 
+    def test_plan_can_scope_capacity_to_active_inventory_ids(self) -> None:
+        now = datetime(2026, 5, 26, tzinfo=timezone.utc)
+        future_due = (now + timedelta(days=7)).isoformat()
+        store = SrsStore(
+            items=tuple(
+                SrsItem(
+                    item_id=f"en-ja:existing{index}",
+                    lemma=f"existing{index}",
+                    language_pair="en-ja",
+                    source_type="initial_set",
+                    next_due=future_due,
+                )
+                for index in range(3)
+            ),
+            version=1,
+        )
+
+        decision = plan_admission_refresh(
+            store=store,
+            settings=SrsSettings(max_active_items=3, max_new_items_per_day=4),
+            pair="en-ja",
+            events=[],
+            policy=AdmissionRefreshPolicy(
+                feedback_window_size=100,
+                active_item_ids=("en-ja:existing0", "en-ja:existing2"),
+            ),
+            now=now,
+        )
+
+        self.assertEqual(decision.active_count, 2)
+        self.assertEqual(decision.due_count, 0)
+        self.assertEqual(decision.capacity_budget, 1)
+        self.assertEqual(decision.base_admission_budget, 1)
+        self.assertEqual(decision.admission_budget, 1)
+        self.assertEqual(decision.reason_code, "normal")
+        self.assertEqual(decision.active_zero_exposure_zero_feedback, 2)
+
     def test_plan_reports_stale_unseen_active_capacity_pressure(self) -> None:
         now = datetime(2026, 5, 26, tzinfo=timezone.utc)
         store = SrsStore(

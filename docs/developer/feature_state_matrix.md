@@ -1520,8 +1520,10 @@ Use this file when:
 ## Browsing-Based SRS Admission
 
 - Status: `scaffolded`, `verified`; `default-on` = `no`
-- Last documented checkpoint: `2026-05-31` reset now treats the helper signal
-  queue as story-scoped lifecycle state; pair reset removes that pair's
+- Last documented checkpoint: `2026-05-31` active-rotation release now parks
+  mature review words out of full active inventories before refresh capacity is
+  calculated, and reset treats the helper signal queue as story-scoped
+  lifecycle state; pair reset removes that pair's
   feedback/exposure events and all-story reset removes the queue file. This
   extends the `2026-05-27` SRS lifecycle, active-budget, stale-unseen capacity,
   and manual refresh diagnostics update:
@@ -1535,12 +1537,16 @@ Use this file when:
   durable `user_blocked` suppression entries and mark existing SRS items
   `discarded` for future discard/block flows; non-active lifecycle states are
   now excluded from active inventory, due selection, growth capacity, and
-  rulegen publication; refresh capacity now uses total active store load for
-  the pair rather than the smaller due-only subset; options refresh output now
-  surfaces active budget, stale-unseen capacity pressure, selected lemmas, and
-  preview-only browsing comparison diagnostics for manual SRS testing
-- Last verified: `2026-05-31` reset signal-queue cleanup tests extend
-  lifecycle marker, active-budget, stale-unseen capacity,
+  rulegen publication; refresh capacity now uses the pair's resolved active
+  inventory after automatic active-rotation release rather than the smaller
+  due-only subset or every lifecycle-active store row; options refresh output
+  now surfaces active budget, stale-unseen capacity pressure, selected lemmas,
+  and preview-only browsing comparison diagnostics for manual SRS testing
+- Last verified: `2026-05-31` active-rotation release, inventory-scoped
+  capacity, helper refresh parking, product-loop regression, and reset
+  signal-queue cleanup tests extend
+  lifecycle marker, inventory-scoped active-budget, automatic active-rotation
+  release, stale-unseen capacity,
   manual refresh diagnostics,
   and active-inventory
   filtering tests, lifecycle-aware scheduler/growth/rulegen tests, admission
@@ -1557,9 +1563,15 @@ Use this file when:
   - No browsing signal changes actual SRS admission refresh yet.
   - Manual refresh admission now filters active admission-suppression entries;
     this guards future browsing boost from re-admitting suppressed lemmas.
-  - Manual refresh capacity is capped by total active SRS items for the pair,
-    not only by currently due items. Due count remains a pressure signal that
-    can pause admission when reviews are overloaded.
+  - Manual refresh capacity is capped by the pair's resolved active inventory
+    after automatic active-rotation release, not by every lifecycle-active store
+    row and not only by currently due items. Due count remains a pressure signal
+    that can pause admission when reviews are overloaded.
+  - Automatic active-rotation release runs during refresh only when the active
+    inventory is already at or above the active-size target. It parks mature
+    review items with at least four reviews and a next due date at least seven
+    days in the future by removing them from active inventory while preserving
+    their SRS store rows, history, lifecycle state, and future due date.
   - The `srs_admission_suppress` helper/native-host route can write durable
     `user_blocked` suppression; when a matching SRS item already exists, it marks
     that item `lifecycle_state=discarded` and removes it from active inventory.
@@ -1602,6 +1614,7 @@ Use this file when:
   - `docs/srs/srs_browsing_based_admission_plan.md`
   - `core/lexishift_core/srs/browsing_admission.py`
   - `core/lexishift_core/srs/admission_refresh.py`
+  - `core/lexishift_core/srs/active_rotation.py`
   - `core/lexishift_core/srs/growth.py`
   - `core/lexishift_core/srs/scheduler.py`
   - `core/lexishift_core/srs/store.py`
@@ -1627,7 +1640,9 @@ Use this file when:
   - `docs/test_outputs/srs_browsing_admission_backend_simulation_latest.md`
   - `docs/test_outputs/srs_browsing_admission_research_en_es_latest.md`
   - `core/tests/srs/test_srs_admission_refresh.py`
+  - `core/tests/srs/test_srs_active_rotation.py`
   - `core/tests/srs/test_srs_browsing_admission.py`
+  - `core/tests/srs/test_srs_preference_product_loop.py`
   - `core/tests/srs/test_srs_growth.py`
   - `core/tests/srs/test_srs_scheduler.py`
   - `core/tests/srs/test_srs_store.py`
@@ -1657,7 +1672,8 @@ Use this file when:
   local dashboard search/filter/sort/pagination, read-only published-rule
   summaries, capped on-demand rule details, and confirmed durable dashboard
   discard; restore/mastery/release controls remain `planned`
-- Last documented checkpoint: `2026-05-27` admitted-words dashboard replacement
+- Last documented checkpoint: `2026-05-31` active-rotation capacity release
+  extends the `2026-05-27` admitted-words dashboard replacement
   eligibility projection, bridge/control polish, options UI, local review
   controls, published-rule summaries/details, first durable lifecycle action,
   profile-bootstrap bridge coverage, and encounter-watch visibility:
@@ -1674,7 +1690,9 @@ Use this file when:
   reuses `srs_admission_suppress` with `reason=user_blocked`; focused helper
   coverage now verifies profile-bootstrap initialization through rule publication
   and dashboard listing
-- Last verified: `2026-05-27` admitted-at dashboard encounter diagnostics,
+- Last verified: `2026-05-31` active-rotation release helper, inventory-scoped
+  admission capacity, helper refresh integration, and product-loop regression
+  tests; extends the `2026-05-27` admitted-at dashboard encounter diagnostics,
   replacement-eligibility dashboard projection,
   bridge/meta-control, rule-summary/detail, search/filter/sort/pagination,
   confirmed discard route, stale-unseen encounter-watch counters/rendering, and
@@ -1721,6 +1739,11 @@ Use this file when:
     compact.
   - Active status uses the same active-inventory resolver as helper SRS serving;
     queued admitted words remain visible but not active.
+  - When refresh finds the active inventory at or above the active-size target,
+    lifecycle-active review words with at least four reviews and a next due date
+    at least seven days in the future are automatically parked out of active
+    inventory before capacity is calculated. Their SRS store rows and history
+    are preserved, so this is not discard, deletion, or mastered lifecycle UX.
   - Eligible words expose a confirmed Discard action. It durably blocks refresh
     re-admission, marks existing SRS items `discarded`, and removes active
     inventory membership through the existing helper suppression route.
@@ -1737,6 +1760,7 @@ Use this file when:
   - `core/lexishift_core/srs/store_ops.py`
   - `core/lexishift_core/srs/growth.py`
   - `core/lexishift_core/srs/admission_refresh.py`
+  - `core/lexishift_core/srs/active_rotation.py`
   - `core/lexishift_core/helper/rulegen.py`
   - `core/lexishift_core/helper/use_cases/srs_items.py`
   - `core/lexishift_core/helper/engine.py`
@@ -1759,6 +1783,8 @@ Use this file when:
   - `core/tests/srs/test_srs_store_ops.py`
   - `core/tests/srs/test_srs_growth.py`
   - `core/tests/srs/test_srs_admission_refresh.py`
+  - `core/tests/srs/test_srs_active_rotation.py`
+  - `core/tests/srs/test_srs_preference_product_loop.py`
   - `core/tests/helper/test_helper_srs_items.py`
   - `core/tests/helper/test_helper_admission_suppression.py`
   - `core/tests/dev/test_srs_resource_budget_audit.py`
@@ -1770,7 +1796,8 @@ Use this file when:
   - Deep per-word semantic metadata inspection and morphology variant inspection
     are not implemented.
   - User actions for restore, clear, release, and mastered-state management are
-    not implemented.
+    not implemented; current automatic parking is backend active-inventory
+    capacity management only.
   - The extension feedback popup remains review-feedback only.
 
 ## SRS Story-Based Options UX

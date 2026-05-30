@@ -10,10 +10,9 @@ from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
 from lexishift_core.srs import (
     SrsInventory,
-    SrsSettings,
-    SrsStore,
     load_srs_inventory,
     merge_active_item_ids,
+    plan_active_rotation_capacity_release,
     resolve_active_item_ids,
     save_srs_inventory,
     save_srs_store,
@@ -59,12 +58,12 @@ def refresh_srs_set(
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
-    ensure_settings_fn: Callable[..., SrsSettings],
-    ensure_store_fn: Callable[..., SrsStore],
+    ensure_settings_fn: Callable[..., object],
+    ensure_store_fn: Callable[..., object],
     count_items_for_pair_fn: Callable[..., int],
     resolve_stopwords_path_fn: Callable[..., Path | None],
     build_seed_candidates_fn: Callable[..., list[SeedWord]],
-    run_rulegen_for_pair_fn: Callable[..., tuple[SrsStore, RulegenOutput]],
+    run_rulegen_for_pair_fn: Callable[..., tuple[object, RulegenOutput]],
     write_rulegen_outputs_fn: Callable[..., None],
     update_status_fn: Callable[..., None],
 ) -> dict[str, object]:
@@ -118,6 +117,19 @@ def refresh_srs_set(
         pair=pair,
         inventory=inventory if inventory_exists else None,
     )
+    max_active_items_for_release = max(
+        1,
+        int(config.max_active_items)
+        if config.max_active_items is not None
+        else int(settings.max_active_items),
+    )
+    active_rotation_release = plan_active_rotation_capacity_release(
+        store=store,
+        pair=pair,
+        active_item_ids=active_item_ids_before,
+        max_active_items=max_active_items_for_release,
+    )
+    active_item_ids_for_refresh = tuple(active_rotation_release.active_item_ids_after)
     suppression_path = paths.srs_admission_suppression_store_path_for(profile_id)
     suppression_store = load_admission_suppression_store(suppression_path)
     pruned_suppression_store = (
@@ -171,6 +183,7 @@ def refresh_srs_set(
         feedback_window_size=effective_feedback_window_size,
         max_active_items_override=config.max_active_items,
         max_new_items_override=config.max_new_items,
+        active_item_ids=active_item_ids_for_refresh,
         allowed_pos=allowed_pos or None,
         selector_config=selector_config or AdmissionRefreshPolicy().selector_config,
         blocked_lemmas=set(suppressed_lemmas.keys()) or None,
@@ -202,7 +215,7 @@ def refresh_srs_set(
     inventory_updated_at = None
     inventory_payload_source = inventory_source
     inventory_backfilled = False
-    active_item_ids = tuple(active_item_ids_before)
+    active_item_ids = active_item_ids_for_refresh
     if refresh_result.applied:
         admitted_active_item_ids = tuple(
             build_item_id(pair, str(lemma).strip())
@@ -210,6 +223,11 @@ def refresh_srs_set(
             if str(lemma).strip()
         )
         active_item_ids = merge_active_item_ids(active_item_ids_before, admitted_active_item_ids)
+        if active_rotation_release.released_item_ids:
+            active_item_ids = merge_active_item_ids(
+                active_item_ids_for_refresh,
+                admitted_active_item_ids,
+            )
         if config.persist_store:
             save_srs_store(updated_store, paths.srs_store_path_for(profile_id))
             inventory_updated_at = now_utc().isoformat()
@@ -222,22 +240,30 @@ def refresh_srs_set(
             save_srs_inventory(inventory, inventory_path)
         inventory_backfilled = inventory_source == "store_fallback"
         inventory_payload_source = "refreshed"
-    elif config.persist_store and inventory_source == "store_fallback" and active_item_ids_before:
+    elif (
+        config.persist_store
+        and (inventory_source == "store_fallback" or active_rotation_release.released_item_ids)
+        and active_item_ids_before
+    ):
         inventory_updated_at = now_utc().isoformat()
         inventory = set_active_item_ids(
             inventory,
             pair=pair,
-            active_item_ids=active_item_ids_before,
+            active_item_ids=active_item_ids,
             last_refreshed_at=inventory_updated_at,
         )
         save_srs_inventory(inventory, inventory_path)
-        inventory_backfilled = True
-        inventory_payload_source = "inventory_backfilled"
+        inventory_backfilled = inventory_source == "store_fallback"
+        inventory_payload_source = (
+            "active_rotation_released"
+            if active_rotation_release.released_item_ids
+            else "inventory_backfilled"
+        )
 
     after_pair_count = count_items_for_pair_fn(updated_store, pair)
     added_items = max(0, after_pair_count - before_pair_count)
     published_rulegen = None
-    if refresh_result.applied:
+    if refresh_result.applied or active_rotation_release.released_item_ids:
         effective_rulegen_tuning = resolve_rulegen_tuning(pair)
         _updated_store, rulegen_output = run_rulegen_for_pair_fn(
             paths=paths,
@@ -298,6 +324,7 @@ def refresh_srs_set(
             ),
         }
     refresh_payload = admission_refresh_result_to_dict(refresh_result)
+    refresh_payload["active_rotation_release"] = active_rotation_release.to_dict()
     refresh_payload["selection_strategy_requested"] = strategy_requested
     refresh_payload["selection_strategy_effective"] = strategy_effective
     refresh_payload["selection_policy"] = refresh_policy.selector_config.selection_policy

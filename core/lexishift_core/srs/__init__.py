@@ -14,6 +14,7 @@ from lexishift_core.srs.inventory import (
     srs_pair_inventory_from_dict,
     srs_pair_inventory_to_dict,
 )
+from lexishift_core.srs.active_rotation import plan_active_rotation_capacity_release
 from lexishift_core.srs.store import (
     PracticeGateState,
     SRS_LIFECYCLE_ACTIVE,
@@ -61,6 +62,7 @@ __all__ = [
     "load_srs_store",
     "merge_active_item_ids",
     "normalize_srs_lifecycle_state",
+    "plan_active_rotation_capacity_release",
     "remove_pair_inventory",
     "resolve_active_item_ids",
     "save_srs_settings",

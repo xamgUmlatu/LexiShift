@@ -77,7 +77,8 @@ coarse and too sticky for passive browsing history.
 Refresh budget is controlled by:
 
 - `SrsSettings.max_active_items`, default `40`
-- active SRS item count for the pair, counted from active store rows
+- active SRS item count for the pair, counted from the resolved active
+  inventory after the automatic active-rotation release check
 - `SrsSettings.max_new_items_per_day`, default `8` (currently a per-refresh
   admission cap, not a separate calendar-day ledger)
 - current due count from `select_active_items`
@@ -94,8 +95,24 @@ Refresh output now also carries active-capacity encounter diagnostics:
 - those same words whose known `admitted_at` is at least `7` days old.
 
 These diagnostics are intentionally non-mutating. They explain capacity pressure
-when refresh returns `capacity_exhausted`, but they do not clear, park, release,
-or mark any word as learned.
+when refresh returns `capacity_exhausted`, but they do not clear, release, or
+mark any word as learned.
+
+Before calculating refresh capacity, `refresh_srs_set` now runs an automatic
+active-rotation release check when the pair's resolved active inventory is at or
+above the active-size target. The release check removes a word from active
+inventory only when all of these are true:
+
+- the item is still lifecycle-active in the SRS store;
+- the item is in FSRS `review` state;
+- the item has at least `4` review-history entries;
+- the next due date is at least `7` days in the future.
+
+This is inventory parking, not deletion. The store row, history, stability,
+difficulty, lifecycle state, and future due date remain intact. The parked word
+stops occupying active admission capacity, so refresh can admit a replacement
+word while preserving the old learning record. If the active inventory is below
+the target, refresh does not park mature words just to churn the story.
 
 Candidate selection defaults to `profile_growth`: frequency seeds are converted
 through the profile-aware admission scorer, then selected by the same growth
@@ -150,6 +167,10 @@ Current lifecycle guard:
 - `apply_admission_refresh` filters blocked lemmas and non-active store
   lifecycle states before growth selection and reports `blocked_by_lifecycle`
   plus `blocked_lemmas` in diagnostics.
+- `AdmissionRefreshPolicy.active_item_ids` scopes refresh capacity and due
+  pressure to the active inventory that remains after automatic active-rotation
+  release, so parked lifecycle-active rows do not permanently consume the active
+  target.
 - `grow_srs_store` counts only active store items toward existing active
   capacity and blocks non-active store lemmas from re-admission.
 - `select_active_items` ignores non-active lifecycle states, so discarded or

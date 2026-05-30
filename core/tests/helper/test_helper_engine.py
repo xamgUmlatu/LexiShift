@@ -2513,6 +2513,136 @@ class TestHelperEngineRefreshSrsSet(unittest.TestCase):
             self.assertEqual(refresh["capacity_budget"], 0)
             self.assertEqual(refresh["reason_code"], "capacity_exhausted")
 
+    def test_refresh_parks_mature_active_items_before_admitting_new_words(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = build_helper_paths(root)
+            jmdict_dir = root / "jmdict"
+            jmdict_dir.mkdir(parents=True, exist_ok=True)
+            source_db = root / "freq.sqlite"
+            _create_frequency_db(source_db)
+            now = datetime.now(timezone.utc)
+
+            history = tuple(
+                SrsHistoryEntry(
+                    ts=(now - timedelta(days=8 - index)).isoformat(),
+                    rating="easy",
+                )
+                for index in range(4)
+            )
+            save_srs_settings(
+                SrsSettings(max_active_items=3, max_new_items_per_day=4),
+                paths.srs_settings_path,
+            )
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-ja:existing0",
+                            lemma="existing0",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            scheduler_state="review",
+                            next_due=(now + timedelta(days=14)).isoformat(),
+                            history=history,
+                        ),
+                        SrsItem(
+                            item_id="en-ja:existing1",
+                            lemma="existing1",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            next_due=(now + timedelta(days=7)).isoformat(),
+                        ),
+                        SrsItem(
+                            item_id="en-ja:existing2",
+                            lemma="existing2",
+                            language_pair="en-ja",
+                            source_type="initial_set",
+                            next_due=(now + timedelta(days=7)).isoformat(),
+                        ),
+                    ),
+                    version=1,
+                ),
+                paths.srs_store_path,
+            )
+            save_srs_inventory(
+                SrsInventory(
+                    pairs={
+                        "en-ja": SrsPairInventory(
+                            active_item_ids=(
+                                "en-ja:existing0",
+                                "en-ja:existing1",
+                                "en-ja:existing2",
+                            )
+                        )
+                    }
+                ),
+                paths.srs_inventory_path_for("default"),
+            )
+            save_signal_events(
+                paths.srs_signal_queue_path,
+                [
+                    SrsSignalEvent(
+                        event_type="feedback",
+                        pair="en-ja",
+                        lemma=f"lemma{i}",
+                        source_type="extension",
+                        rating="good",
+                    )
+                    for i in range(12)
+                ],
+            )
+
+            selected = [
+                SimpleNamespace(
+                    lemma=lemma,
+                    language_pair="en-ja",
+                    core_rank=float(index),
+                    pos="名詞-普通名詞-一般",
+                    pos_bucket="noun",
+                    pos_weight=1.0,
+                    pmw=100.0 - index,
+                    base_weight=0.95 - (index / 100.0),
+                    admission_weight=0.95 - (index / 100.0),
+                    metadata={},
+                )
+                for index, lemma in enumerate(("beta", "gamma", "delta", "epsilon"), start=1)
+            ]
+            with patch(
+                "lexishift_core.helper.engine.build_seed_candidates",
+                return_value=selected,
+            ):
+                result = refresh_srs_set(
+                    paths,
+                    config=SrsRefreshJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        feedback_window_size=100,
+                        persist_store=True,
+                    ),
+                )
+
+            persisted = load_srs_store(paths.srs_store_path)
+            inventory = load_srs_inventory(paths.srs_inventory_path_for("default"))
+            lemmas = {item.lemma for item in persisted.items if item.language_pair == "en-ja"}
+            self.assertEqual(lemmas, {"existing0", "existing1", "existing2", "beta"})
+            self.assertEqual(
+                tuple(inventory.pairs["en-ja"].active_item_ids),
+                ("en-ja:existing1", "en-ja:existing2", "en-ja:beta"),
+            )
+            self.assertTrue(result["applied"])
+            self.assertEqual(result["added_items"], 1)
+            self.assertEqual(result["inventory"]["active_items_for_pair"], 3)
+            refresh = result["admission_refresh"]
+            self.assertEqual(refresh["active_count"], 2)
+            self.assertEqual(refresh["capacity_budget"], 1)
+            self.assertEqual(refresh["reason_code"], "normal")
+            self.assertEqual(refresh["selected_lemmas"], ["beta"])
+            active_release = refresh["active_rotation_release"]
+            self.assertEqual(active_release["released_count"], 1)
+            self.assertEqual(active_release["released_lemmas"], ["existing0"])
+
     def test_refresh_respects_allowed_pos_filter(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
