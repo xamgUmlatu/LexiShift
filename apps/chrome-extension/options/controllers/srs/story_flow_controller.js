@@ -159,7 +159,7 @@
       if (modalInitialActiveCountInput && mainInitialActiveCountInput) {
         modalInitialActiveCountInput.value = mainInitialActiveCountInput.value || "";
       }
-      setModalInterests(mainTopicInterestsInput ? mainTopicInterestsInput.value : "");
+      setModalInterests("");
       setPreviewText("");
       clearResourceCheck();
     }

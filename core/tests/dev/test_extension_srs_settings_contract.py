@@ -103,6 +103,10 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-story-flow-source-language"', html)
         self.assertIn('id="srs-story-flow-target-language"', html)
         self.assertIn('id="srs-story-flow-profile-id"', html)
+        self.assertRegex(
+            html,
+            r'(?s)<div class="field-row" hidden>\s*' r'<label for="srs-story-flow-profile-id"',
+        )
         self.assertIn('id="srs-story-flow-sample"', html)
         self.assertIn('id="srs-story-flow-initialize"', html)
         self.assertIn('id="srs-story-flow-resource-check"', html)
@@ -463,6 +467,8 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   assert.equal(elements.modalProficiencyEstimateInput.value, "0");
   assert.equal(elements.modalProficiencyEstimateInput.dataset.srsHasValue, "true");
   assert.equal(elements.modalProficiencyEstimateValueOutput.textContent, "0%");
+  assert.equal(elements.modalTopicInterestsInput.value, "");
+  assert.equal(modalTopicAnimals.attributes["aria-pressed"], "false");
   elements.modalSourceLanguageInput.value = "en";
   elements.modalTargetLanguageInput.value = "es";
   elements.modalProfileIdInput.value = "family";

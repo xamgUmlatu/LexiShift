@@ -1817,23 +1817,26 @@ Use this file when:
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
-  to an explicit beginner value, lets sampling persist draft preferences without
-  activating the story, renders preview results as learner-facing word/topic
-  cards with technical details behind a local Advanced disclosure, and reserves
-  story activation for the initialize workflow. Successful delete-story handling
-  now also clears the selected
+  to an explicit beginner value, inherits the active profile without exposing a
+  profile picker, starts each fresh setup opening with no topic chips selected,
+  lets sampling persist draft preferences without activating the story, renders
+  preview results as learner-facing word/topic cards with sanitized technical
+  details behind a local Advanced disclosure, and reserves story activation for
+  the initialize workflow. Successful delete-story handling now also clears the
+  selected
   profile/pair story profile and signals, publishes runtime
   `srsEnabled: false`, reloads the active profile, and hides the current story
   card when the loaded profile is inactive so the deleted story does not
   reappear after refresh.
-- Last verified: `2026-05-31` preview-renderer update plus focused delete-story, resource-readiness setup, active-story preference-save/order, and bridge/GUI routing tests cover
+- Last verified: `2026-05-31` setup-flow profile inheritance, clean-topic setup opening, sanitized preview diagnostics, preview-renderer update, and focused delete-story/resource-readiness/preference-save/bridge tests cover
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
   polished dashboard/sampling/display-feedback/Advanced markup and ordering,
   previous-proficiency restore binding, beginner-default setup proficiency,
+  hidden inherited setup profile, clean setup topic defaults,
   non-activating setup sampling, learner-facing sample preview cards with
-  locally toggled advanced diagnostics,
+  locally toggled advanced diagnostics and no printed local source paths,
   SRS story theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
@@ -1871,8 +1874,9 @@ Use this file when:
     source of truth for MVP.
   - Source/target language and legacy initialize controls are retained only as
     hidden backing controls for the current controller path; users change
-    profile/pair through the guided new-story modal instead of editing an
-    already-created active story in place.
+    source/target language through the guided new-story modal instead of editing
+    an already-created active story in place. The setup flow inherits the active
+    profile and does not expose profile selection as a learner-facing step.
   - The legacy SRS enable checkbox is retained only as a hidden backing control;
     users enable a story by completing guided initialization, not by toggling a
     standalone switch.
@@ -1881,8 +1885,9 @@ Use this file when:
     still show pair-coverage context.
   - Admission sampling renders one helper preview payload into two local views:
     a simple learner-facing list of sampled words with topic/general badges, and
-    an Advanced details disclosure containing the diagnostic text. Opening or
-    closing the disclosure does not re-run sampling.
+    an Advanced details disclosure containing sanitized diagnostic text. Opening
+    or closing the disclosure does not re-run sampling, and local source paths
+    are not printed.
   - Free-form advanced tags stay present in the DOM for compatibility but hidden
     from the main MVP surface.
   - The proficiency estimate is presented as a slider with a current value and an

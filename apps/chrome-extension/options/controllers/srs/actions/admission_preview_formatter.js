@@ -296,9 +296,6 @@
       }`);
       lines.push(`- applied_seed_count: ${profileTopicOverlay.applied_seed_count ?? 0}`);
       lines.push(`- applied_row_count: ${profileTopicOverlay.applied_row_count ?? 0}`);
-      if (profileTopicOverlay.source_path) {
-        lines.push(`- source_path: ${profileTopicOverlay.source_path}`);
-      }
     }
     if (activeTopicSupportEntries.length) {
       lines.push("");

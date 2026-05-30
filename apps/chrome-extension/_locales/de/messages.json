@@ -117,13 +117,13 @@
     "message": "SRS-Story einrichten"
   },
   "hint_srs_story_flow": {
-    "message": "Wähle Sprachen, Präferenzen und Starttempo vor der Einrichtung."
+    "message": "Wähle Sprachen, Lernpräferenzen und Starttempo vor der Einrichtung."
   },
   "heading_srs_story_flow_pair": {
-    "message": "Sprachen und Profil wählen"
+    "message": "Sprache wählen"
   },
   "heading_srs_story_flow_preferences": {
-    "message": "Präferenzen festlegen"
+    "message": "Lernpräferenzen"
   },
   "heading_srs_story_flow_size": {
     "message": "Starttempo wählen"

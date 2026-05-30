@@ -117,13 +117,13 @@
     "message": "Set up SRS story"
   },
   "hint_srs_story_flow": {
-    "message": "Choose languages, preferences, and starting pace before setup."
+    "message": "Choose languages, learning preferences, and starting pace before setup."
   },
   "heading_srs_story_flow_pair": {
-    "message": "Choose languages and profile"
+    "message": "Choose language"
   },
   "heading_srs_story_flow_preferences": {
-    "message": "Set preferences"
+    "message": "Learning preferences"
   },
   "heading_srs_story_flow_size": {
     "message": "Choose starting pace"

@@ -117,13 +117,13 @@
     "message": "设置 SRS 故事"
   },
   "hint_srs_story_flow": {
-    "message": "初始化前选择语言、偏好和起始节奏。"
+    "message": "初始化前选择语言、学习偏好和起始节奏。"
   },
   "heading_srs_story_flow_pair": {
-    "message": "选择语言和配置"
+    "message": "选择语言"
   },
   "heading_srs_story_flow_preferences": {
-    "message": "设置偏好"
+    "message": "学习偏好"
   },
   "heading_srs_story_flow_size": {
     "message": "选择起始节奏"

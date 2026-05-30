@@ -262,7 +262,8 @@ assert.match(text, /scope: admission_preview_only/);
 assert.match(text, /active_topics: animals/);
 assert.match(text, /applied_seed_count: 1/);
 assert.match(text, /applied_row_count: 1/);
-assert.match(text, /source_path: \\/tmp\\/topic-overlays\\/animals-plants\\.json/);
+assert.equal(text.includes("source_path:"), false);
+assert.equal(text.includes("/tmp/topic-overlays/animals-plants.json"), false);
 assert.equal(view.text, text);
 assert.match(view.html, /Sample only\\. No words were added\\./);
 assert.match(view.html, /Showing 2 of 2 possible words for en-es\\./);
@@ -273,6 +274,8 @@ assert.match(view.html, /<span class="srs-admission-word-topic is-general">gener
 assert.match(view.html, /<details class="srs-admission-preview-advanced">/);
 assert.ok(!view.html.split("<details")[0].includes("score="));
 assert.ok(view.html.split("<details")[1].includes("score=0.689"));
+assert.equal(view.html.includes("source_path:"), false);
+assert.equal(view.html.includes("/tmp/topic-overlays/animals-plants.json"), false);
 """
         _run_node(script)
 

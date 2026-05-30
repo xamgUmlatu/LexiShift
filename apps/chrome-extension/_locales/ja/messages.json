@@ -117,13 +117,13 @@
     "message": "SRSストーリーを設定"
   },
   "hint_srs_story_flow": {
-    "message": "初期化前に言語、好み、開始ペースを選びます。"
+    "message": "初期化前に言語、学習設定、開始ペースを選びます。"
   },
   "heading_srs_story_flow_pair": {
-    "message": "言語とプロフィールを選択"
+    "message": "言語を選択"
   },
   "heading_srs_story_flow_preferences": {
-    "message": "好みを設定"
+    "message": "学習設定"
   },
   "heading_srs_story_flow_size": {
     "message": "開始ペースを選択"

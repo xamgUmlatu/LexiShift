@@ -31,17 +31,23 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   legacy `srs-enabled` input remains hidden as a controller backing field;
 - the active-story proficiency slider shows its previous saved setting and has a
   restore action;
-- the start-new-story block opens a guided modal for language/profile choice,
-  proficiency, topics, starting size, sampling, and initialization;
+- the start-new-story block opens a guided modal for source/target language
+  choice, proficiency, topics, starting size, sampling, and initialization; the
+  profile selector is inherited from the active profile and remains hidden from
+  the learner-facing setup flow;
 - the new-story proficiency slider starts at an explicit beginner value (`0%`)
   when there is no existing proficiency value to copy into the flow;
+- each fresh new-story modal opening starts with no topic chips selected, even
+  if the previous cancelled setup sample persisted draft topic settings for
+  preview;
 - modal sampling copies the visible modal values into the existing Options
   controls, may persist draft profile/language/SRS preference inputs, and then
   calls the existing read-only preview workflow without activating the story;
 - modal and active-story sampling render the same fetched preview payload as a
   learner-facing word/topic list by default, with the technical preview payload
   retained behind a local Advanced details disclosure that toggles without
-  re-running the sample;
+  re-running the sample; local source paths are not printed in this learner
+  surface;
 - modal initialization copies and persists the visible modal values with the
   hidden story-enabled backing field set, then calls the existing initialize
   workflow;
