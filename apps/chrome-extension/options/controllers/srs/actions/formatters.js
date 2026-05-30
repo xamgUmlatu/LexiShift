@@ -1,8 +1,8 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
   const admissionPreviewFormatter = root.optionsSrsAdmissionPreviewFormatter
-    && typeof root.optionsSrsAdmissionPreviewFormatter.buildAdmissionPreviewOutput === "function"
-    ? root.optionsSrsAdmissionPreviewFormatter.buildAdmissionPreviewOutput
+    && typeof root.optionsSrsAdmissionPreviewFormatter === "object"
+    ? root.optionsSrsAdmissionPreviewFormatter
     : null;
   const rebalanceFormatter = root.optionsSrsRebalanceFormatter
     && typeof root.optionsSrsRebalanceFormatter.buildRebalanceResultOutput === "function"
@@ -290,7 +290,12 @@
   }
 
   function buildAdmissionPreviewOutput(options) {
-    return admissionPreviewFormatter ? admissionPreviewFormatter(options) : "";
+    if (admissionPreviewFormatter && typeof admissionPreviewFormatter.buildAdmissionPreviewView === "function") {
+      return admissionPreviewFormatter.buildAdmissionPreviewView(options);
+    }
+    return admissionPreviewFormatter && typeof admissionPreviewFormatter.buildAdmissionPreviewOutput === "function"
+      ? admissionPreviewFormatter.buildAdmissionPreviewOutput(options)
+      : "";
   }
 
   function buildRebalanceResultOutput(options) {

@@ -1998,6 +1998,93 @@ textarea {
   animation: srs-preview-appear 140ms ease-out;
 }
 
+.srs-admission-preview-view {
+  display: grid;
+  gap: 10px;
+  white-space: normal;
+}
+
+.srs-admission-preview-note,
+.srs-admission-preview-summary,
+.srs-admission-preview-empty {
+  margin: 0;
+}
+
+.srs-admission-preview-note {
+  color: #625b52;
+  font-weight: 650;
+}
+
+.srs-admission-word-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.srs-admission-word-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 36px;
+  padding: 7px 9px;
+  border: 1px solid rgba(132, 118, 96, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.srs-admission-word-lemma {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+  color: #363029;
+}
+
+.srs-admission-word-topic {
+  flex: 0 0 auto;
+  max-width: 48%;
+  overflow: hidden;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: #433b31;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  background: rgba(122, 96, 50, 0.13);
+  border: 1px solid rgba(122, 96, 50, 0.18);
+}
+
+.srs-admission-word-topic.is-general {
+  color: #5d5a55;
+  background: rgba(94, 94, 94, 0.10);
+  border-color: rgba(94, 94, 94, 0.14);
+}
+
+.srs-admission-preview-advanced {
+  margin-top: 2px;
+}
+
+.srs-admission-preview-advanced summary {
+  cursor: pointer;
+  color: #5b5348;
+  font-weight: 700;
+}
+
+.srs-admission-preview-advanced pre {
+  max-height: 320px;
+  overflow: auto;
+  margin: 9px 0 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  white-space: pre-wrap;
+}
+
 @keyframes srs-preview-appear {
   from {
     opacity: 0;

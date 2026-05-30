@@ -153,10 +153,10 @@ const text = formatter.buildAdmissionPreviewOutput({{
     execution_mode: "profile_bootstrap"
   }},
   preview: {{
-    sample_count_requested: 1,
-    sample_count_effective: 1,
+    sample_count_requested: 2,
+    sample_count_effective: 2,
     selected_unique_count: 3,
-    admitted_count: 1,
+    admitted_count: 2,
     sampling_mode: "ranked",
     profile_bootstrap: {{
       profile_context: {{
@@ -185,6 +185,68 @@ const text = formatter.buildAdmissionPreviewOutput({{
         rank_delta: 1,
         signals: {{ topic_affinity_source: "topic_hint:animals" }},
         explanation: "Boosted by topic_affinity."
+      }},
+      {{
+        lemma: "siglo",
+        pos_bucket: "noun",
+        profile_score: 0.2,
+        rank_delta: 0,
+        signals: {{}},
+        explanation: "Kept near frequency order."
+      }}
+    ]
+  }}
+}});
+const view = formatter.buildAdmissionPreviewView({{
+  srsPair: "en-es",
+  profileId: "default",
+  plan: {{
+    can_execute: true,
+    strategy_requested: "profile_bootstrap",
+    strategy_effective: "profile_bootstrap",
+    execution_mode: "profile_bootstrap"
+  }},
+  preview: {{
+    sample_count_requested: 2,
+    sample_count_effective: 2,
+    selected_unique_count: 3,
+    admitted_count: 2,
+    sampling_mode: "ranked",
+    profile_bootstrap: {{
+      profile_context: {{
+        active_signals: ["interests"],
+        raw_profile_keys: ["interests"],
+        interests: ["animals"],
+        explicit_topic_weights: {{ animals: 1 }},
+        topic_weights: {{ animals: 1 }},
+        signal_sources: {{ animals: "interests" }}
+      }},
+      profile_topic_overlay: {{
+        status: "active",
+        application_status: "applied",
+        runtime_scope: "admission_preview_only",
+        active_topics: ["animals"],
+        applied_seed_count: 1,
+        applied_row_count: 1,
+        source_path: "/tmp/topic-overlays/animals-plants.json"
+      }}
+    }},
+    admitted_words: [
+      {{
+        lemma: "beta",
+        pos_bucket: "noun",
+        profile_score: 0.689,
+        rank_delta: 1,
+        signals: {{ topic_affinity_source: "topic_hint:animals" }},
+        explanation: "Boosted by topic_affinity."
+      }},
+      {{
+        lemma: "siglo",
+        pos_bucket: "noun",
+        profile_score: 0.2,
+        rank_delta: 0,
+        signals: {{}},
+        explanation: "Kept near frequency order."
       }}
     ]
   }}
@@ -201,6 +263,16 @@ assert.match(text, /active_topics: animals/);
 assert.match(text, /applied_seed_count: 1/);
 assert.match(text, /applied_row_count: 1/);
 assert.match(text, /source_path: \\/tmp\\/topic-overlays\\/animals-plants\\.json/);
+assert.equal(view.text, text);
+assert.match(view.html, /Sample only\\. No words were added\\./);
+assert.match(view.html, /Showing 2 of 2 possible words for en-es\\./);
+assert.match(view.html, /<span class="srs-admission-word-lemma">beta<\\/span>/);
+assert.match(view.html, /<span class="srs-admission-word-topic is-topic">animals<\\/span>/);
+assert.match(view.html, /<span class="srs-admission-word-lemma">siglo<\\/span>/);
+assert.match(view.html, /<span class="srs-admission-word-topic is-general">general<\\/span>/);
+assert.match(view.html, /<details class="srs-admission-preview-advanced">/);
+assert.ok(!view.html.split("<details")[0].includes("score="));
+assert.ok(view.html.split("<details")[1].includes("score=0.689"));
 """
         _run_node(script)
 

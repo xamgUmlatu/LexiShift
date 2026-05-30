@@ -1,5 +1,27 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const TOPIC_LABELS = {
+    arts_literature_humanities: "arts & literature",
+    animals: "animals",
+    finance_business: "finance & business",
+    food_cooking: "food & cooking",
+    games: "games",
+    law_politics_civics: "law & civics",
+    medicine_health: "medicine & health",
+    music_media_entertainment: "music & media",
+    plants_nature: "plants & nature",
+    science_technology: "science & technology",
+    sports_fitness: "sports & fitness"
+  };
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
 
   function formatTopicWeightsSummary(topicWeights) {
     if (!topicWeights || typeof topicWeights !== "object") {
@@ -80,6 +102,43 @@
       return value.slice("lexical:".length);
     }
     return value;
+  }
+
+  function topicForAdmissionEntry(entry) {
+    const signals = entry && entry.signals && typeof entry.signals === "object"
+      ? entry.signals
+      : {};
+    const topic = formatTopicAffinitySource(signals.topic_affinity_source);
+    return topic && topic !== "none" ? topic : "general";
+  }
+
+  function formatTopicLabel(topic) {
+    const normalized = String(topic || "general").trim() || "general";
+    if (normalized === "general") {
+      return "general";
+    }
+    return TOPIC_LABELS[normalized] || normalized.replace(/_/g, " ");
+  }
+
+  function buildSimpleWordsHtml(admittedWords) {
+    const items = admittedWords
+      .map((entry) => {
+        const lemma = String(entry && entry.lemma ? entry.lemma : "").trim();
+        if (!lemma) {
+          return "";
+        }
+        const topic = topicForAdmissionEntry(entry);
+        const topicLabel = formatTopicLabel(topic);
+        const topicClass = topic === "general" ? "is-general" : "is-topic";
+        return [
+          '<li class="srs-admission-word-item">',
+          `<span class="srs-admission-word-lemma">${escapeHtml(lemma)}</span>`,
+          `<span class="srs-admission-word-topic ${topicClass}">${escapeHtml(topicLabel)}</span>`,
+          "</li>"
+        ].join("");
+      })
+      .filter(Boolean);
+    return items.length ? `<ul class="srs-admission-word-list">${items.join("")}</ul>` : "";
   }
 
   function buildAdmissionPreviewOutput(options) {
@@ -285,7 +344,42 @@
     return lines.join("\n");
   }
 
+  function buildAdmissionPreviewView(options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const srsPair = String(opts.srsPair || "en-en");
+    const plan = opts.plan && typeof opts.plan === "object" ? opts.plan : {};
+    const preview = opts.preview && typeof opts.preview === "object" ? opts.preview : {};
+    const admittedWords = Array.isArray(preview.admitted_words) ? preview.admitted_words : [];
+    const advancedText = buildAdmissionPreviewOutput(options);
+    const shownCount = preview.sample_count_effective ?? admittedWords.length;
+    const possibleCount = preview.admitted_count ?? 0;
+    const summary = `Showing ${shownCount} of ${possibleCount} possible words for ${srsPair}.`;
+    const bodyHtml = plan.can_execute && admittedWords.length
+      ? buildSimpleWordsHtml(admittedWords)
+      : `<p class="srs-admission-preview-empty">${escapeHtml(
+          plan.can_execute
+            ? `No admission sample is available for ${srsPair}.`
+            : "Preview unavailable for the selected strategy."
+        )}</p>`;
+    const html = [
+      '<div class="srs-admission-preview-view">',
+      '<p class="srs-admission-preview-note">Sample only. No words were added.</p>',
+      `<p class="srs-admission-preview-summary">${escapeHtml(summary)}</p>`,
+      bodyHtml,
+      '<details class="srs-admission-preview-advanced">',
+      '<summary>Advanced details</summary>',
+      `<pre>${escapeHtml(advancedText)}</pre>`,
+      "</details>",
+      "</div>"
+    ].join("");
+    return {
+      html,
+      text: advancedText
+    };
+  }
+
   root.optionsSrsAdmissionPreviewFormatter = {
-    buildAdmissionPreviewOutput
+    buildAdmissionPreviewOutput,
+    buildAdmissionPreviewView
   };
 })();

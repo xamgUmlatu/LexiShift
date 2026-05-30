@@ -271,7 +271,12 @@
           return;
         }
         if (previewOutput && mainAdmissionPreviewOutput) {
-          previewOutput.textContent = mainAdmissionPreviewOutput.textContent || "";
+          const previewHtml = String(mainAdmissionPreviewOutput.innerHTML || "");
+          if (previewHtml) {
+            previewOutput.innerHTML = previewHtml;
+          } else {
+            previewOutput.textContent = mainAdmissionPreviewOutput.textContent || "";
+          }
           previewOutput.style.color = "";
         }
         setStatus(translate("status_srs_story_flow_sampled", null, "Sample updated."), colors.SUCCESS);

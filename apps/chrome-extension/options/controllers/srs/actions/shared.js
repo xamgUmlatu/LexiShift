@@ -1,6 +1,17 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
+  function renderOutputContent(output, content) {
+    if (!output) {
+      return;
+    }
+    if (content && typeof content === "object" && typeof content.html === "string") {
+      output.innerHTML = content.html;
+      return;
+    }
+    output.textContent = String(content ?? "");
+  }
+
   function createShared(options) {
     const opts = options && typeof options === "object" ? options : {};
     const output = opts.output || null;
@@ -19,10 +30,7 @@
     const log = typeof opts.log === "function" ? opts.log : (() => {});
 
     function setOutputText(text) {
-      if (!output) {
-        return;
-      }
-      output.textContent = text;
+      renderOutputContent(output, text);
     }
 
     function dispatchPreflightBlocked(detail) {

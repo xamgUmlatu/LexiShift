@@ -38,6 +38,10 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
 - modal sampling copies the visible modal values into the existing Options
   controls, may persist draft profile/language/SRS preference inputs, and then
   calls the existing read-only preview workflow without activating the story;
+- modal and active-story sampling render the same fetched preview payload as a
+  learner-facing word/topic list by default, with the technical preview payload
+  retained behind a local Advanced details disclosure that toggles without
+  re-running the sample;
 - modal initialization copies and persists the visible modal values with the
   hidden story-enabled backing field set, then calls the existing initialize
   workflow;

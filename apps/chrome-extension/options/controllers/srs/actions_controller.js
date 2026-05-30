@@ -1,6 +1,17 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
+  function renderOutputContent(output, content) {
+    if (!output) {
+      return;
+    }
+    if (content && typeof content === "object" && typeof content.html === "string") {
+      output.innerHTML = content.html;
+      return;
+    }
+    output.textContent = String(content ?? "");
+  }
+
   function createController(options) {
     const opts = options && typeof options === "object" ? options : {};
     const settingsManager = opts.settingsManager && typeof opts.settingsManager === "object"
@@ -166,7 +177,7 @@
           setOutputText: shared.setOutputText,
           setAdmissionPreviewOutputText: (text) => {
             if (admissionPreviewOutput) {
-              admissionPreviewOutput.textContent = text;
+              renderOutputContent(admissionPreviewOutput, text);
               return;
             }
             shared.setOutputText(text);
