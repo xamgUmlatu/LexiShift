@@ -1847,7 +1847,8 @@ Use this file when:
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
   to an explicit beginner value, inherits the active profile without exposing a
-  profile picker, starts each fresh setup opening with no topic chips selected,
+  profile picker or profile-selection copy, starts each fresh setup opening
+  with no topic chips selected,
   lets sampling persist draft preferences without activating the story, renders
   preview results as learner-facing word/topic cards with sanitized technical
   details behind a local Advanced disclosure, and reserves story activation for
@@ -1867,7 +1868,8 @@ Use this file when:
   starting-word controls, hidden backing source/target/initialize controls,
   polished dashboard/sampling/display-feedback/Advanced markup and ordering,
   previous-proficiency restore binding, beginner-default setup proficiency,
-  hidden inherited setup profile, clean setup topic defaults,
+  hidden inherited setup profile with no visible setup profile-selection copy,
+  clean setup topic defaults,
   non-activating setup sampling, learner-facing sample preview cards with
   locally toggled advanced diagnostics and no printed local source paths,
   SRS story theme-token CSS contract,
@@ -1914,7 +1916,9 @@ Use this file when:
     hidden backing controls for the current controller path; users change
     source/target language through the guided new-story modal instead of editing
     an already-created active story in place. The setup flow inherits the active
-    profile and does not expose profile selection as a learner-facing step.
+    profile through a hidden backing value and does not expose profile selection
+    or profile-selection copy as a learner-facing step; setup persistence does
+    not change the selected profile from modal state.
   - The legacy SRS enable checkbox is retained only as a hidden backing control;
     users enable a story by completing guided initialization, not by toggling a
     standalone switch.

@@ -413,7 +413,7 @@
               <div>
                 <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start a new SRS story</h3>
                 <p class="hint" data-i18n="hint_srs_start_new_story">
-                  Choose a profile and language pair, then tune preferences before initializing.
+                  Choose languages, then tune preferences before initializing.
                 </p>
               </div>
               <button id="srs-story-start" type="button" class="srs-story-start-link" data-i18n="button_srs_start_new_story">
@@ -930,6 +930,7 @@
           </button>
         </div>
         <div class="srs-story-flow-steps" aria-label="SRS story setup steps">
+          <select id="srs-story-flow-profile-id" hidden aria-hidden="true" tabindex="-1"></select>
           <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-pair">
             <span class="srs-story-flow-step-index">1</span>
             <div>
@@ -953,10 +954,6 @@
                   <option value="zh">简体中文</option>
                   <option value="de">Deutsch</option>
                 </select>
-              </div>
-              <div class="field-row" hidden>
-                <label for="srs-story-flow-profile-id" data-i18n="label_profile_id">Profile</label>
-                <select id="srs-story-flow-profile-id"></select>
               </div>
             </div>
           </section>

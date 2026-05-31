@@ -13,9 +13,6 @@
     const saveSrsSettings = typeof opts.saveSrsSettings === "function"
       ? opts.saveSrsSettings
       : (() => Promise.resolve());
-    const saveSrsProfileId = typeof opts.saveSrsProfileId === "function"
-      ? opts.saveSrsProfileId
-      : (() => Promise.resolve());
     const srsActionsController = opts.srsActionsController && typeof opts.srsActionsController === "object"
       ? opts.srsActionsController
       : null;
@@ -70,7 +67,16 @@
     let bound = false;
     let isOpen = false;
     let openedStoryContext = null;
-    const readVisibleValues = () => readStoryFlowValues(elements);
+
+    const currentActiveProfileId = () => (mainProfileIdInput
+      ? String(mainProfileIdInput.value || "default").trim() || "default"
+      : "default");
+    const readVisibleValues = () => {
+      const values = readStoryFlowValues(elements);
+      values.profileId = currentActiveProfileId();
+      setSelectValue(modalProfileIdInput, values.profileId, values.profileId);
+      return values;
+    };
 
     function setPreviewText(message, color) {
       if (!previewOutput) {
@@ -140,7 +146,7 @@
       copySelectOptions(mainProfileIdInput, modalProfileIdInput, "default");
       setSelectValue(modalSourceLanguageInput, mainSourceLanguageInput ? mainSourceLanguageInput.value : "en", "en");
       setSelectValue(modalTargetLanguageInput, mainTargetLanguageInput ? mainTargetLanguageInput.value : "es", "es");
-      setSelectValue(modalProfileIdInput, mainProfileIdInput ? mainProfileIdInput.value : "default", "default");
+      setSelectValue(modalProfileIdInput, currentActiveProfileId(), currentActiveProfileId());
       if (modalProficiencyEstimateInput && mainProficiencyEstimateInput) {
         const hasValue = hasExplicitProficiencyValue(mainProficiencyEstimateInput);
         setProficiencyInput(
@@ -224,14 +230,6 @@
     async function persistVisibleSettings(optionsArg) {
       const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
       const values = readVisibleValues();
-      const nextProfileId = String(values.profileId || "default").trim() || "default";
-      const currentProfileId = mainProfileIdInput
-        ? String(mainProfileIdInput.value || "default").trim() || "default"
-        : "default";
-      if (mainProfileIdInput && nextProfileId !== currentProfileId) {
-        setSelectValue(mainProfileIdInput, nextProfileId, nextProfileId);
-        await saveSrsProfileId();
-      }
       writeMainValues(values, options);
       await saveLanguageSettings();
       writeMainValues(values, options);

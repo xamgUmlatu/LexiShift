@@ -102,11 +102,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertIn('id="srs-story-flow"', html)
         self.assertIn('id="srs-story-flow-source-language"', html)
         self.assertIn('id="srs-story-flow-target-language"', html)
-        self.assertIn('id="srs-story-flow-profile-id"', html)
-        self.assertRegex(
+        self.assertIn(
+            '<select id="srs-story-flow-profile-id" hidden aria-hidden="true" tabindex="-1">',
             html,
-            r'(?s)<div class="field-row" hidden>\s*' r'<label for="srs-story-flow-profile-id"',
         )
+        self.assertNotIn('label for="srs-story-flow-profile-id"', html)
+        self.assertNotIn("Choose a profile and language pair", html)
         self.assertIn('id="srs-story-flow-sample"', html)
         self.assertIn('id="srs-story-flow-initialize"', html)
         self.assertIn('id="srs-story-flow-resource-check"', html)
@@ -481,8 +482,9 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   calls.length = 0;
 
   await controller.persistVisibleSettings();
-  assert.deepEqual(calls, ["saveProfile", "saveLanguage", "saveSrs"]);
-  assert.equal(elements.mainProfileIdInput.value, "family");
+  assert.deepEqual(calls, ["saveLanguage", "saveSrs"]);
+  assert.equal(elements.mainProfileIdInput.value, "default");
+  assert.equal(elements.modalProfileIdInput.value, "default");
   assert.equal(elements.mainSourceLanguageInput.value, "en");
   assert.equal(elements.mainTargetLanguageInput.value, "es");
   assert.equal(elements.mainSrsEnabledInput.checked, false);

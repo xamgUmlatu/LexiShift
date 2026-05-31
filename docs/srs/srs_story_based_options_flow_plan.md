@@ -33,16 +33,17 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   restore action;
 - the start-new-story block opens a guided modal for source/target language
   choice, proficiency, topics, starting size, sampling, and initialization; the
-  profile selector is inherited from the active profile and remains hidden from
-  the learner-facing setup flow;
+  profile is inherited from the active profile through a hidden backing value
+  and is not presented as a learner-facing setup choice;
 - the new-story proficiency slider starts at an explicit beginner value (`0%`)
   when there is no existing proficiency value to copy into the flow;
 - each fresh new-story modal opening starts with no topic chips selected, even
   if the previous cancelled setup sample persisted draft topic settings for
   preview;
 - modal sampling copies the visible modal values into the existing Options
-  controls, may persist draft profile/language/SRS preference inputs, and then
-  calls the existing read-only preview workflow without activating the story;
+  controls, may persist draft language/SRS preference inputs for the active
+  profile, and then calls the existing read-only preview workflow without
+  activating the story;
 - modal and active-story sampling render the same fetched preview payload as a
   learner-facing word/topic list by default, with the technical preview payload
   retained behind a local Advanced details disclosure that toggles without

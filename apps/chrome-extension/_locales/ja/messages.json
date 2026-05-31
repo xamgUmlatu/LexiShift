@@ -108,7 +108,7 @@
     "message": "新しいSRSストーリーを開始"
   },
   "hint_srs_start_new_story": {
-    "message": "プロフィールと言語ペアを選び、初期化前に好みを調整します。"
+    "message": "言語を選び、初期化前に好みを調整します。"
   },
   "button_srs_start_new_story": {
     "message": "設定を開始"

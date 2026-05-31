@@ -108,7 +108,7 @@
     "message": "Neue SRS-Story starten"
   },
   "hint_srs_start_new_story": {
-    "message": "Wähle Profil und Sprachpaar und stimme die Präferenzen vor der Initialisierung ab."
+    "message": "Wähle die Sprachen und stimme die Präferenzen vor der Initialisierung ab."
   },
   "button_srs_start_new_story": {
     "message": "Einrichtung starten"

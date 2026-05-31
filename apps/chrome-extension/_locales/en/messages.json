@@ -108,7 +108,7 @@
     "message": "Start a new SRS story"
   },
   "hint_srs_start_new_story": {
-    "message": "Choose a profile and language pair, then tune preferences before initializing."
+    "message": "Choose languages, then tune preferences before initializing."
   },
   "button_srs_start_new_story": {
     "message": "Start setup"

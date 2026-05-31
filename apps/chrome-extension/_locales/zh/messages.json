@@ -108,7 +108,7 @@
     "message": "开始新的 SRS 故事"
   },
   "hint_srs_start_new_story": {
-    "message": "选择配置和语言对，并在初始化前调整偏好。"
+    "message": "选择语言，并在初始化前调整偏好。"
   },
   "button_srs_start_new_story": {
     "message": "开始设置"
