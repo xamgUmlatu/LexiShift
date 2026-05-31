@@ -1845,8 +1845,11 @@ Use this file when:
   pair added/focused in the persistent Learning Languages resource view and
   retry the same setup check; the Learning Languages pair cards promote
   app-managed downloads, hide per-resource manual file selection from the
-  learner-facing path, and expose per-resource file-location reveal actions for
-  installed data; SRS story cards, topic
+  learner-facing path, include the required Kaikki/Wiktionary `wiktionary-es-en`
+  resource for en-es, show catalog sizes and per-resource progress, route
+  license-restricted `freq-es-cde` through a manual setup action in the
+  detailed Frequency packs tab, and expose per-resource file-location reveal
+  actions for installed data; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1864,9 +1867,15 @@ Use this file when:
   reappear after refresh. Repeated resource-settings deep-link opens now try the
   GUI single-instance activation channel first, so an already-running app is
   raised and moved to the pair-focused Resource settings state instead of
-  spawning another instance; if no GUI is running, the native helper still
-  launches the app, and macOS fallback launch no longer requests `open -n`.
-- Last verified: `2026-05-31` setup-flow profile inheritance, clean-topic setup opening, sanitized preview diagnostics, preview-renderer update, and focused delete-story/resource-readiness/preference-save/bridge tests cover
+  spawning another instance; if no GUI is running, the native helper now
+  prefers the installed macOS `LexiShift.app` bundle before falling back to the
+  source `main.py` development entrypoint, and macOS fallback launch no longer
+  requests `open -n`.
+- Last verified: `2026-05-31` focused
+  resource-plan/manual-frequency-policy/native-app-launch checks now extend the
+  setup-flow profile inheritance, clean-topic setup opening, sanitized preview
+  diagnostics, preview-renderer update, and focused
+  delete-story/resource-readiness/preference-save/bridge tests covering
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
@@ -1885,10 +1894,12 @@ Use this file when:
   experimental topic tags, hidden advanced challenge tuning, proficiency slider
   markup, active-story technical-status removal, missing-resource setup panel
   markup/controller behavior, native-host pair-aware resource-settings launch
-  routing, existing-GUI local activation, macOS non-`-n` fallback launch,
+  routing, existing-GUI local activation, installed macOS app launch preference,
+  macOS non-`-n` fallback launch,
   GUI resource-tab activation routing, persistent Learning Languages pair card,
   learner-facing Learning Languages card localization,
-  per-resource installed-data file-location reveal,
+  per-resource installed-data file-location reveal, required `wiktionary-es-en`
+  pair resource plan coverage, built-in `freq-es-cde` manual-download block,
   removed pair-card Add manually affordance,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
@@ -1915,13 +1926,18 @@ Use this file when:
     open the LexiShift GUI Resource settings tab via the native helper with the
     pair added/focused in the persistent Learning Languages view, and keeps the
     learner in the same setup flow for retry. That view offers app-managed
-    downloads and file-location reveal for installed resources; manual external
-    path selection stays in the detailed resource tabs instead of the pair
-    card. When the GUI is already running,
+    dictionary downloads for `wiktionary-es-en` / `freedict-es-en`, displays
+    catalog download sizes and per-resource progress, and offers file-location
+    reveal for installed resources. License-restricted frequency resources such
+    as `freq-es-cde` remain required when the pair needs them, but the pair card
+    routes the user to detailed manual setup instead of starting an app-managed
+    download. Manual external path selection stays in the detailed resource
+    tabs instead of the pair card. When the GUI is already running,
     the native helper sends the
     pair-focused Resource settings activation message to that process instead
-    of launching a second GUI instance; if no GUI is listening, it falls back to
-    launching the app. The extension does not download or import packs directly;
+    of launching a second GUI instance; if no GUI is listening, it prefers
+    launching the installed macOS `LexiShift.app` bundle before falling back to
+    the source development entrypoint. The extension does not download or import packs directly;
     GUI resource management remains the app-owned source of truth for MVP.
   - Source/target language and legacy initialize controls are retained only as
     hidden backing controls for the current controller path; users change
@@ -2006,11 +2022,15 @@ Use this file when:
   - `apps/chrome-extension/options/core/helper/base_methods.js`
   - `apps/chrome-extension/shared/helper/helper_client.js`
   - `scripts/helper/lexishift_native_host.py`
+  - `core/lexishift_core/helper/gui_app_launch.py`
   - `apps/gui/src/main_runtime.py`
   - `apps/gui/src/main.py`
+  - `apps/gui/src/settings_pair_resource_plan.py`
+  - `apps/gui/src/settings_language_packs_pair_setup_mixin.py`
   - `core/tests/dev/test_extension_srs_settings_contract.py`
   - `core/tests/dev/test_extension_options_srs_bridge_contract.py`
   - `core/tests/dev/test_native_host_resource_settings.py`
+  - `apps/gui/tests/test_pair_resource_plan.py`
   - `apps/gui/tests/test_main_runtime_activation.py`
   - `apps/gui/tests/test_settings_resources_tab.py`
   - `apps/gui/tests/test_main_settings_resource_persistence.py`

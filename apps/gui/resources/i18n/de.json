@@ -502,8 +502,14 @@
       "show_file_location": "Dateispeicherort anzeigen",
       "show_file_location_tooltip": "Öffnet den Ordner, der diese installierte Ressource enthält.",
       "file_location_unavailable": "Installieren Sie diese Ressource, bevor der Dateispeicherort angezeigt werden kann.",
+      "manual_setup": "Manuell einrichten...",
+      "manual_setup_tooltip": "Öffnet den Detail-Tab, um genau diese Datei auszuwählen.",
+      "manual_setup_required": "Manuelle Einrichtung nötig",
+      "manual_setup_opened": "Detaillierte Einrichtung für {resource} geöffnet. Verwenden Sie Auswählen, um die genaue Datei zu verknüpfen.",
+      "download_progress": "Wird heruntergeladen...",
+      "download_progress_pct": "Wird heruntergeladen {percent}%",
       "unavailable_resource": "Diese erforderliche Ressource ist im aktuellen Katalog nicht verfügbar.",
-      "resource_source": "Quelle: {source}. Paket: {pack_id}."
+      "resource_source": "Quelle: {source}. Paket: {pack_id}. Größe: {size}."
     },
     "pair_setup": {
       "title": "Sprachdaten für {pair}",

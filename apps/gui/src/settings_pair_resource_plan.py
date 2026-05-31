@@ -29,6 +29,11 @@ _PAIR_RESOURCE_PLANS: dict[str, PairResourcePlan] = {
             ),
             PairResourceItem(
                 kind="language",
+                pack_id="wiktionary-es-en",
+                label="Wiktionary Spanish-English dictionary",
+            ),
+            PairResourceItem(
+                kind="language",
                 pack_id="freedict-es-en",
                 label="Spanish-English dictionary",
             ),

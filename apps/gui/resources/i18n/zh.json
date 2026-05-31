@@ -502,8 +502,14 @@
       "show_file_location": "显示文件位置",
       "show_file_location_tooltip": "打开包含此已安装资源的文件夹。",
       "file_location_unavailable": "请先安装此资源，再显示它的文件位置。",
+      "manual_setup": "手动设置...",
+      "manual_setup_tooltip": "打开详细资源标签页，以选择这个精确文件。",
+      "manual_setup_required": "需要手动设置",
+      "manual_setup_opened": "已打开 {resource} 的详细设置。请使用“选择”链接准确文件。",
+      "download_progress": "正在下载...",
+      "download_progress_pct": "正在下载 {percent}%",
       "unavailable_resource": "当前目录中没有此必需资源。",
-      "resource_source": "来源：{source}。包：{pack_id}。"
+      "resource_source": "来源：{source}。包：{pack_id}。大小：{size}。"
     },
     "pair_setup": {
       "title": "{pair} 的语言数据",

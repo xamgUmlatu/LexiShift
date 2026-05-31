@@ -14,6 +14,7 @@ from language_packs_catalog import PackTransportOverride  # noqa: E402
 from pack_source_manifest import (  # noqa: E402
     PackSourceManifestSnapshot,
     PackSourceManifestValidationError,
+    load_pack_source_overrides,
     pack_source_manifest_snapshot_from_payload,
     resolve_pack_source_manifest,
     write_pack_source_manifest_cache,
@@ -154,6 +155,14 @@ def test_pack_source_manifest_snapshot_from_payload_rejects_invalid_schema_versi
         assert "schema_version" in str(exc)
     else:  # pragma: no cover
         raise AssertionError("expected PackSourceManifestValidationError")
+
+
+def test_load_pack_source_overrides_applies_builtin_freq_es_manual_policy() -> None:
+    with patch("pack_source_manifest.resolve_pack_source_manifest", return_value=None):
+        overrides = load_pack_source_overrides(refresh_remote=False)
+
+    assert overrides["freq-es-cde"].disabled is True
+    assert "license-restricted" in str(overrides["freq-es-cde"].disabled_reason)
 
 
 class _DummySignal:

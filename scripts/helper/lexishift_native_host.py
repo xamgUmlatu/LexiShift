@@ -98,6 +98,9 @@ try:
     from lexishift_core.helper.gui_activation import (
         activate_resource_settings as activate_gui_resource_settings,
     )
+    from lexishift_core.helper.gui_app_launch import (
+        resource_settings_launch_command as build_resource_settings_launch_command,
+    )
     from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
     from lexishift_core.helper.os import open_path
     from lexishift_core.helper.paths import build_helper_paths
@@ -121,10 +124,6 @@ PROTOCOL_VERSION = 1
 HELPER_VERSION = "0.1.0"
 OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
 RESOURCE_PAIR_FLAG = "--resource-pair"
-MACOS_MAIN_BUNDLE_ID = "com.lexishift.app"
-MAIN_APP_BUNDLE_NAME = "LexiShift.app"
-MAIN_WINDOWS_DIR_NAME = "LexiShift"
-MAIN_WINDOWS_EXE_NAME = "LexiShift.exe"
 
 
 def _native_host_log_line(message: str) -> None:
@@ -139,93 +138,18 @@ def _native_host_log_line(message: str) -> None:
         return
 
 
-def _resolve_windows_sibling_executable(current_executable: Path) -> Path | None:
-    exe_path = current_executable.resolve()
-    parent = exe_path.parent
-    grandparent = parent.parent
-    candidates = [
-        parent / MAIN_WINDOWS_EXE_NAME,
-        parent / MAIN_WINDOWS_DIR_NAME / MAIN_WINDOWS_EXE_NAME,
-        grandparent / MAIN_WINDOWS_DIR_NAME / MAIN_WINDOWS_EXE_NAME,
-        grandparent / MAIN_WINDOWS_EXE_NAME,
-        *sorted(parent.glob(f"*/{MAIN_WINDOWS_EXE_NAME}")),
-        *sorted(grandparent.glob(f"*/{MAIN_WINDOWS_EXE_NAME}")),
-    ]
-    seen: set[Path] = set()
-    for candidate in candidates:
-        resolved = candidate.resolve()
-        if resolved == exe_path or resolved in seen:
-            continue
-        seen.add(resolved)
-        if candidate.exists():
-            return candidate
-    return None
-
-
-def _resolve_macos_bundle_from_host_script() -> Path | None:
-    for parent in SCRIPT_DIR.parents:
-        if parent.suffix == ".app":
-            return parent
-    return None
-
-
-def _resource_pair_arg(payload: dict) -> list[str]:
-    pair = str(payload.get("pair") or "").strip().lower()
-    if not pair:
-        return []
-    return [RESOURCE_PAIR_FLAG, pair]
-
-
 def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list[str], str]:
-    resource_args = _resource_pair_arg(payload or {})
-    env_python = os.environ.get("LEXISHIFT_GUI_PYTHON")
-    env_entry = os.environ.get("LEXISHIFT_GUI_ENTRY")
-    if env_entry:
-        return [
-            env_python or sys.executable,
-            str(Path(env_entry).expanduser()),
-            OPEN_RESOURCE_SETTINGS_FLAG,
-            *resource_args,
-        ], "env_gui_entry"
-
-    dev_entry = PROJECT_ROOT / "apps" / "gui" / "src" / "main.py"
-    if dev_entry.exists():
-        return [
-            sys.executable,
-            str(dev_entry),
-            OPEN_RESOURCE_SETTINGS_FLAG,
-            *resource_args,
-        ], "dev_gui_entry"
-
-    if getattr(sys, "frozen", False) and sys.platform.startswith("win"):
-        main_executable = _resolve_windows_sibling_executable(Path(sys.executable))
-        if main_executable is not None:
-            return [
-                str(main_executable),
-                OPEN_RESOURCE_SETTINGS_FLAG,
-                *resource_args,
-            ], "windows_sibling_exe"
-
-    if sys.platform == "darwin":
-        main_bundle = _resolve_macos_bundle_from_host_script()
-        if main_bundle is not None:
-            return [
-                "open",
-                str(main_bundle),
-                "--args",
-                OPEN_RESOURCE_SETTINGS_FLAG,
-                *resource_args,
-            ], "macos_host_bundle"
-        return [
-            "open",
-            "-b",
-            MACOS_MAIN_BUNDLE_ID,
-            "--args",
-            OPEN_RESOURCE_SETTINGS_FLAG,
-            *resource_args,
-        ], "macos_bundle_id"
-
-    raise RuntimeError("LexiShift app launch target could not be resolved.")
+    return build_resource_settings_launch_command(
+        payload or {},
+        script_dir=SCRIPT_DIR,
+        project_root=PROJECT_ROOT,
+        executable=sys.executable,
+        environ=os.environ,
+        platform=sys.platform,
+        frozen=bool(getattr(sys, "frozen", False)),
+        open_resource_settings_flag=OPEN_RESOURCE_SETTINGS_FLAG,
+        resource_pair_flag=RESOURCE_PAIR_FLAG,
+    )
 
 
 def _open_resource_settings(payload: dict) -> dict:

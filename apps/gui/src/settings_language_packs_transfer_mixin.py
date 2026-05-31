@@ -32,6 +32,8 @@ from settings_language_packs_support import EmbeddingConversionThread
 
 class LanguagePackPanelTransferMixin:
     def _on_language_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
+        if hasattr(self, "_update_learning_pair_resource_progress"):
+            self._update_learning_pair_resource_progress(pack_id, downloaded, total)
         row = self._language_pack_rows.get(pack_id)
         if not row:
             return
@@ -43,6 +45,8 @@ class LanguagePackPanelTransferMixin:
             row.status_item.setText(t("language_packs.status.downloading"))
 
     def _on_frequency_pack_progress(self, pack_id: str, downloaded: int, total: int) -> None:
+        if hasattr(self, "_update_learning_pair_resource_progress"):
+            self._update_learning_pair_resource_progress(pack_id, downloaded, total)
         row = self._frequency_pack_rows.get(pack_id)
         if not row:
             return
@@ -125,6 +129,8 @@ class LanguagePackPanelTransferMixin:
         return f"{log_path}\n\n{detail}"
 
     def _on_language_pack_failed(self, pack_id: str, message: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
         pack = self._language_pack_info.get(pack_id)
         row = self._language_pack_rows.get(pack_id)
         if not pack or not row:
@@ -132,6 +138,8 @@ class LanguagePackPanelTransferMixin:
         self._set_download_failed_status(pack=pack, row=row, message=message)
 
     def _on_frequency_pack_failed(self, pack_id: str, message: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
         pack = self._frequency_pack_info.get(pack_id)
         row = self._frequency_pack_rows.get(pack_id)
         if not pack or not row:
@@ -198,6 +206,8 @@ class LanguagePackPanelTransferMixin:
                 self._embedding_pack_paths[pack_id] = candidate
 
     def _on_language_pack_completed(self, pack_id: str, dest_path: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
         pack = self._language_pack_info.get(pack_id)
         row = self._language_pack_rows.get(pack_id)
         if not pack or not row:
@@ -233,6 +243,8 @@ class LanguagePackPanelTransferMixin:
             self._refresh_pair_resource_setup_panel()
 
     def _on_frequency_pack_completed(self, pack_id: str, dest_path: str) -> None:
+        if hasattr(self, "_clear_learning_pair_resource_progress"):
+            self._clear_learning_pair_resource_progress(pack_id)
         pack = self._frequency_pack_info.get(pack_id)
         row = self._frequency_pack_rows.get(pack_id)
         if not pack or not row:

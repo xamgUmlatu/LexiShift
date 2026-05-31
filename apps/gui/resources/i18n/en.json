@@ -503,8 +503,14 @@
       "show_file_location": "Show file location",
       "show_file_location_tooltip": "Open the folder containing this installed resource.",
       "file_location_unavailable": "Install this resource before showing its file location.",
+      "manual_setup": "Manual setup...",
+      "manual_setup_tooltip": "Open the detailed resource tab to select this exact file.",
+      "manual_setup_required": "Manual setup needed",
+      "manual_setup_opened": "Opened detailed setup for {resource}. Use Select to link the exact file.",
+      "download_progress": "Downloading...",
+      "download_progress_pct": "Downloading {percent}%",
       "unavailable_resource": "This required resource is not available in the current catalog.",
-      "resource_source": "Source: {source}. Pack: {pack_id}."
+      "resource_source": "Source: {source}. Pack: {pack_id}. Size: {size}."
     },
     "pair_setup": {
       "title": "Language data for {pair}",

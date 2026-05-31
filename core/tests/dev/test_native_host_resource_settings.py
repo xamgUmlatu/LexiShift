@@ -31,6 +31,7 @@ class TestNativeHostResourceSettings(unittest.TestCase):
                 module.os.environ,
                 {"LEXISHIFT_GUI_ENTRY": "", "LEXISHIFT_GUI_PYTHON": ""},
             ),
+            patch.object(module.sys, "platform", "linux"),
             patch.object(module.subprocess, "Popen") as popen,
             patch.object(module, "activate_gui_resource_settings", return_value=False),
             patch.object(module, "_native_host_log_line") as log_line,
@@ -83,6 +84,36 @@ class TestNativeHostResourceSettings(unittest.TestCase):
         self.assertIn("mode=existing_gui", log_line.call_args.args[0])
         self.assertIn("pair=EN-ES", log_line.call_args.args[0])
 
+    def test_macos_resource_settings_prefers_installed_app_over_dev_entry(self) -> None:
+        module = _load_module(
+            "lexishift_native_host_resource_settings_installed_macos_test",
+            NATIVE_HOST_SCRIPT,
+        )
+        from lexishift_core.helper import gui_app_launch
+
+        with (
+            patch.object(module.sys, "platform", "darwin"),
+            patch.object(
+                gui_app_launch,
+                "_resolve_macos_bundle_from_host_script",
+                return_value=None,
+            ),
+            patch.object(
+                gui_app_launch,
+                "_resolve_macos_installed_bundle",
+                return_value=Path("/Applications/LexiShift.app"),
+            ),
+        ):
+            command, launch_mode = module._resource_settings_launch_command({"pair": "en-es"})
+
+        self.assertEqual(launch_mode, "macos_installed_bundle")
+        self.assertEqual(command[0], "open")
+        self.assertEqual(command[1], "/Applications/LexiShift.app")
+        self.assertNotIn("main.py", " ".join(command))
+        self.assertIn(module.OPEN_RESOURCE_SETTINGS_FLAG, command)
+        self.assertIn(module.RESOURCE_PAIR_FLAG, command)
+        self.assertIn("en-es", command)
+
     def test_resource_settings_activation_message_carries_pair(self) -> None:
         module = _load_module("lexishift_gui_activation_message_test", GUI_ACTIVATION_MODULE)
 
@@ -123,12 +154,13 @@ class TestNativeHostResourceSettings(unittest.TestCase):
             "lexishift_native_host_resource_settings_macos_launch_test",
             NATIVE_HOST_SCRIPT,
         )
+        from lexishift_core.helper import gui_app_launch
 
         with (
             patch.object(module, "PROJECT_ROOT", Path("/tmp/lexishift-no-dev-entry")),
             patch.object(module.sys, "platform", "darwin"),
             patch.object(
-                module,
+                gui_app_launch,
                 "_resolve_macos_bundle_from_host_script",
                 return_value=Path("/Applications/LexiShift.app"),
             ),

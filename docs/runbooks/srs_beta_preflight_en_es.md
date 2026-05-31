@@ -53,7 +53,7 @@ Run these on a throwaway beta profile. Do not use a real learner profile.
 | Check | Required result |
 | --- | --- |
 | Fresh install/helper connection | Options can refresh profiles and show understandable helper/profile state. |
-| Data-pack readiness | en-es frequency/dictionary/topic resources resolve. If frequency/dictionary data is missing, the guided SRS setup modal names learner-facing resource categories, opens LexiShift GUI Resource settings through the helper with the en-es card added/focused in Learning Languages, reuses the existing GUI instance when it is already open, lets the user install app-managed required resources and reveal installed file locations, and retrying after install uses the same setup flow. |
+| Data-pack readiness | en-es frequency/dictionary/topic resources resolve. If frequency/dictionary data is missing, the guided SRS setup modal names learner-facing resource categories, opens LexiShift GUI Resource settings through the helper with the en-es card added/focused in Learning Languages, reuses the existing GUI instance when it is already open, lets the user install app-managed dictionary resources (`wiktionary-es-en`, `freedict-es-en`), shows package sizes and per-resource progress, routes license-restricted `freq-es-cde` through manual setup in the detailed Frequency packs tab, reveals installed file locations, and retrying after install uses the same setup flow. |
 | Strict topic picker | The ordinary picker shows only the strict MVP topics and excludes Plants/Nature and Travel. |
 | Fresh SRS initialize | A new profile can initialize SRS and populate Learning words. |
 | Dashboard visibility | Learning words shows active/queued/due/removed counts, rule summaries, and advanced details when toggled. |

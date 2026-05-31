@@ -502,8 +502,14 @@
       "show_file_location": "ファイルの場所を表示",
       "show_file_location_tooltip": "このインストール済みリソースを含むフォルダを開きます。",
       "file_location_unavailable": "ファイルの場所を表示するには、このリソースをインストールしてください。",
+      "manual_setup": "手動で設定...",
+      "manual_setup_tooltip": "詳細リソースタブを開き、この正確なファイルを選択します。",
+      "manual_setup_required": "手動設定が必要",
+      "manual_setup_opened": "{resource} の詳細設定を開きました。「選択」で正確なファイルをリンクしてください。",
+      "download_progress": "ダウンロード中...",
+      "download_progress_pct": "ダウンロード中 {percent}%",
       "unavailable_resource": "この必須リソースは現在のカタログでは利用できません。",
-      "resource_source": "ソース: {source}。パック: {pack_id}。"
+      "resource_source": "ソース: {source}。パック: {pack_id}。サイズ: {size}。"
     },
     "pair_setup": {
       "title": "{pair} の言語データ",

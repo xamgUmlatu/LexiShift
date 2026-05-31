@@ -25,6 +25,8 @@
       "expected_content_type": "text/plain"
     },
     "freq-es-cde": {
+      "disabled": true,
+      "disabled_reason": "Manual setup required: WordFrequency/Corpus del Espanol frequency data cannot be redistributed by LexiShift.",
       "expected_content_type": "text/plain"
     },
     "jmdict-ja-en": {

@@ -17,6 +17,15 @@ DEFAULT_PACK_SOURCE_MANIFEST_URL = (
     "https://xamgUmlatu.github.io/LexiShift/pack_source_manifest.json"
 )
 PACK_SOURCE_MANIFEST_CACHE_FILENAME = "pack_source_manifest_cache.json"
+BUILTIN_PACK_SOURCE_OVERRIDES: dict[str, PackTransportOverride] = {
+    "freq-es-cde": PackTransportOverride(
+        disabled=True,
+        disabled_reason=(
+            "Manual setup required: this frequency source is license-restricted "
+            "and cannot be redistributed by LexiShift."
+        ),
+    ),
+}
 
 
 class PackSourceManifestValidationError(ValueError):
@@ -190,9 +199,28 @@ def load_pack_source_overrides(
         timeout_seconds=timeout_seconds,
         now=now,
     )
-    if snapshot is None:
-        return {}
-    return dict(snapshot.overrides)
+    overrides = {} if snapshot is None else dict(snapshot.overrides)
+    return _with_builtin_pack_source_overrides(overrides)
+
+
+def _with_builtin_pack_source_overrides(
+    overrides: Mapping[str, PackTransportOverride] | None,
+) -> dict[str, PackTransportOverride]:
+    merged = dict(overrides or {})
+    for pack_id, builtin in BUILTIN_PACK_SOURCE_OVERRIDES.items():
+        existing = merged.get(pack_id)
+        if existing is None:
+            merged[pack_id] = builtin
+            continue
+        merged[pack_id] = PackTransportOverride(
+            url=existing.url or builtin.url,
+            wayback_url=existing.wayback_url or builtin.wayback_url,
+            filename=existing.filename or builtin.filename,
+            expected_content_type=existing.expected_content_type or builtin.expected_content_type,
+            disabled=existing.disabled or builtin.disabled,
+            disabled_reason=existing.disabled_reason or builtin.disabled_reason,
+        )
+    return merged
 
 
 def pack_source_manifest_snapshot_from_payload(

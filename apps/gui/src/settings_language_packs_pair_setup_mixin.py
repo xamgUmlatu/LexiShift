@@ -1,7 +1,15 @@
 from __future__ import annotations
 
 from PySide6.QtCore import QSettings
-from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
+from PySide6.QtWidgets import (
+    QFrame,
+    QHBoxLayout,
+    QLabel,
+    QProgressBar,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
 
 from i18n import t
 from settings_language_packs_support import is_pack_download_disabled
@@ -109,6 +117,9 @@ class LanguagePackPanelPairSetupMixin:
         empty_label = getattr(self, "_learning_pair_empty_label", None)
         if layout is None:
             return
+        self._learning_pair_progress_bars: dict[str, list[QProgressBar]] = {}
+        if not hasattr(self, "_learning_pair_progress_values"):
+            self._learning_pair_progress_values: dict[str, tuple[int, int]] = {}
         while layout.count() > 1:
             item = layout.takeAt(0)
             widget = item.widget()
@@ -171,6 +182,61 @@ class LanguagePackPanelPairSetupMixin:
             row = self._language_pack_rows.get(item.pack_id)
             return bool(row is not None and not row.download_button.isEnabled())
         return False
+
+    def _download_disabled_for_pair_resource(self, item: PairResourceItem) -> bool:
+        return is_pack_download_disabled(self._pack_source_overrides, item.pack_id)
+
+    def _register_learning_pair_progress_bar(
+        self,
+        pack_id: str,
+        progress_bar: QProgressBar,
+    ) -> None:
+        bars = getattr(self, "_learning_pair_progress_bars", None)
+        if bars is None:
+            self._learning_pair_progress_bars = {}
+            bars = self._learning_pair_progress_bars
+        bars.setdefault(pack_id, []).append(progress_bar)
+        values = getattr(self, "_learning_pair_progress_values", {})
+        current = values.get(pack_id)
+        if current is not None:
+            self._apply_learning_pair_progress(progress_bar, *current)
+
+    def _apply_learning_pair_progress(
+        self,
+        progress_bar: QProgressBar,
+        downloaded: int,
+        total: int,
+    ) -> None:
+        progress_bar.setVisible(True)
+        if total > 0:
+            percent = max(0, min(100, int((downloaded / total) * 100)))
+            progress_bar.setRange(0, 100)
+            progress_bar.setValue(percent)
+            progress_bar.setFormat(
+                t("language_packs.learning_pairs.download_progress_pct", percent=percent)
+            )
+            return
+        progress_bar.setRange(0, 0)
+        progress_bar.setFormat(t("language_packs.learning_pairs.download_progress"))
+
+    def _update_learning_pair_resource_progress(
+        self,
+        pack_id: str,
+        downloaded: int,
+        total: int,
+    ) -> None:
+        if not hasattr(self, "_learning_pair_progress_values"):
+            self._learning_pair_progress_values = {}
+        self._learning_pair_progress_values[pack_id] = (downloaded, total)
+        for progress_bar in getattr(self, "_learning_pair_progress_bars", {}).get(pack_id, []):
+            self._apply_learning_pair_progress(progress_bar, downloaded, total)
+
+    def _clear_learning_pair_resource_progress(self, pack_id: str) -> None:
+        values = getattr(self, "_learning_pair_progress_values", None)
+        if values is not None:
+            values.pop(pack_id, None)
+        for progress_bar in getattr(self, "_learning_pair_progress_bars", {}).get(pack_id, []):
+            progress_bar.setVisible(False)
 
     def _refresh_pair_resource_setup_panel(self) -> None:
         self._refresh_learning_pair_cards()
@@ -277,15 +343,21 @@ class LanguagePackPanelPairSetupMixin:
         label.setStyleSheet("font-weight: 600;")
         top_row.addWidget(label, 1)
         installed = self._pair_resource_is_installed(item)
+        download_disabled = self._download_disabled_for_pair_resource(item)
+        if installed:
+            status_key = "language_packs.pair_setup.installed"
+            status_tone = "success"
+        elif download_disabled:
+            status_key = "language_packs.learning_pairs.manual_setup_required"
+            status_tone = "error"
+        else:
+            status_key = "language_packs.pair_setup.missing"
+            status_tone = "warning"
         status = QLabel(
-            t("language_packs.pair_setup.installed")
-            if installed
-            else t("language_packs.pair_setup.missing"),
+            t(status_key),
             slot,
         )
-        status.setStyleSheet(
-            f"color: {self._status_color_hex('success' if installed else 'warning')};"
-        )
+        status.setStyleSheet(f"color: {self._status_color_hex(status_tone)};")
         top_row.addWidget(status)
         layout.addLayout(top_row)
 
@@ -294,18 +366,39 @@ class LanguagePackPanelPairSetupMixin:
         source.setOpenExternalLinks(True)
         layout.addWidget(source)
 
+        progress_bar = QProgressBar(slot)
+        progress_bar.setTextVisible(True)
+        progress_bar.setVisible(False)
+        self._register_learning_pair_progress_bar(item.pack_id, progress_bar)
+        if self._pair_resource_download_active(item):
+            values = getattr(self, "_learning_pair_progress_values", {}).get(item.pack_id)
+            if values is None:
+                self._apply_learning_pair_progress(progress_bar, 0, 0)
+        layout.addWidget(progress_bar)
+
         actions = QHBoxLayout()
-        download_button = QPushButton(
-            t("buttons.redownload") if installed else t("buttons.download"),
-            slot,
-        )
-        download_button.setEnabled(
-            not self._pair_resource_download_active(item)
-            and not is_pack_download_disabled(self._pack_source_overrides, item.pack_id)
-        )
-        download_button.clicked.connect(
-            lambda checked=False, resource=item: self._download_learning_pair_resource(resource)
-        )
+        if download_disabled and not installed:
+            download_button = QPushButton(
+                t("language_packs.learning_pairs.manual_setup"),
+                slot,
+            )
+            download_button.setToolTip(t("language_packs.learning_pairs.manual_setup_tooltip"))
+            download_button.clicked.connect(
+                lambda checked=False, resource=item: self._open_learning_pair_resource_detail(
+                    resource
+                )
+            )
+        else:
+            download_button = QPushButton(
+                t("buttons.redownload") if installed else t("buttons.download"),
+                slot,
+            )
+            download_button.setEnabled(
+                not self._pair_resource_download_active(item) and not download_disabled
+            )
+            download_button.clicked.connect(
+                lambda checked=False, resource=item: self._download_learning_pair_resource(resource)
+            )
         actions.addWidget(download_button)
         location_path = self._pair_resource_resolved_path(item) if installed else None
         location_button = QPushButton(t("language_packs.learning_pairs.show_file_location"), slot)
@@ -332,6 +425,7 @@ class LanguagePackPanelPairSetupMixin:
             "language_packs.learning_pairs.resource_source",
             source=source,
             pack_id=item.pack_id,
+            size=str(getattr(pack, "size", "") or ""),
             url=str(getattr(pack, "url", "") or ""),
         )
 
@@ -353,6 +447,9 @@ class LanguagePackPanelPairSetupMixin:
         self._refresh_learning_pair_cards()
 
     def _download_learning_pair_resource(self, item: PairResourceItem) -> None:
+        if self._download_disabled_for_pair_resource(item):
+            self._open_learning_pair_resource_detail(item)
+            return
         if item.kind == "frequency":
             self._download_frequency_pack(item.pack_id)
         elif item.kind == "language":
@@ -368,3 +465,26 @@ class LanguagePackPanelPairSetupMixin:
             )
             return
         reveal_path(path)
+
+    def _open_learning_pair_resource_detail(self, item: PairResourceItem) -> None:
+        table = None
+        row = None
+        tab_index = 0
+        if item.kind == "language":
+            table = getattr(self, "language_pack_table", None)
+            row = getattr(self, "_language_pack_rows", {}).get(item.pack_id)
+            tab_index = 1
+        elif item.kind == "frequency":
+            table = getattr(self, "frequency_pack_table", None)
+            row = getattr(self, "_frequency_pack_rows", {}).get(item.pack_id)
+            tab_index = 2
+        tabs = getattr(self, "_resource_tabs", None)
+        if tabs is not None:
+            tabs.setCurrentIndex(tab_index)
+        if table is not None and row is not None:
+            table.selectRow(row.row)
+            table.scrollToItem(row.status_item)
+        self._set_status_message(
+            t("language_packs.learning_pairs.manual_setup_opened", resource=item.label),
+            tone="info",
+        )
