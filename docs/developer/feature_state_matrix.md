@@ -1843,7 +1843,10 @@ Use this file when:
   an inline resource-readiness panel with learner-facing resource labels that can
   open the GUI Resource settings tab through the native helper with the
   pair added/focused in the persistent Learning Languages resource view and
-  retry the same setup check, SRS story cards, topic
+  retry the same setup check; the Learning Languages pair cards promote
+  app-managed downloads, hide per-resource manual file selection from the
+  learner-facing path, and expose per-resource file-location reveal actions for
+  installed data; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1884,6 +1887,9 @@ Use this file when:
   markup/controller behavior, native-host pair-aware resource-settings launch
   routing, existing-GUI local activation, macOS non-`-n` fallback launch,
   GUI resource-tab activation routing, persistent Learning Languages pair card,
+  learner-facing Learning Languages card localization,
+  per-resource installed-data file-location reveal,
+  removed pair-card Add manually affordance,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; extension structure/i18n checks, doc-reference check, state
@@ -1908,7 +1914,10 @@ Use this file when:
     language-data panel with learner-facing missing resource labels, offers to
     open the LexiShift GUI Resource settings tab via the native helper with the
     pair added/focused in the persistent Learning Languages view, and keeps the
-    learner in the same setup flow for retry. When the GUI is already running,
+    learner in the same setup flow for retry. That view offers app-managed
+    downloads and file-location reveal for installed resources; manual external
+    path selection stays in the detailed resource tabs instead of the pair
+    card. When the GUI is already running,
     the native helper sends the
     pair-focused Resource settings activation message to that process instead
     of launching a second GUI instance; if no GUI is listening, it falls back to

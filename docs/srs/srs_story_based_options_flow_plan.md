@@ -59,10 +59,13 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   initialization, the setup modal shows an inline data-readiness panel with
   learner-facing resource labels, an action to open LexiShift's GUI Resource
   settings tab with the pair added/focused in the persistent Learning Languages
-  resource view, and a retry action. Repeated opens reuse the already-running
-  GUI through the single-instance activation channel when possible; if the GUI
-  is closed, the helper launches it. The extension still does not download
-  language data directly.
+  resource view, and a retry action. The Learning Languages resource view
+  promotes exact app-managed downloads and per-resource file-location reveal
+  actions; broad manual file selection remains in the detailed resource tabs
+  rather than the learner-facing pair card. Repeated opens reuse the
+  already-running GUI through the single-instance activation channel when
+  possible; if the GUI is closed, the helper launches it. The extension still
+  does not download language data directly.
 
 Not implemented yet:
 

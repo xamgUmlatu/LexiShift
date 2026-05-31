@@ -10,6 +10,7 @@ from PySide6.QtWidgets import QApplication
 from dialogs import SettingsDialog
 from i18n import set_locale, t
 from lexishift_core import AppSettings
+import settings_language_packs_pair_setup_mixin as pair_setup_mixin
 
 
 def _app() -> QApplication:
@@ -68,7 +69,47 @@ def test_settings_resource_pair_focus_adds_learning_language_card() -> None:
     assert "Spanish word frequency data" in label_text
     assert "Spanish-English dictionary" in label_text
     assert t("language_packs.learning_pairs.download_missing") in button_text
-    assert t("language_packs.learning_pairs.add_manually") in button_text
+    assert t("language_packs.learning_pairs.show_file_location") in button_text
+    assert "Add manually" not in button_text
+
+
+def test_learning_pair_resource_location_button_reveals_resolved_path(monkeypatch) -> None:
+    _app()
+    set_locale("en")
+    _clear_learning_pairs()
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+    )
+    panel = dialog.language_pack_panel
+    revealed: list[str] = []
+
+    monkeypatch.setattr(panel, "_pair_resource_is_installed", lambda _item: True)
+    monkeypatch.setattr(
+        panel,
+        "_pair_resource_resolved_path",
+        lambda item: f"/tmp/{item.pack_id}.sqlite",
+    )
+    monkeypatch.setattr(pair_setup_mixin, "reveal_path", lambda path: revealed.append(path))
+
+    panel._refresh_learning_pair_cards()
+    learning_tab = panel._resource_tabs.widget(0)
+    buttons = learning_tab.findChildren(type(panel.open_language_pack_button))
+    location_buttons = [
+        button
+        for button in buttons
+        if button.text() == t("language_packs.learning_pairs.show_file_location")
+        and button.isEnabled()
+    ]
+
+    assert location_buttons
+
+    location_buttons[0].click()
+
+    assert revealed
+    assert revealed[0].startswith("/tmp/")
 
 
 def test_settings_app_tab_no_longer_contains_language_pack_panel() -> None:

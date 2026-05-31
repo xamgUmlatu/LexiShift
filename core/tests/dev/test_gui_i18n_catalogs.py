@@ -61,6 +61,26 @@ class TestGuiI18nCatalogs(unittest.TestCase):
                 self.assertIsInstance(value, str, f"{locale} missing {key}")
                 self.assertTrue(value.strip(), f"{locale} has empty {key}")
 
+    def test_learning_language_resource_catalogs_exist_in_all_gui_locales(self) -> None:
+        en_catalog = _load(EN_PATH)
+        required_sections = (
+            "language_packs.learning_pairs",
+            "language_packs.pair_setup",
+        )
+
+        for section_key in required_sections:
+            en_section = _lookup(en_catalog, section_key)
+            self.assertIsInstance(en_section, dict)
+            for locale, path in LOCALE_PATHS.items():
+                catalog = _load(path)
+                section = _lookup(catalog, section_key)
+                self.assertIsInstance(section, dict, f"{locale} missing {section_key}")
+                self.assertEqual(
+                    sorted(section.keys()),
+                    sorted(en_section.keys()),
+                    f"{locale} {section_key} keys differ from en",
+                )
+
 
 if __name__ == "__main__":
     unittest.main()

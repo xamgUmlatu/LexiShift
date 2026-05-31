@@ -11,6 +11,7 @@ from settings_pair_resource_plan import (
     available_pair_resource_plans,
     pair_resource_plan,
 )
+from utils_paths import reveal_path
 
 _LEARNING_PAIR_SETTINGS_KEY = "resources/learning_pairs"
 
@@ -130,20 +131,27 @@ class LanguagePackPanelPairSetupMixin:
             return self._language_pack_info.get(item.pack_id)
         return None
 
+    def _pair_resource_resolved_path(self, item: PairResourceItem) -> str | None:
+        pack = self._pair_resource_pack(item)
+        if pack is None:
+            return None
+        if item.kind == "frequency":
+            return self._resolve_frequency_pack_path(pack)
+        if item.kind == "language":
+            return self._resolve_downloaded_path(pack)
+        return None
+
     def _pair_resource_is_installed(self, item: PairResourceItem) -> bool:
         pack = self._pair_resource_pack(item)
         if pack is None:
             return False
+        resolved = self._pair_resource_resolved_path(item)
+        if not resolved:
+            return False
         if item.kind == "frequency":
-            resolved = self._resolve_frequency_pack_path(pack)
-            if not resolved:
-                return False
             valid, _message = self._validate_frequency_pack_path(pack, resolved)
             return valid
         if item.kind == "language":
-            resolved = self._resolve_downloaded_path(pack)
-            if not resolved:
-                return False
             valid, _message = self._validate_language_pack_path(pack, resolved)
             return valid
         return False
@@ -299,11 +307,18 @@ class LanguagePackPanelPairSetupMixin:
             lambda checked=False, resource=item: self._download_learning_pair_resource(resource)
         )
         actions.addWidget(download_button)
-        manual_button = QPushButton(t("language_packs.learning_pairs.add_manually"), slot)
-        manual_button.clicked.connect(
-            lambda checked=False, resource=item: self._select_learning_pair_resource_path(resource)
+        location_path = self._pair_resource_resolved_path(item) if installed else None
+        location_button = QPushButton(t("language_packs.learning_pairs.show_file_location"), slot)
+        location_button.setEnabled(bool(location_path))
+        location_button.setToolTip(
+            t("language_packs.learning_pairs.show_file_location_tooltip")
+            if location_path
+            else t("language_packs.learning_pairs.file_location_unavailable")
         )
-        actions.addWidget(manual_button)
+        location_button.clicked.connect(
+            lambda checked=False, resource=item: self._reveal_learning_pair_resource_path(resource)
+        )
+        actions.addWidget(location_button)
         actions.addStretch(1)
         layout.addLayout(actions)
         return slot
@@ -344,9 +359,12 @@ class LanguagePackPanelPairSetupMixin:
             self._download_language_pack(item.pack_id)
         self._refresh_learning_pair_cards()
 
-    def _select_learning_pair_resource_path(self, item: PairResourceItem) -> None:
-        if item.kind == "frequency":
-            self._select_frequency_pack_path(item.pack_id)
-        elif item.kind == "language":
-            self._select_language_pack_path(item.pack_id)
-        self._refresh_learning_pair_cards()
+    def _reveal_learning_pair_resource_path(self, item: PairResourceItem) -> None:
+        path = self._pair_resource_resolved_path(item)
+        if not path:
+            self._set_status_message(
+                t("language_packs.learning_pairs.file_location_unavailable"),
+                tone="warning",
+            )
+            return
+        reveal_path(path)

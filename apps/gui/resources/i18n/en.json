@@ -494,15 +494,17 @@
     "learning_pairs": {
       "tab_title": "Learning Languages",
       "title": "Learning Languages",
-      "description": "Add the language pairs you want to use with LexiShift, then install or manually link the exact data each pair requires.",
+      "description": "Add the language pairs you want to use with LexiShift, then install the exact data each pair requires.",
       "add_pair": "Add language pair",
       "empty": "No language pairs added yet. Add a language pair to see the data LexiShift needs for it.",
       "download_missing": "Download missing data",
       "recheck": "Recheck",
       "remove_pair": "Remove from list",
-      "add_manually": "Add manually",
+      "show_file_location": "Show file location",
+      "show_file_location_tooltip": "Open the folder containing this installed resource.",
+      "file_location_unavailable": "Install this resource before showing its file location.",
       "unavailable_resource": "This required resource is not available in the current catalog.",
-      "resource_source": "Source: {source}. Pack: {pack_id}. Use Download, or Add manually if you obtained this exact resource from its source."
+      "resource_source": "Source: {source}. Pack: {pack_id}."
     },
     "pair_setup": {
       "title": "Language data for {pair}",
@@ -513,7 +515,7 @@
       "status_missing": "{installed} of {total} installed",
       "status_ready": "Ready for this story.",
       "status_started": "Started downloading: {resources}",
-      "status_blocked": "These resources need manual setup or are unavailable right now: {resources}"
+      "status_blocked": "These resources are unavailable for automatic download right now: {resources}"
     },
     "headers": {
       "pack": "Pack",
