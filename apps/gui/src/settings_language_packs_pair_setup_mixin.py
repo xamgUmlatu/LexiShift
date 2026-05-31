@@ -1,30 +1,123 @@
 from __future__ import annotations
 
+from PySide6.QtCore import QSettings
+from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
+
 from i18n import t
 from settings_language_packs_support import is_pack_download_disabled
-from settings_pair_resource_plan import PairResourceItem, pair_resource_plan
+from settings_pair_resource_plan import (
+    PairResourceItem,
+    PairResourcePlan,
+    available_pair_resource_plans,
+    pair_resource_plan,
+)
+
+_LEARNING_PAIR_SETTINGS_KEY = "resources/learning_pairs"
 
 
 class LanguagePackPanelPairSetupMixin:
     def _set_focused_pair(self, focused_pair: str | None) -> None:
         self._focused_pair = str(focused_pair or "").strip().lower()
         self._focused_pair_plan = pair_resource_plan(self._focused_pair)
+        self._learning_pair_keys = self._load_learning_pair_keys()
+        if self._focused_pair_plan is not None:
+            self._ensure_learning_pair(self._focused_pair_plan.pair, persist=True)
 
     def _apply_pair_resource_setup_style(self) -> None:
-        panel = getattr(self, "_pair_resource_setup_panel", None)
-        if panel is None:
-            return
         panel_top = self._theme_hex("panel_top", fallback="#FFFFFF")
         panel_border = self._theme_hex("panel_border", fallback="#D8D0C0")
+        background = self._theme_hex("background", fallback="#F7F3EA")
         text_color = self._theme_hex("text", fallback="#1F2933")
-        panel.setStyleSheet(
-            "QFrame#pairResourceSetupPanel {"
+        self.setStyleSheet(
+            "QFrame#learningLanguagePairCard, QFrame#learningLanguageResourceSlot {"
             f"background: {panel_top};"
             f"border: 1px solid {panel_border};"
             "border-radius: 8px;"
             "}"
-            f"QLabel {{ color: {text_color}; }}"
+            "QFrame#learningLanguageResourceSlot {"
+            f"background: {background};"
+            "}"
+            f"QFrame#learningLanguagePairCard QLabel {{ color: {text_color}; }}"
+            f"QFrame#learningLanguageResourceSlot QLabel {{ color: {text_color}; }}"
         )
+
+    def _load_learning_pair_keys(self) -> list[str]:
+        available = {plan.pair for plan in available_pair_resource_plans()}
+        raw = QSettings().value(_LEARNING_PAIR_SETTINGS_KEY, [])
+        values = raw if isinstance(raw, list) else str(raw or "").split(",")
+        normalized: list[str] = []
+        for value in values:
+            pair = str(value or "").strip().lower()
+            if pair in available and pair not in normalized:
+                normalized.append(pair)
+        return normalized
+
+    def _persist_learning_pair_keys(self) -> None:
+        QSettings().setValue(_LEARNING_PAIR_SETTINGS_KEY, list(self._learning_pair_keys))
+
+    def _ensure_learning_pair(self, pair: str, *, persist: bool) -> None:
+        plan = pair_resource_plan(pair)
+        if plan is None:
+            return
+        if not hasattr(self, "_learning_pair_keys"):
+            self._learning_pair_keys = []
+        if plan.pair not in self._learning_pair_keys:
+            self._learning_pair_keys.append(plan.pair)
+            if persist:
+                self._persist_learning_pair_keys()
+
+    def _populate_learning_pair_combo(self) -> None:
+        combo = getattr(self, "_learning_pair_combo", None)
+        if combo is None:
+            return
+        combo.clear()
+        for plan in available_pair_resource_plans():
+            combo.addItem(plan.label, plan.pair)
+
+    def _add_selected_learning_pair(self) -> None:
+        combo = getattr(self, "_learning_pair_combo", None)
+        if combo is None:
+            return
+        pair = str(combo.currentData() or combo.currentText() or "").strip().lower()
+        self._ensure_learning_pair(pair, persist=True)
+        self._focused_pair = pair
+        self._focused_pair_plan = pair_resource_plan(pair)
+        self._refresh_learning_pair_cards()
+
+    def _remove_learning_pair(self, pair: str) -> None:
+        normalized = str(pair or "").strip().lower()
+        self._learning_pair_keys = [
+            value for value in self._learning_pair_keys if value != normalized
+        ]
+        self._persist_learning_pair_keys()
+        if self._focused_pair == normalized:
+            self._focused_pair = ""
+            self._focused_pair_plan = None
+        self._refresh_learning_pair_cards()
+
+    def _ordered_learning_pair_plans(self) -> tuple[PairResourcePlan, ...]:
+        plans = [pair_resource_plan(pair) for pair in getattr(self, "_learning_pair_keys", [])]
+        resolved = [plan for plan in plans if plan is not None]
+        focused = getattr(self, "_focused_pair", "")
+        if focused:
+            resolved.sort(key=lambda plan: 0 if plan.pair == focused else 1)
+        return tuple(resolved)
+
+    def _refresh_learning_pair_cards(self) -> None:
+        layout = getattr(self, "_learning_pair_list_layout", None)
+        empty_label = getattr(self, "_learning_pair_empty_label", None)
+        if layout is None:
+            return
+        while layout.count() > 1:
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+        plans = self._ordered_learning_pair_plans()
+        if empty_label is not None:
+            empty_label.setVisible(not plans)
+        for plan in plans:
+            layout.insertWidget(layout.count() - 1, self._build_learning_pair_card(plan))
 
     def _pair_resource_items(self) -> tuple[PairResourceItem, ...]:
         plan = getattr(self, "_focused_pair_plan", None)
@@ -72,54 +165,7 @@ class LanguagePackPanelPairSetupMixin:
         return False
 
     def _refresh_pair_resource_setup_panel(self) -> None:
-        panel = getattr(self, "_pair_resource_setup_panel", None)
-        if panel is None:
-            return
-        plan = getattr(self, "_focused_pair_plan", None)
-        if plan is None:
-            panel.hide()
-            return
-        panel.show()
-        title = getattr(self, "_pair_resource_setup_title", None)
-        message = getattr(self, "_pair_resource_setup_message", None)
-        resource_list = getattr(self, "_pair_resource_setup_list", None)
-        status = getattr(self, "_pair_resource_setup_status", None)
-        download_button = getattr(self, "_pair_resource_setup_download_button", None)
-        missing_items = self._pair_resource_missing_items()
-        installed_count = len(self._pair_resource_items()) - len(missing_items)
-        if title is not None:
-            title.setText(t("language_packs.pair_setup.title", pair=plan.label))
-        if message is not None:
-            message.setText(t("language_packs.pair_setup.description"))
-        if resource_list is not None:
-            rows = []
-            for item in self._pair_resource_items():
-                state = (
-                    t("language_packs.pair_setup.installed")
-                    if self._pair_resource_is_installed(item)
-                    else t("language_packs.pair_setup.missing")
-                )
-                rows.append(f"{item.label}: {state}")
-            resource_list.setText("\n".join(rows))
-        if status is not None:
-            if missing_items:
-                status.setText(
-                    t(
-                        "language_packs.pair_setup.status_missing",
-                        installed=installed_count,
-                        total=len(self._pair_resource_items()),
-                    )
-                )
-                status.setStyleSheet(f"color: {self._status_color_hex('warning')};")
-            else:
-                status.setText(t("language_packs.pair_setup.status_ready"))
-                status.setStyleSheet(f"color: {self._status_color_hex('success')};")
-        if download_button is not None:
-            download_button.setText(t("language_packs.pair_setup.download_required"))
-            download_button.setEnabled(
-                bool(missing_items)
-                and not any(self._pair_resource_download_active(item) for item in missing_items)
-            )
+        self._refresh_learning_pair_cards()
 
     def _download_pair_required_resources(self) -> None:
         missing_items = self._pair_resource_missing_items()
@@ -167,3 +213,140 @@ class LanguagePackPanelPairSetupMixin:
                 ),
                 tone="info",
             )
+
+    def _build_learning_pair_card(self, plan: PairResourcePlan) -> QWidget:
+        card = QFrame(self)
+        card.setObjectName("learningLanguagePairCard")
+        layout = QVBoxLayout(card)
+        layout.setContentsMargins(14, 12, 14, 12)
+        layout.setSpacing(8)
+
+        missing_items = self._missing_items_for_plan(plan)
+        installed_count = len(plan.resources) - len(missing_items)
+        header = QHBoxLayout()
+        title = QLabel(plan.label, card)
+        title.setStyleSheet("font-weight: 700; font-size: 13px;")
+        header.addWidget(title, 1)
+        status = QLabel(self._learning_pair_status_text(installed_count, len(plan.resources)), card)
+        status.setStyleSheet(
+            f"color: {self._status_color_hex('warning' if missing_items else 'success')};"
+            "font-weight: 600;"
+        )
+        header.addWidget(status)
+        layout.addLayout(header)
+
+        for item in plan.resources:
+            layout.addWidget(self._build_learning_pair_resource_slot(item))
+
+        footer = QHBoxLayout()
+        download_button = QPushButton(t("language_packs.learning_pairs.download_missing"), card)
+        download_button.setEnabled(bool(missing_items))
+        download_button.clicked.connect(
+            lambda checked=False, pair=plan.pair: self._download_learning_pair_missing(pair)
+        )
+        footer.addWidget(download_button)
+        recheck_button = QPushButton(t("language_packs.learning_pairs.recheck"), card)
+        recheck_button.clicked.connect(self._refresh_learning_pair_cards)
+        footer.addWidget(recheck_button)
+        footer.addStretch(1)
+        remove_button = QPushButton(t("language_packs.learning_pairs.remove_pair"), card)
+        remove_button.clicked.connect(
+            lambda checked=False, pair=plan.pair: self._remove_learning_pair(pair)
+        )
+        footer.addWidget(remove_button)
+        layout.addLayout(footer)
+        return card
+
+    def _build_learning_pair_resource_slot(self, item: PairResourceItem) -> QWidget:
+        slot = QFrame(self)
+        slot.setObjectName("learningLanguageResourceSlot")
+        layout = QVBoxLayout(slot)
+        layout.setContentsMargins(10, 8, 10, 8)
+        layout.setSpacing(6)
+
+        top_row = QHBoxLayout()
+        label = QLabel(item.label, slot)
+        label.setStyleSheet("font-weight: 600;")
+        top_row.addWidget(label, 1)
+        installed = self._pair_resource_is_installed(item)
+        status = QLabel(
+            t("language_packs.pair_setup.installed")
+            if installed
+            else t("language_packs.pair_setup.missing"),
+            slot,
+        )
+        status.setStyleSheet(
+            f"color: {self._status_color_hex('success' if installed else 'warning')};"
+        )
+        top_row.addWidget(status)
+        layout.addLayout(top_row)
+
+        source = QLabel(self._resource_slot_source_text(item), slot)
+        source.setWordWrap(True)
+        source.setOpenExternalLinks(True)
+        layout.addWidget(source)
+
+        actions = QHBoxLayout()
+        download_button = QPushButton(
+            t("buttons.redownload") if installed else t("buttons.download"),
+            slot,
+        )
+        download_button.setEnabled(
+            not self._pair_resource_download_active(item)
+            and not is_pack_download_disabled(self._pack_source_overrides, item.pack_id)
+        )
+        download_button.clicked.connect(
+            lambda checked=False, resource=item: self._download_learning_pair_resource(resource)
+        )
+        actions.addWidget(download_button)
+        manual_button = QPushButton(t("language_packs.learning_pairs.add_manually"), slot)
+        manual_button.clicked.connect(
+            lambda checked=False, resource=item: self._select_learning_pair_resource_path(resource)
+        )
+        actions.addWidget(manual_button)
+        actions.addStretch(1)
+        layout.addLayout(actions)
+        return slot
+
+    def _resource_slot_source_text(self, item: PairResourceItem) -> str:
+        pack = self._pair_resource_pack(item)
+        if pack is None:
+            return t("language_packs.learning_pairs.unavailable_resource")
+        source = pack.display_source()
+        return t(
+            "language_packs.learning_pairs.resource_source",
+            source=source,
+            pack_id=item.pack_id,
+            url=str(getattr(pack, "url", "") or ""),
+        )
+
+    def _learning_pair_status_text(self, installed: int, total: int) -> str:
+        if installed >= total:
+            return t("language_packs.pair_setup.status_ready")
+        return t("language_packs.pair_setup.status_missing", installed=installed, total=total)
+
+    def _missing_items_for_plan(self, plan: PairResourcePlan) -> tuple[PairResourceItem, ...]:
+        return tuple(item for item in plan.resources if not self._pair_resource_is_installed(item))
+
+    def _download_learning_pair_missing(self, pair: str) -> None:
+        plan = pair_resource_plan(pair)
+        if plan is None:
+            return
+        self._focused_pair = plan.pair
+        self._focused_pair_plan = plan
+        self._download_pair_required_resources()
+        self._refresh_learning_pair_cards()
+
+    def _download_learning_pair_resource(self, item: PairResourceItem) -> None:
+        if item.kind == "frequency":
+            self._download_frequency_pack(item.pack_id)
+        elif item.kind == "language":
+            self._download_language_pack(item.pack_id)
+        self._refresh_learning_pair_cards()
+
+    def _select_learning_pair_resource_path(self, item: PairResourceItem) -> None:
+        if item.kind == "frequency":
+            self._select_frequency_pack_path(item.pack_id)
+        elif item.kind == "language":
+            self._select_language_pack_path(item.pack_id)
+        self._refresh_learning_pair_cards()

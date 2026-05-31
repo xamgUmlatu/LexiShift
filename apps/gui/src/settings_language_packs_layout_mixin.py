@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 from PySide6.QtWidgets import (
+    QComboBox,
     QFrame,
     QHBoxLayout,
     QLabel,
     QPushButton,
+    QScrollArea,
     QToolButton,
     QVBoxLayout,
     QWidget,
@@ -14,44 +16,51 @@ from i18n import t
 
 
 class LanguagePackPanelLayoutMixin:
-    def _build_pair_resource_setup_panel(self) -> QWidget:
-        frame = QFrame(self)
-        frame.setObjectName("pairResourceSetupPanel")
-        self._pair_resource_setup_panel = frame
+    def _build_learning_languages_tab(self) -> QWidget:
+        tab = QWidget(self)
+        layout = QVBoxLayout(tab)
+        layout.setSpacing(10)
 
-        layout = QVBoxLayout(frame)
-        layout.setContentsMargins(14, 12, 14, 12)
-        layout.setSpacing(8)
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.learning_pairs.title"))
+        section_title.setStyleSheet("font-weight: 600; font-size: 13px;")
+        header_row.addWidget(section_title)
+        header_row.addStretch(1)
+        layout.addLayout(header_row)
 
-        title = QLabel(frame)
-        title.setObjectName("pairResourceSetupTitle")
-        title.setStyleSheet("font-weight: 600; font-size: 13px;")
-        self._pair_resource_setup_title = title
-        layout.addWidget(title)
+        description = QLabel(t("language_packs.learning_pairs.description"))
+        description.setWordWrap(True)
+        layout.addWidget(description)
 
-        message = QLabel(frame)
-        message.setWordWrap(True)
-        self._pair_resource_setup_message = message
-        layout.addWidget(message)
+        add_row = QHBoxLayout()
+        self._learning_pair_combo = QComboBox(tab)
+        self._populate_learning_pair_combo()
+        add_row.addWidget(self._learning_pair_combo, 1)
+        add_button = QPushButton(t("language_packs.learning_pairs.add_pair"), tab)
+        add_button.clicked.connect(self._add_selected_learning_pair)
+        self._learning_pair_add_button = add_button
+        add_row.addWidget(add_button)
+        layout.addLayout(add_row)
 
-        resource_list = QLabel(frame)
-        resource_list.setWordWrap(True)
-        self._pair_resource_setup_list = resource_list
-        layout.addWidget(resource_list)
+        self._learning_pair_empty_label = QLabel(
+            t("language_packs.learning_pairs.empty"),
+            tab,
+        )
+        self._learning_pair_empty_label.setWordWrap(True)
+        layout.addWidget(self._learning_pair_empty_label)
 
-        footer = QHBoxLayout()
-        status = QLabel(frame)
-        status.setWordWrap(True)
-        self._pair_resource_setup_status = status
-        footer.addWidget(status, 1)
+        scroll = QScrollArea(tab)
+        scroll.setWidgetResizable(True)
+        scroll.setFrameShape(QFrame.NoFrame)
+        self._learning_pair_list_container = QWidget(scroll)
+        self._learning_pair_list_layout = QVBoxLayout(self._learning_pair_list_container)
+        self._learning_pair_list_layout.setContentsMargins(0, 0, 0, 0)
+        self._learning_pair_list_layout.setSpacing(10)
+        self._learning_pair_list_layout.addStretch(1)
+        scroll.setWidget(self._learning_pair_list_container)
+        layout.addWidget(scroll, 1)
 
-        download_button = QPushButton(frame)
-        download_button.clicked.connect(self._download_pair_required_resources)
-        self._pair_resource_setup_download_button = download_button
-        footer.addWidget(download_button)
-        layout.addLayout(footer)
-
-        return frame
+        return tab
 
     def _build_language_pack_tab(self) -> QWidget:
         tab = QWidget(self)

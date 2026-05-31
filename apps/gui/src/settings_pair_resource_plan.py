@@ -43,3 +43,7 @@ def normalize_pair_key(pair: str | None) -> str:
 
 def pair_resource_plan(pair: str | None) -> PairResourcePlan | None:
     return _PAIR_RESOURCE_PLANS.get(normalize_pair_key(pair))
+
+
+def available_pair_resource_plans() -> tuple[PairResourcePlan, ...]:
+    return tuple(_PAIR_RESOURCE_PLANS[pair] for pair in sorted(_PAIR_RESOURCE_PLANS))

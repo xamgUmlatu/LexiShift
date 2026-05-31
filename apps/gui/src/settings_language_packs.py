@@ -181,10 +181,11 @@ class LanguagePackPanel(
         title.setStyleSheet("font-weight: 600; font-size: 14px;")
         layout.addWidget(title)
 
-        self._pair_resource_setup_panel = self._build_pair_resource_setup_panel()
-        layout.addWidget(self._pair_resource_setup_panel)
-
         self._resource_tabs = QTabWidget(self)
+        self._resource_tabs.addTab(
+            self._build_learning_languages_tab(),
+            t("language_packs.learning_pairs.tab_title"),
+        )
         self._resource_tabs.addTab(self._build_language_pack_tab(), t("language_packs.title"))
         self._resource_tabs.addTab(
             self._build_frequency_pack_tab(), t("language_packs.frequency_title")

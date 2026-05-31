@@ -4,6 +4,7 @@ import os
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
+from PySide6.QtCore import QSettings
 from PySide6.QtWidgets import QApplication
 
 from dialogs import SettingsDialog
@@ -16,6 +17,10 @@ def _app() -> QApplication:
     if app is None:
         app = QApplication([])
     return app
+
+
+def _clear_learning_pairs() -> None:
+    QSettings().remove("resources/learning_pairs")
 
 
 def test_settings_has_dedicated_resources_tab() -> None:
@@ -39,9 +44,10 @@ def test_settings_can_open_directly_to_resources_tab() -> None:
     assert dialog._tabs.currentIndex() == 1
 
 
-def test_settings_resource_pair_focus_shows_guided_install_card() -> None:
+def test_settings_resource_pair_focus_adds_learning_language_card() -> None:
     _app()
     set_locale("en")
+    _clear_learning_pairs()
     dialog = SettingsDialog(
         app_settings=AppSettings(),
         dataset_settings=None,
@@ -50,13 +56,19 @@ def test_settings_resource_pair_focus_shows_guided_install_card() -> None:
     )
     panel = dialog.language_pack_panel
 
-    assert panel._pair_resource_setup_panel.isHidden() is False
-    assert panel._pair_resource_setup_title.text() == t(
-        "language_packs.pair_setup.title",
-        pair="English to Spanish",
-    )
-    assert "Spanish word frequency data" in panel._pair_resource_setup_list.text()
-    assert "Spanish-English dictionary" in panel._pair_resource_setup_list.text()
+    assert panel._resource_tabs.currentIndex() == 0
+    assert "en-es" in panel._learning_pair_keys
+    learning_tab = panel._resource_tabs.widget(0)
+    labels = learning_tab.findChildren(type(panel.language_pack_status))
+    buttons = learning_tab.findChildren(type(panel.open_language_pack_button))
+    label_text = "\n".join(label.text() for label in labels)
+    button_text = {button.text() for button in buttons}
+
+    assert "English to Spanish" in label_text
+    assert "Spanish word frequency data" in label_text
+    assert "Spanish-English dictionary" in label_text
+    assert t("language_packs.learning_pairs.download_missing") in button_text
+    assert t("language_packs.learning_pairs.add_manually") in button_text
 
 
 def test_settings_app_tab_no_longer_contains_language_pack_panel() -> None:
@@ -75,11 +87,12 @@ def test_resources_tab_has_dedicated_resource_subviews() -> None:
     panel = dialog.language_pack_panel
     tabs = panel._resource_tabs
 
-    assert tabs.count() == 4
-    assert tabs.tabText(0) == t("language_packs.title")
-    assert tabs.tabText(1) == t("language_packs.frequency_title")
-    assert tabs.tabText(2) == t("language_packs.embeddings_title")
-    assert tabs.tabText(3) == t("language_packs.cross_embeddings_title")
+    assert tabs.count() == 5
+    assert tabs.tabText(0) == t("language_packs.learning_pairs.tab_title")
+    assert tabs.tabText(1) == t("language_packs.title")
+    assert tabs.tabText(2) == t("language_packs.frequency_title")
+    assert tabs.tabText(3) == t("language_packs.embeddings_title")
+    assert tabs.tabText(4) == t("language_packs.cross_embeddings_title")
 
 
 def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:
@@ -87,7 +100,7 @@ def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:
     set_locale("en")
     dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
     panel = dialog.language_pack_panel
-    language_tab = panel._resource_tabs.widget(0)
+    language_tab = panel._resource_tabs.widget(1)
     labels = language_tab.findChildren(type(panel.language_pack_status))
 
     assert any(label.text() == t("language_packs.language_description") for label in labels)
@@ -141,9 +154,9 @@ def test_frequency_and_embedding_tabs_describe_manual_paths_as_compatibility_onl
     assert "installed" in cross_text
     assert "manual" in cross_text
 
-    frequency_tab = panel._resource_tabs.widget(1)
-    embedding_tab = panel._resource_tabs.widget(2)
-    cross_embedding_tab = panel._resource_tabs.widget(3)
+    frequency_tab = panel._resource_tabs.widget(2)
+    embedding_tab = panel._resource_tabs.widget(3)
+    cross_embedding_tab = panel._resource_tabs.widget(4)
     label_type = type(panel.language_pack_status)
 
     assert any(

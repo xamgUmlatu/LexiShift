@@ -1842,7 +1842,8 @@ Use this file when:
   surface, guided setup now turns missing language-data preflight failures into
   an inline resource-readiness panel with learner-facing resource labels that can
   open the GUI Resource settings tab through the native helper with the
-  pair-specific install card focused and retry the same setup check, SRS story cards, topic
+  pair added/focused in the persistent Learning Languages resource view and
+  retry the same setup check, SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1882,7 +1883,7 @@ Use this file when:
   markup, active-story technical-status removal, missing-resource setup panel
   markup/controller behavior, native-host pair-aware resource-settings launch
   routing, existing-GUI local activation, macOS non-`-n` fallback launch,
-  GUI resource-tab activation routing, and pair-focused GUI install card,
+  GUI resource-tab activation routing, persistent Learning Languages pair card,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; extension structure/i18n checks, doc-reference check, state
@@ -1905,9 +1906,10 @@ Use this file when:
   - If setup sampling or initialization is blocked because required
     language-data resources are missing, the guided modal shows a
     language-data panel with learner-facing missing resource labels, offers to
-    open the LexiShift GUI Resource settings tab via the native helper focused
-    on the pair-specific install card, and keeps the learner in the same setup
-    flow for retry. When the GUI is already running, the native helper sends the
+    open the LexiShift GUI Resource settings tab via the native helper with the
+    pair added/focused in the persistent Learning Languages view, and keeps the
+    learner in the same setup flow for retry. When the GUI is already running,
+    the native helper sends the
     pair-focused Resource settings activation message to that process instead
     of launching a second GUI instance; if no GUI is listening, it falls back to
     launching the app. The extension does not download or import packs directly;
