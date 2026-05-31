@@ -1839,8 +1839,9 @@ Use this file when:
   flow is the learner-facing enable/readiness path, manual active-word
   update/learning-word refresh actions are no longer shown in the ordinary story
   surface, guided setup now turns missing language-data preflight failures into
-  an inline resource-readiness panel that can open the GUI Resource settings tab
-  through the native helper and retry the same setup check, SRS story cards, topic
+  an inline resource-readiness panel with learner-facing resource labels that can
+  open the GUI Resource settings tab through the native helper with the
+  pair-specific install card focused and retry the same setup check, SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1872,8 +1873,9 @@ Use this file when:
   story-scoped delete-story copy, switch-styled visible toggles, hidden
   experimental topic tags, hidden advanced challenge tuning, proficiency slider
   markup, active-story technical-status removal, missing-resource setup panel
-  markup/controller behavior, native-host resource-settings launch routing, and
-  GUI resource-tab activation routing, persisted selected-pair story deletion,
+  markup/controller behavior, native-host pair-aware resource-settings launch
+  routing, GUI resource-tab activation routing, and pair-focused GUI install card,
+  persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; extension structure/i18n checks, doc-reference check, state
   audit, changed-file gate, and diff check pass.
@@ -1894,11 +1896,11 @@ Use this file when:
     error/status states.
   - If setup sampling or initialization is blocked because required
     language-data resources are missing, the guided modal shows a
-    language-data panel with the missing input types/paths, offers to open the
-    LexiShift GUI Resource settings tab via the native helper, and keeps the
-    learner in the same setup flow for retry. The extension does not download
-    or import packs directly; GUI resource management remains the app-owned
-    source of truth for MVP.
+    language-data panel with learner-facing missing resource labels, offers to
+    open the LexiShift GUI Resource settings tab via the native helper focused
+    on the pair-specific install card, and keeps the learner in the same setup
+    flow for retry. The extension does not download or import packs directly;
+    GUI resource management remains the app-owned source of truth for MVP.
   - Source/target language and legacy initialize controls are retained only as
     hidden backing controls for the current controller path; users change
     source/target language through the guided new-story modal instead of editing

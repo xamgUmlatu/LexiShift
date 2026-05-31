@@ -38,6 +38,8 @@ class LanguagePackPanelStateMixin:
         self._refresh_frequency_pack_table()
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
 
     def paths(self) -> dict[str, str]:
         _managed_ids, manual_paths, _wordnet_dir, _moby_path = split_language_resource_bindings(
@@ -133,10 +135,14 @@ class LanguagePackPanelStateMixin:
 
     def set_theme(self, theme: dict) -> None:
         self._theme = dict(theme or {})
+        if hasattr(self, "_apply_pair_resource_setup_style"):
+            self._apply_pair_resource_setup_style()
         self._refresh_language_pack_table()
         self._refresh_frequency_pack_table()
         self._refresh_embedding_pack_table()
         self._refresh_cross_embedding_pack_table()
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
 
     def _theme_hex(self, key: str, *, fallback: str) -> str:
         value = self._theme.get(key)

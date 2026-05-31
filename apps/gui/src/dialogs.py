@@ -175,6 +175,7 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         app_settings: AppSettings,
         dataset_settings: Optional[VocabSettings],
         initial_tab: str | None = None,
+        initial_resource_pair: str | None = None,
         parent=None,
     ) -> None:
         super().__init__(parent)
@@ -199,7 +200,10 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         self._theme = self._themes[self._theme_id]
         locale_pref = self._ui_settings.value("appearance/locale", "system")
         self._locale_pref = str(locale_pref) if locale_pref is not None else "system"
-        self.language_pack_panel = LanguagePackPanel(parent=self)
+        self.language_pack_panel = LanguagePackPanel(
+            parent=self,
+            focused_pair=initial_resource_pair,
+        )
         tabs = QTabWidget()
         self._tabs = tabs
         app_tab = self._wrap_tab(self._build_app_tab())

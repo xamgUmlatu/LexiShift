@@ -117,6 +117,7 @@ except Exception as exc:  # noqa: BLE001
 PROTOCOL_VERSION = 1
 HELPER_VERSION = "0.1.0"
 OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
+RESOURCE_PAIR_FLAG = "--resource-pair"
 MACOS_MAIN_BUNDLE_ID = "com.lexishift.app"
 MAIN_APP_BUNDLE_NAME = "LexiShift.app"
 MAIN_WINDOWS_DIR_NAME = "LexiShift"
@@ -165,7 +166,15 @@ def _resolve_macos_bundle_from_host_script() -> Path | None:
     return None
 
 
-def _resource_settings_launch_command() -> tuple[list[str], str]:
+def _resource_pair_arg(payload: dict) -> list[str]:
+    pair = str(payload.get("pair") or "").strip().lower()
+    if not pair:
+        return []
+    return [RESOURCE_PAIR_FLAG, pair]
+
+
+def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list[str], str]:
+    resource_args = _resource_pair_arg(payload or {})
     env_python = os.environ.get("LEXISHIFT_GUI_PYTHON")
     env_entry = os.environ.get("LEXISHIFT_GUI_ENTRY")
     if env_entry:
@@ -173,16 +182,26 @@ def _resource_settings_launch_command() -> tuple[list[str], str]:
             env_python or sys.executable,
             str(Path(env_entry).expanduser()),
             OPEN_RESOURCE_SETTINGS_FLAG,
+            *resource_args,
         ], "env_gui_entry"
 
     dev_entry = PROJECT_ROOT / "apps" / "gui" / "src" / "main.py"
     if dev_entry.exists():
-        return [sys.executable, str(dev_entry), OPEN_RESOURCE_SETTINGS_FLAG], "dev_gui_entry"
+        return [
+            sys.executable,
+            str(dev_entry),
+            OPEN_RESOURCE_SETTINGS_FLAG,
+            *resource_args,
+        ], "dev_gui_entry"
 
     if getattr(sys, "frozen", False) and sys.platform.startswith("win"):
         main_executable = _resolve_windows_sibling_executable(Path(sys.executable))
         if main_executable is not None:
-            return [str(main_executable), OPEN_RESOURCE_SETTINGS_FLAG], "windows_sibling_exe"
+            return [
+                str(main_executable),
+                OPEN_RESOURCE_SETTINGS_FLAG,
+                *resource_args,
+            ], "windows_sibling_exe"
 
     if sys.platform == "darwin":
         main_bundle = _resolve_macos_bundle_from_host_script()
@@ -193,6 +212,7 @@ def _resource_settings_launch_command() -> tuple[list[str], str]:
                 str(main_bundle),
                 "--args",
                 OPEN_RESOURCE_SETTINGS_FLAG,
+                *resource_args,
             ], "macos_host_bundle"
         return [
             "open",
@@ -201,13 +221,14 @@ def _resource_settings_launch_command() -> tuple[list[str], str]:
             MACOS_MAIN_BUNDLE_ID,
             "--args",
             OPEN_RESOURCE_SETTINGS_FLAG,
+            *resource_args,
         ], "macos_bundle_id"
 
     raise RuntimeError("LexiShift app launch target could not be resolved.")
 
 
 def _open_resource_settings(payload: dict) -> dict:
-    command, launch_mode = _resource_settings_launch_command()
+    command, launch_mode = _resource_settings_launch_command(payload)
     env = dict(os.environ)
     for key in ("_MEIPASS2", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"):
         env.pop(key, None)

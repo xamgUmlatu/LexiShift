@@ -282,6 +282,7 @@
       const payload = {
         pair: String(pair || "").trim(),
         profile_id: this.normalizeProfileId(opts.profileId),
+        resource_context: String(opts.resourceContext || "").trim() || "srs_story_setup",
         missing_inputs: Array.isArray(opts.missingInputs) ? opts.missingInputs : []
       };
       try {

@@ -491,6 +491,17 @@
     "frequency_description": "Use app-managed frequency packs by default. Manual paths remain a temporary compatibility or import path for legacy and external resources.",
     "frequency_open_directory": "Open frequency directory",
     "resources_description": "Manage dictionary, frequency, and embedding downloads in one dedicated workspace. Use installed packs by default and keep manual paths for compatibility or external imports.",
+    "pair_setup": {
+      "title": "Language data for {pair}",
+      "description": "Install the data LexiShift needs before this SRS story can sample words or start.",
+      "installed": "Installed",
+      "missing": "Needed",
+      "download_required": "Download needed data",
+      "status_missing": "{installed} of {total} installed",
+      "status_ready": "Ready for this story.",
+      "status_started": "Started downloading: {resources}",
+      "status_blocked": "These resources need manual setup or are unavailable right now: {resources}"
+    },
     "headers": {
       "pack": "Pack",
       "language": "Language",

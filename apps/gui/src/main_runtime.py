@@ -38,16 +38,49 @@ class StartupLogger:
 
 
 OPEN_RESOURCE_SETTINGS_FLAG = "--open-resource-settings"
+RESOURCE_PAIR_FLAG = "--resource-pair"
 ACTIVATION_MESSAGE = "ACTIVATE"
 OPEN_RESOURCE_SETTINGS_MESSAGE = "OPEN_SETTINGS:resources"
 
 
+def _cli_value(argv: list[str], flag: str) -> str:
+    try:
+        index = argv.index(flag)
+    except ValueError:
+        return ""
+    if index + 1 >= len(argv):
+        return ""
+    return str(argv[index + 1] or "").strip()
+
+
+def resource_settings_activation_message(pair: str | None = None) -> str:
+    pair_text = str(pair or "").strip().lower()
+    if pair_text:
+        return f"{OPEN_RESOURCE_SETTINGS_MESSAGE}|pair={pair_text}"
+    return OPEN_RESOURCE_SETTINGS_MESSAGE
+
+
+def is_resource_settings_activation_message(message: str) -> bool:
+    return str(message or "").startswith(OPEN_RESOURCE_SETTINGS_MESSAGE)
+
+
+def resource_pair_from_activation_message(message: str) -> str | None:
+    text = str(message or "")
+    if not is_resource_settings_activation_message(text):
+        return None
+    _prefix, _separator, tail = text.partition("|")
+    for part in tail.split("|"):
+        key, separator, value = part.partition("=")
+        if separator and key == "pair":
+            pair = value.strip().lower()
+            return pair or None
+    return None
+
+
 def startup_activation_message(argv: list[str]) -> str:
-    return (
-        OPEN_RESOURCE_SETTINGS_MESSAGE
-        if OPEN_RESOURCE_SETTINGS_FLAG in argv
-        else ACTIVATION_MESSAGE
-    )
+    if OPEN_RESOURCE_SETTINGS_FLAG in argv:
+        return resource_settings_activation_message(_cli_value(argv, RESOURCE_PAIR_FLAG))
+    return ACTIVATION_MESSAGE
 
 
 def handle_startup_cli_flags(argv: list[str], startup_logs: list[Path]) -> bool:
@@ -113,13 +146,14 @@ def bind_activation_handler(server: QLocalServer, window) -> None:
             window.show()
             window.raise_()
             window.activateWindow()
-            should_open_resources = message == OPEN_RESOURCE_SETTINGS_MESSAGE and hasattr(
+            should_open_resources = is_resource_settings_activation_message(message) and hasattr(
                 window,
                 "_open_settings_resources",
             )
+            resource_pair = resource_pair_from_activation_message(message)
             client.disconnectFromServer()
             if should_open_resources:
-                QTimer.singleShot(0, window._open_settings_resources)
+                QTimer.singleShot(0, lambda: window._open_settings_resources(pair=resource_pair))
 
     server.newConnection.connect(handle_activation)
 

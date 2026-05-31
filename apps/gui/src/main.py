@@ -74,10 +74,11 @@ from main_runtime import (
     acquire_singleton_server,
     bind_activation_handler,
     handle_startup_cli_flags,
+    is_resource_settings_activation_message,
     startup_activation_message,
     install_exception_hook,
-    OPEN_RESOURCE_SETTINGS_MESSAGE,
     prime_theme_assets,
+    resource_pair_from_activation_message,
     run_helper_daemon_if_requested,
     singleton_socket_name,
 )
@@ -590,11 +591,16 @@ class MainWindow(
             return
         self.state.update_settings(replace(current_settings, synonyms=updated_synonyms))
 
-    def _open_settings(self, initial_tab: str | None = None) -> None:
+    def _open_settings(
+        self,
+        initial_tab: str | None = None,
+        initial_resource_pair: str | None = None,
+    ) -> None:
         dialog = SettingsDialog(
             app_settings=self.state.settings,
             dataset_settings=self.state.dataset.settings,
             initial_tab=initial_tab,
+            initial_resource_pair=initial_resource_pair,
             parent=self,
         )
         if dialog.exec() != QDialog.DialogCode.Accepted:
@@ -610,8 +616,8 @@ class MainWindow(
         self._refresh_helper_menu_label()
         self._refresh_empty_locale_button_label()
 
-    def _open_settings_resources(self) -> None:
-        self._open_settings(initial_tab="resources")
+    def _open_settings_resources(self, pair: str | None = None) -> None:
+        self._open_settings(initial_tab="resources", initial_resource_pair=pair)
 
     def _add_rule(self) -> None:
         self.rules_model.add_rule(VocabRule(source_phrase="", replacement=""))
@@ -754,8 +760,9 @@ def main() -> None:
     bind_activation_handler(server, window)
 
     window.show()
-    if activation_message == OPEN_RESOURCE_SETTINGS_MESSAGE:
-        QTimer.singleShot(0, window._open_settings_resources)
+    if is_resource_settings_activation_message(activation_message):
+        resource_pair = resource_pair_from_activation_message(activation_message)
+        QTimer.singleShot(0, lambda: window._open_settings_resources(pair=resource_pair))
     startup_logger.log("window shown")
     sys.exit(app.exec())
 

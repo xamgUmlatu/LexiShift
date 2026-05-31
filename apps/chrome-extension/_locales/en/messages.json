@@ -138,13 +138,13 @@
     "message": "Language data"
   },
   "button_srs_open_resource_settings": {
-    "message": "Open LexiShift resource settings"
+    "message": "Install language data in LexiShift"
   },
   "button_srs_retry_data_check": {
     "message": "Retry check"
   },
   "status_srs_language_data_missing": {
-    "message": "LexiShift needs language data for $1 before it can sample or initialize this story."
+    "message": "LexiShift needs language data for $1 before it can sample words or start this story."
   },
   "status_srs_language_data_check_required": {
     "message": "Install the required language data, then retry."
@@ -156,13 +156,16 @@
     "message": "After installing the required packs, return here and retry the check."
   },
   "label_srs_frequency_data": {
-    "message": "Frequency data"
+    "message": "Word frequency data"
   },
   "label_srs_translation_dictionary": {
     "message": "Translation dictionary"
   },
   "label_srs_jmdict_data": {
-    "message": "JMDict data"
+    "message": "Japanese-English dictionary"
+  },
+  "label_srs_language_resource": {
+    "message": "Language data"
   },
   "button_srs_story_flow_initialize": {
     "message": "Initialize story"

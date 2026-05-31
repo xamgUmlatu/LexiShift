@@ -55,10 +55,10 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   candidate pool sampling and new-word selection may inspect. It remains hidden
   behind advanced setup controls because ordinary learners should not need it;
 - if helper preflight reports missing language data during modal sampling or
-  initialization, the setup modal shows an inline data-readiness panel with the
-  missing resource list, an action to open LexiShift's GUI Resource settings
-  tab, and a retry action. The extension still does not download language data
-  directly.
+  initialization, the setup modal shows an inline data-readiness panel with
+  learner-facing resource labels, an action to open LexiShift's GUI Resource
+  settings tab focused on the pair-specific install card, and a retry action.
+  The extension still does not download language data directly.
 
 Not implemented yet:
 

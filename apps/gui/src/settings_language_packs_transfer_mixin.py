@@ -229,6 +229,8 @@ class LanguagePackPanelTransferMixin:
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
         self._refresh_language_pack_table()
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
 
     def _on_frequency_pack_completed(self, pack_id: str, dest_path: str) -> None:
         pack = self._frequency_pack_info.get(pack_id)
@@ -257,6 +259,8 @@ class LanguagePackPanelTransferMixin:
         row.download_button.setEnabled(True)
         row.download_button.setText(t("buttons.redownload"))
         self._refresh_frequency_pack_table()
+        if hasattr(self, "_refresh_pair_resource_setup_panel"):
+            self._refresh_pair_resource_setup_panel()
 
     def _on_embedding_pack_completed(self, pack_id: str, dest_path: str) -> None:
         pack = self._embedding_pack_info.get(pack_id)

@@ -28,6 +28,7 @@ from language_packs import (
 from i18n import t
 from pack_source_manifest import load_pack_source_overrides
 from settings_language_packs_layout_mixin import LanguagePackPanelLayoutMixin
+from settings_language_packs_pair_setup_mixin import LanguagePackPanelPairSetupMixin
 from settings_language_packs_path_mixin import LanguagePackPanelPathMixin
 from settings_language_packs_panel_state_mixin import LanguagePackPanelStateMixin
 from settings_language_packs_table_mixin import LanguagePackPanelTableMixin
@@ -51,6 +52,7 @@ from theme_manager import resolve_current_theme
 class LanguagePackPanel(
     LanguagePackPanelLayoutMixin,
     LanguagePackPanelPathMixin,
+    LanguagePackPanelPairSetupMixin,
     LanguagePackPanelStateMixin,
     LanguagePackPanelTableMixin,
     LanguagePackPanelTransferMixin,
@@ -60,11 +62,13 @@ class LanguagePackPanel(
         self,
         parent=None,
         *,
+        focused_pair: str | None = None,
         pack_source_overrides: Mapping[str, PackTransportOverride | Mapping[str, object]]
         | None = None,
     ) -> None:
         super().__init__(parent)
         self._theme = dict(resolve_current_theme(screen_id="settings_dialog"))
+        self._set_focused_pair(focused_pair)
         self._language_pack_dir = _language_pack_dir()
         self._embedding_pack_dir = _embedding_pack_dir()
         self._frequency_pack_dir = _frequency_pack_dir()
@@ -177,6 +181,9 @@ class LanguagePackPanel(
         title.setStyleSheet("font-weight: 600; font-size: 14px;")
         layout.addWidget(title)
 
+        self._pair_resource_setup_panel = self._build_pair_resource_setup_panel()
+        layout.addWidget(self._pair_resource_setup_panel)
+
         self._resource_tabs = QTabWidget(self)
         self._resource_tabs.addTab(self._build_language_pack_tab(), t("language_packs.title"))
         self._resource_tabs.addTab(
@@ -191,6 +198,8 @@ class LanguagePackPanel(
         )
         layout.addWidget(self._resource_tabs)
         layout.addWidget(self.language_pack_status)
+        self._apply_pair_resource_setup_style()
+        self._refresh_pair_resource_setup_panel()
 
     def _set_pack_source_overrides(
         self,

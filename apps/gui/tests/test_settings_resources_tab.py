@@ -39,6 +39,26 @@ def test_settings_can_open_directly_to_resources_tab() -> None:
     assert dialog._tabs.currentIndex() == 1
 
 
+def test_settings_resource_pair_focus_shows_guided_install_card() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+    )
+    panel = dialog.language_pack_panel
+
+    assert panel._pair_resource_setup_panel.isHidden() is False
+    assert panel._pair_resource_setup_title.text() == t(
+        "language_packs.pair_setup.title",
+        pair="English to Spanish",
+    )
+    assert "Spanish word frequency data" in panel._pair_resource_setup_list.text()
+    assert "Spanish-English dictionary" in panel._pair_resource_setup_list.text()
+
+
 def test_settings_app_tab_no_longer_contains_language_pack_panel() -> None:
     _app()
     set_locale("en")

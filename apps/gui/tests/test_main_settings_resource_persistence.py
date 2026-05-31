@@ -124,6 +124,19 @@ def test_open_settings_resources_starts_on_resource_tab() -> None:
     assert called_kwargs[0]["initial_tab"] == "resources"
 
 
+def test_open_settings_resources_passes_pair_focus() -> None:
+    called_kwargs: list[dict] = []
+
+    dummy = SimpleNamespace()
+    dummy._open_settings = lambda **kwargs: called_kwargs.append(kwargs)
+
+    MainWindow._open_settings_resources(dummy, pair="en-es")
+
+    assert called_kwargs
+    assert called_kwargs[0]["initial_tab"] == "resources"
+    assert called_kwargs[0]["initial_resource_pair"] == "en-es"
+
+
 def test_resolve_frequency_pack_for_pair_prefers_manifest_backed_default_app_data_pack() -> None:
     with TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)

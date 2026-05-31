@@ -712,6 +712,8 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
       pair: "en-es",
       profileId: "family",
       missingInputs: [
+        {{ type: "translation_dict_path", path: "/missing/wiktionary-es-en.sqlite" }},
+        {{ type: "translation_pack_path", path: "/missing/wiktionary-es-en.sqlite" }},
         {{ type: "set_source_db", path: "/missing/freq-es-cde.sqlite" }}
       ]
     }}
@@ -719,9 +721,13 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
 
   assert.equal(resourceCheckRoot.classList.contains("hidden"), false);
   assert.match(resourceMessage.textContent, /en-es/);
-  assert.equal(resourceList.children.length, 1);
-  assert.match(resourceList.children[0].textContent, /Frequency data/);
-  assert.match(resourceList.children[0].textContent, /freq-es-cde\\.sqlite/);
+  assert.equal(resourceList.children.length, 2);
+  assert.match(resourceList.children[0].textContent, /Spanish-English dictionary/);
+  assert.match(resourceList.children[1].textContent, /Spanish word frequency data/);
+  assert.doesNotMatch(
+    resourceList.children.map((item) => item.textContent).join(" "),
+    /\\/missing\\//
+  );
 
   await controller.openResourceSettings();
   assert.equal(resourceOpenButton.disabled, false);
@@ -729,7 +735,10 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   assert.equal(captured[0].pair, "en-es");
   assert.deepEqual(normalize(captured[0].options), {{
     profileId: "family",
+    resourceContext: "srs_story_setup",
     missingInputs: [
+      {{ type: "translation_dict_path", path: "/missing/wiktionary-es-en.sqlite" }},
+      {{ type: "translation_pack_path", path: "/missing/wiktionary-es-en.sqlite" }},
       {{ type: "set_source_db", path: "/missing/freq-es-cde.sqlite" }}
     ]
   }});

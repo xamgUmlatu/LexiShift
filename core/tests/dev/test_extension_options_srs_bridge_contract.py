@@ -278,6 +278,7 @@ const profileContext = {{
   assert.deepEqual(normalize(nativeRequests[4].request.payload), {{
     pair: "en-es",
     profile_id: "alpha profile",
+    resource_context: "srs_story_setup",
     missing_inputs: [
       {{ type: "set_source_db", path: "/missing/freq-es-cde.sqlite" }}
     ]

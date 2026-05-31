@@ -42,6 +42,8 @@ class TestNativeHostResourceSettings(unittest.TestCase):
                 sys.executable,
                 str(REPO_ROOT / "apps" / "gui" / "src" / "main.py"),
                 module.OPEN_RESOURCE_SETTINGS_FLAG,
+                module.RESOURCE_PAIR_FLAG,
+                "en-es",
             ],
         )
         self.assertIs(kwargs["close_fds"], True)

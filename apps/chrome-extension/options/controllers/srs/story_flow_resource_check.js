@@ -1,18 +1,59 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
-  function formatResourceType(entry, translate) {
+  function resourceKind(entry) {
     const rawType = entry && entry.type ? String(entry.type) : "unknown";
     if (rawType === "set_source_db" || rawType === "frequency_pack") {
-      return translate("label_srs_frequency_data", null, "Frequency data");
+      return "frequency";
     }
-    if (rawType === "translation_dict" || rawType === "translation_dictionary") {
+    if (
+      rawType === "translation_dict"
+      || rawType === "translation_dictionary"
+      || rawType === "translation_dict_path"
+      || rawType === "translation_pack_path"
+    ) {
+      return "translation";
+    }
+    if (rawType === "jmdict" || rawType === "jmdict_path") {
+      return "jmdict";
+    }
+    return "unknown";
+  }
+
+  function formatResourceType(entry, pair, translate) {
+    const kind = resourceKind(entry);
+    const normalizedPair = String(pair || "").trim().toLowerCase();
+    if (normalizedPair === "en-es") {
+      if (kind === "frequency") return "Spanish word frequency data";
+      if (kind === "translation") return "Spanish-English dictionary";
+    }
+    if (kind === "frequency") {
+      return translate("label_srs_frequency_data", null, "Word frequency data");
+    }
+    if (kind === "translation") {
       return translate("label_srs_translation_dictionary", null, "Translation dictionary");
     }
-    if (rawType === "jmdict") {
-      return translate("label_srs_jmdict_data", null, "JMDict data");
+    if (kind === "jmdict") {
+      return translate("label_srs_jmdict_data", null, "Japanese-English dictionary");
     }
-    return rawType;
+    return translate("label_srs_language_resource", null, "Language data");
+  }
+
+  function displayMissingInputs(missingInputs) {
+    const seen = new Set();
+    const result = [];
+    missingInputs.forEach((entry) => {
+      const kind = resourceKind(entry);
+      const key = kind === "unknown" && entry && entry.type
+        ? String(entry.type)
+        : kind;
+      if (seen.has(key)) {
+        return;
+      }
+      seen.add(key);
+      result.push(entry);
+    });
+    return result;
   }
 
   function createController(options) {
@@ -61,25 +102,23 @@
       const data = detail && typeof detail === "object" ? detail : {};
       const pair = String(data.pair || "").trim() || "this pair";
       const missingInputs = Array.isArray(data.missingInputs) ? data.missingInputs : [];
+      const visibleMissingInputs = displayMissingInputs(missingInputs);
       latestBlock = { ...data, pair, missingInputs };
       if (resourceMessage) {
         resourceMessage.textContent = translate(
           "status_srs_language_data_missing",
           [pair],
-          `LexiShift needs language data for ${pair} before it can sample or initialize this story.`
+          `LexiShift needs language data for ${pair} before it can sample words or start this story.`
         );
       }
       if (resourceList) {
         resourceList.innerHTML = "";
-        missingInputs.forEach((entry) => {
+        visibleMissingInputs.forEach((entry) => {
           if (!globalThis.document || typeof globalThis.document.createElement !== "function") {
             return;
           }
           const item = globalThis.document.createElement("li");
-          const path = entry && entry.path ? String(entry.path) : "";
-          item.textContent = path
-            ? `${formatResourceType(entry, translate)}: ${path}`
-            : formatResourceType(entry, translate);
+          item.textContent = formatResourceType(entry, pair, translate);
           resourceList.appendChild(item);
         });
       }
@@ -117,6 +156,7 @@
       try {
         const message = await helperManager.openResourceSettings(getCurrentPair(), {
           profileId: getProfileId() || block.profileId || "default",
+          resourceContext: "srs_story_setup",
           missingInputs: block.missingInputs || []
         });
         if (resourceMessage) {
