@@ -95,6 +95,9 @@ try:
         semantic_admit_batch,
         suppress_srs_admission,
     )
+    from lexishift_core.helper.gui_activation import (
+        activate_resource_settings as activate_gui_resource_settings,
+    )
     from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
     from lexishift_core.helper.os import open_path
     from lexishift_core.helper.paths import build_helper_paths
@@ -208,7 +211,6 @@ def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list
         if main_bundle is not None:
             return [
                 "open",
-                "-n",
                 str(main_bundle),
                 "--args",
                 OPEN_RESOURCE_SETTINGS_FLAG,
@@ -216,7 +218,6 @@ def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list
             ], "macos_host_bundle"
         return [
             "open",
-            "-n",
             "-b",
             MACOS_MAIN_BUNDLE_ID,
             "--args",
@@ -228,6 +229,15 @@ def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list
 
 
 def _open_resource_settings(payload: dict) -> dict:
+    if activate_gui_resource_settings(pair=payload.get("pair"), log=_native_host_log_line):
+        _native_host_log_line(
+            f"activated_resource_settings mode=existing_gui pair={payload.get('pair', '')!s}"
+        )
+        return {
+            "opened": True,
+            "target": "resource_settings",
+            "launch_mode": "existing_gui",
+        }
     command, launch_mode = _resource_settings_launch_command(payload)
     env = dict(os.environ)
     for key in ("_MEIPASS2", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"):

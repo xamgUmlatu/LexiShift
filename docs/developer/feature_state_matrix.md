@@ -1805,8 +1805,9 @@ Use this file when:
 - Status: `implemented`, `default-on`, `verified` for the selected-story shell,
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
   lazy status output, guided new-story initialization modal, and helper-backed
-  missing-language-data setup recovery, and delete-story state cleanup; full
-  multi-story enumeration remains `planned`
+  missing-language-data setup recovery, delete-story state cleanup, and
+  existing-GUI resource-settings deep-link activation; full multi-story
+  enumeration remains `planned`
 - Last documented checkpoint: `2026-05-31` delete-story state cleanup extends
   the `2026-05-28` resource-readiness setup recovery,
   generic installed-data hint removal, visible SRS enable-switch removal,
@@ -1855,7 +1856,11 @@ Use this file when:
   profile/pair story profile and signals, publishes runtime
   `srsEnabled: false`, reloads the active profile, and hides the current story
   card when the loaded profile is inactive so the deleted story does not
-  reappear after refresh.
+  reappear after refresh. Repeated resource-settings deep-link opens now try the
+  GUI single-instance activation channel first, so an already-running app is
+  raised and moved to the pair-focused Resource settings state instead of
+  spawning another instance; if no GUI is running, the native helper still
+  launches the app, and macOS fallback launch no longer requests `open -n`.
 - Last verified: `2026-05-31` setup-flow profile inheritance, clean-topic setup opening, sanitized preview diagnostics, preview-renderer update, and focused delete-story/resource-readiness/preference-save/bridge tests cover
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
@@ -1874,7 +1879,8 @@ Use this file when:
   experimental topic tags, hidden advanced challenge tuning, proficiency slider
   markup, active-story technical-status removal, missing-resource setup panel
   markup/controller behavior, native-host pair-aware resource-settings launch
-  routing, GUI resource-tab activation routing, and pair-focused GUI install card,
+  routing, existing-GUI local activation, macOS non-`-n` fallback launch,
+  GUI resource-tab activation routing, and pair-focused GUI install card,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; extension structure/i18n checks, doc-reference check, state
@@ -1899,7 +1905,10 @@ Use this file when:
     language-data panel with learner-facing missing resource labels, offers to
     open the LexiShift GUI Resource settings tab via the native helper focused
     on the pair-specific install card, and keeps the learner in the same setup
-    flow for retry. The extension does not download or import packs directly;
+    flow for retry. When the GUI is already running, the native helper sends the
+    pair-focused Resource settings activation message to that process instead
+    of launching a second GUI instance; if no GUI is listening, it falls back to
+    launching the app. The extension does not download or import packs directly;
     GUI resource management remains the app-owned source of truth for MVP.
   - Source/target language and legacy initialize controls are retained only as
     hidden backing controls for the current controller path; users change

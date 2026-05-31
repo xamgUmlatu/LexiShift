@@ -2,8 +2,8 @@
 
 Status: active target UX plan
 Role: Planning
-Last updated: 2026-05-28
-Last verified: 2026-05-28 selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, and missing-language-data setup panel through focused extension/options tests
+Last updated: 2026-05-31
+Last verified: 2026-05-31 selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
 Purpose: define the target Options-page SRS UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
 
@@ -58,7 +58,9 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   initialization, the setup modal shows an inline data-readiness panel with
   learner-facing resource labels, an action to open LexiShift's GUI Resource
   settings tab focused on the pair-specific install card, and a retry action.
-  The extension still does not download language data directly.
+  Repeated opens reuse the already-running GUI through the single-instance
+  activation channel when possible; if the GUI is closed, the helper launches
+  it. The extension still does not download language data directly.
 
 Not implemented yet:
 
