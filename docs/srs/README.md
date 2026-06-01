@@ -2,8 +2,8 @@
 
 Status: active SRS routing
 Role: Canonical current
-Last updated: 2026-05-27
-Last verified: 2026-05-27 admitted-words dashboard encounter-watch update plus doc-reference check
+Last updated: 2026-06-02
+Last verified: 2026-06-02 Vocabulary Library and word-info planning route update plus doc-reference check
 Purpose: route SRS cleanup work to the right current, mixed, planning, schema, or harness document without treating roadmap text as implementation truth
 Source-of-truth: SRS documentation routing only; implementation truth lives in SRS/helper/extension code, tests, generated SRS artifacts, and `docs/developer/feature_state_matrix.md`.
 
@@ -31,6 +31,7 @@ behavior is implemented, default-on, or verified. Use the claim type below.
 | Admission lifecycle and refresh mutation boundaries | `docs/srs/srs_admission_lifecycle_current_state.md` | Current code-backed audit for initial admission, refresh growth, rebalance, feedback/exposure caveats, and suppression guards. | Claiming discard/suspend UI or full mastered/released lifecycle exists. |
 | SRS resource, storage, and cognitive-load budgets | `docs/srs/srs_resource_budget_and_load_audit.md` | Current-plus-readiness audit for active-set size, page replacement density, extension storage caps, helper artifacts, browsing aggregates, and encounter-starvation diagnostics. | Claiming live Chrome storage bytes have been audited without a browser-profile export. |
 | Admitted-words dashboard and lifecycle UX policy | `docs/srs/srs_admitted_words_dashboard_plan.md` | Product/implementation contract and verification runbook for the admitted-words dashboard, including read-only listing/rule details, local controls, encounter-watch visibility, advanced-details boundary, and confirmed discard. | Claiming restore, mastery/release, or undo controls are shipped. |
+| Vocabulary Library, word info, and quick-definition popup | `docs/srs/srs_vocabulary_library_and_word_info_plan.md` | Planning contract for the shared helper word-info read model, dedicated Vocabulary Library surface, and built-in popup definition module. | Claiming the helper endpoint, dedicated page, or popup definition module is implemented/default-on. |
 | Story-based Options SRS UX | `docs/srs/srs_story_based_options_flow_plan.md` | Target UX plan plus current implementation notes for presenting SRS journeys as story blocks and routing first-run initialization through a guided setup flow. | Claiming full multi-story enumeration or replacing the current feature-state ledger. |
 | Preference taxonomy lifecycle | `docs/srs/srs_preference_taxonomy_lifecycle.md` | Planning policy for adding topic/register preferences without damaging existing SRS progress. | Claiming a preference family is sourced, default-on, or broadly supported. |
 | en-es topic coverage pause state | `docs/srs/srs_topic_coverage_pause_state_en_es.md` | Current closeout snapshot for the paused topic-coverage slice, including overlay stack, readiness status, and resume criteria. | Treating topic coverage as comprehensive or default product copy. |
@@ -65,6 +66,9 @@ Current disposition:
   dashboard decision, mostly read-only listing/rule-detail behavior,
   encounter-watch visibility, confirmed discard policy, and deferred
   restore/mastery lifecycle work.
+- `srs_vocabulary_library_and_word_info_plan.md` records the target shared
+  word-info read model and how it should feed both a dedicated Vocabulary
+  Library and the planned built-in quick-definition popup module.
 - `srs_story_based_options_flow_plan.md` records the target Options-page SRS UX
   and current beta implementation notes: existing profile/pair journeys should
   appear as compact story blocks, large dashboard/sampling surfaces should open

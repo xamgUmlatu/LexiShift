@@ -2,8 +2,8 @@
 
 Status: active mixed roadmap
 Role: Mixed
-Last updated: 2026-05-27
-Last verified: 2026-05-27 en-es admission calibration report, focused calibration test, generated JSON/Markdown artifacts, SRS encounter-watch harness update, and en-es profile-preference journey lane; roadmap claims not fully re-audited
+Last updated: 2026-06-02
+Last verified: 2026-06-02 Vocabulary Library and word-info planning route update; roadmap claims not fully re-audited
 Purpose: preserve the SRS current-state snapshot, remaining E2E gaps, and roadmap workstreams
 Source-of-truth: mixed roadmap; current behavior truth lives in SRS/helper/extension code, SRS harnesses, and `docs/developer/feature_state_matrix.md`.
 
@@ -11,6 +11,7 @@ Related design:
 - `docs/srs/README.md`
 - `docs/srs/srs_hybrid_model_technical.md`
 - `docs/srs/srs_admitted_words_dashboard_plan.md`
+- `docs/srs/srs_vocabulary_library_and_word_info_plan.md`
 - `docs/srs/srs_story_based_options_flow_plan.md`
 - `docs/srs/srs_browsing_based_admission_plan.md`
 - `docs/architecture/srs_lp_architecture.md`
@@ -239,6 +240,9 @@ Status key:
   - extension sends selected `profile_id` in runtime/helper requests.
 - `[ ]` BetterDiscord plugin profile bridge wiring.
 - `[ ]` Conflict handling when multiple surfaces write feedback concurrently.
+- `[ ]` Shared word-info read model plus Vocabulary Library and built-in
+  quick-definition popup module; see
+  `docs/srs/srs_vocabulary_library_and_word_info_plan.md`.
 
 ### Workstream G — End-to-End validation and calibration
 - `[~]` Define deterministic SRS E2E scenario set (bootstrap -> sampled rulegen -> feedback -> resample).

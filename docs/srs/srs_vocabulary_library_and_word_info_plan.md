@@ -1,0 +1,392 @@
+# Vocabulary Library And Word Info Plan
+
+Status: active implementation plan
+Role: Product/UX plan, backend read-model contract, and implementation sequence
+Last updated: 2026-06-02
+Last verified: 2026-06-02 planning-only documentation update; no runtime behavior changed
+Purpose: define the shared word-info capability that should power both a richer Vocabulary Practice library and a built-in popup definition module
+Source-of-truth: planning contract only; implementation truth must move to helper endpoints, extension code, tests, generated artifacts, and `docs/developer/feature_state_matrix.md` when slices land.
+
+## Product Goal
+
+After a learner starts Vocabulary Practice, LexiShift should make the admitted
+words feel inspectable and understandable, not only schedulable.
+
+Two first-release surfaces need the same underlying data:
+
+1. A richer Vocabulary Library where the learner can review admitted, active,
+   queued, removed, and eventually completed words for a profile/language pair.
+2. A built-in popup module that appears when the learner right-clicks a replaced
+   browser word and shows a quick definition/gloss.
+
+Both surfaces should use one shared helper-backed `word info` read model. The
+dashboard/library and popup should not each invent their own dictionary lookup,
+fallback policy, definition filtering, or external-link construction.
+
+## Product Decisions
+
+1. Build a shared `word info` service first.
+   - The service is read-only.
+   - It accepts a profile, language pair, and target lemma/display value.
+   - It returns learner-facing word metadata, compact glosses, SRS state when
+     available, rule/source phrase summaries, and external dictionary links.
+
+2. Promote the current admitted-words dashboard into a Vocabulary Library
+   surface instead of creating a second unrelated learned-words product.
+   - The current Options dashboard remains a good embedded beta surface.
+   - First release should add a dedicated page/view for deeper inspection.
+   - The dedicated page should reuse the current dashboard read model and
+     controls where possible.
+
+3. Add `quick-definition` as a built-in popup module.
+   - It should be default-on for supported pairs when language data is present.
+   - It should render above history/feedback modules because definition is the
+     first question a learner usually has.
+   - It should use the shared `word info` service.
+
+4. Keep definitions local-first.
+   - Installed local language packs are the source of definition/gloss text.
+   - Runtime web scraping is out of scope.
+   - External dictionary links are allowed, but only as user-clicked outbound
+     links. They are not runtime dependencies for the feature.
+
+5. Support both SRS-origin and ruleset-origin replacements, with different
+   enrichment levels.
+   - SRS-origin replacements can include SRS status, due timing, review count,
+     exposure count, and active/queued/removed lifecycle state.
+   - Ruleset-origin replacements may only have replacement metadata, source
+     phrase, rule metadata, and local dictionary glosses.
+   - The popup should fail gracefully when the word is not in Vocabulary
+     Practice.
+
+## Non-Goals For MVP
+
+- No live web lookup for definition text.
+- No LLM-generated definitions.
+- No cloud dependency.
+- No public third-party popup-module API expansion in this slice.
+- No full mastered/completed lifecycle semantics unless the SRS lifecycle slice
+  lands separately.
+- No requirement that every language pair has equally rich dictionary detail on
+  day one.
+
+## Shared Word Info Contract
+
+The helper should expose a read-only endpoint, tentatively:
+
+```json
+{
+  "type": "word_info_lookup",
+  "pair": "en-es",
+  "profile_id": "default",
+  "lemma": "perro",
+  "display": "perro",
+  "origin": "srs",
+  "source_phrase": "dog",
+  "word_package": {}
+}
+```
+
+Recommended response shape:
+
+```json
+{
+  "status": "ok",
+  "pair": "en-es",
+  "profile_id": "default",
+  "source_language": "en",
+  "target_language": "es",
+  "lemma": "perro",
+  "display": "perro",
+  "normalized_lemma": "perro",
+  "pos": {
+    "canonical": "noun",
+    "label": "noun",
+    "source": "word_package"
+  },
+  "glosses": [
+    {
+      "text": "dog",
+      "language": "en",
+      "source": "wiktionary-es-en",
+      "source_kind": "installed_translation_pack",
+      "rank": 1,
+      "confidence": 0.9,
+      "sense_id": "optional"
+    }
+  ],
+  "source_phrases": ["dog"],
+  "rule_summary": {
+    "rule_count": 3,
+    "enabled_rule_count": 3,
+    "source_phrase_count": 2
+  },
+  "srs": {
+    "present": true,
+    "status": "learning",
+    "status_label": "Learning",
+    "serving_state": "replacing_now",
+    "next_due": null,
+    "review_count": 0,
+    "exposures": 2,
+    "lifecycle_state": "active"
+  },
+  "external_links": [
+    {
+      "label": "Wiktionary",
+      "url": "https://en.wiktionary.org/wiki/perro#Spanish"
+    }
+  ],
+  "diagnostics": {
+    "resolution_sources": ["srs_store", "published_ruleset", "installed_translation_pack"],
+    "missing_resources": []
+  }
+}
+```
+
+Notes:
+
+- Use `glosses` rather than over-promising high-quality monolingual definitions.
+  Many current resources are bilingual dictionaries, so "definition" in UI may
+  often mean a short learner-facing gloss.
+- `source_phrases` should come from published ruleset summaries/details when
+  available.
+- `srs.present` is false for ruleset-only words or words not admitted to the
+  selected Vocabulary Practice.
+- The endpoint must avoid returning local filesystem paths in learner-facing
+  payloads.
+
+## Resolution Order
+
+For a lookup `(profile_id, pair, lemma)`:
+
+1. Normalize the pair, profile id, target lemma/display value, and optional span
+   `word_package`.
+2. Read the profile-local SRS store for the pair.
+   - If the item exists, include SRS lifecycle/scheduler/exposure/review fields.
+   - Include the SRS item `word_package` as the primary word metadata source.
+3. Read the profile/pair published ruleset.
+   - Include compact rule counts and source phrase previews.
+   - Use rule details only when a detailed view asks for them.
+4. Query installed target-to-source translation packs for glosses.
+   - For `en-es`, the target word is Spanish and the learner-facing glosses are
+     English, so the relevant installed pack family is `es-en`.
+   - The lookup should use the same pack-resolution policy as rulegen/SRS pack
+     readiness instead of hard-coding paths in the extension.
+5. Use the incoming `word_package` only as a fallback or supplement.
+6. Construct external dictionary links from safe, deterministic URL templates.
+   - Do not fetch those links.
+   - Do not require them for a successful response.
+
+## Vocabulary Library UX
+
+The dedicated Vocabulary Library should answer:
+
+- What words are in this Vocabulary Practice?
+- What do they mean?
+- Which are active, queued, due, removed, or eventually completed?
+- Which words can currently appear as page replacements?
+- Which source phrases/rules cause the word to appear?
+- Where can I inspect the word in an external dictionary?
+
+Recommended first-release shape:
+
+- Entry point from the active Vocabulary Practice card: `Open Vocabulary Library`.
+- Dedicated extension page or full-page view rather than another large surface
+  permanently expanded in Options.
+- Profile and language-pair scope visible at the top.
+- Current pair/profile first; cross-pair "all practice words" can follow after
+  full practice enumeration is implemented.
+- Tabs or segmented views:
+  - `Words`
+  - `Due`
+  - `Queued`
+  - `Removed`
+  - future `Completed`
+- Existing controls from the admitted-words dashboard:
+  - search
+  - status filter
+  - sorting
+  - pagination/page size
+  - advanced details toggle
+  - discard action
+- New word-info controls:
+  - expand row for definition/glosses
+  - external dictionary links
+  - rule/source phrase details
+  - optional "copy word" and "copy definition" actions later
+
+Performance policy:
+
+- The list endpoint should stay compact.
+- Word-info details can load lazily when a row expands.
+- A later batch endpoint may load word info for the current page only.
+- Do not prefetch definitions for thousands of words at page load.
+
+## Quick Definition Popup UX
+
+The existing replacement right-click popup is the correct host for definition.
+
+Recommended first-release behavior:
+
+1. User right-clicks a `.lexishift-replacement`.
+2. Popup opens immediately with a compact loading row if definition data is not
+   already available.
+3. `quick-definition` shows:
+   - target word/display form,
+   - part of speech when known,
+   - one to three compact glosses,
+   - a source phrase such as `Matches: dog` when useful,
+   - external dictionary link(s),
+   - unobtrusive "No definition available" fallback if local data is missing.
+4. SRS feedback buttons remain available and separate.
+
+The popup module should be:
+
+- default-on where local word-info lookup is supported;
+- controlled by the popup module registry alongside existing modules;
+- language-aware but not limited to Japanese;
+- asynchronous and non-blocking;
+- cached per `(profile_id, pair, lemma)` for the current extension session.
+
+## Data And Privacy Policy
+
+- Looking up word info is local: extension -> background/native bridge -> local
+  helper -> installed local resources.
+- The clicked word, language pair, and profile id may be sent to the local
+  helper.
+- No page URL is required for definition lookup.
+- No external dictionary site is contacted unless the learner clicks a link.
+- The popup should not log full page text for this feature.
+
+## Implementation Sequence
+
+### Slice 1: Contract And Helper Read Model
+
+Files likely involved:
+
+- `core/lexishift_core/helper/use_cases/word_info.py` (new)
+- `core/lexishift_core/helper/engine.py`
+- `scripts/helper/lexishift_native_host.py`
+- `apps/chrome-extension/shared/helper/helper_client.js`
+- `apps/chrome-extension/options/core/helper/srs_set_methods.js` or a new
+  helper-method installer if this grows beyond SRS set actions
+
+Tests:
+
+- helper use-case tests for:
+  - SRS item present with word package,
+  - ruleset source phrase summary present,
+  - installed translation-pack glosses present,
+  - missing language data graceful response,
+  - no local path leakage in learner payload.
+- native-host route test.
+- helper-client route test.
+
+### Slice 2: Vocabulary Library Page
+
+Files likely involved:
+
+- new extension page, for example `vocabulary.html` and page controller modules;
+- existing dashboard modules in
+  `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_*.js`,
+  reused or moved to a shared extension-page location if necessary;
+- Options entry point from the active Vocabulary Practice card.
+
+Tests:
+
+- static extension structure/script-order test;
+- dashboard/library controller tests for row expansion and word-info loading;
+- localization key coverage.
+
+### Slice 3: Quick Definition Popup Module
+
+Files likely involved:
+
+- `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`
+- `apps/chrome-extension/content/ui/ui.js`
+- `apps/chrome-extension/shared/srs/popup_modules_registry.js`
+- `apps/chrome-extension/manifest.json`
+- locale files under `apps/chrome-extension/_locales/*/messages.json`
+
+Tests:
+
+- popup module render tests:
+  - loading state,
+  - gloss render,
+  - missing definition fallback,
+  - external-link rendering,
+  - ruleset-only fallback.
+- popup registry/default-order tests.
+- content script/manifest ordering tests.
+
+### Slice 4: Verification And Beta Checklist
+
+Run focused tests for changed helper/extension modules.
+
+Run the SRS quality harness if helper SRS item payloads, SRS store reads, rule
+publication, or runtime serving behavior changes:
+
+```bash
+python3 scripts/testing/srs_quality_harness.py \
+  --json-out docs/test_outputs/srs_quality_latest.json
+```
+
+For docs and extension structure:
+
+```bash
+python3 scripts/dev/check_doc_references.py
+git diff --check
+npm --prefix scripts run check:changed:local
+```
+
+Manual beta checks:
+
+- Start Vocabulary Practice.
+- Open Vocabulary Library from the practice card.
+- Expand several words and confirm glosses/source phrases are plausible.
+- Right-click SRS replacements on a webpage and confirm `quick-definition`
+  appears without delaying feedback controls.
+- Right-click ruleset-only replacements and confirm graceful reduced detail.
+- Disconnect or stop the helper and confirm the popup/dashboard degrade clearly.
+
+## Open Product Decisions
+
+1. Page name:
+   - Recommended: `Vocabulary Library`.
+   - Keep `Learning dashboard` as the compact Options card label if it still
+     reads better there.
+
+2. Initial scope:
+   - Recommended MVP: selected profile plus selected/current language pair.
+   - Future: all Vocabulary Practice words across pairs after full practice
+     enumeration is implemented.
+
+3. Definition copy:
+   - Recommended UI copy: `Definition` for learner-facing labels.
+   - Internal payload should use `glosses` to avoid pretending every source is
+     a full dictionary definition.
+
+4. External links:
+   - Recommended MVP: deterministic links for Wiktionary and any pair-specific
+     high-value dictionary templates we can safely construct.
+   - Do not fetch or scrape those links.
+
+5. Module settings:
+   - Recommended MVP: default-on `quick-definition`, visible in module settings
+     when the generalized popup-module settings surface is ready.
+
+## Release Boundary
+
+This feature is acceptable for first release when:
+
+- the helper word-info endpoint is read-only, local-first, and covered by tests;
+- the extension can display word info in the dedicated library and popup module
+  without runtime web dependencies;
+- missing local data produces clear fallback UI rather than broken controls;
+- learner payloads do not expose local filesystem paths;
+- popup definition loading does not block the feedback popup from opening;
+- the Vocabulary Library can inspect admitted words without mutating SRS state
+  except for existing explicit actions such as confirmed discard;
+- current docs route implemented/default-on claims back through
+  `docs/developer/feature_state_matrix.md`.

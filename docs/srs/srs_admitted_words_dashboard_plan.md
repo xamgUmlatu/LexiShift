@@ -2,14 +2,15 @@
 
 Status: active implementation contract
 Role: Product/UX decision, implementation contract, and verification runbook
-Last updated: 2026-05-27
+Last updated: 2026-06-02
 Last verified: 2026-05-27 helper/options dashboard tests, profile-bootstrap
 initialize -> rule publication -> dashboard bridge test, local search/filter/
 sort/pagination/meta-control tests, published-rule summary/detail tests, durable
 discard workflow tests, encounter-watch summary tests, SRS quality harness, and
 local changed-file gate; 2026-05-27 SRS quality harness now includes an
 encounter-watch scenario covering fresh unseen, stale unseen, legacy age-unknown,
-reviewed, and no-enabled-rule active items
+reviewed, and no-enabled-rule active items; 2026-06-02 Vocabulary Library and
+shared word-info route documented with no runtime behavior change
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, module/data boundaries, and
 deferred lifecycle actions
@@ -61,6 +62,12 @@ Technical details belong behind an Advanced details toggle:
 The dashboard is not the SRS review UI, not a rulegen debugger, and not the
 primary admission-control surface. Preferences, proficiency, refresh admission,
 and review feedback remain separate workflows.
+
+Dedicated Vocabulary Library expansion, learner-facing definitions/glosses, and
+the built-in browser popup definition module are now routed through
+`docs/srs/srs_vocabulary_library_and_word_info_plan.md`. This dashboard plan
+remains the contract for the current embedded admitted-words dashboard and its
+existing helper read models.
 
 ## User Surface
 
@@ -383,8 +390,9 @@ Next product slices, after dashboard pagination and discard are stable:
 
 1. Virtualized rendering if admitted sets become too large for page-sized local
    rendering.
-2. Rich inspection for a selected admitted word, including semantic-admission
-   pointers, morphology variants, and deeper rulegen debug metadata.
+2. Rich learner-facing word inspection and definitions should follow
+   `docs/srs/srs_vocabulary_library_and_word_info_plan.md`; deeper rulegen debug
+   metadata remains a separate advanced/dev-facing concern.
 3. Optional word-context discard affordance: likely a right-click word popup
    with a discrete three-dots control. This is deferred until the dashboard
    discard path and SRS testing path are stable.

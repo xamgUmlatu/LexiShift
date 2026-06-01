@@ -2,7 +2,7 @@
 
 Status: active mixed pattern
 Role: Mixed
-Last updated: 2026-03-21
+Last updated: 2026-06-02
 Source-of-truth: mixed as-is + target API reference; verify live popup behavior in `apps/chrome-extension/content/ui/feedback_popup_controller.js`, `apps/chrome-extension/content/ui/ui.js`, and linked runtime modules.
 
 This doc mixes current popup behavior with future module API direction.
@@ -281,6 +281,10 @@ The following are candidate popup modules for a clicked target learning word. Th
 
 1. `quick-definition`
 - Short gloss plus a plain explanation.
+- First-release candidate for a built-in/default-on module. It should use the
+  shared helper-backed word-info read model described in
+  `docs/srs/srs_vocabulary_library_and_word_info_plan.md`, not a separate
+  content-script dictionary lookup or runtime web scrape.
 
 2. `example-sentence`
 - One native example sentence with translation.
@@ -341,8 +345,11 @@ The following are candidate popup modules for a clicked target learning word. Th
 - Shows masculine/feminine (and additional grammatical gender forms where relevant).
 - Language-scoped (primarily useful for languages with productive gender systems).
 
-Suggested first optional rollout:
-- `quick-definition`
+Suggested first rollout:
+- `quick-definition` as a built-in module backed by the shared word-info
+  service.
+
+Suggested later optional rollout:
 - `example-sentence`
 - `srs-state`
 - `next-review`
