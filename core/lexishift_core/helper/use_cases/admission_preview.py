@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import random
 from typing import Callable, Mapping, Sequence
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
@@ -269,22 +270,29 @@ def _build_preview_payload(
         ranking_by_lemma=ranking_by_lemma,
         weight_by_lemma=weight_by_lemma,
     )
-    sampled_words = list(planned_active_words[:preview_count_requested])
+    sampling_mode = str(
+        getattr(init_report, "selection_policy", None) or PREVIEW_SAMPLING_MODE_RANKED
+    )
+    selection_seed = _normalize_preview_seed(getattr(init_report, "selection_seed", None))
+    sampled_words = _sample_planned_active_words(
+        planned_active_words,
+        preview_count_requested,
+        sampling_mode=sampling_mode,
+        selection_seed=selection_seed,
+    )
     profile_bootstrap = _build_helper_preview_profile_bootstrap_payload(raw_profile_bootstrap)
     return {
         "sample_count_requested": preview_count_requested,
         "sample_count_effective": len(sampled_words),
-        "sampling_mode": str(
-            getattr(init_report, "selection_policy", None) or PREVIEW_SAMPLING_MODE_RANKED
-        ),
-        "sampling_pool_count": int(init_report.selected_unique_count),
+        "sampling_mode": sampling_mode,
+        "sampling_pool_count": len(planned_active_words),
         "selected_count": int(init_report.selected_count),
         "selected_unique_count": int(init_report.selected_unique_count),
         "admitted_count": int(init_report.admitted_count),
         "inserted_count": int(init_report.inserted_count),
         "updated_count": int(init_report.updated_count),
         "selection_strategy": str(init_report.selection_strategy or "frequency_bootstrap"),
-        "selection_seed": getattr(init_report, "selection_seed", None),
+        "selection_seed": selection_seed,
         "selector_version": init_report.selector_version,
         "selected_preview": list((getattr(init_report, "selected_preview", ()) or ())[:10]),
         "initial_active_preview": planned_active_lemmas,
@@ -326,6 +334,90 @@ def _build_planned_active_words(
             word_payload["explanation"] = "Selected for the initial active bootstrap preview."
         planned_active_words.append(word_payload)
     return planned_active_words
+
+
+def _sample_planned_active_words(
+    planned_active_words: Sequence[dict[str, object]],
+    preview_count_requested: int,
+    *,
+    sampling_mode: str,
+    selection_seed: int | None,
+) -> list[dict[str, object]]:
+    target = min(max(0, int(preview_count_requested)), len(planned_active_words))
+    if target <= 0:
+        return []
+    if target >= len(planned_active_words):
+        return list(planned_active_words)
+    if not _should_sample_preview_pool(sampling_mode=sampling_mode, selection_seed=selection_seed):
+        return list(planned_active_words[:target])
+
+    rng = random.Random(selection_seed)
+    pool = [
+        (dict(word), _preview_word_weight(word))
+        for word in planned_active_words
+        if isinstance(word, Mapping)
+    ]
+    sampled: list[dict[str, object]] = []
+    while len(sampled) < target and pool:
+        total = sum(max(0.0, weight) for _word, weight in pool)
+        if total <= 0.0:
+            index = rng.randrange(len(pool))
+        else:
+            roll = rng.random() * total
+            index = len(pool) - 1
+            for candidate_index, (_word, weight) in enumerate(pool):
+                roll -= max(0.0, weight)
+                if roll <= 0.0:
+                    index = candidate_index
+                    break
+        word, _weight = pool.pop(index)
+        sampled.append(word)
+    return sampled
+
+
+def _should_sample_preview_pool(*, sampling_mode: str, selection_seed: int | None) -> bool:
+    if selection_seed is None:
+        return False
+    normalized_mode = str(sampling_mode or "").strip().lower()
+    return normalized_mode in {
+        PREVIEW_SAMPLING_MODE_RESERVED_TOPIC_LANE,
+        PREVIEW_SAMPLING_MODE_WEIGHTED,
+        SELECTION_POLICY_RESERVED_TOPIC_LANE,
+        SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
+    }
+
+
+def _preview_word_weight(word: Mapping[str, object]) -> float:
+    for key in (
+        "profile_score",
+        "admission_weight",
+        "base_freq",
+        "frequency_score",
+        "difficulty_target",
+    ):
+        parsed = _safe_positive_float(word.get(key))
+        if parsed is not None:
+            return parsed
+    return 1.0
+
+
+def _safe_positive_float(value: object) -> float | None:
+    try:
+        parsed = float(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+    if parsed <= 0.0:
+        return None
+    return max(0.001, parsed)
+
+
+def _normalize_preview_seed(value: object) -> int | None:
+    if value is None:
+        return None
+    try:
+        return int(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
 
 
 def _resolve_preview_selection_policy(value: object) -> str | None:

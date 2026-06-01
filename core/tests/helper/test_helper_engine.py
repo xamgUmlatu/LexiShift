@@ -3480,6 +3480,7 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
             self.assertEqual(preview["selector_version"], "profile_bootstrap_v3")
             self.assertEqual(preview["sample_count_requested"], 2)
             self.assertEqual(preview["sample_count_effective"], 2)
+            self.assertEqual(preview["sampling_pool_count"], 2)
             self.assertEqual(preview["initial_active_preview"], ["beta", "alpha"])
             self.assertEqual(preview["admitted_words"][0]["lemma"], "beta")
             self.assertNotIn("ranking_preview", preview["profile_bootstrap"])
@@ -3517,6 +3518,7 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
                 ),
                 selection_strategy="profile_bootstrap",
                 selection_policy="weighted_without_replacement",
+                selection_seed=1,
                 selector_version="profile_bootstrap_v3",
                 profile_bootstrap_diagnostics={
                     "profile_context": {"active_signals": ["interests"]},
@@ -3578,11 +3580,51 @@ class TestHelperEnginePreviewSrsAdmission(unittest.TestCase):
 
             preview = payload["preview"]
             self.assertEqual(preview["sampling_mode"], "weighted_without_replacement")
+            self.assertEqual(preview["selection_seed"], 1)
             self.assertEqual(preview["sampling_pool_count"], 3)
             self.assertEqual(preview["sample_count_effective"], 2)
             self.assertEqual(
                 [entry["lemma"] for entry in preview["admitted_words"]],
-                ["alpha", "gamma"],
+                ["alpha", "beta"],
+            )
+            self.assertNotEqual(
+                [entry["lemma"] for entry in preview["admitted_words"]],
+                list(preview["initial_active_preview"][:2]),
+            )
+
+            reserved_topic_report = SimpleNamespace(
+                **{
+                    **preview_report.__dict__,
+                    "selection_policy": "reserved_topic_lane",
+                }
+            )
+            with patch(
+                "lexishift_core.helper.engine.initialize_store_from_frequency_list_with_report",
+                return_value=(SrsStore(items=tuple(), version=1), reserved_topic_report),
+            ):
+                reserved_payload = preview_srs_admission(
+                    paths,
+                    config=SetAdmissionPreviewJobConfig(
+                        pair="en-ja",
+                        jmdict_path=jmdict_dir,
+                        set_source_db=source_db,
+                        strategy="profile_bootstrap",
+                        preview_count=2,
+                        preview_sampling_mode="reserved_topic_lane",
+                        preview_seed=1,
+                        profile_context={"interests": ["animals"]},
+                    ),
+                )
+
+            reserved_preview = reserved_payload["preview"]
+            self.assertEqual(reserved_preview["sampling_mode"], "reserved_topic_lane")
+            self.assertEqual(
+                [entry["lemma"] for entry in reserved_preview["admitted_words"]],
+                ["alpha", "beta"],
+            )
+            self.assertNotEqual(
+                [entry["lemma"] for entry in reserved_preview["admitted_words"]],
+                list(reserved_preview["initial_active_preview"][:2]),
             )
 
     def test_preview_returns_plan_only_for_non_executable_strategy(self) -> None:

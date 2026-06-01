@@ -62,6 +62,9 @@ Bootstrap selection is in `core/lexishift_core/helper/rulegen.py`:
 - `frequency_bootstrap` is the no-strategy native-host baseline.
 - `profile_bootstrap` is executable when requested; options initialize and
   admission preview request it with current profile context.
+- Admission preview is read-only. When Options sends a preview seed, the helper
+  samples the learner-visible returned words from the planned active pool rather
+  than showing only the deterministic prefix of that pool.
 - Selection policy defaults to deterministic `top_n`; weighted without
   replacement is supported only when explicitly requested by config.
 - The helper writes store rows, writes active inventory ids, then publishes

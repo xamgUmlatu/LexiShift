@@ -47,8 +47,10 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
 - modal and active-practice sampling render the same fetched preview payload as a
   learner-facing word/topic list by default, with the technical preview payload
   retained behind a local Advanced details disclosure that toggles without
-  re-running the sample; local source paths are not printed in this learner
-  surface;
+  re-running the sample; each Options-page sample request sends a fresh preview
+  seed, and the helper returns a sampled subset of the planned active pool
+  instead of the deterministic prefix; local source paths are not printed in
+  this learner surface;
 - modal initialization copies and persists the visible modal values with the
   hidden story-enabled backing field set, then calls the existing initialize
   workflow;
