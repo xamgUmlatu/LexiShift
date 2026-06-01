@@ -1865,8 +1865,9 @@ Use this file when:
   app-managed downloads, hide per-resource manual file selection from the
   learner-facing path, include the required Kaikki/Wiktionary `wiktionary-es-en`
   resource for en-es, show catalog sizes and per-resource progress, route
-  license-restricted `freq-es-cde` through a manual setup action in the
-  detailed Frequency packs tab, and expose per-resource file-location reveal
+  license-restricted `freq-es-cde` through a manual setup instruction dialog
+  with local file selection instead of showing a false download-progress state
+  or switching tabs, and expose per-resource file-location reveal
   actions for installed data; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
@@ -1889,7 +1890,7 @@ Use this file when:
   prefers the installed macOS `LexiShift.app` bundle before falling back to the
   source `main.py` development entrypoint, and macOS fallback launch no longer
   requests `open -n`.
-- Last verified: `2026-05-31` focused
+- Last verified: `2026-06-01` focused
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview
   diagnostics, preview-renderer update, and focused
@@ -1918,7 +1919,8 @@ Use this file when:
   learner-facing Learning Languages card localization,
   per-resource installed-data file-location reveal, required `wiktionary-es-en`
   pair resource plan coverage, built-in `freq-es-cde` manual-download block,
-  removed pair-card Add manually affordance,
+  manual-only resource progress suppression, manual resource instruction dialog
+  routing without tab switching, removed pair-card Add manually affordance,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; extension structure/i18n checks, doc-reference check, state
@@ -1948,9 +1950,10 @@ Use this file when:
     catalog download sizes and per-resource progress, and offers file-location
     reveal for installed resources. License-restricted frequency resources such
     as `freq-es-cde` remain required when the pair needs them, but the pair card
-    routes the user to detailed manual setup instead of starting an app-managed
-    download. Manual external path selection stays in the detailed resource
-    tabs instead of the pair card. When the GUI is already running,
+    opens a manual setup instruction dialog with local file selection instead of
+    starting an app-managed download or switching the user to the detailed
+    Frequency packs tab. Manual external path selection also remains available
+    in the detailed resource tabs for compatibility. When the GUI is already running,
     the native helper sends the
     pair-focused Resource settings activation message to that process instead
     of launching a second GUI instance; if no GUI is listening, it prefers

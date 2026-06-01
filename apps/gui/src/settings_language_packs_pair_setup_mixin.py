@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QLabel,
+    QMessageBox,
     QProgressBar,
     QPushButton,
     QVBoxLayout,
@@ -12,7 +13,10 @@ from PySide6.QtWidgets import (
 )
 
 from i18n import t
-from settings_language_packs_support import is_pack_download_disabled
+from settings_language_packs_support import (
+    is_pack_download_disabled,
+    pack_download_disabled_tooltip,
+)
 from settings_pair_resource_plan import (
     PairResourceItem,
     PairResourcePlan,
@@ -469,6 +473,11 @@ class LanguagePackPanelPairSetupMixin:
         reveal_path(path)
 
     def _open_learning_pair_resource_detail(self, item: PairResourceItem) -> None:
+        if self._download_disabled_for_pair_resource(item) and not self._pair_resource_is_installed(
+            item
+        ):
+            self._show_learning_pair_manual_setup(item)
+            return
         table = None
         row = None
         tab_index = 0
@@ -490,3 +499,48 @@ class LanguagePackPanelPairSetupMixin:
             t("language_packs.learning_pairs.manual_setup_opened", resource=item.label),
             tone="info",
         )
+
+    def _show_learning_pair_manual_setup(self, item: PairResourceItem) -> None:
+        pack = self._pair_resource_pack(item)
+        if pack is None:
+            self._set_status_message(
+                t("language_packs.learning_pairs.unavailable_resource"),
+                tone="error",
+            )
+            return
+        reason = pack_download_disabled_tooltip(self._pack_source_overrides, pack)
+        expected_key = (
+            "language_packs.learning_pairs.manual_setup_expected_frequency"
+            if item.kind == "frequency"
+            else "language_packs.learning_pairs.manual_setup_expected_language"
+        )
+        dialog = QMessageBox(self)
+        dialog.setIcon(QMessageBox.Icon.Information)
+        dialog.setWindowTitle(
+            t("language_packs.learning_pairs.manual_setup_title", resource=item.label)
+        )
+        dialog.setText(t("language_packs.learning_pairs.manual_setup_summary"))
+        dialog.setInformativeText(
+            t(
+                "language_packs.learning_pairs.manual_setup_instructions",
+                expected=t(expected_key),
+            )
+        )
+        dialog.setDetailedText(
+            t(
+                "language_packs.learning_pairs.manual_setup_details",
+                reason=reason,
+                source=pack.display_source(),
+                pack_id=item.pack_id,
+                url=str(getattr(pack, "url", "") or ""),
+            )
+        )
+        select_button = dialog.addButton(t("buttons.select"), QMessageBox.ButtonRole.AcceptRole)
+        dialog.addButton(QMessageBox.StandardButton.Close)
+        dialog.exec()
+        if dialog.clickedButton() != select_button:
+            return
+        if item.kind == "frequency":
+            self._select_frequency_pack_path(item.pack_id)
+        elif item.kind == "language":
+            self._select_language_pack_path(item.pack_id)

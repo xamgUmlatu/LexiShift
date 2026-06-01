@@ -102,6 +102,40 @@ def test_manual_learning_pair_resource_does_not_show_download_progress(monkeypat
     assert not any(bar.isVisible() for bar in progress_bars)
 
 
+def test_manual_learning_pair_resource_shows_instructions_without_switching_tabs(
+    monkeypatch,
+) -> None:
+    _app()
+    set_locale("en")
+    _clear_learning_pairs()
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+    )
+    panel = dialog.language_pack_panel
+    freq_item = next(item for item in panel._pair_resource_items() if item.pack_id == "freq-es-cde")
+    shown: list[str] = []
+
+    monkeypatch.setattr(
+        panel,
+        "_pair_resource_is_installed",
+        lambda item: False if item.pack_id == "freq-es-cde" else True,
+    )
+    monkeypatch.setattr(
+        panel,
+        "_show_learning_pair_manual_setup",
+        lambda item: shown.append(item.pack_id),
+    )
+
+    panel._resource_tabs.setCurrentIndex(0)
+    panel._open_learning_pair_resource_detail(freq_item)
+
+    assert shown == ["freq-es-cde"]
+    assert panel._resource_tabs.currentIndex() == 0
+
+
 def test_learning_pair_resource_location_button_reveals_resolved_path(monkeypatch) -> None:
     _app()
     set_locale("en")
