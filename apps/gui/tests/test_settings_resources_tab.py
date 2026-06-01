@@ -73,6 +73,29 @@ def test_settings_resource_pair_focus_adds_learning_language_card() -> None:
     assert "Add manually" not in button_text
 
 
+def test_learning_pair_card_labels_are_localized() -> None:
+    _app()
+    set_locale("ja")
+    _clear_learning_pairs()
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+    )
+    panel = dialog.language_pack_panel
+    learning_tab = panel._resource_tabs.widget(0)
+    labels = learning_tab.findChildren(type(panel.language_pack_status))
+    label_text = "\n".join(label.text() for label in labels)
+
+    assert t("language_packs.learning_pairs.pairs.en_es") in label_text
+    assert t("language_packs.learning_pairs.resources.freq_es_cde") in label_text
+    assert t("language_packs.learning_pairs.resources.wiktionary_es_en") in label_text
+    assert t("language_packs.learning_pairs.resources.freedict_es_en") in label_text
+    assert "English to Spanish" not in label_text
+    assert "Spanish word frequency data" not in label_text
+
+
 def test_manual_learning_pair_resource_does_not_show_download_progress(monkeypatch) -> None:
     _app()
     set_locale("en")

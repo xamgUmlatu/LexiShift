@@ -27,7 +27,30 @@ def _lookup(catalog: dict, dotted_key: str):
     return node
 
 
+def _flatten_keys(node: object, prefix: str = "") -> set[str]:
+    if not isinstance(node, dict):
+        return set()
+    keys: set[str] = set()
+    for key, value in node.items():
+        dotted = f"{prefix}.{key}" if prefix else str(key)
+        keys.add(dotted)
+        keys.update(_flatten_keys(value, dotted))
+    return keys
+
+
 class TestGuiI18nCatalogs(unittest.TestCase):
+    def test_gui_locale_catalog_shapes_match_english_catalog(self) -> None:
+        en_catalog = _load(EN_PATH)
+        en_keys = _flatten_keys(en_catalog)
+
+        for locale, path in LOCALE_PATHS.items():
+            catalog = _load(path)
+            self.assertEqual(
+                sorted(_flatten_keys(catalog)),
+                sorted(en_keys),
+                f"{locale} catalog keys differ from en",
+            )
+
     def test_browser_connections_catalog_exists_in_all_gui_locales(self) -> None:
         en_catalog = _load(EN_PATH)
         en_section = _lookup(en_catalog, "dialogs.browser_connections")

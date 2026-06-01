@@ -525,7 +525,15 @@
       "download_progress": "Downloading...",
       "download_progress_pct": "Downloading {percent}%",
       "unavailable_resource": "This required resource is not available in the current catalog.",
-      "resource_source": "Source: {source}. Pack: {pack_id}. Size: {size}."
+      "resource_source": "Source: {source}. Pack: {pack_id}. Size: {size}.",
+      "pairs": {
+        "en_es": "English to Spanish"
+      },
+      "resources": {
+        "freq_es_cde": "Spanish word frequency data",
+        "wiktionary_es_en": "Wiktionary Spanish-English dictionary",
+        "freedict_es_en": "Spanish-English dictionary"
+      }
     },
     "pair_setup": {
       "title": "Language data for {pair}",

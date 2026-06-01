@@ -524,7 +524,15 @@
       "download_progress": "Wird heruntergeladen...",
       "download_progress_pct": "Wird heruntergeladen {percent}%",
       "unavailable_resource": "Diese erforderliche Ressource ist im aktuellen Katalog nicht verfügbar.",
-      "resource_source": "Quelle: {source}. Paket: {pack_id}. Größe: {size}."
+      "resource_source": "Quelle: {source}. Paket: {pack_id}. Größe: {size}.",
+      "pairs": {
+        "en_es": "Englisch zu Spanisch"
+      },
+      "resources": {
+        "freq_es_cde": "Spanische Worthäufigkeitsdaten",
+        "wiktionary_es_en": "Wiktionary Spanisch-Englisch-Wörterbuch",
+        "freedict_es_en": "Spanisch-Englisch-Wörterbuch"
+      }
     },
     "pair_setup": {
       "title": "Sprachdaten für {pair}",

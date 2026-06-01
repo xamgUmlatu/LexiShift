@@ -524,7 +524,15 @@
       "download_progress": "正在下载...",
       "download_progress_pct": "正在下载 {percent}%",
       "unavailable_resource": "当前目录中没有此必需资源。",
-      "resource_source": "来源：{source}。包：{pack_id}。大小：{size}。"
+      "resource_source": "来源：{source}。包：{pack_id}。大小：{size}。",
+      "pairs": {
+        "en_es": "英语到西班牙语"
+      },
+      "resources": {
+        "freq_es_cde": "西班牙语词频数据",
+        "wiktionary_es_en": "Wiktionary 西班牙语-英语词典",
+        "freedict_es_en": "西班牙语-英语词典"
+      }
     },
     "pair_setup": {
       "title": "{pair} 的语言数据",

@@ -524,7 +524,15 @@
       "download_progress": "ダウンロード中...",
       "download_progress_pct": "ダウンロード中 {percent}%",
       "unavailable_resource": "この必須リソースは現在のカタログでは利用できません。",
-      "resource_source": "ソース: {source}。パック: {pack_id}。サイズ: {size}。"
+      "resource_source": "ソース: {source}。パック: {pack_id}。サイズ: {size}。",
+      "pairs": {
+        "en_es": "英語からスペイン語"
+      },
+      "resources": {
+        "freq_es_cde": "スペイン語の単語頻度データ",
+        "wiktionary_es_en": "Wiktionary スペイン語-英語辞書",
+        "freedict_es_en": "スペイン語-英語辞書"
+      }
     },
     "pair_setup": {
       "title": "{pair} の言語データ",
