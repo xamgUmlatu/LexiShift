@@ -9,7 +9,6 @@ from PySide6.QtWidgets import (
     QAbstractItemView,
     QCheckBox,
     QFileDialog,
-    QHeaderView,
     QLabel,
     QMessageBox,
     QPushButton,
@@ -136,15 +135,7 @@ class LanguagePackPanel(
         self.language_pack_table.verticalHeader().setDefaultSectionSize(38)
         self.language_pack_table.verticalHeader().setMinimumSectionSize(34)
         self.language_pack_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        header = self.language_pack_table.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.Stretch)
-        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(3, QHeaderView.Stretch)
-        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
+        self._configure_language_resource_table(self.language_pack_table)
         self.language_pack_table.setMinimumHeight(460)
 
         self.frequency_pack_table = QTableWidget()
@@ -168,15 +159,7 @@ class LanguagePackPanel(
         self.frequency_pack_table.verticalHeader().setDefaultSectionSize(38)
         self.frequency_pack_table.verticalHeader().setMinimumSectionSize(34)
         self.frequency_pack_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        freq_header = self.frequency_pack_table.horizontalHeader()
-        freq_header.setSectionResizeMode(0, QHeaderView.Stretch)
-        freq_header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        freq_header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
-        freq_header.setSectionResizeMode(3, QHeaderView.Stretch)
-        freq_header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
-        freq_header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
-        freq_header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
-        freq_header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
+        self._configure_language_resource_table(self.frequency_pack_table)
         self.frequency_pack_table.setMinimumHeight(380)
 
         self.language_pack_status = QLabel("")

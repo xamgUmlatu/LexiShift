@@ -6,7 +6,13 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QSettings, Qt
 from PySide6.QtGui import QColor, QPixmap
-from PySide6.QtWidgets import QApplication, QMessageBox, QProgressBar
+from PySide6.QtWidgets import (
+    QAbstractItemView,
+    QApplication,
+    QHeaderView,
+    QMessageBox,
+    QProgressBar,
+)
 
 from dialogs import SettingsDialog
 from dialogs_theme_utils import _ThemedTabContainer
@@ -329,6 +335,13 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert language_tab.property("resourcePanelTab") is True
     assert panel.language_pack_table.minimumHeight() >= 460
     assert panel.language_pack_table.verticalHeader().defaultSectionSize() >= 38
+    assert panel.language_pack_table.horizontalScrollBarPolicy() == Qt.ScrollBarAsNeeded
+    assert panel.language_pack_table.horizontalScrollMode() == QAbstractItemView.ScrollPerPixel
+    assert (
+        panel.language_pack_table.horizontalHeader().sectionResizeMode(0) == QHeaderView.Interactive
+    )
+    assert panel.language_pack_table.columnWidth(0) >= 240
+    assert panel.language_pack_table.columnWidth(3) >= 150
     assert panel.frequency_pack_table.minimumHeight() >= 380
     assert 'QWidget[resourcePanelTab="true"]' in stylesheet
     assert 'QWidget[resourcePanelTab="true"], QWidget[resourcePanelCanvas="true"]' in stylesheet
@@ -336,6 +349,8 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert "QTableWidget" in stylesheet
     assert "QTabWidget#lexishiftResourceTabs::pane" in stylesheet
     assert "QFrame#learningLanguagePairCard" in stylesheet
+    assert "background: rgba(85, 102, 119, 230);" in stylesheet
+    assert "alternate-background-color: rgba(34, 51, 68, 230);" in stylesheet
     assert "background: rgba(85, 102, 119, 87);" in stylesheet
     assert "background: rgba(51, 68, 85, 56);" in stylesheet
     assert "QFrame#learningLanguagePairCard QLabel {\n  color: #F0F1F2;" in stylesheet
@@ -375,6 +390,36 @@ def test_resources_tab_style_falls_back_when_theme_text_lacks_contrast() -> None
     assert 'QLabel[resourceDescription="true"] {\n  color: #FFFFFF;' in stylesheet
     assert "font-size: 15px;" in stylesheet
     assert "font-size: 13px;" in stylesheet
+
+
+def test_resources_tab_table_opacity_uses_theme_surface_opacity() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    panel = dialog.language_pack_panel
+
+    panel.set_theme(
+        {
+            "bg": "#111111",
+            "panel_top": "#223344",
+            "panel_bottom": "#334455",
+            "panel_border": "#445566",
+            "table_bg": "#556677",
+            "table_sel_bg": "#667788",
+            "text": "#F0F1F2",
+            "muted": "#C0C1C2",
+            "accent": "#D0A040",
+            "accent_soft": "#384858",
+            "primary": "#204060",
+            "primary_hover": "#305070",
+            "_surface_opacities": {"table": 0.72},
+        }
+    )
+
+    stylesheet = panel.styleSheet()
+
+    assert "background: rgba(85, 102, 119, 184);" in stylesheet
+    assert "alternate-background-color: rgba(34, 51, 68, 184);" in stylesheet
 
 
 def test_settings_resource_intro_label_uses_readable_canvas_style() -> None:

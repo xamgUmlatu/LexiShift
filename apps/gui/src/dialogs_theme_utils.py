@@ -91,6 +91,7 @@ def _merge_theme(base: dict, override: dict) -> dict:
     for key in (
         "_background",
         "_background_path",
+        "_surface_opacities",
         "_name",
         "_source",
         "_base_dir",

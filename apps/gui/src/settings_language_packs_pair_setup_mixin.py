@@ -26,7 +26,7 @@ from settings_pair_resource_plan import (
     available_pair_resource_plans,
     pair_resource_plan,
 )
-from theme_manager import readable_text_color, rgba_color
+from theme_manager import readable_text_color, rgba_color, theme_surface_opacity
 from utils_paths import reveal_path
 
 _LEARNING_PAIR_SETTINGS_KEY = "resources/learning_pairs"
@@ -64,6 +64,10 @@ class LanguagePackPanelPairSetupMixin:
         hover_text = readable_text_color(text_color, accent_soft)
         primary_text = readable_text_color("#FFFFFF", primary)
         progress_text = readable_text_color(text_color, bg)
+        table_opacity = theme_surface_opacity(self._theme, "table", default=0.90)
+        table_surface_bg = rgba_color(table_bg, table_opacity)
+        table_alt_bg = rgba_color(panel_top, table_opacity)
+        table_header_bg = rgba_color(accent_soft, table_opacity)
         pair_card_bg = rgba_color(table_bg, 0.34)
         resource_slot_bg = rgba_color(panel_bottom, 0.22)
         self.setStyleSheet(
@@ -135,8 +139,8 @@ QFrame#learningLanguageResourceSlot QLabel {{
   color: {slot_text};
 }}
 QTableWidget {{
-  background: {table_bg};
-  alternate-background-color: {panel_top};
+  background: {table_surface_bg};
+  alternate-background-color: {table_alt_bg};
   color: {table_text};
   gridline-color: {panel_border};
   border: 1px solid {panel_border};
@@ -148,7 +152,7 @@ QTableWidget::item {{
   padding: 6px 8px;
 }}
 QHeaderView::section {{
-  background: {accent_soft};
+  background: {table_header_bg};
   color: {header_text};
   padding: 8px;
   border: none;

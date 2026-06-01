@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from PySide6.QtCore import QSettings
 
-from theme_loader import THEME_ALL_COLOR_KEYS, load_user_themes
+from theme_loader import THEME_ALL_COLOR_KEYS, THEME_SURFACE_OPACITY_KEYS, load_user_themes
 from theme_registry import BUILTIN_THEMES
 from theme_widgets import apply_theme_background
 
@@ -26,6 +26,8 @@ def resolve_theme(theme_id: str, *, screen_id: str | None = None) -> dict:
     themes = load_themes()
     theme = themes.get(theme_id) or themes.get("light_sand", {})
     resolved = {key: theme.get(key) for key in THEME_ALL_COLOR_KEYS}
+    surface_opacities = _surface_opacities(theme)
+    resolved["_surface_opacities"] = surface_opacities
     resolved["_background"] = theme.get("_background", {})
     resolved["_background_path"] = theme.get("_background_path")
     if screen_id:
@@ -42,6 +44,9 @@ def resolve_theme(theme_id: str, *, screen_id: str | None = None) -> dict:
                     resolved["_background"] = screen.get("_background", {})
                 if "_background_path" in screen:
                     resolved["_background_path"] = screen.get("_background_path")
+                screen_surface_opacities = _surface_opacities(screen)
+                if screen_surface_opacities:
+                    surface_opacities.update(screen_surface_opacities)
     return resolved
 
 
@@ -152,6 +157,28 @@ def rgba_color(hex_color: str, alpha: float, *, fallback: str = "#FFFFFF") -> st
     else:
         alpha_value = round(max(0.0, min(255.0, alpha)))
     return f"rgba({rgb[0]}, {rgb[1]}, {rgb[2]}, {alpha_value})"
+
+
+def theme_surface_opacity(theme: dict, surface: str, *, default: float) -> float:
+    value = _surface_opacities(theme).get(surface)
+    if value is not None:
+        return value
+    return max(0.0, min(1.0, float(default)))
+
+
+def _surface_opacities(theme: dict) -> dict[str, float]:
+    raw = theme.get("_surface_opacities") if isinstance(theme, dict) else None
+    if not isinstance(raw, dict):
+        return {}
+    parsed: dict[str, float] = {}
+    for key in THEME_SURFACE_OPACITY_KEYS:
+        if key not in raw:
+            continue
+        try:
+            parsed[key] = max(0.0, min(1.0, float(raw[key])))
+        except (TypeError, ValueError):
+            continue
+    return parsed
 
 
 def build_browser_connection_styles(theme: dict) -> str:
@@ -504,6 +531,7 @@ def _merge_theme(base: dict, override: dict) -> dict:
     for key in (
         "_background",
         "_background_path",
+        "_surface_opacities",
         "_name",
         "_source",
         "_base_dir",

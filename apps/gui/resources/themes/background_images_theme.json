@@ -24,6 +24,9 @@
     "repeat": "no-repeat",
     "blend_mode": "normal"
   },
+  "surface_opacities": {
+    "table": 0.9
+  },
   "screen_overrides": {
     "main_window": {
       "colors": {

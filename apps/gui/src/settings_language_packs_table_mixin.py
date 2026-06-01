@@ -22,8 +22,52 @@ from settings_language_packs_support import (
     pack_download_disabled_tooltip,
 )
 
+_LANGUAGE_RESOURCE_COLUMN_WIDTHS = {
+    0: 240,
+    1: 120,
+    2: 128,
+    3: 150,
+    4: 126,
+    5: 112,
+    6: 112,
+    7: 86,
+}
+_EMBEDDING_RESOURCE_COLUMN_WIDTHS = {
+    0: 260,
+    1: 145,
+    2: 160,
+    3: 126,
+    4: 112,
+    5: 116,
+    6: 112,
+    7: 86,
+}
+
 
 class LanguagePackPanelTableMixin:
+    def _configure_language_resource_table(self, table: QTableWidget) -> None:
+        self._configure_resource_table_columns(table, _LANGUAGE_RESOURCE_COLUMN_WIDTHS)
+
+    def _configure_embedding_resource_table(self, table: QTableWidget) -> None:
+        self._configure_resource_table_columns(table, _EMBEDDING_RESOURCE_COLUMN_WIDTHS)
+
+    def _configure_resource_table_columns(
+        self,
+        table: QTableWidget,
+        column_widths: dict[int, int],
+    ) -> None:
+        table.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        table.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
+        table.setWordWrap(False)
+        header = table.horizontalHeader()
+        header.setStretchLastSection(False)
+        header.setMinimumSectionSize(72)
+        for column in range(table.columnCount()):
+            header.setSectionResizeMode(column, QHeaderView.Interactive)
+            width = column_widths.get(column)
+            if width:
+                table.setColumnWidth(column, width)
+
     def _refresh_download_button_state(
         self,
         *,
@@ -361,15 +405,7 @@ class LanguagePackPanelTableMixin:
         self.embedding_pack_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.embedding_pack_table.setAlternatingRowColors(True)
         self.embedding_pack_table.verticalHeader().setVisible(False)
-        header = self.embedding_pack_table.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.Stretch)
-        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2, QHeaderView.Stretch)
-        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
+        self._configure_embedding_resource_table(self.embedding_pack_table)
         self.embedding_pack_table.setMinimumHeight(220)
 
         self.embedding_pack_table.setRowCount(len(self._embedding_packs))
@@ -436,15 +472,7 @@ class LanguagePackPanelTableMixin:
         self.cross_embedding_pack_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.cross_embedding_pack_table.setAlternatingRowColors(True)
         self.cross_embedding_pack_table.verticalHeader().setVisible(False)
-        header = self.cross_embedding_pack_table.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.Stretch)
-        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(2, QHeaderView.Stretch)
-        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
+        self._configure_embedding_resource_table(self.cross_embedding_pack_table)
         self.cross_embedding_pack_table.setMinimumHeight(200)
 
         self.cross_embedding_pack_table.setRowCount(len(self._cross_embedding_packs))

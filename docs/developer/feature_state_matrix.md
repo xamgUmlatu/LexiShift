@@ -1887,8 +1887,11 @@ Use this file when:
   rather than a panel token and use slightly larger text hierarchy for image or
   dark backdrops, Learning Languages pair/resource-slot boxes use translucent
   theme-tinted frames so the corrected backdrop remains visible while the
-  resource hierarchy stays readable, and the detailed resource tables reserve
-  taller, expanding table space so rows do not look vertically compressed; SRS
+  resource hierarchy stays readable, detailed resource tables use a theme-schema
+  `surface_opacities.table` value with a 0.90 default so table surfaces preserve
+  backdrop visibility without losing dense-row readability, and those tables use
+  content-width columns with horizontal scrolling instead of stretching key
+  columns until they collapse; SRS
   story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
@@ -1951,7 +1954,8 @@ Use this file when:
   resource-tab theme-preserving transparent-canvas, contrast fallback, and
   table sizing coverage plus settings Resource intro-label readability and
   Settings tab-container base-paint coverage plus translucent Learning
-  Languages card-frame coverage,
+  Languages card-frame coverage, resource-table opacity schema/default coverage,
+  and content-width horizontal-scroll table coverage,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source
