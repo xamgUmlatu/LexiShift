@@ -53,6 +53,8 @@ from helper_ui import (
 )
 from i18n import t
 from localized_message_box import localized_question
+from theme_combo_popup import apply_combo_popup_theme
+from theme_manager import resolve_current_theme
 from utils_paths import reveal_path
 
 _BROWSER_OPTIONS = [
@@ -111,6 +113,10 @@ class _UnpackedExtensionDialog(QDialog):
         self._browser_combo.setEnabled(allow_browser_change)
         browser_index = max(0, self._browser_combo.findData(browser))
         self._browser_combo.setCurrentIndex(browser_index)
+        apply_combo_popup_theme(
+            self._browser_combo,
+            resolve_current_theme(screen_id="settings_dialog"),
+        )
 
         self._extension_id_edit = QLineEdit(extension_id, self)
         self._extension_id_edit.setPlaceholderText("abcdefghijklmnopqrstuvwxyzabcdef")

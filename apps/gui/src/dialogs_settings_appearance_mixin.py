@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
 
 from dialogs_theme_utils import _ThemedTabContainer, _coerce_float, _merge_theme
 from i18n import available_locales, t
+from theme_combo_popup import apply_combo_popup_theme_to_children
 from theme_loader import load_user_themes, theme_dir
 from theme_manager import build_browser_connection_styles, readable_text_color, resolve_theme
 from theme_registry import BUILTIN_THEMES
@@ -199,6 +200,7 @@ class SettingsDialogAppearanceMixin:
             "}"
             f"{build_browser_connection_styles(theme)}"
         )
+        apply_combo_popup_theme_to_children(self, theme)
 
     def _on_theme_changed(self) -> None:
         theme_id = self.theme_combo.currentData()

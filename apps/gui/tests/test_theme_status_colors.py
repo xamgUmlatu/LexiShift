@@ -4,12 +4,13 @@ import os
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
-from PySide6.QtGui import QColor, QTextDocument
-from PySide6.QtWidgets import QApplication
+from PySide6.QtGui import QColor, QPalette, QTextDocument
+from PySide6.QtWidgets import QApplication, QComboBox
 
 import theme_manager
 from preview import ReplacementHighlighter
 from settings_language_packs import LanguagePackPanel
+from theme_combo_popup import apply_combo_popup_theme
 from theme_loader import _parse_surface_opacities
 from theme_manager import (
     build_base_styles,
@@ -119,3 +120,31 @@ def test_base_theme_styles_include_combo_popup_contract() -> None:
     assert "QComboBox QAbstractItemView" in styles
     assert "background: #556677;" in styles
     assert "selection-background-color: #667788;" in styles
+
+
+def test_combo_popup_theme_applies_to_actual_view_palette() -> None:
+    _app()
+    combo = QComboBox()
+    combo.addItem("English to Spanish", "en-es")
+
+    apply_combo_popup_theme(
+        combo,
+        {
+            "panel_top": "#223344",
+            "panel_border": "#445566",
+            "table_bg": "#556677",
+            "table_sel_bg": "#667788",
+            "text": "#F0F1F2",
+            "accent_soft": "#384858",
+        },
+        object_name="testPopup",
+    )
+
+    view = combo.view()
+
+    assert view.objectName() == "testPopup"
+    assert view.property("lexishiftThemedComboPopup") is True
+    assert "QListView" in view.styleSheet()
+    assert "selection-background-color: #667788;" in view.styleSheet()
+    assert view.palette().color(QPalette.Base).name().upper() == "#556677"
+    assert view.viewport().palette().color(QPalette.Base).name().upper() == "#556677"

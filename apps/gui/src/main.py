@@ -105,6 +105,7 @@ from main_ui_components import (
 )
 from rules_table_view import DeleteButtonDelegate, RulesTableView
 from state import AppState
+from theme_combo_popup import apply_combo_popup_theme
 from theme_manager import build_base_styles, resolve_current_theme
 
 
@@ -142,7 +143,11 @@ class MainWindow(
         self.profile_combo = QComboBox()
         self.profile_combo.currentIndexChanged.connect(self._on_profile_selected)
         # Style only the popup list (not the closed combo) for main workspace selectors.
-        self.profile_combo.view().setObjectName("profileRulesetPopup")
+        apply_combo_popup_theme(
+            self.profile_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
         self.manage_profiles_button = QPushButton(t("buttons.manage_profiles"))
         self.manage_profiles_button.clicked.connect(self._manage_profiles)
         self.manage_rulesets_button = QPushButton(t("buttons.manage_rulesets"))
@@ -151,7 +156,11 @@ class MainWindow(
         self.ruleset_combo = QComboBox()
         self.ruleset_combo.currentIndexChanged.connect(self._on_ruleset_selected)
         # Reuse the same popup styling hook as profile selector for visual consistency.
-        self.ruleset_combo.view().setObjectName("profileRulesetPopup")
+        apply_combo_popup_theme(
+            self.ruleset_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
         self.ruleset_combo.setContextMenuPolicy(Qt.CustomContextMenu)
         self.ruleset_combo.customContextMenuRequested.connect(self._ruleset_context_menu)
         self.open_ruleset_button = QPushButton(t("buttons.select_ruleset"))
@@ -503,6 +512,16 @@ class MainWindow(
         self._theme = resolve_current_theme(screen_id="main_window")
         apply_theme_background(self._theme_container, self._theme)
         self.setStyleSheet(build_base_styles(self._theme))
+        apply_combo_popup_theme(
+            self.profile_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
+        apply_combo_popup_theme(
+            self.ruleset_combo,
+            self._theme,
+            object_name="profileRulesetPopup",
+        )
         self._splitter.setStyleSheet("background: transparent;")
         self._right_splitter.setStyleSheet("background: transparent;")
         self._utility_dock.refresh_geometry_hint()

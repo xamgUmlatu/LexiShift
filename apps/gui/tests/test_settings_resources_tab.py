@@ -5,7 +5,7 @@ import os
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QSettings, Qt
-from PySide6.QtGui import QColor, QPixmap
+from PySide6.QtGui import QColor, QPalette, QPixmap
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QApplication,
@@ -358,6 +358,10 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert "alternate-background-color: rgba(34, 51, 68, 230);" in stylesheet
     assert "QComboBox QAbstractItemView" in stylesheet
     assert "selection-background-color: #667788;" in stylesheet
+    popup_view = panel._learning_pair_combo.view()
+    assert popup_view.property("lexishiftThemedComboPopup") is True
+    assert "background: #556677;" in popup_view.styleSheet()
+    assert popup_view.palette().color(QPalette.Base).name().upper() == "#556677"
     assert 'QTableWidget QPushButton[resourceTableAction="true"]' in stylesheet
     assert "max-height: 24px;" in stylesheet
     assert "background: rgba(85, 102, 119, 87);" in stylesheet
@@ -465,11 +469,14 @@ def test_settings_combo_dropdowns_follow_theme_style() -> None:
     _app()
     set_locale("en")
     dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
-    stylesheet = dialog.styleSheet()
+    view = dialog.theme_combo.view()
+    language_view = dialog.language_combo.view()
 
-    assert "QComboBox QAbstractItemView" in stylesheet
-    assert "selection-background-color: #E7D9C6;" in stylesheet
-    assert "outline: 0px;" in stylesheet
+    assert view.property("lexishiftThemedComboPopup") is True
+    assert language_view.property("lexishiftThemedComboPopup") is True
+    assert "QListView" in view.styleSheet()
+    assert "selection-background-color: #E7D9C6;" in view.styleSheet()
+    assert view.palette().color(QPalette.Base).name().upper() == "#FFFFFF"
 
 
 def test_themed_tab_container_paints_theme_base_without_viewport_fallback() -> None:

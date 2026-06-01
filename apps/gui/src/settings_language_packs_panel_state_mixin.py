@@ -15,6 +15,7 @@ from settings_language_packs_support import (
     LanguageResourceBinding,
     split_language_resource_bindings,
 )
+from theme_combo_popup import apply_combo_popup_theme_to_children
 from utils_paths import reveal_path
 
 _TRANSLATION_PACK_BUILD_MODES = frozenset(
@@ -137,6 +138,7 @@ class LanguagePackPanelStateMixin:
         self._theme = dict(theme or {})
         if hasattr(self, "_apply_pair_resource_setup_style"):
             self._apply_pair_resource_setup_style()
+        apply_combo_popup_theme_to_children(self, self._theme)
         self._refresh_language_pack_table()
         self._refresh_frequency_pack_table()
         self._refresh_embedding_pack_table()
