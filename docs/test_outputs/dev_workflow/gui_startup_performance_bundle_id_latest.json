@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-01T02:00:23.069857+00:00",
+  "generated_at": "2026-06-01T02:35:16.312898+00:00",
   "app": "/Applications/LexiShift.app",
   "pair": "en-es",
   "launch_mode": "bundle-id",
@@ -7,16 +7,28 @@
   "summary": {
     "ok_count": 1,
     "timeout_count": 0,
-    "min_ms": 12057.1,
-    "median_ms": 12057.1,
-    "max_ms": 12057.1
+    "min_ms": 1050.9,
+    "median_ms": 1050.9,
+    "max_ms": 1050.9,
+    "pre_entry": {
+      "count": 1,
+      "min_ms": 594.8,
+      "median_ms": 594.8,
+      "max_ms": 594.8
+    },
+    "process_entry_to_window": {
+      "count": 1,
+      "min_ms": 456.1,
+      "median_ms": 456.1,
+      "max_ms": 456.1
+    }
   },
   "runs": [
     {
       "index": 1,
       "status": "ok",
-      "session_id": "86b29e217d6c499aad292c27eb8d54d7",
-      "requested_at": "2026-06-01T02:00:10.932191+00:00",
+      "session_id": "799c9018e7d346beba15078820abfaa5",
+      "requested_at": "2026-06-01T02:35:15.160871+00:00",
       "launch_mode": "bundle-id",
       "pair": "en-es",
       "command": [
@@ -28,12 +40,13 @@
         "--resource-pair",
         "en-es"
       ],
-      "process_pid": 76425,
+      "process_pid": 682,
       "activated": null,
-      "observed_elapsed_ms": 12137.1,
-      "startup_total_ms": 3825.7,
-      "since_request_ms": 12057.1,
-      "matched_line": "[startup] window shown (+10.8 ms, total 3825.7 ms) session=86b29e217d6c499aad292c27eb8d54d7 pid=76522 ppid=76445 argv_mode=resource_settings source=startup_measure_bundle-id ts=2026-06-01T02:00:22.989300+00:00 launch_mode=bundle-id resource_pair=en-es since_request_ms=12057.1"
+      "observed_elapsed_ms": 1151.6,
+      "startup_total_ms": 456.1,
+      "since_request_ms": 1050.9,
+      "pre_entry_ms": 594.8,
+      "matched_line": "[startup] window shown (+21.0 ms, total 456.1 ms) session=799c9018e7d346beba15078820abfaa5 pid=774 ppid=1 argv_mode=resource_settings source=startup_measure_bundle-id ts=2026-06-01T02:35:16.211773+00:00 launch_mode=bundle-id resource_pair=en-es since_request_ms=1050.9"
     }
   ]
 }

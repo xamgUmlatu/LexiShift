@@ -14,6 +14,7 @@ from windows_parity_audit import (  # noqa: E402
     assess_windows_bundle_validation,
     assess_windows_helper_packaging,
     assess_windows_native_messaging_install,
+    assess_windows_shell_integration,
     assess_windows_tray_launch,
 )
 
@@ -69,6 +70,18 @@ WINDOWS_NATIVE_MESSAGING_REGISTRY_KEYS = {
 NATIVE_HOST_WINDOWS_EXE_NAME = "lexishift_native_host.exe"
 """
         result = assess_windows_native_messaging_install(helper_installer_text)
+        self.assertEqual(result.status, "PASS")
+
+    def test_shell_integration_accepts_joined_explorer_select_argument(self) -> None:
+        helper_os_text = "os.startfile(str(target))"
+        gui_reveal_text = 'subprocess.run(["explorer", f"/select,{target}"], check=False)'
+
+        result = assess_windows_shell_integration(
+            helper_os_text,
+            gui_reveal_text,
+            gui_reveal_text,
+        )
+
         self.assertEqual(result.status, "PASS")
 
     def test_tray_launch_fails_without_windows_specific_frozen_launch(self) -> None:

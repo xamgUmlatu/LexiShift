@@ -100,6 +100,27 @@ class TestPackagedGuiStartupMeasure(unittest.TestCase):
         )
 
         self.assertEqual(summary["median_ms"], 150.0)
+        self.assertIsNone(summary["pre_entry"])
+
+    def test_cold_launch_summary_reports_pre_entry_split(self) -> None:
+        module = _load_module()
+
+        summary = module._summary(
+            [
+                {
+                    "status": "ok",
+                    "launch_mode": "open",
+                    "observed_elapsed_ms": 1000.0,
+                    "since_request_ms": 950.0,
+                    "startup_total_ms": 300.0,
+                    "pre_entry_ms": 650.0,
+                }
+            ]
+        )
+
+        self.assertEqual(summary["median_ms"], 950.0)
+        self.assertEqual(summary["pre_entry"]["median_ms"], 650.0)
+        self.assertEqual(summary["process_entry_to_window"]["median_ms"], 300.0)
 
 
 if __name__ == "__main__":

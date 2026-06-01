@@ -182,6 +182,9 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
     activation_mode = args.launch_mode == "activation"
     since_request_ms = None if activation_mode else _extract_float(SINCE_REQUEST_RE, line)
     startup_total_ms = None if activation_mode else _extract_float(TOTAL_RE, line)
+    pre_entry_ms = None
+    if since_request_ms is not None and startup_total_ms is not None:
+        pre_entry_ms = round(max(0.0, since_request_ms - startup_total_ms), 1)
     return {
         "index": index,
         "status": status,
@@ -195,7 +198,19 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
         "observed_elapsed_ms": round(observed_elapsed_ms, 1),
         "startup_total_ms": startup_total_ms,
         "since_request_ms": since_request_ms,
+        "pre_entry_ms": pre_entry_ms,
         "matched_line": line,
+    }
+
+
+def _metric_summary(values: list[float]) -> dict[str, float | int] | None:
+    if not values:
+        return None
+    return {
+        "count": len(values),
+        "min_ms": round(min(values), 1),
+        "median_ms": round(statistics.median(values), 1),
+        "max_ms": round(max(values), 1),
     }
 
 
@@ -217,6 +232,16 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "min_ms": round(min(ok_values), 1),
         "median_ms": round(statistics.median(ok_values), 1),
         "max_ms": round(max(ok_values), 1),
+        "pre_entry": _metric_summary(
+            [float(row["pre_entry_ms"]) for row in rows if row.get("pre_entry_ms") is not None]
+        ),
+        "process_entry_to_window": _metric_summary(
+            [
+                float(row["startup_total_ms"])
+                for row in rows
+                if row.get("startup_total_ms") is not None
+            ]
+        ),
     }
 
 
@@ -229,6 +254,9 @@ def _write_json(path: str | None, payload: dict[str, Any]) -> None:
 
 
 def _markdown(payload: dict[str, Any]) -> str:
+    def cell(value: Any) -> Any:
+        return "" if value is None else value
+
     lines = [
         "# Packaged GUI Startup Measurement",
         "",
@@ -238,14 +266,15 @@ def _markdown(payload: dict[str, Any]) -> str:
         f"- launch_mode: `{payload['launch_mode']}`",
         f"- summary: `{payload['summary']}`",
         "",
-        "| Run | Status | Session | Since request ms | Observed ms |",
-        "| ---: | --- | --- | ---: | ---: |",
+        "| Run | Status | Session | Since request ms | Pre-entry ms | Startup total ms | Observed ms |",
+        "| ---: | --- | --- | ---: | ---: | ---: | ---: |",
     ]
     for row in payload["runs"]:
         lines.append(
             "| "
             f"{row['index']} | {row['status']} | `{row['session_id']}` | "
-            f"{row.get('since_request_ms') or ''} | {row['observed_elapsed_ms']} |"
+            f"{cell(row.get('since_request_ms'))} | {cell(row.get('pre_entry_ms'))} | "
+            f"{cell(row.get('startup_total_ms'))} | {row['observed_elapsed_ms']} |"
         )
     lines.append("")
     return "\n".join(lines)

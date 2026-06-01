@@ -55,10 +55,20 @@ def assess_windows_data_paths(
 def assess_windows_shell_integration(
     helper_os_text: str, main_text: str, utils_paths_text: str
 ) -> ParityCheck:
+    def has_explorer_select(text: str) -> bool:
+        return any(
+            marker in text
+            for marker in (
+                '["explorer", f"/select,{target}"]',
+                '["explorer", f"/select,{path}"]',
+                '["explorer", "/select,"',
+            )
+        )
+
     conditions = [
         "os.startfile" in helper_os_text,
-        '["explorer", "/select,"' in main_text,
-        '["explorer", "/select,"' in utils_paths_text,
+        has_explorer_select(main_text),
+        has_explorer_select(utils_paths_text),
     ]
     status = "PASS" if all(conditions) else "FAIL"
     summary = (

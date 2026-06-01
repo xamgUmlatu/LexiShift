@@ -665,8 +665,8 @@ Use this file when:
 ## Browser Helper Connection Management
 
 - Status: `implemented`, `default-on`, `verified`
-- Last documented checkpoint: `2026-06-01` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, workspace-host installs switched to a pinned-interpreter wrapper, native-host startup failures write deterministic local logs, resource-settings launches now carry a startup session into GUI startup telemetry, transport/browser failures expose stable helper-facing error codes, options-side helper flows localize timeout/browser-blocked cases alongside helper-missing/host-exited cases, and saved bundled/workspace connections auto-repair a narrow set of deterministic stale manifest/host states on startup or when `Connections...` opens
-- Last verified: `2026-06-01` targeted native-host resource-settings telemetry tests, GUI startup logger tests, packaged startup measurement script tests, native-host startup-log coverage, installed-bundle startup measurements, extension helper transport/localization contracts from the existing evidence set, and changed-scope repo safety
+- Last documented checkpoint: `2026-06-01` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, workspace-host installs switched to a pinned-interpreter wrapper, native-host startup failures write deterministic local logs, resource-settings launches now carry a startup session into GUI startup telemetry, the packaged GUI now uses the canonical PyInstaller onedir EXE/COLLECT payload split, transport/browser failures expose stable helper-facing error codes, options-side helper flows localize timeout/browser-blocked cases alongside helper-missing/host-exited cases, and saved bundled/workspace connections auto-repair a narrow set of deterministic stale manifest/host states on startup or when `Connections...` opens
+- Last verified: `2026-06-01` targeted native-host resource-settings telemetry tests, GUI startup logger tests, packaged startup measurement script tests, GUI build-spec tests, native-host startup-log coverage, installed-bundle rebuild/validation, installed-bundle startup measurements, extension helper transport/localization contracts from the existing evidence set, and changed-scope repo safety
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
@@ -676,6 +676,7 @@ Use this file when:
   - Native-host startup/import failures now append a traceback to `logs/native_host.log` under the LexiShift data root, so browser-side `Native host has exited` failures have a deterministic local log instead of only a transient browser transport error.
   - Native-host resource-settings requests now log a startup session, activation timing, launch resolution, command class, `Popen` timing, and total native-host handoff timing; cold GUI launches receive the same session through `LEXISHIFT_STARTUP_SESSION_ID`.
   - GUI startup timing records now include session id, PID, parent PID, argv mode, launch source, launch mode, resource pair, UTC timestamps, and request-to-checkpoint timing when the GUI was launched by the native host.
+  - The packaged GUI uses PyInstaller onedir bundles with `EXE(..., exclude_binaries=True)` and `COLLECT`-owned binaries/zipfiles/datas, so installed main/helper app size and warm relaunch latency are no longer dominated by duplicated executable payloads.
   - Native-messaging manifests now merge all allowed origins for the same browser into one manifest instead of assuming only one extension ID.
   - Same-browser prod and unpacked-dev entries still share one host path; the GUI only surfaces that as a targeted warning when an unpacked-dev change would switch a configured browser to the workspace host.
   - Helper install inspection now distinguishes `Configured`, `Needs repair`, and `Not configured`, including stale bundled-helper copies and legacy direct-script workspace manifests.
@@ -688,6 +689,8 @@ Use this file when:
   - `apps/gui/src/main_menu_mixin.py`
   - `apps/gui/src/main_runtime.py`
   - `apps/gui/src/startup_logging.py`
+  - `apps/gui/packaging/pyinstaller.spec`
+  - `scripts/build/gui_app.py`
   - `apps/gui/src/dialogs.py`
   - `apps/gui/src/helper_connections_dialog.py`
   - `core/lexishift_core/helper/gui_startup_telemetry.py`
@@ -702,6 +705,7 @@ Use this file when:
   - `core/tests/dev/test_native_host_startup_logging.py`
   - `core/tests/dev/test_native_host_resource_settings.py`
   - `core/tests/dev/test_packaged_gui_startup_measure.py`
+  - `core/tests/dev/test_gui_app_build.py`
   - `apps/gui/tests/test_main_runtime_startup_logging.py`
   - `docs/test_outputs/dev_workflow/gui_startup_performance_open_latest.json`
   - `docs/test_outputs/dev_workflow/gui_startup_performance_activation_latest.json`
@@ -711,6 +715,7 @@ Use this file when:
   - Native messaging still uses one host manifest per browser name, so same-browser prod and unpacked-dev origins still share one host path.
   - Fixed-ID production rows only work in builds where `apps/gui/resources/helper_extension_ids.json` contains real non-placeholder production IDs.
   - The desktop app can verify manifest/origin/host freshness, but it still cannot prove that the browser extension is currently installed and active.
+  - First launch immediately after reinstall/rebuild can still be materially slower than warm relaunch on the local machine; release signing/notarization and tester-machine measurements still need confirmation.
 
 ## Feature-State Evidence Audit
 

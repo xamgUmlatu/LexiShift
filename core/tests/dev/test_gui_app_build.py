@@ -11,10 +11,34 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from gui_app import _cleanup_windows_collect_duplicates  # noqa: E402
+from gui_app import _build_command  # noqa: E402
 from gui_app import _terminate_windows_dist_processes  # noqa: E402
 
 
 class TestGuiAppBuild(unittest.TestCase):
+    def test_pyinstaller_spec_uses_onedir_exe_payload_split(self) -> None:
+        spec_text = (REPO_ROOT / "apps" / "gui" / "packaging" / "pyinstaller.spec").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("PYINSTALLER_UPX_ENABLED", spec_text)
+        self.assertEqual(spec_text.count("exclude_binaries=True"), 3)
+        self.assertNotIn("upx=True", spec_text)
+
+    def test_build_command_keeps_pyinstaller_args_after_spec(self) -> None:
+        command = _build_command(
+            "/repo/apps/gui/packaging/pyinstaller.spec",
+            clean=True,
+            noconfirm=True,
+            distpath="/tmp/dist",
+            workpath="/tmp/build",
+            extra=["--log-level", "WARN"],
+        )
+
+        self.assertEqual(
+            command[-3:], ["/repo/apps/gui/packaging/pyinstaller.spec", "--log-level", "WARN"]
+        )
+
     def test_cleanup_windows_collect_duplicates_removes_root_exes_when_collected_layout_exists(
         self,
     ) -> None:

@@ -3,7 +3,7 @@
 Status: active notes
 Role: Planning / WIP
 Last updated: 2026-06-01
-Last verified: 2026-06-01 local installed-bundle size refresh for startup-performance planning; size-reduction implementation not rerun
+Last verified: 2026-06-01 PyInstaller onedir EXE payload split, rebuild/install validation, and installed-bundle size refresh
 Purpose: preserve practical packaging-size reduction ideas and measurement commands for future build optimization work
 Source-of-truth: planning notes only; current package/build truth lives in build scripts, release runbooks, and fresh size measurements.
 
@@ -19,27 +19,43 @@ Related startup workstream:
 - Installed size is dominated by two apps:
   - `/Applications/LexiShift.app`
   - `/Applications/LexiShift Helper.app`
-- Main + helper together are roughly the same order as the reported `~1.24 GB`.
+- After the onedir EXE payload split, the local installed sizes are:
+  - `/Applications/LexiShift.app`: `185M`
+  - `/Applications/LexiShift Helper.app`: `115M`
+- Before that split, the local installed sizes were about:
+  - `/Applications/LexiShift.app`: `692M`
+  - `/Applications/LexiShift Helper.app`: `494M`
 - The packaging flow currently includes both app bundles in the DMG.
 
 ## Main size drivers
 1. Two bundled apps (main + helper), each carrying Python/PySide6/Qt runtime payload.
-2. Symlink flattening during DMG staging:
+2. PyInstaller payload ownership mistakes:
+   - The app previously passed binaries, zipfiles, and datas into each `EXE`
+     while also collecting them into the onedir bundle.
+   - The spec now uses `exclude_binaries=True` for EXE targets and lets
+     `COLLECT` own the payload, reducing the main executable from about `100M`
+     to `7.1M`.
+3. Symlink flattening during DMG staging:
    - `scripts/build/installer.py` uses `shutil.copytree(...)` for `.app` bundles.
    - If symlinks are not preserved, shared files become duplicated real files.
-3. Heavy runtime dependencies:
+4. Heavy runtime dependencies:
    - PySide6/Qt frameworks.
    - Python runtime + dynamic modules.
-4. Large lexical assets:
+5. Large lexical assets:
    - `simplemma` dictionary data (many language files).
 
 ## High-impact, low-effort changes
-1. Preserve symlinks when staging app bundles for DMG.
+1. Keep the canonical PyInstaller onedir EXE payload split.
+   - Implemented in `apps/gui/packaging/pyinstaller.spec`.
+   - Guarded by `core/tests/dev/test_gui_app_build.py`.
+   - Build wrapper now exposes `--no-upx` so UPX can be measured without editing
+     the spec.
+2. Preserve symlinks when staging app bundles for DMG.
    - Update `scripts/build/installer.py` copy logic to keep symlinks in `.app` contents.
    - Expected impact: significant reduction in installed footprint when duplicated framework/resource files are currently materialized.
-2. Re-evaluate whether both apps must be independently installed.
+3. Re-evaluate whether both apps must be independently installed.
    - If helper can be embedded/optional, users may avoid installing a second full runtime.
-3. Prune unneeded bundled assets.
+4. Prune unneeded bundled assets.
    - Keep only required dictionaries/languages and nonessential resources.
 
 ## Medium-effort changes
@@ -70,6 +86,7 @@ Related startup workstream:
    - `find apps/gui/dist/'LexiShift Helper.app' -type l | wc -l`
 
 ## Recommended execution order
-1. Fix symlink preservation in DMG staging.
-2. Rebuild + reinstall + remeasure.
-3. If still too large, prioritize helper-runtime split and asset pruning.
+1. Keep the PyInstaller EXE/COLLECT payload split as the baseline.
+2. Fix symlink preservation in DMG staging.
+3. Rebuild + reinstall + remeasure.
+4. If still too large, prioritize helper-runtime split and asset pruning.

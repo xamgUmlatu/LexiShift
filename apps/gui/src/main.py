@@ -450,7 +450,7 @@ class MainWindow(
             subprocess.run(["open", "-R", target], check=False)
             return
         if sys.platform.startswith("win"):
-            subprocess.run(["explorer", "/select,", target], check=False)
+            subprocess.run(["explorer", f"/select,{target}"], check=False)
             return
         directory = target if os.path.isdir(target) else os.path.dirname(target)
         subprocess.run(["xdg-open", directory], check=False)

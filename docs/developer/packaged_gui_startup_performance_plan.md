@@ -3,7 +3,7 @@
 Status: active plan
 Role: Planning / WIP
 Last updated: 2026-06-01
-Last verified: 2026-06-01 Phase 0 startup telemetry implementation, focused native-host/logger/measurement tests, state audit, and changed-scope repo safety
+Last verified: 2026-06-01 Phase 1/2 PyInstaller onedir payload split, installed-bundle rebuild, focused startup/build tests, and installed launch measurements
 Purpose: make the packaged LexiShift GUI open quickly enough from extension-driven language-data recovery flows without changing the architecture stack prematurely
 Source-of-truth: planning doc only; current behavior lives in `scripts/helper/lexishift_native_host.py`, `core/lexishift_core/helper/gui_app_launch.py`, `apps/gui/src/main.py`, `apps/gui/src/main_runtime.py`, `apps/gui/packaging/pyinstaller.spec`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -58,25 +58,26 @@ These observations were refreshed locally on 2026-06-01.
 
 | Evidence | Current observation | Interpretation |
 | --- | --- | --- |
-| User-perceived launch | roughly `12` seconds from extension button to app usable | too slow, but current logs cannot yet split browser, native host, LaunchServices, PyInstaller boot, and GUI construction precisely |
+| User-perceived launch | after the PyInstaller payload split, warm installed relaunch through `open /Applications/LexiShift.app` measured about `1041.5 ms` | within target on the current machine after the first post-install launch; still needs release-candidate and tester-machine confirmation |
 | Native-host latest resource launch log | `[2026-06-01T01:24:39.912473+00:00] opened_resource_settings mode=macos_installed_bundle pair=en-es` | native host selected the installed `/Applications/LexiShift.app` path |
 | Latest startup log mtime | `Jun 1 10:24:52 2026` local time | suggests a large gap between native-host fire-and-forget launch and app startup completion for that observed launch |
 | Startup log, latest slow packaged block | `main() begin` to `window shown` was `2486.4 ms` | Python/Qt/app code after `main()` can already fit the target on that run |
 | Other startup blocks | some runs were about `432 ms`, `449 ms`, `1341 ms`, `3344 ms`, and `3443 ms` after `main()` | startup code cost varies and needs better session IDs before conclusions |
-| Installed main app size | `/Applications/LexiShift.app` is `692M` | bundle is large enough to plausibly affect macOS verification/scanning and copy/install behavior |
-| Installed helper app size | `/Applications/LexiShift Helper.app` is `494M` | dual-bundle runtime remains a size and maintenance concern |
-| Installed main app file count | `1258` files, `384` directories | file count can affect verification/scanning and should be reduced if payload is irrelevant |
-| Main executable | `100M` | bootloader/executable compression and scanning should be tested |
+| Installed main app size | `/Applications/LexiShift.app` is `185M` after the onedir EXE payload split | down from `692M`; the prior executable/data duplication was a real packaging defect |
+| Installed helper app size | `/Applications/LexiShift Helper.app` is `115M` after the onedir EXE payload split | down from `494M`; dual-bundle runtime remains a size concern, but much less urgent |
+| Installed main app file count | `809` files | down from `1258`; file-count pressure is lower, but release signing/notarization still needs measurement |
+| Main executable | `7.1M` | down from `100M`; the executable now looks like a normal onedir launcher instead of carrying a duplicated payload archive |
 | Signing | ad-hoc signed, no TeamIdentifier, `537` sealed resources | release signing/notarization may affect first-run trust and scanning behavior |
-| Current packaging mode | PyInstaller onedir/`COLLECT` app bundles, `upx=True` | onedir is correct vs onefile, but UPX and broad collection need testing |
+| Current packaging mode | PyInstaller onedir/`COLLECT` app bundles with `EXE(..., exclude_binaries=True)` and configurable UPX | main/helper executables no longer embed the collected payload; `scripts/build/gui_app.py --no-upx` remains available for later comparison |
 | Current launch command | native host calls `open /Applications/LexiShift.app --args --open-resource-settings --resource-pair en-es` | product-correct path, but `open`/LaunchServices overhead must be measured against direct executable launch |
 | Process list | parent/child main-app and helper processes appear | likely PyInstaller parent/child behavior, but duplicate cold-launch behavior must be distinguished from normal bootloader process structure |
 
-The important early read: `2-3` seconds appears realistic without abandoning
-PyInstaller or the current architecture, because the measured post-`main()`
-startup block is already near that range. The unproven part is whether the
-pre-`main()` packaged-launch overhead can be consistently brought into that
-range through launch-path, bundle, signing, and packaging improvements.
+The important current read: `2-3` seconds is realistic without abandoning
+PyInstaller or the current architecture. After the payload split, warm
+installed relaunches measured about `1.0-1.1` seconds across `open`,
+bundle-id, and direct executable launch modes. The remaining uncertainty is the
+first launch after reinstall/rebuild, which still showed a slower one-off sample
+in local console output and must be rechecked with release signing/notarization.
 
 ## Working Hypotheses
 
@@ -143,6 +144,14 @@ Implementation checkpoint:
   first launch immediately after reinstall also showed a one-off slower sample
   around `42238 ms`, which should be treated as a first-run/install-verification
   datapoint until repeated.
+- 2026-06-01: the PyInstaller spec was corrected to use the canonical onedir
+  split for EXE targets (`exclude_binaries=True`, with binaries/zipfiles/datas
+  owned by `COLLECT`), and the build wrapper gained a `--no-upx` comparison
+  switch. Rebuilt/installed measurements then showed warm relaunch through
+  `open` at about `1041.5 ms` (`584.4 ms` pre-entry, `457.1 ms`
+  process-entry-to-window), bundle-id launch at about `1050.9 ms`, direct
+  executable launch at about `1065.0 ms`, and existing-GUI activation at about
+  `196.5 ms`.
 
 Implementation plan:
 
@@ -266,6 +275,15 @@ PYTHONPATH=core python3 -m pytest core/tests/dev/test_helper_installer_native_me
 npm --prefix scripts run check:windows:parity
 ```
 
+Measurement checkpoint:
+
+- 2026-06-01: after the onedir payload split, the launch paths are effectively
+  tied on the current machine: `open` about `1041.5 ms`, bundle-id about
+  `1050.9 ms`, direct executable about `1065.0 ms`. Because `open` preserves
+  normal Dock/focus semantics and is no longer materially slower, keep the
+  native-host launch route on the installed app bundle unless release-candidate
+  measurements regress.
+
 ## Phase 2: Bundle Audit And Slimming
 
 Goal: remove startup-relevant payload only when evidence shows it is not needed.
@@ -283,23 +301,29 @@ find /Applications/LexiShift.app -type l | wc -l
 
 Candidate reductions, in preferred order:
 
-1. Turn off UPX and compare startup, size, and validation:
+1. Keep the canonical PyInstaller onedir EXE payload split:
+   - `EXE` owns only the bootloader/scripts/PYZ and uses
+     `exclude_binaries=True`;
+   - `COLLECT` owns binaries, zipfiles, and datas;
+   - this is already implemented and validated locally, and reduced the main
+     app from `692M` to `185M`.
+2. Turn off UPX and compare startup, size, and validation:
    - change `upx=True` to `upx=False` only if measurements improve or security
      scanning behavior is cleaner;
    - measure both main and helper.
-2. Exclude unused Qt modules/plugins:
+3. Exclude unused Qt modules/plugins:
    - likely candidates include QML/Quick/VirtualKeyboard/WebEngine only if the
      built GUI does not use them;
    - verify actual bundled paths before editing the spec.
-3. Prune unused Python dependency payloads:
+4. Prune unused Python dependency payloads:
    - use PyInstaller analysis artifacts and file inventory to identify heavy
      modules not imported by GUI/helper/native host.
-4. Limit bundled `simplemma` dictionaries and similar lexical data:
+5. Limit bundled `simplemma` dictionaries and similar lexical data:
    - keep only languages supported by current product flows unless the resource
      is intentionally part of offline fallback behavior.
-5. Remove duplicate helper payload from the main app only if the native-host
+6. Remove duplicate helper payload from the main app only if the native-host
    install and packaged-helper contracts still have a stable host path.
-6. Preserve symlinks in DMG staging:
+7. Preserve symlinks in DMG staging:
    - `scripts/build/gui_app.py --install` already uses `symlinks=True`;
    - `scripts/build/installer.py` DMG staging currently uses plain
      `shutil.copytree(...)` and should be fixed for installer size, even though
@@ -418,7 +442,11 @@ Recommended sequence:
 
 1. Phase 0 telemetry and measurement command.
 2. Phase 1 launch-path comparison and duplicate-launch protection if needed.
+   Current result: keep installed-bundle `open` because it is fast enough and
+   preserves normal app semantics.
 3. Phase 2 UPX comparison and bundle inventory-driven exclusions.
+   Current result: canonical onedir payload split is complete; UPX comparison
+   is now optional follow-up rather than the main launch blocker.
 4. Phase 3 first-paint/resource-settings deferral.
 5. Phase 4 signed/notarized release measurement.
 6. Phase 5 only if the target is still out of reach.
@@ -429,7 +457,7 @@ Recommended sequence:
 | --- | --- | --- |
 | Keep PyInstaller? | Yes | only if measured pre-`main()` overhead remains above target after launch-path, UPX, bundle, and signing work |
 | Keep GUI-owned language data setup? | Yes | only if a future cloud/runtime-data model changes pack ownership |
-| Prefer direct executable launch? | Unknown | decide after Phase 1 measurement |
+| Prefer direct executable launch? | No for now | revisit only if release-candidate measurements show `open` regressing materially |
 | Add in-extension loading state? | No as primary fix | consider only as a small affordance after launch performance is already acceptable |
 | Add resource-only executable? | No | consider only after Phases 0-4 fail |
 

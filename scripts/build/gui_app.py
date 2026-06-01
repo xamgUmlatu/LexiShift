@@ -238,6 +238,19 @@ def main() -> int:
         help="Keep existing dist/work directories.",
     )
     parser.add_argument(
+        "--upx",
+        dest="upx",
+        action="store_true",
+        default=True,
+        help="Allow UPX compression if UPX is installed (default).",
+    )
+    parser.add_argument(
+        "--no-upx",
+        dest="upx",
+        action="store_false",
+        help="Disable UPX compression for this build.",
+    )
+    parser.add_argument(
         "pyinstaller_args",
         nargs=argparse.REMAINDER,
         help="Additional arguments passed through to PyInstaller.",
@@ -276,6 +289,7 @@ def main() -> int:
 
     mode = _detect_build_mode(spec_path)
     print(f"Build Mode: {mode.upper()}")
+    print(f"UPX: {'enabled if available' if args.upx else 'disabled'}")
     if mode == "onefile":
         print("  -> Warning: One-file builds have slower startup times.")
         print("  -> To fix: Edit the .spec file to use COLLECT() for a one-dir build.")
@@ -301,6 +315,7 @@ def main() -> int:
     env["PYTHONUNBUFFERED"] = "1"
     env.setdefault("LEXISHIFT_REPO_ROOT", repo_root)
     env.setdefault("LEXISHIFT_SPEC_PATH", spec_path)
+    env["LEXISHIFT_PYINSTALLER_UPX"] = "1" if args.upx else "0"
 
     result = subprocess.run(cmd, env=env, check=False, cwd=repo_root)
     if result.returncode != 0:
