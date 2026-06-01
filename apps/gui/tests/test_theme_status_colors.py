@@ -5,7 +5,7 @@ import os
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtGui import QColor, QPalette, QTextDocument
-from PySide6.QtWidgets import QApplication, QComboBox
+from PySide6.QtWidgets import QApplication, QComboBox, QFrame
 
 import theme_manager
 from preview import ReplacementHighlighter
@@ -144,7 +144,11 @@ def test_combo_popup_theme_applies_to_actual_view_palette() -> None:
 
     assert view.objectName() == "testPopup"
     assert view.property("lexishiftThemedComboPopup") is True
+    assert view.frameShape() == QFrame.NoFrame
+    assert view.spacing() == 0
+    assert view.contentsMargins().top() == 0
     assert "QListView" in view.styleSheet()
+    assert "border: 0px;" in view.styleSheet()
     assert "selection-background-color: #667788;" in view.styleSheet()
     assert view.palette().color(QPalette.Base).name().upper() == "#556677"
     assert view.viewport().palette().color(QPalette.Base).name().upper() == "#556677"

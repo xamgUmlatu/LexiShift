@@ -1896,8 +1896,9 @@ Use this file when:
   theme-aware cell-control style so Download/Select/Delete actions fit cleanly
   inside rows without looking like oversized form buttons; combo-box dropdown
   lists now own and style their actual popup `QListView` plus view/viewport
-  palette through the active theme tokens so language-pair/theme selectors do
-  not fall back to dark Qt popup palettes; SRS
+  palette through the active theme tokens, and the popup list view is frameless
+  with zero margins/spacing so dark native popup slivers do not show above or
+  below language-pair/theme selectors; SRS
   story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
@@ -1963,7 +1964,7 @@ Use this file when:
   Languages card-frame coverage, resource-table opacity schema/default coverage,
   content-width horizontal-scroll table coverage, responsive surplus-width table
   coverage, compact table-cell action-button coverage, and combo-box popup
-  view/palette theme-style coverage,
+  view/palette/frame theme-style coverage,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source
