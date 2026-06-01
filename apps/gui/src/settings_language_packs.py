@@ -30,6 +30,7 @@ from language_packs import (
 )
 from frequency_pack_import import import_frequency_source_file
 from i18n import t
+from localized_message_box import localized_question, localize_standard_buttons
 from pack_source_manifest import load_pack_source_overrides
 from settings_language_packs_layout_mixin import LanguagePackPanelLayoutMixin
 from settings_language_packs_pair_setup_mixin import LanguagePackPanelPairSetupMixin
@@ -441,6 +442,7 @@ class LanguagePackPanel(
         import_button.setEnabled(False)
         checkbox.stateChanged.connect(lambda _state: import_button.setEnabled(checkbox.isChecked()))
         dialog.addButton(QMessageBox.StandardButton.Cancel)
+        localize_standard_buttons(dialog)
         dialog.exec()
         return dialog.clickedButton() == import_button and checkbox.isChecked()
 
@@ -579,7 +581,7 @@ class LanguagePackPanel(
             message = t("language_packs.unlink_confirm", name=pack.display_name())
         else:
             message = t("language_packs.delete_confirm", name=pack.display_name())
-        reply = QMessageBox.question(
+        reply = localized_question(
             self,
             t("language_packs.delete_title"),
             message,
@@ -635,7 +637,7 @@ class LanguagePackPanel(
             message = t("language_packs.unlink_confirm", name=pack.display_name())
         else:
             message = t("language_packs.delete_confirm", name=pack.display_name())
-        reply = QMessageBox.question(
+        reply = localized_question(
             self,
             t("language_packs.delete_title"),
             message,
@@ -712,7 +714,7 @@ class LanguagePackPanel(
             message = t("language_packs.unlink_confirm", name=pack.display_name())
         else:
             message = t("language_packs.delete_confirm", name=pack.display_name())
-        reply = QMessageBox.question(
+        reply = localized_question(
             self,
             t("language_packs.delete_title"),
             message,

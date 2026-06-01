@@ -15,6 +15,7 @@ from PySide6.QtWidgets import (
 )
 
 from i18n import t
+from localized_message_box import localized_question, localize_standard_buttons
 from settings_language_packs_support import (
     is_pack_download_disabled,
     pack_download_disabled_tooltip,
@@ -197,7 +198,7 @@ class LanguagePackPanelPairSetupMixin:
         installed_items: tuple[PairResourceItem, ...],
     ) -> bool:
         resources = ", ".join(item.label for item in installed_items)
-        reply = QMessageBox.question(
+        reply = localized_question(
             self,
             t("language_packs.learning_pairs.remove_pair_confirm_title"),
             t(
@@ -611,6 +612,7 @@ class LanguagePackPanelPairSetupMixin:
             QMessageBox.ButtonRole.AcceptRole,
         )
         dialog.addButton(QMessageBox.StandardButton.Close)
+        localize_standard_buttons(dialog)
         dialog.exec()
         if provider_button is not None and dialog.clickedButton() == provider_button:
             webbrowser.open(str(getattr(pack, "url", "") or "").strip())

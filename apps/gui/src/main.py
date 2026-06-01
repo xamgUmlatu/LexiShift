@@ -68,6 +68,7 @@ from dialogs import (
 )
 from helper_ui import auto_install_helper
 from i18n import set_locale, t
+from localized_message_box import localized_question
 from main_mixins import (
     MainWindowBulkRulesMixin,
     MainWindowImportExportMixin,
@@ -654,7 +655,7 @@ class MainWindow(
                 source=rule.source_phrase,
                 replacement=rule.replacement,
             )
-            reply = QMessageBox.question(
+            reply = localized_question(
                 self,
                 t("dialogs.delete_rule.title"),
                 message,

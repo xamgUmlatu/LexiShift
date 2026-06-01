@@ -17,6 +17,7 @@ from PySide6.QtWidgets import (
 
 from lexishift_core import Profile, load_vocab_dataset
 from i18n import t
+from localized_message_box import localize_standard_buttons
 from profile_ruleset_utils import (
     collect_profile_rulesets,
     normalize_ruleset_path,
@@ -232,6 +233,7 @@ class RulesetLibraryDialog(QDialog):
         )
         first_confirm.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         first_confirm.setDefaultButton(QMessageBox.Cancel)
+        localize_standard_buttons(first_confirm)
         if first_confirm.exec() != QMessageBox.Ok:
             return
 
@@ -241,6 +243,7 @@ class RulesetLibraryDialog(QDialog):
         second_confirm.setText(t("dialogs.manage_rulesets.delete_final_confirm"))
         second_confirm.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
         second_confirm.setDefaultButton(QMessageBox.Cancel)
+        localize_standard_buttons(second_confirm)
         if second_confirm.exec() != QMessageBox.Yes:
             return
 

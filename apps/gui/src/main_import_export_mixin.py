@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QDialog, QFileDialog, QMessageBox
 
 from dialogs_code import CodeDialog
 from i18n import t
+from localized_message_box import localized_question
 from lexishift_core import (
     export_app_settings_code,
     export_app_settings_json,
@@ -160,7 +161,7 @@ class MainWindowImportExportMixin:
     def _confirm_discard_changes(self) -> bool:
         if not self.state.dirty:
             return True
-        reply = QMessageBox.question(
+        reply = localized_question(
             self,
             t("dialogs.unsaved.title"),
             t("dialogs.unsaved.discard"),

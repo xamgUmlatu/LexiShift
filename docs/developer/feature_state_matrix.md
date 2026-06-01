@@ -1873,7 +1873,9 @@ Use this file when:
   before removing a pair card from the Learning Languages list when any
   required resources for that pair are installed; Learning Languages pair and
   required-resource labels now resolve through the GUI locale catalog instead
-  of hardcoded English plan labels; SRS story cards, topic
+  of hardcoded English plan labels, and GUI confirmation dialogs now route
+  standard buttons such as Yes/No/Cancel/Close through the app locale catalog
+  instead of relying on Qt's untranslated standard-button text; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1931,7 +1933,7 @@ Use this file when:
   Learning Languages resource uninstall buttons and installed-resource remove
   confirmation,
   localized Learning Languages pair/resource labels plus recursive GUI i18n
-  catalog-shape coverage,
+  catalog-shape coverage and localized QMessageBox standard-button coverage,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source

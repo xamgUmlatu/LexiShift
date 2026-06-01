@@ -52,6 +52,7 @@ from helper_ui import (
     save_browser_connections,
 )
 from i18n import t
+from localized_message_box import localized_question
 from utils_paths import reveal_path
 
 _BROWSER_OPTIONS = [
@@ -762,7 +763,7 @@ class BrowserConnectionsDialog(QDialog):
     ) -> bool:
         if config is None or config.host_mode == HOST_MODE_WORKSPACE:
             return True
-        answer = QMessageBox.question(
+        answer = localized_question(
             self,
             t("dialogs.browser_connections.shared_host_warning_title"),
             t(

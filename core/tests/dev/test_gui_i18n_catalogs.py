@@ -51,6 +51,20 @@ class TestGuiI18nCatalogs(unittest.TestCase):
                 f"{locale} catalog keys differ from en",
             )
 
+    def test_gui_code_does_not_use_static_qmessagebox_question(self) -> None:
+        gui_src = PROJECT_ROOT / "apps" / "gui" / "src"
+        offenders = []
+        for path in sorted(gui_src.glob("*.py")):
+            text = path.read_text(encoding="utf-8")
+            if "QMessageBox.question(" in text:
+                offenders.append(str(path.relative_to(PROJECT_ROOT)))
+
+        self.assertEqual(
+            offenders,
+            [],
+            "Use localized_message_box.localized_question so standard buttons use GUI i18n",
+        )
+
     def test_browser_connections_catalog_exists_in_all_gui_locales(self) -> None:
         en_catalog = _load(EN_PATH)
         en_section = _lookup(en_catalog, "dialogs.browser_connections")

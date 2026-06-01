@@ -149,10 +149,10 @@ def test_browser_connections_dialog_warns_before_switching_browser_to_workspace_
         targets=(),
     )
 
-    with patch("helper_connections_dialog.QMessageBox.question", return_value=QMessageBox.No):
+    with patch("helper_connections_dialog.localized_question", return_value=QMessageBox.No):
         assert dialog._confirm_workspace_host_switch(config) is False
 
-    with patch("helper_connections_dialog.QMessageBox.question", return_value=QMessageBox.Yes):
+    with patch("helper_connections_dialog.localized_question", return_value=QMessageBox.Yes):
         assert dialog._confirm_workspace_host_switch(config) is True
 
 

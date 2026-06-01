@@ -259,7 +259,7 @@ def test_remove_learning_pair_confirms_when_pair_has_installed_resources(monkeyp
         messages.append(message)
         return QMessageBox.Cancel
 
-    monkeypatch.setattr(pair_setup_mixin.QMessageBox, "question", cancel_remove)
+    monkeypatch.setattr(pair_setup_mixin, "localized_question", cancel_remove)
 
     panel._remove_learning_pair("en-es")
 
@@ -267,11 +267,7 @@ def test_remove_learning_pair_confirms_when_pair_has_installed_resources(monkeyp
     assert messages
     assert "Spanish word frequency data" in messages[0]
 
-    monkeypatch.setattr(
-        pair_setup_mixin.QMessageBox,
-        "question",
-        lambda *_args: QMessageBox.Yes,
-    )
+    monkeypatch.setattr(pair_setup_mixin, "localized_question", lambda *_args: QMessageBox.Yes)
 
     panel._remove_learning_pair("en-es")
 

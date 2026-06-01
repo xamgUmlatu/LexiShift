@@ -53,7 +53,7 @@ def test_delete_language_pack_unlinks_manual_binding() -> None:
         dummy._set_status_message = lambda *args, **kwargs: None
 
         with patch(
-            "settings_language_packs.QMessageBox.question",
+            "settings_language_packs.localized_question",
             return_value=QMessageBox.Yes,
         ) as question_mock:
             LanguagePackPanel._delete_language_pack(dummy, "freedict-en-es")
@@ -130,7 +130,7 @@ def test_delete_frequency_pack_unlinks_manual_external_path() -> None:
         dummy._set_status_message = lambda *args, **kwargs: None
 
         with patch(
-            "settings_language_packs.QMessageBox.question",
+            "settings_language_packs.localized_question",
             return_value=QMessageBox.Yes,
         ) as question_mock:
             LanguagePackPanel._delete_frequency_pack(dummy, "freq-manual")
