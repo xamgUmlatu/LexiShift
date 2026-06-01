@@ -13,6 +13,7 @@ from PySide6.QtWidgets import (
     QLabel,
     QMessageBox,
     QPushButton,
+    QSizePolicy,
     QStyle,
     QTabWidget,
     QTableWidget,
@@ -132,6 +133,9 @@ class LanguagePackPanel(
         self.language_pack_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.language_pack_table.setAlternatingRowColors(True)
         self.language_pack_table.verticalHeader().setVisible(False)
+        self.language_pack_table.verticalHeader().setDefaultSectionSize(38)
+        self.language_pack_table.verticalHeader().setMinimumSectionSize(34)
+        self.language_pack_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         header = self.language_pack_table.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
@@ -141,7 +145,7 @@ class LanguagePackPanel(
         header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
-        self.language_pack_table.setMinimumHeight(320)
+        self.language_pack_table.setMinimumHeight(460)
 
         self.frequency_pack_table = QTableWidget()
         self.frequency_pack_table.setColumnCount(8)
@@ -161,6 +165,9 @@ class LanguagePackPanel(
         self.frequency_pack_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.frequency_pack_table.setAlternatingRowColors(True)
         self.frequency_pack_table.verticalHeader().setVisible(False)
+        self.frequency_pack_table.verticalHeader().setDefaultSectionSize(38)
+        self.frequency_pack_table.verticalHeader().setMinimumSectionSize(34)
+        self.frequency_pack_table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         freq_header = self.frequency_pack_table.horizontalHeader()
         freq_header.setSectionResizeMode(0, QHeaderView.Stretch)
         freq_header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
@@ -170,7 +177,7 @@ class LanguagePackPanel(
         freq_header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
         freq_header.setSectionResizeMode(6, QHeaderView.ResizeToContents)
         freq_header.setSectionResizeMode(7, QHeaderView.ResizeToContents)
-        self.frequency_pack_table.setMinimumHeight(220)
+        self.frequency_pack_table.setMinimumHeight(380)
 
         self.language_pack_status = QLabel("")
         self.language_pack_status.setWordWrap(True)
@@ -183,10 +190,11 @@ class LanguagePackPanel(
 
         layout = QVBoxLayout(self)
         title = QLabel(t("language_packs.title"))
-        title.setStyleSheet("font-weight: 600; font-size: 14px;")
+        title.setProperty("resourcePanelTitle", True)
         layout.addWidget(title)
 
         self._resource_tabs = QTabWidget(self)
+        self._resource_tabs.setObjectName("lexishiftResourceTabs")
         self._resource_tabs.addTab(
             self._build_learning_languages_tab(),
             t("language_packs.learning_pairs.tab_title"),

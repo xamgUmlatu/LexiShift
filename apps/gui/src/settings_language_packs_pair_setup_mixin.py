@@ -40,21 +40,138 @@ class LanguagePackPanelPairSetupMixin:
             self._ensure_learning_pair(self._focused_pair_plan.pair, persist=True)
 
     def _apply_pair_resource_setup_style(self) -> None:
+        bg = self._theme_hex("bg", fallback="#F6F2EB")
         panel_top = self._theme_hex("panel_top", fallback="#FFFFFF")
+        panel_bottom = self._theme_hex("panel_bottom", fallback="#EFE7DC")
         panel_border = self._theme_hex("panel_border", fallback="#D8D0C0")
-        background = self._theme_hex("background", fallback="#F7F3EA")
+        table_bg = self._theme_hex("table_bg", fallback="#FFFFFF")
+        table_sel_bg = self._theme_hex("table_sel_bg", fallback="#E7D9C6")
         text_color = self._theme_hex("text", fallback="#1F2933")
+        muted_color = self._theme_hex("muted", fallback="#5C5C5C")
+        accent = self._theme_hex("accent", fallback="#9A6A2B")
+        accent_soft = self._theme_hex("accent_soft", fallback="#E9D6BF")
+        primary = self._theme_hex("primary", fallback="#2F2F2F")
+        primary_hover = self._theme_hex("primary_hover", fallback="#232323")
         self.setStyleSheet(
-            "QFrame#learningLanguagePairCard, QFrame#learningLanguageResourceSlot {"
-            f"background: {panel_top};"
-            f"border: 1px solid {panel_border};"
-            "border-radius: 8px;"
-            "}"
-            "QFrame#learningLanguageResourceSlot {"
-            f"background: {background};"
-            "}"
-            f"QFrame#learningLanguagePairCard QLabel {{ color: {text_color}; }}"
-            f"QFrame#learningLanguageResourceSlot QLabel {{ color: {text_color}; }}"
+            f"""
+QWidget {{
+  color: {text_color};
+}}
+QWidget[resourcePanelTab="true"], QWidget[resourcePanelCanvas="true"] {{
+  background: {panel_top};
+  color: {text_color};
+}}
+QTabWidget#lexishiftResourceTabs::pane {{
+  background: {panel_top};
+  border: 1px solid {panel_border};
+  border-radius: 8px;
+  top: -1px;
+}}
+QTabWidget#lexishiftResourceTabs QTabBar::tab {{
+  background: {panel_bottom};
+  color: {muted_color};
+  padding: 8px 14px;
+  margin-right: 4px;
+  border: 1px solid {panel_border};
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  font-weight: 600;
+}}
+QTabWidget#lexishiftResourceTabs QTabBar::tab:selected {{
+  background: {panel_top};
+  color: {text_color};
+  border-bottom-color: {panel_top};
+}}
+QLabel[resourcePanelTitle="true"] {{
+  color: {accent};
+  font-weight: 700;
+  font-size: 15px;
+}}
+QLabel[resourceSectionTitle="true"] {{
+  color: {text_color};
+  font-weight: 700;
+  font-size: 14px;
+}}
+QLabel[resourceDescription="true"] {{
+  color: {muted_color};
+  font-size: 12px;
+}}
+QScrollArea#learningPairScrollArea {{
+  background: {panel_top};
+  border: none;
+}}
+QScrollArea#learningPairScrollArea > QWidget > QWidget {{
+  background: {panel_top};
+}}
+QFrame#learningLanguagePairCard, QFrame#learningLanguageResourceSlot {{
+  background: {table_bg};
+  border: 1px solid {panel_border};
+  border-radius: 8px;
+}}
+QFrame#learningLanguageResourceSlot {{
+  background: {panel_bottom};
+}}
+QFrame#learningLanguagePairCard QLabel, QFrame#learningLanguageResourceSlot QLabel {{
+  color: {text_color};
+}}
+QTableWidget {{
+  background: {table_bg};
+  alternate-background-color: {panel_top};
+  color: {text_color};
+  gridline-color: {panel_border};
+  border: 1px solid {panel_border};
+  border-radius: 8px;
+  selection-background-color: {table_sel_bg};
+  selection-color: {text_color};
+}}
+QTableWidget::item {{
+  padding: 6px 8px;
+}}
+QHeaderView::section {{
+  background: {accent_soft};
+  color: {text_color};
+  padding: 8px;
+  border: none;
+  font-weight: 700;
+}}
+QComboBox {{
+  background: {table_bg};
+  color: {text_color};
+  border: 1px solid {panel_border};
+  border-radius: 6px;
+  padding: 6px 8px;
+}}
+QPushButton {{
+  background: {table_bg};
+  color: {text_color};
+  border: 1px solid {panel_border};
+  border-radius: 6px;
+  padding: 6px 12px;
+}}
+QPushButton:hover {{
+  background: {accent_soft};
+}}
+QPushButton#settingsPrimaryButton {{
+  background: {primary};
+  color: #FFFFFF;
+  border-color: {primary};
+}}
+QPushButton#settingsPrimaryButton:hover {{
+  background: {primary_hover};
+  border-color: {primary_hover};
+}}
+QProgressBar {{
+  background: {bg};
+  color: {text_color};
+  border: 1px solid {panel_border};
+  border-radius: 6px;
+  text-align: center;
+}}
+QProgressBar::chunk {{
+  background: {accent};
+  border-radius: 5px;
+}}
+"""
         )
 
     def _load_learning_pair_keys(self) -> list[str]:
@@ -338,6 +455,7 @@ class LanguagePackPanelPairSetupMixin:
         installed_count = len(plan.resources) - len(missing_items)
         header = QHBoxLayout()
         title = QLabel(plan.label, card)
+        title.setProperty("resourceCardTitle", True)
         title.setStyleSheet("font-weight: 700; font-size: 13px;")
         header.addWidget(title, 1)
         status = QLabel(self._learning_pair_status_text(installed_count, len(plan.resources)), card)

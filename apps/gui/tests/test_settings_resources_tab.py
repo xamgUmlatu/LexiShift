@@ -298,6 +298,46 @@ def test_resources_tab_has_dedicated_resource_subviews() -> None:
     assert tabs.tabText(4) == t("language_packs.cross_embeddings_title")
 
 
+def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    panel = dialog.language_pack_panel
+    panel.set_theme(
+        {
+            "bg": "#111111",
+            "panel_top": "#223344",
+            "panel_bottom": "#334455",
+            "panel_border": "#445566",
+            "table_bg": "#556677",
+            "table_sel_bg": "#667788",
+            "text": "#F0F1F2",
+            "muted": "#C0C1C2",
+            "accent": "#D0A040",
+            "accent_soft": "#384858",
+            "primary": "#204060",
+            "primary_hover": "#305070",
+        }
+    )
+    language_tab = panel._resource_tabs.widget(1)
+    labels = language_tab.findChildren(type(panel.language_pack_status))
+    stylesheet = panel.styleSheet()
+
+    assert panel._resource_tabs.objectName() == "lexishiftResourceTabs"
+    assert language_tab.property("resourcePanelTab") is True
+    assert panel.language_pack_table.minimumHeight() >= 460
+    assert panel.language_pack_table.verticalHeader().defaultSectionSize() >= 38
+    assert panel.frequency_pack_table.minimumHeight() >= 380
+    assert 'QWidget[resourcePanelTab="true"]' in stylesheet
+    assert "QTableWidget" in stylesheet
+    assert "QTabWidget#lexishiftResourceTabs::pane" in stylesheet
+    assert "#223344" in stylesheet
+    assert "#556677" in stylesheet
+    assert "#F0F1F2" in stylesheet
+    assert any(label.property("resourceSectionTitle") is True for label in labels)
+    assert any(label.property("resourceDescription") is True for label in labels)
+
+
 def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:
     _app()
     set_locale("en")
