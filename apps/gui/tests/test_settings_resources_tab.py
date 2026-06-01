@@ -349,15 +349,15 @@ def test_resources_tab_style_falls_back_when_theme_text_lacks_contrast() -> None
     panel.set_theme(
         {
             "bg": "#242424",
-            "panel_top": "#242424",
-            "panel_bottom": "#242424",
+            "panel_top": "#FFFFFF",
+            "panel_bottom": "#FFFFFF",
             "panel_border": "#333333",
-            "table_bg": "#242424",
-            "table_sel_bg": "#242424",
+            "table_bg": "#FFFFFF",
+            "table_sel_bg": "#FFFFFF",
             "text": "#252525",
             "muted": "#252525",
             "accent": "#252525",
-            "accent_soft": "#252525",
+            "accent_soft": "#FFFFFF",
             "primary": "#252525",
             "primary_hover": "#252525",
         }
@@ -365,7 +365,23 @@ def test_resources_tab_style_falls_back_when_theme_text_lacks_contrast() -> None
     stylesheet = panel.styleSheet()
 
     assert "background: transparent;" in stylesheet
-    assert "#FFFFFF" in stylesheet
+    assert 'QLabel[resourceSectionTitle="true"] {\n  color: #FFFFFF;' in stylesheet
+    assert 'QLabel[resourceDescription="true"] {\n  color: #FFFFFF;' in stylesheet
+    assert "font-size: 15px;" in stylesheet
+    assert "font-size: 13px;" in stylesheet
+
+
+def test_settings_resource_intro_label_uses_readable_canvas_style() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    resources_tab = dialog._tabs.widget(1)
+    labels = resources_tab.findChildren(type(dialog.language_pack_panel.language_pack_status))
+    stylesheet = dialog.styleSheet()
+
+    assert any(label.objectName() == "settingsIntroLabel" for label in labels)
+    assert "QLabel#settingsIntroLabel" in stylesheet
+    assert "font-size: 13px;" in stylesheet
 
 
 def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:

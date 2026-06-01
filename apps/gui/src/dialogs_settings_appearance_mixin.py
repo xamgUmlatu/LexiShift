@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 from dialogs_theme_utils import _ThemedTabContainer, _coerce_float, _merge_theme
 from i18n import available_locales, t
 from theme_loader import load_user_themes, theme_dir
-from theme_manager import build_browser_connection_styles, resolve_theme
+from theme_manager import build_browser_connection_styles, readable_text_color, resolve_theme
 from theme_registry import BUILTIN_THEMES
 from utils_paths import reveal_path
 
@@ -77,6 +77,15 @@ class SettingsDialogAppearanceMixin:
     def _apply_theme(self) -> None:
         theme = resolve_theme(self._theme_id, screen_id="settings_dialog")
         self.language_pack_panel.set_theme(theme)
+        canvas_text = readable_text_color(theme["text"], theme["bg"])
+        canvas_muted = readable_text_color(theme["muted"], theme["bg"], minimum_ratio=3.8)
+        canvas_accent = readable_text_color(theme["accent"], theme["bg"], minimum_ratio=3.8)
+        tab_text = readable_text_color(theme["muted"], theme["panel_bottom"], minimum_ratio=3.8)
+        selected_tab_text = readable_text_color(theme["text"], theme["panel_top"])
+        table_text = readable_text_color(theme["text"], theme["table_bg"])
+        header_text = readable_text_color(theme["text"], theme["accent_soft"])
+        selection_text = readable_text_color(theme["text"], theme["table_sel_bg"])
+        primary_text = readable_text_color("#FFFFFF", theme["primary"])
         background = theme.get("_background", {})
         background_path = theme.get("_background_path")
         if hasattr(self, "_tab_containers"):
@@ -91,10 +100,15 @@ class SettingsDialogAppearanceMixin:
         self.setStyleSheet(
             "QDialog {"
             f"background: {theme['bg']};"
-            f"color: {theme['text']};"
+            f"color: {canvas_text};"
             "}"
             "QLabel {"
-            f"color: {theme['text']};"
+            f"color: {canvas_text};"
+            "}"
+            "QLabel#settingsIntroLabel {"
+            f"color: {canvas_muted};"
+            "font-size: 13px;"
+            "font-weight: 500;"
             "}"
             "QWidget#settingsTabContainer {"
             "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
@@ -103,9 +117,9 @@ class SettingsDialogAppearanceMixin:
             "border-radius: 10px;"
             "}"
             "QLabel#sectionLabel {"
-            f"color: {theme['accent']};"
+            f"color: {canvas_accent};"
             "font-weight: 600;"
-            "font-size: 13px;"
+            "font-size: 14px;"
             "margin-top: 8px;"
             "}"
             "QTabWidget::pane {"
@@ -114,7 +128,7 @@ class SettingsDialogAppearanceMixin:
             "}"
             "QTabBar::tab {"
             f"background: {theme['panel_bottom']};"
-            f"color: {theme['muted']};"
+            f"color: {tab_text};"
             "padding: 6px 12px;"
             "margin-right: 4px;"
             "border-top-left-radius: 6px;"
@@ -122,18 +136,18 @@ class SettingsDialogAppearanceMixin:
             "}"
             "QTabBar::tab:selected {"
             f"background: {theme['panel_top']};"
-            f"color: {theme['text']};"
+            f"color: {selected_tab_text};"
             "}"
             "QComboBox, QLineEdit, QPlainTextEdit {"
             f"background: {theme['table_bg']};"
-            f"color: {theme['text']};"
+            f"color: {table_text};"
             f"border: 1px solid {theme['panel_border']};"
             "border-radius: 6px;"
             "padding: 4px 6px;"
             "}"
             "QHeaderView::section {"
             f"background: {theme['accent_soft']};"
-            f"color: {theme['text']};"
+            f"color: {header_text};"
             "padding: 6px;"
             "border: none;"
             "}"
@@ -143,16 +157,17 @@ class SettingsDialogAppearanceMixin:
             "}"
             "QTableWidget::item:selected {"
             f"background: {theme['table_sel_bg']};"
-            f"color: {theme['text']};"
+            f"color: {selection_text};"
             "}"
             "QPushButton#settingsPrimaryButton {"
             f"background: {theme['primary']};"
-            "color: #FFFFFF;"
+            f"color: {primary_text};"
             "padding: 6px 14px;"
             "border-radius: 6px;"
             "}"
             "QPushButton#settingsPrimaryButton:hover {"
             f"background: {theme['primary_hover']};"
+            f"color: {readable_text_color(primary_text, theme['primary_hover'])};"
             "}"
             f"{build_browser_connection_styles(theme)}"
         )

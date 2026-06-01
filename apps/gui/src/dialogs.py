@@ -354,6 +354,7 @@ class SettingsDialog(SettingsDialogAppearanceMixin, QDialog):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
         description = QLabel(t("language_packs.resources_description"))
+        description.setObjectName("settingsIntroLabel")
         description.setWordWrap(True)
         layout.addWidget(description)
         layout.addWidget(self.language_pack_panel)

@@ -53,9 +53,9 @@ class LanguagePackPanelPairSetupMixin:
         accent_soft = self._theme_hex("accent_soft", fallback="#E9D6BF")
         primary = self._theme_hex("primary", fallback="#2F2F2F")
         primary_hover = self._theme_hex("primary_hover", fallback="#232323")
-        panel_text = readable_text_color(text_color, panel_top)
-        panel_muted = readable_text_color(muted_color, panel_top, minimum_ratio=3.8)
-        accent_text = readable_text_color(accent, panel_top, minimum_ratio=3.8)
+        canvas_text = readable_text_color(text_color, bg)
+        canvas_muted = readable_text_color(muted_color, bg, minimum_ratio=3.8)
+        canvas_accent = readable_text_color(accent, bg, minimum_ratio=3.8)
         tab_text = readable_text_color(muted_color, panel_bottom, minimum_ratio=3.8)
         selected_tab_text = readable_text_color(text_color, panel_top)
         table_text = readable_text_color(text_color, table_bg)
@@ -71,7 +71,7 @@ QWidget {{
 }}
 QWidget[resourcePanelTab="true"], QWidget[resourcePanelCanvas="true"] {{
   background: transparent;
-  color: {panel_text};
+  color: {canvas_text};
 }}
 QTabWidget#lexishiftResourceTabs::pane {{
   background: transparent;
@@ -95,18 +95,19 @@ QTabWidget#lexishiftResourceTabs QTabBar::tab:selected {{
   border-bottom-color: {panel_top};
 }}
 QLabel[resourcePanelTitle="true"] {{
-  color: {accent_text};
+  color: {canvas_accent};
+  font-weight: 700;
+  font-size: 16px;
+}}
+QLabel[resourceSectionTitle="true"] {{
+  color: {canvas_text};
   font-weight: 700;
   font-size: 15px;
 }}
-QLabel[resourceSectionTitle="true"] {{
-  color: {panel_text};
-  font-weight: 700;
-  font-size: 14px;
-}}
 QLabel[resourceDescription="true"] {{
-  color: {panel_muted};
-  font-size: 12px;
+  color: {canvas_muted};
+  font-size: 13px;
+  font-weight: 500;
 }}
 QScrollArea#learningPairScrollArea {{
   background: transparent;
