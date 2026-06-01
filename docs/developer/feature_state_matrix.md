@@ -1927,7 +1927,7 @@ Use this file when:
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source
-  `freq-es-cde` managed-import tests; extension
+  `freq-es-cde` managed-import/default-picker tests; extension
   structure/i18n checks, doc-reference check, state audit, changed-file gate,
   and diff check pass.
 - Default behavior:
@@ -1960,6 +1960,8 @@ Use this file when:
     access and local file import instead of starting an app-managed download or
     switching the user to the detailed Frequency packs tab. For `freq-es-cde`,
     selecting a licensed `spanish_lemmas20k.txt` source confirms local-use rights,
+    starts the file picker in the user's Downloads folder and preselects the
+    expected source filename when present,
     stages a temporary copy, converts it into the managed
     `frequency_packs/freq-es-cde/main.sqlite` artifact, writes manifest and
     provenance sidecars, deletes the staged copy, and leaves the user's original

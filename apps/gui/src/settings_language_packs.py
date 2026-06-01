@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 from typing import Mapping
 
+from PySide6.QtCore import QStandardPaths
 from PySide6.QtWidgets import (
     QAbstractItemView,
     QCheckBox,
@@ -377,7 +378,7 @@ class LanguagePackPanel(
         path, _ = QFileDialog.getOpenFileName(
             self,
             t("dialogs.select_pack_file", name=pack.display_name()),
-            "",
+            self._frequency_pack_file_picker_start(pack),
             filters,
         )
         if not path:
@@ -413,6 +414,20 @@ class LanguagePackPanel(
 
     def _supports_frequency_source_import(self, pack: FrequencyPackInfo) -> bool:
         return pack.pack_id == "freq-es-cde"
+
+    def _frequency_pack_file_picker_start(self, pack: FrequencyPackInfo) -> str:
+        if not self._supports_frequency_source_import(pack):
+            return ""
+        downloads = QStandardPaths.writableLocation(QStandardPaths.DownloadLocation)
+        if not downloads:
+            fallback = Path.home() / "Downloads"
+            downloads = str(fallback) if fallback.exists() else ""
+        if not downloads:
+            return ""
+        expected_file = Path(downloads) / pack.filename
+        if expected_file.is_file():
+            return str(expected_file)
+        return downloads
 
     def _confirm_frequency_import_rights(self, pack: FrequencyPackInfo) -> bool:
         dialog = QMessageBox(self)

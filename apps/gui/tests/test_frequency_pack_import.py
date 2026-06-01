@@ -100,3 +100,26 @@ def test_frequency_pack_panel_imports_freq_es_raw_source_as_managed_pack(monkeyp
         assert sqlite_path.exists()
         assert "freq-es-cde" in panel._managed_frequency_pack_ids
         assert "freq-es-cde" not in panel._frequency_pack_paths
+
+
+def test_frequency_pack_panel_starts_import_picker_at_downloaded_source(monkeypatch) -> None:
+    _app()
+    set_locale("en")
+    with TemporaryDirectory() as temp_dir:
+        downloads = Path(temp_dir) / "Downloads"
+        downloads.mkdir()
+        source = downloads / "spanish_lemmas20k.txt"
+        source.write_text("ID\tfreq\tlemma\tpos\n", encoding="latin-1")
+        panel = LanguagePackPanel(pack_source_overrides={})
+        pack = panel._frequency_pack_info["freq-es-cde"]
+
+        monkeypatch.setattr(
+            "settings_language_packs.QStandardPaths.writableLocation",
+            lambda _location: str(downloads),
+        )
+
+        assert panel._frequency_pack_file_picker_start(pack) == str(source)
+
+        source.unlink()
+
+        assert panel._frequency_pack_file_picker_start(pack) == str(downloads)
