@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
-from PySide6.QtWidgets import QApplication  # noqa: E402
+from PySide6.QtWidgets import QApplication, QMessageBox  # noqa: E402
 
 from frequency_pack_import import import_frequency_source_file  # noqa: E402
 from i18n import set_locale  # noqa: E402
@@ -123,3 +123,39 @@ def test_frequency_pack_panel_starts_import_picker_at_downloaded_source(monkeypa
         source.unlink()
 
         assert panel._frequency_pack_file_picker_start(pack) == str(downloads)
+
+
+def test_frequency_pack_import_rights_dialog_requires_checked_confirmation(
+    monkeypatch,
+) -> None:
+    _app()
+    set_locale("en")
+    panel = LanguagePackPanel(pack_source_overrides={})
+    pack = panel._frequency_pack_info["freq-es-cde"]
+    observed: dict[str, bool] = {}
+
+    def inspect_dialog(dialog: QMessageBox) -> int:
+        checkbox = dialog.checkBox()
+        assert checkbox is not None
+        import_buttons = [
+            button
+            for button in dialog.buttons()
+            if dialog.buttonRole(button) == QMessageBox.ButtonRole.AcceptRole
+        ]
+        assert len(import_buttons) == 1
+        import_button = import_buttons[0]
+        observed["initial_enabled"] = import_button.isEnabled()
+        checkbox.setChecked(True)
+        observed["checked_enabled"] = import_button.isEnabled()
+        checkbox.setChecked(False)
+        observed["unchecked_enabled"] = import_button.isEnabled()
+        return QMessageBox.StandardButton.Cancel.value
+
+    monkeypatch.setattr("settings_language_packs.QMessageBox.exec", inspect_dialog)
+
+    assert panel._confirm_frequency_import_rights(pack) is False
+    assert observed == {
+        "initial_enabled": False,
+        "checked_enabled": True,
+        "unchecked_enabled": False,
+    }
