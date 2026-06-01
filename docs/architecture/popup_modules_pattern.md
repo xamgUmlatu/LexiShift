@@ -195,9 +195,13 @@ Current state:
 - `LexiShift.wordInfoApi` is implemented and loaded by both content scripts and
   Options.
 - The content singleton is configured with the helper client.
-- The normalized popup context builder and `api.wordInfo` module injection are
-  still target architecture, not current popup runtime behavior.
-- `quick-definition` is still planned.
+- `quick-definition` is implemented as a default-on internal popup module. It
+  receives the existing `LexiShift.wordInfoApi` service through the current
+  descriptor/context path, renders immediately, and updates asynchronously when
+  lookup data returns.
+- The normalized public popup context builder and stable `api.wordInfo` module
+  injection contract are still target architecture, not the public runtime
+  behavior exposed to third-party modules.
 
 ```js
 {
@@ -471,7 +475,8 @@ Step 4:
 - Add shared service injection for modules, adapting implemented
   `LexiShift.wordInfoApi` into `api.wordInfo`.
 - Add `quick-definition` as an internal module that uses the same API as the
-  Vocabulary Library.
+  Vocabulary Library. This is implemented for the internal descriptor runtime;
+  the future public module API still needs the stable `api.wordInfo` facade.
 
 Step 5:
 - Add options UI for enabling/disabling modules by language.

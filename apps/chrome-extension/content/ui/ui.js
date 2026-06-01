@@ -5,6 +5,9 @@
   const scriptModule = root.uiJapaneseScriptModule && typeof root.uiJapaneseScriptModule === "object"
     ? root.uiJapaneseScriptModule
     : null;
+  const quickDefinitionModule = root.uiQuickDefinitionModule && typeof root.uiQuickDefinitionModule === "object"
+    ? root.uiQuickDefinitionModule
+    : null;
   const feedbackHistoryModule = root.uiFeedbackHistoryModule && typeof root.uiFeedbackHistoryModule === "object"
     ? root.uiFeedbackHistoryModule
     : null;
@@ -35,6 +38,9 @@
   const popupHistoryStore = root.popupModuleHistoryStore && typeof root.popupModuleHistoryStore === "object"
     ? root.popupModuleHistoryStore
     : null;
+  const wordInfoApi = root.wordInfoApi && typeof root.wordInfoApi === "object"
+    ? root.wordInfoApi
+    : null;
   const lemmatize = root.lemmatizer && typeof root.lemmatizer.lemmatize === "function"
     ? root.lemmatizer.lemmatize
     : null;
@@ -43,16 +49,19 @@
     ? root.uiPopupModuleRegistry.createRegistry
     : null;
   const RUNTIME_THEME_MODULE_ID_MAP = Object.freeze({
+    "quick-definition": "quick-definition",
     "japanese-script": "ja-script-forms",
     "feedback-history": "feedback-history",
     "encounter-history": "encounter-history"
   });
   const PREF_TO_RUNTIME_MODULE_ID_MAP = Object.freeze({
+    "quick-definition": "quick-definition",
     "ja-script-forms": "japanese-script",
     "feedback-history": "feedback-history",
     "encounter-history": "encounter-history"
   });
   const DEFAULT_RUNTIME_MODULE_ORDER = Object.freeze([
+    "quick-definition",
     "japanese-script",
     "feedback-history",
     "encounter-history"
@@ -138,7 +147,30 @@
     };
   }
 
+  function wordInfoModuleContext() {
+    return {
+      profileId: activePopupProfileId,
+      t,
+      locale: resolveActivePopupLocale(),
+      wordInfo: wordInfoApi,
+      wordInfoApi
+    };
+  }
+
   const popupModuleDescriptorsById = {
+    "quick-definition": {
+      id: "quick-definition",
+      build: (target, debugLog) => {
+        if (!quickDefinitionModule || typeof quickDefinitionModule.build !== "function") {
+          return null;
+        }
+        const targetLanguage = resolveTargetLanguage(target);
+        if (!isPopupModuleEnabled("quick-definition", targetLanguage)) {
+          return null;
+        }
+        return quickDefinitionModule.build(target, debugLog, wordInfoModuleContext());
+      }
+    },
     "japanese-script": {
       id: "japanese-script",
       build: (target, debugLog) => {
@@ -277,6 +309,26 @@
       .lexishift-popup-module-quote{padding-left:6px;
         border-left:2px solid var(--lexishift-module-quote-border, rgba(247,244,239,0.35));
         font-style:italic;color:var(--lexishift-module-quote-text, rgba(247,244,239,0.86));}
+      .lexishift-definition-module{min-width:180px;}
+      .lexishift-definition-header{display:flex;align-items:center;justify-content:space-between;
+        gap:8px;margin-bottom:5px;}
+      .lexishift-definition-word{min-width:0;font-size:14px;line-height:1.2;font-weight:800;
+        word-break:break-word;}
+      .lexishift-definition-pos{flex:0 0 auto;padding:2px 6px;border-radius:999px;
+        background:var(--lexishift-module-quote-border, rgba(247,244,239,0.18));
+        color:var(--lexishift-module-label, rgba(247,244,239,0.78));
+        font-size:10px;line-height:1.2;font-weight:700;text-transform:uppercase;}
+      .lexishift-definition-pos:empty{display:none;}
+      .lexishift-definition-body{display:flex;flex-direction:column;gap:5px;}
+      .lexishift-definition-status,.lexishift-definition-match{font-size:11px;line-height:1.35;
+        color:var(--lexishift-module-line, rgba(247,244,239,0.88));}
+      .lexishift-definition-match{color:var(--lexishift-module-label, rgba(247,244,239,0.72));}
+      .lexishift-definition-glosses{display:flex;flex-direction:column;gap:3px;}
+      .lexishift-definition-gloss{font-size:12px;line-height:1.35;font-weight:650;
+        color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-definition-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:1px;}
+      .lexishift-definition-link{font-size:11px;line-height:1.3;font-weight:700;color:inherit;
+        text-decoration:underline;text-underline-offset:2px;}
       .lexishift-feedback-bar{display:flex;gap:6px;align-items:center;padding:6px 8px;
         border-radius:999px;background:rgba(28,26,23,0.9);box-shadow:0 10px 24px rgba(0,0,0,0.18);}
       .lexishift-feedback-option{width:22px;height:22px;border-radius:999px;border:0;cursor:pointer;

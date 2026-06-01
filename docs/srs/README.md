@@ -66,9 +66,9 @@ Current disposition:
   dashboard decision, mostly read-only listing/rule-detail behavior,
   encounter-watch visibility, confirmed discard policy, and deferred
   restore/mastery lifecycle work.
-- `srs_vocabulary_library_and_word_info_plan.md` records the target shared
-  word-info read model and how it should feed both a dedicated Vocabulary
-  Library and the planned built-in quick-definition popup module.
+- `srs_vocabulary_library_and_word_info_plan.md` records the implemented shared
+  word-info read model and built-in quick-definition popup module, plus the
+  planned dedicated Vocabulary Library surface.
 - `srs_story_based_options_flow_plan.md` records the target Options-page SRS UX
   and current beta implementation notes: existing profile/pair journeys should
   appear as compact story blocks, large dashboard/sampling surfaces should open

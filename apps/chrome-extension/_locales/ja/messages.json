@@ -1118,6 +1118,12 @@
   "button_modules": {
     "message": "モジュール"
   },
+  "module_quick_definition": {
+    "message": "定義"
+  },
+  "module_quick_definition_desc": {
+    "message": "ポップアップに簡単な定義を表示します。"
+  },
   "module_ja_script_forms": {
     "message": "日本語スクリプト表示"
   },
@@ -1147,6 +1153,21 @@
   },
   "label_module_drag_reorder": {
     "message": "ドラッグして並べ替え"
+  },
+  "popup_definition_loading": {
+    "message": "定義を読み込み中..."
+  },
+  "popup_definition_unavailable": {
+    "message": "利用できる定義はありません。"
+  },
+  "popup_definition_missing": {
+    "message": "この単語の定義データはインストールされていません。"
+  },
+  "popup_definition_match": {
+    "message": "一致: $1"
+  },
+  "popup_definition_error": {
+    "message": "定義を読み込めませんでした。"
   },
   "popup_feedback_history_loading": {
     "message": "フィードバック履歴（読み込み中...）"

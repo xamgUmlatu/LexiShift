@@ -1118,6 +1118,12 @@
   "button_modules": {
     "message": "模块"
   },
+  "module_quick_definition": {
+    "message": "定义"
+  },
+  "module_quick_definition_desc": {
+    "message": "在弹窗中显示简短定义。"
+  },
   "module_ja_script_forms": {
     "message": "日语脚本形式"
   },
@@ -1147,6 +1153,21 @@
   },
   "label_module_drag_reorder": {
     "message": "拖动以重新排序"
+  },
+  "popup_definition_loading": {
+    "message": "正在加载定义..."
+  },
+  "popup_definition_unavailable": {
+    "message": "暂无可用定义。"
+  },
+  "popup_definition_missing": {
+    "message": "尚未安装该词的定义数据。"
+  },
+  "popup_definition_match": {
+    "message": "匹配：$1"
+  },
+  "popup_definition_error": {
+    "message": "无法加载定义。"
   },
   "popup_feedback_history_loading": {
     "message": "评分历史（加载中...）"

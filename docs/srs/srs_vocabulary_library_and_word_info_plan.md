@@ -3,7 +3,7 @@
 Status: active implementation plan
 Role: Product/UX plan, backend read-model contract, and implementation sequence
 Last updated: 2026-06-02
-Last verified: 2026-06-02 helper/native-host/shared-extension word-info API foundation tests; popup/library UI still pending
+Last verified: 2026-06-02 helper/native-host/shared-extension word-info API foundation tests plus quick-definition popup render/registry tests; Vocabulary Library UI still pending
 Purpose: define the shared word-info capability that should power both a richer Vocabulary Practice library and a built-in popup definition module
 Source-of-truth: mixed implementation plan plus current API contract; current implemented state is tracked in `docs/developer/feature_state_matrix.md`.
 
@@ -61,8 +61,8 @@ fallback policy, definition filtering, or external-link construction.
 
 ## Current Implementation State
 
-As of 2026-06-02, the shared word-info API foundation is implemented and
-verified:
+As of 2026-06-02, the shared word-info API foundation and built-in
+`quick-definition` popup consumer are implemented and verified:
 
 - helper/core read model: `core/lexishift_core/helper/use_cases/word_info.py`;
 - engine entrypoint: `lookup_word_info(...)`;
@@ -70,11 +70,15 @@ verified:
 - extension helper client method: `HelperClient.lookupWordInfo(...)`;
 - shared extension API wrapper: `LexiShift.wordInfoApi`;
 - Options convenience method: `HelperManager.lookupWordInfo(...)`;
-- content singleton configuration for future popup modules.
+- content singleton configuration for popup modules;
+- built-in `quick-definition` popup module:
+  `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`;
+- default-on module registry entry, runtime descriptor wiring, manifest load
+  order, and locale coverage for `en`, `ja`, `zh`, and `de`.
 
-This implemented slice is intentionally read-only and not yet user-facing. The
-dedicated Vocabulary Library page/view and `quick-definition` popup module are
-still planned next slices.
+This implemented slice is still read-only, but `quick-definition` is now
+user-facing in the replacement popup. The dedicated Vocabulary Library page/view
+is still a planned next slice.
 
 ## Non-Goals For MVP
 
@@ -293,6 +297,18 @@ It should:
   missing;
 - remain optional/default-on through the popup module registry.
 
+Current implementation note:
+
+- The module follows the same boundaries, but uses the existing internal
+  descriptor/context runtime rather than the future public module API. The
+  current descriptor injects both `wordInfo` and `wordInfoApi` references backed
+  by `LexiShift.wordInfoApi`.
+- It parses clicked replacement metadata from the existing replacement span
+  dataset, including `languagePair`, replacement/display values, `origin`,
+  source phrase, and optional serialized `wordPackage`.
+- It renders immediately with localized loading text and updates its own module
+  body asynchronously when the lookup returns.
+
 Target internal module shape:
 
 ```js
@@ -501,6 +517,9 @@ Tests:
 
 ### Slice 3: Quick Definition Popup Module
 
+Status: implemented for the built-in internal module; public third-party popup
+module API remains future work.
+
 Files likely involved:
 
 - `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`
@@ -516,7 +535,7 @@ Tests:
   - gloss render,
   - missing definition fallback,
   - external-link rendering,
-  - ruleset-only fallback.
+  - missing-helper fallback.
 - popup registry/default-order tests.
 - content script/manifest ordering tests.
 

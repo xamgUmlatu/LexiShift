@@ -314,7 +314,8 @@
       if (popupModulesRegistry && typeof popupModulesRegistry.supportsThemeTuning === "function") {
         return popupModulesRegistry.supportsThemeTuning(prefModuleId);
       }
-      return prefModuleId === "ja-script-forms"
+      return prefModuleId === "quick-definition"
+        || prefModuleId === "ja-script-forms"
         || prefModuleId === "feedback-history"
         || prefModuleId === "encounter-history";
     }

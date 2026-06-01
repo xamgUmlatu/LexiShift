@@ -1821,18 +1821,22 @@ Use this file when:
     capacity management only.
   - The extension feedback popup remains review-feedback only.
 
-## SRS Word Info API
+## SRS Word Info API And Quick Definition Popup
 
-- Status: `implemented`, `verified`; `default-on` = `no` for user-facing UI
-- Last documented checkpoint: `2026-06-02` shared word-info API foundation:
-  helper/core can read a profile/pair/lemma word-info payload, native host
-  exposes `word_info_lookup`, the extension helper client exposes
-  `lookupWordInfo`, Options exposes a `HelperManager.lookupWordInfo`
-  convenience through the shared API wrapper, and content/options load
-  `shared/helper/word_info_api.js`
+- Status: `implemented`, `default-on`, `verified` for the shared read-only
+  word-info API and built-in `quick-definition` popup module; Vocabulary
+  Library remains planned.
+- Last documented checkpoint: `2026-06-02` shared word-info API foundation plus
+  default-on popup consumer: helper/core can read a profile/pair/lemma
+  word-info payload, native host exposes `word_info_lookup`, the extension
+  helper client exposes `lookupWordInfo`, Options exposes a
+  `HelperManager.lookupWordInfo` convenience through the shared API wrapper,
+  content/options load `shared/helper/word_info_api.js`, and the content popup
+  registers `quick-definition` ahead of script/history modules.
 - Last verified: `2026-06-02` focused helper word-info tests, native-host route
-  tests, helper-client/API contract tests, extension structure tests, JS syntax
-  checks, and Python compile checks
+  tests, helper-client/API contract tests, quick-definition popup render and
+  registry tests, extension structure tests, JS syntax checks, and Python
+  compile checks
 - Default behavior:
   - The route is read-only and does not admit, refresh, schedule, publish,
     discard, or otherwise mutate SRS state.
@@ -1847,9 +1851,18 @@ Use this file when:
   - The extension API wrapper normalizes camelCase/snake_case request fields,
     caches successful lookups for the current JS runtime session, and delegates
     native messaging to `HelperClient.lookupWordInfo`.
-  - The content singleton is configured with the current helper client, so a
-    future popup module can call `LexiShift.wordInfoApi.lookup(...)`; the
-    `quick-definition` popup module itself is not implemented yet.
+  - The content singleton is configured with the current helper client.
+    `quick-definition` receives the shared `LexiShift.wordInfoApi` capability
+    through the popup descriptor context and does not call native messaging or
+    local storage directly.
+  - `quick-definition` is default-on for all target languages through the popup
+    module registry, renders first in the popup module stack, shows an immediate
+    loading state, and then renders target display, POS when known, up to three
+    local glosses, source phrase preview, and deterministic external dictionary
+    links.
+  - `quick-definition` degrades to localized fallback text when the helper is
+    unavailable, the request is invalid, or installed definition data is
+    missing.
   - Options code can call `HelperManager.lookupWordInfo(...)`; the dedicated
     Vocabulary Library page/view is not implemented yet.
   - Local filesystem paths are intentionally excluded from learner-facing
@@ -1862,6 +1875,9 @@ Use this file when:
   - `scripts/helper/lexishift_native_host.py`
   - `apps/chrome-extension/shared/helper/helper_client.js`
   - `apps/chrome-extension/shared/helper/word_info_api.js`
+  - `apps/chrome-extension/content/ui/popup_modules/quick_definition_module.js`
+  - `apps/chrome-extension/content/ui/ui.js`
+  - `apps/chrome-extension/shared/srs/popup_modules_registry.js`
   - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
   - `apps/chrome-extension/content_script.js`
   - `apps/chrome-extension/manifest.json`
@@ -1869,11 +1885,13 @@ Use this file when:
   - `core/tests/helper/test_helper_word_info.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
+  - `core/tests/dev/test_extension_quick_definition_popup_module.py`
   - `core/tests/architecture/test_extension_structure.py`
 - Known gaps:
-  - `quick-definition` popup rendering is not implemented.
   - The dedicated Vocabulary Library page/view is not implemented.
   - Batch lookup for a page of library rows is not implemented.
+  - The normalized public popup module API remains target architecture; the
+    current module uses the existing internal popup descriptor/context pattern.
   - JMDict and future-pair provider behavior has a generic path but only
     `en-es` translation-pack lookup has focused production-style coverage in
     this slice.

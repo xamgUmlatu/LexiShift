@@ -1127,6 +1127,12 @@
   "button_modules": {
     "message": "Modules"
   },
+  "module_quick_definition": {
+    "message": "Definition"
+  },
+  "module_quick_definition_desc": {
+    "message": "Show a quick definition in the popup."
+  },
   "module_ja_script_forms": {
     "message": "Japanese script forms"
   },
@@ -1156,6 +1162,21 @@
   },
   "label_module_drag_reorder": {
     "message": "Drag to reorder"
+  },
+  "popup_definition_loading": {
+    "message": "Loading definition..."
+  },
+  "popup_definition_unavailable": {
+    "message": "No definition available."
+  },
+  "popup_definition_missing": {
+    "message": "Definition data is not installed for this word."
+  },
+  "popup_definition_match": {
+    "message": "Matches: $1"
+  },
+  "popup_definition_error": {
+    "message": "Failed to load definition."
   },
   "popup_feedback_history_loading": {
     "message": "Feedback history (loading...)"
