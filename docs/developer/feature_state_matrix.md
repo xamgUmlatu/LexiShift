@@ -1892,9 +1892,11 @@ Use this file when:
   backdrop visibility without losing dense-row readability, and those tables use
   content-width columns with horizontal scrolling below their natural width
   while distributing surplus width into useful text columns instead of leaving a
-  blank viewport gutter; combo-box dropdown lists now style their popup item
-  views through the active theme tokens so language-pair/theme selectors do not
-  fall back to dark Qt popup palettes; SRS
+  blank viewport gutter, and table-cell action buttons use a compact
+  theme-aware cell-control style so Download/Select/Delete actions fit cleanly
+  inside rows without looking like oversized form buttons; combo-box dropdown
+  lists now style their popup item views through the active theme tokens so
+  language-pair/theme selectors do not fall back to dark Qt popup palettes; SRS
   story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
@@ -1959,7 +1961,8 @@ Use this file when:
   Settings tab-container base-paint coverage plus translucent Learning
   Languages card-frame coverage, resource-table opacity schema/default coverage,
   content-width horizontal-scroll table coverage, responsive surplus-width table
-  coverage, and combo-box popup theme-style coverage,
+  coverage, compact table-cell action-button coverage, and combo-box popup
+  theme-style coverage,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source

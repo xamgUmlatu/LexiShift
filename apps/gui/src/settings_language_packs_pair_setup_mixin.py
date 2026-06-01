@@ -20,6 +20,7 @@ from settings_language_packs_support import (
     is_pack_download_disabled,
     pack_download_disabled_tooltip,
 )
+from settings_language_packs_style_helpers import resource_table_action_button_style
 from settings_pair_resource_plan import (
     PairResourceItem,
     PairResourcePlan,
@@ -70,6 +71,18 @@ class LanguagePackPanelPairSetupMixin:
         table_header_bg = rgba_color(accent_soft, table_opacity)
         pair_card_bg = rgba_color(table_bg, 0.34)
         resource_slot_bg = rgba_color(panel_bottom, 0.22)
+        action_button_style = resource_table_action_button_style(
+            table_bg,
+            table_text,
+            table_sel_bg,
+            panel_border,
+            panel_bottom,
+            accent,
+            accent_soft,
+            hover_text,
+            text_color,
+            muted_color,
+        )
         self.setStyleSheet(
             f"""
 QWidget {{
@@ -196,6 +209,7 @@ QPushButton:hover {{
   background: {accent_soft};
   color: {hover_text};
 }}
+{action_button_style}
 QPushButton#settingsPrimaryButton {{
   background: {primary};
   color: {primary_text};

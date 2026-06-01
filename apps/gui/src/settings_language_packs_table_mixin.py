@@ -8,6 +8,7 @@ from PySide6.QtWidgets import (
     QAbstractItemView,
     QHeaderView,
     QPushButton,
+    QSizePolicy,
     QTableWidget,
     QTableWidgetItem,
 )
@@ -94,6 +95,15 @@ class ResourcePackTable(QTableWidget):
 
 
 class LanguagePackPanelTableMixin:
+    def _resource_table_button(self, text: str) -> QPushButton:
+        button = QPushButton(text)
+        button.setProperty("resourceTableAction", True)
+        button.setCursor(Qt.PointingHandCursor)
+        button.setMinimumHeight(0)
+        button.setMaximumHeight(26)
+        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        return button
+
     def _configure_language_resource_table(self, table: QTableWidget) -> None:
         self._configure_resource_table_columns(
             table,
@@ -375,15 +385,15 @@ class LanguagePackPanelTableMixin:
             language_item = QTableWidgetItem(pack.display_language())
             source_item = QTableWidgetItem(pack.display_source())
             status_item = QTableWidgetItem(t("language_packs.status.available"))
-            download_button = QPushButton(t("buttons.download"))
+            download_button = self._resource_table_button(t("buttons.download"))
             download_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._download_language_pack(pack_id)
             )
-            local_button = QPushButton(t("buttons.select"))
+            local_button = self._resource_table_button(t("buttons.select"))
             local_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._select_language_pack_path(pack_id)
             )
-            delete_button = QPushButton(t("buttons.delete"))
+            delete_button = self._resource_table_button(t("buttons.delete"))
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_language_pack(pack_id)
             )
@@ -415,17 +425,17 @@ class LanguagePackPanelTableMixin:
             language_item = QTableWidgetItem(pack.display_language())
             source_item = QTableWidgetItem(pack.display_source())
             status_item = QTableWidgetItem(t("language_packs.status.available"))
-            download_button = QPushButton(t("buttons.download"))
+            download_button = self._resource_table_button(t("buttons.download"))
             download_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._download_frequency_pack(pack_id)
             )
-            local_button = QPushButton(t("buttons.select"))
+            local_button = self._resource_table_button(t("buttons.select"))
             local_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._select_frequency_pack_path(
                     pack_id
                 )
             )
-            delete_button = QPushButton(t("buttons.delete"))
+            delete_button = self._resource_table_button(t("buttons.delete"))
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_frequency_pack(pack_id)
             )
@@ -477,21 +487,21 @@ class LanguagePackPanelTableMixin:
             name_item = QTableWidgetItem(pack.display_name())
             language_item = QTableWidgetItem(pack.display_language())
             status_item = QTableWidgetItem(t("language_packs.status.available"))
-            download_button = QPushButton(t("buttons.download"))
+            download_button = self._resource_table_button(t("buttons.download"))
             download_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._download_embedding_pack(pack_id)
             )
-            local_button = QPushButton(t("buttons.select"))
+            local_button = self._resource_table_button(t("buttons.select"))
             local_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._select_embedding_pack_path(
                     pack_id
                 )
             )
-            use_button = QPushButton(t("buttons.use_embedding"))
+            use_button = self._resource_table_button(t("buttons.use_embedding"))
             use_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._activate_embedding_pack(pack_id)
             )
-            delete_button = QPushButton(t("buttons.delete"))
+            delete_button = self._resource_table_button(t("buttons.delete"))
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_embedding_pack(pack_id)
             )
@@ -544,21 +554,21 @@ class LanguagePackPanelTableMixin:
             name_item = QTableWidgetItem(pack.display_name())
             language_item = QTableWidgetItem(pack.display_language())
             status_item = QTableWidgetItem("")
-            download_button = QPushButton(t("buttons.download"))
+            download_button = self._resource_table_button(t("buttons.download"))
             download_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._download_embedding_pack(pack_id)
             )
-            local_button = QPushButton(t("buttons.select"))
+            local_button = self._resource_table_button(t("buttons.select"))
             local_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._select_embedding_pack_path(
                     pack_id
                 )
             )
-            use_button = QPushButton(t("buttons.use_embedding"))
+            use_button = self._resource_table_button(t("buttons.use_embedding"))
             use_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._activate_embedding_pack(pack_id)
             )
-            delete_button = QPushButton(t("buttons.delete"))
+            delete_button = self._resource_table_button(t("buttons.delete"))
             delete_button.clicked.connect(
                 lambda checked=False, pack_id=pack.pack_id: self._delete_embedding_pack(pack_id)
             )

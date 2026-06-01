@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QMessageBox,
     QProgressBar,
+    QSizePolicy,
 )
 
 from dialogs import SettingsDialog
@@ -343,6 +344,9 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     )
     assert panel.language_pack_table.columnWidth(0) >= 240
     assert panel.language_pack_table.columnWidth(3) >= 150
+    table_button = panel.language_pack_table.cellWidget(0, 4)
+    assert table_button.property("resourceTableAction") is True
+    assert table_button.sizePolicy().verticalPolicy() == QSizePolicy.Fixed
     assert panel.frequency_pack_table.minimumHeight() >= 380
     assert 'QWidget[resourcePanelTab="true"]' in stylesheet
     assert 'QWidget[resourcePanelTab="true"], QWidget[resourcePanelCanvas="true"]' in stylesheet
@@ -354,6 +358,8 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert "alternate-background-color: rgba(34, 51, 68, 230);" in stylesheet
     assert "QComboBox QAbstractItemView" in stylesheet
     assert "selection-background-color: #667788;" in stylesheet
+    assert 'QTableWidget QPushButton[resourceTableAction="true"]' in stylesheet
+    assert "max-height: 24px;" in stylesheet
     assert "background: rgba(85, 102, 119, 87);" in stylesheet
     assert "background: rgba(51, 68, 85, 56);" in stylesheet
     assert "QFrame#learningLanguagePairCard QLabel {\n  color: #F0F1F2;" in stylesheet
