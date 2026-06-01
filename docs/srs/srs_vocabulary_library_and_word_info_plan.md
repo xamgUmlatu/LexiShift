@@ -70,6 +70,56 @@ fallback policy, definition filtering, or external-link construction.
 - No requirement that every language pair has equally rich dictionary detail on
   day one.
 
+## Definition Data Recommendation
+
+Recommended source:
+
+- Use installed local target-to-source lexical packs as the canonical source of
+  learner-facing gloss text.
+- Resolve those packs through language-pair capability and managed/manual pack
+  configuration, not through hard-coded extension paths.
+- Treat SRS item metadata and published rules as context/enrichment, not as the
+  primary definition source.
+- Treat external dictionary URLs as optional outbound links, never as data that
+  LexiShift fetches to build the popup or library response.
+
+For `en-es`, the learner sees Spanish target words and usually needs English
+glosses. The lookup should therefore prefer installed Spanish-to-English
+resources resolved for the pair, currently the managed `wiktionary-es-en` pack
+with `freedict-es-en` as a fallback family when present. The extension should
+not know those filenames. It should ask the helper for word info for
+`pair=en-es`, and the helper should resolve the best installed pack using the
+same pair-readiness rules that already govern rulegen/SRS setup.
+
+For other language pairs, the same service boundary applies:
+
+- `en-ja` should resolve JMDict/Japanese resources through pair capability.
+- `en-de` should resolve German-to-English translation/gloss packs.
+- future pairs should add provider/capability support in helper/core code
+  without changing the popup module or Vocabulary Library controller.
+
+Terminology:
+
+- Internal API field: `glosses`.
+- User-facing label: `Definition`.
+
+This distinction matters because many available resources are bilingual
+dictionaries. Showing "Definition" in UI is fine, but the backend contract
+should remain honest that it may be returning short glosses rather than full
+monolingual dictionary definitions.
+
+Gloss resolution priority inside the helper should be:
+
+1. exact normalized target lemma;
+2. display/surface fallback when it differs from lemma;
+3. script/form variants from `word_package` where the pair provider supports
+   them;
+4. rule source phrase fallback only as context, not as a claimed dictionary
+   definition.
+
+The response may include provider names and pack ids, but it must not leak local
+filesystem paths into learner-facing payloads.
+
 ## Shared Word Info Contract
 
 The helper should expose a read-only endpoint, tentatively:
@@ -155,6 +205,129 @@ Notes:
   selected Vocabulary Practice.
 - The endpoint must avoid returning local filesystem paths in learner-facing
   payloads.
+
+## API-Ready Boundary
+
+The implementation should expose one logical API and several thin adapters:
+
+1. helper/native host route: `word_info_lookup`;
+2. shared extension client method: `HelperClient.lookupWordInfo(payload)`;
+3. page/content service: `LexiShift.wordInfoApi.lookup(request, options)`;
+4. consumer APIs for Options pages, Vocabulary Library rows, and popup modules.
+
+Options code and popup module code should both call the page/content service.
+They should not duplicate native-host message names, pack selection, dictionary
+fallbacks, URL-template construction, or SRS/ruleset enrichment rules.
+
+Recommended JavaScript service shape:
+
+```js
+const result = await LexiShift.wordInfoApi.lookup({
+  profileId: "default",
+  pair: "en-es",
+  lemma: "perro",
+  display: "perro",
+  origin: "srs",
+  sourcePhrase: "dog",
+  wordPackage: {}
+}, {
+  timeoutMs: 4000,
+  signal
+});
+```
+
+Recommended guarantees:
+
+- read-only;
+- local-first;
+- no page URL required;
+- stable enough for internal modules and future trusted modules;
+- returns `status: "ok"` with empty `glosses` plus `missing_resources` when
+  local data is absent;
+- returns localization-neutral structured data, leaving final strings to the UI
+  layer;
+- caches successful lookups for the current extension session by
+  `(profile_id, pair, normalized_lemma, display)` so the popup does not repeat a
+  helper lookup every time the same word is opened.
+
+The helper response should be the canonical data contract. The JavaScript
+service can normalize naming conventions (`profile_id` to `profileId`, for
+example) for ergonomics, but it should preserve the same conceptual fields.
+
+## Popup Module Implementation Model
+
+The `quick-definition` popup module should be generic and service-driven.
+
+It should not:
+
+- hard-code `en-es`;
+- open SQLite files;
+- know the pack filename for a pair;
+- fetch external dictionary pages;
+- call `chrome.runtime.sendMessage` or the native-host route directly.
+
+It should:
+
+- receive a normalized popup context with target word metadata;
+- receive a narrowed `api.wordInfo` service object from popup core;
+- render immediately with a compact loading state;
+- update its own module body when the lookup resolves;
+- show a graceful fallback when the helper is unavailable or local data is
+  missing;
+- remain optional/default-on through the popup module registry.
+
+Target internal module shape:
+
+```js
+registerPopupModule({
+  id: "quick-definition",
+  priority: 20,
+  supports(context) {
+    return Boolean(context.languagePair && context.replacement);
+  },
+  render(context, api) {
+    const node = api.createModuleContainer("lexishift-quick-definition");
+    node.textContent = api.t("popup_definition_loading", null, "Loading definition...");
+    api.wordInfo.lookup({
+      profileId: context.profileId,
+      pair: context.languagePair,
+      lemma: context.replacement,
+      display: context.displayReplacement,
+      origin: context.origin,
+      sourcePhrase: context.sourcePhrase,
+      wordPackage: context.wordPackage
+    }).then((result) => {
+      // Render glosses, source phrase, SRS state, and links from result.
+    }).catch(() => {
+      // Render localized fallback.
+    });
+    return node;
+  }
+});
+```
+
+The current popup implementation still uses internal `build(target, debugLog, context)`
+style descriptors. The implementation slice can bridge that shape first by
+passing a service object to internal descriptors, then migrate toward the fuller
+`render(context, api)` registry shape as the public module API matures.
+
+## Generalization Rules For Language Pairs
+
+The feature is product-ready for `en-es` first, but the code path should be
+pair-generic from the start.
+
+Rules:
+
+- Pair-specific data resolution belongs in helper/core provider code.
+- UI modules receive `pair`, `source_language`, `target_language`, and resolved
+  structured results.
+- Missing provider support is a normal response state, not an exception path.
+- Provider-specific fields may live under `diagnostics` or `advanced`, not in
+  the core render contract.
+- External link templates are selected by target language/pair in a shared
+  provider, not inside the popup module.
+- Tests may use `en-es` as the first production fixture while also asserting
+  that no popup/options code hard-codes Spanish-specific pack filenames.
 
 ## Resolution Order
 
