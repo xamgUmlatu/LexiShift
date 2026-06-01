@@ -2,8 +2,8 @@
 
 Status: active developer hub
 Role: Canonical current
-Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 4 validation-gate routing review and doc-reference check
+Last updated: 2026-06-01
+Last verified: 2026-06-01 startup-performance plan routing review and doc-reference check
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -65,6 +65,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Project health remediation workstream: `project_health_remediation_workstream.md`
 - Productization Lane 2 code disposition inventory: `productization_lane2_code_disposition_inventory.md`
 - Productization Lane 2 semantic testing script registry: `productization_lane2_semantic_testing_script_registry.md`
+- Packaged GUI startup performance plan: `packaged_gui_startup_performance_plan.md`
 - Project integrity stabilization backlog: `project_integrity_stabilization_backlog.md`
 - Project integrity packet index: `project_integrity_packet_index.md`
 - Project integrity secondary pass plan: `project_integrity_secondary_pass_plan.md`

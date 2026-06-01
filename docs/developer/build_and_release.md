@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-05-15
-Last verified: 2026-05-15 Lane 3 packaging/platform parity truth pass, Windows parity audit, parity summary render, focused workflow/build/parity tests, doc-reference check, state check, and diff hygiene
+Last updated: 2026-06-01
+Last verified: 2026-06-01 startup-performance plan routing review and doc-reference check; build not rerun
 Purpose: current build, packaging, signing, and release entrypoints for maintained surfaces
 Source-of-truth: build/release runbook; operational behavior is defined by `scripts/package.json`, `scripts/dev/dev_workflow_build.py`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -57,6 +57,12 @@ pyinstaller --clean --noconfirm apps/gui/packaging/pyinstaller.spec
 Expected outputs:
 - macOS: `dist/LexiShift.app` and `dist/LexiShift Helper.app`
 - Windows: `dist/LexiShift.exe`
+
+Startup-performance planning:
+- `packaged_gui_startup_performance_plan.md` owns the packaged GUI launch
+  performance workstream, including extension-to-GUI resource-settings handoff
+  timing, PyInstaller bundle slimming, launch-path comparison, and first-paint
+  deferral planning.
 
 ## Installer Packaging (DMG/EXE)
 

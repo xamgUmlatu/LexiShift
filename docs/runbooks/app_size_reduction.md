@@ -2,13 +2,18 @@
 
 Status: active notes
 Role: Planning / WIP
-Last updated: 2026-05-14
-Last verified: 2026-05-14 metadata-only Lane 1 normalization; size measurements not rerun
+Last updated: 2026-06-01
+Last verified: 2026-06-01 local installed-bundle size refresh for startup-performance planning; size-reduction implementation not rerun
 Purpose: preserve practical packaging-size reduction ideas and measurement commands for future build optimization work
 Source-of-truth: planning notes only; current package/build truth lives in build scripts, release runbooks, and fresh size measurements.
 
 ## Scope
 This document captures practical ways to reduce installed app size for the macOS desktop build.
+
+Related startup workstream:
+- `../developer/packaged_gui_startup_performance_plan.md` owns the broader
+  product-facing startup-performance plan. This runbook remains the narrower
+  size-reduction note and measurement checklist.
 
 ## Current observations (local build/install)
 - Installed size is dominated by two apps:

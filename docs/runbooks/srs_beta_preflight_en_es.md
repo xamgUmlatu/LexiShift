@@ -1,13 +1,14 @@
 # en-es SRS Beta Preflight Runbook
 
 Status: active beta-preflight runbook
-Last updated: 2026-05-28
+Last updated: 2026-06-01
 Scope: en-es SRS preference beta readiness
 Source of truth:
 
 - [SRS topic MVP recommendations](../srs/srs_topic_mvp_recommendations_en_es.md)
 - [Interest-tailored admission algorithm](../srs/srs_interest_tailored_admission_algorithm.md)
 - [SRS practice layer design](../srs/srs_practice_layer_design.md)
+- [Packaged GUI startup performance plan](../developer/packaged_gui_startup_performance_plan.md)
 - [Feature state matrix](../developer/feature_state_matrix.md)
 
 ## Goal
@@ -54,6 +55,7 @@ Run these on a throwaway beta profile. Do not use a real learner profile.
 | --- | --- |
 | Fresh install/helper connection | Options can refresh profiles and show understandable helper/profile state. |
 | Data-pack readiness | en-es frequency/dictionary/topic resources resolve. If frequency/dictionary data is missing, the guided SRS setup modal names learner-facing resource categories, opens LexiShift GUI Resource settings through the helper with the en-es card added/focused in Learning Languages, reuses the existing GUI instance when it is already open, lets the user install app-managed dictionary resources (`wiktionary-es-en`, `freedict-es-en`), shows package sizes and per-resource progress, routes license-restricted `freq-es-cde` through manual setup in the detailed Frequency packs tab, reveals installed file locations, and retrying after install uses the same setup flow. |
+| Resource setup launch performance | Existing-GUI activation should feel immediate, and cold packaged launch should be measured against the startup-performance plan targets before the setup flow is treated as product-ready. |
 | Strict topic picker | The ordinary picker shows only the strict MVP topics and excludes Plants/Nature and Travel. |
 | Fresh SRS initialize | A new profile can initialize SRS and populate Learning words. |
 | Dashboard visibility | Learning words shows active/queued/due/removed counts, rule summaries, and advanced details when toggled. |
