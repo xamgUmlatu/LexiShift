@@ -5,7 +5,7 @@ import os
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QSettings
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QProgressBar
 
 from dialogs import SettingsDialog
 from i18n import set_locale, t
@@ -71,6 +71,35 @@ def test_settings_resource_pair_focus_adds_learning_language_card() -> None:
     assert t("language_packs.learning_pairs.download_missing") in button_text
     assert t("language_packs.learning_pairs.show_file_location") in button_text
     assert "Add manually" not in button_text
+
+
+def test_manual_learning_pair_resource_does_not_show_download_progress(monkeypatch) -> None:
+    _app()
+    set_locale("en")
+    _clear_learning_pairs()
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+    )
+    panel = dialog.language_pack_panel
+    freq_item = next(item for item in panel._pair_resource_items() if item.pack_id == "freq-es-cde")
+
+    monkeypatch.setattr(
+        panel,
+        "_pair_resource_is_installed",
+        lambda item: False if item.pack_id == "freq-es-cde" else True,
+    )
+
+    panel._refresh_learning_pair_cards()
+    learning_tab = panel._resource_tabs.widget(0)
+    progress_bars = learning_tab.findChildren(QProgressBar)
+
+    assert panel._download_disabled_for_pair_resource(freq_item)
+    assert not panel._frequency_pack_rows["freq-es-cde"].download_button.isEnabled()
+    assert not panel._pair_resource_download_active(freq_item)
+    assert not any(bar.isVisible() for bar in progress_bars)
 
 
 def test_learning_pair_resource_location_button_reveals_resolved_path(monkeypatch) -> None:

@@ -175,6 +175,8 @@ class LanguagePackPanelPairSetupMixin:
         )
 
     def _pair_resource_download_active(self, item: PairResourceItem) -> bool:
+        if self._download_disabled_for_pair_resource(item):
+            return False
         if item.kind == "frequency":
             row = self._frequency_pack_rows.get(item.pack_id)
             return bool(row is not None and not row.download_button.isEnabled())
