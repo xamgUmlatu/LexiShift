@@ -335,6 +335,10 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert "background: transparent;" in stylesheet
     assert "QTableWidget" in stylesheet
     assert "QTabWidget#lexishiftResourceTabs::pane" in stylesheet
+    assert "QFrame#learningLanguagePairCard" in stylesheet
+    assert "background: rgba(85, 102, 119, 87);" in stylesheet
+    assert "background: rgba(51, 68, 85, 56);" in stylesheet
+    assert "QFrame#learningLanguagePairCard QLabel {\n  color: #F0F1F2;" in stylesheet
     assert "#223344" in stylesheet
     assert "#556677" in stylesheet
     assert "#F0F1F2" in stylesheet

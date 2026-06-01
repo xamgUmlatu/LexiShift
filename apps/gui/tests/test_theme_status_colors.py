@@ -9,7 +9,7 @@ from PySide6.QtWidgets import QApplication
 
 from preview import ReplacementHighlighter
 from settings_language_packs import LanguagePackPanel
-from theme_manager import readable_text_color
+from theme_manager import readable_text_color, rgba_color
 
 
 def _app() -> QApplication:
@@ -54,3 +54,8 @@ def test_readable_text_color_keeps_readable_theme_text() -> None:
 
 def test_readable_text_color_falls_back_when_theme_text_lacks_contrast() -> None:
     assert readable_text_color("#222222", "#242424") == "#FFFFFF"
+
+
+def test_rgba_color_resolves_theme_hex_with_alpha() -> None:
+    assert rgba_color("#556677", 0.34) == "rgba(85, 102, 119, 87)"
+    assert rgba_color("#334455", 56) == "rgba(51, 68, 85, 56)"

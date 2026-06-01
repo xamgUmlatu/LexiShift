@@ -145,6 +145,15 @@ def readable_text_color(
     return _best_text_color(bg_hex, light=light, dark=dark)
 
 
+def rgba_color(hex_color: str, alpha: float, *, fallback: str = "#FFFFFF") -> str:
+    rgb = _parse_hex_rgb(hex_color) or _parse_hex_rgb(fallback) or (255, 255, 255)
+    if alpha <= 1:
+        alpha_value = round(max(0.0, min(1.0, alpha)) * 255)
+    else:
+        alpha_value = round(max(0.0, min(255.0, alpha)))
+    return f"rgba({rgb[0]}, {rgb[1]}, {rgb[2]}, {alpha_value})"
+
+
 def build_browser_connection_styles(theme: dict) -> str:
     configured_bg = _blend_hex(
         [theme["accent_soft"], theme["table_bg"]], fallback=theme["accent_soft"]

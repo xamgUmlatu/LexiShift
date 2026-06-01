@@ -26,7 +26,7 @@ from settings_pair_resource_plan import (
     available_pair_resource_plans,
     pair_resource_plan,
 )
-from theme_manager import readable_text_color
+from theme_manager import readable_text_color, rgba_color
 from utils_paths import reveal_path
 
 _LEARNING_PAIR_SETTINGS_KEY = "resources/learning_pairs"
@@ -64,6 +64,8 @@ class LanguagePackPanelPairSetupMixin:
         hover_text = readable_text_color(text_color, accent_soft)
         primary_text = readable_text_color("#FFFFFF", primary)
         progress_text = readable_text_color(text_color, bg)
+        pair_card_bg = rgba_color(table_bg, 0.34)
+        resource_slot_bg = rgba_color(panel_bottom, 0.22)
         self.setStyleSheet(
             f"""
 QWidget {{
@@ -116,16 +118,18 @@ QScrollArea#learningPairScrollArea {{
 QScrollArea#learningPairScrollArea > QWidget > QWidget {{
   background: transparent;
 }}
-QFrame#learningLanguagePairCard, QFrame#learningLanguageResourceSlot {{
-  background: {table_bg};
+QFrame#learningLanguagePairCard {{
+  background: {pair_card_bg};
   border: 1px solid {panel_border};
   border-radius: 8px;
 }}
 QFrame#learningLanguageResourceSlot {{
-  background: {panel_bottom};
+  background: {resource_slot_bg};
+  border: 1px solid {panel_border};
+  border-radius: 8px;
 }}
 QFrame#learningLanguagePairCard QLabel {{
-  color: {table_text};
+  color: {slot_text};
 }}
 QFrame#learningLanguageResourceSlot QLabel {{
   color: {slot_text};
