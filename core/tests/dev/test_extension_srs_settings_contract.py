@@ -438,7 +438,7 @@ const elements = {{
   mainTargetLanguageInput: createSelect("en", ["ja", "en", "es"]),
   mainProfileIdInput: createSelect("default", ["default", "family"]),
   mainSrsEnabledInput: {{ checked: true }},
-  mainProficiencyEstimateInput: createInput(""),
+  mainProficiencyEstimateInput: createInput("44"),
   mainTopicInterestsInput: createInput(""),
   mainTopicInterestChipButtons: [mainTopicAnimals],
   mainMaxActiveInput: createInput("20"),

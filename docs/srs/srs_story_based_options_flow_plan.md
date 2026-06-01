@@ -35,8 +35,9 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   choice, proficiency, topics, starting size, sampling, and initialization; the
   profile is inherited from the active profile through a hidden backing value
   and is not presented as a learner-facing setup choice;
-- the new-practice proficiency slider starts at an explicit beginner value (`0%`)
-  when there is no existing proficiency value to copy into the flow;
+- the new-practice proficiency slider always starts at an explicit beginner
+  value (`0%`) on fresh setup-modal open, even if the active practice already
+  has a saved proficiency value;
 - each fresh new-practice modal opening starts with no topic chips selected, even
   if the previous cancelled setup sample persisted draft topic settings for
   preview;

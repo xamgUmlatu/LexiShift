@@ -147,11 +147,10 @@
       setSelectValue(modalSourceLanguageInput, mainSourceLanguageInput ? mainSourceLanguageInput.value : "en", "en");
       setSelectValue(modalTargetLanguageInput, mainTargetLanguageInput ? mainTargetLanguageInput.value : "es", "es");
       setSelectValue(modalProfileIdInput, currentActiveProfileId(), currentActiveProfileId());
-      if (modalProficiencyEstimateInput && mainProficiencyEstimateInput) {
-        const hasValue = hasExplicitProficiencyValue(mainProficiencyEstimateInput);
+      if (modalProficiencyEstimateInput) {
         setProficiencyInput(
           modalProficiencyEstimateInput,
-          hasValue ? mainProficiencyEstimateInput.value : DEFAULT_STORY_FLOW_PROFICIENCY,
+          DEFAULT_STORY_FLOW_PROFICIENCY,
           true
         );
       }
