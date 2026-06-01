@@ -5,7 +5,7 @@ import os
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QSettings
-from PySide6.QtWidgets import QApplication, QMessageBox, QProgressBar
+from PySide6.QtWidgets import QApplication, QFrame, QMessageBox, QProgressBar
 
 from dialogs import SettingsDialog
 from i18n import set_locale, t
@@ -321,6 +321,7 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     )
     language_tab = panel._resource_tabs.widget(1)
     labels = language_tab.findChildren(type(panel.language_pack_status))
+    header_panels = language_tab.findChildren(QFrame)
     stylesheet = panel.styleSheet()
 
     assert panel._resource_tabs.objectName() == "lexishiftResourceTabs"
@@ -330,12 +331,14 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert panel.frequency_pack_table.minimumHeight() >= 380
     assert 'QWidget[resourcePanelTab="true"]' in stylesheet
     assert 'QWidget[resourcePanelTab="true"], QWidget[resourcePanelCanvas="true"]' in stylesheet
+    assert 'QFrame[resourceHeaderPanel="true"]' in stylesheet
     assert "background: transparent;" in stylesheet
     assert "QTableWidget" in stylesheet
     assert "QTabWidget#lexishiftResourceTabs::pane" in stylesheet
     assert "#223344" in stylesheet
     assert "#556677" in stylesheet
     assert "#F0F1F2" in stylesheet
+    assert any(frame.property("resourceHeaderPanel") is True for frame in header_panels)
     assert any(label.property("resourceSectionTitle") is True for label in labels)
     assert any(label.property("resourceDescription") is True for label in labels)
 
@@ -381,7 +384,9 @@ def test_settings_resource_intro_label_uses_readable_canvas_style() -> None:
 
     assert any(label.objectName() == "settingsIntroLabel" for label in labels)
     assert "QLabel#settingsIntroLabel" in stylesheet
+    assert "border-radius: 8px;" in stylesheet
     assert "font-size: 13px;" in stylesheet
+    assert "padding: 8px 12px;" in stylesheet
 
 
 def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:

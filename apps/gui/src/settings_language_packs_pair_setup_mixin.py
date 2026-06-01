@@ -55,9 +55,10 @@ class LanguagePackPanelPairSetupMixin:
         primary_hover = self._theme_hex("primary_hover", fallback="#232323")
         canvas_text = readable_text_color(text_color, bg)
         canvas_muted = readable_text_color(muted_color, bg, minimum_ratio=3.8)
-        canvas_accent = readable_text_color(accent, bg, minimum_ratio=3.8)
         tab_text = readable_text_color(muted_color, panel_bottom, minimum_ratio=3.8)
         selected_tab_text = readable_text_color(text_color, panel_top)
+        header_surface_text = readable_text_color(text_color, panel_top)
+        header_surface_muted = readable_text_color(muted_color, panel_top, minimum_ratio=3.8)
         table_text = readable_text_color(text_color, table_bg)
         slot_text = readable_text_color(text_color, panel_bottom)
         header_text = readable_text_color(text_color, accent_soft)
@@ -95,9 +96,19 @@ QTabWidget#lexishiftResourceTabs QTabBar::tab:selected {{
   border-bottom-color: {panel_top};
 }}
 QLabel[resourcePanelTitle="true"] {{
-  color: {canvas_accent};
+  background: {panel_top};
+  border: 1px solid {panel_border};
+  border-radius: 8px;
+  color: {readable_text_color(accent, panel_top, minimum_ratio=3.8)};
   font-weight: 700;
   font-size: 16px;
+  padding: 8px 12px;
+}}
+QFrame[resourceHeaderPanel="true"] {{
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 {panel_top}, stop:1 {table_bg});
+  border: 1px solid {panel_border};
+  border-radius: 8px;
 }}
 QLabel[resourceSectionTitle="true"] {{
   color: {canvas_text};
@@ -108,6 +119,14 @@ QLabel[resourceDescription="true"] {{
   color: {canvas_muted};
   font-size: 13px;
   font-weight: 500;
+}}
+QFrame[resourceHeaderPanel="true"] QLabel[resourceSectionTitle="true"] {{
+  color: {header_surface_text};
+  background: transparent;
+}}
+QFrame[resourceHeaderPanel="true"] QLabel[resourceDescription="true"] {{
+  color: {header_surface_muted};
+  background: transparent;
 }}
 QScrollArea#learningPairScrollArea {{
   background: transparent;

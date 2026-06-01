@@ -1880,10 +1880,10 @@ Use this file when:
   loaded GUI theme, while styling section text hierarchy, buttons, cards, and
   tables through active theme tokens with contrast-safe foreground fallback
   instead of inheriting dark Qt defaults, floating Resource-settings titles and
-  descriptions are contrasted against the settings canvas/background token
-  rather than a panel token and use slightly larger text hierarchy for image or
-  dark backdrops, and the detailed resource tables reserve taller, expanding
-  table space so rows do not look vertically compressed; SRS story cards, topic
+  descriptions now sit on theme-derived reading surfaces instead of relying on
+  foreground contrast over arbitrary light or image backdrops, and the detailed
+  resource tables reserve taller, expanding table space so rows do not look
+  vertically compressed; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1943,7 +1943,7 @@ Use this file when:
   localized Learning Languages pair/resource labels plus recursive GUI i18n
   catalog-shape coverage and localized QMessageBox standard-button coverage,
   resource-tab theme-preserving transparent-canvas, contrast fallback, and
-  table sizing coverage plus settings Resource intro-label readability coverage,
+  table sizing coverage plus Resource header/intro reading-surface coverage,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source

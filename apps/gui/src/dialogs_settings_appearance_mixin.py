@@ -78,8 +78,8 @@ class SettingsDialogAppearanceMixin:
         theme = resolve_theme(self._theme_id, screen_id="settings_dialog")
         self.language_pack_panel.set_theme(theme)
         canvas_text = readable_text_color(theme["text"], theme["bg"])
-        canvas_muted = readable_text_color(theme["muted"], theme["bg"], minimum_ratio=3.8)
         canvas_accent = readable_text_color(theme["accent"], theme["bg"], minimum_ratio=3.8)
+        intro_text = readable_text_color(theme["muted"], theme["panel_top"], minimum_ratio=3.8)
         tab_text = readable_text_color(theme["muted"], theme["panel_bottom"], minimum_ratio=3.8)
         selected_tab_text = readable_text_color(theme["text"], theme["panel_top"])
         table_text = readable_text_color(theme["text"], theme["table_bg"])
@@ -106,9 +106,14 @@ class SettingsDialogAppearanceMixin:
             f"color: {canvas_text};"
             "}"
             "QLabel#settingsIntroLabel {"
-            f"color: {canvas_muted};"
+            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
+            f"stop:0 {theme['panel_top']}, stop:1 {theme['table_bg']});"
+            f"border: 1px solid {theme['panel_border']};"
+            "border-radius: 8px;"
+            f"color: {intro_text};"
             "font-size: 13px;"
             "font-weight: 500;"
+            "padding: 8px 12px;"
             "}"
             "QWidget#settingsTabContainer {"
             "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
