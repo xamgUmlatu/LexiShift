@@ -1868,8 +1868,10 @@ Use this file when:
   license-restricted `freq-es-cde` through a manual setup instruction dialog
   with provider-page access, a rights-confirmed local source import for
   `spanish_lemmas20k.txt`, and managed SQLite conversion instead of showing a
-  false download-progress state or switching tabs, and expose per-resource file-location reveal
-  actions for installed data; SRS story cards, topic
+  false download-progress state or switching tabs, expose per-resource
+  file-location reveal and uninstall actions for installed data, and confirm
+  before removing a pair card from the Learning Languages list when any
+  required resources for that pair are installed; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1924,6 +1926,8 @@ Use this file when:
   pair resource plan coverage, built-in `freq-es-cde` manual-download block,
   manual-only resource progress suppression, manual resource instruction dialog
   routing without tab switching, removed pair-card Add manually affordance,
+  Learning Languages resource uninstall buttons and installed-resource remove
+  confirmation,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source

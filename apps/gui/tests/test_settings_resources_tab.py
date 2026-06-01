@@ -5,7 +5,7 @@ import os
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PySide6.QtCore import QSettings
-from PySide6.QtWidgets import QApplication, QProgressBar
+from PySide6.QtWidgets import QApplication, QMessageBox, QProgressBar
 
 from dialogs import SettingsDialog
 from i18n import set_locale, t
@@ -173,6 +173,86 @@ def test_learning_pair_resource_location_button_reveals_resolved_path(monkeypatc
 
     assert revealed
     assert revealed[0].startswith("/tmp/")
+
+
+def test_learning_pair_installed_resource_can_be_uninstalled_from_card(monkeypatch) -> None:
+    _app()
+    set_locale("en")
+    _clear_learning_pairs()
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+    )
+    panel = dialog.language_pack_panel
+    deleted: list[str] = []
+
+    monkeypatch.setattr(panel, "_pair_resource_is_installed", lambda _item: True)
+    monkeypatch.setattr(
+        panel,
+        "_pair_resource_resolved_path",
+        lambda item: f"/tmp/{item.pack_id}.sqlite",
+    )
+    monkeypatch.setattr(panel, "_delete_frequency_pack", lambda pack_id: deleted.append(pack_id))
+    monkeypatch.setattr(panel, "_delete_language_pack", lambda pack_id: deleted.append(pack_id))
+
+    panel._refresh_learning_pair_cards()
+    learning_tab = panel._resource_tabs.widget(0)
+    buttons = learning_tab.findChildren(type(panel.open_language_pack_button))
+    uninstall_buttons = [
+        button
+        for button in buttons
+        if button.text() == t("language_packs.learning_pairs.uninstall_resource")
+    ]
+
+    assert len(uninstall_buttons) == len(panel._pair_resource_items())
+
+    uninstall_buttons[0].click()
+
+    assert deleted == ["freq-es-cde"]
+
+
+def test_remove_learning_pair_confirms_when_pair_has_installed_resources(monkeypatch) -> None:
+    _app()
+    set_locale("en")
+    _clear_learning_pairs()
+    dialog = SettingsDialog(
+        app_settings=AppSettings(),
+        dataset_settings=None,
+        initial_tab="resources",
+        initial_resource_pair="en-es",
+    )
+    panel = dialog.language_pack_panel
+    messages: list[str] = []
+
+    monkeypatch.setattr(
+        panel,
+        "_pair_resource_is_installed",
+        lambda item: item.pack_id == "freq-es-cde",
+    )
+
+    def cancel_remove(_parent, _title, message, *_args) -> QMessageBox.StandardButton:
+        messages.append(message)
+        return QMessageBox.Cancel
+
+    monkeypatch.setattr(pair_setup_mixin.QMessageBox, "question", cancel_remove)
+
+    panel._remove_learning_pair("en-es")
+
+    assert panel._learning_pair_keys == ["en-es"]
+    assert messages
+    assert "Spanish word frequency data" in messages[0]
+
+    monkeypatch.setattr(
+        pair_setup_mixin.QMessageBox,
+        "question",
+        lambda *_args: QMessageBox.Yes,
+    )
+
+    panel._remove_learning_pair("en-es")
+
+    assert panel._learning_pair_keys == []
 
 
 def test_settings_app_tab_no_longer_contains_language_pack_panel() -> None:

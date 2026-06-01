@@ -101,6 +101,14 @@ class LanguagePackPanelPairSetupMixin:
 
     def _remove_learning_pair(self, pair: str) -> None:
         normalized = str(pair or "").strip().lower()
+        plan = pair_resource_plan(normalized)
+        if plan is not None:
+            installed_items = self._installed_items_for_plan(plan)
+            if installed_items and not self._confirm_remove_learning_pair_with_installed_data(
+                plan,
+                installed_items,
+            ):
+                return
         self._learning_pair_keys = [
             value for value in self._learning_pair_keys if value != normalized
         ]
@@ -179,6 +187,28 @@ class LanguagePackPanelPairSetupMixin:
             for item in self._pair_resource_items()
             if not self._pair_resource_is_installed(item)
         )
+
+    def _installed_items_for_plan(self, plan: PairResourcePlan) -> tuple[PairResourceItem, ...]:
+        return tuple(item for item in plan.resources if self._pair_resource_is_installed(item))
+
+    def _confirm_remove_learning_pair_with_installed_data(
+        self,
+        plan: PairResourcePlan,
+        installed_items: tuple[PairResourceItem, ...],
+    ) -> bool:
+        resources = ", ".join(item.label for item in installed_items)
+        reply = QMessageBox.question(
+            self,
+            t("language_packs.learning_pairs.remove_pair_confirm_title"),
+            t(
+                "language_packs.learning_pairs.remove_pair_confirm",
+                pair=plan.label,
+                resources=resources,
+            ),
+            QMessageBox.Yes | QMessageBox.Cancel,
+            QMessageBox.Cancel,
+        )
+        return reply == QMessageBox.Yes
 
     def _pair_resource_download_active(self, item: PairResourceItem) -> bool:
         if self._download_disabled_for_pair_resource(item):
@@ -420,6 +450,20 @@ class LanguagePackPanelPairSetupMixin:
             lambda checked=False, resource=item: self._reveal_learning_pair_resource_path(resource)
         )
         actions.addWidget(location_button)
+        if installed:
+            uninstall_button = QPushButton(
+                t("language_packs.learning_pairs.uninstall_resource"),
+                slot,
+            )
+            uninstall_button.setToolTip(
+                t("language_packs.learning_pairs.uninstall_resource_tooltip")
+            )
+            uninstall_button.clicked.connect(
+                lambda checked=False, resource=item: self._uninstall_learning_pair_resource(
+                    resource
+                )
+            )
+            actions.addWidget(uninstall_button)
         actions.addStretch(1)
         layout.addLayout(actions)
         return slot
@@ -473,6 +517,13 @@ class LanguagePackPanelPairSetupMixin:
             )
             return
         reveal_path(path)
+
+    def _uninstall_learning_pair_resource(self, item: PairResourceItem) -> None:
+        if item.kind == "frequency":
+            self._delete_frequency_pack(item.pack_id)
+        elif item.kind == "language":
+            self._delete_language_pack(item.pack_id)
+        self._refresh_learning_pair_cards()
 
     def _open_learning_pair_resource_detail(self, item: PairResourceItem) -> None:
         if self._download_disabled_for_pair_resource(item) and not self._pair_resource_is_installed(
