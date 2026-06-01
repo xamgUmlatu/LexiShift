@@ -1818,7 +1818,7 @@ Use this file when:
     capacity management only.
   - The extension feedback popup remains review-feedback only.
 
-## SRS Story-Based Options UX
+## Vocabulary Practice Options UX
 
 - Status: `implemented`, `default-on`, `verified` for the selected-story shell,
   dashboard/sampling curtains, switch styling, proficiency slider presentation,
@@ -1826,11 +1826,17 @@ Use this file when:
   missing-language-data setup recovery, delete-story state cleanup, and
   existing-GUI resource-settings deep-link activation; full multi-story
   enumeration remains `planned`
-- Last documented checkpoint: `2026-05-31` delete-story state cleanup extends
-  the `2026-05-28` resource-readiness setup recovery,
+- Last documented checkpoint: `2026-06-02` learner-facing naming now presents the
+  SRS-backed learning surface as `Vocabulary Practice`, uses `practice`/
+  `learning words` copy in setup, dashboard, preference-save, discard, and
+  delete paths, localizes the updated extension/GUI strings across English,
+  Japanese, Chinese, and German, and keeps internal `srs_*`/story identifiers as
+  implementation details for APIs, storage, diagnostics, and tests. This naming
+  pass extends the `2026-05-31` delete-story state cleanup and the
+  `2026-05-28` resource-readiness setup recovery,
   generic installed-data hint removal, visible SRS enable-switch removal,
   story-scoped delete-story copy, active story preference-save/restore,
-  flattened Advanced cleanup, theme-aware SRS story surfaces, and
+  flattened Advanced cleanup, theme-aware practice surfaces, and
   section-order polish extend the
   guided-flow checkpoint: controls are grouped under a selected profile/pair
   story block, that block is collapsed by default to a pair summary plus
@@ -1898,8 +1904,8 @@ Use this file when:
   lists now own and style their actual popup `QListView` plus view/viewport
   palette through the active theme tokens, and the popup list view is frameless
   with zero margins/spacing so dark native popup slivers do not show above or
-  below language-pair/theme selectors; SRS
-  story cards, topic
+  below language-pair/theme selectors; Vocabulary Practice
+  cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1937,7 +1943,7 @@ Use this file when:
   clean setup topic defaults,
   non-activating setup sampling, learner-facing sample preview cards with
   locally toggled advanced diagnostics and no printed local source paths,
-  SRS story theme-token CSS contract,
+	  Vocabulary Practice theme-token CSS contract,
   explicit preference-save controls, right-aligned active-story badge,
   generalized empty preview hiding,
   lazy rulegen status output, hidden SRS enable backing control, removed
@@ -1975,15 +1981,15 @@ Use this file when:
   - The Options page still operates on the selected profile and selected
     source/target language pair; it does not yet enumerate every persisted SRS
     profile/pair store.
-  - The selected profile/pair SRS controls render inside a story-shaped block
+  - The selected profile/pair practice controls render inside a practice-shaped block
     that is collapsed by default to the language-pair summary and active-pair
     badge; expanding it reveals grouped settings, dashboard, sampling, and
-    maintenance for the same visible journey. Inner SRS story surfaces, topic
+    maintenance for the same visible journey. Inner practice surfaces, topic
     panels, curtains, and dashboard panels use the Options card-theme CSS
     variable path instead of fixed beige surfaces.
   - The active story does not repeat a generic explanatory sentence above its
     controls; the summary row carries the pair identity and active badge.
-  - The main SRS shell does not show generic installed-data copy; language-data
+  - The main Vocabulary Practice shell does not show generic installed-data copy; language-data
     readiness messaging should appear in setup, diagnostics, and actionable
     error/status states.
   - If setup sampling or initialization is blocked because required
@@ -2049,7 +2055,7 @@ Use this file when:
   - Advanced challenge tuning remains in the DOM for compatibility but is hidden
     from the active-story beta surface.
   - Helper and sentence-fit technical status are not shown inside the active
-    story; runtime diagnostics remain in the bottom Advanced debug tools area.
+    practice surface; runtime diagnostics remain in the bottom Advanced debug tools area.
   - The admitted-words dashboard remains read-only by default and is hidden
     until the dashboard curtain is opened from its summary panel; it is ordered
     directly after new-word sampling.
@@ -2057,10 +2063,10 @@ Use this file when:
     curtain is opened from its summary panel.
   - Display/feedback controls, including highlight color, learning-word review
     buttons, manual-replacement feedback buttons, automatic new-word addition
-    after feedback, and sound, remain visible in the active story after the
+    after feedback, and sound, remain visible in the active practice after the
     dashboard curtain.
-  - The collapsed active-story `Advanced` section exposes new-word timing
-    thresholds as same-level controls, followed by `Delete SRS story`. The
+  - The collapsed active-practice `Advanced` section exposes new-word timing
+	    thresholds as same-level controls, followed by `Delete Vocabulary Practice`. The
     delete action uses the existing helper reset route but is presented and
     confirmed as deleting only the selected profile/language-pair story. On
     helper reset success, Options removes the selected pair's persisted SRS

@@ -96,7 +96,7 @@
       }
       const srsPair = resolvePair();
       initializeButton.disabled = true;
-      setOutputText(translate("status_srs_set_init_running", null, "Initializing story…"));
+      setOutputText(translate("status_srs_set_init_running", null, "Starting practice…"));
 
       try {
         const items = await settingsManager.load();
@@ -167,8 +167,8 @@
         }
         await refreshSemanticAdmissionStatus(srsPair, synced.profileId);
         const statusMessage = applied
-          ? translate("status_srs_set_init_success", [srsPair], `Story initialized for ${srsPair}.`)
-          : translate("status_srs_set_plan_only", [srsPair], `Story setup checked for ${srsPair}; no changes were applied.`);
+          ? translate("status_srs_set_init_success", [srsPair], `Practice started for ${srsPair}.`)
+          : translate("status_srs_set_plan_only", [srsPair], `Practice setup checked for ${srsPair}; no changes were applied.`);
         setStatus(statusMessage, applied ? colors.SUCCESS : colors.DEFAULT);
         log("SRS set initialized", {
           pair: srsPair,
@@ -182,7 +182,7 @@
           requestProfileContextMeta: planningState.contextMeta
         });
       } catch (err) {
-        const msg = err && err.message ? err.message : translate("status_srs_set_init_failed", null, "Story setup failed.");
+        const msg = err && err.message ? err.message : translate("status_srs_set_init_failed", null, "Practice setup failed.");
         setOutputText(msg);
         setStatus(msg, colors.ERROR);
         log("SRS set init failed.", err);
@@ -385,10 +385,10 @@
       if (!resetButton) {
         return;
       }
-      if (!confirmFn(translate("confirm_srs_reset_1", null, "Delete this SRS story for the current profile and language pair? This cannot be undone."))) {
+      if (!confirmFn(translate("confirm_srs_reset_1", null, "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone."))) {
         return;
       }
-      if (!confirmFn(translate("confirm_srs_reset_2", null, "Really delete this story's learning words, review history, and discard data?"))) {
+      if (!confirmFn(translate("confirm_srs_reset_2", null, "Really delete this practice's learning words, review history, and discard data?"))) {
         return;
       }
 
@@ -397,7 +397,7 @@
       const profileId = settingsManager.getSelectedSrsProfileId(items);
       log(`[DeleteStory] User confirmed delete for pair: ${srsPair} (profile=${profileId})`);
       resetButton.disabled = true;
-      setStatus(translate("status_srs_resetting", null, "Deleting SRS story…"), colors.DEFAULT);
+      setStatus(translate("status_srs_resetting", null, "Deleting Vocabulary Practice…"), colors.DEFAULT);
 
       try {
         await helperManager.resetSrs(srsPair, { profileId });
@@ -412,11 +412,11 @@
           profileId,
           items
         });
-        setStatus(translate("status_srs_reset_success", null, "SRS story deleted."), colors.SUCCESS);
+        setStatus(translate("status_srs_reset_success", null, "Vocabulary Practice deleted."), colors.SUCCESS);
         setOutputText("");
       } catch (err) {
         log("[DeleteStory] Failed:", err);
-        let msg = err && err.message ? err.message : translate("status_srs_reset_failed", null, "SRS story deletion failed.");
+        let msg = err && err.message ? err.message : translate("status_srs_reset_failed", null, "Vocabulary Practice deletion failed.");
         if (msg.includes("Unknown command")) {
           msg = translate("status_srs_reset_outdated", null, "Delete failed: helper command not found. Restart helper?");
         }

@@ -234,7 +234,7 @@
       }
       const srsPair = resolvePair();
       wordsRefreshButton.disabled = true;
-      showWordsDashboardMessage("Loading SRS words…");
+      showWordsDashboardMessage("Loading learning words…");
       try {
         const items = await settingsManager.load();
         const synced = await syncSelectedProfile(items);
@@ -255,7 +255,7 @@
           ? Number(latestWordsDashboardData.summary.total || 0)
           : 0;
         setStatus(
-          translate("status_srs_items_list_ready", [total], `Loaded ${total} SRS words.`),
+          translate("status_srs_items_list_ready", [total], `Loaded ${total} learning words.`),
           colors.SUCCESS
         );
         log("SRS words dashboard refreshed", {
@@ -266,7 +266,7 @@
       } catch (err) {
         const msg = err && err.message
           ? err.message
-          : translate("status_srs_items_list_failed", null, "Failed to load SRS words.");
+          : translate("status_srs_items_list_failed", null, "Failed to load learning words.");
         showWordsDashboardMessage(msg);
         setStatus(msg, colors.ERROR);
         log("SRS words dashboard refresh failed.", err);
@@ -326,7 +326,7 @@
       const confirmed = confirmFn(translate(
         "confirm_srs_discard_word",
         [display],
-        `Discard ${display}? It will be removed from SRS and blocked from future admission until SRS data is reset.`
+        `Discard ${display}? It will be removed from Vocabulary Practice and blocked from future admission until practice data is reset.`
       ));
       if (!confirmed) {
         return;
@@ -355,7 +355,7 @@
       } catch (err) {
         const msg = err && err.message
           ? err.message
-          : translate("status_srs_discard_failed", null, "Failed to discard SRS word.");
+          : translate("status_srs_discard_failed", null, "Failed to discard learning word.");
         setStatus(msg, colors.ERROR);
         log("SRS word discard failed.", err);
       } finally {

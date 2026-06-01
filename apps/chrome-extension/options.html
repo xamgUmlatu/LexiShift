@@ -10,7 +10,7 @@
     <main id="options-main-content" class="container">
       <header>
         <h1 data-i18n="header_title">LexiShift</h1>
-        <p data-i18n="header_subtitle">Configure SRS practice and manual replacement rules for your browser experience.</p>
+        <p data-i18n="header_subtitle">Configure vocabulary practice and manual replacement rules for your browser experience.</p>
       </header>
       <div class="layout">
         <section class="card card-group">
@@ -46,7 +46,7 @@
           </div>
         </section>
         <section class="card">
-          <h2 data-i18n="section_srs">SRS Practice</h2>
+          <h2 data-i18n="section_srs">Vocabulary Practice</h2>
           <input id="srs-enabled" type="checkbox" hidden aria-hidden="true" />
           <select id="source-language" hidden aria-hidden="true">
             <option value="en">English</option>
@@ -75,7 +75,7 @@
           <input id="srs-initial-active-count" type="hidden" />
           <input id="srs-bootstrap-top-n" type="hidden" />
           <button id="srs-initialize-set" type="button" data-i18n="button_srs_initialize" hidden>
-            Initialize story
+            Start practice
           </button>
           <div class="srs-story-list">
             <details id="srs-story-current-card" class="srs-story-card" aria-labelledby="srs-story-current-heading">
@@ -282,7 +282,7 @@
               <div>
                 <h3 id="srs-words-dashboard-heading" data-i18n="heading_srs_words_dashboard">Learning words</h3>
                 <p class="hint" data-i18n="hint_srs_words_dashboard">
-                  Review the words currently in this SRS story.
+                  Review the words currently in this practice.
                 </p>
               </div>
               <div class="srs-words-dashboard-controls">
@@ -348,7 +348,7 @@
               <h4 data-i18n="section_srs_display_feedback">Display and feedback</h4>
             </div>
             <div class="field-row">
-              <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">SRS highlight color</label>
+              <label for="srs-highlight-color" data-i18n="label_srs_highlight_color">Practice highlight color</label>
               <input id="srs-highlight-color" type="color" />
               <input id="srs-highlight-color-text" type="text" class="color-text" />
             </div>
@@ -402,7 +402,7 @@
               </p>
             </section>
             <div class="actions srs-danger-actions">
-              <button id="srs-delete-story" class="danger-button" data-i18n="button_srs_delete_story">Delete SRS story</button>
+              <button id="srs-delete-story" class="danger-button" data-i18n="button_srs_delete_story">Delete Vocabulary Practice</button>
             </div>
           </details>
               </div>
@@ -411,7 +411,7 @@
             </details>
             <article class="srs-story-start-card" aria-labelledby="srs-story-start-heading">
               <div>
-                <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start a new SRS story</h3>
+                <h3 id="srs-story-start-heading" data-i18n="heading_srs_start_new_story">Start Vocabulary Practice</h3>
                 <p class="hint" data-i18n="hint_srs_start_new_story">
                   Choose languages, then tune preferences before initializing.
                 </p>
@@ -920,16 +920,16 @@
       >
         <div class="srs-story-flow-header">
           <div>
-            <h3 id="srs-story-flow-title" data-i18n="heading_srs_story_flow">Set up SRS story</h3>
+            <h3 id="srs-story-flow-title" data-i18n="heading_srs_story_flow">Set up Vocabulary Practice</h3>
             <p class="hint" data-i18n="hint_srs_story_flow">
-              Choose languages, preferences, and starting pace before setup.
+              Choose languages, preferences, and starting pace before you start.
             </p>
           </div>
           <button id="srs-story-flow-close" type="button" class="srs-story-flow-close" data-i18n="button_close">
             Close
           </button>
         </div>
-        <div class="srs-story-flow-steps" aria-label="SRS story setup steps">
+        <div class="srs-story-flow-steps" aria-label="Vocabulary Practice setup steps">
           <select id="srs-story-flow-profile-id" hidden aria-hidden="true" tabindex="-1"></select>
           <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-pair">
             <span class="srs-story-flow-step-index">1</span>
@@ -1067,9 +1067,9 @@
           <section class="srs-story-flow-step" aria-labelledby="srs-story-flow-step-review">
             <span class="srs-story-flow-step-index">4</span>
             <div>
-              <h4 id="srs-story-flow-step-review" data-i18n="heading_srs_story_flow_review">Sample and initialize</h4>
+              <h4 id="srs-story-flow-step-review" data-i18n="heading_srs_story_flow_review">Sample and start</h4>
               <p class="hint" data-i18n="hint_srs_story_flow_review">
-                Sample words until the mix looks right, then initialize the story.
+                Sample words until the mix looks right, then start practice.
               </p>
               <div
                 id="srs-story-flow-resource-check"
@@ -1101,7 +1101,7 @@
               </div>
               <div class="actions srs-story-flow-actions">
                 <button id="srs-story-flow-sample" type="button" data-i18n="button_srs_admission_preview">Sample 10 preference-matched words…</button>
-                <button id="srs-story-flow-initialize" type="button" data-i18n="button_srs_story_flow_initialize">Initialize story</button>
+                <button id="srs-story-flow-initialize" type="button" data-i18n="button_srs_story_flow_initialize">Start practice</button>
               </div>
               <div id="srs-story-flow-preview-output" class="srs-preview srs-story-flow-preview-output" role="status"></div>
             </div>

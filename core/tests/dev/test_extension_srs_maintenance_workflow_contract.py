@@ -188,11 +188,11 @@ const workflows = createMaintenanceWorkflows({{
     constraints: {{ max_active_items: 24 }},
     sizing: {{ bootstrap_top_n: 900, initial_active_count: 33 }}
   }});
-  assert.equal(outputs[0], "Initializing story…");
+  assert.equal(outputs[0], "Starting practice…");
   assert.equal(outputs[1], "init:true:4:true");
   assert.equal(
     statuses[0].message,
-    "Story initialized for en-ja."
+    "Practice started for en-ja."
   );
   assert.equal(statuses[0].color, "#3c5a2a");
   assert.equal(rulesetUpdatedCount, 1);
@@ -201,11 +201,11 @@ const workflows = createMaintenanceWorkflows({{
 
   assert.equal(initializeButton.disabled, false);
   assert.equal(helperCalls.length, 2);
-  assert.equal(outputs[2], "Initializing story…");
+  assert.equal(outputs[2], "Starting practice…");
   assert.equal(outputs[3], "init:false:0:false");
   assert.equal(
     statuses[1].message,
-    "Story setup checked for en-ja; no changes were applied."
+    "Practice setup checked for en-ja; no changes were applied."
   );
   assert.equal(statuses[1].color, "#6c675f");
   assert.equal(rulesetUpdatedCount, 1);
@@ -465,7 +465,7 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(resetButton.disabled, false);
   assert.equal(
     statuses[0].message,
-    "Deleting SRS story…"
+    "Deleting Vocabulary Practice…"
   );
   assert.equal(
     statuses[1].message,
@@ -474,11 +474,11 @@ const workflows = createMaintenanceWorkflows({{
   assert.equal(statuses[1].color, "#b42318");
   assert.equal(output.textContent, "stale output");
   assert.deepEqual(confirmMessages, [
-    "Delete this SRS story for the current profile and language pair? This cannot be undone.",
-    "Delete this SRS story for the current profile and language pair? This cannot be undone.",
-    "Really delete this story's learning words, review history, and discard data?",
-    "Delete this SRS story for the current profile and language pair? This cannot be undone.",
-    "Really delete this story's learning words, review history, and discard data?"
+    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Really delete this practice's learning words, review history, and discard data?",
+    "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone.",
+    "Really delete this practice's learning words, review history, and discard data?"
   ]);
 }})().catch((error) => {{
   console.error(error);
@@ -591,8 +591,8 @@ const workflows = createMaintenanceWorkflows({{
       options: {{ profileId: "suisui", forceHelperRefresh: true }}
     }}
   ]);
-  assert.equal(statuses[0].message, "Deleting SRS story…");
-  assert.equal(statuses[1].message, "SRS story deleted.");
+  assert.equal(statuses[0].message, "Deleting Vocabulary Practice…");
+  assert.equal(statuses[1].message, "Vocabulary Practice deleted.");
   assert.equal(statuses[1].color, "#3c5a2a");
   assert.equal(output.textContent, "");
 }})().catch((error) => {{
@@ -1002,7 +1002,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(metaText().includes("Ruleset: 4 rules"), true);
   const refreshMetaLabel = metaRoot.children[0].textContent;
   assert.equal(listRoot.children[0].children.length, 5);
-  assert.equal(statuses[0].message, "Loaded 3 SRS words.");
+  assert.equal(statuses[0].message, "Loaded 3 learning words.");
   assert.equal(listRoot.children[0].children[2].children[3].textContent, "Rules: 2");
   assert.equal(listRoot.children[0].children[2].children[5].textContent, "Replacing: Now");
   assert.equal(listRoot.children[0].children[3].textContent, "Matches: dog, hound");
@@ -1089,13 +1089,13 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
 
   await listRoot.children[0].children[5].children[1].click();
   assert.equal(confirms.length, 1);
-  assert.equal(confirms[0], "Discard perro? It will be removed from SRS and blocked from future admission until SRS data is reset.");
+  assert.equal(confirms[0], "Discard perro? It will be removed from Vocabulary Practice and blocked from future admission until practice data is reset.");
   assert.deepEqual(JSON.parse(JSON.stringify(discardCalls)), [
     {{ pair: "en-es", lemma: "perro", options: {{ profileId: "alpha" }} }}
   ]);
   assert.equal(listCalls.length, 2);
   assert.equal(statuses[2].message, "Discarded perro.");
-  assert.equal(statuses[3].message, "Loaded 1 SRS words.");
+  assert.equal(statuses[3].message, "Loaded 1 learning words.");
   assert.equal(summaryRoot.children[0].children[0].textContent, "0");
   assert.equal(summaryRoot.children[6].children[0].textContent, "1");
   assert.equal(pageInfoRoot.textContent, "Showing 1-1 of 1 words");

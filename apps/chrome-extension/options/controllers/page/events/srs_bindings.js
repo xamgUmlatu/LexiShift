@@ -78,7 +78,7 @@
         }
         return saveSrsSettings();
       }, {
-        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save practice settings."),
         logMessage: "SRS settings save failed."
       });
     }
@@ -243,7 +243,7 @@
         markSrsPreferencesDirty();
         return Promise.resolve();
       }, {
-        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save practice settings."),
         logMessage: "SRS settings save failed."
       });
     }
@@ -287,7 +287,7 @@
       restoreSavedProficiencyDisplay();
       return Promise.resolve();
     }, {
-      fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save practice settings."),
       logMessage: "SRS proficiency restore failed."
     });
     bindSrsPreferenceDraftChange(srsChallengeTargetInput);
@@ -321,11 +321,11 @@
         updateSavedProficiencyDisplayFromCurrent();
         setSrsPreferenceDirty(false);
       }), {
-      fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save SRS settings."),
+        fallbackMessage: () => translate("status_srs_save_failed", null, "Failed to save practice settings."),
       logMessage: "SRS settings save failed."
     });
     bindAsyncListener(srsInitializeSetButton, "click", () => srsActionsController.initializeSet(), {
-      fallbackMessage: () => translate("status_srs_set_init_failed", null, "Story setup failed."),
+      fallbackMessage: () => translate("status_srs_set_init_failed", null, "Practice setup failed."),
       logMessage: "SRS set init failed."
     });
     bindAsyncListener(srsAdmissionPreviewButton, "click", () => srsActionsController.previewAdmission(), {
@@ -385,7 +385,7 @@
       logMessage: "Semantic pack install failed."
     });
     bindAsyncListener(srsResetButton, "click", () => srsActionsController.resetSrsData(), {
-      fallbackMessage: () => translate("status_srs_reset_failed", null, "SRS story deletion failed."),
+      fallbackMessage: () => translate("status_srs_reset_failed", null, "Vocabulary Practice deletion failed."),
       logMessage: "[DeleteStory] Failed:"
     });
     bindAsyncListener(srsWordsRefreshButton, "click", () => srsActionsController.refreshWordsDashboard(), {

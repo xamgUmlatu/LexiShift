@@ -57,7 +57,7 @@
     "message": "Ersetzungsdichte auf der Seite"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Gilt, nachdem SRS- und manuelle Regeln für die Seitenanzeige zusammengeführt wurden."
+    "message": "Gilt, nachdem Wortschatztraining und manuelle Regeln für die Seitenanzeige zusammengeführt wurden."
   },
   "toggle_max_one": {
     "message": "Max. 1 Wort pro Textblock ersetzen"
@@ -84,7 +84,7 @@
     "message": "Der Standardwert ist 2. Verhindert, dass ein Wort die Seite dominiert."
   },
   "section_srs": {
-    "message": "SRS-Training"
+    "message": "Wortschatztraining"
   },
   "badge_srs_active_story": {
     "message": "Aktiv"
@@ -105,19 +105,19 @@
     "message": "Öffnen"
   },
   "heading_srs_start_new_story": {
-    "message": "Neue SRS-Story starten"
+    "message": "Wortschatztraining starten"
   },
   "hint_srs_start_new_story": {
-    "message": "Wähle die Sprachen und stimme die Präferenzen vor der Initialisierung ab."
+    "message": "Wähle die Sprachen und stimme die Präferenzen vor dem Start ab."
   },
   "button_srs_start_new_story": {
     "message": "Einrichtung starten"
   },
   "heading_srs_story_flow": {
-    "message": "SRS-Story einrichten"
+    "message": "Wortschatztraining einrichten"
   },
   "hint_srs_story_flow": {
-    "message": "Wähle Sprachen, Lernpräferenzen und Starttempo vor der Einrichtung."
+    "message": "Wähle Sprachen, Lernpräferenzen und Starttempo vor dem Start."
   },
   "heading_srs_story_flow_pair": {
     "message": "Sprache wählen"
@@ -129,10 +129,10 @@
     "message": "Starttempo wählen"
   },
   "heading_srs_story_flow_review": {
-    "message": "Testen und initialisieren"
+    "message": "Testen und starten"
   },
   "hint_srs_story_flow_review": {
-    "message": "Teste Wörter, bis die Mischung passt, und initialisiere dann die Story."
+    "message": "Teste Wörter, bis die Mischung passt, und starte dann das Training."
   },
   "label_srs_language_data": {
     "message": "Sprachdaten"
@@ -144,7 +144,7 @@
     "message": "Erneut prüfen"
   },
   "status_srs_language_data_missing": {
-    "message": "LexiShift benötigt Sprachdaten für $1, bevor diese Story getestet oder initialisiert werden kann."
+    "message": "LexiShift benötigt Sprachdaten für $1, bevor Wörter getestet oder das Training gestartet werden können."
   },
   "status_srs_language_data_check_required": {
     "message": "Installiere die erforderlichen Sprachdaten und prüfe erneut."
@@ -165,7 +165,7 @@
     "message": "JMDict-Daten"
   },
   "button_srs_story_flow_initialize": {
-    "message": "Story initialisieren"
+    "message": "Training starten"
   },
   "status_srs_story_flow_previewing": {
     "message": "Einstellungen werden gespeichert und mögliche Wörter getestet…"
@@ -174,10 +174,10 @@
     "message": "Probe aktualisiert."
   },
   "status_srs_story_flow_initializing": {
-    "message": "Einstellungen werden gespeichert und SRS-Story wird initialisiert…"
+    "message": "Einstellungen werden gespeichert und Wortschatztraining wird gestartet…"
   },
   "status_srs_story_flow_initialized": {
-    "message": "SRS-Story initialisiert."
+    "message": "Wortschatztraining gestartet."
   },
   "label_srs_pair": {
     "message": "Sprachpaar"
@@ -267,7 +267,7 @@
     "message": "Wiederherstellen"
   },
   "hint_srs_proficiency_estimate": {
-    "message": "Ziehe den Regler zu dem Niveau, zu dem neue SRS-Wörter passen sollen."
+    "message": "Ziehe den Regler zu dem Niveau, zu dem neue Übungswörter passen sollen."
   },
   "summary_srs_challenge_tuning": {
     "message": "Erweiterte Schwierigkeit"
@@ -279,7 +279,7 @@
     "message": "0 bis 100. Leer lassen, um die Schwierigkeitspräferenz neutral zu halten."
   },
   "label_srs_highlight_color": {
-    "message": "SRS-Hervorhebungsfarbe"
+    "message": "Hervorhebungsfarbe fürs Training"
   },
   "section_srs_display_feedback": {
     "message": "Anzeige und Feedback"
@@ -297,25 +297,25 @@
     "message": "Ein"
   },
   "hint_srs_semantic_capability_active": {
-    "message": "LexiShift prüft vor der Anzeige, ob ausgewählte SRS-Ersetzungen zum Satz passen."
+    "message": "LexiShift prüft vor der Anzeige, ob ausgewählte Übungsersetzungen zum Satz passen."
   },
   "status_srs_semantic_capability_published_unready": {
     "message": "Noch nicht verfügbar"
   },
   "hint_srs_semantic_capability_published_unready": {
-    "message": "Semantische Metadaten sind veröffentlicht, aber für dieses Sprachpaar/Profil gibt es noch keine ready-Abdeckung. LexiShift verwendet derzeit normale SRS-Ersetzungen."
+    "message": "Satzpassungsdaten sind veröffentlicht, aber für dieses Sprachpaar/Profil gibt es noch keine ready-Abdeckung. LexiShift verwendet derzeit normale Lernersetzungen."
   },
   "status_srs_semantic_capability_unavailable": {
     "message": "Nicht verfügbar"
   },
   "hint_srs_semantic_capability_unavailable": {
-    "message": "Für dieses Sprachpaar/Profil ist derzeit keine semantische Zulassungs-Abdeckung veröffentlicht. LexiShift verwendet derzeit normale SRS-Ersetzungen."
+    "message": "Für dieses Sprachpaar/Profil ist derzeit keine Satzpassungs-Abdeckung veröffentlicht. LexiShift verwendet derzeit normale Lernersetzungen."
   },
   "status_srs_semantic_capability_error": {
     "message": "Reparatur nötig"
   },
   "hint_srs_semantic_capability_error": {
-    "message": "Semantische Zulassungsdaten sind vorhanden, aber inkonsistent oder unlesbar. Bis zur Reparatur verwendet LexiShift normale SRS-Ersetzungen."
+    "message": "Satzpassungsdaten sind vorhanden, aber inkonsistent oder unlesbar. Bis zur Reparatur verwendet LexiShift normale Lernersetzungen."
   },
   "status_srs_semantic_capability_unknown": {
     "message": "Status nicht verfügbar"
@@ -324,13 +324,13 @@
     "message": "Der Status der Satz-Passung konnte gerade nicht geprüft werden."
   },
   "toggle_srs_semantic_admission": {
-    "message": "Semantische Zulassung aktivieren (experimentell)"
+    "message": "Satzpassungsprüfung aktivieren (experimentell)"
   },
   "hint_srs_semantic_admission": {
-    "message": "Filtert geeignete SRS-Ersetzungen mit einem satzbasierten Veto auf der Hilfsdienst-Seite. Die Fallback-Richtlinie bestimmt, was passiert, wenn semantische Daten oder der Hilfsdienst nicht verfügbar sind."
+    "message": "Filtert geeignete Übungsersetzungen mit satzbasierten Prüfungen auf der Hilfsdienst-Seite. Die Fallback-Richtlinie bestimmt, was passiert, wenn Satzpassungsdaten oder der Hilfsdienst nicht verfügbar sind."
   },
   "label_srs_semantic_fallback_policy": {
-    "message": "Semantische Fallback-Richtlinie"
+    "message": "Fallback-Richtlinie für Satzpassung"
   },
   "option_srs_semantic_fallback_legacy": {
     "message": "Bisheriges Ersetzen beibehalten"
@@ -444,7 +444,7 @@
     "message": "10 passende Wörter testen…"
   },
   "button_srs_initialize": {
-    "message": "Story initialisieren"
+    "message": "Training starten"
   },
   "button_srs_save_preferences": {
     "message": "Einstellungen speichern"
@@ -462,13 +462,13 @@
     "message": "Stichproben-Regelgen (5)…"
   },
   "button_srs_delete_story": {
-    "message": "SRS-Story löschen"
+    "message": "Wortschatztraining löschen"
   },
   "heading_srs_words_dashboard": {
     "message": "Lernwörter"
   },
   "hint_srs_words_dashboard": {
-    "message": "Sieh dir die Wörter an, die aktuell in dieser SRS-Story sind."
+    "message": "Sieh dir die Wörter an, die aktuell in diesem Training sind."
   },
   "button_srs_words_refresh": {
     "message": "Wörter aktualisieren"
@@ -522,10 +522,10 @@
     "message": "Filter löschen"
   },
   "confirm_srs_reset_1": {
-    "message": "Diese SRS-Story für das aktuelle Profil und Sprachpaar löschen? Dies kann nicht rückgängig gemacht werden."
+    "message": "Dieses Wortschatztraining für das aktuelle Profil und Sprachpaar löschen? Dies kann nicht rückgängig gemacht werden."
   },
   "confirm_srs_reset_2": {
-    "message": "Wirklich die Lernwörter, den Wiederholungsverlauf und die Verwerfungsdaten dieser Story löschen?"
+    "message": "Wirklich die Lernwörter, den Wiederholungsverlauf und die Verwerfungsdaten dieses Trainings löschen?"
   },
   "status_srs_sampling": {
     "message": "Stichprobe läuft…"
@@ -543,7 +543,7 @@
     "message": "Stichproben-Regelgen: $1 Wörter, $2 Ziele, $3 Regeln ($4s)"
   },
   "status_srs_set_init_running": {
-    "message": "Story wird initialisiert…"
+    "message": "Training wird gestartet…"
   },
   "status_srs_refresh_running": {
     "message": "Lernwörter werden aktualisiert…"
@@ -570,19 +570,19 @@
     "message": "SRS-Diagnose konnte nicht erfasst werden."
   },
   "status_srs_set_init_result": {
-    "message": "Story für $3 initialisiert: +$1 Lernwörter (gesamt $2)."
+    "message": "Training für $3 gestartet: +$1 Lernwörter (gesamt $2)."
   },
   "status_srs_set_plan_result": {
-    "message": "Story-Einrichtung für $1 geprüft."
+    "message": "Trainingseinrichtung für $1 geprüft."
   },
   "status_srs_set_init_success": {
-    "message": "Story für $1 initialisiert."
+    "message": "Training für $1 gestartet."
   },
   "status_srs_set_plan_only": {
-    "message": "Story-Einrichtung für $1 geprüft (keine Änderungen angewendet)."
+    "message": "Trainingseinrichtung für $1 geprüft (keine Änderungen angewendet)."
   },
   "status_srs_set_init_failed": {
-    "message": "Story-Einrichtung fehlgeschlagen."
+    "message": "Trainingseinrichtung fehlgeschlagen."
   },
   "status_srs_sample_empty": {
     "message": "Keine Wörter verfügbar."
@@ -591,7 +591,7 @@
     "message": "Keine Regeln für die aktuellen Wörter gefunden."
   },
   "status_srs_sample_failed": {
-    "message": "SRS-Stichprobe fehlgeschlagen."
+    "message": "Wortstichprobe fehlgeschlagen."
   },
   "status_srs_rulegen_failed": {
     "message": "Regelvorschau fehlgeschlagen."
@@ -624,13 +624,13 @@
     "message": "Lösung:"
   },
   "status_srs_resetting": {
-    "message": "SRS-Story wird gelöscht…"
+    "message": "Wortschatztraining wird gelöscht…"
   },
   "status_srs_reset_success": {
-    "message": "SRS-Story gelöscht."
+    "message": "Wortschatztraining gelöscht."
   },
   "status_srs_reset_failed": {
-    "message": "SRS-Story konnte nicht gelöscht werden."
+    "message": "Wortschatztraining konnte nicht gelöscht werden."
   },
   "status_srs_reset_outdated": {
     "message": "Löschen fehlgeschlagen: Helper-Befehl nicht gefunden. Helper neu starten?"
@@ -1032,7 +1032,7 @@
     "message": "Ersetzungseinstellungen gespeichert."
   },
   "status_srs_saved": {
-    "message": "SRS-Einstellungen gespeichert."
+    "message": "Trainingseinstellungen gespeichert."
   },
   "status_srs_preferences_saved": {
     "message": "Einstellungen gespeichert."
@@ -1041,10 +1041,10 @@
     "message": "Nicht gespeicherte Änderungen."
   },
   "status_srs_save_failed": {
-    "message": "SRS-Einstellungen konnten nicht gespeichert werden."
+    "message": "Trainingseinstellungen konnten nicht gespeichert werden."
   },
   "status_srs_save_partial": {
-    "message": "SRS-Einstellungen wurden nur teilweise gespeichert. Laden Sie die Seite neu und prüfen Sie die aktuellen Werte."
+    "message": "Trainingseinstellungen wurden nur teilweise gespeichert. Laden Sie die Seite neu und prüfen Sie die aktuellen Werte."
   },
   "status_switch_edit_json": {
     "message": "Zum Speichern auf „JSON bearbeiten“ wechseln."
@@ -1405,5 +1405,20 @@
   },
   "status_semantic_pack_install_failed": {
     "message": "Semantic pack install failed."
+  },
+  "status_srs_items_list_ready": {
+    "message": "$1 Lernwörter geladen."
+  },
+  "status_srs_items_list_failed": {
+    "message": "Lernwörter konnten nicht geladen werden."
+  },
+  "confirm_srs_discard_word": {
+    "message": "$1 verwerfen? Das Wort wird aus dem Wortschatztraining entfernt und bis zum Zurücksetzen der Trainingsdaten für zukünftige Aufnahme blockiert."
+  },
+  "status_srs_discard_success": {
+    "message": "$1 verworfen."
+  },
+  "status_srs_discard_failed": {
+    "message": "Lernwort konnte nicht verworfen werden."
   }
 }

@@ -12,7 +12,7 @@
     "message": "LexiShift"
   },
   "header_subtitle": {
-    "message": "Configure SRS practice and manual replacement rules for your browser experience."
+    "message": "Configure vocabulary practice and manual replacement rules for your browser experience."
   },
   "section_quick_controls": {
     "message": "Quick Controls"
@@ -57,7 +57,7 @@
     "message": "Page Replacement Density"
   },
   "hint_replacement_behavior_scope": {
-    "message": "Applies after SRS and manual rules are merged for page display."
+    "message": "Applies after vocabulary practice and manual rules are merged for page display."
   },
   "toggle_max_one": {
     "message": "Replace max 1 word per text block"
@@ -84,7 +84,7 @@
     "message": "Standard default is 2. Prevents one word from dominating the page."
   },
   "section_srs": {
-    "message": "SRS Practice"
+    "message": "Vocabulary Practice"
   },
   "badge_srs_active_story": {
     "message": "Active"
@@ -105,19 +105,19 @@
     "message": "Open"
   },
   "heading_srs_start_new_story": {
-    "message": "Start a new SRS story"
+    "message": "Start Vocabulary Practice"
   },
   "hint_srs_start_new_story": {
-    "message": "Choose languages, then tune preferences before initializing."
+    "message": "Choose languages, then tune preferences before starting."
   },
   "button_srs_start_new_story": {
     "message": "Start setup"
   },
   "heading_srs_story_flow": {
-    "message": "Set up SRS story"
+    "message": "Set up Vocabulary Practice"
   },
   "hint_srs_story_flow": {
-    "message": "Choose languages, learning preferences, and starting pace before setup."
+    "message": "Choose languages, learning preferences, and starting pace before you start."
   },
   "heading_srs_story_flow_pair": {
     "message": "Choose language"
@@ -129,10 +129,10 @@
     "message": "Choose starting pace"
   },
   "heading_srs_story_flow_review": {
-    "message": "Sample and initialize"
+    "message": "Sample and start"
   },
   "hint_srs_story_flow_review": {
-    "message": "Sample words until the mix looks right, then initialize the story."
+    "message": "Sample words until the mix looks right, then start practice."
   },
   "label_srs_language_data": {
     "message": "Language data"
@@ -144,7 +144,7 @@
     "message": "Retry check"
   },
   "status_srs_language_data_missing": {
-    "message": "LexiShift needs language data for $1 before it can sample words or start this story."
+    "message": "LexiShift needs language data for $1 before it can sample words or start practice."
   },
   "status_srs_language_data_check_required": {
     "message": "Install the required language data, then retry."
@@ -168,7 +168,7 @@
     "message": "Language data"
   },
   "button_srs_story_flow_initialize": {
-    "message": "Initialize story"
+    "message": "Start practice"
   },
   "status_srs_story_flow_previewing": {
     "message": "Saving settings and sampling possible words…"
@@ -177,10 +177,10 @@
     "message": "Sample updated."
   },
   "status_srs_story_flow_initializing": {
-    "message": "Saving settings and initializing SRS story…"
+    "message": "Saving settings and starting Vocabulary Practice…"
   },
   "status_srs_story_flow_initialized": {
-    "message": "SRS story initialized."
+    "message": "Vocabulary Practice started."
   },
   "label_srs_pair": {
     "message": "Language pair"
@@ -270,7 +270,7 @@
     "message": "Restore"
   },
   "hint_srs_proficiency_estimate": {
-    "message": "Drag toward the level you want new SRS words to fit."
+    "message": "Drag toward the level you want new practice words to fit."
   },
   "summary_srs_challenge_tuning": {
     "message": "Advanced challenge tuning"
@@ -282,7 +282,7 @@
     "message": "0 to 100. Leave blank to keep challenge preference neutral."
   },
   "label_srs_highlight_color": {
-    "message": "SRS highlight color"
+    "message": "Practice highlight color"
   },
   "section_srs_display_feedback": {
     "message": "Display and feedback"
@@ -300,25 +300,25 @@
     "message": "On"
   },
   "hint_srs_semantic_capability_active": {
-    "message": "LexiShift checks whether selected SRS replacements fit the sentence before showing them."
+    "message": "LexiShift checks whether selected practice replacements fit the sentence before showing them."
   },
   "status_srs_semantic_capability_published_unready": {
     "message": "Not yet available"
   },
   "hint_srs_semantic_capability_published_unready": {
-    "message": "Semantic metadata is published, but this pair/profile has no ready coverage yet. LexiShift currently uses standard SRS replacements."
+    "message": "Sentence-fit data is published, but this pair/profile has no ready coverage yet. LexiShift currently uses standard learning replacements."
   },
   "status_srs_semantic_capability_unavailable": {
     "message": "Unavailable"
   },
   "hint_srs_semantic_capability_unavailable": {
-    "message": "This pair/profile does not currently publish semantic admission coverage. LexiShift currently uses standard SRS replacements."
+    "message": "This pair/profile does not currently publish sentence-fit coverage. LexiShift currently uses standard learning replacements."
   },
   "status_srs_semantic_capability_error": {
     "message": "Needs repair"
   },
   "hint_srs_semantic_capability_error": {
-    "message": "Semantic admission data is present but inconsistent or unreadable. LexiShift currently uses standard SRS replacements until it is repaired."
+    "message": "Sentence-fit data is present but inconsistent or unreadable. LexiShift currently uses standard learning replacements until it is repaired."
   },
   "status_srs_semantic_capability_unknown": {
     "message": "Status unavailable"
@@ -327,13 +327,13 @@
     "message": "Sentence-fit status could not be checked right now."
   },
   "toggle_srs_semantic_admission": {
-    "message": "Enable semantic admission (experimental)"
+    "message": "Enable sentence fit check (experimental)"
   },
   "hint_srs_semantic_admission": {
-    "message": "Filters eligible SRS replacements with helper-side sentence veto. Fallback policy decides what happens when semantic data or helper service is unavailable."
+    "message": "Filters eligible practice replacements with helper-side sentence checks. Fallback policy decides what happens when sentence-fit data or helper service is unavailable."
   },
   "label_srs_semantic_fallback_policy": {
-    "message": "Semantic fallback policy"
+    "message": "Sentence-fit fallback policy"
   },
   "option_srs_semantic_fallback_legacy": {
     "message": "Keep legacy replacement"
@@ -447,7 +447,7 @@
     "message": "Sample 10 preference-matched words…"
   },
   "button_srs_initialize": {
-    "message": "Initialize story"
+    "message": "Start practice"
   },
   "button_srs_save_preferences": {
     "message": "Save preferences"
@@ -465,13 +465,13 @@
     "message": "Run sampled rulegen (5)…"
   },
   "button_srs_delete_story": {
-    "message": "Delete SRS story"
+    "message": "Delete Vocabulary Practice"
   },
   "heading_srs_words_dashboard": {
     "message": "Learning words"
   },
   "hint_srs_words_dashboard": {
-    "message": "Review the words currently in this SRS story."
+    "message": "Review the words currently in this practice."
   },
   "button_srs_words_refresh": {
     "message": "Refresh words"
@@ -525,10 +525,10 @@
     "message": "Clear filters"
   },
   "confirm_srs_reset_1": {
-    "message": "Delete this SRS story for the current profile and language pair? This cannot be undone."
+    "message": "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone."
   },
   "confirm_srs_reset_2": {
-    "message": "Really delete this story's learning words, review history, and discard data?"
+    "message": "Really delete this practice's learning words, review history, and discard data?"
   },
   "status_srs_sampling": {
     "message": "Sampling…"
@@ -546,7 +546,7 @@
     "message": "Sampled rulegen: $1 words, $2 targets, $3 rules ($4s)"
   },
   "status_srs_set_init_running": {
-    "message": "Initializing story…"
+    "message": "Starting practice…"
   },
   "status_srs_refresh_running": {
     "message": "Refreshing learning words…"
@@ -573,19 +573,19 @@
     "message": "Failed to collect SRS diagnostics."
   },
   "status_srs_set_init_result": {
-    "message": "Story initialized for $3: +$1 learning words (total $2)."
+    "message": "Practice started for $3: +$1 learning words (total $2)."
   },
   "status_srs_set_plan_result": {
-    "message": "Story setup checked for $1."
+    "message": "Practice setup checked for $1."
   },
   "status_srs_set_init_success": {
-    "message": "Story initialized for $1."
+    "message": "Practice started for $1."
   },
   "status_srs_set_plan_only": {
-    "message": "Story setup checked for $1; no changes were applied."
+    "message": "Practice setup checked for $1; no changes were applied."
   },
   "status_srs_set_init_failed": {
-    "message": "Story setup failed."
+    "message": "Practice setup failed."
   },
   "status_srs_sample_empty": {
     "message": "No words available."
@@ -594,7 +594,7 @@
     "message": "No rules found for current active words."
   },
   "status_srs_sample_failed": {
-    "message": "SRS sample failed."
+    "message": "Word sample failed."
   },
   "status_srs_rulegen_failed": {
     "message": "Rule preview failed."
@@ -627,13 +627,13 @@
     "message": "Fix:"
   },
   "status_srs_resetting": {
-    "message": "Deleting SRS story…"
+    "message": "Deleting Vocabulary Practice…"
   },
   "status_srs_reset_success": {
-    "message": "SRS story deleted."
+    "message": "Vocabulary Practice deleted."
   },
   "status_srs_reset_failed": {
-    "message": "SRS story deletion failed."
+    "message": "Vocabulary Practice deletion failed."
   },
   "status_srs_reset_outdated": {
     "message": "Delete failed: helper command not found. Restart helper?"
@@ -1035,7 +1035,7 @@
     "message": "Replacement settings saved."
   },
   "status_srs_saved": {
-    "message": "SRS settings saved."
+    "message": "Practice settings saved."
   },
   "status_srs_preferences_saved": {
     "message": "Preferences saved."
@@ -1044,10 +1044,10 @@
     "message": "Unsaved changes."
   },
   "status_srs_save_failed": {
-    "message": "Failed to save SRS settings."
+    "message": "Failed to save practice settings."
   },
   "status_srs_save_partial": {
-    "message": "SRS settings were partially saved. Reload the page and review the current values."
+    "message": "Practice settings were partially saved. Reload the page and review the current values."
   },
   "status_switch_edit_json": {
     "message": "Switch to Edit JSON to save changes."
@@ -1140,7 +1140,7 @@
     "message": "Feedback history"
   },
   "module_feedback_history_desc": {
-    "message": "Store and display your SRS rating history for this word."
+    "message": "Store and display your review rating history for this word."
   },
   "module_encounter_history": {
     "message": "Encounter history"
@@ -1414,5 +1414,20 @@
   },
   "status_semantic_pack_install_failed": {
     "message": "Semantic pack install failed."
+  },
+  "status_srs_items_list_ready": {
+    "message": "Loaded $1 learning words."
+  },
+  "status_srs_items_list_failed": {
+    "message": "Failed to load learning words."
+  },
+  "confirm_srs_discard_word": {
+    "message": "Discard $1? It will be removed from Vocabulary Practice and blocked from future admission until practice data is reset."
+  },
+  "status_srs_discard_success": {
+    "message": "Discarded $1."
+  },
+  "status_srs_discard_failed": {
+    "message": "Failed to discard learning word."
   }
 }

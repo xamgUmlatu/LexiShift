@@ -14,37 +14,37 @@
         "status_srs_semantic_capability_checking",
         "Checking…",
         "hint_srs_semantic_capability_checking",
-        "Checking semantic admission status…"
+        "Checking sentence-fit status…"
       ],
       active: [
         "status_srs_semantic_capability_active",
         "Automatic",
         "hint_srs_semantic_capability_active",
-        "Helper-side sentence veto runs automatically for this pair/profile."
+        "Sentence-fit checks run automatically for this pair/profile."
       ],
       published_unready: [
         "status_srs_semantic_capability_published_unready",
         "Not yet available",
         "hint_srs_semantic_capability_published_unready",
-        "Semantic metadata is published, but this pair/profile has no ready coverage yet. LexiShift currently uses standard SRS replacements."
+        "Sentence-fit data is published, but this pair/profile has no ready coverage yet. LexiShift currently uses standard learning replacements."
       ],
       unavailable: [
         "status_srs_semantic_capability_unavailable",
         "Unavailable",
         "hint_srs_semantic_capability_unavailable",
-        "This pair/profile does not currently publish semantic admission coverage. LexiShift currently uses standard SRS replacements."
+        "This pair/profile does not currently publish sentence-fit coverage. LexiShift currently uses standard learning replacements."
       ],
       error: [
         "status_srs_semantic_capability_error",
         "Needs repair",
         "hint_srs_semantic_capability_error",
-        "Semantic admission data is present but inconsistent or unreadable. LexiShift currently uses standard SRS replacements until it is repaired."
+        "Sentence-fit data is present but inconsistent or unreadable. LexiShift currently uses standard learning replacements until it is repaired."
       ],
       unknown: [
         "status_srs_semantic_capability_unknown",
         "Status unavailable",
         "hint_srs_semantic_capability_unknown",
-        "Semantic admission status could not be checked right now."
+        "Sentence-fit status could not be checked right now."
       ]
     };
 

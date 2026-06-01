@@ -314,7 +314,7 @@
           profileId: selectedProfileId
         });
 
-        setStatus(translate("status_srs_saved", null, "SRS settings saved."), colors.SUCCESS);
+        setStatus(translate("status_srs_saved", null, "Practice settings saved."), colors.SUCCESS);
         log("SRS settings saved.", {
           pair: pairKey,
           profileId: updateResult && updateResult.profileId ? updateResult.profileId : "default",
@@ -337,10 +337,10 @@
           ...autoRefreshSettings
         });
       } catch (err) {
-        const fallbackMessage = translate("status_srs_save_failed", null, "Failed to save SRS settings.");
+        const fallbackMessage = translate("status_srs_save_failed", null, "Failed to save practice settings.");
         const baseMessage = err && err.message ? err.message : fallbackMessage;
         const message = partialSave
-          ? `${translate("status_srs_save_partial", null, "SRS settings were partially saved. Reload the page and review the current values.")} ${baseMessage}`.trim()
+          ? `${translate("status_srs_save_partial", null, "Practice settings were partially saved. Reload the page and review the current values.")} ${baseMessage}`.trim()
           : baseMessage;
         const failure = new Error(message);
         failure.cause = err;

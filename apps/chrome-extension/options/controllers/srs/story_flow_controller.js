@@ -295,7 +295,7 @@
       }
       setActionBusy(true);
       setPreviewText(
-        translate("status_srs_story_flow_initializing", null, "Saving settings and initializing SRS story…"),
+        translate("status_srs_story_flow_initializing", null, "Saving settings and starting Vocabulary Practice…"),
         colors.DEFAULT
       );
       try {
@@ -312,12 +312,12 @@
         if (mainDashboardCurtain) {
           mainDashboardCurtain.open = true;
         }
-        setStatus(translate("status_srs_story_flow_initialized", null, "SRS story initialized."), colors.SUCCESS);
+        setStatus(translate("status_srs_story_flow_initialized", null, "Vocabulary Practice started."), colors.SUCCESS);
         close();
       } catch (err) {
         const message = err && err.message
           ? err.message
-          : translate("status_srs_set_init_failed", null, "Story setup failed.");
+          : translate("status_srs_set_init_failed", null, "Practice setup failed.");
         setPreviewText(message, colors.ERROR);
         throw err;
       } finally {

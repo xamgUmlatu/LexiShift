@@ -1,50 +1,50 @@
-# SRS Story-Based Options Flow Plan
+# Vocabulary Practice Options Flow Plan
 
 Status: active target UX plan
 Role: Planning
-Last updated: 2026-05-31
-Last verified: 2026-05-31 selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
-Purpose: define the target Options-page SRS UX before beta-facing cleanup so implementation can follow the same flow deliberately
+Last updated: 2026-06-02
+Last verified: 2026-06-02 learner-facing Vocabulary Practice naming pass plus selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
+Purpose: define the target Options-page Vocabulary Practice UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
 
 ## Current Implementation State
 
 As of 2026-05-28, the Options page has the beta-facing structural flow:
 
-- selected profile/pair SRS controls are grouped under a selected-story block;
+- selected profile/pair practice controls are grouped under a selected-practice block;
 - admission sampling is behind a `Sample next words` curtain placed directly
-  after the active story's admission-preference controls;
+  after the active practice's admission-preference controls;
 - the admitted-words dashboard is behind an `Open dashboard` curtain placed
   directly after sampling;
-- display/feedback controls sit in the normal expanded story surface after the
+- display/feedback controls sit in the normal expanded practice surface after the
   dashboard curtain;
 - the collapsed `Advanced` section contains same-level new-word timing
-  thresholds and a story-scoped delete action only;
-- SRS story cards, topic panels, curtains, and dashboard surfaces follow the
+  thresholds and a practice-scoped delete action only;
+- practice cards, topic panels, curtains, and dashboard surfaces follow the
   same card-theme CSS-variable path as the rest of the Options page;
-- active-story new-word preference edits are draft changes until the learner
+- active-practice new-word preference edits are draft changes until the learner
   presses `Save preferences`;
-- the main SRS shell does not show generic installed-data copy; language-data
+- the main Vocabulary Practice shell does not show generic installed-data copy; language-data
   readiness belongs in setup, diagnostics, or actionable error/status states;
-- there is no visible SRS enable switch in the ordinary story surface; starting
-  a story through initialization is the learner-facing enable action, while the
+- there is no visible SRS enable switch in the ordinary practice surface; starting
+  practice through initialization is the learner-facing enable action, while the
   legacy `srs-enabled` input remains hidden as a controller backing field;
-- the active-story proficiency slider shows its previous saved setting and has a
+- the active-practice proficiency slider shows its previous saved setting and has a
   restore action;
-- the start-new-story block opens a guided modal for source/target language
+- the start-practice block opens a guided modal for source/target language
   choice, proficiency, topics, starting size, sampling, and initialization; the
   profile is inherited from the active profile through a hidden backing value
   and is not presented as a learner-facing setup choice;
-- the new-story proficiency slider starts at an explicit beginner value (`0%`)
+- the new-practice proficiency slider starts at an explicit beginner value (`0%`)
   when there is no existing proficiency value to copy into the flow;
-- each fresh new-story modal opening starts with no topic chips selected, even
+- each fresh new-practice modal opening starts with no topic chips selected, even
   if the previous cancelled setup sample persisted draft topic settings for
   preview;
 - modal sampling copies the visible modal values into the existing Options
-  controls, may persist draft language/SRS preference inputs for the active
+  controls, may persist draft language/practice preference inputs for the active
   profile, and then calls the existing read-only preview workflow without
-  activating the story;
-- modal and active-story sampling render the same fetched preview payload as a
+  activating practice;
+- modal and active-practice sampling render the same fetched preview payload as a
   learner-facing word/topic list by default, with the technical preview payload
   retained behind a local Advanced details disclosure that toggles without
   re-running the sample; local source paths are not printed in this learner
@@ -75,45 +75,50 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
 
 Not implemented yet:
 
-- full story enumeration across all profile/pair SRS stores;
-- persisted story summary counts outside the dashboard payload;
+- full practice enumeration across all profile/pair SRS stores;
+- persisted practice summary counts outside the dashboard payload;
 - final user-facing policy for whether candidate-pool depth belongs in learner
   settings, setup-only advanced controls, or a future data-source/download model;
 - user-facing browsing-data opt-in controls for browsing-based admission.
 
 ## Decision
 
-The Options page should present SRS as a set of learner-facing "stories" rather
-than a flat control panel.
+The Options page should present the SRS-backed learning feature as learner-facing
+Vocabulary Practice rather than exposing the SRS acronym or the temporary
+"story" metaphor in ordinary UI.
 
-An SRS story is the learner's active journey for one profile and language pair:
+A Vocabulary Practice instance is the learner's active journey for one profile
+and language pair:
 
 - selected profile
 - source language
 - target language
 - admission preferences
-- active/admitted SRS inventory
+- active/admitted practice inventory
 - dashboard state
 - lifecycle and maintenance state
 
-The exact user-facing name may change later. This document uses "SRS story" as
-the implementation/product-planning term.
+Internal code and storage names may continue to use `srs` and `story` where they
+describe existing implementation boundaries. User-facing copy should say
+`Vocabulary Practice`, `practice`, `learning words`, or `practice settings`
+unless the surface is explicitly technical diagnostics/import-export.
 
 ## Target Page Shape
 
-When a user scrolls through Options, the SRS area should have two main surfaces.
+When a user scrolls through Options, the Vocabulary Practice area should have two
+main surfaces.
 
-### Existing SRS Stories
+### Existing Vocabulary Practice
 
-If the selected profile already has SRS data for one or more language pairs, each
-story appears as a compact block.
+If the selected profile already has practice data for one or more language pairs,
+each practice instance appears as a compact block.
 
-Each story block should show:
+Each practice block should show:
 
 - language pair, such as `English -> Spanish`
 - profile identity
 - enabled/paused state
-- compact SRS inventory counts:
+- compact practice inventory counts:
   - active words
   - due words
   - queued words
@@ -125,38 +130,38 @@ Each story block should show:
   - automatic refresh state
 - last refresh or last rules publication time when available
 
-Each story block should provide user-facing actions:
+Each practice block should provide user-facing actions:
 
 - `Open dashboard`
 - `Sample possible words`
 - `Edit preferences`
 
-Each story block may provide advanced actions behind an additional collapsed
+Each practice block may provide advanced actions behind an additional collapsed
 management area:
 
 - new-word timing thresholds
-- delete SRS story for the current profile/language pair
+- delete Vocabulary Practice for the current profile/language pair
 - future restore/mastery/release controls
 
 Dashboard and sampling must not be permanently expanded on the main page. They
 are large inspection tools and should open only when requested.
 
-### Start New SRS Story
+### Start Vocabulary Practice
 
-Below the existing story blocks, the page should show one simple block for
-starting a new story.
+Below the existing practice blocks, the page should show one simple block for
+starting Vocabulary Practice.
 
 The block should be intentionally small:
 
 - short title
 - short description
-- one primary button, such as `Start a new SRS story`
+- one primary button, such as `Start Vocabulary Practice`
 
 Clicking this button opens a guided popup/modal/drawer flow.
 
-## New Story Linear Flow
+## New Practice Linear Flow
 
-Starting SRS for a language pair is a high-impact action because it creates the
+Starting Vocabulary Practice for a language pair is a high-impact action because it creates the
 initial admitted set. It should feel deliberate and linear.
 
 The flow order must be:
@@ -187,7 +192,7 @@ correct order from a long page.
 
 Sampling remains important and should be reused.
 
-Sampling in the new-story flow should:
+Sampling in the new-practice flow should:
 
 - use the current visible source/target/profile/preference values;
 - be probabilistic where the backend supports probabilistic preview;
@@ -197,30 +202,30 @@ Sampling in the new-story flow should:
 - make it clear that a sample is preview evidence, not a guarantee of exact
   admission.
 
-Sampling in an existing story block should:
+Sampling in an existing practice block should:
 
-- use the story's current visible preferences for preview;
+- use the practice's current visible preferences for preview;
 - require an explicit save action before changed preferences become the saved
-  story defaults for future refresh/growth;
+  practice defaults for future refresh/growth;
 - be hidden until the user expands the sampling curtain;
 - support repeated sampling without requiring a full page reload.
 
 ## Curtain Pattern
 
-Large SRS surfaces should be collapsed by default and opened in-place when the
-user asks for them.
+Large Vocabulary Practice surfaces should be collapsed by default and opened
+in-place when the user asks for them.
 
 Use the curtain pattern for:
 
 - dashboard
 - sampling
-- preference editing if it becomes too large for the compact story block
+- preference editing if it becomes too large for the compact practice block
 - Advanced timing/reset controls
 
 Expected behavior:
 
-- clicking the story action opens the section below the story block;
-- the section visually belongs to that story;
+- clicking the practice action opens the section below the practice block;
+- the section visually belongs to that practice;
 - opening one section must not make the full Options page feel like a debug
   console;
 - the user can close the section or leave it collapsed while browsing other
@@ -236,11 +241,11 @@ Implementation note:
 
 Move or regroup current controls as follows.
 
-Keep in normal story/new-story UX:
+Keep in normal practice/new-practice UX:
 
 - source language
 - target language
-- SRS enabled/paused state
+- enabled/paused state
 - display/feedback settings
 - proficiency estimate
 - topic picker
@@ -263,7 +268,7 @@ Keep advanced/collapsed:
 - advanced topic tags
 - challenge target
 - new-word timing thresholds
-- delete SRS story
+- delete Vocabulary Practice
 - debug/runtime diagnostics
 - sampled rulegen
 - semantic pack installation/debug inputs
@@ -275,7 +280,7 @@ Do not make these prominent in the ordinary beta learner path:
 - rule publication details
 - manual active-word update and learning-word refresh controls
 - helper diagnostics
-- helper and sentence-fit technical status inside the active story
+- helper and sentence-fit technical status inside the active practice
 - semantic pack inventory paths
 - raw bootstrap/top-N implementation language
 - candidate-pool depth controls until the data-source/download/storage policy is
@@ -305,7 +310,7 @@ Until that pass is complete:
 - keep internal docs explicit that these are implementation labels, not final UX
   copy.
 
-Candidate-pool depth is no longer visible in existing story blocks. It remains a
+Candidate-pool depth is no longer visible in existing practice blocks. It remains a
 hidden backing value for current controllers and a setup-only advanced control
 until the broader source-pack/cloud/local-storage question is resolved.
 
@@ -313,41 +318,41 @@ until the broader source-pack/cloud/local-storage question is resolved.
 
 Implement in small, reversible slices.
 
-### Slice 1: Story Shell
+### Slice 1: Practice Shell
 
-Add a story-list section to the SRS card.
+Add a practice-list section to the Vocabulary Practice card.
 
 Requirements:
 
-- show existing SRS story blocks for selected profile/pairs that have data;
+- show existing practice blocks for selected profile/pairs that have data;
 - show compact counts and preferences;
 - keep existing controls available while the new shell is validated;
 - no backend schema migration.
 
 ### Slice 2: Dashboard Curtain
 
-Move the admitted-words dashboard under the active story block as an expandable
+Move the admitted-words dashboard under the active practice block as an expandable
 curtain.
 
 Requirements:
 
 - keep the existing dashboard workflow and helper calls;
-- scope refresh/list actions to the story's profile/pair;
+- scope refresh/list actions to the practice's profile/pair;
 - keep advanced details opt-in inside the dashboard.
 
 ### Slice 3: Sampling Curtain
 
-Move sampling under the active story block and into the new-story flow.
+Move sampling under the active practice block and into the new-practice flow.
 
 Requirements:
 
-- sampling uses current story preferences for existing stories;
-- sampling uses unsaved visible form values inside the new-story flow;
+- sampling uses current practice preferences for existing practice instances;
+- sampling uses unsaved visible form values inside the new-practice flow;
 - repeated sampling remains fast and non-mutating.
 
-### Slice 4: New Story Flow
+### Slice 4: New Practice Flow
 
-Add the `Start a new SRS story` entry and a linear modal/drawer.
+Add the `Start Vocabulary Practice` entry and a linear modal/drawer.
 
 Requirements:
 
@@ -356,9 +361,9 @@ Requirements:
 - sample preview is available before initialization;
 - initialization cannot accidentally use stale/default preferences.
 
-### Slice 5: Preferences In Story Blocks
+### Slice 5: Preferences In Practice Blocks
 
-Expose persisted preferences inside existing story blocks.
+Expose persisted preferences inside existing practice blocks.
 
 Requirements:
 
@@ -369,23 +374,23 @@ Requirements:
 
 ### Slice 6: Remove Old Flat Control Path
 
-Once the story flow is validated, remove or permanently hide the old flat SRS
+Once the practice flow is validated, remove or permanently hide the old flat SRS
 control path.
 
 Requirements:
 
 - no duplicate initialize buttons competing for attention;
-- no dashboard floating outside a story context;
+- no dashboard floating outside a practice context;
 - no maintenance actions in the main learner path.
 
 ## Acceptance Criteria
 
 Before this UX is considered beta-ready:
 
-- a fresh user can start en-es SRS without knowing implementation order;
+- a fresh user can start en-es Vocabulary Practice without knowing implementation order;
 - the user must see preference controls before initialization;
 - initialization uses the visible preferences;
-- existing SRS data appears as one or more story blocks;
+- existing practice data appears as one or more practice blocks;
 - sampling and dashboard are adjacent and collapsed by default;
 - changed new-word preferences have an explicit save point;
 - proficiency edits show the previous saved setting and can be restored before
@@ -394,7 +399,7 @@ Before this UX is considered beta-ready:
 - Advanced contains timing thresholds and reset, not routine/manual
   active-word operation buttons;
 - reset remains clearly dangerous and profile/pair scoped;
-- no ordinary beta path requires reading `S`, `bootstrap`, `rulegen`,
+- no ordinary beta path requires reading `SRS`, `story`, `S`, `bootstrap`, `rulegen`,
   `publish`, or helper-diagnostic terminology.
 
 ## Non-Goals
@@ -405,35 +410,34 @@ This plan does not require:
 - changing SRS scheduling math;
 - adding browsing-based admission to the product path;
 - improving topic coverage;
-- solving final marketing/product naming;
+- renaming internal `srs_*` implementation identifiers;
 - migrating existing helper store files;
 - adding multi-profile collaboration.
 
 ## Open Questions
 
-- Final public name for "SRS story".
-- Final labels for initial size, candidate pool, and start action.
+- Final labels for initial size and candidate pool.
 - Whether candidate-pool depth should stay setup-only, move to a future advanced
   data-source control, or disappear from user settings entirely.
 - Where the eventual browsing-data opt-in belongs once browsing aggregates are
   consumed by production admission, likely near admission preferences rather than
   under generic logging.
-- Whether the story flow should be modal, drawer, or inline stepper.
-- Whether a user can have multiple stories for the same language pair under the
-  same profile, or exactly one story per profile/pair.
-- Whether old inactive stories should appear by default or under archived
-  stories.
+- Whether the practice flow should be modal, drawer, or inline stepper.
+- Whether a user can have multiple practice instances for the same language pair
+  under the same profile, or exactly one practice instance per profile/pair.
+- Whether old inactive practice instances should appear by default or under
+  archived practice.
 - Whether reset should offer a sub-choice to preserve discarded-word metadata.
 
 ## Verification Targets
 
 Add or update tests when implementation starts:
 
-- Options markup test: lifecycle controls are inside story or advanced
-  containers, not loose at the root of SRS Practice.
-- Controller test: new-story initialize persists visible preferences before or
+- Options markup test: lifecycle controls are inside practice or advanced
+  containers, not loose at the root of Vocabulary Practice.
+- Controller test: new-practice initialize persists visible preferences before or
   during initialization.
-- Helper/extension smoke: initialized story appears in story list with dashboard
-  counts.
-- Preflight update: family-beta manual signoff starts from the story flow rather
+- Helper/extension smoke: initialized practice appears in the practice list with
+  dashboard counts.
+- Preflight update: family-beta manual signoff starts from the practice flow rather
   than from the old flat SRS controls.

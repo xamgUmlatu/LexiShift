@@ -1054,7 +1054,7 @@ const controller = createController({{
     goal_mode: "growth"
   }});
   assert.equal(captured.signalSave.options.profileId, "default");
-  assert.equal(captured.status.message, "SRS settings saved.");
+  assert.equal(captured.status.message, "Practice settings saved.");
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
@@ -1288,7 +1288,7 @@ assert.deepEqual(
 );
 for (const entry of settingsBindings) {{
   assert.equal(entry.eventName, entry.name === "savePreferences" ? "click" : "change");
-  assert.equal(entry.fallbackMessage, "Failed to save SRS settings.");
+  assert.equal(entry.fallbackMessage, "Failed to save practice settings.");
 }}
 assert.deepEqual(directBindings, [
   {{ name: "maxActive", eventName: "change" }},

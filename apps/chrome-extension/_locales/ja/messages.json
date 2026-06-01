@@ -57,7 +57,7 @@
     "message": "ページ内の置換密度"
   },
   "hint_replacement_behavior_scope": {
-    "message": "SRS と手動ルールを統合した後のページ表示に適用されます。"
+    "message": "語彙練習と手動ルールを統合した後のページ表示に適用されます。"
   },
   "toggle_max_one": {
     "message": "テキストブロックごとに最大1語を置換"
@@ -84,7 +84,7 @@
     "message": "標準の既定値は 2 です。1語だけがページ内で多発するのを防ぎます。"
   },
   "section_srs": {
-    "message": "SRS練習"
+    "message": "語彙練習"
   },
   "badge_srs_active_story": {
     "message": "アクティブ"
@@ -105,19 +105,19 @@
     "message": "開く"
   },
   "heading_srs_start_new_story": {
-    "message": "新しいSRSストーリーを開始"
+    "message": "語彙練習を開始"
   },
   "hint_srs_start_new_story": {
-    "message": "言語を選び、初期化前に好みを調整します。"
+    "message": "言語を選び、開始前に好みを調整します。"
   },
   "button_srs_start_new_story": {
     "message": "設定を開始"
   },
   "heading_srs_story_flow": {
-    "message": "SRSストーリーを設定"
+    "message": "語彙練習を設定"
   },
   "hint_srs_story_flow": {
-    "message": "初期化前に言語、学習設定、開始ペースを選びます。"
+    "message": "開始前に言語、学習設定、開始ペースを選びます。"
   },
   "heading_srs_story_flow_pair": {
     "message": "言語を選択"
@@ -129,10 +129,10 @@
     "message": "開始ペースを選択"
   },
   "heading_srs_story_flow_review": {
-    "message": "サンプルして初期化"
+    "message": "サンプルして開始"
   },
   "hint_srs_story_flow_review": {
-    "message": "単語をサンプルして組み合わせを確認し、よければストーリーを初期化します。"
+    "message": "単語をサンプルして組み合わせを確認し、よければ練習を開始します。"
   },
   "label_srs_language_data": {
     "message": "言語データ"
@@ -144,7 +144,7 @@
     "message": "再チェック"
   },
   "status_srs_language_data_missing": {
-    "message": "$1 の言語データが必要です。インストール後に、このストーリーをサンプルまたは初期化できます。"
+    "message": "$1 の言語データが必要です。インストール後に、単語をサンプルしたり練習を開始したりできます。"
   },
   "status_srs_language_data_check_required": {
     "message": "必要な言語データをインストールしてから再試行してください。"
@@ -165,7 +165,7 @@
     "message": "JMDictデータ"
   },
   "button_srs_story_flow_initialize": {
-    "message": "ストーリーを初期化"
+    "message": "練習を開始"
   },
   "status_srs_story_flow_previewing": {
     "message": "設定を保存して候補語をサンプルしています…"
@@ -174,10 +174,10 @@
     "message": "サンプルを更新しました。"
   },
   "status_srs_story_flow_initializing": {
-    "message": "設定を保存してSRSストーリーを初期化しています…"
+    "message": "設定を保存して語彙練習を開始しています…"
   },
   "status_srs_story_flow_initialized": {
-    "message": "SRSストーリーを初期化しました。"
+    "message": "語彙練習を開始しました。"
   },
   "label_srs_pair": {
     "message": "言語ペア"
@@ -267,7 +267,7 @@
     "message": "戻す"
   },
   "hint_srs_proficiency_estimate": {
-    "message": "新しいSRS単語に合わせたいレベルへスライダーを動かします。"
+    "message": "新しい練習単語に合わせたいレベルへスライダーを動かします。"
   },
   "summary_srs_challenge_tuning": {
     "message": "高度な難度調整"
@@ -279,7 +279,7 @@
     "message": "0 から 100。空欄のままだと難度設定は中立のままです。"
   },
   "label_srs_highlight_color": {
-    "message": "SRSハイライト色"
+    "message": "練習用ハイライト色"
   },
   "section_srs_display_feedback": {
     "message": "表示とフィードバック"
@@ -297,25 +297,25 @@
     "message": "オン"
   },
   "hint_srs_semantic_capability_active": {
-    "message": "LexiShiftは、選ばれたSRS置換が文に合うかを表示前に確認します。"
+    "message": "LexiShiftは、選ばれた練習用の置換が文に合うかを表示前に確認します。"
   },
   "status_srs_semantic_capability_published_unready": {
     "message": "まだ利用不可"
   },
   "hint_srs_semantic_capability_published_unready": {
-    "message": "意味メタデータは公開されていますが、このペア/プロファイルには ready カバレッジがまだありません。現在は通常の SRS 置換を使います。"
+    "message": "文への適合データは公開されていますが、このペア/プロファイルには ready カバレッジがまだありません。現在は通常の学習用置換を使います。"
   },
   "status_srs_semantic_capability_unavailable": {
     "message": "利用不可"
   },
   "hint_srs_semantic_capability_unavailable": {
-    "message": "このペア/プロファイルでは、意味アドミッションの公開カバレッジがまだありません。現在は通常の SRS 置換を使います。"
+    "message": "このペア/プロファイルでは、文への適合カバレッジがまだ公開されていません。現在は通常の学習用置換を使います。"
   },
   "status_srs_semantic_capability_error": {
     "message": "要修復"
   },
   "hint_srs_semantic_capability_error": {
-    "message": "意味アドミッションのデータはありますが、整合していないか読み取れません。修復されるまでは通常の SRS 置換を使います。"
+    "message": "文への適合データはありますが、整合していないか読み取れません。修復されるまでは通常の学習用置換を使います。"
   },
   "status_srs_semantic_capability_unknown": {
     "message": "状態を確認できません"
@@ -324,13 +324,13 @@
     "message": "文への適合チェックの状態を今は確認できません。"
   },
   "toggle_srs_semantic_admission": {
-    "message": "意味アドミッションを有効化（実験的）"
+    "message": "文への適合チェックを有効化（実験的）"
   },
   "hint_srs_semantic_admission": {
-    "message": "対象になるSRS置換を、ヘルパー側の文ベース veto で絞り込みます。意味データやヘルパーが利用できない場合は、フォールバック方針で動作を決めます。"
+    "message": "対象になる練習用の置換を、ヘルパー側の文ベースチェックで絞り込みます。文への適合データやヘルパーが利用できない場合は、フォールバック方針で動作を決めます。"
   },
   "label_srs_semantic_fallback_policy": {
-    "message": "意味フォールバック方針"
+    "message": "文適合のフォールバック方針"
   },
   "option_srs_semantic_fallback_legacy": {
     "message": "従来どおり置換する"
@@ -444,7 +444,7 @@
     "message": "好みに合う10語をサンプル…"
   },
   "button_srs_initialize": {
-    "message": "ストーリーを初期化"
+    "message": "練習を開始"
   },
   "button_srs_save_preferences": {
     "message": "設定を保存"
@@ -462,13 +462,13 @@
     "message": "サンプル5件でルール生成…"
   },
   "button_srs_delete_story": {
-    "message": "SRSストーリーを削除"
+    "message": "語彙練習を削除"
   },
   "heading_srs_words_dashboard": {
     "message": "学習中の語"
   },
   "hint_srs_words_dashboard": {
-    "message": "このSRSストーリーに現在入っている語を確認します。"
+    "message": "この練習に現在入っている語を確認します。"
   },
   "button_srs_words_refresh": {
     "message": "語を更新"
@@ -522,10 +522,10 @@
     "message": "フィルターをクリア"
   },
   "confirm_srs_reset_1": {
-    "message": "現在のプロフィールと言語ペアのこのSRSストーリーを削除しますか？この操作は元に戻せません。"
+    "message": "現在のプロフィールと言語ペアの語彙練習を削除しますか？この操作は元に戻せません。"
   },
   "confirm_srs_reset_2": {
-    "message": "このストーリーの学習語、復習履歴、破棄データを本当に削除しますか？"
+    "message": "この練習の学習語、復習履歴、破棄データを本当に削除しますか？"
   },
   "status_srs_sampling": {
     "message": "サンプリング中…"
@@ -543,7 +543,7 @@
     "message": "サンプルルール生成: 単語$1件, ターゲット$2件, ルール$3件（$4秒）"
   },
   "status_srs_set_init_running": {
-    "message": "ストーリーを初期化中…"
+    "message": "練習を開始中…"
   },
   "status_srs_refresh_running": {
     "message": "学習語を更新中…"
@@ -570,19 +570,19 @@
     "message": "SRS診断の収集に失敗しました。"
   },
   "status_srs_set_init_result": {
-    "message": "$3 のストーリーを初期化しました: 学習単語 +$1件（合計$2件）。"
+    "message": "$3 の練習を開始しました: 学習単語 +$1件（合計$2件）。"
   },
   "status_srs_set_plan_result": {
-    "message": "$1 のストーリー設定を確認しました。"
+    "message": "$1 の練習設定を確認しました。"
   },
   "status_srs_set_init_success": {
-    "message": "$1 のストーリーを初期化しました。"
+    "message": "$1 の練習を開始しました。"
   },
   "status_srs_set_plan_only": {
-    "message": "$1 のストーリー設定を確認しました（変更は未適用）。"
+    "message": "$1 の練習設定を確認しました（変更は未適用）。"
   },
   "status_srs_set_init_failed": {
-    "message": "ストーリー設定に失敗しました。"
+    "message": "練習設定に失敗しました。"
   },
   "status_srs_sample_empty": {
     "message": "候補がありません。"
@@ -591,7 +591,7 @@
     "message": "現在の単語に対応するルールがありません。"
   },
   "status_srs_sample_failed": {
-    "message": "SRSサンプルに失敗しました。"
+    "message": "単語サンプルに失敗しました。"
   },
   "status_srs_rulegen_failed": {
     "message": "ルールプレビューに失敗しました。"
@@ -624,13 +624,13 @@
     "message": "対処:"
   },
   "status_srs_resetting": {
-    "message": "SRSストーリーを削除中…"
+    "message": "語彙練習を削除中…"
   },
   "status_srs_reset_success": {
-    "message": "SRSストーリーを削除しました。"
+    "message": "語彙練習を削除しました。"
   },
   "status_srs_reset_failed": {
-    "message": "SRSストーリーの削除に失敗しました。"
+    "message": "語彙練習の削除に失敗しました。"
   },
   "status_srs_reset_outdated": {
     "message": "削除に失敗しました: Helperコマンドが見つかりません。Helperを再起動しますか？"
@@ -1032,7 +1032,7 @@
     "message": "置換設定を保存しました。"
   },
   "status_srs_saved": {
-    "message": "SRS設定を保存しました。"
+    "message": "練習設定を保存しました。"
   },
   "status_srs_preferences_saved": {
     "message": "設定を保存しました。"
@@ -1041,10 +1041,10 @@
     "message": "未保存の変更があります。"
   },
   "status_srs_save_failed": {
-    "message": "SRS設定を保存できませんでした。"
+    "message": "練習設定を保存できませんでした。"
   },
   "status_srs_save_partial": {
-    "message": "SRS設定は部分的に保存されました。ページを再読み込みし、現在の値を確認してください。"
+    "message": "練習設定は部分的に保存されました。ページを再読み込みし、現在の値を確認してください。"
   },
   "status_switch_edit_json": {
     "message": "保存するには「JSONを編集」に切り替えてください。"
@@ -1405,5 +1405,20 @@
   },
   "status_semantic_pack_install_failed": {
     "message": "Semantic pack install failed."
+  },
+  "status_srs_items_list_ready": {
+    "message": "学習語を $1 件読み込みました。"
+  },
+  "status_srs_items_list_failed": {
+    "message": "学習語を読み込めませんでした。"
+  },
+  "confirm_srs_discard_word": {
+    "message": "$1 を破棄しますか？語彙練習から削除され、練習データをリセットするまで今後の追加対象から外れます。"
+  },
+  "status_srs_discard_success": {
+    "message": "$1 を破棄しました。"
+  },
+  "status_srs_discard_failed": {
+    "message": "学習語を破棄できませんでした。"
   }
 }

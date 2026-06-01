@@ -55,7 +55,7 @@
       clearNode(wordsListRoot);
       if (!data) {
         updatePaginationControls({ total: 0, pageIndex: 0, pageSize: 25, pageCount: 1 });
-        showListMessage("Refresh words to load the current SRS dashboard.");
+        showListMessage("Refresh words to load the current learning dashboard.");
         return;
       }
       renderSummary(doc, data.summary && typeof data.summary === "object" ? data.summary : {});
@@ -109,8 +109,8 @@
           "p",
           "srs-words-empty",
           allItems.length
-            ? "No SRS words match these filters."
-            : "No learning words are in this story yet."
+            ? "No learning words match these filters."
+            : "No learning words are in this practice yet."
         ));
         return emptyPagination;
       }

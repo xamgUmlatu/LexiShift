@@ -59,11 +59,11 @@ Run these on a throwaway beta profile. Do not use a real learner profile.
 | Strict topic picker | The ordinary picker shows only the strict MVP topics and excludes Plants/Nature and Travel. |
 | Fresh SRS initialize | A new profile can initialize SRS and populate Learning words. |
 | Dashboard visibility | Learning words shows active/queued/due/removed counts, rule summaries, and advanced details when toggled. |
-| Runtime replacement | A simple English test page receives due SRS replacements after publication. |
+| Runtime replacement | A simple English test page receives due Vocabulary Practice replacements after publication. |
 | Feedback sync | Good/Easy feedback reaches the helper and is reflected after refreshing the dashboard. |
 | Auto refresh | After enough Good/Easy feedback, automatic refresh can admit new profile-shaped words. |
 | Discard recovery | Dashboard discard removes a word from active inventory and prevents immediate readmission. |
-| Delete recovery | Delete the throwaway profile's en-es SRS story and confirm the profile is ready to initialize again. |
+| Delete recovery | Delete the throwaway profile's en-es Vocabulary Practice data and confirm the profile is ready to start again. |
 
 ## Final Gate Commands
 

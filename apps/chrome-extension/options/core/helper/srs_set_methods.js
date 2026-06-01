@@ -37,7 +37,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_set_init_failed",
-            "Story setup failed."
+            "Practice setup failed."
           )
         );
       }
@@ -73,7 +73,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_set_init_failed",
-            "Story setup failed."
+            "Practice setup failed."
           )
         );
       }
@@ -176,7 +176,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_items_list_failed",
-            "Failed to load SRS words."
+            "Failed to load learning words."
           )
         );
       }
@@ -230,7 +230,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_discard_failed",
-            "Failed to discard SRS word."
+            "Failed to discard learning word."
           )
         );
       }
@@ -319,7 +319,7 @@
           this.normalizeHelperErrorMessage(
             response && response.error,
             "status_srs_reset_failed",
-            "SRS story deletion failed."
+            "Vocabulary Practice deletion failed."
           )
         );
       }
