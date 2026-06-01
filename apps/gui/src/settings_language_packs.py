@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 from typing import Mapping
 
 from PySide6.QtWidgets import (
     QAbstractItemView,
+    QCheckBox,
     QFileDialog,
     QHeaderView,
     QLabel,
@@ -25,6 +27,7 @@ from language_packs import (
     FrequencyPackDownloadThread,
     FrequencyPackInfo,
 )
+from frequency_pack_import import import_frequency_source_file
 from i18n import t
 from pack_source_manifest import load_pack_source_overrides
 from settings_language_packs_layout_mixin import LanguagePackPanelLayoutMixin
@@ -366,14 +369,25 @@ class LanguagePackPanel(
         pack = self._frequency_pack_info.get(pack_id)
         if not pack:
             return
+        filters = (
+            t("filters.frequency_source")
+            if self._supports_frequency_source_import(pack)
+            else t("filters.all")
+        )
         path, _ = QFileDialog.getOpenFileName(
             self,
             t("dialogs.select_pack_file", name=pack.display_name()),
             "",
-            t("filters.all"),
+            filters,
         )
         if not path:
             return
+        if self._supports_frequency_source_import(pack):
+            if not self._confirm_frequency_import_rights(pack):
+                return
+            if not self._is_sqlite_db(path):
+                self._import_frequency_pack_source(pack, path)
+                return
         valid, message = self._validate_frequency_pack_path(pack, path)
         if not valid:
             QMessageBox.warning(self, t("dialogs.invalid_resource.title"), message)
@@ -396,6 +410,58 @@ class LanguagePackPanel(
             tone="success",
         )
         self._refresh_frequency_pack_table()
+
+    def _supports_frequency_source_import(self, pack: FrequencyPackInfo) -> bool:
+        return pack.pack_id == "freq-es-cde"
+
+    def _confirm_frequency_import_rights(self, pack: FrequencyPackInfo) -> bool:
+        dialog = QMessageBox(self)
+        dialog.setIcon(QMessageBox.Icon.Warning)
+        dialog.setWindowTitle(t("language_packs.import_rights.title"))
+        dialog.setText(t("language_packs.import_rights.summary", name=pack.display_name()))
+        dialog.setInformativeText(t("language_packs.import_rights.details"))
+        checkbox = QCheckBox(t("language_packs.import_rights.confirm"))
+        dialog.setCheckBox(checkbox)
+        import_button = dialog.addButton(t("buttons.import"), QMessageBox.ButtonRole.AcceptRole)
+        import_button.setEnabled(False)
+        checkbox.stateChanged.connect(lambda _state: import_button.setEnabled(checkbox.isChecked()))
+        dialog.addButton(QMessageBox.StandardButton.Cancel)
+        dialog.exec()
+        return dialog.clickedButton() == import_button and checkbox.isChecked()
+
+    def _import_frequency_pack_source(self, pack: FrequencyPackInfo, source_path: str) -> None:
+        try:
+            self._set_status_message(
+                t("language_packs.importing_source", name=pack.display_name()),
+                tone="info",
+            )
+            sqlite_path = import_frequency_source_file(
+                pack,
+                Path(source_path),
+                frequency_pack_dir=self._frequency_pack_dir,
+            )
+        except Exception as exc:
+            message = t(
+                "language_packs.import_failed",
+                name=pack.display_name(),
+                message=str(exc),
+            )
+            QMessageBox.warning(self, t("dialogs.invalid_resource.title"), message)
+            self._set_status_message(message, tone="error")
+            self._clear_frequency_pack_entry(pack.pack_id)
+            self._refresh_frequency_pack_table()
+            if hasattr(self, "_refresh_pair_resource_setup_panel"):
+                self._refresh_pair_resource_setup_panel()
+            return
+        self._on_frequency_pack_completed(pack.pack_id, str(sqlite_path))
+        self._set_status_message(
+            t(
+                "language_packs.imported_source",
+                name=pack.display_name(),
+                path=str(sqlite_path),
+            ),
+            tone="success",
+        )
 
     def _select_embedding_pack_path(self, pack_id: str) -> None:
         pack = self._embedding_pack_info.get(pack_id)

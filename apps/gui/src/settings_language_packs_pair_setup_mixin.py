@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import webbrowser
+
 from PySide6.QtCore import QSettings
 from PySide6.QtWidgets import (
     QFrame,
@@ -509,11 +511,19 @@ class LanguagePackPanelPairSetupMixin:
             )
             return
         reason = pack_download_disabled_tooltip(self._pack_source_overrides, pack)
-        expected_key = (
-            "language_packs.learning_pairs.manual_setup_expected_frequency"
-            if item.kind == "frequency"
-            else "language_packs.learning_pairs.manual_setup_expected_language"
+        supports_frequency_import = (
+            item.kind == "frequency"
+            and hasattr(self, "_supports_frequency_source_import")
+            and self._supports_frequency_source_import(pack)
         )
+        if supports_frequency_import:
+            expected_key = "language_packs.learning_pairs.manual_setup_expected_frequency_import"
+        else:
+            expected_key = (
+                "language_packs.learning_pairs.manual_setup_expected_frequency"
+                if item.kind == "frequency"
+                else "language_packs.learning_pairs.manual_setup_expected_language"
+            )
         dialog = QMessageBox(self)
         dialog.setIcon(QMessageBox.Icon.Information)
         dialog.setWindowTitle(
@@ -535,9 +545,29 @@ class LanguagePackPanelPairSetupMixin:
                 url=str(getattr(pack, "url", "") or ""),
             )
         )
-        select_button = dialog.addButton(t("buttons.select"), QMessageBox.ButtonRole.AcceptRole)
+        provider_button = None
+        if str(getattr(pack, "url", "") or "").strip():
+            provider_button = dialog.addButton(
+                t("language_packs.learning_pairs.open_provider_page"),
+                QMessageBox.ButtonRole.ActionRole,
+            )
+        select_button = dialog.addButton(
+            t(
+                "language_packs.learning_pairs.import_file"
+                if supports_frequency_import
+                else "buttons.select"
+            ),
+            QMessageBox.ButtonRole.AcceptRole,
+        )
         dialog.addButton(QMessageBox.StandardButton.Close)
         dialog.exec()
+        if provider_button is not None and dialog.clickedButton() == provider_button:
+            webbrowser.open(str(getattr(pack, "url", "") or "").strip())
+            self._set_status_message(
+                t("language_packs.learning_pairs.provider_page_opened", resource=item.label),
+                tone="info",
+            )
+            return
         if dialog.clickedButton() != select_button:
             return
         if item.kind == "frequency":

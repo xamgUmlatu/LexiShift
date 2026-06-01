@@ -1866,8 +1866,9 @@ Use this file when:
   learner-facing path, include the required Kaikki/Wiktionary `wiktionary-es-en`
   resource for en-es, show catalog sizes and per-resource progress, route
   license-restricted `freq-es-cde` through a manual setup instruction dialog
-  with local file selection instead of showing a false download-progress state
-  or switching tabs, and expose per-resource file-location reveal
+  with provider-page access, a rights-confirmed local source import for
+  `spanish_lemmas20k.txt`, and managed SQLite conversion instead of showing a
+  false download-progress state or switching tabs, and expose per-resource file-location reveal
   actions for installed data; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
@@ -1925,7 +1926,8 @@ Use this file when:
   routing without tab switching, removed pair-card Add manually affordance,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
-  helper reset; download-total fallback/catalog tests; extension
+  helper reset; download-total fallback/catalog tests; raw-source
+  `freq-es-cde` managed-import tests; extension
   structure/i18n checks, doc-reference check, state audit, changed-file gate,
   and diff check pass.
 - Default behavior:
@@ -1954,10 +1956,14 @@ Use this file when:
     when either the response or catalog has a known total, and offers
     file-location reveal for installed resources. License-restricted frequency
     resources such as `freq-es-cde` remain required when the pair needs them,
-    but the pair card
-    opens a manual setup instruction dialog with local file selection instead of
-    starting an app-managed download or switching the user to the detailed
-    Frequency packs tab. Manual external path selection also remains available
+    but the pair card opens a manual setup instruction dialog with provider-page
+    access and local file import instead of starting an app-managed download or
+    switching the user to the detailed Frequency packs tab. For `freq-es-cde`,
+    selecting a licensed `spanish_lemmas20k.txt` source confirms local-use rights,
+    stages a temporary copy, converts it into the managed
+    `frequency_packs/freq-es-cde/main.sqlite` artifact, writes manifest and
+    provenance sidecars, deletes the staged copy, and leaves the user's original
+    file untouched. Manual external SQLite path selection also remains available
     in the detailed resource tabs for compatibility. When the GUI is already running,
     the native helper sends the
     pair-focused Resource settings activation message to that process instead

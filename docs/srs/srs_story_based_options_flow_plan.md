@@ -64,10 +64,11 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   actions, shows each package's catalog size, renders per-resource download
   progress, includes the required Kaikki/Wiktionary `wiktionary-es-en`
   dictionary resource for en-es, and routes license-restricted frequency data
-  such as `freq-es-cde` to the detailed Frequency packs manual setup path
-  rather than pretending it is safe to auto-download. Broad manual file
-  selection remains in the detailed resource tabs rather than the
-  learner-facing pair card. Repeated opens reuse the
+  such as `freq-es-cde` through Learning Languages manual setup with provider
+  access, local-use rights confirmation, and local conversion from a
+  user-supplied licensed `spanish_lemmas20k.txt` source rather than pretending
+  it is safe to auto-download. Broad manual file selection remains available in
+  the detailed resource tabs as a compatibility path. Repeated opens reuse the
   already-running GUI through the single-instance activation channel when
   possible; if the GUI is closed, the helper launches it. The extension still
   does not download language data directly.
