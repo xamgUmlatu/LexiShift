@@ -9,6 +9,7 @@ from PySide6.QtWidgets import QApplication
 
 from preview import ReplacementHighlighter
 from settings_language_packs import LanguagePackPanel
+from theme_manager import readable_text_color
 
 
 def _app() -> QApplication:
@@ -45,3 +46,11 @@ def test_preview_highlighter_uses_runtime_highlight_color() -> None:
     highlighter.set_highlight_color(expected)
 
     assert highlighter._format.background().color().name().lower() == expected.name().lower()
+
+
+def test_readable_text_color_keeps_readable_theme_text() -> None:
+    assert readable_text_color("#F0F1F2", "#222222") == "#F0F1F2"
+
+
+def test_readable_text_color_falls_back_when_theme_text_lacks_contrast() -> None:
+    assert readable_text_color("#222222", "#242424") == "#FFFFFF"

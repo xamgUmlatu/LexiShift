@@ -1876,10 +1876,12 @@ Use this file when:
   of hardcoded English plan labels, and GUI confirmation dialogs now route
   standard buttons such as Yes/No/Cancel/Close through the app locale catalog
   instead of relying on Qt's untranslated standard-button text; Resource
-  settings tabs now style their pane backdrops, section text hierarchy, buttons,
-  and tables through the active GUI theme instead of inheriting dark Qt
-  defaults, and the detailed resource tables reserve taller, expanding table
-  space so rows do not look vertically compressed; SRS story cards, topic
+  settings tabs now keep their tab/canvas backdrops transparent to preserve the
+  loaded GUI theme, while styling section text hierarchy, buttons, cards, and
+  tables through active theme tokens with contrast-safe foreground fallback
+  instead of inheriting dark Qt defaults, and the detailed resource tables
+  reserve taller, expanding table space so rows do not look vertically
+  compressed; SRS story cards, topic
   panels, curtains, and dashboard surfaces use the same card-theme CSS variable
   path as the rest of Options, and the
   start-new-story block opens a guided modal that defaults missing proficiency
@@ -1903,7 +1905,7 @@ Use this file when:
   requests `open -n`, and the resource catalog now carries byte-exact download
   totals for known large/Spanish resources so progress can remain determinate
   even when a server omits `Content-Length`.
-- Last verified: `2026-06-01` focused
+- Last verified: `2026-06-02` focused
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview
   diagnostics, preview-renderer update, and focused
@@ -1938,7 +1940,8 @@ Use this file when:
   confirmation,
   localized Learning Languages pair/resource labels plus recursive GUI i18n
   catalog-shape coverage and localized QMessageBox standard-button coverage,
-  resource-tab theme/backdrop/table sizing coverage,
+  resource-tab theme-preserving transparent-canvas, contrast fallback, and
+  table sizing coverage,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
   helper reset; download-total fallback/catalog tests; raw-source

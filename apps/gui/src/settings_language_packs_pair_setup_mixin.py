@@ -26,6 +26,7 @@ from settings_pair_resource_plan import (
     available_pair_resource_plans,
     pair_resource_plan,
 )
+from theme_manager import readable_text_color
 from utils_paths import reveal_path
 
 _LEARNING_PAIR_SETTINGS_KEY = "resources/learning_pairs"
@@ -52,24 +53,35 @@ class LanguagePackPanelPairSetupMixin:
         accent_soft = self._theme_hex("accent_soft", fallback="#E9D6BF")
         primary = self._theme_hex("primary", fallback="#2F2F2F")
         primary_hover = self._theme_hex("primary_hover", fallback="#232323")
+        panel_text = readable_text_color(text_color, panel_top)
+        panel_muted = readable_text_color(muted_color, panel_top, minimum_ratio=3.8)
+        accent_text = readable_text_color(accent, panel_top, minimum_ratio=3.8)
+        tab_text = readable_text_color(muted_color, panel_bottom, minimum_ratio=3.8)
+        selected_tab_text = readable_text_color(text_color, panel_top)
+        table_text = readable_text_color(text_color, table_bg)
+        slot_text = readable_text_color(text_color, panel_bottom)
+        header_text = readable_text_color(text_color, accent_soft)
+        hover_text = readable_text_color(text_color, accent_soft)
+        primary_text = readable_text_color("#FFFFFF", primary)
+        progress_text = readable_text_color(text_color, bg)
         self.setStyleSheet(
             f"""
 QWidget {{
   color: {text_color};
 }}
 QWidget[resourcePanelTab="true"], QWidget[resourcePanelCanvas="true"] {{
-  background: {panel_top};
-  color: {text_color};
+  background: transparent;
+  color: {panel_text};
 }}
 QTabWidget#lexishiftResourceTabs::pane {{
-  background: {panel_top};
+  background: transparent;
   border: 1px solid {panel_border};
   border-radius: 8px;
   top: -1px;
 }}
 QTabWidget#lexishiftResourceTabs QTabBar::tab {{
   background: {panel_bottom};
-  color: {muted_color};
+  color: {tab_text};
   padding: 8px 14px;
   margin-right: 4px;
   border: 1px solid {panel_border};
@@ -79,29 +91,29 @@ QTabWidget#lexishiftResourceTabs QTabBar::tab {{
 }}
 QTabWidget#lexishiftResourceTabs QTabBar::tab:selected {{
   background: {panel_top};
-  color: {text_color};
+  color: {selected_tab_text};
   border-bottom-color: {panel_top};
 }}
 QLabel[resourcePanelTitle="true"] {{
-  color: {accent};
+  color: {accent_text};
   font-weight: 700;
   font-size: 15px;
 }}
 QLabel[resourceSectionTitle="true"] {{
-  color: {text_color};
+  color: {panel_text};
   font-weight: 700;
   font-size: 14px;
 }}
 QLabel[resourceDescription="true"] {{
-  color: {muted_color};
+  color: {panel_muted};
   font-size: 12px;
 }}
 QScrollArea#learningPairScrollArea {{
-  background: {panel_top};
+  background: transparent;
   border: none;
 }}
 QScrollArea#learningPairScrollArea > QWidget > QWidget {{
-  background: {panel_top};
+  background: transparent;
 }}
 QFrame#learningLanguagePairCard, QFrame#learningLanguageResourceSlot {{
   background: {table_bg};
@@ -111,58 +123,63 @@ QFrame#learningLanguagePairCard, QFrame#learningLanguageResourceSlot {{
 QFrame#learningLanguageResourceSlot {{
   background: {panel_bottom};
 }}
-QFrame#learningLanguagePairCard QLabel, QFrame#learningLanguageResourceSlot QLabel {{
-  color: {text_color};
+QFrame#learningLanguagePairCard QLabel {{
+  color: {table_text};
+}}
+QFrame#learningLanguageResourceSlot QLabel {{
+  color: {slot_text};
 }}
 QTableWidget {{
   background: {table_bg};
   alternate-background-color: {panel_top};
-  color: {text_color};
+  color: {table_text};
   gridline-color: {panel_border};
   border: 1px solid {panel_border};
   border-radius: 8px;
   selection-background-color: {table_sel_bg};
-  selection-color: {text_color};
+  selection-color: {readable_text_color(text_color, table_sel_bg)};
 }}
 QTableWidget::item {{
   padding: 6px 8px;
 }}
 QHeaderView::section {{
   background: {accent_soft};
-  color: {text_color};
+  color: {header_text};
   padding: 8px;
   border: none;
   font-weight: 700;
 }}
 QComboBox {{
   background: {table_bg};
-  color: {text_color};
+  color: {table_text};
   border: 1px solid {panel_border};
   border-radius: 6px;
   padding: 6px 8px;
 }}
 QPushButton {{
   background: {table_bg};
-  color: {text_color};
+  color: {table_text};
   border: 1px solid {panel_border};
   border-radius: 6px;
   padding: 6px 12px;
 }}
 QPushButton:hover {{
   background: {accent_soft};
+  color: {hover_text};
 }}
 QPushButton#settingsPrimaryButton {{
   background: {primary};
-  color: #FFFFFF;
+  color: {primary_text};
   border-color: {primary};
 }}
 QPushButton#settingsPrimaryButton:hover {{
   background: {primary_hover};
+  color: {readable_text_color(primary_text, primary_hover)};
   border-color: {primary_hover};
 }}
 QProgressBar {{
   background: {bg};
-  color: {text_color};
+  color: {progress_text};
   border: 1px solid {panel_border};
   border-radius: 6px;
   text-align: center;

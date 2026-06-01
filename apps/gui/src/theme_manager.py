@@ -132,6 +132,19 @@ def _best_text_color(bg_hex: str, *, light: str = "#FFFFFF", dark: str = "#0E1B2
     return light if light_ratio >= dark_ratio else dark
 
 
+def readable_text_color(
+    preferred_hex: str,
+    bg_hex: str,
+    *,
+    minimum_ratio: float = 4.5,
+    light: str = "#FFFFFF",
+    dark: str = "#0E1B2C",
+) -> str:
+    if _contrast_ratio(preferred_hex, bg_hex) >= minimum_ratio:
+        return preferred_hex
+    return _best_text_color(bg_hex, light=light, dark=dark)
+
+
 def build_browser_connection_styles(theme: dict) -> str:
     configured_bg = _blend_hex(
         [theme["accent_soft"], theme["table_bg"]], fallback=theme["accent_soft"]

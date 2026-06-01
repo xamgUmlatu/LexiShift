@@ -329,6 +329,8 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert panel.language_pack_table.verticalHeader().defaultSectionSize() >= 38
     assert panel.frequency_pack_table.minimumHeight() >= 380
     assert 'QWidget[resourcePanelTab="true"]' in stylesheet
+    assert 'QWidget[resourcePanelTab="true"], QWidget[resourcePanelCanvas="true"]' in stylesheet
+    assert "background: transparent;" in stylesheet
     assert "QTableWidget" in stylesheet
     assert "QTabWidget#lexishiftResourceTabs::pane" in stylesheet
     assert "#223344" in stylesheet
@@ -336,6 +338,34 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert "#F0F1F2" in stylesheet
     assert any(label.property("resourceSectionTitle") is True for label in labels)
     assert any(label.property("resourceDescription") is True for label in labels)
+
+
+def test_resources_tab_style_falls_back_when_theme_text_lacks_contrast() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    panel = dialog.language_pack_panel
+
+    panel.set_theme(
+        {
+            "bg": "#242424",
+            "panel_top": "#242424",
+            "panel_bottom": "#242424",
+            "panel_border": "#333333",
+            "table_bg": "#242424",
+            "table_sel_bg": "#242424",
+            "text": "#252525",
+            "muted": "#252525",
+            "accent": "#252525",
+            "accent_soft": "#252525",
+            "primary": "#252525",
+            "primary_hover": "#252525",
+        }
+    )
+    stylesheet = panel.styleSheet()
+
+    assert "background: transparent;" in stylesheet
+    assert "#FFFFFF" in stylesheet
 
 
 def test_language_pack_tab_describes_installed_vs_manual_contract() -> None:
