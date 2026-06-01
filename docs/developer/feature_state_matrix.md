@@ -1888,8 +1888,10 @@ Use this file when:
   raised and moved to the pair-focused Resource settings state instead of
   spawning another instance; if no GUI is running, the native helper now
   prefers the installed macOS `LexiShift.app` bundle before falling back to the
-  source `main.py` development entrypoint, and macOS fallback launch no longer
-  requests `open -n`.
+  source `main.py` development entrypoint, macOS fallback launch no longer
+  requests `open -n`, and the resource catalog now carries byte-exact download
+  totals for known large/Spanish resources so progress can remain determinate
+  even when a server omits `Content-Length`.
 - Last verified: `2026-06-01` focused
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview
@@ -1923,8 +1925,9 @@ Use this file when:
   routing without tab switching, removed pair-card Add manually affordance,
   persisted selected-pair story deletion,
   inactive-profile current-card hiding, and delete-workflow UI reload after
-  helper reset; extension structure/i18n checks, doc-reference check, state
-  audit, changed-file gate, and diff check pass.
+  helper reset; download-total fallback/catalog tests; extension
+  structure/i18n checks, doc-reference check, state audit, changed-file gate,
+  and diff check pass.
 - Default behavior:
   - The Options page still operates on the selected profile and selected
     source/target language pair; it does not yet enumerate every persisted SRS
@@ -1947,9 +1950,11 @@ Use this file when:
     pair added/focused in the persistent Learning Languages view, and keeps the
     learner in the same setup flow for retry. That view offers app-managed
     dictionary downloads for `wiktionary-es-en` / `freedict-es-en`, displays
-    catalog download sizes and per-resource progress, and offers file-location
-    reveal for installed resources. License-restricted frequency resources such
-    as `freq-es-cde` remain required when the pair needs them, but the pair card
+    byte-exact catalog download sizes and per-resource determinate progress
+    when either the response or catalog has a known total, and offers
+    file-location reveal for installed resources. License-restricted frequency
+    resources such as `freq-es-cde` remain required when the pair needs them,
+    but the pair card
     opens a manual setup instruction dialog with local file selection instead of
     starting an app-managed download or switching the user to the detailed
     Frequency packs tab. Manual external path selection also remains available

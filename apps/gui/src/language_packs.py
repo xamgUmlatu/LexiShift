@@ -102,6 +102,29 @@ def _kaikki_source_dump_for_pack(pack: LanguagePackInfo) -> str:
     return str(pack.source_dump or "enwiktionary").strip() or "enwiktionary"
 
 
+def _known_download_size_bytes(pack: object) -> int:
+    raw_size = getattr(pack, "download_size_bytes", None)
+    if raw_size is None:
+        return 0
+    try:
+        size = int(raw_size)
+    except (TypeError, ValueError):
+        return 0
+    return max(0, size)
+
+
+def _response_download_total_bytes(response: object, pack: object) -> int:
+    headers = getattr(response, "headers", {})
+    raw_total = None
+    if hasattr(headers, "get"):
+        raw_total = headers.get("Content-Length")
+    try:
+        total = int(raw_total or 0)
+    except (TypeError, ValueError):
+        total = 0
+    return total if total > 0 else _known_download_size_bytes(pack)
+
+
 def _frequency_parser_config(pack: FrequencyPackInfo) -> dict[str, object]:
     if str(pack.build_mode or "").strip() == "de_frequency_pipeline":
         return {"drop_proper_nouns": True}
@@ -277,7 +300,7 @@ class LanguagePackDownloadThread(QThread):
                 _log_download(
                     f"[{self._pack_id}] response status={status} final_url={response.geturl()}"
                 )
-                total = int(response.headers.get("Content-Length") or 0)
+                total = _response_download_total_bytes(response, self._pack)
                 downloaded = 0
                 os.makedirs(os.path.dirname(self._dest_path), exist_ok=True)
                 with open(self._dest_path, "wb") as handle:
@@ -569,7 +592,7 @@ class FrequencyPackDownloadThread(QThread):
             _log_download(
                 f"[{self._pack_id}] response status={status} final_url={response.geturl()}"
             )
-            total = int(response.headers.get("Content-Length") or 0)
+            total = _response_download_total_bytes(response, self._pack)
             downloaded = 0
             os.makedirs(os.path.dirname(self._archive_path), exist_ok=True)
             with open(self._archive_path, "wb") as handle:
