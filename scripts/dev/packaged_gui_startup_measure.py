@@ -179,6 +179,9 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
     status = "ok" if line else "timeout"
     if args.launch_mode == "activation" and activated is False:
         status = "activation_unavailable"
+    activation_mode = args.launch_mode == "activation"
+    since_request_ms = None if activation_mode else _extract_float(SINCE_REQUEST_RE, line)
+    startup_total_ms = None if activation_mode else _extract_float(TOTAL_RE, line)
     return {
         "index": index,
         "status": status,
@@ -190,15 +193,19 @@ def _run_one(args: argparse.Namespace, *, index: int) -> dict[str, Any]:
         "process_pid": process_pid,
         "activated": activated,
         "observed_elapsed_ms": round(observed_elapsed_ms, 1),
-        "startup_total_ms": _extract_float(TOTAL_RE, line),
-        "since_request_ms": _extract_float(SINCE_REQUEST_RE, line),
+        "startup_total_ms": startup_total_ms,
+        "since_request_ms": since_request_ms,
         "matched_line": line,
     }
 
 
 def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     ok_values = [
-        float(row["since_request_ms"] or row["observed_elapsed_ms"])
+        float(
+            row["observed_elapsed_ms"]
+            if row.get("launch_mode") == "activation"
+            else row["since_request_ms"] or row["observed_elapsed_ms"]
+        )
         for row in rows
         if row.get("status") == "ok"
     ]

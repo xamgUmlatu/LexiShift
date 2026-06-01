@@ -666,7 +666,7 @@ Use this file when:
 
 - Status: `implemented`, `default-on`, `verified`
 - Last documented checkpoint: `2026-06-01` browser-connections manager kept the narrowed one-click prod rows and browser+extension-ID unpacked-dev flow, workspace-host installs switched to a pinned-interpreter wrapper, native-host startup failures write deterministic local logs, resource-settings launches now carry a startup session into GUI startup telemetry, transport/browser failures expose stable helper-facing error codes, options-side helper flows localize timeout/browser-blocked cases alongside helper-missing/host-exited cases, and saved bundled/workspace connections auto-repair a narrow set of deterministic stale manifest/host states on startup or when `Connections...` opens
-- Last verified: `2026-06-01` targeted native-host resource-settings telemetry tests, GUI startup logger tests, packaged startup measurement script tests, native-host startup-log coverage, extension helper transport/localization contracts from the existing evidence set, and changed-scope repo safety
+- Last verified: `2026-06-01` targeted native-host resource-settings telemetry tests, GUI startup logger tests, packaged startup measurement script tests, native-host startup-log coverage, installed-bundle startup measurements, extension helper transport/localization contracts from the existing evidence set, and changed-scope repo safety
 - Default behavior:
   - The GUI app now routes helper install/repair through a Browser Connections manager in the app menu and SRS settings instead of the older single environment prompt.
   - Fixed-ID production browsers keep a one-click connect/repair path.
@@ -703,6 +703,10 @@ Use this file when:
   - `core/tests/dev/test_native_host_resource_settings.py`
   - `core/tests/dev/test_packaged_gui_startup_measure.py`
   - `apps/gui/tests/test_main_runtime_startup_logging.py`
+  - `docs/test_outputs/dev_workflow/gui_startup_performance_open_latest.json`
+  - `docs/test_outputs/dev_workflow/gui_startup_performance_activation_latest.json`
+  - `docs/test_outputs/dev_workflow/gui_startup_performance_bundle_id_latest.json`
+  - `docs/test_outputs/dev_workflow/gui_startup_performance_direct_latest.json`
 - Known gaps:
   - Native messaging still uses one host manifest per browser name, so same-browser prod and unpacked-dev origins still share one host path.
   - Fixed-ID production rows only work in builds where `apps/gui/resources/helper_extension_ids.json` contains real non-placeholder production IDs.

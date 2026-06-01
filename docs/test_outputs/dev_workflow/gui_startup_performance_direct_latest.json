@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-06-01T01:59:52.265926+00:00",
+  "app": "/Applications/LexiShift.app",
+  "pair": "en-es",
+  "launch_mode": "direct",
+  "repetitions": 1,
+  "summary": {
+    "ok_count": 1,
+    "timeout_count": 0,
+    "min_ms": 14734.7,
+    "median_ms": 14734.7,
+    "max_ms": 14734.7
+  },
+  "runs": [
+    {
+      "index": 1,
+      "status": "ok",
+      "session_id": "c4e886af1bcc4ca88e18a6a6ee3eaa33",
+      "requested_at": "2026-06-01T01:59:37.466919+00:00",
+      "launch_mode": "direct",
+      "pair": "en-es",
+      "command": [
+        "/Applications/LexiShift.app/Contents/MacOS/LexiShift",
+        "--open-resource-settings",
+        "--resource-pair",
+        "en-es"
+      ],
+      "process_pid": 76014,
+      "activated": null,
+      "observed_elapsed_ms": 14798.6,
+      "startup_total_ms": 6475.7,
+      "since_request_ms": 14734.7,
+      "matched_line": "[startup] window shown (+11.0 ms, total 6475.7 ms) session=c4e886af1bcc4ca88e18a6a6ee3eaa33 pid=76053 ppid=76014 argv_mode=resource_settings source=startup_measure_direct ts=2026-06-01T01:59:52.201595+00:00 launch_mode=direct resource_pair=en-es since_request_ms=14734.7"
+    }
+  ]
+}

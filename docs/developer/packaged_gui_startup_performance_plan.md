@@ -133,6 +133,16 @@ Implementation checkpoint:
 - 2026-06-01: `scripts/dev/packaged_gui_startup_measure.py` can measure
   `open`, bundle-id, direct executable, and existing-GUI activation paths and
   write JSON/Markdown artifacts for comparison.
+- 2026-06-01: first installed-bundle measurements after rebuilding with
+  telemetry showed existing-GUI activation at about `167 ms`, warm cold-launch
+  `open /Applications/LexiShift.app` at about `9507 ms`, bundle-id launch at
+  about `12057 ms`, and direct executable launch at about `14735 ms`. The
+  `open` warm cold-launch split was about `3327 ms` after process entry and
+  about `6180 ms` before the first Python checkpoint, so the largest remaining
+  warm-launch gap is still pre-GUI/PyInstaller/LaunchServices territory. The
+  first launch immediately after reinstall also showed a one-off slower sample
+  around `42238 ms`, which should be treated as a first-run/install-verification
+  datapoint until repeated.
 
 Implementation plan:
 

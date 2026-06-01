@@ -85,6 +85,22 @@ class TestPackagedGuiStartupMeasure(unittest.TestCase):
         self.assertIn("since_request_ms=123.4", line)
         self.assertEqual(module._extract_float(module.SINCE_REQUEST_RE, line), 123.4)
 
+    def test_activation_summary_uses_observed_time(self) -> None:
+        module = _load_module()
+
+        summary = module._summary(
+            [
+                {
+                    "status": "ok",
+                    "launch_mode": "activation",
+                    "observed_elapsed_ms": 150.0,
+                    "since_request_ms": 50000.0,
+                }
+            ]
+        )
+
+        self.assertEqual(summary["median_ms"], 150.0)
+
 
 if __name__ == "__main__":
     unittest.main()
