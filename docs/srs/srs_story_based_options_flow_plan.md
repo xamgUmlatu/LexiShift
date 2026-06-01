@@ -3,7 +3,7 @@
 Status: active target UX plan
 Role: Planning
 Last updated: 2026-06-02
-Last verified: 2026-06-02 learner-facing Vocabulary Practice naming pass plus selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
+Last verified: 2026-06-02 learner-facing Vocabulary Practice naming pass plus selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, page-level setup progress popup, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
 Purpose: define the target Options-page Vocabulary Practice UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
 
@@ -53,8 +53,9 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   instead of the deterministic prefix; local source paths are not printed in
   this learner surface;
 - modal initialization copies and persists the visible modal values with the
-  hidden story-enabled backing field set, then calls the existing initialize
-  workflow;
+  hidden story-enabled backing field set, shows a page-level blocking progress
+  popup while the helper starts practice, then refreshes Options on success so
+  the newly created practice card is visible immediately;
 - the advanced setup-only vocabulary search range controls how broad a ranked
   candidate pool sampling and new-word selection may inspect. It remains hidden
   behind advanced setup controls because ordinary learners should not need it;

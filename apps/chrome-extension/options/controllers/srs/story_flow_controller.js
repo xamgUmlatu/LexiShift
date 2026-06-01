@@ -66,7 +66,13 @@
 
     let bound = false;
     let isOpen = false;
+    let isInitializing = false;
     let openedStoryContext = null;
+    const busyOverlay = root.optionsSrsStoryFlowBusyOverlay.createController({
+      t: translate,
+      elements: { busyBackdrop: elements.busyBackdrop, busyMessage: elements.busyMessage, closeButton },
+      onVisibleChange: (visible) => { isInitializing = visible === true; syncBodyModalOpen(); }
+    });
 
     const currentActiveProfileId = () => (mainProfileIdInput
       ? String(mainProfileIdInput.value || "default").trim() || "default"
@@ -84,6 +90,12 @@
       }
       previewOutput.textContent = message || "";
       previewOutput.style.color = color || "";
+    }
+
+    function syncBodyModalOpen() {
+      if (globalThis.document && globalThis.document.body) {
+        globalThis.document.body.classList.toggle("modal-open", isOpen || isInitializing);
+      }
     }
 
     function currentPair() {
@@ -114,6 +126,24 @@
     function handleResourcePreflightBlocked(event) {
       resourceCheck.handlePreflightBlocked(event, isOpen);
     }
+
+    const initializeStory = root.optionsSrsStoryFlowInitializer.createInitializer({
+      t: translate,
+      colors,
+      busyOverlay,
+      setActionBusy,
+      setPreviewText,
+      clearResourceCheck,
+      persistVisibleSettings,
+      initializeSet: srsActionsController && typeof srsActionsController.initializeSet === "function"
+        ? () => srsActionsController.initializeSet()
+        : null,
+      hasResourceBlock: () => resourceCheck.latestBlock(),
+      showDashboard: () => { if (mainDashboardCurtain) mainDashboardCurtain.open = true; },
+      setStatus,
+      close: () => close({ force: true }),
+      reloadPage: opts.reloadPage
+    });
 
     function updateModalProficiencyOutput() {
       if (!modalProficiencyEstimateInput || !modalProficiencyEstimateValueOutput) {
@@ -176,9 +206,7 @@
       isOpen = nextOpen === true;
       backdrop.classList.toggle("hidden", !isOpen);
       backdrop.setAttribute("aria-hidden", isOpen ? "false" : "true");
-      if (globalThis.document && globalThis.document.body) {
-        globalThis.document.body.classList.toggle("modal-open", isOpen);
-      }
+      syncBodyModalOpen();
       if (isOpen && typeof modalRoot.focus === "function") {
         modalRoot.focus();
       }
@@ -189,7 +217,11 @@
       setOpen(true);
     }
 
-    function close() {
+    function close(optionsArg) {
+      const options = optionsArg && typeof optionsArg === "object" ? optionsArg : {};
+      if (isInitializing && options.force !== true) {
+        return;
+      }
       setOpen(false);
     }
 
@@ -281,42 +313,6 @@
         const message = err && err.message
           ? err.message
           : translate("status_srs_admission_preview_failed", null, "Word sample failed.");
-        setPreviewText(message, colors.ERROR);
-        throw err;
-      } finally {
-        setActionBusy(false);
-      }
-    }
-
-    async function initializeStory() {
-      if (!srsActionsController || typeof srsActionsController.initializeSet !== "function") {
-        return;
-      }
-      setActionBusy(true);
-      setPreviewText(
-        translate("status_srs_story_flow_initializing", null, "Saving settings and starting Vocabulary Practice…"),
-        colors.DEFAULT
-      );
-      try {
-        clearResourceCheck();
-        await persistVisibleSettings({ activateStory: true });
-        await srsActionsController.initializeSet();
-        if (resourceCheck.latestBlock()) {
-          setPreviewText(
-            translate("status_srs_language_data_check_required", null, "Install the required language data, then retry."),
-            colors.ERROR
-          );
-          return;
-        }
-        if (mainDashboardCurtain) {
-          mainDashboardCurtain.open = true;
-        }
-        setStatus(translate("status_srs_story_flow_initialized", null, "Vocabulary Practice started."), colors.SUCCESS);
-        close();
-      } catch (err) {
-        const message = err && err.message
-          ? err.message
-          : translate("status_srs_set_init_failed", null, "Practice setup failed.");
         setPreviewText(message, colors.ERROR);
         throw err;
       } finally {

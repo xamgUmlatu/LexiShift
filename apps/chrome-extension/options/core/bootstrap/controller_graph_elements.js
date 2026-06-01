@@ -85,6 +85,8 @@
         sampleButton: dom.srsStoryFlowSampleButton,
         initializeButton: dom.srsStoryFlowInitializeButton,
         previewOutput: dom.srsStoryFlowPreviewOutput,
+        busyBackdrop: dom.srsStoryFlowBusyBackdrop,
+        busyMessage: dom.srsStoryFlowBusyMessage,
         resourceCheckRoot: dom.srsStoryFlowResourceCheck,
         resourceMessage: dom.srsStoryFlowResourceMessage,
         resourceList: dom.srsStoryFlowResourceList,

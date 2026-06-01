@@ -105,6 +105,8 @@
       srsStoryFlowSampleButton: source.srsStoryFlowSample || null,
       srsStoryFlowInitializeButton: source.srsStoryFlowInitialize || null,
       srsStoryFlowPreviewOutput: source.srsStoryFlowPreviewOutput || null,
+      srsStoryFlowBusyBackdrop: source.srsStoryFlowBusyBackdrop || null,
+      srsStoryFlowBusyMessage: source.srsStoryFlowBusyMessage || null,
       srsStoryFlowResourceCheck: source.srsStoryFlowResourceCheck || null,
       srsStoryFlowResourceMessage: source.srsStoryFlowResourceMessage || null,
       srsStoryFlowResourceList: source.srsStoryFlowResourceList || null,

@@ -26,6 +26,12 @@ STORY_FLOW_CONTROLLER_JS = (
 STORY_FLOW_RESOURCE_CHECK_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_resource_check.js"
 )
+STORY_FLOW_BUSY_OVERLAY_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_busy_overlay.js"
+)
+STORY_FLOW_INITIALIZER_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_initializer.js"
+)
 STORY_FLOW_UTILS_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/story_flow_utils.js"
 )
@@ -110,6 +116,8 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertNotIn("Choose a profile and language pair", html)
         self.assertIn('id="srs-story-flow-sample"', html)
         self.assertIn('id="srs-story-flow-initialize"', html)
+        self.assertIn('id="srs-story-flow-busy-backdrop"', html)
+        self.assertIn('id="srs-story-flow-busy-message"', html)
         self.assertIn('id="srs-story-flow-resource-check"', html)
         self.assertIn('id="srs-story-flow-resource-message"', html)
         self.assertIn('id="srs-story-flow-resource-list"', html)
@@ -118,6 +126,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertLess(html.index("story_flow_utils.js"), html.index("story_flow_controller.js"))
         self.assertLess(
             html.index("story_flow_resource_check.js"), html.index("story_flow_controller.js")
+        )
+        self.assertLess(
+            html.index("story_flow_busy_overlay.js"), html.index("story_flow_controller.js")
+        )
+        self.assertLess(
+            html.index("story_flow_initializer.js"), html.index("story_flow_controller.js")
         )
         self.assertLess(html.index("delete_story_state.js"), html.index("maintenance_workflow.js"))
         self.assertIn('<select id="source-language" hidden aria-hidden="true">', html)
@@ -292,6 +306,8 @@ const vm = require("node:vm");
 
 const modulePath = {json.dumps(str(STORY_FLOW_CONTROLLER_JS))};
 const resourcePath = {json.dumps(str(STORY_FLOW_RESOURCE_CHECK_JS))};
+const busyOverlayPath = {json.dumps(str(STORY_FLOW_BUSY_OVERLAY_JS))};
+const initializerPath = {json.dumps(str(STORY_FLOW_INITIALIZER_JS))};
 const utilsPath = {json.dumps(str(STORY_FLOW_UTILS_JS))};
 
 function createClassList() {{
@@ -399,6 +415,8 @@ context.LexiShift = {{
 }};
 vm.runInContext(fs.readFileSync(utilsPath, "utf8"), context, {{ filename: utilsPath }});
 vm.runInContext(fs.readFileSync(resourcePath, "utf8"), context, {{ filename: resourcePath }});
+vm.runInContext(fs.readFileSync(busyOverlayPath, "utf8"), context, {{ filename: busyOverlayPath }});
+vm.runInContext(fs.readFileSync(initializerPath, "utf8"), context, {{ filename: initializerPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const calls = [];
@@ -413,6 +431,12 @@ const backdrop = {{
     this[name] = value;
   }},
   addEventListener() {{}}
+}};
+const busyBackdrop = {{
+  classList: createClassList(),
+  setAttribute(name, value) {{
+    this[name] = value;
+  }}
 }};
 const modalRoot = {{ focus() {{ calls.push("focus"); }} }};
 
@@ -434,6 +458,8 @@ const elements = {{
   sampleButton: createButton(),
   initializeButton: createButton(),
   previewOutput: {{ textContent: "", style: {{}} }},
+  busyBackdrop,
+  busyMessage: {{ textContent: "" }},
   mainSourceLanguageInput: createSelect("ja", ["ja", "en", "es"]),
   mainTargetLanguageInput: createSelect("en", ["ja", "en", "es"]),
   mainProfileIdInput: createSelect("default", ["default", "family"]),
@@ -457,9 +483,16 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   saveSrsSettings: async () => calls.push("saveSrs"),
   srsActionsController: {{
     previewAdmission: async () => calls.push("previewAdmission"),
-    initializeSet: async () => calls.push("initializeSet")
+    initializeSet: async () => {{
+      calls.push("initializeSet");
+      assert.equal(busyBackdrop.classList.contains("hidden"), false);
+      assert.equal(busyBackdrop["aria-hidden"], "false");
+      assert.equal(elements.busyMessage.textContent, "Saving settings and starting Vocabulary Practice…");
+      assert.equal(elements.closeButton.disabled, true);
+    }}
   }},
   log: () => {{}},
+  reloadPage: () => calls.push("reloadPage"),
   elements
 }});
 
@@ -505,8 +538,12 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   calls.length = 0;
   await controller.initializeStory();
   assert.deepEqual(calls.slice(0, 3), ["saveLanguage", "saveSrs", "initializeSet"]);
+  assert.equal(calls[calls.length - 1], "reloadPage");
   assert.equal(elements.mainSrsEnabledInput.checked, true);
   assert.equal(mainDashboardCurtain.open, true);
+  assert.equal(busyBackdrop.classList.contains("hidden"), true);
+  assert.equal(busyBackdrop["aria-hidden"], "true");
+  assert.equal(elements.closeButton.disabled, false);
 }})().catch((err) => {{
   console.error(err);
   process.exitCode = 1;
@@ -522,6 +559,8 @@ const vm = require("node:vm");
 
 const modulePath = {json.dumps(str(STORY_FLOW_CONTROLLER_JS))};
 const resourcePath = {json.dumps(str(STORY_FLOW_RESOURCE_CHECK_JS))};
+const busyOverlayPath = {json.dumps(str(STORY_FLOW_BUSY_OVERLAY_JS))};
+const initializerPath = {json.dumps(str(STORY_FLOW_INITIALIZER_JS))};
 const utilsPath = {json.dumps(str(STORY_FLOW_UTILS_JS))};
 
 function createClassList(initialValues) {{
@@ -641,6 +680,8 @@ context.LexiShift = {{
 }};
 vm.runInContext(fs.readFileSync(utilsPath, "utf8"), context, {{ filename: utilsPath }});
 vm.runInContext(fs.readFileSync(resourcePath, "utf8"), context, {{ filename: resourcePath }});
+vm.runInContext(fs.readFileSync(busyOverlayPath, "utf8"), context, {{ filename: busyOverlayPath }});
+vm.runInContext(fs.readFileSync(initializerPath, "utf8"), context, {{ filename: initializerPath }});
 vm.runInContext(fs.readFileSync(modulePath, "utf8"), context, {{ filename: modulePath }});
 
 const captured = [];

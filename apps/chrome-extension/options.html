@@ -1109,6 +1109,14 @@
         </div>
       </div>
     </div>
+    <div id="srs-story-flow-busy-backdrop" class="srs-story-flow-busy-backdrop hidden" aria-hidden="true">
+      <div class="srs-story-flow-busy-popup" role="status" aria-live="assertive">
+        <span class="srs-story-flow-busy-spinner" aria-hidden="true"></span>
+        <p id="srs-story-flow-busy-message" data-i18n="status_srs_story_flow_initializing">
+          Saving settings and starting Vocabulary Practice…
+        </p>
+      </div>
+    </div>
     <div id="target-language-prefs-modal-backdrop" class="language-pref-modal-backdrop hidden" aria-hidden="true">
       <div
         id="target-language-prefs-modal"
@@ -1203,6 +1211,8 @@
     <script src="options/controllers/srs/actions_controller.js"></script>
     <script src="options/controllers/srs/story_flow_utils.js"></script>
     <script src="options/controllers/srs/story_flow_resource_check.js"></script>
+    <script src="options/controllers/srs/story_flow_busy_overlay.js"></script>
+    <script src="options/controllers/srs/story_flow_initializer.js"></script>
     <script src="options/controllers/srs/story_flow_controller.js"></script>
     <script src="options/controllers/rules/profile_rulesets_state.js"></script>
     <script src="options/controllers/rules/profile_rulesets_controller.js"></script>

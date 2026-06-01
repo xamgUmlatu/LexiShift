@@ -64,6 +64,7 @@ class UIManager {
       "srs-story-flow-max-active", "srs-story-flow-bootstrap-top-n",
       "srs-story-flow-initial-active-count", "srs-story-flow-sample",
       "srs-story-flow-initialize", "srs-story-flow-preview-output",
+      "srs-story-flow-busy-backdrop", "srs-story-flow-busy-message",
       "srs-story-flow-resource-check", "srs-story-flow-resource-message", "srs-story-flow-resource-list", "srs-story-flow-open-resource-settings", "srs-story-flow-retry-resources",
       "helper-last-sync", "debug-helper-test",
       "debug-semantic-pack-inventory-path", "debug-semantic-pack-id",

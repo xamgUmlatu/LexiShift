@@ -1263,6 +1263,55 @@ header p {
   outline-offset: 2px;
 }
 
+.srs-story-flow-busy-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1900;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(27, 23, 17, 0.48);
+  backdrop-filter: blur(2px);
+  animation: language-pref-backdrop-fade-in 180ms ease-out;
+}
+
+.srs-story-flow-busy-popup {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  width: min(380px, calc(100vw - 40px));
+  border: 1px solid var(--ls-modal-border);
+  border-radius: 12px;
+  background: var(--ls-modal-surface);
+  box-shadow: 0 22px 48px var(--ls-modal-shadow);
+  color: #2c2a26;
+  padding: 14px 16px;
+  animation: language-pref-modal-fade-in 180ms ease-out;
+}
+
+.srs-story-flow-busy-popup p {
+  margin: 0;
+  color: #2c2a26;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.srs-story-flow-busy-spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(45, 95, 68, 0.22);
+  border-top-color: #2d5f44;
+  border-radius: 999px;
+  animation: srs-story-flow-spin 850ms linear infinite;
+}
+
+@keyframes srs-story-flow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .srs-maintenance-tools .hint {
   margin: 0 0 8px;
 }
@@ -1809,7 +1858,10 @@ body.modal-open {
 
 @media (prefers-reduced-motion: reduce) {
   .language-pref-modal-backdrop,
-  .language-pref-modal {
+  .language-pref-modal,
+  .srs-story-flow-busy-backdrop,
+  .srs-story-flow-busy-popup,
+  .srs-story-flow-busy-spinner {
     animation: none;
   }
 }
