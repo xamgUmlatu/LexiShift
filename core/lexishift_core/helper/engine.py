@@ -134,6 +134,14 @@ def _get_srs_item_rule_details_use_case(*args, **kwargs):
     return srs_items_module.get_srs_item_rule_details(*args, **kwargs)
 
 
+def _lookup_word_info_use_case(*args, **kwargs):
+    word_info_module = __import__(
+        "lexishift_core.helper.use_cases.word_info",
+        fromlist=["lookup_word_info"],
+    )
+    return word_info_module.lookup_word_info(*args, **kwargs)
+
+
 @dataclass(frozen=True)
 class RulegenJobConfig:
     pair: str
@@ -412,6 +420,34 @@ def get_srs_item_rule_details(
         lemma=lemma,
         profile_id=profile_id,
         limit=limit,
+        resolve_profile_id_fn=_resolve_profile_id,
+    )
+
+
+def lookup_word_info(
+    paths: HelperPaths,
+    *,
+    pair: str,
+    lemma: str,
+    profile_id: str = "default",
+    display: str = "",
+    origin: str = "",
+    source_phrase: str = "",
+    word_package: Mapping[str, object] | None = None,
+    translation_dict_path: Path | None = None,
+    jmdict_path: Path | None = None,
+) -> dict:
+    return _lookup_word_info_use_case(
+        paths,
+        pair=pair,
+        lemma=lemma,
+        profile_id=profile_id,
+        display=display,
+        origin=origin,
+        source_phrase=source_phrase,
+        word_package=word_package,
+        translation_dict_path=translation_dict_path,
+        jmdict_path=jmdict_path,
         resolve_profile_id_fn=_resolve_profile_id,
     )
 

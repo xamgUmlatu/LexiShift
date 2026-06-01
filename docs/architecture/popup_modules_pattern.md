@@ -190,6 +190,15 @@ service that should be formalized is `LexiShift.wordInfoApi`, used by both the
 Vocabulary Library and the `quick-definition` popup module. Popup modules should
 receive that capability through the narrower module API field `api.wordInfo`.
 
+Current state:
+
+- `LexiShift.wordInfoApi` is implemented and loaded by both content scripts and
+  Options.
+- The content singleton is configured with the helper client.
+- The normalized popup context builder and `api.wordInfo` module injection are
+  still target architecture, not current popup runtime behavior.
+- `quick-definition` is still planned.
+
 ```js
 {
   t(key, substitutions, fallback) {},
@@ -459,7 +468,8 @@ Step 3:
 - Migrate script module + feedback module to registry entries.
 
 Step 4:
-- Add shared service injection for modules, starting with `wordInfoApi`.
+- Add shared service injection for modules, adapting implemented
+  `LexiShift.wordInfoApi` into `api.wordInfo`.
 - Add `quick-definition` as an internal module that uses the same API as the
   Vocabulary Library.
 

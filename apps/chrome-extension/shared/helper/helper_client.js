@@ -66,6 +66,14 @@
       return this.send("srs_item_rule_details", { pair, profile_id: profileId, lemma, limit });
     }
 
+    lookupWordInfo(payload, timeoutMs = DEFAULT_TIMEOUT_MS) {
+      return this.send(
+        "word_info_lookup",
+        payload && typeof payload === "object" ? payload : {},
+        timeoutMs
+      );
+    }
+
     getProfiles() {
       return this.send("profiles_get");
     }

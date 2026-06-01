@@ -83,6 +83,7 @@ try:
         ingest_browsing_admission_signals,
         initialize_srs_set,
         list_srs_items,
+        lookup_word_info,
         load_semantic_inventory,
         load_ruleset,
         load_snapshot,
@@ -441,6 +442,23 @@ def _handle_request(msg_type: str, payload: dict) -> dict:
             profile_id=profile_id or "default",
             lemma=str(payload.get("lemma", "")),
             limit=_optional_int(payload, "limit"),
+        )
+    if msg_type == "word_info_lookup":
+        pair = str(payload.get("pair", "en-ja")).strip() or "en-ja"
+        word_package = payload.get("word_package")
+        if not isinstance(word_package, dict):
+            word_package = None
+        return lookup_word_info(
+            paths,
+            pair=pair,
+            profile_id=profile_id or "default",
+            lemma=str(payload.get("lemma", "")),
+            display=str(payload.get("display", "")),
+            origin=str(payload.get("origin", "")),
+            source_phrase=str(payload.get("source_phrase", "")),
+            word_package=word_package,
+            translation_dict_path=_optional_path(payload, "translation_dict_path"),
+            jmdict_path=_optional_path(payload, "jmdict_path"),
         )
     if msg_type == "semantic_admit_batch":
         return semantic_admit_batch(paths, payload=payload)

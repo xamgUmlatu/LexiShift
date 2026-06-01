@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sqlite3
 import sys
 import tempfile
 import unittest
@@ -28,6 +29,33 @@ from lexishift_core.srs.browsing_admission import load_browsing_signal_store  # 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 HELPER_SCRIPT = REPO_ROOT / "scripts" / "helper" / "lexishift_helper.py"
 NATIVE_HOST_SCRIPT = REPO_ROOT / "scripts" / "helper" / "lexishift_native_host.py"
+
+
+def _write_translation_pack(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute(
+            """
+            CREATE TABLE entries (
+                headword TEXT,
+                headword_lc TEXT,
+                translation TEXT,
+                pos TEXT,
+                rank INTEGER
+            )
+            """
+        )
+        conn.execute(
+            """
+            INSERT INTO entries (headword, headword_lc, translation, pos, rank)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            ("perro", "perro", "dog", "noun", 1),
+        )
+        conn.commit()
+    finally:
+        conn.close()
 
 
 def _load_module(name: str, path: Path):
@@ -102,6 +130,48 @@ class TestHelperBrowsingAdmissionEntrypoints(unittest.TestCase):
             self.assertEqual(response["returned_rule_count"], 1)
             self.assertTrue(response["truncated"])
             self.assertEqual(response["rules"][0]["replacement"], "perro")
+
+    def test_native_host_routes_word_info_lookup(self) -> None:
+        module = _load_module("lexishift_native_host_word_info_test", NATIVE_HOST_SCRIPT)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            _write_translation_pack(paths.language_packs_dir / "wiktionary-es-en.sqlite")
+            save_srs_store(
+                SrsStore(
+                    items=(
+                        SrsItem(
+                            item_id="en-es:perro",
+                            lemma="perro",
+                            language_pair="en-es",
+                            source_type="initial_set",
+                        ),
+                    ),
+                    version=2,
+                ),
+                paths.srs_store_path_for("default"),
+            )
+            save_vocab_dataset(
+                VocabDataset(rules=(VocabRule(source_phrase="dog", replacement="perro"),)),
+                paths.ruleset_path("en-es", profile_id="default"),
+            )
+            with patch.object(module, "build_helper_paths", return_value=paths):
+                response = module._handle_request(
+                    "word_info_lookup",
+                    {
+                        "pair": "en-es",
+                        "profile_id": "default",
+                        "lemma": "perro",
+                        "display": "perro",
+                        "origin": "srs",
+                        "source_phrase": "dog",
+                    },
+                )
+
+            self.assertEqual(response["status"], "ok")
+            self.assertEqual(response["glosses"][0]["text"], "dog")
+            self.assertTrue(response["srs"]["present"])
+            self.assertEqual(response["source_phrases"], ["dog"])
 
     def test_native_host_routes_srs_admission_suppression(self) -> None:
         module = _load_module("lexishift_native_host_admission_suppress_test", NATIVE_HOST_SCRIPT)

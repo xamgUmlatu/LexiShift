@@ -3,9 +3,9 @@
 Status: active implementation plan
 Role: Product/UX plan, backend read-model contract, and implementation sequence
 Last updated: 2026-06-02
-Last verified: 2026-06-02 planning-only documentation update; no runtime behavior changed
+Last verified: 2026-06-02 helper/native-host/shared-extension word-info API foundation tests; popup/library UI still pending
 Purpose: define the shared word-info capability that should power both a richer Vocabulary Practice library and a built-in popup definition module
-Source-of-truth: planning contract only; implementation truth must move to helper endpoints, extension code, tests, generated artifacts, and `docs/developer/feature_state_matrix.md` when slices land.
+Source-of-truth: mixed implementation plan plus current API contract; current implemented state is tracked in `docs/developer/feature_state_matrix.md`.
 
 ## Product Goal
 
@@ -58,6 +58,23 @@ fallback policy, definition filtering, or external-link construction.
      phrase, rule metadata, and local dictionary glosses.
    - The popup should fail gracefully when the word is not in Vocabulary
      Practice.
+
+## Current Implementation State
+
+As of 2026-06-02, the shared word-info API foundation is implemented and
+verified:
+
+- helper/core read model: `core/lexishift_core/helper/use_cases/word_info.py`;
+- engine entrypoint: `lookup_word_info(...)`;
+- native-host route: `word_info_lookup`;
+- extension helper client method: `HelperClient.lookupWordInfo(...)`;
+- shared extension API wrapper: `LexiShift.wordInfoApi`;
+- Options convenience method: `HelperManager.lookupWordInfo(...)`;
+- content singleton configuration for future popup modules.
+
+This implemented slice is intentionally read-only and not yet user-facing. The
+dedicated Vocabulary Library page/view and `quick-definition` popup module are
+still planned next slices.
 
 ## Non-Goals For MVP
 
@@ -436,25 +453,35 @@ The popup module should be:
 
 ### Slice 1: Contract And Helper Read Model
 
-Files likely involved:
+Status: implemented and verified on 2026-06-02.
 
-- `core/lexishift_core/helper/use_cases/word_info.py` (new)
+Files involved:
+
+- `core/lexishift_core/helper/use_cases/word_info.py`
 - `core/lexishift_core/helper/engine.py`
 - `scripts/helper/lexishift_native_host.py`
 - `apps/chrome-extension/shared/helper/helper_client.js`
-- `apps/chrome-extension/options/core/helper/srs_set_methods.js` or a new
-  helper-method installer if this grows beyond SRS set actions
+- `apps/chrome-extension/shared/helper/word_info_api.js`
+- `apps/chrome-extension/options/core/helper/srs_set_methods.js`
+- `apps/chrome-extension/content_script.js`
+- `apps/chrome-extension/manifest.json`
+- `apps/chrome-extension/options.html`
 
 Tests:
 
-- helper use-case tests for:
+- `core/tests/helper/test_helper_word_info.py` covers:
   - SRS item present with word package,
   - ruleset source phrase summary present,
   - installed translation-pack glosses present,
   - missing language data graceful response,
   - no local path leakage in learner payload.
-- native-host route test.
-- helper-client route test.
+- `core/tests/dev/test_helper_browsing_admission_entrypoints.py` covers the
+  native-host route.
+- `core/tests/dev/test_extension_helper_status_profile_contract.py` covers the
+  helper-client route, shared JS API normalization/cache behavior, and Options
+  manager convenience method.
+- `core/tests/architecture/test_extension_structure.py` covers content/options
+  script ordering.
 
 ### Slice 2: Vocabulary Library Page
 

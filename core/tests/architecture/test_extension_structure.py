@@ -42,6 +42,7 @@ class TestExtensionStructure(unittest.TestCase):
     def test_options_helper_domains_exist(self) -> None:
         required = [
             EXT_ROOT / "shared" / "helper" / "helper_error_copy.js",
+            EXT_ROOT / "shared" / "helper" / "word_info_api.js",
             EXT_ROOT / "options" / "core" / "helper" / "base_methods.js",
             EXT_ROOT / "options" / "core" / "helper" / "diagnostics_methods.js",
             EXT_ROOT / "options" / "core" / "helper" / "srs_set_methods.js",
@@ -55,6 +56,8 @@ class TestExtensionStructure(unittest.TestCase):
         html = html_path.read_text(encoding="utf-8")
         ordered_markers = [
             'src="shared/helper/helper_error_copy.js"',
+            'src="shared/helper/helper_client.js"',
+            'src="shared/helper/word_info_api.js"',
             'src="options/core/helper/base_methods.js"',
             'src="options/core/helper/diagnostics_methods.js"',
             'src="options/core/helper/srs_set_methods.js"',
@@ -139,6 +142,8 @@ class TestExtensionStructure(unittest.TestCase):
         required_order = [
             "shared/helper/helper_error_copy.js",
             "shared/helper/helper_transport_extension.js",
+            "shared/helper/helper_client.js",
+            "shared/helper/word_info_api.js",
             "content/processing/replacement_semantic_debug.js",
             "content/processing/replacement_semantic_override.js",
             "content/processing/replacements.js",

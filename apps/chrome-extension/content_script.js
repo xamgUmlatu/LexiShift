@@ -35,6 +35,7 @@
     && typeof root.contentSettingsChangeRouter.createRouter === "function"
     && root.popupModulesRegistry
     && root.popupModuleHistoryStore
+    && root.wordInfoApi
   );
   if (!requiredModulesLoaded) {
     console.warn("[LexiShift] Content modules not loaded.");
@@ -67,6 +68,7 @@
   const runtimeDiagnostics = root.srsRuntimeDiagnostics;
   const popupModuleHistoryStore = root.popupModuleHistoryStore;
   const popupModulesRegistry = root.popupModulesRegistry;
+  const wordInfoApi = root.wordInfoApi;
   const RULE_ORIGIN_SRS = "srs";
   const RULE_ORIGIN_RULESET = "ruleset";
 
@@ -76,6 +78,9 @@
   let applyingChanges = false;
   let applyToken = 0;
   let helperClient = HelperClient && helperTransport ? new HelperClient(helperTransport) : null;
+  if (wordInfoApi && typeof wordInfoApi.configure === "function") {
+    wordInfoApi.configure({ helperClient });
+  }
 
   function normalizeProfileId(value) {
     const normalized = String(value || "").trim();

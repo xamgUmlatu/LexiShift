@@ -2,7 +2,7 @@
 
 Status: active ledger
 Role: Canonical current
-Last updated: 2026-05-19
+Last updated: 2026-06-02
 Source-of-truth: cross-cutting state ledger; runtime truth still lives in code, tests, and dated evidence artifacts.
 
 Purpose:
@@ -1820,6 +1820,63 @@ Use this file when:
     not implemented; current automatic parking is backend active-inventory
     capacity management only.
   - The extension feedback popup remains review-feedback only.
+
+## SRS Word Info API
+
+- Status: `implemented`, `verified`; `default-on` = `no` for user-facing UI
+- Last documented checkpoint: `2026-06-02` shared word-info API foundation:
+  helper/core can read a profile/pair/lemma word-info payload, native host
+  exposes `word_info_lookup`, the extension helper client exposes
+  `lookupWordInfo`, Options exposes a `HelperManager.lookupWordInfo`
+  convenience through the shared API wrapper, and content/options load
+  `shared/helper/word_info_api.js`
+- Last verified: `2026-06-02` focused helper word-info tests, native-host route
+  tests, helper-client/API contract tests, extension structure tests, JS syntax
+  checks, and Python compile checks
+- Default behavior:
+  - The route is read-only and does not admit, refresh, schedule, publish,
+    discard, or otherwise mutate SRS state.
+  - The helper returns compact learner-facing word info: normalized pair/profile
+    fields, target display/lemma, POS where known, local glosses, source phrase
+    previews, compact SRS presence/state, deterministic external dictionary
+    links, and sanitized diagnostics.
+  - Installed local lexical resources are the canonical gloss source. For
+    `en-es`, the route resolves Spanish-to-English translation/gloss packs
+    through existing pair-resource capability/default-pack logic rather than
+    extension-side filenames or paths.
+  - The extension API wrapper normalizes camelCase/snake_case request fields,
+    caches successful lookups for the current JS runtime session, and delegates
+    native messaging to `HelperClient.lookupWordInfo`.
+  - The content singleton is configured with the current helper client, so a
+    future popup module can call `LexiShift.wordInfoApi.lookup(...)`; the
+    `quick-definition` popup module itself is not implemented yet.
+  - Options code can call `HelperManager.lookupWordInfo(...)`; the dedicated
+    Vocabulary Library page/view is not implemented yet.
+  - Local filesystem paths are intentionally excluded from learner-facing
+    payloads and diagnostics.
+- Evidence:
+  - `docs/srs/srs_vocabulary_library_and_word_info_plan.md`
+  - `docs/architecture/popup_modules_pattern.md`
+  - `core/lexishift_core/helper/use_cases/word_info.py`
+  - `core/lexishift_core/helper/engine.py`
+  - `scripts/helper/lexishift_native_host.py`
+  - `apps/chrome-extension/shared/helper/helper_client.js`
+  - `apps/chrome-extension/shared/helper/word_info_api.js`
+  - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
+  - `apps/chrome-extension/content_script.js`
+  - `apps/chrome-extension/manifest.json`
+  - `apps/chrome-extension/options.html`
+  - `core/tests/helper/test_helper_word_info.py`
+  - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
+  - `core/tests/dev/test_extension_helper_status_profile_contract.py`
+  - `core/tests/architecture/test_extension_structure.py`
+- Known gaps:
+  - `quick-definition` popup rendering is not implemented.
+  - The dedicated Vocabulary Library page/view is not implemented.
+  - Batch lookup for a page of library rows is not implemented.
+  - JMDict and future-pair provider behavior has a generic path but only
+    `en-es` translation-pack lookup has focused production-style coverage in
+    this slice.
 
 ## Vocabulary Practice Options UX
 

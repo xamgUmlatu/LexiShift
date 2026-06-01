@@ -209,6 +209,35 @@
       return response.data || {};
     };
 
+    proto.lookupWordInfo = async function lookupWordInfo(request, options) {
+      const client = this.getClient();
+      if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));
+      const apiFactory = globalThis.LexiShift && globalThis.LexiShift.wordInfoApi;
+      if (!apiFactory || typeof apiFactory.create !== "function") {
+        throw new Error("Word info API unavailable.");
+      }
+      const opts = options && typeof options === "object" ? options : {};
+      const rawRequest = request && typeof request === "object" ? request : {};
+      const profileId = this.normalizeProfileId(rawRequest.profileId || rawRequest.profile_id || opts.profileId);
+      const api = apiFactory.create({ helperClient: client });
+      const result = await api.lookup(
+        {
+          ...rawRequest,
+          profileId
+        },
+        {
+          timeoutMs: Number.parseInt(opts.timeoutMs, 10) || undefined
+        }
+      );
+      if (!result || result.status === "error") {
+        throw new Error(
+          (result && result.error && result.error.message)
+            || this.i18n.t("status_helper_failed", null, "Helper error.")
+        );
+      }
+      return result;
+    };
+
     proto.discardSrsItem = async function discardSrsItem(pair, lemma, options) {
       const client = this.getClient();
       if (!client) throw new Error(this.i18n.t("status_helper_missing", null, "Helper unavailable."));

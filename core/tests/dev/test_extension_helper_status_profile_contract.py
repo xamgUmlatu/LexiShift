@@ -8,6 +8,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 HELPER_CLIENT_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_client.js"
+WORD_INFO_API_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/word_info_api.js"
 HELPER_ERROR_COPY_JS = PROJECT_ROOT / "apps/chrome-extension/shared/helper/helper_error_copy.js"
 HELPER_BASE_METHODS_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/helper/base_methods.js"
 HELPER_DIAGNOSTICS_METHODS_JS = (
@@ -188,6 +189,187 @@ const client = new HelperClient({{
     {{
       type: "srs_item_rule_details",
       payload: {{ pair: "en-es", profile_id: "default", lemma: "perro", limit: 3 }}
+    }}
+  ]));
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_client_routes_word_info_lookup(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const clientPath = {json.dumps(str(HELPER_CLIENT_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(clientPath, "utf8"), context, {{ filename: clientPath }});
+
+const HelperClient = context.LexiShift.helperClient;
+const calls = [];
+const client = new HelperClient({{
+  async send(type, payload, timeoutMs) {{
+    calls.push({{ type, payload, timeoutMs }});
+    return {{ ok: true, data: null }};
+  }}
+}});
+
+(async () => {{
+  await client.lookupWordInfo({{
+    pair: "en-es",
+    profile_id: "default",
+    lemma: "perro",
+    display: "perro"
+  }}, 1234);
+  assert.equal(JSON.stringify(calls), JSON.stringify([
+    {{
+      type: "word_info_lookup",
+      payload: {{
+        pair: "en-es",
+        profile_id: "default",
+        lemma: "perro",
+        display: "perro"
+      }},
+      timeoutMs: 1234
+    }}
+  ]));
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_word_info_api_normalizes_and_caches_lookup_requests(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const apiPath = {json.dumps(str(WORD_INFO_API_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+vm.runInContext(fs.readFileSync(apiPath, "utf8"), context, {{ filename: apiPath }});
+
+const calls = [];
+const api = context.LexiShift.wordInfoApi.create({{
+  helperClient: {{
+    async lookupWordInfo(payload, timeoutMs) {{
+      calls.push({{ payload, timeoutMs }});
+      return {{
+        ok: true,
+        data: {{
+          status: "ok",
+          pair: payload.pair,
+          profile_id: payload.profile_id,
+          lemma: payload.lemma,
+          glosses: [{{ text: "dog" }}]
+        }}
+      }};
+    }}
+  }}
+}});
+
+(async () => {{
+  const request = {{
+    languagePair: "EN-ES",
+    profileId: "alpha",
+    replacement: " perro ",
+    displayReplacement: "Perro",
+    origin: "SRS",
+    sourcePhrase: "dog",
+    wordPackage: {{ surface: "perro" }}
+  }};
+  const first = await api.lookup(request, {{ timeoutMs: 1234 }});
+  const second = await api.lookup(request, {{ timeoutMs: 9999 }});
+  assert.equal(first.glosses[0].text, "dog");
+  assert.deepEqual(first, second);
+  assert.equal(calls.length, 1);
+  assert.equal(JSON.stringify(calls[0]), JSON.stringify({{
+    payload: {{
+      pair: "en-es",
+      profile_id: "alpha",
+      lemma: "perro",
+      display: "Perro",
+      origin: "srs",
+      source_phrase: "dog",
+      word_package: {{ surface: "perro" }}
+    }},
+    timeoutMs: 1234
+  }}));
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
+"""
+        _run_node(script)
+
+    def test_helper_manager_lookup_word_info_uses_shared_api(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const helperErrorCopyPath = {json.dumps(str(HELPER_ERROR_COPY_JS))};
+const wordInfoApiPath = {json.dumps(str(WORD_INFO_API_JS))};
+const baseMethodsPath = {json.dumps(str(HELPER_BASE_METHODS_JS))};
+const srsSetMethodsPath = {json.dumps(str(HELPER_SRS_SET_METHODS_JS))};
+const context = vm.createContext({{ console }});
+context.globalThis = context;
+context.LexiShift = {{}};
+for (const scriptPath of [
+  helperErrorCopyPath,
+  wordInfoApiPath,
+  baseMethodsPath,
+  srsSetMethodsPath
+]) {{
+  vm.runInContext(fs.readFileSync(scriptPath, "utf8"), context, {{ filename: scriptPath }});
+}}
+
+function Manager() {{
+  this.i18n = {{ t: (_key, _subs, fallback) => fallback }};
+  this.logger = () => {{}};
+}}
+context.LexiShift.installHelperBaseMethods(Manager.prototype);
+context.LexiShift.installHelperSrsSetMethods(Manager.prototype);
+
+const calls = [];
+const manager = new Manager();
+manager.getClient = () => ({{
+  async lookupWordInfo(payload, timeoutMs) {{
+    calls.push({{ payload, timeoutMs }});
+    return {{ ok: true, data: {{ status: "ok", pair: payload.pair, profile_id: payload.profile_id }} }};
+  }}
+}});
+
+(async () => {{
+  const result = await manager.lookupWordInfo(
+    {{
+      pair: "en-es",
+      lemma: "perro",
+      display: "perro",
+      sourcePhrase: "dog"
+    }},
+    {{ profileId: "alpha", timeoutMs: 1234 }}
+  );
+  assert.equal(result.status, "ok");
+  assert.equal(JSON.stringify(calls), JSON.stringify([
+    {{
+      payload: {{
+        pair: "en-es",
+        profile_id: "alpha",
+        lemma: "perro",
+        display: "perro",
+        origin: "",
+        source_phrase: "dog"
+      }},
+      timeoutMs: 1234
     }}
   ]));
 }})().catch((error) => {{
