@@ -10,13 +10,19 @@ def gui_singleton_socket_name() -> str:
     return f"LexiShiftGUI_{getpass.getuser()}"
 
 
-def resource_settings_activation_message(pair: str | None = None) -> str:
+def resource_settings_activation_message(
+    pair: str | None = None,
+    *,
+    session_id: str | None = None,
+) -> str:
+    parts = [OPEN_RESOURCE_SETTINGS_MESSAGE]
     pair_text = str(pair or "").strip().lower()
-    return (
-        f"{OPEN_RESOURCE_SETTINGS_MESSAGE}|pair={pair_text}"
-        if pair_text
-        else OPEN_RESOURCE_SETTINGS_MESSAGE
-    )
+    if pair_text:
+        parts.append(f"pair={pair_text}")
+    session_text = str(session_id or "").strip()
+    if session_text:
+        parts.append(f"session={session_text}")
+    return "|".join(parts)
 
 
 def send_local_activation_message(
@@ -53,10 +59,11 @@ def send_local_activation_message(
 def activate_resource_settings(
     pair: str | None = None,
     *,
+    session_id: str | None = None,
     log: Callable[[str], None] | None = None,
 ) -> bool:
     return send_local_activation_message(
         gui_singleton_socket_name(),
-        resource_settings_activation_message(pair),
+        resource_settings_activation_message(pair, session_id=session_id),
         log=log,
     )

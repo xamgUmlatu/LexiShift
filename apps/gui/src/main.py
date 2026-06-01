@@ -7,6 +7,14 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Optional
 
+from startup_logging import (
+    EARLY_START_TIME,
+    STARTUP_LOG_PATH_ENV,
+    write_early_startup_checkpoint,
+)
+
+write_early_startup_checkpoint("process entry before Qt imports")
+
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, "..", "..", ".."))
 CORE_ROOT = os.path.join(REPO_ROOT, "core")
@@ -725,7 +733,10 @@ def main() -> None:
     QCoreApplication.setOrganizationName("LexiShift")
     QCoreApplication.setApplicationName("LexiShift")
     startup_logs = _startup_log_paths()
-    startup_logger = StartupLogger(startup_logs)
+    startup_log_override = str(os.environ.get(STARTUP_LOG_PATH_ENV, "") or "").strip()
+    if startup_log_override:
+        startup_logs.insert(0, Path(startup_log_override).expanduser())
+    startup_logger = StartupLogger(startup_logs, start_time=EARLY_START_TIME, argv=sys.argv)
 
     print("[LexiShift] STARTUP MARKER")
     startup_logger.log("main() begin")
@@ -757,7 +768,7 @@ def main() -> None:
     window = MainWindow()
     startup_logger.log("MainWindow constructed")
 
-    bind_activation_handler(server, window)
+    bind_activation_handler(server, window, logger=startup_logger)
 
     window.show()
     if is_resource_settings_activation_message(activation_message):

@@ -3,7 +3,7 @@
 Status: active plan
 Role: Planning / WIP
 Last updated: 2026-06-01
-Last verified: 2026-06-01 local evidence refresh only; no implementation change yet
+Last verified: 2026-06-01 Phase 0 startup telemetry implementation, focused native-host/logger/measurement tests, state audit, and changed-scope repo safety
 Purpose: make the packaged LexiShift GUI open quickly enough from extension-driven language-data recovery flows without changing the architecture stack prematurely
 Source-of-truth: planning doc only; current behavior lives in `scripts/helper/lexishift_native_host.py`, `core/lexishift_core/helper/gui_app_launch.py`, `apps/gui/src/main.py`, `apps/gui/src/main_runtime.py`, `apps/gui/packaging/pyinstaller.spec`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -120,6 +120,19 @@ Ranked by likely product impact:
 ## Phase 0: Measurement And Telemetry
 
 Goal: make every observed launch explainable before changing behavior.
+
+Implementation checkpoint:
+
+- 2026-06-01: native-host resource-settings requests now generate a startup
+  session, log activation/launch timing, pass session/timing context into cold
+  GUI launch environment variables, and include command-class/Popen timing in
+  `logs/native_host.log`.
+- 2026-06-01: GUI startup logs now include a pre-Qt-import process-entry
+  checkpoint plus session id, PID/PPID, argv mode, launch source, launch mode,
+  resource pair, UTC timestamps, and request-to-checkpoint timing.
+- 2026-06-01: `scripts/dev/packaged_gui_startup_measure.py` can measure
+  `open`, bundle-id, direct executable, and existing-GUI activation paths and
+  write JSON/Markdown artifacts for comparison.
 
 Implementation plan:
 

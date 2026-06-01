@@ -8,6 +8,7 @@ from pathlib import Path
 import struct
 import subprocess
 import sys
+import time
 import traceback
 from typing import Any, Dict, Optional
 
@@ -101,6 +102,13 @@ try:
     from lexishift_core.helper.gui_app_launch import (
         resource_settings_launch_command as build_resource_settings_launch_command,
     )
+    from lexishift_core.helper.gui_startup_telemetry import (
+        duration_ms,
+        new_startup_session_id,
+        resource_launch_command_class,
+        resource_settings_launch_env,
+        utc_timestamp,
+    )
     from lexishift_core.helper.profiles import get_profile_rulesets_snapshot, get_profiles_snapshot
     from lexishift_core.helper.os import open_path
     from lexishift_core.helper.paths import build_helper_paths
@@ -138,6 +146,10 @@ def _native_host_log_line(message: str) -> None:
         return
 
 
+def _payload_pair(payload: dict) -> str:
+    return str(payload.get("pair", "") or "").strip()
+
+
 def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list[str], str]:
     return build_resource_settings_launch_command(
         payload or {},
@@ -153,27 +165,79 @@ def _resource_settings_launch_command(payload: dict | None = None) -> tuple[list
 
 
 def _open_resource_settings(payload: dict) -> dict:
-    if activate_gui_resource_settings(pair=payload.get("pair"), log=_native_host_log_line):
+    request_started_at = utc_timestamp()
+    request_start = time.perf_counter()
+    session_id = str(payload.get("startup_session_id") or "").strip() or new_startup_session_id()
+    pair = _payload_pair(payload)
+    _native_host_log_line(
+        f"resource_settings_request_received session={session_id} pair={pair} source=native_host"
+    )
+
+    activation_start = time.perf_counter()
+    _native_host_log_line(f"resource_settings_activation_started session={session_id} pair={pair}")
+    try:
+        activated = activate_gui_resource_settings(
+            pair=pair,
+            session_id=session_id,
+            log=_native_host_log_line,
+        )
+    except Exception as exc:  # noqa: BLE001
+        activated = False
         _native_host_log_line(
-            f"activated_resource_settings mode=existing_gui pair={payload.get('pair', '')!s}"
+            "resource_settings_activation_error "
+            f"session={session_id} pair={pair} error={type(exc).__name__}:{exc!s}"
+        )
+    activation_duration_ms = duration_ms(activation_start)
+    _native_host_log_line(
+        "resource_settings_activation_result "
+        f"session={session_id} pair={pair} activated={str(activated).lower()} "
+        f"duration_ms={activation_duration_ms}"
+    )
+
+    if activated:
+        _native_host_log_line(
+            "activated_resource_settings "
+            f"session={session_id} mode=existing_gui pair={pair} "
+            f"total_ms={duration_ms(request_start)}"
         )
         return {
             "opened": True,
             "target": "resource_settings",
             "launch_mode": "existing_gui",
+            "startup_session_id": session_id,
+            "activation_duration_ms": activation_duration_ms,
         }
     command, launch_mode = _resource_settings_launch_command(payload)
-    env = dict(os.environ)
-    for key in ("_MEIPASS2", "DYLD_LIBRARY_PATH", "LD_LIBRARY_PATH"):
-        env.pop(key, None)
-    subprocess.Popen(command, close_fds=True, env=env)
+    command_class = resource_launch_command_class(command)
     _native_host_log_line(
-        f"opened_resource_settings mode={launch_mode} pair={payload.get('pair', '')!s}"
+        "resource_settings_launch_resolved "
+        f"session={session_id} mode={launch_mode} command_class={command_class} pair={pair}"
+    )
+    env = resource_settings_launch_env(
+        base_env=os.environ,
+        session_id=session_id,
+        requested_at=request_started_at,
+        launch_mode=launch_mode,
+        pair=pair,
+    )
+    popen_start = time.perf_counter()
+    process = subprocess.Popen(command, close_fds=True, env=env)
+    popen_duration_ms = duration_ms(popen_start)
+    pid_text = getattr(process, "pid", "")
+    _native_host_log_line(
+        "opened_resource_settings "
+        f"session={session_id} mode={launch_mode} command_class={command_class} "
+        f"pair={pair} pid={pid_text} popen_ms={popen_duration_ms} "
+        f"total_ms={duration_ms(request_start)}"
     )
     return {
         "opened": True,
         "target": "resource_settings",
         "launch_mode": launch_mode,
+        "startup_session_id": session_id,
+        "activation_duration_ms": activation_duration_ms,
+        "launch_popen_duration_ms": popen_duration_ms,
+        "launch_command_class": command_class,
     }
 
 

@@ -52,11 +52,29 @@ class TestNativeHostResourceSettings(unittest.TestCase):
         )
         self.assertIs(kwargs["close_fds"], True)
         self.assertIsInstance(kwargs["env"], dict)
+        self.assertEqual(
+            kwargs["env"]["LEXISHIFT_STARTUP_SESSION_ID"],
+            response["startup_session_id"],
+        )
+        self.assertEqual(kwargs["env"]["LEXISHIFT_STARTUP_SOURCE"], "native_host_resource_settings")
+        self.assertEqual(kwargs["env"]["LEXISHIFT_STARTUP_LAUNCH_MODE"], "dev_gui_entry")
+        self.assertEqual(kwargs["env"]["LEXISHIFT_STARTUP_RESOURCE_PAIR"], "en-es")
+        self.assertIn("LEXISHIFT_STARTUP_REQUESTED_AT", kwargs["env"])
         self.assertEqual(response["opened"], True)
         self.assertEqual(response["target"], "resource_settings")
         self.assertEqual(response["launch_mode"], "dev_gui_entry")
-        log_line.assert_called_once()
-        self.assertIn("pair=en-es", log_line.call_args.args[0])
+        self.assertEqual(response["launch_command_class"], "python_gui_entry")
+        self.assertIn("startup_session_id", response)
+        self.assertGreaterEqual(response["activation_duration_ms"], 0)
+        messages = [call.args[0] for call in log_line.call_args_list]
+        self.assertTrue(
+            any("resource_settings_request_received" in message for message in messages)
+        )
+        self.assertTrue(
+            any("resource_settings_activation_result" in message for message in messages)
+        )
+        self.assertTrue(any("opened_resource_settings" in message for message in messages))
+        self.assertTrue(any("pair=en-es" in message for message in messages))
 
     def test_open_resource_settings_reuses_existing_gui_when_available(self) -> None:
         module = _load_module(
@@ -65,24 +83,24 @@ class TestNativeHostResourceSettings(unittest.TestCase):
         )
 
         with (
-            patch.object(module, "activate_gui_resource_settings", return_value=True),
+            patch.object(module, "activate_gui_resource_settings", return_value=True) as activate,
             patch.object(module.subprocess, "Popen") as popen,
             patch.object(module, "_native_host_log_line") as log_line,
         ):
             response = module._open_resource_settings({"pair": "EN-ES"})
 
         popen.assert_not_called()
-        self.assertEqual(
-            response,
-            {
-                "opened": True,
-                "target": "resource_settings",
-                "launch_mode": "existing_gui",
-            },
-        )
-        log_line.assert_called_once()
-        self.assertIn("mode=existing_gui", log_line.call_args.args[0])
-        self.assertIn("pair=EN-ES", log_line.call_args.args[0])
+        self.assertEqual(response["opened"], True)
+        self.assertEqual(response["target"], "resource_settings")
+        self.assertEqual(response["launch_mode"], "existing_gui")
+        self.assertIn("startup_session_id", response)
+        self.assertGreaterEqual(response["activation_duration_ms"], 0)
+        _activate_args, activate_kwargs = activate.call_args
+        self.assertEqual(activate_kwargs["pair"], "EN-ES")
+        self.assertEqual(activate_kwargs["session_id"], response["startup_session_id"])
+        messages = [call.args[0] for call in log_line.call_args_list]
+        self.assertTrue(any("mode=existing_gui" in message for message in messages))
+        self.assertTrue(any("pair=EN-ES" in message for message in messages))
 
     def test_macos_resource_settings_prefers_installed_app_over_dev_entry(self) -> None:
         module = _load_module(
@@ -120,6 +138,10 @@ class TestNativeHostResourceSettings(unittest.TestCase):
         self.assertEqual(
             module.resource_settings_activation_message("EN-ES"),
             "OPEN_SETTINGS:resources|pair=en-es",
+        )
+        self.assertEqual(
+            module.resource_settings_activation_message("EN-ES", session_id="session-1"),
+            "OPEN_SETTINGS:resources|pair=en-es|session=session-1",
         )
         self.assertEqual(
             module.resource_settings_activation_message(),
