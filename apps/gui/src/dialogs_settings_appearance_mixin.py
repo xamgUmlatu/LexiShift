@@ -61,6 +61,8 @@ class SettingsDialogAppearanceMixin:
         scroll.setFrameShape(QFrame.NoFrame)
         scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.viewport().setAutoFillBackground(False)
+        scroll.setStyleSheet("QScrollArea { background: transparent; border: none; }")
 
         container = _ThemedTabContainer()
         container.setObjectName("settingsTabContainer")
@@ -78,8 +80,8 @@ class SettingsDialogAppearanceMixin:
         theme = resolve_theme(self._theme_id, screen_id="settings_dialog")
         self.language_pack_panel.set_theme(theme)
         canvas_text = readable_text_color(theme["text"], theme["bg"])
+        canvas_muted = readable_text_color(theme["muted"], theme["bg"], minimum_ratio=3.8)
         canvas_accent = readable_text_color(theme["accent"], theme["bg"], minimum_ratio=3.8)
-        intro_text = readable_text_color(theme["muted"], theme["panel_top"], minimum_ratio=3.8)
         tab_text = readable_text_color(theme["muted"], theme["panel_bottom"], minimum_ratio=3.8)
         selected_tab_text = readable_text_color(theme["text"], theme["panel_top"])
         table_text = readable_text_color(theme["text"], theme["table_bg"])
@@ -90,6 +92,12 @@ class SettingsDialogAppearanceMixin:
         background_path = theme.get("_background_path")
         if hasattr(self, "_tab_containers"):
             for container in self._tab_containers:
+                container.set_base_style(
+                    top=theme["panel_top"],
+                    bottom=theme["panel_bottom"],
+                    border=theme["panel_border"],
+                    radius=10,
+                )
                 container.set_background(
                     image_path=background_path,
                     opacity=_coerce_float(background.get("opacity"), default=1.0),
@@ -106,14 +114,9 @@ class SettingsDialogAppearanceMixin:
             f"color: {canvas_text};"
             "}"
             "QLabel#settingsIntroLabel {"
-            "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "
-            f"stop:0 {theme['panel_top']}, stop:1 {theme['table_bg']});"
-            f"border: 1px solid {theme['panel_border']};"
-            "border-radius: 8px;"
-            f"color: {intro_text};"
+            f"color: {canvas_muted};"
             "font-size: 13px;"
             "font-weight: 500;"
-            "padding: 8px 12px;"
             "}"
             "QWidget#settingsTabContainer {"
             "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, "

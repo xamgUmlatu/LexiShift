@@ -16,39 +16,6 @@ from i18n import t
 
 
 class LanguagePackPanelLayoutMixin:
-    def _add_resource_header(
-        self,
-        layout: QVBoxLayout,
-        parent: QWidget,
-        *,
-        title: str,
-        description: str,
-        action_widget: QWidget | None = None,
-        help_widget: QWidget | None = None,
-    ) -> None:
-        header_panel = QFrame(parent)
-        header_panel.setProperty("resourceHeaderPanel", True)
-        panel_layout = QVBoxLayout(header_panel)
-        panel_layout.setContentsMargins(12, 10, 12, 10)
-        panel_layout.setSpacing(6)
-
-        header_row = QHBoxLayout()
-        section_title = QLabel(title, header_panel)
-        section_title.setProperty("resourceSectionTitle", True)
-        header_row.addWidget(section_title)
-        if help_widget is not None:
-            header_row.addWidget(help_widget)
-        header_row.addStretch(1)
-        if action_widget is not None:
-            header_row.addWidget(action_widget)
-        panel_layout.addLayout(header_row)
-
-        description_label = QLabel(description, header_panel)
-        description_label.setProperty("resourceDescription", True)
-        description_label.setWordWrap(True)
-        panel_layout.addWidget(description_label)
-        layout.addWidget(header_panel)
-
     def _build_learning_languages_tab(self) -> QWidget:
         tab = QWidget(self)
         tab.setProperty("resourcePanelTab", True)
@@ -56,12 +23,17 @@ class LanguagePackPanelLayoutMixin:
         layout.setContentsMargins(14, 14, 14, 14)
         layout.setSpacing(12)
 
-        self._add_resource_header(
-            layout,
-            tab,
-            title=t("language_packs.learning_pairs.title"),
-            description=t("language_packs.learning_pairs.description"),
-        )
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.learning_pairs.title"))
+        section_title.setProperty("resourceSectionTitle", True)
+        header_row.addWidget(section_title)
+        header_row.addStretch(1)
+        layout.addLayout(header_row)
+
+        description = QLabel(t("language_packs.learning_pairs.description"))
+        description.setProperty("resourceDescription", True)
+        description.setWordWrap(True)
+        layout.addWidget(description)
 
         add_row = QHBoxLayout()
         self._learning_pair_combo = QComboBox(tab)
@@ -102,13 +74,17 @@ class LanguagePackPanelLayoutMixin:
         layout = QVBoxLayout(tab)
         layout.setContentsMargins(14, 14, 14, 14)
         layout.setSpacing(12)
-        self._add_resource_header(
-            layout,
-            tab,
-            title=t("language_packs.title"),
-            description=t("language_packs.language_description"),
-            action_widget=self.open_language_pack_button,
-        )
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.title"))
+        section_title.setProperty("resourceSectionTitle", True)
+        header_row.addWidget(section_title)
+        header_row.addStretch(1)
+        header_row.addWidget(self.open_language_pack_button)
+        layout.addLayout(header_row)
+        description = QLabel(t("language_packs.language_description"))
+        description.setProperty("resourceDescription", True)
+        description.setWordWrap(True)
+        layout.addWidget(description)
         layout.addWidget(self.language_pack_table, 1)
         return tab
 
@@ -118,13 +94,17 @@ class LanguagePackPanelLayoutMixin:
         layout = QVBoxLayout(tab)
         layout.setContentsMargins(14, 14, 14, 14)
         layout.setSpacing(12)
-        self._add_resource_header(
-            layout,
-            tab,
-            title=t("language_packs.frequency_title"),
-            description=t("language_packs.frequency_description"),
-            action_widget=self.open_frequency_pack_button,
-        )
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.frequency_title"))
+        section_title.setProperty("resourceSectionTitle", True)
+        header_row.addWidget(section_title)
+        header_row.addStretch(1)
+        header_row.addWidget(self.open_frequency_pack_button)
+        layout.addLayout(header_row)
+        description = QLabel(t("language_packs.frequency_description"))
+        description.setProperty("resourceDescription", True)
+        description.setWordWrap(True)
+        layout.addWidget(description)
         layout.addWidget(self.frequency_pack_table, 1)
         return tab
 
@@ -134,18 +114,22 @@ class LanguagePackPanelLayoutMixin:
         layout = QVBoxLayout(tab)
         layout.setContentsMargins(14, 14, 14, 14)
         layout.setSpacing(12)
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.embeddings_title"))
+        section_title.setProperty("resourceSectionTitle", True)
         help_button = QToolButton(tab)
         help_button.setText("?")
         help_button.setToolTip(t("language_packs.embeddings_help"))
         help_button.setAutoRaise(True)
         help_button.clicked.connect(self._show_embeddings_help)
-        self._add_resource_header(
-            layout,
-            tab,
-            title=t("language_packs.embeddings_title"),
-            description=t("language_packs.embeddings_description"),
-            help_widget=help_button,
-        )
+        header_row.addWidget(section_title)
+        header_row.addWidget(help_button)
+        header_row.addStretch(1)
+        layout.addLayout(header_row)
+        description = QLabel(t("language_packs.embeddings_description"))
+        description.setProperty("resourceDescription", True)
+        description.setWordWrap(True)
+        layout.addWidget(description)
         layout.addWidget(self.embedding_pack_table, 1)
         return tab
 
@@ -155,17 +139,21 @@ class LanguagePackPanelLayoutMixin:
         layout = QVBoxLayout(tab)
         layout.setContentsMargins(14, 14, 14, 14)
         layout.setSpacing(12)
+        header_row = QHBoxLayout()
+        section_title = QLabel(t("language_packs.cross_embeddings_title"))
+        section_title.setProperty("resourceSectionTitle", True)
         help_button = QToolButton(tab)
         help_button.setText("?")
         help_button.setToolTip(t("language_packs.cross_embeddings_help"))
         help_button.setAutoRaise(True)
         help_button.clicked.connect(self._show_cross_embeddings_help)
-        self._add_resource_header(
-            layout,
-            tab,
-            title=t("language_packs.cross_embeddings_title"),
-            description=t("language_packs.cross_embeddings_description"),
-            help_widget=help_button,
-        )
+        header_row.addWidget(section_title)
+        header_row.addWidget(help_button)
+        header_row.addStretch(1)
+        layout.addLayout(header_row)
+        description = QLabel(t("language_packs.cross_embeddings_description"))
+        description.setProperty("resourceDescription", True)
+        description.setWordWrap(True)
+        layout.addWidget(description)
         layout.addWidget(self.cross_embedding_pack_table, 1)
         return tab
