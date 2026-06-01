@@ -2,7 +2,7 @@
 
 Status: active pause snapshot
 Role: Current closeout note
-Last updated: 2026-05-27
+Last updated: 2026-06-02
 Last verified: 2026-05-27 by Wikidata natural-taxonomy overlay generation, release-readiness regeneration, SRS admission lab smoke, en-es admission calibration artifact generation, focused tests, SRS quality harness, changed-file gate, and doc-reference check
 Purpose: record the accepted temporary stopping point for en-es topic coverage so future work can resume deliberately without re-litigating this cleanup slice
 Source-of-truth: closeout note only; executable truth lives in SRS/helper code, overlay artifacts, generated readiness reports, tests, and the topic taxonomy fixture.
@@ -144,6 +144,26 @@ Interpretation:
    then rarely encountered in ordinary browsing.
 
 These are acceptable open gaps for the pause point.
+
+## Algorithm Capability For Future Coverage Work
+
+Do not treat future topic coverage expansion as blocked on inventing scalar
+topic preference mechanics. The current profile-bootstrap path already accepts
+weighted topic preferences through `topic_weights`; see
+`srs_interest_tailored_admission_algorithm.md` for the full scoring model.
+
+For coverage planning, the useful summary is:
+
+- topic weights express preference strength, not target share;
+- stronger weights increase topic affinity, which raises matching candidates'
+  score and can increase their capped reserved-lane share when enough candidates
+  exist;
+- topic affinity also widens the readiness/proficiency band, allowing highly
+  relevant words to sit slightly easier or harder than ordinary non-topic words;
+- coverage expansion should focus on reliable topic labels, difficulty-band
+  depth, and source provenance. If a topic does not move samples, first diagnose
+  whether the source frontier has enough matching candidates before changing the
+  selector.
 
 ## Resume Criteria
 

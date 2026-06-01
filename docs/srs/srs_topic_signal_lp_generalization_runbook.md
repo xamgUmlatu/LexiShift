@@ -2,7 +2,7 @@
 
 Status: active planning runbook
 Role: Cross-LP operating guide
-Last updated: 2026-05-19
+Last updated: 2026-06-02
 Last verified: 2026-05-19 en-es animals/plants audit and review-packet artifacts, food/cooking existing-signal audits, food/cooking overlay PoC, food/cooking full-source labels, SPALEX 10k food/cooking packet, focused tests, SRS quality harness, changed-file gate
 Purpose: preserve reusable lessons from the en-es interest-topic source work so future language pairs do not repeat avoidable source, policy, and review mistakes
 Source-of-truth: process guide only; pair-specific truth remains in the pair's source-readiness audits, policy files, generated review packets, tests, and current LP capability/resource code.
@@ -64,6 +64,21 @@ of this flow that still creates evidence before product lift.
    Run profile/admission preview checks to see whether the topic actually moves
    samples at useful proficiency bands. If it fails, distinguish scorer issues
    from source-depth issues.
+
+   Current admission mechanics already support scalar topic strength. The
+   detailed model is documented in
+   `srs_interest_tailored_admission_algorithm.md`, but the practical implication
+   for coverage work is:
+
+   - topic weights are influence strength, not quota/share percentages;
+   - stronger topic weights increase matching candidates' scoring pressure;
+   - the capped reserved topic lane can allocate more slots when topic strength
+     and source supply support it;
+   - topic affinity widens the proficiency/readiness band slightly, so strongly
+     relevant words may be admitted a bit below or above the learner's ordinary
+     proficiency range;
+   - if the effect is weak, first check source coverage, topic specificity, and
+     difficulty-band depth before assuming the selector needs new math.
 
 9. Promote only with an explicit product contract.
    Runtime admission lift needs a versioned, provenance-bearing overlay or pack,
