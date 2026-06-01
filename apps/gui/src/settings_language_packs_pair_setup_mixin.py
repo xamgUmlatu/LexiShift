@@ -165,6 +165,26 @@ QComboBox {{
   border-radius: 6px;
   padding: 6px 8px;
 }}
+QComboBox QAbstractItemView {{
+  background: {table_bg};
+  color: {table_text};
+  border: 1px solid {panel_border};
+  selection-background-color: {table_sel_bg};
+  selection-color: {readable_text_color(text_color, table_sel_bg)};
+  outline: 0px;
+}}
+QComboBox QAbstractItemView::item {{
+  min-height: 24px;
+  padding: 6px 8px;
+}}
+QComboBox QAbstractItemView::item:hover {{
+  background: {accent_soft};
+  color: {hover_text};
+}}
+QComboBox QAbstractItemView::item:selected {{
+  background: {table_sel_bg};
+  color: {readable_text_color(text_color, table_sel_bg)};
+}}
 QPushButton {{
   background: {table_bg};
   color: {table_text};

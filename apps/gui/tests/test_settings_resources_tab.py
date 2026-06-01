@@ -19,6 +19,7 @@ from dialogs_theme_utils import _ThemedTabContainer
 from i18n import set_locale, t
 from lexishift_core import AppSettings
 import settings_language_packs_pair_setup_mixin as pair_setup_mixin
+from settings_language_packs_table_mixin import ResourcePackTable
 
 
 def _app() -> QApplication:
@@ -351,6 +352,8 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert "QFrame#learningLanguagePairCard" in stylesheet
     assert "background: rgba(85, 102, 119, 230);" in stylesheet
     assert "alternate-background-color: rgba(34, 51, 68, 230);" in stylesheet
+    assert "QComboBox QAbstractItemView" in stylesheet
+    assert "selection-background-color: #667788;" in stylesheet
     assert "background: rgba(85, 102, 119, 87);" in stylesheet
     assert "background: rgba(51, 68, 85, 56);" in stylesheet
     assert "QFrame#learningLanguagePairCard QLabel {\n  color: #F0F1F2;" in stylesheet
@@ -359,6 +362,23 @@ def test_resources_tab_uses_roomier_table_and_theme_contract() -> None:
     assert "#F0F1F2" in stylesheet
     assert any(label.property("resourceSectionTitle") is True for label in labels)
     assert any(label.property("resourceDescription") is True for label in labels)
+
+
+def test_resource_pack_table_distributes_surplus_width_without_viewport_gutter() -> None:
+    app = _app()
+    table = ResourcePackTable()
+    table.setColumnCount(3)
+    table.configure_resource_columns({0: 100, 1: 80, 2: 60}, surplus_columns=(0, 2))
+    table.resize(420, 120)
+    table.show()
+    app.processEvents()
+    table._apply_responsive_column_widths()
+
+    column_total = sum(table.columnWidth(column) for column in range(table.columnCount()))
+
+    assert column_total >= table.viewport().width()
+    assert table.columnWidth(0) > 100
+    assert table.columnWidth(1) == 80
 
 
 def test_resources_tab_style_falls_back_when_theme_text_lacks_contrast() -> None:
@@ -433,6 +453,17 @@ def test_settings_resource_intro_label_uses_readable_canvas_style() -> None:
     assert any(label.objectName() == "settingsIntroLabel" for label in labels)
     assert "QLabel#settingsIntroLabel" in stylesheet
     assert "font-size: 13px;" in stylesheet
+
+
+def test_settings_combo_dropdowns_follow_theme_style() -> None:
+    _app()
+    set_locale("en")
+    dialog = SettingsDialog(app_settings=AppSettings(), dataset_settings=None)
+    stylesheet = dialog.styleSheet()
+
+    assert "QComboBox QAbstractItemView" in stylesheet
+    assert "selection-background-color: #E7D9C6;" in stylesheet
+    assert "outline: 0px;" in stylesheet
 
 
 def test_themed_tab_container_paints_theme_base_without_viewport_fallback() -> None:

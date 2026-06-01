@@ -44,17 +44,76 @@ _EMBEDDING_RESOURCE_COLUMN_WIDTHS = {
 }
 
 
+class ResourcePackTable(QTableWidget):
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._base_column_widths: dict[int, int] = {}
+        self._surplus_columns: tuple[int, ...] = ()
+        self._applying_widths = False
+
+    def configure_resource_columns(
+        self,
+        column_widths: dict[int, int],
+        *,
+        surplus_columns: tuple[int, ...],
+    ) -> None:
+        self._base_column_widths = dict(column_widths)
+        self._surplus_columns = tuple(surplus_columns)
+        self._apply_responsive_column_widths()
+
+    def resizeEvent(self, event) -> None:
+        super().resizeEvent(event)
+        self._apply_responsive_column_widths()
+
+    def _apply_responsive_column_widths(self) -> None:
+        if self._applying_widths or not self._base_column_widths:
+            return
+        viewport_width = max(0, self.viewport().width())
+        base_total = sum(self._base_column_widths.values())
+        surplus = max(0, viewport_width - base_total)
+        surplus_columns = tuple(
+            column
+            for column in self._surplus_columns
+            if 0 <= column < self.columnCount() and column in self._base_column_widths
+        )
+        extra_per_column = surplus // len(surplus_columns) if surplus_columns else 0
+        remainder = surplus % len(surplus_columns) if surplus_columns else 0
+        self._applying_widths = True
+        try:
+            for column in range(self.columnCount()):
+                width = self._base_column_widths.get(column)
+                if width is None:
+                    continue
+                extra = 0
+                if column in surplus_columns:
+                    extra = extra_per_column + (1 if remainder > 0 else 0)
+                    remainder = max(0, remainder - 1)
+                self.setColumnWidth(column, width + extra)
+        finally:
+            self._applying_widths = False
+
+
 class LanguagePackPanelTableMixin:
     def _configure_language_resource_table(self, table: QTableWidget) -> None:
-        self._configure_resource_table_columns(table, _LANGUAGE_RESOURCE_COLUMN_WIDTHS)
+        self._configure_resource_table_columns(
+            table,
+            _LANGUAGE_RESOURCE_COLUMN_WIDTHS,
+            surplus_columns=(0, 3),
+        )
 
     def _configure_embedding_resource_table(self, table: QTableWidget) -> None:
-        self._configure_resource_table_columns(table, _EMBEDDING_RESOURCE_COLUMN_WIDTHS)
+        self._configure_resource_table_columns(
+            table,
+            _EMBEDDING_RESOURCE_COLUMN_WIDTHS,
+            surplus_columns=(0, 2),
+        )
 
     def _configure_resource_table_columns(
         self,
         table: QTableWidget,
         column_widths: dict[int, int],
+        *,
+        surplus_columns: tuple[int, ...],
     ) -> None:
         table.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         table.setHorizontalScrollMode(QAbstractItemView.ScrollPerPixel)
@@ -67,6 +126,11 @@ class LanguagePackPanelTableMixin:
             width = column_widths.get(column)
             if width:
                 table.setColumnWidth(column, width)
+        if isinstance(table, ResourcePackTable):
+            table.configure_resource_columns(
+                column_widths,
+                surplus_columns=surplus_columns,
+            )
 
     def _refresh_download_button_state(
         self,
@@ -387,7 +451,7 @@ class LanguagePackPanelTableMixin:
 
     def _populate_embedding_packs(self) -> None:
         self._embedding_pack_rows.clear()
-        self.embedding_pack_table = QTableWidget()
+        self.embedding_pack_table = ResourcePackTable()
         self.embedding_pack_table.setColumnCount(8)
         self.embedding_pack_table.setHorizontalHeaderLabels(
             [
@@ -454,7 +518,7 @@ class LanguagePackPanelTableMixin:
 
     def _populate_cross_embedding_packs(self) -> None:
         self._cross_embedding_pack_rows.clear()
-        self.cross_embedding_pack_table = QTableWidget()
+        self.cross_embedding_pack_table = ResourcePackTable()
         self.cross_embedding_pack_table.setColumnCount(8)
         self.cross_embedding_pack_table.setHorizontalHeaderLabels(
             [

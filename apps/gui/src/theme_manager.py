@@ -290,6 +290,26 @@ QLineEdit, QPlainTextEdit, QTextEdit, QComboBox {{
   border-radius: 10px;
   padding: 7px 9px;
 }}
+QComboBox QAbstractItemView {{
+  background: {theme["table_bg"]};
+  color: {theme["text"]};
+  border: 1px solid {theme["panel_border"]};
+  selection-background-color: {theme["table_sel_bg"]};
+  selection-color: {readable_text_color(theme["text"], theme["table_sel_bg"])};
+  outline: 0px;
+}}
+QComboBox QAbstractItemView::item {{
+  min-height: 24px;
+  padding: 6px 8px;
+}}
+QComboBox QAbstractItemView::item:hover {{
+  background: {theme["accent_soft"]};
+  color: {readable_text_color(theme["text"], theme["accent_soft"])};
+}}
+QComboBox QAbstractItemView::item:selected {{
+  background: {theme["table_sel_bg"]};
+  color: {readable_text_color(theme["text"], theme["table_sel_bg"])};
+}}
 /* Main window profile/ruleset selector popup only (objectName: profileRulesetPopup). */
 QAbstractItemView#profileRulesetPopup {{
   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,

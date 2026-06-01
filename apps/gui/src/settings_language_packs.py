@@ -15,7 +15,6 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QStyle,
     QTabWidget,
-    QTableWidget,
     QVBoxLayout,
     QWidget,
 )
@@ -37,6 +36,7 @@ from settings_language_packs_pair_setup_mixin import LanguagePackPanelPairSetupM
 from settings_language_packs_path_mixin import LanguagePackPanelPathMixin
 from settings_language_packs_panel_state_mixin import LanguagePackPanelStateMixin
 from settings_language_packs_table_mixin import LanguagePackPanelTableMixin
+from settings_language_packs_table_mixin import ResourcePackTable
 from settings_language_packs_transfer_mixin import LanguagePackPanelTransferMixin
 from settings_language_packs_support import (
     EmbeddingConversionThread,
@@ -114,7 +114,7 @@ class LanguagePackPanel(
         self.open_frequency_pack_button.setObjectName("settingsPrimaryButton")
         self.open_frequency_pack_button.clicked.connect(self._open_frequency_pack_dir)
 
-        self.language_pack_table = QTableWidget()
+        self.language_pack_table = ResourcePackTable()
         self.language_pack_table.setColumnCount(8)
         self.language_pack_table.setHorizontalHeaderLabels(
             [
@@ -138,7 +138,7 @@ class LanguagePackPanel(
         self._configure_language_resource_table(self.language_pack_table)
         self.language_pack_table.setMinimumHeight(460)
 
-        self.frequency_pack_table = QTableWidget()
+        self.frequency_pack_table = ResourcePackTable()
         self.frequency_pack_table.setColumnCount(8)
         self.frequency_pack_table.setHorizontalHeaderLabels(
             [

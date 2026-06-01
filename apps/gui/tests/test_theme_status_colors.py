@@ -11,7 +11,12 @@ import theme_manager
 from preview import ReplacementHighlighter
 from settings_language_packs import LanguagePackPanel
 from theme_loader import _parse_surface_opacities
-from theme_manager import readable_text_color, rgba_color, theme_surface_opacity
+from theme_manager import (
+    build_base_styles,
+    readable_text_color,
+    rgba_color,
+    theme_surface_opacity,
+)
 
 
 def _app() -> QApplication:
@@ -91,3 +96,26 @@ def test_resolve_theme_applies_screen_surface_opacity_override(monkeypatch) -> N
     theme = theme_manager.resolve_theme("custom_theme", screen_id="settings_dialog")
 
     assert theme_surface_opacity(theme, "table", default=0.9) == 0.64
+
+
+def test_base_theme_styles_include_combo_popup_contract() -> None:
+    styles = build_base_styles(
+        {
+            "bg": "#111111",
+            "panel_top": "#223344",
+            "panel_bottom": "#334455",
+            "panel_border": "#445566",
+            "table_bg": "#556677",
+            "table_sel_bg": "#667788",
+            "text": "#F0F1F2",
+            "muted": "#C0C1C2",
+            "accent": "#D0A040",
+            "accent_soft": "#384858",
+            "primary": "#204060",
+            "primary_hover": "#305070",
+        }
+    )
+
+    assert "QComboBox QAbstractItemView" in styles
+    assert "background: #556677;" in styles
+    assert "selection-background-color: #667788;" in styles
