@@ -282,7 +282,7 @@
     "message": "0 to 100. Leave blank to keep challenge preference neutral."
   },
   "label_srs_highlight_color": {
-    "message": "Practice highlight color"
+    "message": "Word highlight color"
   },
   "section_srs_display_feedback": {
     "message": "Display and feedback"

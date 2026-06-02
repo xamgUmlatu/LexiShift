@@ -279,7 +279,7 @@
     "message": "0 から 100。空欄のままだと難度設定は中立のままです。"
   },
   "label_srs_highlight_color": {
-    "message": "練習用ハイライト色"
+    "message": "単語のハイライト色"
   },
   "section_srs_display_feedback": {
     "message": "表示とフィードバック"

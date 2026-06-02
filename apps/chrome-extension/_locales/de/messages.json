@@ -279,7 +279,7 @@
     "message": "0 bis 100. Leer lassen, um die Schwierigkeitspräferenz neutral zu halten."
   },
   "label_srs_highlight_color": {
-    "message": "Hervorhebungsfarbe fürs Training"
+    "message": "Farbe der Worthervorhebung"
   },
   "section_srs_display_feedback": {
     "message": "Anzeige und Feedback"

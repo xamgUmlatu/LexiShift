@@ -279,7 +279,7 @@
     "message": "0 到 100。留空则保持难度偏好中性。"
   },
   "label_srs_highlight_color": {
-    "message": "练习高亮颜色"
+    "message": "单词高亮颜色"
   },
   "section_srs_display_feedback": {
     "message": "显示与反馈"
