@@ -329,6 +329,7 @@
       );
       const show = supportsTargetLanguage(language);
       if (triggerButton) {
+        triggerButton.hidden = !show;
         triggerButton.classList.toggle("hidden", !show);
         triggerButton.setAttribute("aria-expanded", show && isOpen ? "true" : "false");
       }
