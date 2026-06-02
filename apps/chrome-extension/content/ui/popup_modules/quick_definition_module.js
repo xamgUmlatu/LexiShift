@@ -1,7 +1,7 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
-  const GLOSS_LIMIT = 3;
+  const GLOSS_LIMIT = 5;
   const LINK_LIMIT = 2;
   const LOOKUP_TIMEOUT_MS = 4000;
 
@@ -116,13 +116,6 @@
     return dedupeTexts(result && result.glosses).slice(0, GLOSS_LIMIT);
   }
 
-  function resolveSourcePhrase(result, payload) {
-    const fromResult = Array.isArray(result && result.source_phrases)
-      ? dedupeTexts(result.source_phrases)[0]
-      : "";
-    return fromResult || payload.sourcePhrase || "";
-  }
-
   function resolvePosLabel(result) {
     const pos = result && result.pos && typeof result.pos === "object" ? result.pos : {};
     return normalizeText(pos.label || pos.canonical);
@@ -218,15 +211,6 @@
       pos.style.display = posLabel ? "" : "none";
 
       const glosses = resolveGlosses(result);
-      const sourcePhrase = resolveSourcePhrase(result, payload);
-      if (sourcePhrase) {
-        appendText(
-          body,
-          "lexishift-definition-match",
-          translate("popup_definition_match", [sourcePhrase], `Matches: ${sourcePhrase}`)
-        );
-      }
-
       if (glosses.length) {
         const list = document.createElement("div");
         list.className = "lexishift-definition-glosses";

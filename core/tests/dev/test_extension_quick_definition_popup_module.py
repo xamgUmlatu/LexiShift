@@ -116,7 +116,6 @@ function findByTag(node, tagName) {{
 
 const messages = {{
   popup_definition_loading: "Loading definition...",
-  popup_definition_match: "Matches: $1",
   popup_definition_unavailable: "No definition available.",
   popup_definition_missing: "Definition data is not installed for this word.",
   popup_definition_error: "Failed to load definition."
@@ -173,7 +172,14 @@ const moduleNode = context.LexiShift.uiQuickDefinitionModule.build(
           status: "ok",
           display: "perro",
           pos: {{ label: "noun" }},
-          glosses: [{{ text: "dog" }}, {{ text: "hound" }}, {{ text: "dog" }}],
+          glosses: [
+            {{ text: "dog" }},
+            {{ text: "hound" }},
+            {{ text: "canine" }},
+            {{ text: "domestic dog" }},
+            {{ text: "male dog" }},
+            {{ text: "sixth gloss should not render" }}
+          ],
           source_phrases: ["dog"],
           external_links: [
             {{ label: "Wiktionary", url: "https://en.wiktionary.org/wiki/perro#Spanish" }}
@@ -213,9 +219,13 @@ assert.match(collectText(moduleNode), /Loading definition/);
   const rendered = collectText(moduleNode);
   assert.match(rendered, /perro/);
   assert.match(rendered, /noun/);
-  assert.match(rendered, /Matches: dog/);
+  assert.doesNotMatch(rendered, /Matches:/);
   assert.match(rendered, /dog/);
   assert.match(rendered, /hound/);
+  assert.match(rendered, /canine/);
+  assert.match(rendered, /domestic dog/);
+  assert.match(rendered, /male dog/);
+  assert.doesNotMatch(rendered, /sixth gloss should not render/);
   assert.match(rendered, /Wiktionary/);
   const anchor = findByTag(moduleNode, "a");
   assert.equal(anchor.href, "https://en.wiktionary.org/wiki/perro#Spanish");
@@ -323,7 +333,6 @@ assert.ok(registry.resolveVisibleSettingModules("es").some((item) => item.id ===
             "popup_definition_loading",
             "popup_definition_unavailable",
             "popup_definition_missing",
-            "popup_definition_match",
             "popup_definition_error",
         }
         for locale in ("en", "ja", "zh", "de"):

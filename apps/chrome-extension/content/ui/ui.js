@@ -320,9 +320,8 @@
         font-size:10px;line-height:1.2;font-weight:700;text-transform:uppercase;}
       .lexishift-definition-pos:empty{display:none;}
       .lexishift-definition-body{display:flex;flex-direction:column;gap:5px;}
-      .lexishift-definition-status,.lexishift-definition-match{font-size:11px;line-height:1.35;
+      .lexishift-definition-status{font-size:11px;line-height:1.35;
         color:var(--lexishift-module-line, rgba(247,244,239,0.88));}
-      .lexishift-definition-match{color:var(--lexishift-module-label, rgba(247,244,239,0.72));}
       .lexishift-definition-glosses{display:flex;flex-direction:column;gap:3px;}
       .lexishift-definition-gloss{font-size:12px;line-height:1.35;font-weight:650;
         color:var(--lexishift-module-text, #f7f4ef);}

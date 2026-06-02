@@ -1163,9 +1163,6 @@
   "popup_definition_missing": {
     "message": "この単語の定義データはインストールされていません。"
   },
-  "popup_definition_match": {
-    "message": "一致: $1"
-  },
   "popup_definition_error": {
     "message": "定義を読み込めませんでした。"
   },

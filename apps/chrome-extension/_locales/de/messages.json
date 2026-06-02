@@ -1163,9 +1163,6 @@
   "popup_definition_missing": {
     "message": "Definitionsdaten für dieses Wort sind nicht installiert."
   },
-  "popup_definition_match": {
-    "message": "Treffer: $1"
-  },
   "popup_definition_error": {
     "message": "Definition konnte nicht geladen werden."
   },
