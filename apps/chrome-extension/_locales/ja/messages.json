@@ -1118,6 +1118,15 @@
   "button_modules": {
     "message": "モジュール"
   },
+  "button_word_popup_settings": {
+    "message": "単語ポップアップ設定"
+  },
+  "heading_word_popup_settings": {
+    "message": "単語ポップアップ設定"
+  },
+  "hint_word_popup_settings": {
+    "message": "翻訳された単語を操作したときに表示する内容を選びます。"
+  },
   "module_quick_definition": {
     "message": "定義"
   },

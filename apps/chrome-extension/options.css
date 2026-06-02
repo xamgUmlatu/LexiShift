@@ -1125,6 +1125,36 @@ header p {
   background: #1c1a17;
 }
 
+.srs-popup-settings-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid var(--ls-group-subcard-separator);
+  border-radius: 8px;
+  background: var(--ls-group-subcard-bg);
+}
+
+.srs-popup-settings-card[hidden] {
+  display: none;
+}
+
+.srs-popup-settings-card h3 {
+  margin: 0 0 4px;
+  color: #4d473f;
+  font-size: 15px;
+}
+
+.srs-popup-settings-card .hint {
+  margin: 0;
+}
+
+.srs-popup-settings-card button {
+  flex: 0 0 auto;
+}
+
 .srs-story-flow-backdrop {
   position: fixed;
   inset: 0;

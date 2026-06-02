@@ -1118,6 +1118,15 @@
   "button_modules": {
     "message": "模块"
   },
+  "button_word_popup_settings": {
+    "message": "单词弹窗设置"
+  },
+  "heading_word_popup_settings": {
+    "message": "单词弹窗设置"
+  },
+  "hint_word_popup_settings": {
+    "message": "选择与已翻译单词互动时显示的内容。"
+  },
   "module_quick_definition": {
     "message": "定义"
   },

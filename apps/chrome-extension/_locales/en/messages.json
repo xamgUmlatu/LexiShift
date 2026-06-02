@@ -1127,6 +1127,15 @@
   "button_modules": {
     "message": "Modules"
   },
+  "button_word_popup_settings": {
+    "message": "Word popup settings"
+  },
+  "heading_word_popup_settings": {
+    "message": "Word popup settings"
+  },
+  "hint_word_popup_settings": {
+    "message": "Choose what appears when you interact with translated words."
+  },
   "module_quick_definition": {
     "message": "Definition"
   },

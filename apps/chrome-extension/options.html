@@ -62,16 +62,6 @@
             <option value="zh">简体中文</option>
             <option value="de">Deutsch</option>
           </select>
-          <button
-            id="target-language-gear"
-            type="button"
-            data-i18n="button_modules"
-            aria-label="Modules"
-            title="Modules"
-            hidden
-          >
-            Modules
-          </button>
           <input id="srs-initial-active-count" type="hidden" />
           <input id="srs-bootstrap-top-n" type="hidden" />
           <button id="srs-initialize-set" type="button" data-i18n="button_srs_initialize" hidden>
@@ -421,6 +411,29 @@
               </button>
             </article>
           </div>
+          <section
+            id="target-language-popup-settings"
+            class="srs-popup-settings-card"
+            data-language-popup-settings
+            hidden
+          >
+            <div>
+              <h3 data-i18n="heading_word_popup_settings">Word popup settings</h3>
+              <p class="hint" data-i18n="hint_word_popup_settings">
+                Choose what appears when you interact with translated words.
+              </p>
+            </div>
+            <button
+              id="target-language-gear"
+              type="button"
+              data-i18n="button_word_popup_settings"
+              aria-label="Word popup settings"
+              title="Word popup settings"
+              hidden
+            >
+              Word popup settings
+            </button>
+          </section>
         </section>
         <section class="card card-group span-2">
           <h2 data-i18n="section_manual_rules">Manual Rules</h2>
@@ -1123,7 +1136,7 @@
         class="language-pref-modal"
         role="dialog"
         aria-modal="true"
-        aria-label="Modules"
+        aria-label="Word popup settings"
         tabindex="-1"
       >
         <div id="target-language-modules-list" class="language-modules-list"></div>

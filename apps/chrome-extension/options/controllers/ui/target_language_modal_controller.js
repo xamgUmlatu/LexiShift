@@ -153,6 +153,7 @@
           }
         })
       : null;
+    const triggerContainer = triggerButton && typeof triggerButton.closest === "function" ? triggerButton.closest("[data-language-popup-settings]") : null;
 
     const renderModuleControls = (targetLanguage, modulePrefs) => {
       if (moduleRenderer && isFn(moduleRenderer.renderModuleControls)) {
@@ -172,11 +173,7 @@
     };
 
     function applyLocalization() {
-      const label = translate(
-        "button_modules",
-        null,
-        "Modules"
-      );
+      const label = translate("button_word_popup_settings", null, "Word popup settings");
       if (triggerButton) {
         triggerButton.textContent = label;
         triggerButton.setAttribute("aria-label", label);
@@ -333,6 +330,7 @@
         triggerButton.classList.toggle("hidden", !show);
         triggerButton.setAttribute("aria-expanded", show && isOpen ? "true" : "false");
       }
+      if (triggerContainer) triggerContainer.hidden = !show;
       if (!show) {
         isOpen = false;
         openColorDrawerModuleId = "";
