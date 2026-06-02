@@ -93,7 +93,7 @@
     "message": "Lern-Dashboard"
   },
   "hint_srs_story_dashboard_curtain": {
-    "message": "Aktive, fällige, wartende und entfernte Wörter prüfen."
+    "message": "Aktive, fällige, kommende und entfernte Wörter prüfen."
   },
   "summary_srs_story_sampling": {
     "message": "Nächste Wörter testen"
@@ -501,7 +501,7 @@
     "message": "Fällig"
   },
   "option_srs_words_status_queued": {
-    "message": "Wartend"
+    "message": "Kommend"
   },
   "option_srs_words_status_removed": {
     "message": "Entfernt"

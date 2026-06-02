@@ -1693,8 +1693,12 @@ Use this file when:
   local dashboard search/filter/sort/pagination, read-only published-rule
   summaries, capped on-demand rule details, and confirmed durable dashboard
   discard; restore/mastery/release controls remain `planned`
-- Last documented checkpoint: `2026-05-31` active-rotation capacity release
-  extends the `2026-05-27` admitted-words dashboard replacement
+- Last documented checkpoint: `2026-06-02` learner-facing dashboard wording pass
+  keeps the stable `queued` machine state but shows it as `Upcoming`, renames
+  replacement observability to `Page replacement`, removes raw item ids from the
+  normal advanced row view, and moves read-only row details away from a separate
+  `View`/rule-details action into row interaction; extends the `2026-05-31`
+  active-rotation capacity release and `2026-05-27` admitted-words dashboard replacement
   eligibility projection, bridge/control polish, options UI, local review
   controls, published-rule summaries/details, first durable lifecycle action,
   profile-bootstrap bridge coverage, and encounter-watch visibility:
@@ -1711,16 +1715,20 @@ Use this file when:
   reuses `srs_admission_suppress` with `reason=user_blocked`; focused helper
   coverage now verifies profile-bootstrap initialization through rule publication
   and dashboard listing
-- Last verified: `2026-05-31` active-rotation release helper, inventory-scoped
-  admission capacity, helper refresh integration, and product-loop regression
-  tests; extends the `2026-05-27` admitted-at dashboard encounter diagnostics,
-  replacement-eligibility dashboard projection,
+- Last verified: `2026-06-02` learner-facing dashboard wording and row-detail
+  interaction tests, helper label tests, architecture script-order test, JS
+  syntax checks, locale JSON parse checks, state audit, doc-reference check,
+  and diff check; extends the `2026-05-31` active-rotation release helper,
+  inventory-scoped admission capacity, helper refresh integration, and
+  product-loop regression tests plus the `2026-05-27` admitted-at dashboard
+  encounter diagnostics, replacement-eligibility dashboard projection,
   bridge/meta-control, rule-summary/detail, search/filter/sort/pagination,
   confirmed discard route, stale-unseen encounter-watch counters/rendering, and
   profile-bootstrap initialize-to-dashboard bridge tests; focused helper
   endpoint, native-host route, helper client/manager route, resource-budget
   audit, suppression writer tests, SRS quality harness encounter-watch scenario,
-  changed-file gate, doc-reference check, state audit, and diff check
+  changed-file gate, doc-reference check, state audit, and diff check remain
+  part of the broader dashboard evidence chain
 - Default behavior:
   - The options page exposes a Learning words dashboard for the selected
     profile and language pair.
@@ -1759,7 +1767,14 @@ Use this file when:
     on demand through `srs_item_rule_details`; the normal list payload remains
     compact.
   - Active status uses the same active-inventory resolver as helper SRS serving;
-    queued admitted words remain visible but not active.
+    queued admitted words remain visible but not active, and are labeled
+    `Upcoming` in learner-facing UI.
+  - Dashboard replacement observability is labeled `Page replacement` in the
+    user-facing UI. Internal payload fields named `serving` remain unchanged.
+  - Published rule details open from the row rather than a competing normal
+    `View` action; Discard remains the only explicit row mutation.
+  - The normal advanced row view omits raw item ids. Raw ids remain developer
+    diagnostics, not learner-facing advanced information.
   - When refresh finds the active inventory at or above the active-size target,
     lifecycle-active review words with at least four reviews and a next due date
     at least seven days in the future are automatically parked out of active
@@ -1796,6 +1811,7 @@ Use this file when:
   - `apps/chrome-extension/options/controllers/srs/actions/workflows.js`
   - `apps/chrome-extension/options/core/helper/srs_set_methods.js`
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_model.js`
+  - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_formatting.js`
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_renderer.js`
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_rule_details.js`
   - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_workflow.js`

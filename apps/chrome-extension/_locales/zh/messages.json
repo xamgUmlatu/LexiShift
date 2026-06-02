@@ -93,7 +93,7 @@
     "message": "学习仪表板"
   },
   "hint_srs_story_dashboard_curtain": {
-    "message": "查看活跃、到期、排队和已移除的词。"
+    "message": "查看活跃、到期、即将学习和已移除的词。"
   },
   "summary_srs_story_sampling": {
     "message": "抽样下一批词"
@@ -501,7 +501,7 @@
     "message": "到期"
   },
   "option_srs_words_status_queued": {
-    "message": "队列中"
+    "message": "即将学习"
   },
   "option_srs_words_status_removed": {
     "message": "已移除"

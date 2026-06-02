@@ -93,7 +93,7 @@
     "message": "Learning dashboard"
   },
   "hint_srs_story_dashboard_curtain": {
-    "message": "Review active, due, queued, and removed words."
+    "message": "Review active, due, upcoming, and removed words."
   },
   "summary_srs_story_sampling": {
     "message": "Sample next words"
@@ -504,7 +504,7 @@
     "message": "Due"
   },
   "option_srs_words_status_queued": {
-    "message": "Queued"
+    "message": "Upcoming"
   },
   "option_srs_words_status_removed": {
     "message": "Removed"

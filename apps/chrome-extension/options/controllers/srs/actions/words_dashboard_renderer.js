@@ -1,5 +1,23 @@
 (() => {
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
+  const formatting = root.optionsSrsWordsDashboardFormatting;
+  if (!formatting) {
+    throw new Error("[LexiShift][Options] Missing SRS words dashboard formatting module.");
+  }
+  const {
+    clampPageIndex,
+    formatDue,
+    formatEncounterWatchItem,
+    formatEncounterWatchSummary,
+    formatRefreshTime,
+    formatRuleCount,
+    formatRulesetState,
+    formatServingLabel,
+    formatSource,
+    formatWordCount,
+    isInteractiveTarget,
+    normalizePageSize
+  } = formatting;
 
   function createWordsDashboardRenderer(options) {
     const opts = options && typeof options === "object" ? options : {};
@@ -80,8 +98,8 @@
         ["Active", summary.active || 0],
         ["Due now", summary.due_now || 0],
         ["Due soon", summary.due_soon || 0],
-        ["Replacing", summary.serving_now || 0],
-        ["Queued", summary.queued || 0],
+        ["Can appear", summary.serving_now || 0],
+        ["Upcoming", summary.queued || 0],
         ["Unseen", summary.active_zero_exposure_zero_feedback || 0],
         ["Removed", summary.removed || 0],
         ["Total", summary.total || 0]
@@ -145,7 +163,7 @@
         `Last refreshed: ${formatRefreshTime(data)}`,
         `Loaded: ${formatWordCount(loadedCount)}`,
         `Viewing: ${formatWordCount(viewingCount)}`,
-        `Replacing now: ${formatWordCount(Number(summary.serving_now || 0))}`,
+        `Page replacement: ${formatWordCount(Number(summary.serving_now || 0))}`,
         formatEncounterWatchSummary(summary),
         `Inventory: ${formatSource(data.inventory_source || "unknown")}`,
         formatRulesetState(data, ruleSummary)
@@ -187,6 +205,25 @@
 
     function renderWordRow(doc, item) {
       const row = createNode(doc, "div", "srs-word-row");
+      if (canLoadRuleDetails(item)) {
+        row.className = "srs-word-row srs-word-row--details-available";
+        row.setAttribute("tabindex", "0");
+        row.addEventListener("dblclick", (event) => {
+          if (!isInteractiveTarget(event && event.target)) {
+            return toggleRuleDetails(item);
+          }
+          return undefined;
+        });
+        row.addEventListener("keydown", (event) => {
+          if (!event || (event.key !== "Enter" && event.key !== " ")) {
+            return undefined;
+          }
+          if (typeof event.preventDefault === "function") {
+            event.preventDefault();
+          }
+          return toggleRuleDetails(item);
+        });
+      }
       row.appendChild(renderTitle(doc, item));
       const status = createNode(doc, "span", "srs-word-status", item.status_label || item.status || "SRS");
       status.setAttribute("data-status", String(item.status || ""));
@@ -225,7 +262,7 @@
         `Seen: ${Number(item.exposures || 0)}`,
         formatRuleCount(item),
         `Source: ${item.source_label || item.source_type || "srs"}`,
-        `Replacing: ${String(item && item.serving_label || "").trim() || (item && item.serving ? "Now" : "Not now")}`
+        `Page replacement: ${formatServingLabel(item)}`
       ];
       const encounterWatch = formatEncounterWatchItem(item);
       if (encounterWatch) rows.push(encounterWatch);
@@ -246,21 +283,6 @@
 
     function renderWordActions(doc, item) {
       const actions = createNode(doc, "div", "srs-word-actions");
-      if (canLoadRuleDetails(item)) {
-        const key = ruleDetailKey(item);
-        const expanded = key && opts.expandedRuleDetailKeys.has(key);
-        const loading = key && opts.loadingRuleDetailKeys.has(key);
-        const rulesButton = createNode(
-          doc,
-          "button",
-          "srs-word-rules-button",
-          loading ? "Loading..." : (expanded ? "Hide rules" : "Rule details")
-        );
-        rulesButton.setAttribute("type", "button");
-        rulesButton.disabled = Boolean(loading);
-        rulesButton.addEventListener("click", () => toggleRuleDetails(item));
-        actions.appendChild(rulesButton);
-      }
       if (canDiscardItem(item)) {
         const button = createNode(doc, "button", "srs-word-discard-button", "Discard");
         button.setAttribute("type", "button");
@@ -277,23 +299,6 @@
     if (child) {
       parent.appendChild(child);
     }
-  }
-
-  function normalizePageSize(value) {
-    const parsed = Number.parseInt(value, 10);
-    if (!Number.isFinite(parsed)) {
-      return 25;
-    }
-    return Math.max(1, Math.min(300, parsed));
-  }
-
-  function clampPageIndex(value, pageCount) {
-    const parsed = Number.parseInt(value, 10);
-    const maxPageIndex = Math.max(0, Number(pageCount || 1) - 1);
-    if (!Number.isFinite(parsed)) {
-      return 0;
-    }
-    return Math.max(0, Math.min(maxPageIndex, parsed));
   }
 
   function setButtonDisabled(button, disabled) {
@@ -319,93 +324,6 @@
     return node;
   }
 
-  function formatDate(value) {
-    if (!value) {
-      return "—";
-    }
-    const date = new Date(value);
-    return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString();
-  }
-
-  function formatSource(value) {
-    const normalized = String(value || "").trim();
-    return normalized ? normalized.replaceAll("_", " ") : "unknown";
-  }
-
-  function formatRefreshTime(data) {
-    const rawValue = data && (data.dashboard_refreshed_at || data.refreshed_at);
-    const date = rawValue ? new Date(rawValue) : new Date();
-    return Number.isNaN(date.getTime()) ? "unknown" : date.toLocaleTimeString();
-  }
-
-  function formatWordCount(count) {
-    const normalized = Number.isFinite(count) ? count : 0;
-    return `${normalized} ${normalized === 1 ? "word" : "words"}`;
-  }
-
-  function formatRulesetState(data, ruleSummary) {
-    if (ruleSummary.load_error) {
-      return "Ruleset: warning";
-    }
-    const count = Number(ruleSummary.enabled_rule_count || ruleSummary.rule_count || 0);
-    if (Number.isFinite(count) && count > 0) {
-      return `Ruleset: ${count} rules`;
-    }
-    return data && data.ruleset_exists ? "Ruleset: empty" : "Ruleset: none";
-  }
-
-  function formatEncounterWatchSummary(summary) {
-    const unseen = Number(summary.active_zero_exposure_zero_feedback || 0);
-    const staleUnseen = Number(summary.active_stale_zero_exposure_zero_feedback || 0);
-    const ageUnknown = Number(summary.active_zero_exposure_zero_feedback_age_unknown || 0);
-    const withoutRules = Number(summary.active_without_enabled_rules || 0);
-    const watch = Number(summary.encounter_watch || Math.max(unseen, withoutRules) || 0);
-    const staleDays = Number(summary.encounter_stale_age_days || 7);
-    if (!Number.isFinite(watch) || watch <= 0) {
-      return "Encounter watch: none";
-    }
-    const details = [
-      unseen > 0 ? `${unseen} unseen/no feedback` : "",
-      staleUnseen > 0 ? `${staleUnseen} over ${staleDays}d` : "",
-      ageUnknown > 0 ? `${ageUnknown} age unknown` : "",
-      withoutRules > 0 ? `${withoutRules} without rules` : ""
-    ].filter(Boolean).join(", ");
-    return `Encounter watch: ${formatWordCount(watch)}${details ? ` (${details})` : ""}`;
-  }
-  function formatEncounterWatchItem(item) {
-    const state = item && typeof item.encounter_state === "object" ? item.encounter_state : {};
-    return state.stale_zero_exposure_zero_feedback
-      ? `Watch: unseen/no feedback >${Number(state.stale_age_days || 7)}d`
-      : state.zero_exposure_zero_feedback_age_unknown
-        ? "Watch: unseen/no feedback (age unknown)"
-        : state.zero_exposure_zero_feedback
-          ? "Watch: unseen/no feedback"
-          : (state.without_enabled_rules ? "Watch: no enabled rules" : "");
-  }
-  function formatDue(item) {
-    const status = String(item.status || "");
-    if (status === "queued") {
-      return "Queued";
-    }
-    if (status === "discarded" || status === "cleared" || status === "removed") {
-      return item.status_label || "Removed";
-    }
-    const dueSeconds = Number(item.due_in_seconds);
-    if (!Number.isFinite(dueSeconds)) {
-      return "No due date";
-    }
-    if (dueSeconds <= 0) {
-      return "Due now";
-    }
-    if (dueSeconds < 3600) {
-      return `Due in ${Math.max(1, Math.round(dueSeconds / 60))}m`;
-    }
-    if (dueSeconds < 86400) {
-      return `Due in ${Math.round(dueSeconds / 3600)}h`;
-    }
-    return `Due ${formatDate(item.next_due)}`;
-  }
-
   function appendSummaryItem(doc, label, value) {
     const item = createNode(doc, "div", "srs-words-summary-item");
     item.appendChild(createNode(doc, "span", "srs-words-summary-value", value));
@@ -413,18 +331,12 @@
     return item;
   }
 
-  function formatRuleCount(item) {
-    const summary = item && typeof item.rule_summary === "object" ? item.rule_summary : {};
-    const count = Number(summary.enabled_rule_count || 0);
-    return `Rules: ${Number.isFinite(count) ? count : 0}`;
-  }
-
   function renderAdvancedDetails(doc, item) {
     const advanced = item.advanced && typeof item.advanced === "object" ? item.advanced : {};
     const advancedRoot = createNode(doc, "div", "srs-word-advanced");
     [
-      `ID: ${item.item_id || "—"}`,
-      `Lifecycle: ${advanced.lifecycle_state || "active"}`,
+      `Practice state: ${advanced.lifecycle_state || "active"}`,
+      `Page replacement: ${formatServingLabel(item)}`,
       `Scheduler: ${advanced.scheduler_state || "—"}`,
       `Step: ${advanced.scheduler_step ?? "—"}`,
       `Confidence: ${advanced.confidence ?? "—"}`,

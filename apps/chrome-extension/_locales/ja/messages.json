@@ -93,7 +93,7 @@
     "message": "学習ダッシュボード"
   },
   "hint_srs_story_dashboard_curtain": {
-    "message": "アクティブ、復習期限、待機中、除外済みの単語を確認します。"
+    "message": "アクティブ、復習期限、今後の単語、除外済みの単語を確認します。"
   },
   "summary_srs_story_sampling": {
     "message": "次の単語をサンプル"
@@ -501,7 +501,7 @@
     "message": "期限あり"
   },
   "option_srs_words_status_queued": {
-    "message": "待機中"
+    "message": "今後の単語"
   },
   "option_srs_words_status_removed": {
     "message": "削除済み"

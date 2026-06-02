@@ -10,7 +10,10 @@ discard workflow tests, encounter-watch summary tests, SRS quality harness, and
 local changed-file gate; 2026-05-27 SRS quality harness now includes an
 encounter-watch scenario covering fresh unseen, stale unseen, legacy age-unknown,
 reviewed, and no-enabled-rule active items; 2026-06-02 Vocabulary Library and
-shared word-info route documented with no runtime behavior change
+shared word-info route documented with no runtime behavior change; 2026-06-02
+learner-facing dashboard wording changed `queued` rows to `Upcoming`, page
+serving copy to `Page replacement`, removed raw ids from normal advanced view,
+and made row details open from the row rather than a separate view action
 Purpose: document the user-facing SRS admitted-words dashboard decision, the
 current dashboard lifecycle action contract, module/data boundaries, and
 deferred lifecycle actions
@@ -26,8 +29,8 @@ diagnostic panel.
 It should answer four learner questions without requiring debug knowledge:
 
 - what words are currently in my SRS path for this profile and language pair?
-- which of those words are active, due, queued, or removed?
-- what page-replacement rules will a word currently produce?
+- which of those words are active, due, upcoming, or removed?
+- which words can currently appear as page replacements?
 - how can I remove one specific word that I do not want in my SRS path?
 
 Default view should show useful learner concepts:
@@ -37,7 +40,7 @@ Default view should show useful learner concepts:
 - due now and due soon words;
 - words currently eligible for page replacement (`active` plus due/no due date
   plus at least one enabled published rule);
-- queued admitted words that are not currently active;
+- upcoming admitted words that are not currently active;
 - active words that are still unseen and have no review feedback;
 - removed words, including discarded or cleared items;
 - per-word display text, due status, review count, exposure count, and source
@@ -80,7 +83,7 @@ Top-level controls:
 - `Advanced details`: toggles technical per-row fields.
 - `Search`: filters the loaded payload by display, lemma, reading, status,
   source, or rule source phrase.
-- `Status`: filters to all, active, due, queued, or removed words.
+- `Status`: filters to all, active, due, upcoming, or removed words.
 - `Sort`: keeps source order by default, with due-first, word, review-count,
   and exposure-count alternatives.
 - `Rows`: selects page size for local pagination.
@@ -91,7 +94,7 @@ Summary cards:
 - `Active`
 - `Due now`
 - `Due soon`
-- `Queued`
+- `Upcoming`
 - `Unseen`
 - `Removed`
 - `Total`
@@ -102,6 +105,7 @@ Metadata row:
   local filter or pagination renders.
 - `Loaded`: total words in the currently loaded helper payload.
 - `Viewing`: words after local search/status/sort filtering.
+- `Page replacement`: words that can currently appear as page replacements.
 - `Encounter watch`: active words that may need observation because they have
   zero exposure and zero feedback, because they crossed the diagnostic age
   threshold while still unseen, or because no enabled published rule exists.
@@ -112,22 +116,25 @@ Rows:
 
 - show target display text and reading when distinct;
 - show dashboard status using learner-facing labels;
-- show due timing, current replacement eligibility, review count, exposure
+- show due timing, current page-replacement eligibility, review count, exposure
   count, rule count, and source label;
 - show a compact watch note when an active row has zero exposure plus zero
   feedback, crosses the diagnostic age threshold, has unknown admission age, or
   has no enabled published rules;
 - show compact `Matches: ...` source phrases when published-rule summaries are
   available;
-- expose `Rule details` when the row has helper-published rules;
+- open read-only rule details from the row when the row has helper-published
+  rules;
 - expose `Discard` only for eligible non-removed words.
 
 Advanced row details:
 
-- item id;
-- lifecycle state and reason;
+- practice state and page-replacement explanation;
 - scheduler state and step;
 - confidence, stability, and difficulty.
+
+Raw item ids are developer diagnostics, not part of the normal advanced learner
+view.
 
 ## Lifecycle UX Policy
 
@@ -160,6 +167,9 @@ Source files:
   dashboard dependencies into SRS maintenance workflows.
 - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_model.js`
   owns local search/filter/sort semantics.
+- `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_formatting.js`
+  owns learner-facing dashboard labels, small status formatters, and pagination
+  math shared by the renderer.
 - `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_renderer.js`
   renders summary cards, metadata, rows, pagination, advanced fields, and
   actions.
@@ -181,7 +191,7 @@ Read/listing path:
 - active membership uses the existing active-inventory resolver, including
   store fallback when no pair inventory exists;
 - non-active lifecycle states are visible in the dashboard but remain ineligible
-  for active serving elsewhere;
+  for active page replacement elsewhere;
 - options.html exposes a Learning words dashboard with Refresh words, local
   search, status filter, sort controls, page-size controls, pagination, clear
   filters, refresh metadata, and an Advanced details toggle.
@@ -217,12 +227,14 @@ Payload contract:
   `status`, `status_label`, admitted timestamp/age, due/review/exposure fields,
   current replacement fields `serving`, `serving_state`, and `serving_label`,
   source fields, `pos`, `rule_summary`, `encounter_state`, and `advanced`;
+- the payload status key `queued` remains the stable machine state for admitted
+  rows outside active inventory, while the learner-facing label is `Upcoming`;
 - item `rule_summary` includes enabled rule count and capped source-phrase
   preview;
 - top-level `rule_summary` describes the current published ruleset as a whole;
 - the options workflow adds `dashboard_refreshed_at` when it receives a helper
   result so local renders can preserve a stable refresh timestamp.
-- replacement eligibility is a read-only dashboard projection of the runtime
+- page-replacement eligibility is a read-only dashboard projection of the runtime
   gate's first-order conditions: the row must be active, due now or missing a
   due date, and backed by at least one enabled helper-published rule. The
   dashboard does not itself decide replacements.
@@ -256,7 +268,7 @@ Rule detail path:
 
 Discard path:
 
-- dashboard rows for eligible active/queued/due words expose a small Discard
+- dashboard rows for eligible active/upcoming/due words expose a small Discard
   action;
 - the action confirms before mutation;
 - the action calls the existing `srs_admission_suppress` helper/native-host
@@ -298,13 +310,13 @@ Status filter semantics:
 - `all`: every row in the loaded payload;
 - `active`: rows that are neither queued nor removed;
 - `due`: `due_now` or `due_soon`;
-- `queued`: `queued`;
+- `queued`: `queued` machine state, shown to learners as `Upcoming`;
 - `removed`: `discarded`, `cleared`, or `removed`.
 
 Sort semantics:
 
 - `source`: helper payload order;
-- `due`: earliest due first, then queued, then removed;
+- `due`: earliest due first, then upcoming, then removed;
 - `word`: display/lemma/reading alphabetically;
 - `reviews`: highest review count first;
 - `seen`: highest exposure count first.
@@ -366,7 +378,7 @@ npm --prefix scripts run check:changed:local
 
 Current covered behaviors:
 
-- helper list payload shape, summaries, active/queued/due/removed status, and
+- helper list payload shape, summaries, active/upcoming/due/removed status, and
   published-rule summaries plus current replacement eligibility;
 - `admitted_at` persistence for newly admitted items, legacy age-unknown
   handling, and encounter-watch summary counters/options rendering for active

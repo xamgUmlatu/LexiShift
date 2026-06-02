@@ -254,7 +254,7 @@ def _dashboard_status(
     if lifecycle_state != SRS_LIFECYCLE_ACTIVE:
         return "removed", "Removed"
     if not active:
-        return "queued", "Queued"
+        return "queued", "Upcoming"
 
     next_due = parse_ts(item.next_due)
     if next_due is None:
@@ -353,7 +353,7 @@ def _serving_state(
 ) -> tuple[bool, str, str]:
     if not active:
         if status == "queued":
-            return False, "queued", "Queued"
+            return False, "queued", "Upcoming"
         if status in {"discarded", "cleared", "removed"}:
             return False, "removed", "Removed"
         return False, "inactive", "Inactive"

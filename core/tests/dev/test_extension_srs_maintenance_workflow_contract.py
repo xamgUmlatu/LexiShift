@@ -20,6 +20,10 @@ WORDS_DASHBOARD_WORKFLOW_JS = (
 WORDS_DASHBOARD_MODEL_JS = (
     PROJECT_ROOT / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_model.js"
 )
+WORDS_DASHBOARD_FORMATTING_JS = (
+    PROJECT_ROOT
+    / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_formatting.js"
+)
 WORDS_DASHBOARD_RULE_DETAILS_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_rule_details.js"
@@ -609,6 +613,7 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 
 const wordsDashboardModelPath = {json.dumps(str(WORDS_DASHBOARD_MODEL_JS))};
+const wordsDashboardFormattingPath = {json.dumps(str(WORDS_DASHBOARD_FORMATTING_JS))};
 const wordsDashboardRendererPath = {json.dumps(str(WORDS_DASHBOARD_RENDERER_JS))};
 const wordsDashboardRuleDetailsPath = {json.dumps(str(WORDS_DASHBOARD_RULE_DETAILS_JS))};
 const wordsDashboardModulePath = {json.dumps(str(WORDS_DASHBOARD_WORKFLOW_JS))};
@@ -628,6 +633,7 @@ context.LexiShift = {{
   }}
 }};
 vm.runInContext(fs.readFileSync(wordsDashboardModelPath, "utf8"), context, {{ filename: wordsDashboardModelPath }});
+vm.runInContext(fs.readFileSync(wordsDashboardFormattingPath, "utf8"), context, {{ filename: wordsDashboardFormattingPath }});
 vm.runInContext(fs.readFileSync(wordsDashboardRendererPath, "utf8"), context, {{ filename: wordsDashboardRendererPath }});
 vm.runInContext(fs.readFileSync(wordsDashboardRuleDetailsPath, "utf8"), context, {{ filename: wordsDashboardRuleDetailsPath }});
 vm.runInContext(fs.readFileSync(wordsDashboardModulePath, "utf8"), context, {{ filename: wordsDashboardModulePath }});
@@ -832,13 +838,13 @@ const workflows = createMaintenanceWorkflows({{
             lemma: "gato",
             display: "gato",
             reading: "gato",
-            status: "queued",
-            status_label: "Queued",
-            review_count: 0,
-            exposures: 1,
-            serving: false,
-            serving_state: "queued",
-            serving_label: "Queued",
+              status: "queued",
+              status_label: "Upcoming",
+              review_count: 0,
+              exposures: 1,
+              serving: false,
+              serving_state: "queued",
+              serving_label: "Upcoming",
             source_label: "freq-es-cde",
             encounter_state: {{
               zero_exposure: false,
@@ -996,7 +1002,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(metaText().includes("Last refreshed:"), true);
   assert.equal(metaText().includes("Loaded: 3 words"), true);
   assert.equal(metaText().includes("Viewing: 3 words"), true);
-  assert.equal(metaText().includes("Replacing now: 1 word"), true);
+  assert.equal(metaText().includes("Page replacement: 1 word"), true);
   assert.equal(metaText().includes("Encounter watch: 1 word (1 unseen/no feedback, 1 over 7d)"), true);
   assert.equal(metaText().includes("Inventory: inventory"), true);
   assert.equal(metaText().includes("Ruleset: 4 rules"), true);
@@ -1004,12 +1010,12 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(listRoot.children[0].children.length, 5);
   assert.equal(statuses[0].message, "Loaded 3 learning words.");
   assert.equal(listRoot.children[0].children[2].children[3].textContent, "Rules: 2");
-  assert.equal(listRoot.children[0].children[2].children[5].textContent, "Replacing: Now");
+  assert.equal(listRoot.children[0].children[2].children[5].textContent, "Page replacement: Can appear");
   assert.equal(listRoot.children[0].children[3].textContent, "Matches: dog, hound");
   assert.equal(listRoot.children[0].children[4].className, "srs-word-actions");
-  assert.equal(listRoot.children[0].children[4].children[0].textContent, "Rule details");
+  assert.equal(listRoot.children[0].children[4].children[0].textContent, "Discard");
 
-  await listRoot.children[0].children[4].children[0].click();
+  await listRoot.children[0].listeners.dblclick({{ target: null }});
   assert.deepEqual(JSON.parse(JSON.stringify(ruleDetailsCalls)), [
     {{ pair: "en-es", lemma: "perro", options: {{ profileId: "alpha", limit: 50 }} }}
   ]);
@@ -1021,7 +1027,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   );
   assert.equal(listRoot.children[0].children[4].children[1].children[0].textContent, "dog -> perro");
 
-  await listRoot.children[0].children[5].children[0].click();
+  await listRoot.children[0].listeners.dblclick({{ target: null }});
   assert.equal(listRoot.children[0].children.length, 5);
 
   await nextPageButton.click();
@@ -1087,7 +1093,7 @@ const metaText = () => metaRoot.children.map((child) => child.textContent).join(
   assert.equal(listRoot.children[0].children[4].className, "srs-word-advanced");
   assert.equal(listRoot.children[0].children[5].className, "srs-word-actions");
 
-  await listRoot.children[0].children[5].children[1].click();
+  await listRoot.children[0].children[5].children[0].click();
   assert.equal(confirms.length, 1);
   assert.equal(confirms[0], "Discard perro? It will be removed from Vocabulary Practice and blocked from future admission until practice data is reset.");
   assert.deepEqual(JSON.parse(JSON.stringify(discardCalls)), [

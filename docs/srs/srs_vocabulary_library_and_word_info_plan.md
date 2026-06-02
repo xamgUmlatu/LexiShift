@@ -15,7 +15,8 @@ words feel inspectable and understandable, not only schedulable.
 Two first-release surfaces need the same underlying data:
 
 1. A richer Vocabulary Library where the learner can review admitted, active,
-   queued, removed, and eventually completed words for a profile/language pair.
+   upcoming, removed, and eventually completed words for a profile/language
+   pair.
 2. A built-in popup module that appears when the learner right-clicks a replaced
    browser word and shows a quick definition/gloss.
 
@@ -53,7 +54,7 @@ fallback policy, definition filtering, or external-link construction.
 5. Support both SRS-origin and ruleset-origin replacements, with different
    enrichment levels.
    - SRS-origin replacements can include SRS status, due timing, review count,
-     exposure count, and active/queued/removed lifecycle state.
+     exposure count, and active/upcoming/removed practice state.
    - Ruleset-origin replacements may only have replacement metadata, source
      phrase, rule metadata, and local dictionary glosses.
    - The popup should fail gracefully when the word is not in Vocabulary
@@ -405,7 +406,7 @@ The dedicated Vocabulary Library should answer:
 
 - What words are in this Vocabulary Practice?
 - What do they mean?
-- Which are active, queued, due, removed, or eventually completed?
+- Which are active, upcoming, due, removed, or eventually completed?
 - Which words can currently appear as page replacements?
 - Which source phrases/rules cause the word to appear?
 - Where can I inspect the word in an external dictionary?
@@ -421,9 +422,26 @@ Recommended first-release shape:
 - Tabs or segmented views:
   - `Words`
   - `Due`
-  - `Queued`
+  - `Upcoming`
   - `Removed`
   - future `Completed`
+- Default table columns:
+  - `Word`: target word, reading/pronunciation when available, and compact POS.
+  - `Meaning`: compact local gloss from the shared word-info API, lazy-loaded
+    for expanded/current-page rows rather than prefetched for the full store.
+  - `Progress`: learner-facing practice state such as `Learning`, `Due now`,
+    `Reviewing`, `Upcoming`, or `Removed`.
+  - `Activity`: recent exposure/review counts in learner language, not raw
+    scheduler internals.
+  - `Topic`: primary topic/register label when available, otherwise `General`.
+  - `Actions`: a quiet overflow/discard affordance; normal viewing opens by
+    row expansion/double-click, not by a competing `View` button.
+- Advanced table/detail labels:
+  - use `Practice state`, not `Lifecycle`;
+  - use `Page replacement`, not `Serving`;
+  - use `Admission source` and `Watch note` for explanation fields;
+  - keep raw ids out of the normal advanced view unless a separate developer
+    diagnostic mode is added.
 - Existing controls from the admitted-words dashboard:
   - search
   - status filter

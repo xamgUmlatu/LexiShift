@@ -2398,6 +2398,15 @@ textarea {
   border-bottom: 1px solid var(--ls-group-subcard-separator);
 }
 
+.srs-word-row--details-available {
+  cursor: pointer;
+}
+
+.srs-word-row--details-available:focus {
+  outline: 2px solid #2d5f44;
+  outline-offset: 3px;
+}
+
 .srs-word-title {
   min-width: 0;
 }
@@ -2524,18 +2533,6 @@ textarea {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-}
-
-.srs-word-rules-button {
-  border: 1px solid #b7c2bd;
-  background: #f4faf7;
-  color: #315747;
-  padding: 5px 10px;
-  font-size: 12px;
-}
-
-.srs-word-rules-button:hover {
-  background: #eaf5ef;
 }
 
 .srs-word-discard-button {
