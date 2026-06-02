@@ -89,12 +89,6 @@
   "badge_srs_active_story": {
     "message": "Active"
   },
-  "summary_srs_story_dashboard": {
-    "message": "Learning dashboard"
-  },
-  "hint_srs_story_dashboard_curtain": {
-    "message": "Review active, due, upcoming, and removed words."
-  },
   "summary_srs_story_sampling": {
     "message": "Sample next words"
   },
@@ -353,14 +347,8 @@
   "option_srs_semantic_fallback_soft": {
     "message": "Soft affordance (reserved)"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "Show review buttons on learning words"
-  },
   "toggle_srs_feedback_rules": {
     "message": "Show feedback buttons on manual replacements"
-  },
-  "toggle_srs_auto_refresh": {
-    "message": "Add new learning words automatically"
   },
   "summary_srs_auto_refresh": {
     "message": "When new words are added"
@@ -486,7 +474,13 @@
     "message": "Refresh words"
   },
   "button_srs_words_open_library": {
-    "message": "Open full library"
+    "message": "Open Vocabulary Library"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "Vocabulary Library"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "Review learning words, definitions, progress, and page-replacement sources."
   },
   "toggle_srs_words_advanced": {
     "message": "Advanced details"
@@ -548,6 +542,9 @@
   "learning_dashboard_refresh": {
     "message": "Refresh"
   },
+  "learning_dashboard_pair_select": {
+    "message": "Practice"
+  },
   "learning_dashboard_search": {
     "message": "Search"
   },
@@ -607,6 +604,12 @@
   },
   "learning_dashboard_status_failed": {
     "message": "Failed to load learning words."
+  },
+  "learning_dashboard_no_practices": {
+    "message": "No Vocabulary Practice stories found for this profile."
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "No active practice"
   },
   "learning_dashboard_empty_filtered": {
     "message": "No learning words match these filters."

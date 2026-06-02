@@ -257,90 +257,22 @@
                   </div>
                   <div id="srs-admission-preview-output" class="srs-preview" role="status"></div>
                 </details>
-          <details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">
-            <summary class="srs-curtain-summary">
-              <span class="srs-curtain-copy">
-                <span class="srs-curtain-title" data-i18n="summary_srs_story_dashboard">Learning dashboard</span>
-                <span class="srs-curtain-subtitle" data-i18n="hint_srs_story_dashboard_curtain">
-                  Review active, due, queued, and removed words.
-                </span>
-              </span>
-              <span class="srs-curtain-action" data-i18n="action_srs_open_panel">Open</span>
-            </summary>
-            <div class="srs-words-dashboard" aria-labelledby="srs-words-dashboard-heading">
-            <div class="srs-words-dashboard-header">
-              <div>
-                <h3 id="srs-words-dashboard-heading" data-i18n="heading_srs_words_dashboard">Learning words</h3>
-                <p class="hint" data-i18n="hint_srs_words_dashboard">
-                  Review the words currently in this practice.
-                </p>
-              </div>
-              <div class="srs-words-dashboard-controls">
-                <a
-                  id="srs-words-open-library"
-                  class="srs-words-library-link"
-                  href="learning_dashboard.html"
-                  target="_blank"
-                  rel="noopener"
-                  data-i18n="button_srs_words_open_library"
-                >Open full library</a>
-                <button id="srs-words-refresh" type="button" data-i18n="button_srs_words_refresh">Refresh words</button>
-                <label class="toggle srs-toggle-switch srs-words-advanced-toggle">
-                  <input id="srs-words-advanced" type="checkbox" />
-                  <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
-                  <span data-i18n="toggle_srs_words_advanced">Advanced details</span>
-                </label>
-              </div>
+          <section id="srs-story-dashboard-link-card" class="srs-story-link-card srs-story-dashboard-link-card">
+            <div class="srs-story-link-copy">
+              <h4 data-i18n="heading_srs_vocabulary_library_entry">Vocabulary Library</h4>
+              <p class="hint" data-i18n="hint_srs_vocabulary_library_entry">
+                Review learning words, definitions, progress, and page-replacement sources.
+              </p>
             </div>
-            <div class="srs-words-filterbar">
-              <label>
-                <span data-i18n="label_srs_words_search">Search</span>
-                <input id="srs-words-search" type="search" autocomplete="off" />
-              </label>
-              <label>
-                <span data-i18n="label_srs_words_status_filter">Status</span>
-                <select id="srs-words-status-filter">
-                  <option value="all" data-i18n="option_srs_words_status_all">All</option>
-                  <option value="active" data-i18n="option_srs_words_status_active">Active</option>
-                  <option value="due" data-i18n="option_srs_words_status_due">Due</option>
-                  <option value="queued" data-i18n="option_srs_words_status_queued">Queued</option>
-                  <option value="removed" data-i18n="option_srs_words_status_removed">Removed</option>
-                </select>
-              </label>
-              <label>
-                <span data-i18n="label_srs_words_sort">Sort</span>
-                <select id="srs-words-sort">
-                  <option value="source" data-i18n="option_srs_words_sort_source">Source order</option>
-                  <option value="due" data-i18n="option_srs_words_sort_due">Due first</option>
-                  <option value="word" data-i18n="option_srs_words_sort_word">Word A-Z</option>
-                  <option value="reviews" data-i18n="option_srs_words_sort_reviews">Most reviews</option>
-                  <option value="seen" data-i18n="option_srs_words_sort_seen">Most seen</option>
-                </select>
-              </label>
-              <label>
-                <span data-i18n="label_srs_words_page_size">Rows</span>
-                <select id="srs-words-page-size">
-                  <option value="25" selected>25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-              </label>
-              <button id="srs-words-clear-filters" type="button" class="srs-words-clear-button" data-i18n="button_srs_words_clear_filters">Clear filters</button>
-            </div>
-            <div id="srs-words-summary" class="srs-words-summary" role="status"></div>
-            <div id="srs-words-meta" class="srs-words-meta" aria-live="polite"></div>
-            <div id="srs-words-pagination" class="srs-words-pagination" hidden>
-              <span id="srs-words-page-info" class="srs-words-page-info">Showing 0 words</span>
-              <div class="srs-words-page-buttons" aria-label="SRS words pagination">
-                <button id="srs-words-first-page" type="button">First</button>
-                <button id="srs-words-prev-page" type="button">Prev</button>
-                <button id="srs-words-next-page" type="button">Next</button>
-                <button id="srs-words-last-page" type="button">Last</button>
-              </div>
-            </div>
-            <div id="srs-words-list" class="srs-words-list"></div>
-          </div>
-          </details>
+            <a
+              id="srs-words-open-library"
+              class="srs-words-library-link"
+              href="learning_dashboard.html"
+              target="_blank"
+              rel="noopener"
+              data-i18n="button_srs_words_open_library"
+            >Open Vocabulary Library</a>
+          </section>
           <section class="srs-settings-section srs-appearance-settings">
             <div class="srs-settings-section-header">
               <h4 data-i18n="section_srs_display_feedback">Display and feedback</h4>
@@ -352,19 +284,9 @@
             </div>
             <div class="srs-toggle-grid">
               <label class="toggle srs-toggle-switch">
-                <input id="srs-feedback-srs-enabled" type="checkbox" />
-                <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
-                <span data-i18n="toggle_srs_feedback_srs">Show review buttons on learning words</span>
-              </label>
-              <label class="toggle srs-toggle-switch">
                 <input id="srs-feedback-rules-enabled" type="checkbox" />
                 <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
                 <span data-i18n="toggle_srs_feedback_rules">Show feedback buttons on manual replacements</span>
-              </label>
-              <label class="toggle srs-toggle-switch">
-                <input id="srs-auto-refresh-enabled" type="checkbox" />
-                <span class="srs-toggle-switch-ui" aria-hidden="true"></span>
-                <span data-i18n="toggle_srs_auto_refresh">Add new learning words automatically</span>
               </label>
               <label class="toggle srs-toggle-switch">
                 <input id="srs-sound-enabled" type="checkbox" />

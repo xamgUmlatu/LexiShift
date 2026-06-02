@@ -88,6 +88,21 @@ assert.equal(model.resolveTopicLabel(item), "Animals");
 assert.equal(model.sourcePhraseSummary(item), "dog, hound");
 assert.equal(model.hasPublishedRules(item), true);
 assert.equal(model.formatActivity({{ review_count: 1, exposures: 3 }}), "1 review | 3 seen");
+assert.equal(model.pairDisplayLabel("en-es"), "English -> Español");
+assert.deepEqual(normalize(model.listPracticePairs({{
+  srsProfiles: {{
+    suisui: {{
+      srsByPair: {{
+        "en-ja": {{ srsEnabled: true }},
+        "en-es": {{ srsEnabled: true }},
+        "en-de": {{ srsEnabled: false }}
+      }}
+    }}
+  }}
+}}, "suisui")), [
+  {{ pair: "en-es", label: "English -> Español" }},
+  {{ pair: "en-ja", label: "English -> 日本語" }}
+]);
 assert.equal(model.resolveGlossPreview({{
   glosses: [
     {{ text: "dog" }},

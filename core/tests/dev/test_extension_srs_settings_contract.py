@@ -198,7 +198,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
             'class="srs-settings-section srs-admission-settings"'
         )
         sampling_start = current_card_markup.index('id="srs-story-sampling-curtain"')
-        dashboard_start = current_card_markup.index('id="srs-story-dashboard-curtain"')
+        dashboard_start = current_card_markup.index('id="srs-story-dashboard-link-card"')
         appearance_start = current_card_markup.index(
             'class="srs-settings-section srs-appearance-settings"'
         )
@@ -210,27 +210,22 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertLess(dashboard_start, appearance_start)
         self.assertLess(appearance_start, advanced_start)
         self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
-        self.assertRegex(
-            html,
-            r'(?s)<label class="toggle srs-toggle-switch">\s*'
-            r'<input id="srs-feedback-srs-enabled" type="checkbox" />\s*'
-            r'<span class="srs-toggle-switch-ui" aria-hidden="true"></span>',
-        )
-        self.assertRegex(
-            html,
-            r'(?s)<label class="toggle srs-toggle-switch">\s*'
-            r'<input id="srs-auto-refresh-enabled" type="checkbox" />\s*'
-            r'<span class="srs-toggle-switch-ui" aria-hidden="true"></span>',
-        )
+        self.assertNotIn('id="srs-feedback-srs-enabled"', html)
+        self.assertNotIn('id="srs-auto-refresh-enabled"', html)
+        self.assertNotIn('data-i18n="toggle_srs_feedback_srs"', html)
+        self.assertNotIn('data-i18n="toggle_srs_auto_refresh"', html)
         self.assertNotIn('class="advanced srs-technical-status"', current_card_markup)
         self.assertNotIn('id="helper-status"', current_card_markup)
         self.assertNotIn('id="srs-semantic-admission-status"', current_card_markup)
         self.assertRegex(
             html,
-            r'(?s)<details id="srs-story-dashboard-curtain" class="srs-story-curtain srs-story-dashboard-curtain">'
-            r'.*?class="srs-curtain-summary".*?data-i18n="hint_srs_story_dashboard_curtain"'
-            r'.*?class="srs-curtain-action".*?class="srs-words-dashboard"',
+            r'(?s)<section id="srs-story-dashboard-link-card" class="srs-story-link-card srs-story-dashboard-link-card">'
+            r'.*?data-i18n="heading_srs_vocabulary_library_entry"'
+            r'.*?href="learning_dashboard.html"'
+            r'.*?data-i18n="button_srs_words_open_library"',
         )
+        self.assertNotIn('class="srs-words-dashboard"', current_card_markup)
+        self.assertNotIn('id="srs-words-refresh"', current_card_markup)
         self.assertRegex(
             html,
             r'(?s)<details id="srs-story-sampling-curtain" class="srs-story-curtain srs-story-sampling-curtain">'
@@ -426,7 +421,6 @@ const calls = [];
 const mainTopicAnimals = createButton({{ "data-srs-topic-interest": "animals" }});
 const modalTopicAnimals = createButton({{ "data-srs-story-topic-interest": "animals" }});
 const mainSamplingCurtain = {{ open: false }};
-const mainDashboardCurtain = {{ open: false }};
 const mainAdmissionPreviewOutput = {{ textContent: "sample output" }};
 const backdrop = {{
   classList: createClassList(),
@@ -474,7 +468,6 @@ const elements = {{
   mainBootstrapTopNInput: createInput("800"),
   mainInitialActiveCountInput: createInput("25"),
   mainSamplingCurtain,
-  mainDashboardCurtain,
   mainAdmissionPreviewOutput
 }};
 
@@ -543,7 +536,6 @@ const controller = context.LexiShift.optionsSrsStoryFlow.createController({{
   assert.deepEqual(calls.slice(0, 3), ["saveLanguage", "saveSrs", "initializeSet"]);
   assert.equal(calls[calls.length - 1], "reloadPage");
   assert.equal(elements.mainSrsEnabledInput.checked, true);
-  assert.equal(mainDashboardCurtain.open, true);
   assert.equal(busyBackdrop.classList.contains("hidden"), true);
   assert.equal(busyBackdrop["aria-hidden"], "true");
   assert.equal(elements.closeButton.disabled, false);
@@ -1064,7 +1056,6 @@ const controller = createController({{
       srsSoundInput: {{ checked: true }},
       srsHighlightInput: {{ value: "#445566" }},
       srsHighlightTextInput: {{ value: "" }},
-      srsFeedbackSrsInput: {{ checked: true }},
       srsFeedbackRulesInput: {{ checked: false }},
       srsExposureLoggingInput: {{ checked: true }}
   }}
@@ -1079,6 +1070,8 @@ const controller = createController({{
   assert.equal(captured.profileSave.profile.srsInitialActiveCount, 33);
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionEnabled, true);
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "abstain_on_unavailable");
+  assert.equal(captured.profileSave.profile.srsFeedbackSrsEnabled, true);
+  assert.equal(captured.profileSave.profile.srsAutoRefreshEnabled, true);
   assert.equal("interests" in captured.profileSave.profile, false);
 
   assert.equal(captured.signalSave.pairKey, "en-ja");
@@ -1200,7 +1193,6 @@ const controller = createController({{
     srsSoundInput: {{ checked: true }},
     srsHighlightInput: {{ value: "#445566" }},
     srsHighlightTextInput: {{ value: "" }},
-    srsFeedbackSrsInput: {{ checked: true }},
     srsFeedbackRulesInput: {{ checked: false }},
     srsExposureLoggingInput: {{ checked: true }}
   }}
@@ -1254,7 +1246,6 @@ const autoSaveSettingNames = new Set([
   "sound",
   "highlight",
   "highlightText",
-  "feedbackSrs",
   "feedbackRules",
   "exposureLogging",
   "savePreferences"
@@ -1286,15 +1277,14 @@ const elements = {{
   srsTopicInterestsInput: makeElement("topicInterests"),
   srsProficiencyEstimateInput: makeElement("proficiencyEstimate"),
   srsChallengeTargetInput: makeElement("challengeTarget"),
-	  srsSoundInput: makeElement("sound"),
-	  srsHighlightInput: makeElement("highlight"),
-	  srsHighlightTextInput: makeElement("highlightText"),
-	  srsFeedbackSrsInput: makeElement("feedbackSrs"),
-	  srsFeedbackRulesInput: makeElement("feedbackRules"),
-	  srsExposureLoggingInput: makeElement("exposureLogging"),
-	  srsSavePreferencesButton: makeElement("savePreferences"),
-	  srsPreferencesSaveStatusOutput: makeElement("preferencesSaveStatus")
-	}};
+  srsSoundInput: makeElement("sound"),
+  srsHighlightInput: makeElement("highlight"),
+  srsHighlightTextInput: makeElement("highlightText"),
+  srsFeedbackRulesInput: makeElement("feedbackRules"),
+  srsExposureLoggingInput: makeElement("exposureLogging"),
+  srsSavePreferencesButton: makeElement("savePreferences"),
+  srsPreferencesSaveStatusOutput: makeElement("preferencesSaveStatus")
+}};
 
 bind({{
   bindAsyncListener: (element, eventName, _action, config) => {{
@@ -1738,7 +1728,12 @@ function SettingsManager() {{
       suisui: {{
         languagePrefs: {{ sourceLanguage: "en", targetLanguage: "es" }},
         srsByPair: {{
-          "en-es": {{ srsEnabled: true, srsMaxActive: 40 }},
+          "en-es": {{
+            srsEnabled: true,
+            srsMaxActive: 40,
+            srsFeedbackSrsEnabled: false,
+            srsAutoRefreshEnabled: false
+          }},
           "en-ja": {{ srsEnabled: true, srsMaxActive: 20 }}
         }},
         srsSignalsByPair: {{
@@ -1787,6 +1782,8 @@ const manager = new SettingsManager();
     profileId: "suisui"
   }});
   assert.equal(initialProfile.srsPairCount, 2);
+  assert.equal(initialProfile.srsFeedbackSrsEnabled, true);
+  assert.equal(initialProfile.srsAutoRefreshEnabled, true);
 
   const result = await manager.deleteSrsProfilePair("en-es", {{
     profileId: "suisui"

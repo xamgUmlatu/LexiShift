@@ -158,6 +158,7 @@ class TestExtensionStructure(unittest.TestCase):
             'src="options/controllers/srs/actions/words_dashboard_formatting.js"',
             'src="learning_dashboard_model.js"',
             'src="learning_dashboard_view.js"',
+            'src="learning_dashboard_table.js"',
             'src="learning_dashboard.js"',
         ]
         positions = [html.find(marker) for marker in ordered_markers]

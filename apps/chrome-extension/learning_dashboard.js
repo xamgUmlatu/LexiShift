@@ -3,8 +3,9 @@
   const model = root.learningDashboardModel;
   const formatting = root.optionsSrsWordsDashboardFormatting;
   const view = root.learningDashboardView;
+  const tableFactory = root.learningDashboardTable;
 
-  if (!model || !formatting || !view) {
+  if (!model || !formatting || !view || !tableFactory) {
     throw new Error("[LexiShift][Vocabulary Library] Missing dashboard dependencies.");
   }
 
@@ -26,10 +27,21 @@
       ? dashboardModelFactory()
       : { apply: (items) => items, isAdjusted: () => false, setSearchQuery: () => {}, setSortMode: () => {}, setStatusFilter: () => {} };
     const elements = view.resolveElements(doc);
+    const table = tableFactory.createTableSupport({
+      canDiscard,
+      discardItem,
+      doc,
+      elements,
+      meaningPreviewText,
+      selectItem,
+      selectedKey: () => selectedKey,
+      t
+    });
 
     let profileId = "default";
     let pair = "en-en";
     let latestData = null;
+    let availablePairs = [];
     let pageIndex = 0;
     let pageSize = 25;
     let pageCount = 1;
@@ -54,6 +66,20 @@
 
     function bindEvents() {
       elements.refreshButton.addEventListener("click", refresh);
+      elements.pairSelect.addEventListener("change", () => {
+        const nextPair = model.normalizeText(elements.pairSelect.value);
+        if (!nextPair || nextPair === pair) {
+          return;
+        }
+        pair = nextPair;
+        selectedKey = "";
+        selectedItem = null;
+        wordInfoByKey.clear();
+        ruleDetailsByKey.clear();
+        updateScopeLabel();
+        updateLocationPair();
+        refresh();
+      });
       elements.searchInput.addEventListener("input", () => {
         dashboardModel.setSearchQuery(elements.searchInput.value);
         resetPage();
@@ -98,11 +124,24 @@
       const params = new URLSearchParams(globalThis.location ? globalThis.location.search : "");
       profileId = params.get("profileId") || settingsManager.getSelectedSrsProfileId(items);
       const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId });
-      pair = params.get("pair") || languagePrefs.srsPair || items.srsPair || "en-en";
-      elements.scopeLabel.textContent = `${pair} | ${profileId}`;
+      const fallbackPair = params.get("pair") || languagePrefs.srsPair || items.srsPair || "en-en";
+      availablePairs = model.listPracticePairs(items, profileId);
+      pair = resolveInitialPair(fallbackPair);
+      renderPairSelect();
+      updateScopeLabel();
     }
 
     async function refresh() {
+      if (!availablePairs.length) {
+        latestData = { summary: {}, items: [], dashboard_refreshed_at: new Date().toISOString() };
+        render();
+        setStatus(t(
+          "learning_dashboard_no_practices",
+          null,
+          "No Vocabulary Practice stories found for this profile."
+        ));
+        return;
+      }
       elements.refreshButton.disabled = true;
       setStatus(t("learning_dashboard_status_refreshing", null, "Loading learning words..."));
       try {
@@ -129,108 +168,64 @@
       const token = renderToken;
       view.clearNode(elements.summaryRoot);
       view.clearNode(elements.tableBody);
-      renderSummary();
+      view.renderSummary({ doc, elements, latestData, t });
       const rows = filteredItems();
       renderPagination(rows.length);
-      renderTableRows(rows, token);
+      table.renderTableRows({
+        latestData,
+        loadMeaningPreviews,
+        pageRows: currentPageRows(rows),
+        rows,
+        token
+      });
       updateClearButton();
       renderDetail();
     }
 
-    function renderSummary() {
-      const summary = latestData && latestData.summary && typeof latestData.summary === "object"
-        ? latestData.summary
-        : {};
-      [
-        ["learning_dashboard_summary_active", "Active", summary.active || 0],
-        ["learning_dashboard_summary_due", "Due now", summary.due_now || 0],
-        ["learning_dashboard_summary_can_appear", "Can appear", summary.serving_now || 0],
-        ["learning_dashboard_summary_upcoming", "Upcoming", summary.queued || 0],
-        ["learning_dashboard_summary_removed", "Removed", summary.removed || 0],
-        ["learning_dashboard_summary_total", "Total", summary.total || 0]
-      ].forEach(([key, fallback, value]) => {
-        const item = view.createNode(doc, "div", "library-summary-item");
-        item.appendChild(view.createNode(doc, "span", "library-summary-value", value));
-        item.appendChild(view.createNode(doc, "span", "library-summary-label", t(key, null, fallback)));
-        elements.summaryRoot.appendChild(item);
-      });
+    function resolveInitialPair(fallbackPair) {
+      const requested = model.normalizeText(fallbackPair);
+      if (requested && availablePairs.some((entry) => entry.pair === requested)) {
+        return requested;
+      }
+      if (availablePairs.length) {
+        return availablePairs[0].pair;
+      }
+      return requested || "en-en";
     }
 
-    function renderTableRows(rows, token) {
-      if (!rows.length) {
-        const row = doc.createElement("tr");
-        const cell = doc.createElement("td");
-        cell.colSpan = 6;
-        cell.className = "library-empty";
-        cell.textContent = latestData
-          ? t("learning_dashboard_empty_filtered", null, "No learning words match these filters.")
-          : t("learning_dashboard_empty_unloaded", null, "No learning words loaded yet.");
-        row.appendChild(cell);
-        elements.tableBody.appendChild(row);
+    function renderPairSelect() {
+      view.clearNode(elements.pairSelect);
+      if (!availablePairs.length) {
+        const option = doc.createElement("option");
+        option.value = "";
+        option.textContent = t("learning_dashboard_no_practices_short", null, "No active practice");
+        elements.pairSelect.appendChild(option);
+        elements.pairSelect.disabled = true;
         return;
       }
-      const pageRows = currentPageRows(rows);
-      pageRows.forEach((item) => {
-        const row = renderItemRow(item);
-        elements.tableBody.appendChild(row);
+      availablePairs.forEach((entry) => {
+        const option = doc.createElement("option");
+        option.value = entry.pair;
+        option.textContent = entry.label;
+        elements.pairSelect.appendChild(option);
       });
-      loadMeaningPreviews(pageRows, token);
+      elements.pairSelect.value = pair;
+      elements.pairSelect.disabled = availablePairs.length <= 1;
     }
 
-    function renderItemRow(item) {
-      const key = model.itemKey(item);
-      const row = doc.createElement("tr");
-      row.className = key === selectedKey ? "is-selected" : "";
-      row.tabIndex = 0;
-      row.dataset.itemKey = key;
-      row.addEventListener("dblclick", () => selectItem(item));
-      row.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") {
-          return;
-        }
-        event.preventDefault();
-        selectItem(item);
-      });
-      row.appendChild(wordCell(item));
-      row.appendChild(meaningCell(item));
-      row.appendChild(view.createNode(doc, "td", "", item.status_label || item.status || "Learning"));
-      row.appendChild(view.createNode(doc, "td", "", model.formatActivity(item)));
-      row.appendChild(view.createNode(doc, "td", "", model.resolveTopicLabel(item)));
-      row.appendChild(actionCell(item));
-      return row;
+    function updateScopeLabel() {
+      const pairLabel = model.pairDisplayLabel(pair);
+      elements.scopeLabel.textContent = `${pairLabel} | ${profileId}`;
     }
 
-    function wordCell(item) {
-      const cell = view.createNode(doc, "td", "library-word-cell");
-      cell.appendChild(view.createNode(doc, "span", "library-word", item.display || item.lemma || "-"));
-      const info = [item.reading, item.pos].map(model.normalizeText).filter(Boolean).join(" | ");
-      if (info) {
-        cell.appendChild(view.createNode(doc, "span", "library-word-sub", info));
+    function updateLocationPair() {
+      if (!globalThis.history || !globalThis.location || typeof globalThis.history.replaceState !== "function") {
+        return;
       }
-      return cell;
-    }
-
-    function meaningCell(item) {
-      const key = model.itemKey(item);
-      const cell = view.createNode(doc, "td", "library-meaning-cell");
-      cell.dataset.meaningKey = key;
-      cell.textContent = meaningPreviewText(item);
-      return cell;
-    }
-
-    function actionCell(item) {
-      const cell = view.createNode(doc, "td", "library-action-cell");
-      if (!canDiscard(item)) {
-        return cell;
-      }
-      const button = view.createNode(doc, "button", "library-discard-button", t("learning_dashboard_discard", null, "Discard"));
-      button.type = "button";
-      button.addEventListener("click", (event) => {
-        event.stopPropagation();
-        discardItem(item, button);
-      });
-      cell.appendChild(button);
-      return cell;
+      const url = new URL(globalThis.location.href);
+      url.searchParams.set("pair", pair);
+      url.searchParams.set("profileId", profileId);
+      globalThis.history.replaceState(null, "", url.toString());
     }
 
     function renderDetail() {
@@ -253,7 +248,7 @@
       items.slice(0, MEANING_PREVIEW_LIMIT).forEach((item) => {
         ensureWordInfo(item).then(() => {
           if (token === renderToken) {
-            updateMeaningCell(item);
+            table.updateMeaningCell(item);
           }
         });
       });
@@ -311,15 +306,6 @@
       }
       return model.resolveGlossPreview(entry.result)
         || t("learning_dashboard_definition_unavailable", null, "Definition unavailable.");
-    }
-
-    function updateMeaningCell(item) {
-      const key = model.itemKey(item);
-      elements.tableBody.querySelectorAll("[data-meaning-key]").forEach((cell) => {
-        if (cell.dataset.meaningKey === key) {
-          cell.textContent = meaningPreviewText(item);
-        }
-      });
     }
 
     function selectItem(item) {

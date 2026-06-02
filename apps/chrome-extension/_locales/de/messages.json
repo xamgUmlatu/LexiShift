@@ -89,12 +89,6 @@
   "badge_srs_active_story": {
     "message": "Aktiv"
   },
-  "summary_srs_story_dashboard": {
-    "message": "Lern-Dashboard"
-  },
-  "hint_srs_story_dashboard_curtain": {
-    "message": "Aktive, fällige, kommende und entfernte Wörter prüfen."
-  },
   "summary_srs_story_sampling": {
     "message": "Nächste Wörter testen"
   },
@@ -350,14 +344,8 @@
   "option_srs_semantic_fallback_soft": {
     "message": "Weiche Andeutung (reserviert)"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "Review-Schaltflächen für Lernwörter anzeigen"
-  },
   "toggle_srs_feedback_rules": {
     "message": "Feedback-Schaltflächen für manuelle Ersetzungen anzeigen"
-  },
-  "toggle_srs_auto_refresh": {
-    "message": "Neue Lernwörter automatisch hinzufügen"
   },
   "summary_srs_auto_refresh": {
     "message": "Wann neue Wörter hinzugefügt werden"
@@ -483,7 +471,13 @@
     "message": "Wörter aktualisieren"
   },
   "button_srs_words_open_library": {
-    "message": "Vollständige Bibliothek öffnen"
+    "message": "Wortschatzbibliothek öffnen"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "Wortschatzbibliothek"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "Prüfe Lernwörter, Definitionen, Fortschritt und Quellen für Seitenersetzungen."
   },
   "toggle_srs_words_advanced": {
     "message": "Erweiterte Details"
@@ -545,6 +539,9 @@
   "learning_dashboard_refresh": {
     "message": "Aktualisieren"
   },
+  "learning_dashboard_pair_select": {
+    "message": "Training"
+  },
   "learning_dashboard_search": {
     "message": "Suchen"
   },
@@ -604,6 +601,12 @@
   },
   "learning_dashboard_status_failed": {
     "message": "Lernwörter konnten nicht geladen werden."
+  },
+  "learning_dashboard_no_practices": {
+    "message": "Für dieses Profil wurden keine Vokabeltrainings gefunden."
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "Kein aktives Training"
   },
   "learning_dashboard_empty_filtered": {
     "message": "Keine Lernwörter passen zu diesen Filtern."

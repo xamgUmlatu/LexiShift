@@ -89,12 +89,6 @@
   "badge_srs_active_story": {
     "message": "アクティブ"
   },
-  "summary_srs_story_dashboard": {
-    "message": "学習ダッシュボード"
-  },
-  "hint_srs_story_dashboard_curtain": {
-    "message": "アクティブ、復習期限、今後の単語、除外済みの単語を確認します。"
-  },
   "summary_srs_story_sampling": {
     "message": "次の単語をサンプル"
   },
@@ -350,14 +344,8 @@
   "option_srs_semantic_fallback_soft": {
     "message": "ソフト表示（予約済み）"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "学習語に復習ボタンを表示"
-  },
   "toggle_srs_feedback_rules": {
     "message": "手動置換語にフィードバックボタンを表示"
-  },
-  "toggle_srs_auto_refresh": {
-    "message": "新しい学習語を自動追加"
   },
   "summary_srs_auto_refresh": {
     "message": "新しい単語を追加するタイミング"
@@ -483,7 +471,13 @@
     "message": "語を更新"
   },
   "button_srs_words_open_library": {
-    "message": "全体ライブラリを開く"
+    "message": "語彙ライブラリを開く"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "語彙ライブラリ"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "学習中の語、定義、進捗、ページ置換元を確認します。"
   },
   "toggle_srs_words_advanced": {
     "message": "詳細情報"
@@ -545,6 +539,9 @@
   "learning_dashboard_refresh": {
     "message": "更新"
   },
+  "learning_dashboard_pair_select": {
+    "message": "練習"
+  },
   "learning_dashboard_search": {
     "message": "検索"
   },
@@ -604,6 +601,12 @@
   },
   "learning_dashboard_status_failed": {
     "message": "学習語を読み込めませんでした。"
+  },
+  "learning_dashboard_no_practices": {
+    "message": "このプロフィールには単語練習がありません。"
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "有効な練習なし"
   },
   "learning_dashboard_empty_filtered": {
     "message": "このフィルターに一致する学習語はありません。"

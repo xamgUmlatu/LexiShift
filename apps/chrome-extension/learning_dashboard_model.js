@@ -2,9 +2,20 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
   const GLOSS_PREVIEW_LIMIT = 2;
+  const LANGUAGE_LABELS = Object.freeze({
+    de: "Deutsch",
+    en: "English",
+    es: "Español",
+    ja: "日本語",
+    zh: "简体中文"
+  });
 
   function normalizeText(value) {
     return String(value || "").trim();
+  }
+
+  function isObject(value) {
+    return Boolean(value) && typeof value === "object" && !Array.isArray(value);
   }
 
   function itemKey(item) {
@@ -147,13 +158,43 @@
     return Number.isFinite(count) && count > 0 && Boolean(normalizeText(item && item.lemma));
   }
 
+  function languageLabel(code) {
+    const normalized = normalizeText(code).toLowerCase();
+    return LANGUAGE_LABELS[normalized] || normalizeText(code) || "-";
+  }
+
+  function pairDisplayLabel(pair) {
+    const normalized = normalizeText(pair);
+    const parts = normalized.split("-");
+    if (parts.length >= 2) {
+      return `${languageLabel(parts[0])} -> ${languageLabel(parts[1])}`;
+    }
+    return normalized || "-";
+  }
+
+  function listPracticePairs(items, profileId) {
+    const profiles = isObject(items && items.srsProfiles) ? items.srsProfiles : {};
+    const profile = isObject(profiles[normalizeText(profileId)]) ? profiles[normalizeText(profileId)] : {};
+    const byPair = isObject(profile.srsByPair) ? profile.srsByPair : {};
+    return Object.keys(byPair)
+      .filter((pair) => normalizeText(pair) && isObject(byPair[pair]) && byPair[pair].srsEnabled === true)
+      .sort((left, right) => pairDisplayLabel(left).localeCompare(pairDisplayLabel(right)))
+      .map((pair) => ({
+        pair,
+        label: pairDisplayLabel(pair)
+      }));
+  }
+
   root.learningDashboardModel = {
     createWordInfoRequest,
     firstSourcePhrase,
     formatActivity,
     hasPublishedRules,
     itemKey,
+    languageLabel,
+    listPracticePairs,
     normalizeText,
+    pairDisplayLabel,
     resolveGlossPreview,
     resolvePosLabel,
     resolveTopicLabel,

@@ -63,7 +63,6 @@
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
     const srsSemanticAdmissionStatusOutput = elements.srsSemanticAdmissionStatusOutput || null;
     const srsSemanticAdmissionStatusDetailOutput = elements.srsSemanticAdmissionStatusDetailOutput || null;
-    const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
     const srsProfileIdInput = elements.srsProfileIdInput || null;
@@ -201,7 +200,7 @@
           : (settingsManager.defaults.srsHighlightColor || "#2F74D0");
         const srsSemanticAdmissionEnabled = true;
         const srsSemanticAdmissionFallbackPolicy = DEFAULT_SEMANTIC_FALLBACK_POLICY;
-        const srsFeedbackSrsEnabled = srsFeedbackSrsInput ? srsFeedbackSrsInput.checked : true;
+        const srsFeedbackSrsEnabled = true;
         const srsFeedbackRulesEnabled = srsFeedbackRulesInput ? srsFeedbackRulesInput.checked : false;
         const srsExposureLoggingEnabled = srsExposureLoggingInput
           ? srsExposureLoggingInput.checked

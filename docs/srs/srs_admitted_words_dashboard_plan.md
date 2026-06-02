@@ -69,19 +69,23 @@ and review feedback remain separate workflows.
 Dedicated Vocabulary Library expansion, learner-facing definitions/glosses, and
 the built-in browser popup definition module are now routed through
 `docs/srs/srs_vocabulary_library_and_word_info_plan.md`. This dashboard plan
-remains the contract for the current embedded admitted-words dashboard and its
-existing helper read models.
+remains the contract for the helper read models and the older embedded
+admitted-words workflow code, but the ordinary learner Options surface now links
+directly to the dedicated Vocabulary Library page instead of rendering the
+embedded dashboard.
 
 ## User Surface
 
-The options page exposes the dashboard in the SRS settings area for the selected
-profile and language pair.
+The options page exposes a compact Vocabulary Library entry in the Vocabulary
+Practice story card. The dedicated page uses the active profile and lets the
+learner switch among that profile's active language pairs.
 
 Top-level controls:
 
-- `Open full library`: opens the dedicated selected-pair Vocabulary Library page.
-- `Refresh words`: loads a fresh pair/profile payload from the helper.
-- `Advanced details`: toggles technical per-row fields.
+- `Open Vocabulary Library`: opens the dedicated Vocabulary Library page.
+- `Practice`: selects an active language pair for the current profile.
+- `Refresh`: loads a fresh pair/profile payload from the helper.
+- `Advanced details`: toggles technical detail fields.
 - `Search`: filters the loaded payload by display, lemma, reading, status,
   source, or rule source phrase.
 - `Status`: filters to all, active, due, upcoming, or removed words.

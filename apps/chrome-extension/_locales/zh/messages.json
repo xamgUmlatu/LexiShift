@@ -89,12 +89,6 @@
   "badge_srs_active_story": {
     "message": "活跃"
   },
-  "summary_srs_story_dashboard": {
-    "message": "学习仪表板"
-  },
-  "hint_srs_story_dashboard_curtain": {
-    "message": "查看活跃、到期、即将学习和已移除的词。"
-  },
   "summary_srs_story_sampling": {
     "message": "抽样下一批词"
   },
@@ -350,14 +344,8 @@
   "option_srs_semantic_fallback_soft": {
     "message": "软提示（预留）"
   },
-  "toggle_srs_feedback_srs": {
-    "message": "在学习词上显示复习按钮"
-  },
   "toggle_srs_feedback_rules": {
     "message": "在手动替换词上显示反馈按钮"
-  },
-  "toggle_srs_auto_refresh": {
-    "message": "自动添加新的学习词"
   },
   "summary_srs_auto_refresh": {
     "message": "何时添加新词"
@@ -483,7 +471,13 @@
     "message": "刷新词"
   },
   "button_srs_words_open_library": {
-    "message": "打开完整词库"
+    "message": "打开词汇库"
+  },
+  "heading_srs_vocabulary_library_entry": {
+    "message": "词汇库"
+  },
+  "hint_srs_vocabulary_library_entry": {
+    "message": "查看学习词、释义、进度和页面替换来源。"
   },
   "toggle_srs_words_advanced": {
     "message": "高级详情"
@@ -545,6 +539,9 @@
   "learning_dashboard_refresh": {
     "message": "刷新"
   },
+  "learning_dashboard_pair_select": {
+    "message": "练习"
+  },
   "learning_dashboard_search": {
     "message": "搜索"
   },
@@ -604,6 +601,12 @@
   },
   "learning_dashboard_status_failed": {
     "message": "无法加载学习词。"
+  },
+  "learning_dashboard_no_practices": {
+    "message": "这个个人资料还没有词汇练习。"
+  },
+  "learning_dashboard_no_practices_short": {
+    "message": "没有活跃练习"
   },
   "learning_dashboard_empty_filtered": {
     "message": "没有学习词符合这些筛选条件。"

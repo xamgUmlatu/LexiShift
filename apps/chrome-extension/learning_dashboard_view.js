@@ -16,6 +16,7 @@
       lastPageButton: byId(doc, "learning-dashboard-last"),
       nextPageButton: byId(doc, "learning-dashboard-next"),
       pageInfo: byId(doc, "learning-dashboard-page-info"),
+      pairSelect: byId(doc, "learning-dashboard-pair-select"),
       pageSizeInput: byId(doc, "learning-dashboard-page-size"),
       prevPageButton: byId(doc, "learning-dashboard-prev"),
       refreshButton: byId(doc, "learning-dashboard-refresh"),
@@ -55,6 +56,27 @@
     if (opts.advancedEnabled) {
       renderAdvancedDetail(opts);
     }
+  }
+
+  function renderSummary(options) {
+    const opts = options && typeof options === "object" ? options : {};
+    const summary = opts.latestData && opts.latestData.summary && typeof opts.latestData.summary === "object"
+      ? opts.latestData.summary
+      : {};
+    const t = typeof opts.t === "function" ? opts.t : ((_key, _subs, fallback) => fallback);
+    [
+      ["learning_dashboard_summary_active", "Active", summary.active || 0],
+      ["learning_dashboard_summary_due", "Due now", summary.due_now || 0],
+      ["learning_dashboard_summary_can_appear", "Can appear", summary.serving_now || 0],
+      ["learning_dashboard_summary_upcoming", "Upcoming", summary.queued || 0],
+      ["learning_dashboard_summary_removed", "Removed", summary.removed || 0],
+      ["learning_dashboard_summary_total", "Total", summary.total || 0]
+    ].forEach(([key, fallback, value]) => {
+      const item = createNode(opts.doc, "div", "library-summary-item");
+      item.appendChild(createNode(opts.doc, "span", "library-summary-value", value));
+      item.appendChild(createNode(opts.doc, "span", "library-summary-label", t(key, null, fallback)));
+      opts.elements.summaryRoot.appendChild(item);
+    });
   }
 
   function renderDefinitionDetail(opts) {
@@ -212,6 +234,7 @@
     clearNode,
     createNode,
     renderDetail,
+    renderSummary,
     resolveElements,
     resolveGlosses
   };

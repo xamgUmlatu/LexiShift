@@ -61,7 +61,6 @@
     const mainBootstrapTopNInput = elements.mainBootstrapTopNInput || null;
     const mainInitialActiveCountInput = elements.mainInitialActiveCountInput || null;
     const mainSamplingCurtain = elements.mainSamplingCurtain || null;
-    const mainDashboardCurtain = elements.mainDashboardCurtain || null;
     const mainAdmissionPreviewOutput = elements.mainAdmissionPreviewOutput || null;
 
     let bound = false;
@@ -139,7 +138,6 @@
         ? () => srsActionsController.initializeSet()
         : null,
       hasResourceBlock: () => resourceCheck.latestBlock(),
-      showDashboard: () => { if (mainDashboardCurtain) mainDashboardCurtain.open = true; },
       setStatus,
       close: () => close({ force: true }),
       reloadPage: opts.reloadPage

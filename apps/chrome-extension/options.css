@@ -1100,6 +1100,30 @@ header p {
   border-top: none;
 }
 
+.srs-story-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  border: 1px solid var(--ls-group-subcard-separator);
+  border-radius: 8px;
+  background: var(--ls-srs-preview-bg);
+  padding: 12px;
+}
+
+.srs-story-link-copy {
+  min-width: 0;
+}
+
+.srs-story-link-copy h4 {
+  margin: 0 0 4px;
+}
+
+.srs-story-link-copy p {
+  margin: 0;
+}
+
 .srs-story-sampling-curtain .srs-primary-actions {
   padding: 12px 12px 0;
 }

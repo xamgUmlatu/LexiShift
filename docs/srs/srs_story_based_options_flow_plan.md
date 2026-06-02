@@ -3,7 +3,7 @@
 Status: active target UX plan
 Role: Planning
 Last updated: 2026-06-02
-Last verified: 2026-06-02 learner-facing Vocabulary Practice naming pass plus selected-story shell, curtains, hidden active-story pool backing control, guided new-story modal, page-level setup progress popup, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
+Last verified: 2026-06-02 learner-facing Vocabulary Practice naming pass plus selected-story shell, direct Vocabulary Library entry, sampling curtain, hidden active-story pool backing control, guided new-story modal, page-level setup progress popup, missing-language-data setup panel, and resource-settings existing-GUI activation through focused extension/options/native-host tests
 Purpose: define the target Options-page Vocabulary Practice UX before beta-facing cleanup so implementation can follow the same flow deliberately
 Source-of-truth: product UX plan only; implemented/default-on status remains in `docs/developer/feature_state_matrix.md` and code/tests.
 
@@ -14,13 +14,12 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
 - selected profile/pair practice controls are grouped under a selected-practice block;
 - admission sampling is behind a `Sample next words` curtain placed directly
   after the active practice's admission-preference controls;
-- the admitted-words dashboard is behind an `Open dashboard` curtain placed
-  directly after sampling;
-- display/feedback controls sit in the normal expanded practice surface after the
-  dashboard curtain;
+- the dedicated `Vocabulary Library` entry is placed directly after sampling;
+- display controls sit in the normal expanded practice surface after the
+  Vocabulary Library entry;
 - the collapsed `Advanced` section contains same-level new-word timing
   thresholds and a practice-scoped delete action only;
-- practice cards, topic panels, curtains, and dashboard surfaces follow the
+- practice cards, topic panels, curtains, and the Vocabulary Library entry follow the
   same card-theme CSS-variable path as the rest of the Options page;
 - active-practice new-word preference edits are draft changes until the learner
   presses `Save preferences`;
@@ -131,12 +130,12 @@ Each practice block should show:
   - proficiency estimate
   - selected topics
   - active-size setting
-  - automatic refresh state
+  - automatic refresh thresholds
 - last refresh or last rules publication time when available
 
 Each practice block should provide user-facing actions:
 
-- `Open dashboard`
+- `Open Vocabulary Library`
 - `Sample possible words`
 - `Edit preferences`
 
@@ -147,8 +146,9 @@ management area:
 - delete Vocabulary Practice for the current profile/language pair
 - future restore/mastery/release controls
 
-Dashboard and sampling must not be permanently expanded on the main page. They
-are large inspection tools and should open only when requested.
+The Vocabulary Library must not be permanently expanded on the main page. It is
+a large inspection tool and should open as a dedicated page. Sampling remains a
+collapsed in-place curtain.
 
 ### Start Vocabulary Practice
 
@@ -221,7 +221,6 @@ in-place when the user asks for them.
 
 Use the curtain pattern for:
 
-- dashboard
 - sampling
 - preference editing if it becomes too large for the compact practice block
 - Advanced timing/reset controls
@@ -333,16 +332,19 @@ Requirements:
 - keep existing controls available while the new shell is validated;
 - no backend schema migration.
 
-### Slice 2: Dashboard Curtain
+### Slice 2: Vocabulary Library Entry
 
-Move the admitted-words dashboard under the active practice block as an expandable
-curtain.
+Move admitted-word inspection out of the active practice block and into a
+dedicated Vocabulary Library page opened from a compact story-card entry.
 
 Requirements:
 
-- keep the existing dashboard workflow and helper calls;
-- scope refresh/list actions to the practice's profile/pair;
-- keep advanced details opt-in inside the dashboard.
+- keep the existing dashboard read model/helper routes where possible;
+- scope refresh/list actions to the selected profile and selected active
+  language pair;
+- let the dedicated page switch among active language pairs for the selected
+  profile;
+- keep advanced details opt-in inside the dedicated page.
 
 ### Slice 3: Sampling Curtain
 

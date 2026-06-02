@@ -16,7 +16,6 @@
       : { defaults: {} };
     const defaults = settingsManager.defaults || {};
     const elements = opts.elements && typeof opts.elements === "object" ? opts.elements : {};
-    const enabledInput = elements.srsAutoRefreshEnabledInput || null;
     const minFeedbackInput = elements.srsAutoRefreshMinFeedbackInput || null;
     const minGoodEasyInput = elements.srsAutoRefreshMinGoodEasyInput || null;
     const repeatMinGoodEasyInput = elements.srsAutoRefreshRepeatMinGoodEasyInput || null;
@@ -29,7 +28,7 @@
         1
       );
       return {
-        srsAutoRefreshEnabled: enabledInput ? enabledInput.checked : true,
+        srsAutoRefreshEnabled: true,
         srsAutoRefreshMinFeedbackEvents: parseBoundedInt(
           minFeedbackInput ? minFeedbackInput.value : undefined,
           defaults.srsAutoRefreshMinFeedbackEvents || 8,

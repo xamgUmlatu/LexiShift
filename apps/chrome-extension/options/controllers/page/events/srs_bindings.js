@@ -43,9 +43,7 @@
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
-    const srsFeedbackSrsInput = elements.srsFeedbackSrsInput || null;
     const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
-    const srsAutoRefreshEnabledInput = elements.srsAutoRefreshEnabledInput || null;
     const srsAutoRefreshMinFeedbackInput = elements.srsAutoRefreshMinFeedbackInput || null;
     const srsAutoRefreshMinGoodEasyInput = elements.srsAutoRefreshMinGoodEasyInput || null;
     const srsAutoRefreshRepeatMinGoodEasyInput = elements.srsAutoRefreshRepeatMinGoodEasyInput || null;
@@ -59,8 +57,6 @@
     const srsRuntimeDiagnosticsButton = elements.srsRuntimeDiagnosticsButton || null;
     const srsRulegenSampledButton = elements.srsRulegenSampledButton || null;
     const srsResetButton = elements.srsResetButton || null;
-    const srsWordsRefreshButton = elements.srsWordsRefreshButton || null;
-    const srsWordsAdvancedInput = elements.srsWordsAdvancedInput || null;
     const semanticPackInstallButton = elements.semanticPackInstallButton || null;
     const srsAdmissionPreviewOutput = elements.srsAdmissionPreviewOutput || null;
     const srsRulegenSampledOutput = elements.srsRulegenSampledOutput || null;
@@ -307,9 +303,7 @@
       }
       return true;
     });
-    bindSrsSettingsChange(srsFeedbackSrsInput);
     bindSrsSettingsChange(srsFeedbackRulesInput);
-    bindSrsSettingsChange(srsAutoRefreshEnabledInput);
     bindSrsSettingsChange(srsAutoRefreshMinFeedbackInput);
     bindSrsSettingsChange(srsAutoRefreshMinGoodEasyInput);
     bindSrsSettingsChange(srsAutoRefreshRepeatMinGoodEasyInput);
@@ -388,18 +382,6 @@
       fallbackMessage: () => translate("status_srs_reset_failed", null, "Vocabulary Practice deletion failed."),
       logMessage: "[DeleteStory] Failed:"
     });
-    bindAsyncListener(srsWordsRefreshButton, "click", () => srsActionsController.refreshWordsDashboard(), {
-      fallbackMessage: () => translate("status_srs_items_list_failed", null, "Failed to load SRS words."),
-      logMessage: "SRS words dashboard refresh failed."
-    });
-    if (srsWordsAdvancedInput) {
-      srsWordsAdvancedInput.addEventListener("change", () => {
-        if (!srsActionsController || typeof srsActionsController.setWordsDashboardAdvanced !== "function") {
-          return;
-        }
-        srsActionsController.setWordsDashboardAdvanced(srsWordsAdvancedInput.checked);
-      });
-    }
     if (debugHelperTestButton) {
       debugHelperTestButton.addEventListener("click", () => {
         helperActionsController.testConnection();

@@ -34,10 +34,10 @@ fallback policy, definition filtering, or external-link construction.
 
 2. Promote the current admitted-words dashboard into a Vocabulary Library
    surface instead of creating a second unrelated learned-words product.
-   - The current Options dashboard remains a good embedded beta surface.
-   - First release should add a dedicated page/view for deeper inspection.
-   - The dedicated page should reuse the current dashboard read model and
-     controls where possible.
+   - First release uses a dedicated page/view for deeper inspection instead of
+     a large embedded Options dashboard.
+   - The dedicated page reuses the current dashboard read model and controls
+     where possible.
 
 3. Add `quick-definition` as a built-in popup module.
    - It should be default-on for supported pairs when language data is present.
@@ -86,8 +86,10 @@ compact FreeDict-style glosses.
 
 Current Vocabulary Library page behavior:
 
-- resolves the current selected SRS profile and language pair from extension
-  storage, with optional `profileId`/`pair` URL overrides;
+- resolves the current selected SRS profile from extension storage, with
+  optional `profileId`/`pair` URL overrides;
+- lists active Vocabulary Practice language pairs for that profile and lets the
+  learner switch among them from the page toolbar;
 - calls the existing read-only `srs_items_list` helper route;
 - reuses the existing dashboard search/status/sort semantics;
 - shows summary cards, pagination, a table with word/meaning/progress/activity/
@@ -433,8 +435,9 @@ Recommended first-release shape:
 - Dedicated extension page or full-page view rather than another large surface
   permanently expanded in Options.
 - Profile and language-pair scope visible at the top.
-- Current pair/profile first; cross-pair "all practice words" can follow after
-  full practice enumeration is implemented.
+- Current selected profile first, with a selector for that profile's active
+  language pairs; all-profile "all practice words" can follow after full
+  practice enumeration is implemented.
 - Tabs or segmented views:
   - `Words`
   - `Due`
@@ -575,7 +578,8 @@ Tests:
 
 Known limits:
 
-- The page is scoped to the selected/current profile and language pair.
+- The page is scoped to the selected/current profile and can switch among that
+  profile's active language pairs.
 - Definition previews are current-page scoped and capped; the page does not
   prefetch definitions for the entire SRS store.
 - The page does not implement completed/mastered lifecycle UX.
@@ -629,6 +633,8 @@ Manual beta checks:
 
 - Start Vocabulary Practice.
 - Open Vocabulary Library from the practice card.
+- Use the Practice selector to switch between active language pairs for the
+  selected profile.
 - Expand several words and confirm glosses/source phrases are plausible.
 - Right-click SRS replacements on a webpage and confirm `quick-definition`
   appears without delaying feedback controls.
@@ -638,13 +644,13 @@ Manual beta checks:
 ## Open Product Decisions
 
 1. Page name:
-   - Recommended: `Vocabulary Library`.
-   - Keep `Learning dashboard` as the compact Options card label if it still
-     reads better there.
+   - Resolved MVP: use `Vocabulary Library` for the dedicated page and the
+     Options entry point.
 
 2. Initial scope:
-   - Recommended MVP: selected profile plus selected/current language pair.
-   - Future: all Vocabulary Practice words across pairs after full practice
+   - Current MVP: selected profile plus a Practice selector for that profile's
+     active language pairs.
+   - Future: all Vocabulary Practice words across profiles after full practice
      enumeration is implemented.
 
 3. Definition copy:

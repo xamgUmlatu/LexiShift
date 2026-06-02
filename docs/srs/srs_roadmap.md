@@ -129,15 +129,15 @@ Status key:
 - `[x]` Feedback ingestion from extension popup.
 - `[~]` Formal lifecycle statuses (backend `active`/`discarded`/`cleared`
   markers exist; fuller review/mastery lifecycle remains planned).
-- `[~]` User-facing SRS item visibility (options dashboard has search/filter/
-  sort, pagination, refresh metadata, published-rule summaries/details, and
-  confirmed discard plus encounter-watch visibility; restore/mastery actions
-  remain planned).
+- `[~]` User-facing SRS item visibility (the dedicated Vocabulary Library has
+  search/filter/sort, pagination, refresh metadata, published-rule summaries/
+  details, and confirmed discard plus encounter-watch visibility; restore/
+  mastery actions remain planned).
 - `[~]` Story-based Options UX: the selected profile/pair now appears as a
-  selected-story block, dashboard/sampling open as curtains, and maintenance
-  remains collapsed; start-new-story opens a guided modal that saves visible
-  settings before sample/initialize; full story enumeration and richer story
-  summaries remain planned.
+  selected-story block, Vocabulary Library opens as a dedicated page, sampling
+  opens as a curtain, and maintenance remains collapsed; start-new-story opens a
+  guided modal that saves visible settings before sample/initialize; full story
+  enumeration and richer story summaries remain planned.
 - `[x]` Refresh budget hardening (`max_active` caps total active SRS items for
   the pair; `max_new_per_day` caps each refresh admission).
 - `[ ]` Calendar-day quota ledger if `max_new_per_day` must remain strict
@@ -241,9 +241,10 @@ Status key:
 - `[ ]` BetterDiscord plugin profile bridge wiring.
 - `[ ]` Conflict handling when multiple surfaces write feedback concurrently.
 - `[~]` Shared word-info read model plus Vocabulary Library and built-in
-  quick-definition popup module; shared API, built-in popup, and selected-pair
-  dedicated Vocabulary Library page are implemented, while cross-pair library
-  enumeration and completed/mastered lifecycle UX remain planned; see
+  quick-definition popup module; shared API, built-in popup, and selected-profile
+  dedicated Vocabulary Library page with active-pair selection are implemented,
+  while cross-profile library enumeration and completed/mastered lifecycle UX
+  remain planned; see
   `docs/srs/srs_vocabulary_library_and_word_info_plan.md`.
 
 ### Workstream G — End-to-End validation and calibration

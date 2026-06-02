@@ -97,16 +97,12 @@
         srsHighlightColor: rawProfile.srsHighlightColor || this.defaults.srsHighlightColor,
         srsSemanticAdmissionEnabled: true,
         srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
-        srsFeedbackSrsEnabled: rawProfile.srsFeedbackSrsEnabled !== undefined
-          ? rawProfile.srsFeedbackSrsEnabled === true
-          : (this.defaults.srsFeedbackSrsEnabled !== false),
+        srsFeedbackSrsEnabled: true,
         srsFeedbackRulesEnabled: rawProfile.srsFeedbackRulesEnabled === true,
         srsExposureLoggingEnabled: rawProfile.srsExposureLoggingEnabled !== undefined
           ? rawProfile.srsExposureLoggingEnabled === true
           : (this.defaults.srsExposureLoggingEnabled !== false),
-        srsAutoRefreshEnabled: rawProfile.srsAutoRefreshEnabled !== undefined
-          ? rawProfile.srsAutoRefreshEnabled === true
-          : (this.defaults.srsAutoRefreshEnabled !== false),
+        srsAutoRefreshEnabled: true,
         srsAutoRefreshMinFeedbackEvents: this._normalizeInt(
           rawProfile.srsAutoRefreshMinFeedbackEvents,
           this.defaults.srsAutoRefreshMinFeedbackEvents,
@@ -213,10 +209,10 @@
         srsHighlightColor: runtimeProfile.srsHighlightColor || this.defaults.srsHighlightColor,
         srsSemanticAdmissionEnabled: true,
         srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
-        srsFeedbackSrsEnabled: runtimeProfile.srsFeedbackSrsEnabled !== false,
+        srsFeedbackSrsEnabled: true,
         srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
         srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,
-        srsAutoRefreshEnabled: runtimeProfile.srsAutoRefreshEnabled !== false,
+        srsAutoRefreshEnabled: true,
         srsAutoRefreshMinFeedbackEvents: runtimeProfile.srsAutoRefreshMinFeedbackEvents
           || this.defaults.srsAutoRefreshMinFeedbackEvents,
         srsAutoRefreshMinGoodEasy: runtimeProfile.srsAutoRefreshMinGoodEasy
