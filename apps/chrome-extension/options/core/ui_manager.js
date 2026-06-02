@@ -49,8 +49,7 @@ class UIManager {
       "srs-story-dashboard-curtain", "srs-story-sampling-curtain",
       "srs-refresh-set", "srs-runtime-diagnostics",
       "srs-rulegen-sampled-preview",
-      "srs-story-current-card", "srs-story-current-pair",
-      "srs-words-refresh", "srs-words-advanced", "srs-words-search",
+      "srs-story-current-card", "srs-story-current-pair", "srs-words-refresh", "srs-words-advanced", "srs-words-search",
       "srs-words-status-filter", "srs-words-sort", "srs-words-page-size",
       "srs-words-clear-filters", "srs-words-summary", "srs-words-pagination",
       "srs-words-page-info", "srs-words-first-page", "srs-words-prev-page",
@@ -249,6 +248,7 @@ class UIManager {
 
   updateSrsInputs(profile, signals) {
     this.updateSrsStoryVisibility(profile);
+    if (this.srsStartCardPresenter) this.srsStartCardPresenter.update(profile);
     const signalState = signals && typeof signals === "object" ? signals : {};
     const interests = Array.isArray(signalState.interests) ? signalState.interests : [];
     const hasProficiencyEstimate = Boolean(signalState.proficiency

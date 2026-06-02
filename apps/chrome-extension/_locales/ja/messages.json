@@ -108,10 +108,19 @@
     "message": "語彙練習を開始"
   },
   "hint_srs_start_new_story": {
-    "message": "言語を選び、開始前に好みを調整します。"
+    "message": "言語ペアを選び、好みを調整してから練習を始めます。"
   },
   "button_srs_start_new_story": {
     "message": "設定を開始"
+  },
+  "heading_srs_add_new_story": {
+    "message": "別の言語を追加"
+  },
+  "hint_srs_add_new_story": {
+    "message": "新しい言語ペア用に別の語彙練習を作成します。既存の練習はそのまま残ります。"
+  },
+  "button_srs_add_new_story": {
+    "message": "言語を追加"
   },
   "heading_srs_story_flow": {
     "message": "語彙練習を設定"

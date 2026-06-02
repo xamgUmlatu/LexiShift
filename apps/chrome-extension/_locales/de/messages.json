@@ -108,10 +108,19 @@
     "message": "Wortschatztraining starten"
   },
   "hint_srs_start_new_story": {
-    "message": "Wähle die Sprachen und stimme die Präferenzen vor dem Start ab."
+    "message": "Wähle ein Sprachpaar, stimme deine Präferenzen ab und starte dann das Training."
   },
   "button_srs_start_new_story": {
     "message": "Einrichtung starten"
+  },
+  "heading_srs_add_new_story": {
+    "message": "Weitere Sprache hinzufügen"
+  },
+  "hint_srs_add_new_story": {
+    "message": "Erstelle ein separates Wortschatztraining für ein neues Sprachpaar. Dein bestehendes Training bleibt unverändert."
+  },
+  "button_srs_add_new_story": {
+    "message": "Sprache hinzufügen"
   },
   "heading_srs_story_flow": {
     "message": "Wortschatztraining einrichten"

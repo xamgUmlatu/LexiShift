@@ -44,6 +44,9 @@ SRS_BINDINGS_JS = (
 OPTIONS_HTML = PROJECT_ROOT / "apps/chrome-extension/options.html"
 OPTIONS_CSS = PROJECT_ROOT / "apps/chrome-extension/options.css"
 TOPIC_TAXONOMY_JSON = PROJECT_ROOT / "docs/test_inputs/srs_topic_preference_taxonomy_en_es.json"
+SRS_START_CARD_PRESENTER_JS = (
+    PROJECT_ROOT / "apps/chrome-extension/options/core/srs_start_card_presenter.js"
+)
 UI_MANAGER_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/ui_manager.js"
 SETTINGS_BASE_JS = PROJECT_ROOT / "apps/chrome-extension/options/core/settings/base_methods.js"
 SETTINGS_SRS_PROFILE_JS = (
@@ -1780,6 +1783,11 @@ installSrsProfileMethods(SettingsManager);
 const manager = new SettingsManager();
 
 (async () => {{
+  const initialProfile = manager.getSrsProfile(manager._items, "en-es", {{
+    profileId: "suisui"
+  }});
+  assert.equal(initialProfile.srsPairCount, 2);
+
   const result = await manager.deleteSrsProfilePair("en-es", {{
     profileId: "suisui"
   }});
@@ -1805,6 +1813,7 @@ const manager = new SettingsManager();
   }});
   assert.equal(deletedProfile.srsEnabled, false);
   assert.equal(deletedProfile.srsMaxActive, 40);
+  assert.equal(deletedProfile.srsPairCount, 1);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
@@ -1850,6 +1859,88 @@ assert.equal(storyCard.open, false);
 ui.updateSrsInputs({{ srsEnabled: true }}, {{}});
 assert.equal(storyCard.hidden, false);
 assert.equal(storyCard.open, false);
+"""
+        _run_node(script)
+
+    def test_srs_start_card_copy_switches_after_existing_practice(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const presenterPath = {json.dumps(str(SRS_START_CARD_PRESENTER_JS))};
+const uiManagerPath = {json.dumps(str(UI_MANAGER_JS))};
+const elements = new Map();
+function createElement() {{
+  return {{
+    hidden: false,
+    open: false,
+    checked: false,
+    value: "",
+    textContent: "",
+    dataset: {{}},
+    options: [],
+    selectedIndex: -1
+  }};
+}}
+[
+  "srs-story-current-card",
+  "srs-story-current-pair",
+  "srs-story-start-heading",
+  "srs-story-start-hint",
+  "srs-story-start"
+].forEach((id) => elements.set(id, createElement()));
+
+const context = vm.createContext({{
+  console,
+  document: {{
+    getElementById(id) {{
+      return elements.get(id) || null;
+    }},
+    querySelectorAll() {{
+      return [];
+    }}
+  }},
+  setTimeout(callback) {{
+    callback();
+  }}
+}});
+context.globalThis = context;
+vm.runInContext(fs.readFileSync(presenterPath, "utf8"), context, {{ filename: presenterPath }});
+vm.runInContext(
+  `${{fs.readFileSync(uiManagerPath, "utf8")}}\nglobalThis.__UIManager = UIManager;`,
+  context,
+  {{ filename: uiManagerPath }}
+);
+
+const translated = {{
+  heading_srs_start_new_story: "T:start",
+  hint_srs_start_new_story: "T:first hint",
+  button_srs_start_new_story: "T:start button",
+  heading_srs_add_new_story: "T:add",
+  hint_srs_add_new_story: "T:add hint",
+  button_srs_add_new_story: "T:add button"
+}};
+const ui = new context.__UIManager();
+ui.srsStartCardPresenter = context.LexiShift.optionsSrsStartCardPresenter.createPresenter({{
+  i18n: {{
+    t(key, _subs, fallback) {{
+      return translated[key] || fallback;
+    }}
+  }}
+}});
+
+ui.updateSrsInputs({{ srsEnabled: false, srsPairCount: 0 }}, {{}});
+assert.equal(elements.get("srs-story-start-heading").textContent, "T:start");
+assert.equal(elements.get("srs-story-start-hint").textContent, "T:first hint");
+assert.equal(elements.get("srs-story-start").textContent, "T:start button");
+assert.equal(elements.get("srs-story-start-heading").dataset.i18n, "heading_srs_start_new_story");
+
+ui.updateSrsInputs({{ srsEnabled: true, srsPairCount: 1 }}, {{}});
+assert.equal(elements.get("srs-story-start-heading").textContent, "T:add");
+assert.equal(elements.get("srs-story-start-hint").textContent, "T:add hint");
+assert.equal(elements.get("srs-story-start").textContent, "T:add button");
+assert.equal(elements.get("srs-story-start-heading").dataset.i18n, "heading_srs_add_new_story");
 """
         _run_node(script)
 

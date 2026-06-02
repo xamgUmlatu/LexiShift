@@ -108,10 +108,19 @@
     "message": "开始词汇练习"
   },
   "hint_srs_start_new_story": {
-    "message": "选择语言，并在开始前调整偏好。"
+    "message": "选择语言对，调整偏好，然后开始练习。"
   },
   "button_srs_start_new_story": {
     "message": "开始设置"
+  },
+  "heading_srs_add_new_story": {
+    "message": "添加另一种语言"
+  },
+  "hint_srs_add_new_story": {
+    "message": "为新的语言对创建单独的词汇练习。现有练习不会改变。"
+  },
+  "button_srs_add_new_story": {
+    "message": "添加语言"
   },
   "heading_srs_story_flow": {
     "message": "设置词汇练习"

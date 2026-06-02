@@ -56,6 +56,7 @@
       const rawProfile = this._isObject(profileEntry.srsByPair[resolvedPair])
         ? profileEntry.srsByPair[resolvedPair]
         : {};
+      const srsPairCount = Object.keys(profileEntry.srsByPair).length;
 
       const srsMaxActive = this._normalizeInt(
         rawProfile.srsMaxActive,
@@ -85,6 +86,7 @@
 
       return {
         profileId,
+        srsPairCount,
         srsEnabled: rawProfile.srsEnabled === true,
         srsMaxActive,
         srsBootstrapTopN: sizing.srsBootstrapTopN,

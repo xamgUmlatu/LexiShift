@@ -108,10 +108,19 @@
     "message": "Start Vocabulary Practice"
   },
   "hint_srs_start_new_story": {
-    "message": "Choose languages, then tune preferences before starting."
+    "message": "Choose a language pair, tune your preferences, then start practicing."
   },
   "button_srs_start_new_story": {
     "message": "Start setup"
+  },
+  "heading_srs_add_new_story": {
+    "message": "Add another language"
+  },
+  "hint_srs_add_new_story": {
+    "message": "Create a separate Vocabulary Practice for a new language pair. Your existing practice stays unchanged."
+  },
+  "button_srs_add_new_story": {
+    "message": "Add language"
   },
   "heading_srs_story_flow": {
     "message": "Set up Vocabulary Practice"
