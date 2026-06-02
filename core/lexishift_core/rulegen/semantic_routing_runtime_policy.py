@@ -120,7 +120,7 @@ PRODUCTION_SEMANTIC_DECISION_POLICIES: dict[str, SemanticDecisionPolicyConfig] =
     ),
 }
 PAIR_DEFAULT_SEMANTIC_DECISION_POLICY_IDS: dict[str, str] = {
-    "en-es": "en_es_sentence_veto_v3",
+    "en-es": "en_es_sentence_veto_v2",
 }
 
 

@@ -320,8 +320,8 @@ Operational note:
 
 - the default sweep now stays on the cheap lexical scorer family (`token_jaccard`, `tfidf_cosine`)
 - the heavier `sentence_transformer_cosine` lane is available explicitly for model-choice comparisons
-- the current evaluation slice now aligns to `en_es_sentence_veto_v10`; the shipped ordinary `en-es` helper runtime still uses the bounded `en_es_sentence_veto_v3` sentence-transformer phrase-guard lane by default, while active-only cue inventories auto-select the lexical `en_es_sentence_veto_v2` product-smoke row
-- this bounded default still relies on existing helper availability of `sentence_transformers`; if model load fails, the current fallback path still abstains rather than forcing a replace
+- the current evaluation slice now aligns to `en_es_sentence_veto_v10`; the shipped ordinary `en-es` helper runtime uses the lexical `en_es_sentence_veto_v2` product-smoke row by default, while the bounded `en_es_sentence_veto_v3` sentence-transformer phrase-guard lane remains explicit until model/dependency packaging is product-ready
+- explicit `sentence_transformer_cosine` policies still rely on helper availability of `sentence_transformers`; if model load fails, the current fallback path abstains rather than forcing a replace
 
 Current dataset scope:
 

@@ -1041,7 +1041,7 @@ Use this file when:
 	    - the current `en-es` fixed-shadow evaluation dataset lives at `docs/test_inputs/semantic_routing_cases/en_es_sentence_veto_v10.json`
 	    - this harness explicitly measures runtime-scoring quality separately from upstream shadow-mining quality
 	    - the default sweep stays on the cheap lexical scorer family, while `sentence_transformer_cosine` is available as an explicit heavier model-choice lane
-	    - the shipped ordinary `en-es` helper runtime now defaults to the bounded sentence-transformer gate via `en_es_sentence_veto_v3` (`sentence_transformer_cosine + masked_sentence + all_evidence_text + min_active=0.00 + min_margin=0.00`); active-only cue inventories auto-select the cheaper lexical `en_es_sentence_veto_v2` row, now set to the product-soft floor `min_active=0.015 + min_margin=0.00`
+	    - the shipped ordinary `en-es` helper runtime now defaults to the deployable lexical gate via `en_es_sentence_veto_v2` (`tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.015 + min_margin=0.00`); the heavier `en_es_sentence_veto_v3` sentence-transformer lane remains explicit because it requires model/dependency availability
 	  - First current lexical result on that harness:
 	    - the original higher threshold ladder (`min_active >= 0.25`) collapses to total abstention
 	    - once the sweep includes `min_active_score=0.00` and `0.05`, the best zero-harmful lexical control row was `tfidf_cosine + masked_sentence + all_evidence_text + min_active=0.05 + min_margin=0.00`; the current active-only product-smoke posture deliberately lowers that floor to `0.015` to reduce false abstains after live-page review accepted some harmful-replace risk

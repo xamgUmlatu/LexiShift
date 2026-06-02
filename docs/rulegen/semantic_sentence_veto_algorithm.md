@@ -128,14 +128,14 @@ As of this reference:
 The current pair default in code is:
 
 ```text
-en-es -> en_es_sentence_veto_v3
+en-es -> en_es_sentence_veto_v2
 ```
 
 Do not confuse this with the library fallback constants in
 `semantic_routing_runtime_scoring.py`. Named policies override those constants.
-Do not confuse it with the no-spend research control either; many recent matrix
-experiments intentionally use `tfidf_cosine` because they are offline,
-reproducible, and cheap.
+`en_es_sentence_veto_v3` remains available as an explicit heavier policy, but it
+requires `sentence_transformers`/model availability and is not the deployable
+runtime default.
 
 ### 3. Batch Fitting
 
