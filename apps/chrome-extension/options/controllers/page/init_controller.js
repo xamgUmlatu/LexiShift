@@ -20,6 +20,9 @@
     const loadSrsProfileForPair = typeof opts.loadSrsProfileForPair === "function"
       ? opts.loadSrsProfileForPair
       : (() => Promise.resolve());
+    const applyProfileBackgroundFromPrefs = typeof opts.applyProfileBackgroundFromPrefs === "function"
+      ? opts.applyProfileBackgroundFromPrefs
+      : (() => Promise.resolve());
     const updateRulesSourceUI = typeof opts.updateRulesSourceUI === "function"
       ? opts.updateRulesSourceUI
       : (() => {});
@@ -57,12 +60,23 @@
     const fileStatus = elements.fileStatus || null;
     const customRulesetEnabledInput = elements.customRulesetEnabledInput || null;
 
+    function queueInitialProfileThemeSync(uiPrefs) {
+      try {
+        Promise.resolve(applyProfileBackgroundFromPrefs(uiPrefs, { eagerBackdrop: true }))
+          .catch((_err) => {});
+      } catch (_err) {}
+    }
+
     async function load() {
       if (!settingsManager) {
         return;
       }
       setSrsProfileStatusLocalized("hint_profile_loading", null, "Loading profiles…");
       const items = await settingsManager.load();
+      const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
+      if (typeof settingsManager.getProfileUiPrefs === "function") {
+        queueInitialProfileThemeSync(settingsManager.getProfileUiPrefs(items, { profileId: selectedProfileId }));
+      }
       if (enabledInput) {
         enabledInput.checked = items.enabled;
       }
@@ -94,7 +108,6 @@
       if (i18n && typeof i18n.load === "function") {
         await i18n.load(items.uiLanguage || "system");
       }
-      const selectedProfileId = settingsManager.getSelectedSrsProfileId(items);
       const languagePrefs = settingsManager.getProfileLanguagePrefs(items, { profileId: selectedProfileId });
       const pairKey = applyLanguagePrefsToInputs(languagePrefs);
       await settingsManager.publishProfileLanguagePrefs(languagePrefs, { profileId: selectedProfileId });

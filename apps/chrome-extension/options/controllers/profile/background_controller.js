@@ -371,6 +371,7 @@
 
     return {
       syncForLoadedPrefs,
+      applyOptionsPageBackgroundFromPrefs,
       renderProfileBgStatus,
       onEnabledChange: backgroundActions.onEnabledChange,
       onOpacityInput: backgroundActions.onOpacityInput,

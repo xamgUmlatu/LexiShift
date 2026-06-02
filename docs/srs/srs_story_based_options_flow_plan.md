@@ -24,6 +24,9 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
   follow the same card-theme CSS-variable path as the rest of the Options page,
   and the dedicated Vocabulary Library applies the selected profile's Options
   background and card-theme preferences;
+- Options applies the selected profile's saved card theme and page backdrop as
+  soon as synced settings load, before the full background preview/status sync
+  finishes later in normal page initialization;
 - active-practice new-word preference edits are draft changes until the learner
   presses `Save preferences`;
 - the main Vocabulary Practice shell does not show generic installed-data copy; language-data

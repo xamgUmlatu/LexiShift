@@ -253,6 +253,7 @@
       helperActionsController,
       applyLanguagePrefsToInputs: languagePrefsAdapter.applyLanguagePrefsToInputs,
       loadSrsProfileForPair: controllerAdapters.loadSrsProfileForPair,
+      applyProfileBackgroundFromPrefs: controllerAdapters.applyProfileBackgroundFromPrefs,
       updateRulesSourceUI: uiBridge.updateRulesSourceUI,
       updateRulesMeta: uiBridge.updateRulesMeta,
       applyTargetLanguagePrefsLocalization: controllerAdapters.applyTargetLanguagePrefsLocalization,

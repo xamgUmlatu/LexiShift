@@ -2068,7 +2068,11 @@ Use this file when:
   source `main.py` development entrypoint, macOS fallback launch no longer
   requests `open -n`, and the resource catalog now carries byte-exact download
   totals for known large/Spanish resources so progress can remain determinate
-  even when a server omits `Content-Length`.
+  even when a server omits `Content-Length`. Options startup now applies the
+  selected profile's card-theme and page backdrop immediately after synced
+  settings load, before i18n/profile/helper refresh work, so profile visuals no
+  longer wait behind the full background preview/status and page initialization
+  path.
 - Last verified: `2026-06-02` focused Vocabulary Library pair-selector/theme-loading/direct-link/implicit-feedback-auto-refresh tests plus
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview

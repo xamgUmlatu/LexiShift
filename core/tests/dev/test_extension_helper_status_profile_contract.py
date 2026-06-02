@@ -766,6 +766,7 @@ vm.runInContext(fs.readFileSync(pageInitPath, "utf8"), context, {{ filename: pag
 
 const createController = context.LexiShift.optionsPageInit.createController;
 let refreshedProfileId = null;
+const calls = [];
 const controller = createController({{
   settingsManager: {{
     defaults: {{
@@ -800,20 +801,34 @@ const controller = createController({{
     getProfileLanguagePrefs(_items, _options) {{
       return {{ sourceLanguage: "en", targetLanguage: "es" }};
     }},
+    getProfileUiPrefs(_items, options) {{
+      return {{
+        profileId: options.profileId,
+        backgroundBackdropColor: "#4455aa"
+      }};
+    }},
     async publishProfileLanguagePrefs() {{}}
   }},
   i18n: {{
-    async load() {{}}
+    async load() {{
+      calls.push(["i18n"]);
+    }}
   }},
   helperActionsController: {{
     async refreshStatus(profileId) {{
+      calls.push(["helper", profileId]);
       refreshedProfileId = profileId;
     }}
   }},
   applyLanguagePrefsToInputs() {{
     return "en-es";
   }},
-  loadSrsProfileForPair: async () => {{}},
+  applyProfileBackgroundFromPrefs: async (uiPrefs, options) => {{
+    calls.push(["theme", uiPrefs.profileId, uiPrefs.backgroundBackdropColor, options.eagerBackdrop]);
+  }},
+  loadSrsProfileForPair: async (_items, pairKey) => {{
+    calls.push(["profile", pairKey]);
+  }},
   updateRulesSourceUI: () => {{}},
   updateRulesMeta: () => {{}},
   applyTargetLanguagePrefsLocalization: () => {{}},
@@ -845,6 +860,12 @@ const controller = createController({{
 (async () => {{
   await controller.load();
   assert.equal(refreshedProfileId, "suisui");
+  assert.deepEqual(calls, [
+    ["theme", "suisui", "#4455aa", true],
+    ["i18n"],
+    ["profile", "en-es"],
+    ["helper", "suisui"]
+  ]);
 }})().catch((error) => {{
   console.error(error);
   process.exit(1);
