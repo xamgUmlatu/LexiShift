@@ -2072,7 +2072,9 @@ Use this file when:
   selected profile's card-theme and page backdrop immediately after synced
   settings load, before i18n/profile/helper refresh work, so profile visuals no
   longer wait behind the full background preview/status and page initialization
-  path.
+  path; the page-background manager also skips duplicate backdrop/image/position
+  DOM writes so late background sync does not repaint the same already-applied
+  visual state.
 - Last verified: `2026-06-02` focused Vocabulary Library pair-selector/theme-loading/direct-link/implicit-feedback-auto-refresh tests plus
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview

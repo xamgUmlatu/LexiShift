@@ -28,6 +28,7 @@
       ? opts.urlApi
       : URL;
     let appliedObjectUrl = "";
+    let appliedState = { mode: "empty" };
 
     function revokeAppliedUrl() {
       if (!appliedObjectUrl) {
@@ -37,12 +38,17 @@
       appliedObjectUrl = "";
     }
 
+    function resetAppliedState() {
+      appliedState = { mode: "empty" };
+    }
+
     function clearBackgroundImageLayer() {
       revokeAppliedUrl();
       documentRef.body.style.removeProperty("background-image");
       documentRef.body.style.removeProperty("background-size");
       documentRef.body.style.removeProperty("background-position");
       documentRef.body.style.removeProperty("background-attachment");
+      resetAppliedState();
     }
 
     function clearBackground() {
@@ -62,10 +68,18 @@
     }
 
     function applyBackdropOnly(backdropColor) {
+      const color = normalizeBackdropColor(backdropColor);
+      if (appliedState.mode === "backdrop" && appliedState.backdropColor === color) {
+        return;
+      }
       clearBackgroundImageLayer();
-      applyBackdropColor(backdropColor);
+      applyBackdropColor(color);
       // Override CSS default radial gradient when only a solid backdrop is desired.
       documentRef.body.style.backgroundImage = "none";
+      appliedState = {
+        mode: "backdrop",
+        backdropColor: color
+      };
     }
 
     function applyBackgroundFromBlob(blob, opacity, backdropColor, positionX, positionY) {
@@ -73,28 +87,61 @@
         clearBackground();
         return;
       }
-      revokeAppliedUrl();
-      appliedObjectUrl = urlApi.createObjectURL(blob);
       const clamped = clampOpacity(opacity);
       const color = normalizeBackdropColor(backdropColor);
       const rgb = hexColorToRgb(color);
       const wash = Math.max(0, Math.min(1, 1 - clamped));
       const position = normalizePosition(positionX, positionY);
+      if (
+        appliedState.mode === "image"
+        && appliedState.blob === blob
+        && appliedState.opacity === clamped
+        && appliedState.backdropColor === color
+        && appliedState.positionX === position.x
+        && appliedState.positionY === position.y
+      ) {
+        return;
+      }
+      revokeAppliedUrl();
+      appliedObjectUrl = urlApi.createObjectURL(blob);
       documentRef.body.style.backgroundColor = color;
       documentRef.body.style.backgroundImage = `linear-gradient(rgba(${rgb.r},${rgb.g},${rgb.b},${wash}), rgba(${rgb.r},${rgb.g},${rgb.b},${wash})), url("${appliedObjectUrl}")`;
       documentRef.body.style.backgroundSize = "cover";
       documentRef.body.style.backgroundPosition = `${position.x}% ${position.y}%`;
       documentRef.body.style.backgroundAttachment = "fixed";
+      appliedState = {
+        mode: "image",
+        blob,
+        opacity: clamped,
+        backdropColor: color,
+        positionX: position.x,
+        positionY: position.y
+      };
     }
 
     function setBackgroundPosition(positionX, positionY) {
       const position = normalizePosition(positionX, positionY);
+      if (
+        appliedState.mode === "image"
+        && appliedState.positionX === position.x
+        && appliedState.positionY === position.y
+      ) {
+        return position;
+      }
       documentRef.body.style.backgroundPosition = `${position.x}% ${position.y}%`;
+      if (appliedState.mode === "image") {
+        appliedState = {
+          ...appliedState,
+          positionX: position.x,
+          positionY: position.y
+        };
+      }
       return position;
     }
 
     function dispose() {
       revokeAppliedUrl();
+      resetAppliedState();
     }
 
     return {
