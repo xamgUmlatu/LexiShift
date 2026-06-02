@@ -1125,7 +1125,7 @@
     "message": "Wort-Popup-Einstellungen"
   },
   "hint_word_popup_settings": {
-    "message": "Wähle aus, was beim Interagieren mit übersetzten Wörtern angezeigt wird."
+    "message": "Gilt für die Zielsprache des aktiven Wortschatztrainings. Wähle aus, was beim Interagieren mit übersetzten Wörtern angezeigt wird."
   },
   "module_quick_definition": {
     "message": "Definition"

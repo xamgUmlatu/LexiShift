@@ -1125,7 +1125,7 @@
     "message": "单词弹窗设置"
   },
   "hint_word_popup_settings": {
-    "message": "选择与已翻译单词互动时显示的内容。"
+    "message": "适用于当前词汇练习的目标语言。选择与已翻译单词互动时显示的内容。"
   },
   "module_quick_definition": {
     "message": "定义"
