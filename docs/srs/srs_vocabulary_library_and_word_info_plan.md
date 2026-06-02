@@ -497,7 +497,8 @@ Recommended first-release behavior:
    - a source phrase such as `Matches: dog` when useful,
    - external dictionary link(s),
    - unobtrusive "No definition available" fallback if local data is missing.
-4. SRS feedback buttons remain available and separate.
+4. SRS learning-word feedback buttons remain available and separate; manual
+   ruleset replacement feedback is not exposed for MVP.
 
 The popup module should be:
 

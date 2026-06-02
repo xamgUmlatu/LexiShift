@@ -131,7 +131,7 @@ This is also where SRS feedback is captured during real reading.
 3. If helper is not connected, open the core app and run `App -> Install Helper`, then re-check extension options.
 4. Select the extension profile used for this learning context (from profiles created in the core app).
 5. Confirm language pair and runtime display settings.
-6. Enable feedback behavior you want (`srsFeedbackSrsEnabled`, `srsFeedbackRulesEnabled`, `srsSoundEnabled`).
+6. Confirm feedback sound if desired; SRS learning-word feedback is always available in MVP, while manual-ruleset replacement feedback is not exposed.
 7. Turn on debug/exposure logging only when actively diagnosing behavior.
 
 ### Section 7.3: Verify runtime state
@@ -192,7 +192,8 @@ This is the most important section. SRS behavior lives in the extension plus hel
 - `srsMaxActive`: cap on active lemmas allowed by gate.
 - `srsBootstrapTopN`: initialization candidate pool size.
 - `srsInitialActiveCount`: initial active subset size.
-- `srsFeedbackSrsEnabled`/`srsFeedbackRulesEnabled`: popup eligibility by span origin.
+- `srsFeedbackSrsEnabled`: SRS learning-word popup feedback is enabled in MVP.
+- `srsFeedbackRulesEnabled`: reserved compatibility flag for ruleset-origin spans; not exposed and treated as off in MVP.
 - `srsSoundEnabled`: feedback sound toggle.
 - `srsExposureLoggingEnabled`: diagnostics logging toggle.
 

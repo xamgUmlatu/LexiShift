@@ -1033,6 +1033,32 @@ header p {
   gap: 8px;
 }
 
+.srs-display-inline-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px 22px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--ls-group-subcard-separator);
+  padding-top: 14px;
+}
+
+.srs-display-inline-controls .field-row {
+  margin-top: 0;
+}
+
+.srs-highlight-color-row {
+  flex: 0 1 auto;
+}
+
+.srs-sound-inline-toggle {
+  width: auto;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #3f382f;
+}
+
 .srs-auto-refresh-settings,
 .srs-technical-status {
   margin-top: 2px;

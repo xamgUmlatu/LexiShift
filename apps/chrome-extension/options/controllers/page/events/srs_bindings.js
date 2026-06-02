@@ -43,7 +43,6 @@
     const srsSoundInput = elements.srsSoundInput || null;
     const srsHighlightInput = elements.srsHighlightInput || null;
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
-    const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsAutoRefreshMinFeedbackInput = elements.srsAutoRefreshMinFeedbackInput || null;
     const srsAutoRefreshMinGoodEasyInput = elements.srsAutoRefreshMinGoodEasyInput || null;
     const srsAutoRefreshRepeatMinGoodEasyInput = elements.srsAutoRefreshRepeatMinGoodEasyInput || null;
@@ -303,7 +302,6 @@
       }
       return true;
     });
-    bindSrsSettingsChange(srsFeedbackRulesInput);
     bindSrsSettingsChange(srsAutoRefreshMinFeedbackInput);
     bindSrsSettingsChange(srsAutoRefreshMinGoodEasyInput);
     bindSrsSettingsChange(srsAutoRefreshRepeatMinGoodEasyInput);

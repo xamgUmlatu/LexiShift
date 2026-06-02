@@ -1844,7 +1844,7 @@ Use this file when:
   selection, and built-in `quick-definition` popup module; cross-profile library enumeration and completed/
   mastered lifecycle UX remain planned.
 - Last documented checkpoint: `2026-06-02` selected-profile Vocabulary Library
-  page with active-pair selection extends the source-resolution and enriched popup checkpoint:
+  page with active-pair selection and selected-profile theme application extends the source-resolution and enriched popup checkpoint:
   helper/core can read a profile/pair/lemma
   word-info payload, native host exposes `word_info_lookup`, the extension
   helper client exposes `lookupWordInfo`, Options exposes a
@@ -1853,9 +1853,10 @@ Use this file when:
   registers `quick-definition` ahead of script/history modules; Options links
   to `learning_dashboard.html`, whose page controller resolves the active
   profile, lists active pairs for that profile, lists admitted words for the
-  selected pair, loads current-page definition previews,
-  opens a detail panel, and reuses confirmed discard as its only mutation.
-- Last verified: `2026-06-02` dedicated Vocabulary Library page pair-selector tests plus
+  selected pair, applies the selected profile's Options background/card-theme
+  preferences, loads current-page definition previews, opens a detail panel,
+  and reuses confirmed discard as its only mutation.
+- Last verified: `2026-06-02` dedicated Vocabulary Library page pair-selector/theme-loading tests plus
   focused helper word-info tests, native-host route tests, helper-client/API
   contract tests, quick-definition popup render and registry tests, extension
   structure tests, JS syntax checks, and Python compile checks
@@ -1897,6 +1898,7 @@ Use this file when:
     is scoped to the selected/current profile, lets the learner select among
     that profile's active language pairs, uses the existing read-only
     `srs_items_list` route, reuses local dashboard search/status/sort semantics,
+    applies the selected profile's Options background/card-theme preferences,
     and loads definition/gloss previews only for the current page, capped at 25
     rows per render.
   - The Vocabulary Library detail panel shows local definition/glosses,
@@ -1926,6 +1928,8 @@ Use this file when:
   - `apps/chrome-extension/learning_dashboard.css`
   - `apps/chrome-extension/learning_dashboard_model.js`
   - `apps/chrome-extension/learning_dashboard_view.js`
+  - `apps/chrome-extension/learning_dashboard_table.js`
+  - `apps/chrome-extension/learning_dashboard_theme.js`
   - `apps/chrome-extension/learning_dashboard.js`
   - `core/tests/helper/test_helper_word_info.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
@@ -1955,8 +1959,11 @@ Use this file when:
 - Last documented checkpoint: `2026-06-02` Options now links directly to the
   dedicated Vocabulary Library instead of embedding the admitted-words
   dashboard, the dedicated page lets the selected profile switch among active
-  language pairs, and learning-word review feedback plus automatic new-word
-  refresh are implicit always-on defaults rather than learner-facing toggles.
+  language pairs while applying the same selected-profile background/card-theme
+  preferences as Options, and learning-word review feedback plus automatic
+  new-word refresh are implicit always-on defaults rather than learner-facing
+  toggles. Manual-ruleset replacement feedback is an internal compatibility
+  flag and remains off/not exposed for MVP.
   `2026-06-02` learner-facing naming now presents the
   SRS-backed learning surface as `Vocabulary Practice`, uses `practice`/
   `learning words` copy in setup, dashboard, preference-save, discard, and
@@ -1988,7 +1995,8 @@ Use this file when:
   hidden, new-word preference edits require an explicit Save preferences action,
   helper/semantic technical status is not shown inside the active story surface,
   empty status panels appear only after content is written,
-  display controls stay in the normal story surface, the collapsed
+  display controls are reduced to an inline highlight-color control plus sound
+  toggle in the normal story surface, the collapsed
   `Advanced` section contains only same-level user-tunable new-word timing
   thresholds plus the story-scoped delete action, the visible SRS enable switch
   and generic installed-data hint are removed because the guided initialization
@@ -2038,7 +2046,8 @@ Use this file when:
   below language-pair/theme selectors; Vocabulary Practice
   cards, topic
   panels, curtains, and the Vocabulary Library entry use the same card-theme CSS variable
-  path as the rest of Options, and the
+  path as the rest of Options, the dedicated Vocabulary Library applies the
+  selected profile's page background and card-theme preferences, and the
   start-new-story block opens a guided modal that defaults missing proficiency
   to an explicit beginner value, inherits the active profile without exposing a
   profile picker or profile-selection copy, starts each fresh setup opening
@@ -2060,7 +2069,7 @@ Use this file when:
   requests `open -n`, and the resource catalog now carries byte-exact download
   totals for known large/Spanish resources so progress can remain determinate
   even when a server omits `Content-Length`.
-- Last verified: `2026-06-02` focused Vocabulary Library pair-selector/direct-link/implicit-feedback-auto-refresh tests plus
+- Last verified: `2026-06-02` focused Vocabulary Library pair-selector/theme-loading/direct-link/implicit-feedback-auto-refresh tests plus
   resource-plan/manual-frequency-policy/native-app-launch checks now extend the
   setup-flow profile inheritance, clean-topic setup opening, sanitized preview
   diagnostics, preview-renderer update, and focused
@@ -2068,7 +2077,7 @@ Use this file when:
   controller-graph construction order, collapsed selected-story markup,
   hidden active-story word-pool backing controls, initialization-only
   starting-word controls, hidden backing source/target/initialize controls,
-  polished direct-library/sampling/display-feedback/Advanced markup and ordering,
+  polished direct-library/sampling/inline display-feedback/Advanced markup and ordering,
   previous-proficiency restore binding, beginner-default setup proficiency,
   hidden inherited setup profile with no visible setup profile-selection copy,
   clean setup topic defaults,
@@ -2190,13 +2199,15 @@ Use this file when:
   - The admitted-words embedded dashboard is no longer a learner-facing Options
     surface. The story card links directly to the dedicated Vocabulary Library,
     which is ordered directly after new-word sampling and can switch among the
-    selected profile's active language pairs.
+    selected profile's active language pairs while rendering with that selected
+    profile's Options page background and card-theme preferences.
   - New-word sampling remains non-mutating and is hidden until the sampling
     curtain is opened from its summary panel.
-  - Display controls include highlight color, manual-replacement feedback
-    buttons, and sound. Learning-word review buttons and automatic new-word
-    addition after feedback are always-on MVP defaults and are no longer exposed
-    as learner-facing toggles.
+  - Display controls include only word highlight color and feedback sound in an
+    inline row. Learning-word review buttons and automatic new-word addition
+    after feedback are always-on MVP defaults, and manual-ruleset replacement
+    feedback remains off/reserved, so none of those three flags are exposed as
+    learner-facing toggles.
   - The collapsed active-practice `Advanced` section exposes new-word timing
 	    thresholds as same-level controls, followed by `Delete Vocabulary Practice`. The
     delete action uses the existing helper reset route but is presented and

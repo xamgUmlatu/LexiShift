@@ -287,9 +287,6 @@
   "label_srs_highlight_color": {
     "message": "Word highlight color"
   },
-  "section_srs_display_feedback": {
-    "message": "Display and feedback"
-  },
   "label_srs_semantic_admission_status": {
     "message": "Sentence fit check"
   },
@@ -346,9 +343,6 @@
   },
   "option_srs_semantic_fallback_soft": {
     "message": "Soft affordance (reserved)"
-  },
-  "toggle_srs_feedback_rules": {
-    "message": "Show feedback buttons on manual replacements"
   },
   "summary_srs_auto_refresh": {
     "message": "When new words are added"

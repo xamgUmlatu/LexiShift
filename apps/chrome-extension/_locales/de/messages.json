@@ -284,9 +284,6 @@
   "label_srs_highlight_color": {
     "message": "Farbe der Worthervorhebung"
   },
-  "section_srs_display_feedback": {
-    "message": "Anzeige und Feedback"
-  },
   "label_srs_semantic_admission_status": {
     "message": "Satz-Passung prüfen"
   },
@@ -343,9 +340,6 @@
   },
   "option_srs_semantic_fallback_soft": {
     "message": "Weiche Andeutung (reserviert)"
-  },
-  "toggle_srs_feedback_rules": {
-    "message": "Feedback-Schaltflächen für manuelle Ersetzungen anzeigen"
   },
   "summary_srs_auto_refresh": {
     "message": "Wann neue Wörter hinzugefügt werden"

@@ -98,7 +98,7 @@
         srsSemanticAdmissionEnabled: true,
         srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
         srsFeedbackSrsEnabled: true,
-        srsFeedbackRulesEnabled: rawProfile.srsFeedbackRulesEnabled === true,
+        srsFeedbackRulesEnabled: false,
         srsExposureLoggingEnabled: rawProfile.srsExposureLoggingEnabled !== undefined
           ? rawProfile.srsExposureLoggingEnabled === true
           : (this.defaults.srsExposureLoggingEnabled !== false),
@@ -210,7 +210,7 @@
         srsSemanticAdmissionEnabled: true,
         srsSemanticAdmissionFallbackPolicy: DEFAULT_SEMANTIC_FALLBACK_POLICY,
         srsFeedbackSrsEnabled: true,
-        srsFeedbackRulesEnabled: runtimeProfile.srsFeedbackRulesEnabled === true,
+        srsFeedbackRulesEnabled: false,
         srsExposureLoggingEnabled: runtimeProfile.srsExposureLoggingEnabled !== false,
         srsAutoRefreshEnabled: true,
         srsAutoRefreshMinFeedbackEvents: runtimeProfile.srsAutoRefreshMinFeedbackEvents

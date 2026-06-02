@@ -39,7 +39,6 @@ class UIManager {
       "srs-save-preferences", "srs-preferences-save-status",
       "srs-sound-enabled", "srs-highlight-color", "srs-highlight-color-text",
       "srs-semantic-admission-status", "srs-semantic-admission-status-detail",
-      "srs-feedback-rules-enabled",
       "srs-auto-refresh-min-feedback",
       "srs-auto-refresh-min-good-easy", "srs-auto-refresh-repeat-min-good-easy",
       "srs-auto-refresh-cooldown",
@@ -289,9 +288,6 @@ class UIManager {
     }
     if (this.dom.srsFeedbackSrsEnabled) {
       this.dom.srsFeedbackSrsEnabled.checked = profile.srsFeedbackSrsEnabled;
-    }
-    if (this.dom.srsFeedbackRulesEnabled) {
-      this.dom.srsFeedbackRulesEnabled.checked = profile.srsFeedbackRulesEnabled;
     }
     if (this.dom.srsExposureLoggingEnabled) {
       this.dom.srsExposureLoggingEnabled.checked = profile.srsExposureLoggingEnabled;

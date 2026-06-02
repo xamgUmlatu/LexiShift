@@ -4,6 +4,7 @@
   const formatting = root.optionsSrsWordsDashboardFormatting;
   const view = root.learningDashboardView;
   const tableFactory = root.learningDashboardTable;
+  const themeFactory = root.learningDashboardTheme;
 
   if (!model || !formatting || !view || !tableFactory) {
     throw new Error("[LexiShift][Vocabulary Library] Missing dashboard dependencies.");
@@ -37,6 +38,12 @@
       selectedKey: () => selectedKey,
       t
     });
+    const theme = themeFactory && typeof themeFactory.createThemeApplier === "function"
+      ? themeFactory.createThemeApplier({
+          documentRef: doc,
+          settingsManager
+        })
+      : { applyTheme: () => Promise.resolve({ applied: false }) };
 
     let profileId = "default";
     let pair = "en-en";
@@ -59,6 +66,7 @@
       if (i18n && typeof i18n.load === "function") {
         await i18n.load(items.uiLanguage || "system");
       }
+      await theme.applyTheme({ items });
       doc.title = t("learning_dashboard_title", null, "Vocabulary Library");
       resolveScope(items);
       await refresh();

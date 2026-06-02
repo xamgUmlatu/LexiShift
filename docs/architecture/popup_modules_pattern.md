@@ -165,7 +165,7 @@ Recommended context shape:
   settings: {
     targetDisplayScript,
     srsFeedbackSrsEnabled,
-    srsFeedbackRulesEnabled
+    srsFeedbackRulesEnabled // reserved/off in MVP
   }
 }
 ```

@@ -306,7 +306,7 @@ Source-of-truth: user-facing onboarding guide only; current GUI, extension, plug
         <li>If helper is not connected, open the core app and run <code>App -> Install Helper</code>, then re-check extension options.</li>
         <li>Select the extension profile used for this learning context (from profiles created in the core app).</li>
         <li>Confirm language pair and runtime display settings.</li>
-        <li>Enable feedback behavior you want (<code>srsFeedbackSrsEnabled</code>, <code>srsFeedbackRulesEnabled</code>, <code>srsSoundEnabled</code>).</li>
+        <li>Confirm feedback sound if desired; SRS learning-word feedback is always available in MVP, while manual-ruleset replacement feedback is not exposed.</li>
         <li>Turn on debug/exposure logging only when actively diagnosing behavior.</li>
       </ol>
       <h3>Section 7.3: Verify runtime state</h3>
@@ -382,7 +382,8 @@ Source-of-truth: user-facing onboarding guide only; current GUI, extension, plug
         <li><code>srsMaxActive</code>: cap on active lemmas allowed by gate.</li>
         <li><code>srsBootstrapTopN</code>: initialization candidate pool size.</li>
         <li><code>srsInitialActiveCount</code>: initial active subset size.</li>
-        <li><code>srsFeedbackSrsEnabled</code>/<code>srsFeedbackRulesEnabled</code>: popup eligibility by span origin.</li>
+        <li><code>srsFeedbackSrsEnabled</code>: SRS learning-word popup feedback is enabled in MVP.</li>
+        <li><code>srsFeedbackRulesEnabled</code>: reserved compatibility flag for ruleset-origin spans; not exposed and treated as off in MVP.</li>
         <li><code>srsSoundEnabled</code>: feedback sound toggle.</li>
         <li><code>srsExposureLoggingEnabled</code>: diagnostics logging toggle.</li>
       </ul>

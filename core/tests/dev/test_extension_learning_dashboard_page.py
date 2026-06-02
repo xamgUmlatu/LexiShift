@@ -9,6 +9,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 MODEL_JS = PROJECT_ROOT / "apps/chrome-extension/learning_dashboard_model.js"
 VIEW_JS = PROJECT_ROOT / "apps/chrome-extension/learning_dashboard_view.js"
+THEME_JS = PROJECT_ROOT / "apps/chrome-extension/learning_dashboard_theme.js"
 FORMATTING_JS = (
     PROJECT_ROOT
     / "apps/chrome-extension/options/controllers/srs/actions/words_dashboard_formatting.js"
@@ -121,6 +122,87 @@ assert.deepEqual(normalize(view.resolveGlosses({{
   {{ text: "dog", details: ["domestic animal", "canid"] }},
   {{ text: "hound", details: [] }}
 ]);
+"""
+        _run_node(script)
+
+    def test_theme_applier_uses_selected_profile_ui_preferences(self) -> None:
+        script = f"""
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const vm = require("node:vm");
+
+const themePath = {json.dumps(str(THEME_JS))};
+const context = vm.createContext({{ console, URL }});
+context.globalThis = context;
+context.document = {{
+  body: {{ style: {{}} }},
+  documentElement: {{ style: {{}} }}
+}};
+context.LexiShift = {{
+  optionsProfileBackgroundUtils: {{
+    normalizeBackdropColor(value) {{ return String(value || "").toLowerCase(); }},
+    clampOpacity(value) {{ return Number(value); }},
+    clampPositionPercent(value) {{ return Number(value); }},
+    hexColorToRgb() {{ return {{ r: 68, g: 85, b: 170 }}; }}
+  }}
+}};
+
+const calls = [];
+context.LexiShift.optionsProfileBackgroundPageBackgroundManager = {{
+  createManager(options) {{
+    calls.push(["pageFactory", Boolean(options.documentRef.body)]);
+    return {{
+      applyBackdropOnly(color) {{ calls.push(["backdrop", color]); }},
+      applyBackgroundFromBlob() {{ calls.push(["image"]); }}
+    }};
+  }}
+}};
+context.LexiShift.optionsProfileBackgroundCardThemeManager = {{
+  createManager(options) {{
+    calls.push(["cardFactory", Boolean(options.documentRef.documentElement)]);
+    return {{
+      applyCardThemeFromPrefs(prefs) {{ calls.push(["cardTheme", prefs.cardThemeHueDeg]); }}
+    }};
+  }}
+}};
+
+vm.runInContext(fs.readFileSync(themePath, "utf8"), context, {{ filename: themePath }});
+const normalize = (value) => JSON.parse(JSON.stringify(value));
+
+const settingsManager = {{
+  defaults: {{ profileCardThemeHueDeg: 0 }},
+  async load() {{ return {{ loaded: true }}; }},
+  getSelectedSrsProfileId(items) {{
+    assert.equal(items.loaded, true);
+    return "suisui";
+  }},
+  getProfileUiPrefs(items, options) {{
+    assert.equal(options.profileId, "suisui");
+    return {{
+      backgroundEnabled: false,
+      backgroundBackdropColor: "#4455AA",
+      cardThemeHueDeg: 42
+    }};
+  }}
+}};
+
+(async () => {{
+  const applier = context.LexiShift.learningDashboardTheme.createThemeApplier({{
+    documentRef: context.document,
+    settingsManager
+  }});
+  const result = await applier.applyTheme({{ items: {{ loaded: true }} }});
+  assert.deepEqual(normalize(result), {{ profileId: "suisui", applied: true }});
+  assert.deepEqual(calls, [
+    ["pageFactory", true],
+    ["cardFactory", true],
+    ["cardTheme", 42],
+    ["backdrop", "#4455aa"]
+  ]);
+}})().catch((error) => {{
+  console.error(error);
+  process.exit(1);
+}});
 """
         _run_node(script)
 

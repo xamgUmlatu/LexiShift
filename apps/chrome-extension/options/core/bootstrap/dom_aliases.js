@@ -66,7 +66,6 @@
       srsSemanticAdmissionFallbackPolicyInput: source.srsSemanticAdmissionFallbackPolicy || null,
       srsSemanticAdmissionStatusOutput: source.srsSemanticAdmissionStatus || null,
       srsSemanticAdmissionStatusDetailOutput: source.srsSemanticAdmissionStatusDetail || null,
-      srsFeedbackRulesInput: source.srsFeedbackRulesEnabled || null,
       srsAutoRefreshMinFeedbackInput: source.srsAutoRefreshMinFeedback || null,
       srsAutoRefreshMinGoodEasyInput: source.srsAutoRefreshMinGoodEasy || null,
       srsAutoRefreshRepeatMinGoodEasyInput: source.srsAutoRefreshRepeatMinGoodEasy || null,

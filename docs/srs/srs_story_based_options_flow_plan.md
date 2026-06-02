@@ -15,12 +15,15 @@ As of 2026-05-28, the Options page has the beta-facing structural flow:
 - admission sampling is behind a `Sample next words` curtain placed directly
   after the active practice's admission-preference controls;
 - the dedicated `Vocabulary Library` entry is placed directly after sampling;
-- display controls sit in the normal expanded practice surface after the
-  Vocabulary Library entry;
+- display controls sit as an inline word-highlight color control plus feedback
+  sound toggle in the normal expanded practice surface after the Vocabulary
+  Library entry;
 - the collapsed `Advanced` section contains same-level new-word timing
   thresholds and a practice-scoped delete action only;
-- practice cards, topic panels, curtains, and the Vocabulary Library entry follow the
-  same card-theme CSS-variable path as the rest of the Options page;
+- practice cards, topic panels, curtains, and the Vocabulary Library entry
+  follow the same card-theme CSS-variable path as the rest of the Options page,
+  and the dedicated Vocabulary Library applies the selected profile's Options
+  background and card-theme preferences;
 - active-practice new-word preference edits are draft changes until the learner
   presses `Save preferences`;
 - the main Vocabulary Practice shell does not show generic installed-data copy; language-data

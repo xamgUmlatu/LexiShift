@@ -63,7 +63,6 @@
     const srsHighlightTextInput = elements.srsHighlightTextInput || null;
     const srsSemanticAdmissionStatusOutput = elements.srsSemanticAdmissionStatusOutput || null;
     const srsSemanticAdmissionStatusDetailOutput = elements.srsSemanticAdmissionStatusDetailOutput || null;
-    const srsFeedbackRulesInput = elements.srsFeedbackRulesInput || null;
     const srsExposureLoggingInput = elements.srsExposureLoggingInput || null;
     const srsProfileIdInput = elements.srsProfileIdInput || null;
     const srsProfileRefreshButton = elements.srsProfileRefreshButton || null;
@@ -201,7 +200,7 @@
         const srsSemanticAdmissionEnabled = true;
         const srsSemanticAdmissionFallbackPolicy = DEFAULT_SEMANTIC_FALLBACK_POLICY;
         const srsFeedbackSrsEnabled = true;
-        const srsFeedbackRulesEnabled = srsFeedbackRulesInput ? srsFeedbackRulesInput.checked : false;
+        const srsFeedbackRulesEnabled = false;
         const srsExposureLoggingEnabled = srsExposureLoggingInput
           ? srsExposureLoggingInput.checked
           : true;

@@ -199,9 +199,7 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         )
         sampling_start = current_card_markup.index('id="srs-story-sampling-curtain"')
         dashboard_start = current_card_markup.index('id="srs-story-dashboard-link-card"')
-        appearance_start = current_card_markup.index(
-            'class="srs-settings-section srs-appearance-settings"'
-        )
+        appearance_start = current_card_markup.index('class="srs-display-inline-controls"')
         advanced_start = current_card_markup.index(
             'class="advanced srs-maintenance-tools srs-story-advanced-tools"'
         )
@@ -211,9 +209,12 @@ class TestExtensionSrsSettingsContract(unittest.TestCase):
         self.assertLess(appearance_start, advanced_start)
         self.assertIn('class="advanced srs-advanced-topic-tags" hidden', html)
         self.assertNotIn('id="srs-feedback-srs-enabled"', html)
+        self.assertNotIn('id="srs-feedback-rules-enabled"', html)
         self.assertNotIn('id="srs-auto-refresh-enabled"', html)
         self.assertNotIn('data-i18n="toggle_srs_feedback_srs"', html)
+        self.assertNotIn('data-i18n="toggle_srs_feedback_rules"', html)
         self.assertNotIn('data-i18n="toggle_srs_auto_refresh"', html)
+        self.assertNotIn('data-i18n="section_srs_display_feedback"', html)
         self.assertNotIn('class="advanced srs-technical-status"', current_card_markup)
         self.assertNotIn('id="helper-status"', current_card_markup)
         self.assertNotIn('id="srs-semantic-admission-status"', current_card_markup)
@@ -1056,7 +1057,6 @@ const controller = createController({{
       srsSoundInput: {{ checked: true }},
       srsHighlightInput: {{ value: "#445566" }},
       srsHighlightTextInput: {{ value: "" }},
-      srsFeedbackRulesInput: {{ checked: false }},
       srsExposureLoggingInput: {{ checked: true }}
   }}
 }});
@@ -1071,6 +1071,7 @@ const controller = createController({{
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionEnabled, true);
   assert.equal(captured.profileSave.profile.srsSemanticAdmissionFallbackPolicy, "abstain_on_unavailable");
   assert.equal(captured.profileSave.profile.srsFeedbackSrsEnabled, true);
+  assert.equal(captured.profileSave.profile.srsFeedbackRulesEnabled, false);
   assert.equal(captured.profileSave.profile.srsAutoRefreshEnabled, true);
   assert.equal("interests" in captured.profileSave.profile, false);
 
@@ -1193,7 +1194,6 @@ const controller = createController({{
     srsSoundInput: {{ checked: true }},
     srsHighlightInput: {{ value: "#445566" }},
     srsHighlightTextInput: {{ value: "" }},
-    srsFeedbackRulesInput: {{ checked: false }},
     srsExposureLoggingInput: {{ checked: true }}
   }}
 }});
@@ -1246,7 +1246,6 @@ const autoSaveSettingNames = new Set([
   "sound",
   "highlight",
   "highlightText",
-  "feedbackRules",
   "exposureLogging",
   "savePreferences"
 ]);
@@ -1280,7 +1279,6 @@ const elements = {{
   srsSoundInput: makeElement("sound"),
   srsHighlightInput: makeElement("highlight"),
   srsHighlightTextInput: makeElement("highlightText"),
-  srsFeedbackRulesInput: makeElement("feedbackRules"),
   srsExposureLoggingInput: makeElement("exposureLogging"),
   srsSavePreferencesButton: makeElement("savePreferences"),
   srsPreferencesSaveStatusOutput: makeElement("preferencesSaveStatus")

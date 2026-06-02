@@ -284,9 +284,6 @@
   "label_srs_highlight_color": {
     "message": "单词高亮颜色"
   },
-  "section_srs_display_feedback": {
-    "message": "显示与反馈"
-  },
   "label_srs_semantic_admission_status": {
     "message": "句子适配检查"
   },
@@ -343,9 +340,6 @@
   },
   "option_srs_semantic_fallback_soft": {
     "message": "软提示（预留）"
-  },
-  "toggle_srs_feedback_rules": {
-    "message": "在手动替换词上显示反馈按钮"
   },
   "summary_srs_auto_refresh": {
     "message": "何时添加新词"

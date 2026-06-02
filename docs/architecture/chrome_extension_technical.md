@@ -245,7 +245,7 @@ SRS settings (extension)
 - `srsInitialActiveCount` (int): initial active subset size declared for planner/policy.
 - `srsHighlightColor` (hex): highlight color for SRS-origin spans.
 - `srsFeedbackSrsEnabled` (bool): allow feedback popup on SRS-origin spans.
-- `srsFeedbackRulesEnabled` (bool): allow feedback popup on ruleset-origin spans.
+- `srsFeedbackRulesEnabled` (bool): reserved compatibility flag for ruleset-origin spans; normalized off/not exposed for MVP.
 - `srsSoundEnabled` (bool): enable/disable feedback sound.
 - `srsExposureLoggingEnabled` (bool): enable/disable logging of exposure events.
 - `srsSelectedProfileId` (string): extension-local selected profile id for SRS runtime/options.
@@ -337,9 +337,9 @@ SRS feedback UX (extension)
   - `helperFeedbackSyncQueue`
   - `helperFeedbackSyncLock`
   - `helperFeedbackSyncDropped`
-- Feedback popup appears when the origin is enabled:
-  - SRS words: `srsFeedbackSrsEnabled`
-  - Ruleset words: `srsFeedbackRulesEnabled`
+- Feedback popup appears for SRS learning words in MVP. Ruleset-origin feedback
+  remains an internal compatibility path gated by `srsFeedbackRulesEnabled`, but
+  Options normalizes that flag off and does not expose a learner-facing toggle.
 
 Exposure tracking (extension)
 - Each replacement detail is logged with origin (`srs` or `ruleset`).

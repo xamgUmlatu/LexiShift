@@ -284,9 +284,6 @@
   "label_srs_highlight_color": {
     "message": "単語のハイライト色"
   },
-  "section_srs_display_feedback": {
-    "message": "表示とフィードバック"
-  },
   "label_srs_semantic_admission_status": {
     "message": "文への適合チェック"
   },
@@ -343,9 +340,6 @@
   },
   "option_srs_semantic_fallback_soft": {
     "message": "ソフト表示（予約済み）"
-  },
-  "toggle_srs_feedback_rules": {
-    "message": "手動置換語にフィードバックボタンを表示"
   },
   "summary_srs_auto_refresh": {
     "message": "新しい単語を追加するタイミング"
