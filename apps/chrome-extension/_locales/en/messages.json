@@ -485,6 +485,9 @@
   "button_srs_words_refresh": {
     "message": "Refresh words"
   },
+  "button_srs_words_open_library": {
+    "message": "Open full library"
+  },
   "toggle_srs_words_advanced": {
     "message": "Advanced details"
   },
@@ -532,6 +535,156 @@
   },
   "button_srs_words_clear_filters": {
     "message": "Clear filters"
+  },
+  "learning_dashboard_title": {
+    "message": "Vocabulary Library"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "Review your learning words, definitions, progress, and page-replacement sources."
+  },
+  "learning_dashboard_back": {
+    "message": "Back to options"
+  },
+  "learning_dashboard_refresh": {
+    "message": "Refresh"
+  },
+  "learning_dashboard_search": {
+    "message": "Search"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "Progress"
+  },
+  "learning_dashboard_sort": {
+    "message": "Sort"
+  },
+  "learning_dashboard_rows": {
+    "message": "Rows"
+  },
+  "learning_dashboard_col_word": {
+    "message": "Word"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "Meaning"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "Progress"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "Activity"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "Topic"
+  },
+  "learning_dashboard_col_action": {
+    "message": "Action"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "Active"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "Due now"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "Can appear"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "Upcoming"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "Removed"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "Total"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "Loading Vocabulary Library..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "Loading learning words..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "Loaded $1 learning words."
+  },
+  "learning_dashboard_status_failed": {
+    "message": "Failed to load learning words."
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "No learning words match these filters."
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "No learning words loaded yet."
+  },
+  "learning_dashboard_page_info": {
+    "message": "Showing $1-$2 of $3 words"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "Showing 0 words"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "Double-click a word to view definitions and practice details."
+  },
+  "learning_dashboard_definition": {
+    "message": "Definition"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "Loading definition..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "Definition unavailable."
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "Page replacements"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "No published page-replacement sources found."
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "Dictionaries"
+  },
+  "learning_dashboard_advanced": {
+    "message": "Advanced"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "Published rules"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "Page replacement"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "Practice state"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "Scheduler"
+  },
+  "learning_dashboard_step_label": {
+    "message": "Step"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "Confidence"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "Stability"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "Difficulty"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "No published rules found."
+  },
+  "learning_dashboard_discard": {
+    "message": "Discard"
+  },
+  "pagination_first": {
+    "message": "First"
+  },
+  "pagination_prev": {
+    "message": "Prev"
+  },
+  "pagination_next": {
+    "message": "Next"
+  },
+  "pagination_last": {
+    "message": "Last"
   },
   "confirm_srs_reset_1": {
     "message": "Delete Vocabulary Practice for the current profile and language pair? This cannot be undone."

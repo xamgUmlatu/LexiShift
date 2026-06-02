@@ -3,7 +3,7 @@
 Status: active implementation plan
 Role: Product/UX plan, backend read-model contract, and implementation sequence
 Last updated: 2026-06-02
-Last verified: 2026-06-02 helper/native-host/shared-extension word-info API foundation tests plus enriched quick-definition popup render/registry tests; Vocabulary Library UI still pending
+Last verified: 2026-06-02 helper/native-host/shared-extension word-info API foundation tests, enriched quick-definition popup render/registry tests, dedicated Vocabulary Library page script-order/i18n tests, and library model/view helper tests
 Purpose: define the shared word-info capability that should power both a richer Vocabulary Practice library and a built-in popup definition module
 Source-of-truth: mixed implementation plan plus current API contract; current implemented state is tracked in `docs/developer/feature_state_matrix.md`.
 
@@ -77,11 +77,27 @@ As of 2026-06-02, the shared word-info API foundation and built-in
 - default-on module registry entry, runtime descriptor wiring, manifest load
   order, and locale coverage for `en`, `ja`, `zh`, and `de`.
 
-This implemented slice is still read-only, but `quick-definition` is now
-user-facing in the replacement popup. The helper preserves safe Kaikki/Wiktionary
-sense detail and short examples when those fields are present in the installed
-pack, while still falling back to compact FreeDict-style glosses. The dedicated
-Vocabulary Library page/view is still a planned next slice.
+This implemented slice is still mostly read-only, but `quick-definition` is now
+user-facing in the replacement popup and the dedicated `learning_dashboard.html`
+Vocabulary Library page is available from the active Vocabulary Practice card.
+The helper preserves safe Kaikki/Wiktionary sense detail and short examples when
+those fields are present in the installed pack, while still falling back to
+compact FreeDict-style glosses.
+
+Current Vocabulary Library page behavior:
+
+- resolves the current selected SRS profile and language pair from extension
+  storage, with optional `profileId`/`pair` URL overrides;
+- calls the existing read-only `srs_items_list` helper route;
+- reuses the existing dashboard search/status/sort semantics;
+- shows summary cards, pagination, a table with word/meaning/progress/activity/
+  topic/action columns, and a detail panel;
+- loads definition/gloss previews only for the current page, capped at 25 words
+  per render, then loads the selected row on demand;
+- shows local definition/glosses, dictionary links, and page-replacement source
+  phrases in the detail panel;
+- exposes advanced scheduler/page-replacement details behind an Advanced toggle;
+- reuses confirmed dashboard discard as the only mutation.
 
 ## Non-Goals For MVP
 
@@ -534,19 +550,36 @@ Tests:
 
 ### Slice 2: Vocabulary Library Page
 
-Files likely involved:
+Status: implemented and verified on 2026-06-02 for the first dedicated page
+slice.
 
-- new extension page, for example `vocabulary.html` and page controller modules;
+Files involved:
+
+- `apps/chrome-extension/learning_dashboard.html`
+- `apps/chrome-extension/learning_dashboard.css`
+- `apps/chrome-extension/learning_dashboard_model.js`
+- `apps/chrome-extension/learning_dashboard_view.js`
+- `apps/chrome-extension/learning_dashboard.js`
+- `apps/chrome-extension/options.html`
+- `apps/chrome-extension/options.css`
 - existing dashboard modules in
-  `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_*.js`,
-  reused or moved to a shared extension-page location if necessary;
-- Options entry point from the active Vocabulary Practice card.
+  `apps/chrome-extension/options/controllers/srs/actions/words_dashboard_*.js`
 
 Tests:
 
-- static extension structure/script-order test;
-- dashboard/library controller tests for row expansion and word-info loading;
-- localization key coverage.
+- `core/tests/architecture/test_extension_structure.py` covers page script order
+  and locale-key coverage.
+- `core/tests/dev/test_extension_learning_dashboard_page.py` covers word-info
+  request construction, topic/source helpers, activity formatting, gloss
+  preview, and detail-view gloss normalization.
+
+Known limits:
+
+- The page is scoped to the selected/current profile and language pair.
+- Definition previews are current-page scoped and capped; the page does not
+  prefetch definitions for the entire SRS store.
+- The page does not implement completed/mastered lifecycle UX.
+- Discard remains the only shipped library mutation.
 
 ### Slice 3: Quick Definition Popup Module
 

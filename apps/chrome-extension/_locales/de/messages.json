@@ -482,6 +482,9 @@
   "button_srs_words_refresh": {
     "message": "Wörter aktualisieren"
   },
+  "button_srs_words_open_library": {
+    "message": "Vollständige Bibliothek öffnen"
+  },
   "toggle_srs_words_advanced": {
     "message": "Erweiterte Details"
   },
@@ -529,6 +532,156 @@
   },
   "button_srs_words_clear_filters": {
     "message": "Filter löschen"
+  },
+  "learning_dashboard_title": {
+    "message": "Wortschatzbibliothek"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "Prüfe Lernwörter, Bedeutungen, Fortschritt und Quellen für Seitenersetzungen."
+  },
+  "learning_dashboard_back": {
+    "message": "Zurück zu den Optionen"
+  },
+  "learning_dashboard_refresh": {
+    "message": "Aktualisieren"
+  },
+  "learning_dashboard_search": {
+    "message": "Suchen"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "Fortschritt"
+  },
+  "learning_dashboard_sort": {
+    "message": "Sortieren"
+  },
+  "learning_dashboard_rows": {
+    "message": "Zeilen"
+  },
+  "learning_dashboard_col_word": {
+    "message": "Wort"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "Bedeutung"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "Fortschritt"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "Aktivität"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "Thema"
+  },
+  "learning_dashboard_col_action": {
+    "message": "Aktion"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "Aktiv"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "Fällig"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "Kann erscheinen"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "Kommend"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "Entfernt"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "Gesamt"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "Wortschatzbibliothek wird geladen..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "Lernwörter werden geladen..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "$1 Lernwörter geladen."
+  },
+  "learning_dashboard_status_failed": {
+    "message": "Lernwörter konnten nicht geladen werden."
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "Keine Lernwörter passen zu diesen Filtern."
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "Noch keine Lernwörter geladen."
+  },
+  "learning_dashboard_page_info": {
+    "message": "$1-$2 von $3 Wörtern werden angezeigt"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "0 Wörter werden angezeigt"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "Doppelklicke ein Wort, um Definitionen und Übungsdetails zu sehen."
+  },
+  "learning_dashboard_definition": {
+    "message": "Definition"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "Definition wird geladen..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "Definition nicht verfügbar."
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "Seitenersetzungen"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "Keine veröffentlichten Quellen für Seitenersetzungen gefunden."
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "Wörterbücher"
+  },
+  "learning_dashboard_advanced": {
+    "message": "Erweitert"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "Veröffentlichte Regeln"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "Seitenersetzung"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "Übungsstatus"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "Planung"
+  },
+  "learning_dashboard_step_label": {
+    "message": "Schritt"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "Konfidenz"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "Stabilität"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "Schwierigkeit"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "Keine veröffentlichten Regeln gefunden."
+  },
+  "learning_dashboard_discard": {
+    "message": "Verwerfen"
+  },
+  "pagination_first": {
+    "message": "Erste"
+  },
+  "pagination_prev": {
+    "message": "Zurück"
+  },
+  "pagination_next": {
+    "message": "Weiter"
+  },
+  "pagination_last": {
+    "message": "Letzte"
   },
   "confirm_srs_reset_1": {
     "message": "Dieses Wortschatztraining für das aktuelle Profil und Sprachpaar löschen? Dies kann nicht rückgängig gemacht werden."

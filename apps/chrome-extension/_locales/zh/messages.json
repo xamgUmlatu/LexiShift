@@ -482,6 +482,9 @@
   "button_srs_words_refresh": {
     "message": "刷新词"
   },
+  "button_srs_words_open_library": {
+    "message": "打开完整词库"
+  },
   "toggle_srs_words_advanced": {
     "message": "高级详情"
   },
@@ -529,6 +532,156 @@
   },
   "button_srs_words_clear_filters": {
     "message": "清除筛选"
+  },
+  "learning_dashboard_title": {
+    "message": "词汇库"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "查看学习词、释义、进度和页面替换来源。"
+  },
+  "learning_dashboard_back": {
+    "message": "返回选项"
+  },
+  "learning_dashboard_refresh": {
+    "message": "刷新"
+  },
+  "learning_dashboard_search": {
+    "message": "搜索"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "进度"
+  },
+  "learning_dashboard_sort": {
+    "message": "排序"
+  },
+  "learning_dashboard_rows": {
+    "message": "行数"
+  },
+  "learning_dashboard_col_word": {
+    "message": "词"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "含义"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "进度"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "活动"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "主题"
+  },
+  "learning_dashboard_col_action": {
+    "message": "操作"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "活跃"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "到期"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "可出现"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "即将学习"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "已移除"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "总计"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "正在加载词汇库..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "正在加载学习词..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "已加载 $1 个学习词。"
+  },
+  "learning_dashboard_status_failed": {
+    "message": "无法加载学习词。"
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "没有学习词符合这些筛选条件。"
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "尚未加载学习词。"
+  },
+  "learning_dashboard_page_info": {
+    "message": "显示 $3 个词中的 $1-$2"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "显示 0 个词"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "双击一个词以查看释义和练习详情。"
+  },
+  "learning_dashboard_definition": {
+    "message": "释义"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "正在加载释义..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "释义不可用。"
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "页面替换"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "没有找到已发布的页面替换来源。"
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "词典"
+  },
+  "learning_dashboard_advanced": {
+    "message": "高级"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "已发布规则"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "页面替换"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "练习状态"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "调度器"
+  },
+  "learning_dashboard_step_label": {
+    "message": "步骤"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "置信度"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "稳定度"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "难度"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "没有找到已发布规则。"
+  },
+  "learning_dashboard_discard": {
+    "message": "丢弃"
+  },
+  "pagination_first": {
+    "message": "首页"
+  },
+  "pagination_prev": {
+    "message": "上一页"
+  },
+  "pagination_next": {
+    "message": "下一页"
+  },
+  "pagination_last": {
+    "message": "末页"
   },
   "confirm_srs_reset_1": {
     "message": "删除当前配置档和语言对的词汇练习？此操作无法撤销。"

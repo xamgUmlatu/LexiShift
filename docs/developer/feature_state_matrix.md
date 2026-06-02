@@ -1840,19 +1840,24 @@ Use this file when:
 ## SRS Word Info API And Quick Definition Popup
 
 - Status: `implemented`, `default-on`, `verified` for the shared read-only
-  word-info API and built-in `quick-definition` popup module; Vocabulary
-  Library remains planned.
-- Last documented checkpoint: `2026-06-02` source-resolution and enriched popup
-  checkpoint: helper/core can read a profile/pair/lemma
+  word-info API, selected-pair Vocabulary Library page, and built-in
+  `quick-definition` popup module; cross-pair library enumeration and completed/
+  mastered lifecycle UX remain planned.
+- Last documented checkpoint: `2026-06-02` selected-pair Vocabulary Library
+  page checkpoint extends the source-resolution and enriched popup checkpoint:
+  helper/core can read a profile/pair/lemma
   word-info payload, native host exposes `word_info_lookup`, the extension
   helper client exposes `lookupWordInfo`, Options exposes a
   `HelperManager.lookupWordInfo` convenience through the shared API wrapper,
   content/options load `shared/helper/word_info_api.js`, and the content popup
-  registers `quick-definition` ahead of script/history modules.
-- Last verified: `2026-06-02` focused helper word-info tests, native-host route
-  tests, helper-client/API contract tests, quick-definition popup render and
-  registry tests, extension structure tests, JS syntax checks, and Python
-  compile checks
+  registers `quick-definition` ahead of script/history modules; Options links
+  to `learning_dashboard.html`, whose page controller resolves the active
+  profile/pair, lists admitted words, loads current-page definition previews,
+  opens a detail panel, and reuses confirmed discard as its only mutation.
+- Last verified: `2026-06-02` dedicated Vocabulary Library page tests plus
+  focused helper word-info tests, native-host route tests, helper-client/API
+  contract tests, quick-definition popup render and registry tests, extension
+  structure tests, JS syntax checks, and Python compile checks
 - Default behavior:
   - The route is read-only and does not admit, refresh, schedule, publish,
     discard, or otherwise mutate SRS state.
@@ -1885,8 +1890,18 @@ Use this file when:
   - `quick-definition` degrades to localized fallback text when the helper is
     unavailable, the request is invalid, or installed definition data is
     missing.
-  - Options code can call `HelperManager.lookupWordInfo(...)`; the dedicated
-    Vocabulary Library page/view is not implemented yet.
+  - Options code can call `HelperManager.lookupWordInfo(...)`.
+  - The active Vocabulary Practice dashboard links to a dedicated Vocabulary
+    Library page. The page is scoped to the selected/current profile and pair,
+    uses the existing read-only `srs_items_list` route, reuses local dashboard
+    search/status/sort semantics, and loads definition/gloss previews only for
+    the current page, capped at 25 rows per render.
+  - The Vocabulary Library detail panel shows local definition/glosses,
+    external dictionary links, page-replacement source phrases, and advanced
+    scheduler/page-replacement details behind an Advanced toggle.
+  - The Vocabulary Library reuses confirmed dashboard discard as its only
+    mutation; it does not implement restore, completed/mastered state, or
+    cross-pair enumeration.
   - Local filesystem paths are intentionally excluded from learner-facing
     payloads and diagnostics.
 - Evidence:
@@ -1904,13 +1919,21 @@ Use this file when:
   - `apps/chrome-extension/content_script.js`
   - `apps/chrome-extension/manifest.json`
   - `apps/chrome-extension/options.html`
+  - `apps/chrome-extension/learning_dashboard.html`
+  - `apps/chrome-extension/learning_dashboard.css`
+  - `apps/chrome-extension/learning_dashboard_model.js`
+  - `apps/chrome-extension/learning_dashboard_view.js`
+  - `apps/chrome-extension/learning_dashboard.js`
   - `core/tests/helper/test_helper_word_info.py`
   - `core/tests/dev/test_helper_browsing_admission_entrypoints.py`
   - `core/tests/dev/test_extension_helper_status_profile_contract.py`
   - `core/tests/dev/test_extension_quick_definition_popup_module.py`
+  - `core/tests/dev/test_extension_learning_dashboard_page.py`
   - `core/tests/architecture/test_extension_structure.py`
 - Known gaps:
-  - The dedicated Vocabulary Library page/view is not implemented.
+  - Cross-pair Vocabulary Library enumeration is not implemented.
+  - Completed/mastered lifecycle UX is not implemented in the Vocabulary
+    Library.
   - Batch lookup for a page of library rows is not implemented.
   - The normalized public popup module API remains target architecture; the
     current module uses the existing internal popup descriptor/context pattern.

@@ -79,6 +79,7 @@ profile and language pair.
 
 Top-level controls:
 
+- `Open full library`: opens the dedicated selected-pair Vocabulary Library page.
 - `Refresh words`: loads a fresh pair/profile payload from the helper.
 - `Advanced details`: toggles technical per-row fields.
 - `Search`: filters the loaded payload by display, lemma, reading, status,

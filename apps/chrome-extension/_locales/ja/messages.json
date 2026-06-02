@@ -482,6 +482,9 @@
   "button_srs_words_refresh": {
     "message": "語を更新"
   },
+  "button_srs_words_open_library": {
+    "message": "全体ライブラリを開く"
+  },
   "toggle_srs_words_advanced": {
     "message": "詳細情報"
   },
@@ -529,6 +532,156 @@
   },
   "button_srs_words_clear_filters": {
     "message": "フィルターをクリア"
+  },
+  "learning_dashboard_title": {
+    "message": "語彙ライブラリ"
+  },
+  "learning_dashboard_subtitle": {
+    "message": "学習中の語、定義、進捗、ページ置換元を確認します。"
+  },
+  "learning_dashboard_back": {
+    "message": "オプションに戻る"
+  },
+  "learning_dashboard_refresh": {
+    "message": "更新"
+  },
+  "learning_dashboard_search": {
+    "message": "検索"
+  },
+  "learning_dashboard_status_filter": {
+    "message": "進捗"
+  },
+  "learning_dashboard_sort": {
+    "message": "並び順"
+  },
+  "learning_dashboard_rows": {
+    "message": "行数"
+  },
+  "learning_dashboard_col_word": {
+    "message": "語"
+  },
+  "learning_dashboard_col_meaning": {
+    "message": "意味"
+  },
+  "learning_dashboard_col_progress": {
+    "message": "進捗"
+  },
+  "learning_dashboard_col_activity": {
+    "message": "活動"
+  },
+  "learning_dashboard_col_topic": {
+    "message": "トピック"
+  },
+  "learning_dashboard_col_action": {
+    "message": "操作"
+  },
+  "learning_dashboard_summary_active": {
+    "message": "アクティブ"
+  },
+  "learning_dashboard_summary_due": {
+    "message": "期限あり"
+  },
+  "learning_dashboard_summary_can_appear": {
+    "message": "表示可能"
+  },
+  "learning_dashboard_summary_upcoming": {
+    "message": "今後"
+  },
+  "learning_dashboard_summary_removed": {
+    "message": "削除済み"
+  },
+  "learning_dashboard_summary_total": {
+    "message": "合計"
+  },
+  "learning_dashboard_status_loading": {
+    "message": "語彙ライブラリを読み込み中..."
+  },
+  "learning_dashboard_status_refreshing": {
+    "message": "学習語を読み込み中..."
+  },
+  "learning_dashboard_status_ready": {
+    "message": "$1語を読み込みました。"
+  },
+  "learning_dashboard_status_failed": {
+    "message": "学習語を読み込めませんでした。"
+  },
+  "learning_dashboard_empty_filtered": {
+    "message": "このフィルターに一致する学習語はありません。"
+  },
+  "learning_dashboard_empty_unloaded": {
+    "message": "学習語はまだ読み込まれていません。"
+  },
+  "learning_dashboard_page_info": {
+    "message": "$3語中 $1-$2 を表示"
+  },
+  "learning_dashboard_page_empty": {
+    "message": "0語を表示"
+  },
+  "learning_dashboard_detail_empty": {
+    "message": "語をダブルクリックすると定義と練習詳細を表示します。"
+  },
+  "learning_dashboard_definition": {
+    "message": "定義"
+  },
+  "learning_dashboard_definition_loading": {
+    "message": "定義を読み込み中..."
+  },
+  "learning_dashboard_definition_unavailable": {
+    "message": "定義を利用できません。"
+  },
+  "learning_dashboard_replacement_sources": {
+    "message": "ページ置換"
+  },
+  "learning_dashboard_no_replacement_sources": {
+    "message": "公開済みのページ置換元は見つかりませんでした。"
+  },
+  "learning_dashboard_dictionaries": {
+    "message": "辞書"
+  },
+  "learning_dashboard_advanced": {
+    "message": "詳細"
+  },
+  "learning_dashboard_advanced_rules": {
+    "message": "公開済みルール"
+  },
+  "learning_dashboard_page_replacement_label": {
+    "message": "ページ置換"
+  },
+  "learning_dashboard_practice_state_label": {
+    "message": "練習状態"
+  },
+  "learning_dashboard_scheduler_label": {
+    "message": "スケジューラー"
+  },
+  "learning_dashboard_step_label": {
+    "message": "ステップ"
+  },
+  "learning_dashboard_confidence_label": {
+    "message": "信頼度"
+  },
+  "learning_dashboard_stability_label": {
+    "message": "安定度"
+  },
+  "learning_dashboard_difficulty_label": {
+    "message": "難易度"
+  },
+  "learning_dashboard_no_published_rules": {
+    "message": "公開済みルールは見つかりませんでした。"
+  },
+  "learning_dashboard_discard": {
+    "message": "破棄"
+  },
+  "pagination_first": {
+    "message": "最初"
+  },
+  "pagination_prev": {
+    "message": "前"
+  },
+  "pagination_next": {
+    "message": "次"
+  },
+  "pagination_last": {
+    "message": "最後"
   },
   "confirm_srs_reset_1": {
     "message": "現在のプロフィールと言語ペアの語彙練習を削除しますか？この操作は元に戻せません。"

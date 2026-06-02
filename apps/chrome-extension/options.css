@@ -2223,6 +2223,25 @@ textarea {
   font-weight: 600;
 }
 
+.srs-words-library-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  box-sizing: border-box;
+  border: 1px solid var(--ls-card-border);
+  border-radius: 7px;
+  background: var(--ls-card-surface);
+  color: #315747;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.srs-words-library-link:hover {
+  background: var(--ls-module-card-bg-end);
+}
+
 .srs-words-filterbar {
   display: grid;
   grid-template-columns:

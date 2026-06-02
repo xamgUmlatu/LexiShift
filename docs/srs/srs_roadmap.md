@@ -241,8 +241,9 @@ Status key:
 - `[ ]` BetterDiscord plugin profile bridge wiring.
 - `[ ]` Conflict handling when multiple surfaces write feedback concurrently.
 - `[~]` Shared word-info read model plus Vocabulary Library and built-in
-  quick-definition popup module; shared API and built-in popup are implemented,
-  dedicated Vocabulary Library remains planned; see
+  quick-definition popup module; shared API, built-in popup, and selected-pair
+  dedicated Vocabulary Library page are implemented, while cross-pair library
+  enumeration and completed/mastered lifecycle UX remain planned; see
   `docs/srs/srs_vocabulary_library_and_word_info_plan.md`.
 
 ### Workstream G — End-to-End validation and calibration
