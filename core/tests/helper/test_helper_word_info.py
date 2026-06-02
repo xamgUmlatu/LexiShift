@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import json
 import sqlite3
 import sys
 import tempfile
@@ -47,6 +48,126 @@ def _write_translation_pack(path: Path) -> None:
                 ("perro", "perro", "dog", "noun", 1),
                 ("perro", "perro", "hound", "noun", 2),
                 ("gato", "gato", "cat", "noun", 1),
+            ),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def _write_auxiliary_translation_pack(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(path)
+    try:
+        conn.execute(
+            """
+            CREATE TABLE sense_glosses (
+                entry_ord INTEGER NOT NULL,
+                sense_ord INTEGER NOT NULL,
+                gloss_ord INTEGER NOT NULL,
+                headword TEXT NOT NULL,
+                headword_lc TEXT NOT NULL,
+                translation TEXT NOT NULL,
+                translation_lc TEXT NOT NULL,
+                pos TEXT,
+                raw_glosses_json TEXT,
+                examples_json TEXT,
+                tags_json TEXT,
+                topics_json TEXT,
+                categories_json TEXT,
+                form_of_json TEXT,
+                alt_of_json TEXT,
+                PRIMARY KEY (entry_ord, sense_ord, gloss_ord)
+            )
+            """
+        )
+        conn.executemany(
+            """
+            INSERT INTO sense_glosses (
+                entry_ord, sense_ord, gloss_ord, headword, headword_lc,
+                translation, translation_lc, pos, raw_glosses_json,
+                examples_json, tags_json, topics_json, categories_json,
+                form_of_json, alt_of_json
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                (
+                    1,
+                    1,
+                    1,
+                    "perro",
+                    "perro",
+                    "dog",
+                    "dog",
+                    "noun",
+                    json.dumps(["dog (the species Canis familiaris)"]),
+                    json.dumps(
+                        [
+                            {
+                                "text": "perro callejero",
+                                "translation": "stray dog",
+                                "type": "example",
+                            }
+                        ]
+                    ),
+                    json.dumps(["masculine"]),
+                    "",
+                    "",
+                    "",
+                    "",
+                ),
+                (
+                    1,
+                    2,
+                    1,
+                    "perro",
+                    "perro",
+                    "restricted insult",
+                    "restricted insult",
+                    "noun",
+                    json.dumps(["(slang) restricted insult"]),
+                    "",
+                    json.dumps(["slang"]),
+                    "",
+                    "",
+                    "",
+                    "",
+                ),
+                (
+                    1,
+                    3,
+                    1,
+                    "perro",
+                    "perro",
+                    "hound (dog used for hunting (animal))",
+                    "hound",
+                    "noun",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ),
+                (
+                    2,
+                    0,
+                    0,
+                    "perro",
+                    "perro",
+                    "doggy",
+                    "doggy",
+                    "adj",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                ),
             ),
         )
         conn.commit()
@@ -148,6 +269,44 @@ class TestHelperWordInfo(unittest.TestCase):
             self.assertEqual(result["diagnostics"]["missing_resources"], [])
             self.assertEqual(result["external_links"][0]["label"], "Wiktionary")
             self.assertNotIn("artifact_path", result["word_package"]["source"])
+
+            leaked = [text for text in _all_strings(result) if str(Path(tmp)) in text]
+            self.assertEqual(leaked, [])
+
+    def test_lookup_word_info_returns_auxiliary_sense_details_and_examples(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            paths = build_helper_paths(Path(tmp))
+            _write_auxiliary_translation_pack(
+                paths.language_packs_dir / "wiktionary-es-en" / "main.sqlite"
+            )
+
+            result = lookup_word_info(
+                paths,
+                pair="en-es",
+                profile_id="default",
+                lemma="perro",
+                display="perro",
+            )
+
+            self.assertEqual(result["status"], "ok")
+            self.assertEqual(result["diagnostics"]["missing_resources"], [])
+            self.assertEqual(result["glosses"][0]["text"], "dog")
+            self.assertEqual(
+                result["glosses"][0]["details"],
+                ["dog (the species Canis familiaris)"],
+            )
+            self.assertEqual(
+                result["glosses"][0]["examples"],
+                [{"text": "perro callejero", "translation": "stray dog"}],
+            )
+            self.assertEqual(result["glosses"][1]["text"], "hound")
+            self.assertEqual(result["glosses"][1]["details"], ["dog used for hunting (animal)"])
+            self.assertNotIn(
+                "restricted insult",
+                [gloss["text"] for gloss in result["glosses"]],
+            )
+            self.assertNotIn("doggy", [gloss["text"] for gloss in result["glosses"]])
+            self.assertEqual(result["glosses"][0]["source"], "wiktionary_es_en")
 
             leaked = [text for text in _all_strings(result) if str(Path(tmp)) in text]
             self.assertEqual(leaked, [])

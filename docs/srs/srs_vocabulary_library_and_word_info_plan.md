@@ -3,7 +3,7 @@
 Status: active implementation plan
 Role: Product/UX plan, backend read-model contract, and implementation sequence
 Last updated: 2026-06-02
-Last verified: 2026-06-02 helper/native-host/shared-extension word-info API foundation tests plus quick-definition popup render/registry tests; Vocabulary Library UI still pending
+Last verified: 2026-06-02 helper/native-host/shared-extension word-info API foundation tests plus enriched quick-definition popup render/registry tests; Vocabulary Library UI still pending
 Purpose: define the shared word-info capability that should power both a richer Vocabulary Practice library and a built-in popup definition module
 Source-of-truth: mixed implementation plan plus current API contract; current implemented state is tracked in `docs/developer/feature_state_matrix.md`.
 
@@ -77,8 +77,10 @@ As of 2026-06-02, the shared word-info API foundation and built-in
   order, and locale coverage for `en`, `ja`, `zh`, and `de`.
 
 This implemented slice is still read-only, but `quick-definition` is now
-user-facing in the replacement popup. The dedicated Vocabulary Library page/view
-is still a planned next slice.
+user-facing in the replacement popup. The helper preserves safe Kaikki/Wiktionary
+sense detail and short examples when those fields are present in the installed
+pack, while still falling back to compact FreeDict-style glosses. The dedicated
+Vocabulary Library page/view is still a planned next slice.
 
 ## Non-Goals For MVP
 
@@ -111,6 +113,10 @@ with `freedict-es-en` as a fallback family when present. The extension should
 not know those filenames. It should ask the helper for word info for
 `pair=en-es`, and the helper should resolve the best installed pack using the
 same pair-readiness rules that already govern rulegen/SRS setup.
+The resolver supports both manifest-backed pack roots and legacy/manual
+`language_packs/<pack-id>/main.sqlite` installs so the intended Wiktionary-first
+priority does not silently fall through to FreeDict when the richer pack lacks a
+manifest.
 
 For other language pairs, the same service boundary applies:
 
@@ -183,7 +189,9 @@ Recommended response shape:
       "source_kind": "installed_translation_pack",
       "rank": 1,
       "confidence": 0.9,
-      "sense_id": "optional"
+      "sense_id": "optional",
+      "details": ["dog (the species Canis familiaris)"],
+      "examples": [{"text": "perro callejero", "translation": "stray dog"}]
     }
   ],
   "source_phrases": ["dog"],
@@ -220,6 +228,13 @@ Notes:
 - Use `glosses` rather than over-promising high-quality monolingual definitions.
   Many current resources are bilingual dictionaries, so "definition" in UI may
   often mean a short learner-facing gloss.
+- Kaikki/Wiktionary auxiliary fields may add short `details` and `examples`
+  under each gloss. Those fields are optional and must stay compact and free of
+  local filesystem paths.
+- The compact word-info view prefers unrestricted senses and the first dictionary
+  POS group. Restricted usage senses, such as slang/vulgar/obsolete/derogatory
+  entries, are fallback-only when no unrestricted sense is available. A fuller
+  Vocabulary Library can later expose POS sections and advanced sense browsing.
 - `source_phrases` should come from published ruleset summaries/details when
   available.
 - `srs.present` is false for ruleset-only words or words not admitted to the

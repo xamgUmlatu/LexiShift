@@ -1826,8 +1826,8 @@ Use this file when:
 - Status: `implemented`, `default-on`, `verified` for the shared read-only
   word-info API and built-in `quick-definition` popup module; Vocabulary
   Library remains planned.
-- Last documented checkpoint: `2026-06-02` shared word-info API foundation plus
-  default-on popup consumer: helper/core can read a profile/pair/lemma
+- Last documented checkpoint: `2026-06-02` source-resolution and enriched popup
+  checkpoint: helper/core can read a profile/pair/lemma
   word-info payload, native host exposes `word_info_lookup`, the extension
   helper client exposes `lookupWordInfo`, Options exposes a
   `HelperManager.lookupWordInfo` convenience through the shared API wrapper,
@@ -1841,13 +1841,19 @@ Use this file when:
   - The route is read-only and does not admit, refresh, schedule, publish,
     discard, or otherwise mutate SRS state.
   - The helper returns compact learner-facing word info: normalized pair/profile
-    fields, target display/lemma, POS where known, local glosses, source phrase
-    previews, compact SRS presence/state, deterministic external dictionary
-    links, and sanitized diagnostics.
+    fields, target display/lemma, POS where known, local glosses with optional
+    safe sense details/examples, source phrase summaries, compact SRS
+    presence/state, deterministic external dictionary links, and sanitized
+    diagnostics.
+  - Compact gloss selection prefers unrestricted senses and the first dictionary
+    POS group; restricted usage senses such as slang/vulgar/obsolete/derogatory
+    entries are fallback-only when no unrestricted sense is available.
   - Installed local lexical resources are the canonical gloss source. For
     `en-es`, the route resolves Spanish-to-English translation/gloss packs
     through existing pair-resource capability/default-pack logic rather than
-    extension-side filenames or paths.
+    extension-side filenames or paths. Manifestless `language_packs/<pack-id>/main.sqlite`
+    pack roots are recognized so local `wiktionary-es-en` installs keep the
+    intended Wiktionary-first priority over FreeDict fallback.
   - The extension API wrapper normalizes camelCase/snake_case request fields,
     caches successful lookups for the current JS runtime session, and delegates
     native messaging to `HelperClient.lookupWordInfo`.
@@ -1857,9 +1863,9 @@ Use this file when:
     local storage directly.
   - `quick-definition` is default-on for all target languages through the popup
     module registry, renders first in the popup module stack, shows an immediate
-    loading state, and then renders target display, POS when known, up to three
-    local glosses, source phrase preview, and deterministic external dictionary
-    links.
+    loading state, and then renders target display, POS when known, up to five
+    local glosses with compact details/examples when available, and
+    deterministic external dictionary links.
   - `quick-definition` degrades to localized fallback text when the helper is
     unavailable, the request is invalid, or installed definition data is
     missing.

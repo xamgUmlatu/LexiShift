@@ -173,8 +173,12 @@ const moduleNode = context.LexiShift.uiQuickDefinitionModule.build(
           display: "perro",
           pos: {{ label: "noun" }},
           glosses: [
-            {{ text: "dog" }},
-            {{ text: "hound" }},
+            {{
+              text: "dog",
+              details: ["dog (the species Canis familiaris)"],
+              examples: [{{ text: "perro callejero", translation: "stray dog" }}]
+            }},
+            {{ text: "hound", raw_glosses: ["hunting dog"] }},
             {{ text: "canine" }},
             {{ text: "domestic dog" }},
             {{ text: "male dog" }},
@@ -221,7 +225,10 @@ assert.match(collectText(moduleNode), /Loading definition/);
   assert.match(rendered, /noun/);
   assert.doesNotMatch(rendered, /Matches:/);
   assert.match(rendered, /dog/);
+  assert.match(rendered, /Canis familiaris/);
+  assert.match(rendered, /perro callejero \\/ stray dog/);
   assert.match(rendered, /hound/);
+  assert.match(rendered, /hunting dog/);
   assert.match(rendered, /canine/);
   assert.match(rendered, /domestic dog/);
   assert.match(rendered, /male dog/);

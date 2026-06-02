@@ -71,6 +71,49 @@ class TestLpCapabilities(unittest.TestCase):
             )
         self.assertEqual(resolved, target)
 
+    def test_en_es_default_dictionary_finds_manifestless_pack_main_sqlite(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            target = language_packs_dir / "wiktionary-es-en" / "main.sqlite"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(b"SQLite format 3\x00")
+
+            resolved = default_translation_dictionary_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, target)
+
+    def test_en_es_manifestless_kaikki_still_beats_manifest_backed_freedict(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            language_packs_dir = Path(tmp)
+            wiktionary_artifact = language_packs_dir / "wiktionary-es-en" / "main.sqlite"
+            wiktionary_artifact.parent.mkdir(parents=True, exist_ok=True)
+            wiktionary_artifact.write_bytes(b"SQLite format 3\x00")
+            freedict_artifact = language_packs_dir / "freedict-es-en" / "main.sqlite"
+            freedict_artifact.parent.mkdir(parents=True, exist_ok=True)
+            freedict_artifact.write_bytes(b"SQLite format 3\x00")
+            write_installed_pack_manifest(
+                language_packs_dir,
+                pack_id="freedict-es-en",
+                pack_kind="language",
+                provider="freedict",
+                local_kind="dir",
+                build_mode="freedict_tei_to_sqlite",
+                artifact_path=freedict_artifact,
+                source_filename="freedict-spa-eng-0.3.1.src.tar.xz",
+                sqlite_filename="main.sqlite",
+                required_files=("spa-eng.tei",),
+            )
+
+            resolved = default_translation_dictionary_path(
+                "en-es",
+                language_packs_dir=language_packs_dir,
+            )
+
+        self.assertEqual(resolved, wiktionary_artifact)
+
     def test_en_es_reverse_dictionary_prefers_kaikki_sqlite_filename(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             language_packs_dir = Path(tmp)

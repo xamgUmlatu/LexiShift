@@ -322,9 +322,13 @@
       .lexishift-definition-body{display:flex;flex-direction:column;gap:5px;}
       .lexishift-definition-status{font-size:11px;line-height:1.35;
         color:var(--lexishift-module-line, rgba(247,244,239,0.88));}
-      .lexishift-definition-glosses{display:flex;flex-direction:column;gap:3px;}
+      .lexishift-definition-glosses{display:flex;flex-direction:column;gap:6px;}
+      .lexishift-definition-gloss-item{display:flex;flex-direction:column;gap:2px;}
       .lexishift-definition-gloss{font-size:12px;line-height:1.35;font-weight:650;
         color:var(--lexishift-module-text, #f7f4ef);}
+      .lexishift-definition-detail,.lexishift-definition-example{font-size:11px;line-height:1.35;
+        color:var(--lexishift-module-line, rgba(247,244,239,0.86));}
+      .lexishift-definition-example{font-style:italic;}
       .lexishift-definition-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:1px;}
       .lexishift-definition-link{font-size:11px;line-height:1.3;font-weight:700;color:inherit;
         text-decoration:underline;text-underline-offset:2px;}

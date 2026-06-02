@@ -189,12 +189,8 @@ def default_translation_dictionary_path(
     capability = resolve_pair_capability(pair)
     if not capability.requires_translation_dictionary_for_rulegen:
         return None
-    for pack_id in _default_translation_pack_ids_for_pair(capability.pair):
-        resolved_pack_artifact = resolve_installed_pack_artifact(language_packs_dir, pack_id)
-        if resolved_pack_artifact is not None:
-            return resolved_pack_artifact
     filenames = _default_translation_dictionary_filenames_for_pair(capability.pair)
-    return _resolve_translation_fallback_path(
+    return _resolve_translation_pack_priority_path(
         language_packs_dir=language_packs_dir,
         filenames=filenames,
         pack_ids=_default_translation_pack_ids_for_pair(capability.pair),
@@ -209,12 +205,8 @@ def default_reverse_translation_dictionary_path(
     capability = resolve_pair_capability(pair)
     if not capability.requires_translation_dictionary_for_rulegen:
         return None
-    for pack_id in _default_reverse_translation_pack_ids_for_pair(capability.pair):
-        resolved_pack_artifact = resolve_installed_pack_artifact(language_packs_dir, pack_id)
-        if resolved_pack_artifact is not None:
-            return resolved_pack_artifact
     filenames = _default_reverse_translation_filenames_for_pair(capability.pair)
-    return _resolve_translation_fallback_path(
+    return _resolve_translation_pack_priority_path(
         language_packs_dir=language_packs_dir,
         filenames=filenames,
         pack_ids=_default_reverse_translation_pack_ids_for_pair(capability.pair),
@@ -304,14 +296,68 @@ def _resolve_translation_fallback_path(
         if direct_candidate.exists():
             return direct_candidate
     for pack_id in pack_ids:
-        pack_root = language_packs_dir / pack_id
-        if not pack_root.exists() or not pack_root.is_dir():
-            continue
-        for filename in filenames:
-            discovered = sorted(pack_root.rglob(filename))
-            if discovered:
-                return discovered[0]
+        resolved_legacy_pack_artifact = _resolve_pack_root_legacy_artifact(
+            language_packs_dir=language_packs_dir,
+            pack_id=pack_id,
+            filenames=filenames,
+        )
+        if resolved_legacy_pack_artifact is not None:
+            return resolved_legacy_pack_artifact
     return language_packs_dir / filenames[0]
+
+
+def _resolve_translation_pack_priority_path(
+    *,
+    language_packs_dir: Path,
+    filenames: tuple[str, ...],
+    pack_ids: tuple[str, ...],
+) -> Optional[Path]:
+    if not filenames:
+        return None
+    filenames_by_stem = {Path(filename).stem: filename for filename in filenames}
+    for pack_id in pack_ids:
+        resolved_pack_artifact = resolve_installed_pack_artifact(language_packs_dir, pack_id)
+        if resolved_pack_artifact is not None:
+            return resolved_pack_artifact
+        direct_filename = filenames_by_stem.get(pack_id)
+        if direct_filename:
+            direct_candidate = language_packs_dir / direct_filename
+            if direct_candidate.exists():
+                return direct_candidate
+        resolved_legacy_pack_artifact = _resolve_pack_root_legacy_artifact(
+            language_packs_dir=language_packs_dir,
+            pack_id=pack_id,
+            filenames=filenames,
+        )
+        if resolved_legacy_pack_artifact is not None:
+            return resolved_legacy_pack_artifact
+    return _resolve_translation_fallback_path(
+        language_packs_dir=language_packs_dir,
+        filenames=filenames,
+        pack_ids=pack_ids,
+    )
+
+
+def _resolve_pack_root_legacy_artifact(
+    *,
+    language_packs_dir: Path,
+    pack_id: str,
+    filenames: tuple[str, ...],
+) -> Optional[Path]:
+    pack_root = language_packs_dir / pack_id
+    if not pack_root.exists() or not pack_root.is_dir():
+        return None
+    for filename in filenames:
+        rooted_candidate = pack_root / filename
+        if rooted_candidate.exists():
+            return rooted_candidate
+        discovered = sorted(pack_root.rglob(filename))
+        if discovered:
+            return discovered[0]
+    main_sqlite = pack_root / "main.sqlite"
+    if main_sqlite.exists():
+        return main_sqlite
+    return None
 
 
 def pair_requirements(pair: str) -> dict[str, object]:

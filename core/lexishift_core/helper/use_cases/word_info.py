@@ -22,7 +22,16 @@ from lexishift_core.srs import load_srs_store, normalize_srs_lifecycle_state
 
 
 GLOSS_LIMIT = 5
+DETAIL_LIMIT = 2
+EXAMPLE_LIMIT = 1
 SOURCE_PHRASE_LIMIT = 5
+RESTRICTED_USAGE_TAGS = {
+    "derogatory",
+    "offensive",
+    "obsolete",
+    "slang",
+    "vulgar",
+}
 
 
 def lookup_word_info(
@@ -421,11 +430,13 @@ def _gloss_payloads(
 ) -> list[dict[str, object]]:
     payloads: list[dict[str, object]] = []
     seen: set[str] = set()
-    for record in records:
-        text = str(record.translation or "").strip()
-        if not text:
+    unrestricted_records = [record for record in records if not _has_restricted_usage(record)]
+    for record in _primary_pos_records(unrestricted_records or records):
+        raw_text = str(record.translation or "").strip()
+        if not raw_text:
             continue
-        dedupe_key = text.casefold()
+        text, inline_detail = _split_inline_gloss_detail(raw_text)
+        dedupe_key = raw_text.casefold()
         if dedupe_key in seen:
             continue
         seen.add(dedupe_key)
@@ -443,22 +454,145 @@ def _gloss_payloads(
         sense_id = _record_sense_id(record)
         if sense_id:
             payload["sense_id"] = sense_id
+        metadata = _record_metadata(record)
+        details = _sense_details(metadata, fallback_text=text)
+        if inline_detail:
+            _prepend_unique(details, inline_detail, limit=DETAIL_LIMIT)
+        if details:
+            payload["details"] = details
+        examples = _sense_examples(metadata)
+        if examples:
+            payload["examples"] = examples
         payloads.append(payload)
         if len(payloads) >= GLOSS_LIMIT:
             break
     return payloads
 
 
-def _record_sense_id(record: TranslationGlossRecord) -> str:
+def _record_metadata(record: TranslationGlossRecord) -> Mapping[str, object]:
     metadata = getattr(record, "metadata", None)
-    if not isinstance(metadata, Mapping):
-        return ""
+    return metadata if isinstance(metadata, Mapping) else {}
+
+
+def _has_restricted_usage(record: TranslationGlossRecord) -> bool:
+    metadata = _record_metadata(record)
+    values: list[str] = []
+    for key in ("sense_tags", "entry_tags", "translation_tags"):
+        values.extend(_string_items(metadata.get(key)))
+    return any(value.casefold() in RESTRICTED_USAGE_TAGS for value in values)
+
+
+def _primary_pos_records(
+    records: Sequence[TranslationGlossRecord],
+) -> Sequence[TranslationGlossRecord]:
+    primary_pos = ""
+    for record in records:
+        pos_raw = str(getattr(record, "pos_raw", "") or "").strip().casefold()
+        if pos_raw:
+            primary_pos = pos_raw
+            break
+    if not primary_pos:
+        return records
+    filtered = [
+        record
+        for record in records
+        if str(getattr(record, "pos_raw", "") or "").strip().casefold() == primary_pos
+    ]
+    return filtered or records
+
+
+def _record_sense_id(record: TranslationGlossRecord) -> str:
+    metadata = _record_metadata(record)
     parts: list[str] = []
     for key in ("entry_ord", "sense_ord", "gloss_ord"):
         value = metadata.get(key)
         if value is not None and str(value).strip():
             parts.append(f"{key}:{value}")
     return "|".join(parts)
+
+
+def _sense_details(metadata: Mapping[str, object], *, fallback_text: str) -> list[str]:
+    details: list[str] = []
+    fallback_normalized = str(fallback_text or "").strip().casefold()
+    for value in _string_items(metadata.get("sense_raw_glosses")):
+        normalized = value.casefold()
+        if not normalized or normalized == fallback_normalized:
+            continue
+        if normalized in {item.casefold() for item in details}:
+            continue
+        details.append(value)
+        if len(details) >= DETAIL_LIMIT:
+            break
+    return details
+
+
+def _split_inline_gloss_detail(value: str) -> tuple[str, str]:
+    text = " ".join(str(value or "").strip().split())
+    if not text.endswith(")") or " (" not in text:
+        return _truncate_text(text), ""
+    head, detail = text.split(" (", 1)
+    head = head.strip()
+    detail = detail[:-1].strip()
+    if not head or not detail:
+        return _truncate_text(text), ""
+    return _truncate_text(head), _truncate_text(detail)
+
+
+def _sense_examples(metadata: Mapping[str, object]) -> list[dict[str, str]]:
+    examples: list[dict[str, str]] = []
+    raw_examples = metadata.get("sense_examples")
+    if not isinstance(raw_examples, Sequence) or isinstance(raw_examples, (str, bytes)):
+        return examples
+    for raw in raw_examples:
+        if not isinstance(raw, Mapping):
+            continue
+        text = _truncate_text(_first_text(raw.get("text")))
+        translation = _truncate_text(_first_text(raw.get("translation"), raw.get("english")))
+        if not text and not translation:
+            continue
+        example: dict[str, str] = {}
+        if text:
+            example["text"] = text
+        if translation and translation.casefold() != text.casefold():
+            example["translation"] = translation
+        if example in examples:
+            continue
+        examples.append(example)
+        if len(examples) >= EXAMPLE_LIMIT:
+            break
+    return examples
+
+
+def _prepend_unique(values: list[str], value: str, *, limit: int) -> None:
+    text = _truncate_text(value)
+    if not text:
+        return
+    if text.casefold() in {item.casefold() for item in values}:
+        return
+    values.insert(0, text)
+    del values[limit:]
+
+
+def _string_items(value: object) -> list[str]:
+    if isinstance(value, str):
+        raw_values: Sequence[object] = (value,)
+    elif isinstance(value, Sequence):
+        raw_values = value
+    else:
+        return []
+    items: list[str] = []
+    for raw in raw_values:
+        text = _truncate_text(raw)
+        if text:
+            items.append(text)
+    return items
+
+
+def _truncate_text(value: object, *, limit: int = 160) -> str:
+    text = " ".join(str(value or "").strip().split())
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1].rstrip() + "..."
 
 
 def _pos_payload(

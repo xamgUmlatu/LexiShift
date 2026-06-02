@@ -2,6 +2,8 @@
   const root = (globalThis.LexiShift = globalThis.LexiShift || {});
 
   const GLOSS_LIMIT = 5;
+  const DETAIL_LIMIT = 2;
+  const EXAMPLE_LIMIT = 1;
   const LINK_LIMIT = 2;
   const LOOKUP_TIMEOUT_MS = 4000;
 
@@ -112,8 +114,57 @@
     return texts;
   }
 
+  function normalizeTextList(values, limit) {
+    return dedupeTexts(Array.isArray(values) ? values : []).slice(0, limit);
+  }
+
+  function normalizeExamples(values) {
+    const examples = [];
+    const seen = new Set();
+    for (const value of Array.isArray(values) ? values : []) {
+      const row = value && typeof value === "object" ? value : {};
+      const text = normalizeText(row.text);
+      const translation = normalizeText(row.translation || row.english);
+      if (!text && !translation) {
+        continue;
+      }
+      const key = `${text.toLowerCase()}::${translation.toLowerCase()}`;
+      if (seen.has(key)) {
+        continue;
+      }
+      seen.add(key);
+      examples.push({ text, translation });
+      if (examples.length >= EXAMPLE_LIMIT) {
+        break;
+      }
+    }
+    return examples;
+  }
+
   function resolveGlosses(result) {
-    return dedupeTexts(result && result.glosses).slice(0, GLOSS_LIMIT);
+    const seen = new Set();
+    const glosses = [];
+    for (const value of Array.isArray(result && result.glosses) ? result.glosses : []) {
+      const raw = value && typeof value === "object" ? value : { text: value };
+      const text = normalizeText(raw.text);
+      if (!text) {
+        continue;
+      }
+      const key = text.toLowerCase();
+      if (seen.has(key)) {
+        continue;
+      }
+      seen.add(key);
+      glosses.push({
+        text,
+        details: normalizeTextList(raw.details || raw.raw_glosses, DETAIL_LIMIT),
+        examples: normalizeExamples(raw.examples)
+      });
+      if (glosses.length >= GLOSS_LIMIT) {
+        break;
+      }
+    }
+    return glosses;
   }
 
   function resolvePosLabel(result) {
@@ -215,7 +266,22 @@
         const list = document.createElement("div");
         list.className = "lexishift-definition-glosses";
         for (const gloss of glosses) {
-          appendText(list, "lexishift-definition-gloss", gloss);
+          const item = document.createElement("div");
+          item.className = "lexishift-definition-gloss-item";
+          appendText(item, "lexishift-definition-gloss", gloss.text);
+          for (const detail of gloss.details || []) {
+            appendText(item, "lexishift-definition-detail", detail);
+          }
+          for (const example of gloss.examples || []) {
+            const exampleText = [example.text, example.translation]
+              .map(normalizeText)
+              .filter(Boolean)
+              .join(" / ");
+            if (exampleText) {
+              appendText(item, "lexishift-definition-example", exampleText);
+            }
+          }
+          list.appendChild(item);
         }
         body.appendChild(list);
       } else {
