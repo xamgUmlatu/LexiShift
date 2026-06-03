@@ -3,3 +3,5 @@ description: LexiShift user and operator documentation
 permalink: pretty
 theme: jekyll-theme-cayman
 repository: xamgUmlatu/LexiShift
+include:
+  - CNAME

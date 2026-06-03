@@ -11,6 +11,11 @@ This site is the user manual entrypoint for LexiShift.
 
 - [Handbook Home](./handbook/)
 - [Getting Started](./getting-started/)
+- [Download LexiShift](./download/)
+- [Beta](./beta/)
+- [Privacy](./privacy/)
+- [Support](./support/)
+- [Releases](./releases/)
 - [Architecture Diagrams](./handbook/diagrams/)
 
 ## Project Documentation Map
