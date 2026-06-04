@@ -383,6 +383,218 @@ html[data-guide-theme="dark"] .guide-theme-toggle__icon--moon {
   color: #5b7077;
 }
 
+.beta-page,
+.download-page {
+  margin-top: 1.25rem;
+}
+
+.beta-hero,
+.download-status {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 0.9fr);
+  gap: 1rem;
+  align-items: stretch;
+  margin: 1rem 0 1.75rem;
+  padding: 1rem;
+  border: 1px solid #d7e3e0;
+  border-radius: 8px;
+  background: #f7fbfa;
+}
+
+.beta-kicker {
+  margin: 0 0 0.35rem;
+  color: #5b6971;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.beta-hero h2,
+.download-status h2 {
+  margin: 0 0 0.55rem;
+  color: #173c46;
+}
+
+.beta-lede,
+.download-status p {
+  margin: 0;
+  color: #354d56;
+}
+
+.beta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.beta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.55rem;
+  padding: 0.58rem 0.9rem;
+  border: 1px solid #9fb8b3;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1c4f5a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.beta-button:hover {
+  border-color: #1f6f5f;
+  color: #153f48;
+  text-decoration: none;
+}
+
+.beta-button--primary {
+  border-color: #1f6f5f;
+  background: #1f6f5f;
+  color: #ffffff;
+}
+
+.beta-button--primary:hover {
+  background: #18584c;
+  color: #ffffff;
+}
+
+.beta-release-card,
+.download-status__badge,
+.beta-card,
+.beta-check {
+  border: 1px solid #d7e3e0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.beta-release-card {
+  padding: 0.9rem;
+}
+
+.beta-release-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #e4ecea;
+  color: #50636b;
+}
+
+.beta-release-card__header strong {
+  color: #9b5f11;
+}
+
+.beta-release-card dl {
+  margin: 0;
+}
+
+.beta-release-card dl div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.15rem;
+  padding: 0.62rem 0;
+  border-bottom: 1px solid #eef3f2;
+}
+
+.beta-release-card dl div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.beta-release-card dt {
+  color: #60727a;
+  font-weight: 700;
+}
+
+.beta-release-card dd {
+  margin: 0;
+  color: #243f49;
+}
+
+.beta-section {
+  margin: 1.8rem 0;
+}
+
+.beta-section--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.beta-check-grid,
+.beta-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.beta-check,
+.beta-card {
+  padding: 0.85rem;
+}
+
+.beta-check strong,
+.beta-card h3 {
+  display: block;
+  margin: 0 0 0.35rem;
+  color: #1d4852;
+}
+
+.beta-check span,
+.beta-card p {
+  margin: 0;
+  color: #435a63;
+}
+
+.download-status__badge {
+  display: flex;
+  min-height: 8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  color: #9b5f11;
+  font-weight: 800;
+  text-align: center;
+  background: #fff7e8;
+}
+
+.download-table {
+  overflow-x: auto;
+  border: 1px solid #d7e3e0;
+  border-radius: 8px;
+}
+
+.download-table table {
+  width: 100%;
+  min-width: 42rem;
+  margin: 0;
+}
+
+.download-table th {
+  background: #eef6f4;
+  color: #1b4650;
+}
+
+.download-table th,
+.download-table td {
+  padding: 0.72rem 0.8rem;
+}
+
+.download-steps {
+  margin-top: 0;
+  padding: 0.9rem 1rem 0.9rem 2.2rem;
+  border: 1px solid #d7e3e0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.download-steps li + li {
+  margin-top: 0.45rem;
+}
+
 html[data-guide-theme="dark"] body {
   background: #0f1519;
   color: #d7e3e7;
@@ -532,6 +744,27 @@ html[data-guide-theme="dark"] .guide-screenshot__filename {
   [data-guide-nav-ready="true"] .guide-section.is-current {
     transform: none;
     opacity: 1;
+  }
+}
+
+@media (max-width: 58rem) {
+  .beta-hero,
+  .download-status,
+  .beta-section--split,
+  .beta-check-grid,
+  .beta-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 32rem) {
+  .beta-hero,
+  .download-status {
+    padding: 0.8rem;
+  }
+
+  .beta-button {
+    width: 100%;
   }
 }
 
