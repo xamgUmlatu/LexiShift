@@ -139,10 +139,18 @@ npm --prefix scripts run release:manifest -- \
   --asset macos=/path/to/LexiShift-0.1.0.dmg \
   --print-wrangler-commands
 npm --prefix scripts run build:report
+python scripts/build/installer.py \
+  --skip-build \
+  --out /tmp/lexishift-beta-installers \
+  --dmg-name LexiShift-0.1.0
 ```
 
 Known branch-level blocker:
 
+- The local macOS installer smoke produced an unsigned, unnotarized DMG around
+  `576 MB`. That is adequate evidence that the installer path works, but it is
+  not broad-beta trust evidence; signing/notarization and app-size review stay
+  open release tasks.
 - `npm --prefix scripts run check` currently fails at `mypy` before reaching
   later checks. The same `409` mypy errors in `46` files are present on the
   raw app-code baseline before the Pages/distribution merge, so this is
