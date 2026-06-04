@@ -32,7 +32,7 @@ Source-of-truth: Pages navigation entrypoint only; implementation truth remains 
             <strong data-landing-mock-target>manzana</strong>
           </div>
           <div class="landing-scene__sentence" data-landing-mock-sentence>
-            The lunch menu listed <span>manzana</span> as today's fruit.
+            Do we need <span>manzana</span> for the recipe?
           </div>
           <div class="landing-scene__line landing-scene__line--mid"></div>
           <div class="landing-scene__feedback" data-landing-mock-feedback>

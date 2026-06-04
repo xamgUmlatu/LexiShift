@@ -19,8 +19,8 @@
       "runtime": "Local helper",
       "sourceWord": "apple",
       "targetWord": "manzana",
-      "sentencePrefix": "The lunch menu listed ",
-      "sentenceSuffix": " as today's fruit.",
+      "sentencePrefix": "Do we need ",
+      "sentenceSuffix": " for the recipe?",
       "gloss": "apple",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     },
@@ -32,8 +32,8 @@
       "runtime": "Local helper",
       "sourceWord": "apple",
       "targetWord": "Apfel",
-      "sentencePrefix": "The lunch menu listed ",
-      "sentenceSuffix": " as today's fruit.",
+      "sentencePrefix": "Do we need ",
+      "sentenceSuffix": " for the recipe?",
       "gloss": "apple",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     },
@@ -45,8 +45,8 @@
       "runtime": "Local helper",
       "sourceWord": "apple",
       "targetWord": "りんご",
-      "sentencePrefix": "The lunch menu listed ",
-      "sentenceSuffix": " as today's fruit.",
+      "sentencePrefix": "Do we need ",
+      "sentenceSuffix": " for the recipe?",
       "gloss": "apple",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     },
@@ -58,8 +58,8 @@
       "runtime": "Local helper",
       "sourceWord": "manzana",
       "targetWord": "apple",
-      "sentencePrefix": "El menú decía ",
-      "sentenceSuffix": " como fruta del día.",
+      "sentencePrefix": "¿Necesitamos ",
+      "sentenceSuffix": " para la receta?",
       "gloss": "manzana",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     }
