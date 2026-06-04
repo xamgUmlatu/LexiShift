@@ -2,8 +2,8 @@
 
 Status: active runbook
 Role: Runbook / operational
-Last updated: 2026-06-01
-Last verified: 2026-06-01 startup-performance plan routing review and doc-reference check; build not rerun
+Last updated: 2026-06-03
+Last verified: 2026-06-03 hosting/distribution roadmap routing review and doc-reference check; build not rerun
 Purpose: current build, packaging, signing, and release entrypoints for maintained surfaces
 Source-of-truth: build/release runbook; operational behavior is defined by `scripts/package.json`, `scripts/dev/dev_workflow_build.py`, `scripts/build/gui_app.py`, and `scripts/build/installer.py`.
 
@@ -123,6 +123,8 @@ Reports folder:
 
 ## Release References
 
+- Hosting/distribution roadmap: `hosting_distribution_roadmap.md`
+- Cloudflare distribution setup: `../runbooks/cloudflare_distribution_setup.md`
 - Architecture + policy status: `../architecture/chrome_web_store_review_working_doc.md`
 - Native messaging checklist: `../architecture/native_messaging_checklist.md`
 - Full scripts map: `../../scripts/README.md`

@@ -135,7 +135,7 @@ Treat these as non-authoritative outputs unless explicitly referenced as evidenc
 
 1. `docs/test_outputs/`
 2. `docs/_site/`
-3. `docs/.jekyll-cache/`
+3. the local Jekyll cache directory
 
 They may be operationally useful, but they should not become the default planning path.
 

@@ -2,8 +2,8 @@
 
 Status: active developer hub
 Role: Canonical current
-Last updated: 2026-06-01
-Last verified: 2026-06-01 startup-performance plan routing review and doc-reference check
+Last updated: 2026-06-03
+Last verified: 2026-06-03 hosting/distribution roadmap routing review and doc-reference check
 Source-of-truth: developer routing guide; defer runtime truth to source code, `feature_state_matrix.md`, and linked subsystem docs.
 
 Purpose:
@@ -30,6 +30,7 @@ Use these first when you need current behavior or current operating commands:
 - GenAI workflow architecture and harness policy: `genai_workflow_architecture.md`
 - Project health gate structure: `project_health_gate_structure.md`
 - Productization closure roadmap: `productization_closure_roadmap.md`
+- Hosting/distribution roadmap: `hosting_distribution_roadmap.md`
 - Productization Lane 4 validation gate inventory: `productization_lane4_validation_gate_inventory.md`
 - Productization Lane 2 code disposition inventory: `productization_lane2_code_disposition_inventory.md`
 - Productization Lane 2 semantic testing script registry: `productization_lane2_semantic_testing_script_registry.md`
@@ -57,6 +58,7 @@ Treat these as planning/history surfaces unless their own metadata says otherwis
 - Data-source normalization architecture: `data_source_normalization_architecture.md`
 - Data-source normalization execution order: `data_source_normalization_execution_order.md`
 - Post-veto productization and repo posture plan: `post_veto_productization_and_repo_posture_plan.md`
+- Hosting/distribution roadmap: `hosting_distribution_roadmap.md`
 - Language-pair/data-source generalization roadmap: `language_pair_generalization_roadmap.md`
 - `de-en` proof-LP roadmap: `../language_pairs/de_en_workstream_roadmap.md`
 - `en-de` advisory quality roadmap: `../language_pairs/en_de_workstream_roadmap.md`
