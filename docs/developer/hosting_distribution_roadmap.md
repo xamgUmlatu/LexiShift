@@ -3,7 +3,7 @@
 Status: active roadmap
 Role: Planning / WIP
 Last updated: 2026-06-04
-Last verified: 2026-06-04 repo-side domain/page/manifest scaffolding review; Cloudflare resources, DNS records, and release assets not created
+Last verified: 2026-06-04 repo-side domain/page/manifest scaffolding and macOS GUI build/report review; Cloudflare resources, DNS records, and release assets not created
 Purpose: sequence LexiShift's indie-friendly hosting, installer distribution, release metadata, and future hosted app-data rollout
 Source-of-truth: roadmap only; operational setup lives in `../runbooks/cloudflare_distribution_setup.md`, hosted docs behavior lives in `.github/workflows/pages.yml`, and current build/signing behavior lives in `build_and_release.md`.
 Related docs:
@@ -109,6 +109,52 @@ cd docs
 bundle exec jekyll build --trace
 npm --prefix ../scripts run check:docs:report
 ```
+
+## Current Beta RC Gate
+
+Status: local RC branch assembled.
+
+Current integration branch:
+
+```text
+codex/beta-app-rc
+```
+
+Current branch includes:
+
+1. app-code baseline from `codex/veto-data-sources-exp`;
+2. live GitHub Pages custom-domain/beta/download work from `origin/main`;
+3. distribution roadmap, Cloudflare/R2 runbook, and release-manifest tooling.
+
+Validated for the hosting/distribution slice:
+
+```bash
+cd docs
+bundle exec jekyll build --trace
+npm --prefix ../scripts run check:docs:report
+cd ..
+npm --prefix scripts run release:manifest -- \
+  --version 0.1.0 \
+  --channel beta \
+  --asset macos=/path/to/LexiShift-0.1.0.dmg \
+  --print-wrangler-commands
+npm --prefix scripts run build:report
+```
+
+Known branch-level blocker:
+
+- `npm --prefix scripts run check` currently fails at `mypy` before reaching
+  later checks. The same `409` mypy errors in `46` files are present on the
+  raw app-code baseline before the Pages/distribution merge, so this is
+  inherited app-branch type debt, not a website/distribution regression.
+- `npm --prefix scripts run check:changed:report` is not a useful green gate
+  for this integration branch against `origin/main` because the app-code
+  baseline differs by thousands of files. Use slice-local validation until the
+  app branch has a clean baseline or a deliberate beta exception is recorded.
+
+Do not bypass the pre-push safety hook for this branch without an explicit
+decision. If a remote PR is needed before the inherited full-check debt is
+fixed, mark it as WIP and call out the failed full gate in the PR body.
 
 ## Phase 1: Domain And Public Pages
 
