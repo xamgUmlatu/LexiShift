@@ -19,8 +19,8 @@
       "runtime": "Local helper",
       "sourceWord": "apple",
       "targetWord": "manzana",
-      "sentencePrefix": "She packed ",
-      "sentenceSuffix": " for lunch.",
+      "sentencePrefix": "The lunch menu listed ",
+      "sentenceSuffix": " as today's fruit.",
       "gloss": "apple",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     },
@@ -32,8 +32,8 @@
       "runtime": "Local helper",
       "sourceWord": "apple",
       "targetWord": "Apfel",
-      "sentencePrefix": "She packed ",
-      "sentenceSuffix": " for lunch.",
+      "sentencePrefix": "The lunch menu listed ",
+      "sentenceSuffix": " as today's fruit.",
       "gloss": "apple",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     },
@@ -45,8 +45,8 @@
       "runtime": "Local helper",
       "sourceWord": "apple",
       "targetWord": "りんご",
-      "sentencePrefix": "She packed ",
-      "sentenceSuffix": " for lunch.",
+      "sentencePrefix": "The lunch menu listed ",
+      "sentenceSuffix": " as today's fruit.",
       "gloss": "apple",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     },
@@ -58,8 +58,8 @@
       "runtime": "Local helper",
       "sourceWord": "manzana",
       "targetWord": "apple",
-      "sentencePrefix": "Compró ",
-      "sentenceSuffix": " en el mercado.",
+      "sentencePrefix": "El menú decía ",
+      "sentenceSuffix": " como fruta del día.",
       "gloss": "manzana",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     }
