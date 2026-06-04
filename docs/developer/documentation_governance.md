@@ -3,7 +3,7 @@
 Status: Active policy
 Role: Canonical current
 Owner: engineering
-Last updated: 2026-05-16
+Last updated: 2026-06-04
 Source-of-truth: documentation policy; enforced through `scripts/dev/check_doc_references.py` and the linked routing docs.
 
 ## Purpose
@@ -134,7 +134,7 @@ Archive rule for future grooming:
 Treat these as non-authoritative outputs unless explicitly referenced as evidence:
 
 1. `docs/test_outputs/`
-2. `docs/_site/`
+2. generated Jekyll site output
 3. the local Jekyll cache directory
 
 They may be operationally useful, but they should not become the default planning path.

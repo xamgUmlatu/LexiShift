@@ -2,8 +2,8 @@
 
 Status: active docs routing
 Role: Canonical current
-Last updated: 2026-06-03
-Last verified: 2026-06-03 hosting/distribution roadmap routing review and doc-reference check
+Last updated: 2026-06-04
+Last verified: 2026-06-04 hosting/distribution roadmap routing review and clean-checkout doc-reference check
 Purpose: route contributors to the current documentation surfaces before planning, archive, or generated evidence
 Source-of-truth: routing guide only; defer implementation truth to source code, `developer/feature_state_matrix.md`, and linked domain docs.
 
@@ -127,5 +127,5 @@ Use this order when resuming work:
 - Controller composition truth: `apps/chrome-extension/options/core/bootstrap/controller_graph.js`.
 - Storage defaults truth: `apps/chrome-extension/shared/settings/settings_defaults.js`.
 - Use `developer/documentation_governance.md` before broad doc cleanup or archive work.
-- Treat `test_outputs/`, `docs/_site/`, and the local Jekyll cache as generated evidence/build outputs, not default planning entrypoints.
+- Treat `test_outputs/`, generated Jekyll site output, and the local Jekyll cache as generated evidence/build outputs, not default planning entrypoints.
 - This `docs/` folder should describe behavior, not replace source-level truth.

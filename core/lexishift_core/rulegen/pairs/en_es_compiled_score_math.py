@@ -419,7 +419,7 @@ def _vectorized_reverse_check_delta_matrix(
 ) -> np.ndarray:
     config_count = int(config_matrix.reverse_enabled.shape[0])
     row_count = int(rank_values.shape[0])
-    resolved = np.zeros((config_count, row_count), dtype=np.float64)
+    resolved: np.ndarray = np.zeros((config_count, row_count), dtype=np.float64)
     if config_count == 0 or row_count == 0:
         return resolved
     supported_mask = config_matrix.reverse_enabled[:, None] & supported_flags[None, :]
