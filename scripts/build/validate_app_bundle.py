@@ -145,7 +145,11 @@ def _windows_exe_candidates(dist_path: Path, exe_name: str, *, dir_name: str) ->
 
 
 def _find_windows_exe(dist_path: Path, exe_name: str, *, dir_name: str) -> Path:
-    matches = [candidate for candidate in _windows_exe_candidates(dist_path, exe_name, dir_name=dir_name) if candidate.exists()]
+    matches = [
+        candidate
+        for candidate in _windows_exe_candidates(dist_path, exe_name, dir_name=dir_name)
+        if candidate.exists()
+    ]
     if len(matches) == 1:
         return matches[0]
     if matches:

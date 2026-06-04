@@ -281,6 +281,8 @@ jobs:
   windows-parity:
     runs-on: windows-latest
     steps:
+      - name: Enable Git long paths
+        run: git config --global core.longpaths true
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Node

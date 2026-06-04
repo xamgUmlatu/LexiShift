@@ -117,11 +117,7 @@ def _find_windows_distribution(dist_dir: Path) -> tuple[Path, Path]:
         return sub_candidates[0]
     if len(sub_candidates) > 1:
         preferred = next(
-            (
-                item
-                for item in sub_candidates
-                if item[0].name.lower() == "lexishift.exe"
-            ),
+            (item for item in sub_candidates if item[0].name.lower() == "lexishift.exe"),
             sub_candidates[0],
         )
         return preferred[0], dist_dir
@@ -183,8 +179,7 @@ def _ensure_iscc() -> str:
         if str(candidate).strip() and candidate.exists():
             return str(candidate)
     raise SystemExit(
-        "Inno Setup compiler (iscc) not found.\n"
-        "Install Inno Setup or add ISCC.exe to PATH."
+        "Inno Setup compiler (iscc) not found.\nInstall Inno Setup or add ISCC.exe to PATH."
     )
 
 
@@ -272,7 +267,9 @@ def main() -> int:
     default_output = repo_root / "apps" / "gui" / "installers"
 
     parser = argparse.ArgumentParser(description="Build platform installers for LexiShift.")
-    parser.add_argument("--spec", default=str(default_spec), help="Path to the PyInstaller spec file.")
+    parser.add_argument(
+        "--spec", default=str(default_spec), help="Path to the PyInstaller spec file."
+    )
     parser.add_argument("--dist", default=str(default_dist), help="PyInstaller dist directory.")
     parser.add_argument("--build", default=str(default_build), help="PyInstaller build directory.")
     parser.add_argument("--out", default=str(default_output), help="Installer output directory.")
@@ -359,7 +356,9 @@ def main() -> int:
         )
         if args.notarize:
             if not (args.apple_id and args.team_id and args.notary_password):
-                raise SystemExit("Notarization requires --apple-id, --team-id, and --notary-password.")
+                raise SystemExit(
+                    "Notarization requires --apple-id, --team-id, and --notary-password."
+                )
             _notarize_macos(dmg_path, args.apple_id, args.team_id, args.notary_password)
         print(f"DMG created: {dmg_path}")
         return 0
