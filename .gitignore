@@ -52,6 +52,7 @@ docs/.sass-cache/
 docs/.jekyll-metadata
 docs/.bundle/
 docs/vendor/bundle/
+docs/test_outputs/landing_visual_mocks/
 
 # Ignore local test vocabulary exports (prevent leaking personal word lists)
 TestVocabPool.json

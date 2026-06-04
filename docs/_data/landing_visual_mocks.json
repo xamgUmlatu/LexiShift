@@ -1,0 +1,24 @@
+{
+  "defaultMock": "en-es",
+  "aliases": {
+    "en": "en-es",
+    "english": "en-es",
+    "es": "en-es",
+    "spanish": "en-es"
+  },
+  "mocks": [
+    {
+      "id": "en-es",
+      "label": "Spanish",
+      "profile": "Reading beta",
+      "ruleset": "en-es review",
+      "runtime": "Local helper",
+      "sourceWord": "apple",
+      "targetWord": "manzana",
+      "sentencePrefix": "Do we need ",
+      "sentenceSuffix": " for the recipe?",
+      "gloss": "apple",
+      "feedback": ["Again", "Hard", "Good", "Easy"]
+    }
+  ]
+}
