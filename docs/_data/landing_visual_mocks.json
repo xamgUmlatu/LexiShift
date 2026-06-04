@@ -1,13 +1,9 @@
 {
   "defaultMock": "en-es",
   "aliases": {
-    "de": "en-de",
-    "en": "es-en",
-    "english": "es-en",
+    "en": "en-es",
+    "english": "en-es",
     "es": "en-es",
-    "german": "en-de",
-    "ja": "en-ja",
-    "japanese": "en-ja",
     "spanish": "en-es"
   },
   "mocks": [
@@ -22,45 +18,6 @@
       "sentencePrefix": "Do we need ",
       "sentenceSuffix": " for the recipe?",
       "gloss": "apple",
-      "feedback": ["Again", "Hard", "Good", "Easy"]
-    },
-    {
-      "id": "en-de",
-      "label": "German",
-      "profile": "Reading beta",
-      "ruleset": "en-de review",
-      "runtime": "Local helper",
-      "sourceWord": "apple",
-      "targetWord": "Apfel",
-      "sentencePrefix": "Do we need ",
-      "sentenceSuffix": " for the recipe?",
-      "gloss": "apple",
-      "feedback": ["Again", "Hard", "Good", "Easy"]
-    },
-    {
-      "id": "en-ja",
-      "label": "Japanese",
-      "profile": "Reading beta",
-      "ruleset": "en-ja review",
-      "runtime": "Local helper",
-      "sourceWord": "apple",
-      "targetWord": "りんご",
-      "sentencePrefix": "Do we need ",
-      "sentenceSuffix": " for the recipe?",
-      "gloss": "apple",
-      "feedback": ["Again", "Hard", "Good", "Easy"]
-    },
-    {
-      "id": "es-en",
-      "label": "English",
-      "profile": "Reverse beta",
-      "ruleset": "es-en review",
-      "runtime": "Local helper",
-      "sourceWord": "manzana",
-      "targetWord": "apple",
-      "sentencePrefix": "¿Necesitamos ",
-      "sentenceSuffix": " para la receta?",
-      "gloss": "manzana",
       "feedback": ["Again", "Hard", "Good", "Easy"]
     }
   ]
