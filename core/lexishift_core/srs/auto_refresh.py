@@ -303,7 +303,12 @@ def _cooldown_remaining_minutes(
 
 def _positive_int(value: object, *, fallback: int) -> int:
     try:
-        parsed = int(value)  # type: ignore[arg-type]
+        if isinstance(value, bool):
+            parsed = int(value)
+        elif isinstance(value, (int, float)):
+            parsed = int(value)
+        else:
+            parsed = int(str(value or "").strip())
     except (TypeError, ValueError):
         parsed = int(fallback)
     return max(1, parsed)

@@ -73,12 +73,12 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
             "Profile bootstrap applies profile-aware candidate scoring to the frequency "
             "bootstrap seed frontier."
         )
-        active_signals = tuple(
-            profile_bootstrap_summary.get("context", {}).get("active_signals", [])  # type: ignore[union-attr]
+        profile_context_summary = profile_bootstrap_summary.get("context")
+        profile_context_payload = (
+            profile_context_summary if isinstance(profile_context_summary, Mapping) else {}
         )
-        missing_signals = tuple(
-            profile_bootstrap_summary.get("context", {}).get("missing_signals", [])  # type: ignore[union-attr]
-        )
+        active_signals = _tuple_payload(profile_context_payload.get("active_signals"))
+        missing_signals = _tuple_payload(profile_context_payload.get("missing_signals"))
         if not request.profile_context:
             notes.append(
                 "No profile context was provided; ranking would remain close to neutral frequency order."
@@ -164,6 +164,12 @@ def build_srs_set_plan(request: SrsSetPlanRequest) -> SrsSetPlan:
         notes=tuple(notes),
         diagnostics=diagnostics,
     )
+
+
+def _tuple_payload(value: object) -> tuple[object, ...]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return tuple(value)
+    return ()
 
 
 def plan_to_dict(plan: SrsSetPlan) -> dict[str, object]:

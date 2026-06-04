@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import replace
 from pathlib import Path
-from typing import Callable, Mapping, Optional, Sequence
+from typing import Callable, Mapping, Optional, Sequence, cast
 
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.paths import HelperPaths
@@ -10,6 +10,8 @@ from lexishift_core.helper.rulegen import RulegenConfig, RulegenOutput
 from lexishift_core.rulegen.tuning import resolve_rulegen_tuning
 from lexishift_core.srs import (
     SrsInventory,
+    SrsSettings,
+    SrsStore,
     load_srs_inventory,
     merge_active_item_ids,
     plan_active_rotation_capacity_release,
@@ -58,8 +60,8 @@ def refresh_srs_set(
     resolve_pair_resources_fn: Callable[..., tuple[Path | None, Path | None, Path | None]],
     ensure_pair_requirements_fn: Callable[..., None],
     resolve_profile_id_fn: Callable[..., str],
-    ensure_settings_fn: Callable[..., object],
-    ensure_store_fn: Callable[..., object],
+    ensure_settings_fn: Callable[..., SrsSettings],
+    ensure_store_fn: Callable[..., SrsStore],
     count_items_for_pair_fn: Callable[..., int],
     resolve_stopwords_path_fn: Callable[..., Path | None],
     build_seed_candidates_fn: Callable[..., list[SeedWord]],
@@ -396,7 +398,7 @@ def _profile_growth_selector_candidates(
     )
     candidates: list[SelectorCandidate] = []
     for entry in scored_entries:
-        base_candidates = seed_to_selector_candidates([entry.seed])
+        base_candidates = seed_to_selector_candidates([cast(SeedWord, entry.seed)])
         if not base_candidates:
             continue
         base_candidate = base_candidates[0]
@@ -533,15 +535,16 @@ def _compact_profile_growth_ranking_preview(value: object) -> list[dict[str, obj
                 "challenge_fit": signal_map.get("challenge_fit"),
                 "readiness_multiplier": signal_map.get("readiness_multiplier"),
                 "difficulty_estimate": signal_map.get("difficulty_estimate"),
-                "active_profile_drivers": list(
-                    entry.get("active_profile_drivers")
-                    if isinstance(entry.get("active_profile_drivers"), Sequence)
-                    and not isinstance(entry.get("active_profile_drivers"), (str, bytes))
-                    else []
-                ),
+                "active_profile_drivers": _list_payload(entry.get("active_profile_drivers")),
             }
         )
     return preview
+
+
+def _list_payload(value: object) -> list[object]:
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return list(value)
+    return []
 
 
 def _normalize_allowed_pos(value: object) -> set[str]:

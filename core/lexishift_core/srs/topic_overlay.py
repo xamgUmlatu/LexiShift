@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 from collections import Counter
 from dataclasses import is_dataclass, replace
+from typing import Any, cast
 import json
 from pathlib import Path
 from typing import Mapping, Sequence
@@ -350,7 +351,7 @@ def _seed_with_profile_topic_overlay(
         "min_membership": PROFILE_TOPIC_OVERLAY_MIN_MEMBERSHIP,
     }
     if is_dataclass(seed):
-        return replace(seed, metadata=metadata), tuple(applied_topics)
+        return replace(cast(Any, seed), metadata=metadata), tuple(applied_topics)
     if hasattr(seed, "__dict__"):
         copied = copy.copy(seed)
         setattr(copied, "metadata", metadata)

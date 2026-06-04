@@ -6,13 +6,14 @@ from typing import Sequence
 from lexishift_core.resources.dict_sqlite_support import (
     load_auxiliary_sqlite_gloss_records_by_translation_ordered,
 )
+from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 
 
 def load_sqlite_gloss_records_by_translation_ordered(
     conn: sqlite3.Connection,
     *,
     translations: Sequence[str] | None = None,
-) -> dict[str, list[object]]:
+) -> dict[str, list[TranslationGlossRecord]]:
     from lexishift_core.resources.dict_loaders import (
         FreedictGlossRecord,
     )

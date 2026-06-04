@@ -12,6 +12,7 @@ from lexishift_core.frequency.sqlite_store import SqliteFrequencyConfig
 from lexishift_core.replacement.inflect import FORM_PLURAL, InflectionSpec
 from lexishift_core.resources.dict_loaders import FreedictGlossRecord, TranslationGlossRecord
 from lexishift_core.rulegen.generation import (
+    CandidateNormalizer,
     RuleCandidate,
     RuleGenerationConfig,
     RuleGenerationPipeline,
@@ -19,6 +20,7 @@ from lexishift_core.rulegen.generation import (
     RuleScorer,
     RuleScoringConfig,
     SimpleSignalProvider,
+    VariantExpander,
     build_optional_pos_match_provider,
 )
 from lexishift_core.rulegen.pairs.en_de_gloss_processing import (
@@ -184,11 +186,11 @@ def build_en_de_pipeline(
         sense_representative_selection=config.sense_representative_selection,
         kaikki_policy=config.kaikki_policy,
     )
-    normalizers = [
+    normalizers: list[CandidateNormalizer] = [
         BasicStringNormalizer(),
         LeadingEnglishInfinitiveNormalizer(),
     ]
-    expanders = []
+    expanders: list[VariantExpander] = []
     if config.include_variants:
         expanders.append(
             InflectionVariantExpander(

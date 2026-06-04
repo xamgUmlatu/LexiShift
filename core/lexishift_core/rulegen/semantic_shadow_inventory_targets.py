@@ -35,7 +35,7 @@ def build_benchmark_shadow_targets(
     targets: Sequence[str] | None = None,
 ) -> list[BenchmarkShadowTarget]:
     requested = {str(target).strip() for target in targets or () if str(target).strip()}
-    grouped: dict[str, dict[str, object]] = {}
+    grouped: dict[str, dict[str, list[str]]] = {}
     for case in cases:
         target = str(case.get("target") or "").strip()
         if not target:
@@ -56,7 +56,7 @@ def build_benchmark_shadow_targets(
         tier = str(case.get("tier") or "").strip()
         if tier and tier not in bucket["tiers"]:
             bucket["tiers"].append(tier)
-        reviewed_values = []
+        reviewed_values: list[str] = []
         for key in ("expected_top1_any", "expected_any"):
             value = case.get(key)
             if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
@@ -89,7 +89,7 @@ def build_rulegen_shadow_targets(
             f"expected one of {RULEGEN_SHADOW_SOURCE_FIELDS!r}"
         )
     requested = {str(target).strip() for target in targets or () if str(target).strip()}
-    grouped: dict[str, dict[str, object]] = {}
+    grouped: dict[str, dict[str, list[str]]] = {}
     for case in case_results:
         target = str(case.get("target") or "").strip()
         if not target:
@@ -297,7 +297,7 @@ def filter_shadow_targets_by_trigger_support(
                     **details,
                 }
             )
-            if float(details.get("trigger_support_score") or 0.0) >= float(min_score):
+            if (_safe_float(details.get("trigger_support_score")) or 0.0) >= float(min_score):
                 kept_triggers.append(normalized_trigger)
         filtered_targets.append(
             BenchmarkShadowTarget(
@@ -310,6 +310,19 @@ def filter_shadow_targets_by_trigger_support(
             )
         )
     return filtered_targets, support_rows
+
+
+def _safe_float(value: object) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (float, int)):
+        return float(value)
+    try:
+        return float(str(value).strip())
+    except (TypeError, ValueError):
+        return None
 
 
 __all__ = (

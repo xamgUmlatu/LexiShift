@@ -162,7 +162,12 @@ def _summarize_store(
                 "last_seen_at": aggregate.last_seen_at,
             }
         )
-    rows.sort(key=lambda row: (-float(row["browsing_signal"]), str(row["target_lemma"])))
+    rows.sort(
+        key=lambda row: (
+            -_safe_float(row.get("browsing_signal"), default=0.0),
+            str(row.get("target_lemma") or ""),
+        )
+    )
     return {
         "pair": store.pair,
         "profile_id": store.profile_id,
@@ -206,6 +211,10 @@ def _policy_payload(policy: BrowsingSignalIngestPolicy) -> dict[str, object]:
 
 def _safe_float(value: object, *, default: float) -> float:
     try:
-        return float(value)
+        if isinstance(value, bool):
+            return float(value)
+        if isinstance(value, (int, float)):
+            return float(value)
+        return float(str(value or "").strip())
     except (TypeError, ValueError):
         return default

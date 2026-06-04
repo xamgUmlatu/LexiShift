@@ -486,8 +486,9 @@ class RuntimeSimilarityBackend:
                     "sentence_transformers is required for sentence_transformer_cosine."
                 ) from exc
 
-            self._embedding_model = SentenceTransformer(self.model_name)
-            encoded = self._embedding_model.encode(
+            embedding_model = SentenceTransformer(self.model_name)
+            self._embedding_model = embedding_model
+            encoded = embedding_model.encode(
                 normalized_texts,
                 normalize_embeddings=True,
             )

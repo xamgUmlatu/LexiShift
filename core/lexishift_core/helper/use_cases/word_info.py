@@ -661,8 +661,21 @@ def _resolution_sources(
     sources: list[str] = []
     if srs_item is not None:
         sources.append("srs_store")
-    if int(rule_summary.get("rule_count") or 0) > 0:
+    if _safe_int(rule_summary.get("rule_count")) > 0:
         sources.append("published_ruleset")
     if glosses:
         sources.append("installed_lexical_pack")
     return sources
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0

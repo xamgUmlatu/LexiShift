@@ -716,7 +716,12 @@ def _simulation_preview(
 
 def _safe_signal_float(value: object, *, default: float) -> float:
     try:
-        parsed = float(value)
+        if isinstance(value, bool):
+            parsed = float(value)
+        elif isinstance(value, (int, float)):
+            parsed = float(value)
+        else:
+            parsed = float(str(value or "").strip())
     except (TypeError, ValueError):
         return default
     if parsed != parsed:

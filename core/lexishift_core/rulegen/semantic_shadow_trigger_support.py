@@ -41,8 +41,19 @@ def resolve_trigger_support_score_weights(
         normalized_key = str(key or "").strip()
         if not normalized_key:
             continue
-        resolved[normalized_key] = float(value)
+        resolved[normalized_key] = _safe_float(value)
     return resolved
+
+
+def _safe_float(value: object) -> float:
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (int, float)):
+        return float(value)
+    try:
+        return float(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def _normalize_shadow_text(value: object) -> str:

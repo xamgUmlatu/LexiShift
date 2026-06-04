@@ -22,10 +22,6 @@ from lexishift_core.rulegen.pairs.en_de import (
     generate_en_de_results,
 )
 
-try:
-    from lexishift_core.rulegen.pairs.en_de import EnDeCompiledResources
-except ImportError:  # pragma: no cover - branch-local capability seam
-    EnDeCompiledResources = None
 from lexishift_core.rulegen.pairs.en_es import (
     EnEsCompiledResources,
     EnEsKaikkiPolicyConfig,
@@ -152,41 +148,32 @@ def build_en_de_rulegen_config(request: RulegenAdapterRequest) -> EnDeRulegenCon
         reverse_translation_pack.pack_id if reverse_translation_pack is not None else None
     )
     default_kaikki_policy = EnDeKaikkiPolicyConfig()
-    compiled_resources = (
-        request.compiled_pair_context
-        if EnDeCompiledResources is not None
-        and isinstance(request.compiled_pair_context, EnDeCompiledResources)
-        else None
-    )
-    config_kwargs = {
-        "translation_dict_path": translation_dict_path,
-        "reverse_translation_dict_path": reverse_translation_dict_path,
-        "language_pair": request.language_pair,
-        "source_dict_id": translation_pack.pack_id,
-        "reverse_source_dict_id": reverse_source_dict_id,
-        "dictionary_pos_source_profile": translation_pack.pos_source_profile,
-        "gloss_records_by_target": request.gloss_records_by_target,
-        "reverse_gloss_records_by_source": request.reverse_gloss_records_by_source,
-        "confidence_threshold": request.confidence_threshold,
-        "max_definitions_per_target": request.max_definitions_per_target,
-        "max_rules_per_target": request.max_rules_per_target,
-        "interleave_definition_groups": request.interleave_definition_groups,
-        "sense_representative_selection": request.sense_representative_selection,
-        "sense_representative_penalty": request.sense_representative_penalty,
-        "sense_defaultness_competition_penalty": request.sense_defaultness_competition_penalty,
-        "semantic_demotion_scale": request.semantic_demotion_scale,
-        "include_variants": request.include_variants,
-        "allow_multiword_glosses": request.allow_multiword_glosses,
-        "scoring": request.scoring,
-        "reverse_check": request.reverse_check,
-        "gloss_decay": request.gloss_decay,
-        "word_packages_by_target": request.word_packages_by_target,
-        "enable_exact_gloss_demotions": request.enable_exact_gloss_demotions,
-        "enable_source_frequency_prior": request.enable_source_frequency_prior,
-        "source_frequency_db_path": request.source_frequency_db_path,
-        "cleaner_later_competition_penalty": request.cleaner_later_competition_penalty,
-        "compiled_resources": compiled_resources,
-        "kaikki_policy": EnDeKaikkiPolicyConfig(
+    return EnDeRulegenConfig(
+        translation_dict_path=translation_dict_path,
+        reverse_translation_dict_path=reverse_translation_dict_path,
+        language_pair=request.language_pair,
+        source_dict_id=translation_pack.pack_id,
+        reverse_source_dict_id=reverse_source_dict_id,
+        dictionary_pos_source_profile=translation_pack.pos_source_profile,
+        gloss_records_by_target=request.gloss_records_by_target,
+        reverse_gloss_records_by_source=request.reverse_gloss_records_by_source,
+        confidence_threshold=request.confidence_threshold,
+        max_definitions_per_target=request.max_definitions_per_target,
+        max_rules_per_target=request.max_rules_per_target,
+        interleave_definition_groups=request.interleave_definition_groups,
+        sense_representative_selection=request.sense_representative_selection,
+        semantic_demotion_scale=request.semantic_demotion_scale,
+        include_variants=request.include_variants,
+        allow_multiword_glosses=request.allow_multiword_glosses,
+        scoring=request.scoring,
+        reverse_check=request.reverse_check,
+        gloss_decay=request.gloss_decay,
+        word_packages_by_target=request.word_packages_by_target,
+        enable_exact_gloss_demotions=request.enable_exact_gloss_demotions,
+        enable_source_frequency_prior=request.enable_source_frequency_prior,
+        source_frequency_db_path=request.source_frequency_db_path,
+        cleaner_later_competition_penalty=request.cleaner_later_competition_penalty,
+        kaikki_policy=EnDeKaikkiPolicyConfig(
             enable_shadow_metadata=True,
             enable_live_demotion=bool(request.kaikki_policy_live_demotion),
             enable_register_demotion=bool(request.kaikki_policy_register_demotion),
@@ -198,10 +185,6 @@ def build_en_de_rulegen_config(request: RulegenAdapterRequest) -> EnDeRulegenCon
                 request.kaikki_policy_risk_families or default_kaikki_policy.risk_families
             ),
         ),
-    }
-    supported_fields = EnDeRulegenConfig.__dataclass_fields__
-    return EnDeRulegenConfig(
-        **{key: value for key, value in config_kwargs.items() if key in supported_fields}
     )
 
 

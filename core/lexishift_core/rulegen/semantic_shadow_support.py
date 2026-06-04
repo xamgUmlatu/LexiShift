@@ -54,7 +54,7 @@ def resolve_shadow_support_score_weights(
         normalized_key = str(key or "").strip()
         if not normalized_key:
             continue
-        resolved[normalized_key] = float(value)
+        resolved[normalized_key] = _safe_float(value)
     return resolved
 
 
@@ -101,16 +101,16 @@ def merge_shadow_candidate_evidence(
         if existing_values:
             existing_candidate[field] = existing_values
 
-    existing_bridge_score = float(existing_candidate.get("semantic_bridge_score") or 0.0)
-    incoming_bridge_score = float(incoming_candidate.get("semantic_bridge_score") or 0.0)
+    existing_bridge_score = _safe_float(existing_candidate.get("semantic_bridge_score"))
+    incoming_bridge_score = _safe_float(incoming_candidate.get("semantic_bridge_score"))
     if incoming_bridge_score > existing_bridge_score:
         existing_candidate["semantic_bridge_score"] = incoming_bridge_score
 
-    existing_embedding_similarity = float(
-        existing_candidate.get("embedding_bridge_similarity") or 0.0
+    existing_embedding_similarity = _safe_float(
+        existing_candidate.get("embedding_bridge_similarity")
     )
-    incoming_embedding_similarity = float(
-        incoming_candidate.get("embedding_bridge_similarity") or 0.0
+    incoming_embedding_similarity = _safe_float(
+        incoming_candidate.get("embedding_bridge_similarity")
     )
     if incoming_embedding_similarity > existing_embedding_similarity:
         existing_candidate["embedding_bridge_similarity"] = incoming_embedding_similarity
@@ -155,6 +155,17 @@ def parse_shadow_optional_int(value: object) -> int | None:
     return None
 
 
+def _safe_float(value: object) -> float:
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (float, int)):
+        return float(value)
+    try:
+        return float(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def build_shadow_candidate_support_details(
     *,
     candidate: Mapping[str, object],
@@ -190,11 +201,7 @@ def build_shadow_candidate_support_details(
     benchmark_target_present = bool(candidate.get("benchmark_target_present"))
     same_pos = bool(canonical_pos and canonical_pos in active_pos_values)
     cross_pos_mismatch = bool(has_active_pos and canonical_pos and not same_pos)
-    candidate_sources = {
-        str(source or "").strip()
-        for source in (candidate.get("candidate_sources") or ())
-        if str(source or "").strip()
-    }
+    candidate_sources = set(normalize_shadow_string_list(candidate.get("candidate_sources")))
     candidate_source_families = {
         "forward_index" if source in _FORWARD_SOURCE_FAMILIES else source
         for source in candidate_sources
@@ -205,7 +212,7 @@ def build_shadow_candidate_support_details(
     }.issubset(candidate_source_families)
     semantic_bridge_support = bool(
         candidate.get("semantic_bridge_markers")
-        or float(candidate.get("embedding_bridge_similarity") or 0.0) > 0.0
+        or _safe_float(candidate.get("embedding_bridge_similarity")) > 0.0
     )
     triplet_core_bonus = bool(benchmark_target_present and same_pos and has_active_candidates)
     triplet_forward_bonus = bool(triplet_core_bonus and forward_trigger_support)
@@ -225,14 +232,14 @@ def build_shadow_candidate_support_details(
     trigger_family_reentry_present = bool(
         trigger_family_reentry.get("trigger_family_reentry_present")
     )
-    trigger_family_reentry_score = float(
-        trigger_family_reentry.get("trigger_family_reentry_score") or 0.0
+    trigger_family_reentry_score = _safe_float(
+        trigger_family_reentry.get("trigger_family_reentry_score")
     )
     forward_neighborhood_overlap_present = bool(
         forward_neighborhood_overlap.get("forward_neighborhood_overlap_present")
     )
-    forward_neighborhood_overlap_score = float(
-        forward_neighborhood_overlap.get("forward_neighborhood_overlap_score") or 0.0
+    forward_neighborhood_overlap_score = _safe_float(
+        forward_neighborhood_overlap.get("forward_neighborhood_overlap_score")
     )
     frequency_representative = candidate_has_frequency_representative_bonus(
         candidate=candidate,
@@ -246,8 +253,8 @@ def build_shadow_candidate_support_details(
     frequency_similarity_present = bool(
         frequency_similarity_details.get("frequency_similarity_present")
     )
-    frequency_similarity_score = float(
-        frequency_similarity_details.get("frequency_similarity_score") or 0.0
+    frequency_similarity_score = _safe_float(
+        frequency_similarity_details.get("frequency_similarity_score")
     )
 
     support_breakdown = {

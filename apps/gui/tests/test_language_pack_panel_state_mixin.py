@@ -58,8 +58,8 @@ def test_paths_omit_managed_translation_pack_artifacts() -> None:
             if not embeddings and getattr(pack, "pack_id", "") == "freedict-en-es"
             else None
         )
-        dummy._is_app_data_path = (
-            lambda path, embeddings=False: not embeddings
+        dummy._is_app_data_path = lambda path, embeddings=False: (
+            not embeddings
             and os.path.commonpath([str(root / "language_packs"), os.path.abspath(path)])
             == str(root / "language_packs")
         )
@@ -92,9 +92,10 @@ def test_frequency_paths_omit_managed_pack_artifacts() -> None:
         dummy._resolve_frequency_pack_path = lambda pack: (
             str(managed) if getattr(pack, "pack_id", "") == "freq-en-coca" else None
         )
-        dummy._is_frequency_pack_data_path = lambda path: os.path.commonpath(
-            [str(root / "frequency_packs"), os.path.abspath(path)]
-        ) == str(root / "frequency_packs")
+        dummy._is_frequency_pack_data_path = lambda path: (
+            os.path.commonpath([str(root / "frequency_packs"), os.path.abspath(path)])
+            == str(root / "frequency_packs")
+        )
 
         resolved = dummy.frequency_paths()
         managed_ids = dummy.managed_frequency_pack_ids()
@@ -125,9 +126,11 @@ def test_embedding_paths_omits_managed_pack_artifacts() -> None:
                 if embeddings and getattr(pack, "pack_id", "") == "embed-xling-es"
                 else None
             ),
-            _is_app_data_path=lambda path, embeddings=False: embeddings
-            and os.path.commonpath([str(root / "embedding_packs"), os.path.abspath(path)])
-            == str(root / "embedding_packs"),
+            _is_app_data_path=lambda path, embeddings=False: (
+                embeddings
+                and os.path.commonpath([str(root / "embedding_packs"), os.path.abspath(path)])
+                == str(root / "embedding_packs")
+            ),
         )
 
         resolved = LanguagePackPanelStateMixin.embedding_paths(dummy)
@@ -184,9 +187,11 @@ def test_seed_embedding_paths_promotes_managed_entries_to_pair_pack_ids() -> Non
             if embeddings and getattr(pack, "pack_id", "") == "embed-xling-es"
             else None
         )
-        dummy._is_app_data_path = lambda path, embeddings=False: embeddings and os.path.commonpath(
-            [str(root / "embedding_packs"), os.path.abspath(path)]
-        ) == str(root / "embedding_packs")
+        dummy._is_app_data_path = lambda path, embeddings=False: (
+            embeddings
+            and os.path.commonpath([str(root / "embedding_packs"), os.path.abspath(path)])
+            == str(root / "embedding_packs")
+        )
 
         settings = SynonymSourceSettings(
             embedding_pack_paths={
@@ -225,9 +230,11 @@ def test_auto_link_downloaded_embeddings_skips_managed_pack_paths() -> None:
             if embeddings and getattr(pack, "pack_id", "") == "embed-xling-es"
             else None
         )
-        dummy._is_app_data_path = lambda path, embeddings=False: embeddings and os.path.commonpath(
-            [str(root / "embedding_packs"), os.path.abspath(path)]
-        ) == str(root / "embedding_packs")
+        dummy._is_app_data_path = lambda path, embeddings=False: (
+            embeddings
+            and os.path.commonpath([str(root / "embedding_packs"), os.path.abspath(path)])
+            == str(root / "embedding_packs")
+        )
 
         LanguagePackPanel._auto_link_downloaded_embeddings(dummy)
 
@@ -257,9 +264,11 @@ def test_activate_embedding_pack_keeps_managed_path_out_of_manual_map() -> None:
         )
         dummy._embedding_sqlite_path = lambda path: path
         dummy._is_sqlite_db = lambda path: True
-        dummy._is_app_data_path = lambda path, embeddings=False: embeddings and os.path.commonpath(
-            [str(root / "embedding_packs"), os.path.abspath(path)]
-        ) == str(root / "embedding_packs")
+        dummy._is_app_data_path = lambda path, embeddings=False: (
+            embeddings
+            and os.path.commonpath([str(root / "embedding_packs"), os.path.abspath(path)])
+            == str(root / "embedding_packs")
+        )
         dummy._refresh_embedding_pack_table = lambda: None
         dummy._refresh_cross_embedding_pack_table = lambda: None
 
@@ -308,9 +317,10 @@ def test_seed_language_and_frequency_paths_keep_managed_ids_separate() -> None:
             and os.path.commonpath([str(root / "language_packs"), os.path.abspath(path)])
             == str(root / "language_packs")
         )
-        dummy._is_frequency_pack_data_path = lambda path: os.path.commonpath(
-            [str(root / "frequency_packs"), os.path.abspath(path)]
-        ) == str(root / "frequency_packs")
+        dummy._is_frequency_pack_data_path = lambda path: (
+            os.path.commonpath([str(root / "frequency_packs"), os.path.abspath(path)])
+            == str(root / "frequency_packs")
+        )
 
         settings = SynonymSourceSettings(
             managed_language_pack_ids=("freedict-en-es",),

@@ -175,7 +175,8 @@ def _item_payload(
     )
     word_package = _word_package_payload(item.word_package)
     display = str(word_package.get("surface") or item.lemma or item.item_id)
-    source = word_package.get("source") if isinstance(word_package.get("source"), Mapping) else {}
+    raw_source = word_package.get("source")
+    source = raw_source if isinstance(raw_source, Mapping) else {}
     source_label = str(source.get("provider") or item.source_type or "srs")
     next_due_dt = parse_ts(item.next_due)
     due_in_seconds = int((next_due_dt - now).total_seconds()) if next_due_dt is not None else None
@@ -357,7 +358,7 @@ def _serving_state(
         if status in {"discarded", "cleared", "removed"}:
             return False, "removed", "Removed"
         return False, "inactive", "Inactive"
-    if int(rule_summary.get("enabled_rule_count") or 0) <= 0:
+    if _safe_int(rule_summary.get("enabled_rule_count")) <= 0:
         return False, "no_enabled_rules", "No rules"
     if next_due_dt is None or next_due_dt <= now:
         return True, "replacing_now", "Now"
@@ -546,7 +547,7 @@ def _encounter_state(
         }
     zero_exposure = exposures <= 0
     zero_feedback = review_count <= 0
-    without_enabled_rules = int(rule_summary.get("enabled_rule_count") or 0) <= 0
+    without_enabled_rules = _safe_int(rule_summary.get("enabled_rule_count")) <= 0
     zero_exposure_zero_feedback = zero_exposure and zero_feedback
     age_unknown = zero_exposure_zero_feedback and admitted_age_days is None
     stale_unseen = (
@@ -564,6 +565,19 @@ def _encounter_state(
         "without_enabled_rules": without_enabled_rules,
         "needs_attention": zero_exposure_zero_feedback or without_enabled_rules,
     }
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0
 
 
 def _age_days(value: str | None, *, now: datetime) -> int | None:

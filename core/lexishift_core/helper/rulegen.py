@@ -2,12 +2,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
 from pathlib import Path
-from typing import Iterable, Mapping, Optional, Sequence
+from typing import Iterable, Mapping, Optional, Protocol, Sequence, cast
 
 from lexishift_core.helper.rulegen_outputs import (
     RulegenOutput,
     build_snapshot,
     write_rulegen_outputs,
+)
+from lexishift_core.helper.translation_packs import (
+    FORWARD_PACK_DIRECTION,
+    REVERSE_PACK_DIRECTION,
+    build_translation_pack_ref,
 )
 from lexishift_core.lexicon.word_package import (
     normalize_word_package,
@@ -25,7 +30,10 @@ from lexishift_core.rulegen.generation import RuleScoringConfig
 from lexishift_core.rulegen.ranking import ReverseCheckScoringConfig
 from lexishift_core.srs import SrsItem, SrsSettings, SrsStore, save_srs_store, srs_item_is_active
 from lexishift_core.srs.admission_policy import resolve_default_pos_weights
-from lexishift_core.srs.profile_bootstrap import score_seed_words_for_profile
+from lexishift_core.srs.profile_bootstrap import (
+    ProfileBootstrapScoredEntry,
+    score_seed_words_for_profile,
+)
 from lexishift_core.srs.selector import (
     SELECTION_POLICY_TOP_N,
     SELECTION_POLICY_WEIGHTED_WITHOUT_REPLACEMENT,
@@ -115,6 +123,11 @@ class RulegenConfig:
     enable_exact_gloss_demotions: bool = False
 
 
+class _SeedWordLike(Protocol):
+    lemma: str
+    language_pair: str
+
+
 def _load_seed_module():
     return __import__(
         "lexishift_core.srs.seed",
@@ -133,17 +146,6 @@ def _load_semantic_publication_module():
     return __import__(
         "lexishift_core.rulegen.semantic_publication",
         fromlist=["build_semantic_inventory_from_results"],
-    )
-
-
-def _load_translation_packs_module():
-    return __import__(
-        "lexishift_core.helper.translation_packs",
-        fromlist=[
-            "FORWARD_PACK_DIRECTION",
-            "REVERSE_PACK_DIRECTION",
-            "build_translation_pack_ref",
-        ],
     )
 
 
@@ -224,11 +226,13 @@ def annotate_rules_with_srs_serving_metadata(
 
     annotated: list[VocabRule] = []
     for rule in rules:
-        item = items_by_lemma.get(str(rule.replacement or "").strip())
-        if item is None:
+        matching_item = items_by_lemma.get(str(rule.replacement or "").strip())
+        if matching_item is None:
             annotated.append(rule)
             continue
-        annotated.append(_annotate_rule_with_srs_serving_metadata(rule, item=item, now=now))
+        annotated.append(
+            _annotate_rule_with_srs_serving_metadata(rule, item=matching_item, now=now)
+        )
     return tuple(annotated)
 
 
@@ -256,9 +260,11 @@ def initialize_store_from_frequency_list_with_report(
         require_jmdict=config.require_jmdict,
         admission_pos_weights=resolved_pos_weights,
     )
-    selected_words = build_seed_candidates(
-        frequency_db=config.frequency_db,
-        config=selection_config,
+    selected_words = _coerce_seed_words(
+        build_seed_candidates(
+            frequency_db=config.frequency_db,
+            config=selection_config,
+        )
     )
     topic_overlay_module = _load_topic_overlay_module()
     selected_words, profile_topic_overlay_diagnostics = (
@@ -270,12 +276,15 @@ def initialize_store_from_frequency_list_with_report(
             diagnostics=config.profile_topic_overlay_diagnostics,
         )
     )
+    selected_words = _coerce_seed_words(selected_words)
     initial_active_count = max(0, int(config.initial_active_count))
     selection_seed = _normalize_optional_int(config.selection_seed)
     selection_policy = _resolve_selection_policy_override(config.selection_policy_override)
     selection_strategy = STRATEGY_FREQUENCY_BOOTSTRAP
     selector_version = None
     profile_bootstrap_diagnostics: Mapping[str, object] = {}
+    unique_selected_words: list[_SeedWordLike]
+    admitted_words: list[_SeedWordLike]
 
     if config.strategy == STRATEGY_PROFILE_BOOTSTRAP:
         scored_entries, profile_bootstrap_diagnostics = score_seed_words_for_profile(
@@ -310,14 +319,20 @@ def initialize_store_from_frequency_list_with_report(
             selection_count=initial_active_count,
             seed=selection_seed,
         )
-        unique_selected_words = [entry.seed for entry in unique_scored_entries]
-        unique_entry_by_lemma = {
-            str(entry.seed.lemma).strip(): entry
+        unique_entry_seeds = [
+            (entry, seed)
             for entry in unique_scored_entries
-            if str(entry.seed.lemma).strip()
+            for seed in (_as_seed_word_like(entry.seed),)
+            if seed is not None
+        ]
+        unique_selected_words = [seed for _entry, seed in unique_entry_seeds]
+        unique_entry_by_lemma = {
+            str(seed.lemma).strip(): seed
+            for _entry, seed in unique_entry_seeds
+            if str(seed.lemma).strip()
         }
         admitted_words = [
-            unique_entry_by_lemma[entry.candidate.lemma].seed
+            unique_entry_by_lemma[entry.candidate.lemma]
             for entry in selected_candidates
             if entry.candidate.lemma in unique_entry_by_lemma
         ]
@@ -532,26 +547,49 @@ def _annotate_rule_with_srs_serving_metadata(
     return replace(rule, metadata=replace(metadata, rulegen=rulegen_metadata))
 
 
-def _dedupe_seed_words(selected_words: Sequence[object]) -> list[object]:
+def _dedupe_seed_words(selected_words: Sequence[object]) -> list[_SeedWordLike]:
     seen_ids: set[str] = set()
-    unique_selected_words: list[object] = []
+    unique_selected_words: list[_SeedWordLike] = []
     for selected in selected_words:
-        item_id = build_item_id(selected.language_pair, selected.lemma)
-        if item_id in seen_ids:
-            continue
-        seen_ids.add(item_id)
-        unique_selected_words.append(selected)
-    return unique_selected_words
-
-
-def _dedupe_profile_bootstrap_entries(scored_entries: Sequence[object]) -> list[object]:
-    seen_ids: set[str] = set()
-    unique_entries: list[object] = []
-    for entry in scored_entries:
-        seed = getattr(entry, "seed", None)
+        seed = _as_seed_word_like(selected)
         if seed is None:
             continue
         item_id = build_item_id(seed.language_pair, seed.lemma)
+        if item_id in seen_ids:
+            continue
+        seen_ids.add(item_id)
+        unique_selected_words.append(seed)
+    return unique_selected_words
+
+
+def _coerce_seed_words(selected_words: object) -> list[_SeedWordLike]:
+    if not isinstance(selected_words, Sequence) or isinstance(selected_words, (str, bytes)):
+        return []
+    coerced: list[_SeedWordLike] = []
+    for selected in selected_words:
+        seed = _as_seed_word_like(selected)
+        if seed is not None:
+            coerced.append(seed)
+    return coerced
+
+
+def _as_seed_word_like(value: object) -> _SeedWordLike | None:
+    if not hasattr(value, "lemma") or not hasattr(value, "language_pair"):
+        return None
+    return cast(_SeedWordLike, value)
+
+
+def _dedupe_profile_bootstrap_entries(
+    scored_entries: Sequence[ProfileBootstrapScoredEntry],
+) -> list[ProfileBootstrapScoredEntry]:
+    seen_ids: set[str] = set()
+    unique_entries: list[ProfileBootstrapScoredEntry] = []
+    for entry in scored_entries:
+        seed = getattr(entry, "seed", None)
+        seed_like = _as_seed_word_like(seed)
+        if seed_like is None:
+            continue
+        item_id = build_item_id(seed_like.language_pair, seed_like.lemma)
         if item_id in seen_ids:
             continue
         seen_ids.add(item_id)
@@ -640,7 +678,6 @@ def _build_rulegen_adapter_request(
     jmdict_path: Optional[Path],
     translation_dict_path: Optional[Path],
     resolved_reverse_translation_dict_path: Optional[Path],
-    translation_packs_module: object,
     word_packages_by_target: Optional[Mapping[str, Mapping[str, object]]] = None,
 ) -> RulegenAdapterRequest:
     return RulegenAdapterRequest(
@@ -658,16 +695,16 @@ def _build_rulegen_adapter_request(
         gloss_decay=rulegen_config.gloss_decay,
         enable_exact_gloss_demotions=rulegen_config.enable_exact_gloss_demotions,
         jmdict_path=jmdict_path,
-        translation_pack=translation_packs_module.build_translation_pack_ref(
+        translation_pack=build_translation_pack_ref(
             pair,
             translation_dict_path,
-            direction=translation_packs_module.FORWARD_PACK_DIRECTION,
+            direction=FORWARD_PACK_DIRECTION,
         ),
         translation_dict_path=translation_dict_path,
-        reverse_translation_pack=translation_packs_module.build_translation_pack_ref(
+        reverse_translation_pack=build_translation_pack_ref(
             pair,
             resolved_reverse_translation_dict_path,
-            direction=translation_packs_module.REVERSE_PACK_DIRECTION,
+            direction=REVERSE_PACK_DIRECTION,
         ),
         reverse_translation_dict_path=resolved_reverse_translation_dict_path,
         word_packages_by_target=word_packages_by_target,
@@ -726,7 +763,6 @@ def run_rulegen_for_pair(
         and not resolved_reverse_translation_dict_path.exists()
     ):
         resolved_reverse_translation_dict_path = None
-    translation_packs_module = _load_translation_packs_module()
     results = run_results_with_adapter(
         _build_rulegen_adapter_request(
             pair=pair,
@@ -735,7 +771,6 @@ def run_rulegen_for_pair(
             jmdict_path=jmdict_path,
             translation_dict_path=translation_dict_path,
             resolved_reverse_translation_dict_path=resolved_reverse_translation_dict_path,
-            translation_packs_module=translation_packs_module,
             word_packages_by_target=target_word_packages or None,
         )
     )
@@ -780,7 +815,6 @@ def run_rulegen_for_pair(
                 jmdict_path=jmdict_path,
                 translation_dict_path=translation_dict_path,
                 resolved_reverse_translation_dict_path=resolved_reverse_translation_dict_path,
-                translation_packs_module=translation_packs_module,
             )
         )
         context_inventory = semantic_publication_module.build_semantic_inventory_from_results(

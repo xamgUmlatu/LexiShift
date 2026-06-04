@@ -13,6 +13,7 @@ from lexishift_core.rulegen.generation import (
     RuleGenerationResult,
     RuleScorer,
     RuleScoringConfig,
+    SignalProvider,
     SimpleSignalProvider,
     build_optional_pos_match_provider,
     materialize_rule_generation_result,
@@ -20,6 +21,7 @@ from lexishift_core.rulegen.generation import (
 )
 from lexishift_core.rulegen.kaikki_views import build_kaikki_record_views
 from lexishift_core.rulegen.ranking import (
+    CandidateRankingMechanism,
     DictionaryEntryOrderRankingMechanism,
     ReverseCheckScoringConfig,
 )
@@ -208,9 +210,12 @@ def build_en_es_compiled_resources(
             fallback_provider="frequency",
             package_hint=package_map.get(target),
         )
-        target_pos = extract_target_pos_component(
-            target_word_package=target_word_package,
-            language_pair=language_pair,
+        target_pos = (
+            extract_target_pos_component(
+                target_word_package=target_word_package,
+                language_pair=language_pair,
+            )
+            or {}
         )
         entries = tuple(_collect_sanitized_gloss_records(records_by_target.get(target, ())))
         dictionary_poses = tuple(
@@ -221,6 +226,7 @@ def build_en_es_compiled_resources(
                 source_kind="dictionary",
                 source_profile=dictionary_pos_source_profile,
             )
+            or {}
             for entry in entries
         )
         canonical_inventory = tuple(
@@ -557,17 +563,11 @@ def _apply_kaikki_policy_overlay(
             shadow_metadata["live_demotion_value"] = demotion
             if reasons:
                 shadow_metadata["live_demotion_reasons"] = reasons
+    target_provenance = metadata.get("target_provenance")
+    gloss_provenance = metadata.get("gloss_provenance")
     provenance_demotion, provenance_reasons = _resolve_kaikki_provenance_competition_demotion(
-        target_provenance=(
-            metadata.get("target_provenance")
-            if isinstance(metadata.get("target_provenance"), Mapping)
-            else None
-        ),
-        gloss_provenance=(
-            metadata.get("gloss_provenance")
-            if isinstance(metadata.get("gloss_provenance"), Mapping)
-            else None
-        ),
+        target_provenance=target_provenance if isinstance(target_provenance, Mapping) else None,
+        gloss_provenance=gloss_provenance if isinstance(gloss_provenance, Mapping) else None,
         shadow=shadow_metadata,
         late_sense_clean_earlier_competition_penalty=(
             kaikki_policy.late_sense_clean_earlier_competition_penalty
@@ -709,7 +709,10 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
         gloss_index = candidate.metadata.get("gloss_index")
         return config.gloss_decay.multiplier(gloss_index if isinstance(gloss_index, int) else None)
 
-    ranking_mechanism = DictionaryEntryOrderRankingMechanism(reverse_check=config.reverse_check)
+    base_ranking_mechanism = DictionaryEntryOrderRankingMechanism(
+        reverse_check=config.reverse_check
+    )
+    ranking_mechanism: CandidateRankingMechanism = base_ranking_mechanism
     if compiled_resources is not None:
         candidate_row_id_by_candidate_id = (
             dict(compiled_resources.candidate_table.candidate_row_id_by_candidate_id)
@@ -720,7 +723,7 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
             compiled_resources=compiled_resources,
             config=config,
         )
-        signal_provider = EnEsCompiledSignalProvider(
+        signal_provider: SignalProvider = EnEsCompiledSignalProvider(
             dict_priorities={config.source_dict_id: config.dict_priority},
             gloss_decay=config.gloss_decay,
             pos_match=config.scoring.pos_match,
@@ -732,7 +735,7 @@ def build_en_es_pipeline(config: EnEsRulegenConfig) -> RuleGenerationPipeline:
             score_table=compiled_candidate_score_table,
         )
         ranking_mechanism = EnEsCompiledRankingMechanism(
-            fallback=ranking_mechanism,
+            fallback=base_ranking_mechanism,
             candidate_row_id_by_candidate_id=candidate_row_id_by_candidate_id,
             score_table=compiled_candidate_score_table,
         )

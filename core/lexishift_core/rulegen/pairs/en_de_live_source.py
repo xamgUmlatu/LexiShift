@@ -121,12 +121,12 @@ class FreedictCandidateSource:
             canonical_inventory = [
                 _canonical_for_competition(dictionary_pos) for dictionary_pos in dictionary_pos_rows
             ]
-            dictionary_record_views_by_index = []
+            dictionary_record_views_by_index: list[Mapping[str, object]] = []
             for entry in entries:
                 raw_record = entry.metadata if isinstance(entry.metadata, Mapping) else {}
-                dictionary_record_views = build_kaikki_record_views(raw_record)
+                kaikki_record_views = build_kaikki_record_views(raw_record)
                 dictionary_record_views_by_index.append(
-                    {"kaikki": dictionary_record_views} if dictionary_record_views else {}
+                    {"kaikki": kaikki_record_views} if kaikki_record_views else {}
                 )
             target_provenance_by_index = tuple(
                 _build_target_provenance_by_index(
@@ -163,7 +163,7 @@ class FreedictCandidateSource:
             )
             for index, entry in enumerate(entries):
                 dictionary_pos = dictionary_pos_rows[index]
-                dictionary_record_views = (
+                dictionary_record_views: Mapping[str, object] = (
                     dictionary_record_views_by_index[index]
                     if index < len(dictionary_record_views_by_index)
                     else {}

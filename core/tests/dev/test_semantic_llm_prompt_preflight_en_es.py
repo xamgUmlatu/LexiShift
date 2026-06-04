@@ -160,15 +160,13 @@ class TestSemanticLlmPromptPreflightEnEs(unittest.TestCase):
         self.assertIn("--execute-live", markdown)
 
 
-def _sample_prompt_inputs() -> (
-    tuple[
-        dict[str, object],
-        dict[str, object],
-        dict[str, object],
-        dict[str, object],
-        dict[str, object],
-    ]
-):
+def _sample_prompt_inputs() -> tuple[
+    dict[str, object],
+    dict[str, object],
+    dict[str, object],
+    dict[str, object],
+    dict[str, object],
+]:
     queue_payload = {
         "queue_id": "semantic_prompt_bakeoff_en_es_v10",
         "families": [

@@ -27,7 +27,12 @@ def load_or_compute_path_json_value(
         return compute()
     cache_path = _build_cache_path(path, namespace=namespace, key=key)
     cached_payload = _read_cache_payload(cache_path=cache_path)
-    if _cache_payload_matches(cached_payload, path=path, signature=signature, key=key):
+    if cached_payload is not None and _cache_payload_matches(
+        cached_payload,
+        path=path,
+        signature=signature,
+        key=key,
+    ):
         try:
             return deserialize(cached_payload.get("value"))
         except (TypeError, ValueError):
@@ -88,7 +93,10 @@ def _normalize_key_value(value: object) -> object:
     if isinstance(value, Mapping):
         return _normalize_key(value)
     if isinstance(value, (set, frozenset)):
-        return sorted(_normalize_key_value(item) for item in value)
+        return sorted(
+            (_normalize_key_value(item) for item in value),
+            key=lambda item: json.dumps(item, ensure_ascii=True, sort_keys=True, default=str),
+        )
     if isinstance(value, (list, tuple)):
         return [_normalize_key_value(item) for item in value]
     return str(value)
@@ -116,14 +124,14 @@ def _cache_payload_matches(
 ) -> bool:
     if not isinstance(payload, Mapping):
         return False
-    if int(payload.get("cache_version") or -1) != _PATH_CACHE_VERSION:
+    if _safe_int(payload.get("cache_version"), default=-1) != _PATH_CACHE_VERSION:
         return False
     cached_path = str(payload.get("path") or "").strip()
     expected_path = str(path.expanduser().resolve(strict=False))
     if cached_path != expected_path:
         return False
-    cached_size = int(payload.get("size") or -1)
-    cached_mtime_ns = int(payload.get("mtime_ns") or -1)
+    cached_size = _safe_int(payload.get("size"), default=-1)
+    cached_mtime_ns = _safe_int(payload.get("mtime_ns"), default=-1)
     if (cached_size, cached_mtime_ns) != signature:
         return False
     cached_key = payload.get("key")
@@ -154,3 +162,16 @@ def _write_cache_payload(
         temp_path.replace(cache_path)
     except OSError:
         return
+
+
+def _safe_int(value: object, *, default: int = 0) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or str(default))
+    except (TypeError, ValueError):
+        return default

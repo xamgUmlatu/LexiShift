@@ -510,7 +510,7 @@ def simulate_browsing_admission(
         )
 
     active_rows = [row for row in scored_rows if not row.get("suppressed_reason")]
-    signal_volume = sum(float(row["browsing_signal"]) for row in active_rows)
+    signal_volume = sum(_safe_float(row.get("browsing_signal")) or 0.0 for row in active_rows)
     volume_factor = 0.0
     if signal_volume > 0.0 and strength.volume_tau > 0.0:
         volume_factor = 1.0 - math.exp(-signal_volume / strength.volume_tau)
@@ -521,7 +521,8 @@ def simulate_browsing_admission(
     browsing_pool = [
         row
         for row in active_rows
-        if float(row["browsing_signal"]) >= max(0.0, strength.min_browsing_signal)
+        if (_safe_float(row.get("browsing_signal")) or 0.0)
+        >= max(0.0, strength.min_browsing_signal)
     ]
     if (
         browsing_budget == 0
@@ -535,8 +536,8 @@ def simulate_browsing_admission(
     selected_browsing = sorted(
         browsing_pool,
         key=lambda row: (
-            -float(row["final_score"]),
-            int(row["neutral_rank"]),
+            -(_safe_float(row.get("final_score")) or 0.0),
+            _safe_int(row.get("neutral_rank")),
             str(row["lemma"]),
         ),
     )[:browsing_budget]
@@ -547,8 +548,8 @@ def simulate_browsing_admission(
         for row in sorted(
             scored_rows,
             key=lambda item: (
-                -float(item["neutral_score"]),
-                int(item["neutral_rank"]),
+                -(_safe_float(item.get("neutral_score")) or 0.0),
+                _safe_int(item.get("neutral_rank")),
                 str(item["lemma"]),
             ),
         )
@@ -571,8 +572,8 @@ def simulate_browsing_admission(
     final_ranked = sorted(
         scored_rows,
         key=lambda row: (
-            -float(row["final_score"]),
-            int(row["neutral_rank"]),
+            -(_safe_float(row.get("final_score")) or 0.0),
+            _safe_int(row.get("neutral_rank")),
             str(row["lemma"]),
         ),
     )
@@ -580,12 +581,12 @@ def simulate_browsing_admission(
     rows = [
         BrowsingAdmissionSimulationRow(
             lemma=str(row["lemma"]),
-            neutral_rank=int(row["neutral_rank"]),
+            neutral_rank=_safe_int(row.get("neutral_rank")),
             final_rank=final_rank_by_lemma[str(row["lemma"])],
-            neutral_score=float(row["neutral_score"]),
-            final_score=float(row["final_score"]),
-            browsing_signal=float(row["browsing_signal"]),
-            browsing_boost=float(row["browsing_boost"]),
+            neutral_score=_safe_float(row.get("neutral_score")) or 0.0,
+            final_score=_safe_float(row.get("final_score")) or 0.0,
+            browsing_signal=_safe_float(row.get("browsing_signal")) or 0.0,
+            browsing_boost=_safe_float(row.get("browsing_boost")) or 0.0,
             selected=str(row["lemma"]) in selected_lemmas,
             selected_lane=lane_by_lemma.get(str(row["lemma"]), "not_selected"),
             neutral_selected=str(row["lemma"]) in neutral_selected,
@@ -710,13 +711,31 @@ def _optional_str(value: object) -> Optional[str]:
 
 
 def _safe_float(value: object) -> Optional[float]:
-    try:
-        if value is None:
-            return None
-        parsed = float(value)
-    except (TypeError, ValueError):
+    if value is None:
         return None
+    if isinstance(value, bool):
+        parsed = float(value)
+    elif isinstance(value, (float, int)):
+        parsed = float(value)
+    else:
+        try:
+            parsed = float(str(value).strip())
+        except (TypeError, ValueError):
+            return None
     return parsed if parsed == parsed else None
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0
 
 
 def _clamp01(value: object) -> float:

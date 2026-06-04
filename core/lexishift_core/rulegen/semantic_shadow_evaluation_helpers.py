@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Mapping, Sequence
+from typing import Mapping, MutableMapping, Sequence
 
 from lexishift_core.rulegen.semantic_shadow_feature_vector import (
     build_semantic_shadow_case_feature_vector,
@@ -63,7 +63,7 @@ def _empty_policy_report() -> dict[str, object]:
 
 
 def _empty_veto_policy_report(*, include_row_results: bool = False) -> dict[str, object]:
-    report = {
+    report: dict[str, object] = {
         "summary": _empty_veto_summary(),
         "slice_summaries": {},
         "sample_harmful_allow_rows": [],
@@ -115,10 +115,12 @@ def _resolve_promoted_targets_for_policy(
         return []
     if policy == "gold_overlap_oracle":
         return sorted(gold_shadow_targets)
+    shadow_candidate_rows = _coerce_mapping_sequence(shadow_candidates)
+    active_candidate_rows = _coerce_mapping_sequence(active_candidates)
     if policy == SUPPORT_SCORE_POLICY:
         promoted = promote_shadow_candidates_with_support_score(
-            shadow_candidates=shadow_candidates,
-            active_candidates=active_candidates,
+            shadow_candidates=shadow_candidate_rows,
+            active_candidates=active_candidate_rows,
             active_profile_fallback=active_profile_fallback,
             min_score=support_score_min,
             max_promoted_shadows=support_score_max_promoted,
@@ -136,8 +138,8 @@ def _resolve_promoted_targets_for_policy(
             if isinstance(candidate, Mapping) and str(candidate.get("target") or "").strip()
         ]
     promoted = promote_shadow_candidates_for_policy(
-        shadow_candidates=shadow_candidates,
-        active_candidates=active_candidates,
+        shadow_candidates=shadow_candidate_rows,
+        active_candidates=active_candidate_rows,
         policy=policy,
     )
     return [
@@ -165,14 +167,14 @@ def _accumulate_policy_row(
     false_positive_targets = promoted_target_set - gold_shadow_targets
     false_negative_targets = gold_shadow_targets - promoted_target_set
 
-    summary["trigger_rows_total"] += 1
+    _increment_counter(summary, "trigger_rows_total")
     if active_candidate_count:
-        summary["trigger_rows_with_active_candidates"] += 1
+        _increment_counter(summary, "trigger_rows_with_active_candidates")
     if promoted_target_set:
-        summary["promoted_trigger_rows"] += 1
-    summary["candidate_true_positive_count"] += len(true_positive_targets)
-    summary["candidate_false_positive_count"] += len(false_positive_targets)
-    summary["candidate_false_negative_count"] += len(false_negative_targets)
+        _increment_counter(summary, "promoted_trigger_rows")
+    _increment_counter(summary, "candidate_true_positive_count", len(true_positive_targets))
+    _increment_counter(summary, "candidate_false_positive_count", len(false_positive_targets))
+    _increment_counter(summary, "candidate_false_negative_count", len(false_negative_targets))
 
     row_payload = {
         "target": target,
@@ -183,18 +185,18 @@ def _accumulate_policy_row(
         "promoted_targets": list(promoted_targets),
     }
     if gold_shadow_targets:
-        summary["gold_trigger_rows"] += 1
+        _increment_counter(summary, "gold_trigger_rows")
         if true_positive_targets:
-            summary["gold_trigger_rows_hit"] += 1
+            _increment_counter(summary, "gold_trigger_rows_hit")
         else:
-            summary["gold_trigger_rows_underblocked"] += 1
+            _increment_counter(summary, "gold_trigger_rows_underblocked")
             _append_sample(report.get("sample_underblocked_rows"), row_payload)
         if promoted_targets and promoted_targets[0] in gold_shadow_targets:
-            summary["top1_gold_trigger_rows_hit"] += 1
+            _increment_counter(summary, "top1_gold_trigger_rows_hit")
         if promoted_target_set == gold_shadow_targets:
-            summary["gold_trigger_rows_exact_match"] += 1
+            _increment_counter(summary, "gold_trigger_rows_exact_match")
         elif true_positive_targets:
-            summary["gold_trigger_rows_partial"] += 1
+            _increment_counter(summary, "gold_trigger_rows_partial")
             _append_sample(
                 report.get("sample_partial_rows"),
                 {
@@ -204,9 +206,9 @@ def _accumulate_policy_row(
                 },
             )
     else:
-        summary["no_gold_trigger_rows"] += 1
+        _increment_counter(summary, "no_gold_trigger_rows")
         if promoted_target_set:
-            summary["no_gold_trigger_rows_overblocked"] += 1
+            _increment_counter(summary, "no_gold_trigger_rows_overblocked")
             _append_sample(report.get("sample_overblocked_rows"), row_payload)
 
 
@@ -365,25 +367,25 @@ def _accumulate_veto_summary_counts(
     should_abstain: bool,
     did_abstain: bool,
 ) -> None:
-    summary["trigger_rows_total"] += 1
+    _increment_counter(summary, "trigger_rows_total")
     if active_candidate_count:
-        summary["trigger_rows_with_active_candidates"] += 1
+        _increment_counter(summary, "trigger_rows_with_active_candidates")
     if did_abstain:
-        summary["abstain_rows"] += 1
+        _increment_counter(summary, "abstain_rows")
     else:
-        summary["allow_rows"] += 1
+        _increment_counter(summary, "allow_rows")
     if should_abstain:
-        summary["ambiguous_trigger_rows"] += 1
+        _increment_counter(summary, "ambiguous_trigger_rows")
         if did_abstain:
-            summary["true_abstain_count"] += 1
+            _increment_counter(summary, "true_abstain_count")
         else:
-            summary["harmful_allow_count"] += 1
+            _increment_counter(summary, "harmful_allow_count")
     else:
-        summary["clear_trigger_rows"] += 1
+        _increment_counter(summary, "clear_trigger_rows")
         if did_abstain:
-            summary["false_abstain_count"] += 1
+            _increment_counter(summary, "false_abstain_count")
         else:
-            summary["true_allow_count"] += 1
+            _increment_counter(summary, "true_allow_count")
 
 
 def _iter_veto_slice_keys(row_metadata: Mapping[str, object]) -> list[str]:
@@ -469,11 +471,11 @@ def _finalize_policy_report(report: Mapping[str, object]) -> None:
     summary = report.get("summary")
     if not isinstance(summary, dict):
         return
-    tp = int(summary.get("candidate_true_positive_count") or 0)
-    fp = int(summary.get("candidate_false_positive_count") or 0)
-    fn = int(summary.get("candidate_false_negative_count") or 0)
-    gold_rows = int(summary.get("gold_trigger_rows") or 0)
-    no_gold_rows = int(summary.get("no_gold_trigger_rows") or 0)
+    tp = _safe_int(summary.get("candidate_true_positive_count"))
+    fp = _safe_int(summary.get("candidate_false_positive_count"))
+    fn = _safe_int(summary.get("candidate_false_negative_count"))
+    gold_rows = _safe_int(summary.get("gold_trigger_rows"))
+    no_gold_rows = _safe_int(summary.get("no_gold_trigger_rows"))
 
     summary["candidate_precision"] = _safe_rate(tp, tp + fp)
     summary["candidate_recall"] = _safe_rate(tp, tp + fn)
@@ -484,23 +486,23 @@ def _finalize_policy_report(report: Mapping[str, object]) -> None:
     else:
         summary["candidate_f1"] = None
     summary["gold_trigger_hit_rate"] = _safe_rate(
-        int(summary.get("gold_trigger_rows_hit") or 0),
+        _safe_int(summary.get("gold_trigger_rows_hit")),
         gold_rows,
     )
     summary["gold_trigger_exact_match_rate"] = _safe_rate(
-        int(summary.get("gold_trigger_rows_exact_match") or 0),
+        _safe_int(summary.get("gold_trigger_rows_exact_match")),
         gold_rows,
     )
     summary["top1_gold_trigger_hit_rate"] = _safe_rate(
-        int(summary.get("top1_gold_trigger_rows_hit") or 0),
+        _safe_int(summary.get("top1_gold_trigger_rows_hit")),
         gold_rows,
     )
     summary["underblocking_rate"] = _safe_rate(
-        int(summary.get("gold_trigger_rows_underblocked") or 0),
+        _safe_int(summary.get("gold_trigger_rows_underblocked")),
         gold_rows,
     )
     summary["overblocking_rate"] = _safe_rate(
-        int(summary.get("no_gold_trigger_rows_overblocked") or 0),
+        _safe_int(summary.get("no_gold_trigger_rows_overblocked")),
         no_gold_rows,
     )
 
@@ -517,16 +519,16 @@ def _finalize_veto_policy_report(report: Mapping[str, object]) -> None:
                 _finalize_veto_summary(slice_summary)
 
 
-def _finalize_veto_summary(summary: Mapping[str, object]) -> None:
-    trigger_rows = int(summary.get("trigger_rows_total") or 0)
-    ambiguous_rows = int(summary.get("ambiguous_trigger_rows") or 0)
-    clear_rows = int(summary.get("clear_trigger_rows") or 0)
-    allow_rows = int(summary.get("allow_rows") or 0)
-    abstain_rows = int(summary.get("abstain_rows") or 0)
-    true_abstain = int(summary.get("true_abstain_count") or 0)
-    harmful_allow = int(summary.get("harmful_allow_count") or 0)
-    true_allow = int(summary.get("true_allow_count") or 0)
-    false_abstain = int(summary.get("false_abstain_count") or 0)
+def _finalize_veto_summary(summary: MutableMapping[str, object]) -> None:
+    trigger_rows = _safe_int(summary.get("trigger_rows_total"))
+    ambiguous_rows = _safe_int(summary.get("ambiguous_trigger_rows"))
+    clear_rows = _safe_int(summary.get("clear_trigger_rows"))
+    allow_rows = _safe_int(summary.get("allow_rows"))
+    abstain_rows = _safe_int(summary.get("abstain_rows"))
+    true_abstain = _safe_int(summary.get("true_abstain_count"))
+    harmful_allow = _safe_int(summary.get("harmful_allow_count"))
+    true_allow = _safe_int(summary.get("true_allow_count"))
+    false_abstain = _safe_int(summary.get("false_abstain_count"))
 
     summary["abstain_recall"] = _safe_rate(true_abstain, ambiguous_rows)
     summary["harmful_allow_rate"] = _safe_rate(harmful_allow, ambiguous_rows)
@@ -537,26 +539,51 @@ def _finalize_veto_summary(summary: Mapping[str, object]) -> None:
     summary["overall_accuracy"] = _safe_rate(true_abstain + true_allow, trigger_rows)
 
 
-def _finalize_candidate_pool_summary(summary: Mapping[str, object]) -> None:
-    trigger_rows = int(summary.get("trigger_rows_total") or 0)
-    gold_rows = int(summary.get("gold_trigger_rows") or 0)
+def _finalize_candidate_pool_summary(summary: MutableMapping[str, object]) -> None:
+    trigger_rows = _safe_int(summary.get("trigger_rows_total"))
+    gold_rows = _safe_int(summary.get("gold_trigger_rows"))
     summary["inventory_entry_coverage_rate"] = _safe_rate(
-        int(summary.get("trigger_rows_with_inventory_entry") or 0),
+        _safe_int(summary.get("trigger_rows_with_inventory_entry")),
         trigger_rows,
     )
     summary["gold_trigger_inventory_coverage_rate"] = _safe_rate(
-        int(summary.get("gold_trigger_rows_with_inventory_entry") or 0),
+        _safe_int(summary.get("gold_trigger_rows_with_inventory_entry")),
         gold_rows,
     )
     summary["candidate_pool_trigger_recall"] = _safe_rate(
-        int(summary.get("gold_trigger_rows_with_mined_overlap") or 0),
+        _safe_int(summary.get("gold_trigger_rows_with_mined_overlap")),
         gold_rows,
     )
     summary["candidate_pool_exact_match_rate"] = _safe_rate(
-        int(summary.get("gold_trigger_rows_with_exact_mined_set") or 0),
+        _safe_int(summary.get("gold_trigger_rows_with_exact_mined_set")),
         gold_rows,
     )
     summary["gold_trigger_active_support_rate"] = _safe_rate(
-        int(summary.get("gold_trigger_rows_with_active_candidates") or 0),
+        _safe_int(summary.get("gold_trigger_rows_with_active_candidates")),
         gold_rows,
     )
+
+
+def _coerce_mapping_sequence(values: Sequence[object]) -> list[Mapping[str, object]]:
+    return [value for value in values if isinstance(value, Mapping)]
+
+
+def _increment_counter(
+    summary: MutableMapping[str, object],
+    key: str,
+    amount: int = 1,
+) -> None:
+    summary[key] = _safe_int(summary.get(key)) + amount
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0

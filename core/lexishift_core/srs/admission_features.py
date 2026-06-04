@@ -374,13 +374,13 @@ def _parse_normalized_string_list(value: object) -> list[str]:
         normalized = canonicalize_topic_token(stripped)
         return [normalized] if normalized else []
     if isinstance(value, Sequence):
-        normalized: list[str] = []
+        normalized_tokens: list[str] = []
         for item in value:
             if isinstance(item, (str, int, float)):
                 token = canonicalize_topic_token(item)
                 if token:
-                    normalized.append(token)
-        return normalized
+                    normalized_tokens.append(token)
+        return normalized_tokens
     return []
 
 

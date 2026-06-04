@@ -114,9 +114,9 @@ def select_frequency_representative_targets(
         target = str(candidate.get("target") or "").strip()
         if not target:
             continue
-        score = float(candidate.get("target_frequency_score") or 0.0)
-        value = float(candidate.get("target_frequency_value") or 0.0)
-        rank = float(candidate.get("target_frequency_rank") or 0.0)
+        score = _safe_float(candidate.get("target_frequency_score"))
+        value = _safe_float(candidate.get("target_frequency_value"))
+        rank = _safe_float(candidate.get("target_frequency_rank"))
         if score <= 0.0 and value <= 0.0 and rank <= 0.0:
             continue
         current = best_by_target.get(target)
@@ -149,7 +149,7 @@ def candidate_has_frequency_representative_bonus(
         target
         and normalized_targets
         and target in normalized_targets
-        and float(candidate.get("target_frequency_score") or 0.0) > 0.0
+        and _safe_float(candidate.get("target_frequency_score")) > 0.0
     )
 
 
@@ -159,11 +159,11 @@ def build_frequency_similarity_details(
     active_candidates: Sequence[Mapping[str, object]],
     tau: float,
 ) -> dict[str, float | bool | None]:
-    candidate_score = float(candidate.get("target_frequency_score") or 0.0)
+    candidate_score = _safe_float(candidate.get("target_frequency_score"))
     active_scores = [
-        float(active_candidate.get("target_frequency_score") or 0.0)
+        _safe_float(active_candidate.get("target_frequency_score"))
         for active_candidate in active_candidates
-        if float(active_candidate.get("target_frequency_score") or 0.0) > 0.0
+        if _safe_float(active_candidate.get("target_frequency_score")) > 0.0
     ]
     active_score = max(active_scores) if active_scores else 0.0
     if candidate_score <= 0.0 or active_score <= 0.0:
@@ -199,3 +199,14 @@ def _normalize_rank_value(rank: float | None, max_rank: float | None) -> float:
         return 1.0
     normalized = 1.0 - ((float(rank) - 1.0) / (float(max_rank) - 1.0))
     return max(0.0, min(1.0, normalized))
+
+
+def _safe_float(value: object) -> float:
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (int, float)):
+        return float(value)
+    try:
+        return float(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0.0

@@ -192,21 +192,17 @@ def prepare_en_es_compiled_benchmark_evaluation_tables(
         )
         for index, score_table in zip(indices, grouped_score_tables):
             score_tables[index] = score_table
-    return tuple(
-        EnEsCompiledBenchmarkEvaluationTables(
-            filter_table=(
-                filter_tables[index]
-                if filter_tables[index] is not None
-                else EnEsCompiledCandidateFilterTable()
-            ),
-            score_table=(
-                score_tables[index]
-                if score_tables[index] is not None
-                else EnEsCompiledCandidateScoreTable()
-            ),
+    evaluation_tables: list[EnEsCompiledBenchmarkEvaluationTables] = []
+    for index in range(len(configs)):
+        filter_table = filter_tables[index] or EnEsCompiledCandidateFilterTable()
+        score_table = score_tables[index] or EnEsCompiledCandidateScoreTable()
+        evaluation_tables.append(
+            EnEsCompiledBenchmarkEvaluationTables(
+                filter_table=filter_table,
+                score_table=score_table,
+            )
         )
-        for index in range(len(configs))
-    )
+    return tuple(evaluation_tables)
 
 
 def prepare_en_es_compiled_benchmark_sweep_tables(

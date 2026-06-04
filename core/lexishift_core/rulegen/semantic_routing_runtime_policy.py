@@ -400,7 +400,7 @@ def build_semantic_admit_batch_response(
     if resolved_fit_scope not in RUNTIME_SEMANTIC_FIT_SCOPES:
         resolved_fit_scope = DEFAULT_RUNTIME_SEMANTIC_FIT_SCOPE
     if resolved_fit_scope == "per_match" and len(matches) > 1:
-        decisions: list[dict[str, object]] = []
+        per_match_decisions: list[dict[str, object]] = []
         resolved_policy_id = ""
         for match in matches:
             response = build_semantic_admit_batch_response(
@@ -415,10 +415,8 @@ def build_semantic_admit_batch_response(
             )
             if not resolved_policy_id:
                 resolved_policy_id = str(response.get("decision_policy_id") or "")
-            decisions.extend(
-                dict(decision)
-                for decision in response.get("decisions", [])
-                if isinstance(decision, Mapping)
+            per_match_decisions.extend(
+                dict(decision) for decision in _mapping_sequence(response.get("decisions"))
             )
         return {
             "schema_version": 1,
@@ -427,7 +425,7 @@ def build_semantic_admit_batch_response(
             "decision_policy_id": resolved_policy_id,
             "fallback_policy": resolved_fallback_policy,
             "fit_scope": resolved_fit_scope,
-            "decisions": decisions,
+            "decisions": per_match_decisions,
         }
     fallback_decision = resolve_runtime_fallback_decision(resolved_fallback_policy)
     resolved_decision_policy_id = str(decision_policy_id or "").strip()
@@ -483,7 +481,7 @@ def build_semantic_admit_batch_response(
             )
             primary_backend.fit(
                 collect_runtime_policy_fit_texts(
-                    matches=[item["raw_match"] for item in policy_ready_matches],
+                    matches=_prepared_raw_matches(policy_ready_matches),
                     inventory=inventory or {},
                     policy=policy,
                 )
@@ -495,7 +493,7 @@ def build_semantic_admit_batch_response(
                 )
                 backup_backend.fit(
                     collect_runtime_policy_fit_texts(
-                        matches=[item["raw_match"] for item in policy_ready_matches],
+                        matches=_prepared_raw_matches(policy_ready_matches),
                         inventory=inventory or {},
                         policy=SemanticDecisionPolicyConfig(
                             **{
@@ -511,16 +509,27 @@ def build_semantic_admit_batch_response(
     decisions: list[dict[str, object]] = []
     for item in prepared_matches:
         if item.get("mode") == "fallback":
-            decisions.append(dict(item["decision_record"]))
+            decision_record = item.get("decision_record")
+            if isinstance(decision_record, Mapping):
+                decisions.append(dict(decision_record))
+            continue
+        prepared_raw_match = item.get("raw_match")
+        active_sense = item.get("active_sense")
+        shadow_senses = _mapping_sequence(item.get("shadow_senses"))
+        family_pos_tags = _string_sequence(item.get("family_pos_tags"))
+        semantic_admission = item.get("semantic_admission")
+        if not isinstance(prepared_raw_match, Mapping) or not isinstance(active_sense, Mapping):
             continue
         if primary_backend is None or policy_error_reason is not None:
             decisions.append(
                 _build_fallback_decision_record(
-                    match=item["raw_match"],
+                    match=prepared_raw_match,
                     fallback_decision=fallback_decision,
                     reason_codes=(str(policy_error_reason or "decision_policy_error"),),
                     selection_policy_version=str(item.get("selection_policy_version") or ""),
-                    semantic_admission=item.get("semantic_admission"),
+                    semantic_admission=(
+                        semantic_admission if isinstance(semantic_admission, Mapping) else None
+                    ),
                 )
             )
             continue
@@ -528,13 +537,13 @@ def build_semantic_admit_batch_response(
             match_id=str(item["match_id"]),
             sentence=str(item["sentence"]),
             source_phrase=str(item["source_phrase"]),
-            active_sense=item["active_sense"],
-            shadow_senses=item["shadow_senses"],
+            active_sense=active_sense,
+            shadow_senses=shadow_senses,
             policy=policy,
             scorer=primary_backend,
             backup_scorer=backup_backend,
             family_id=str(item.get("trigger_id") or ""),
-            family_pos_tags=item["family_pos_tags"],
+            family_pos_tags=family_pos_tags,
         )
         decisions.append(
             {
@@ -741,14 +750,9 @@ def _build_fallback_decision_record(
     semantic_admission: Mapping[str, object] | None = None,
     selection_policy_version: str = "",
 ) -> dict[str, object]:
-    admission = (
-        semantic_admission
-        if isinstance(semantic_admission, Mapping)
-        else (
-            match.get("semantic_admission")
-            if isinstance(match.get("semantic_admission"), Mapping)
-            else {}
-        )
+    raw_admission = match.get("semantic_admission")
+    admission: Mapping[str, object] = semantic_admission or (
+        raw_admission if isinstance(raw_admission, Mapping) else {}
     )
     normalized_reason_codes = [
         code for code in (str(code or "").strip() for code in reason_codes) if code
@@ -766,6 +770,29 @@ def _build_fallback_decision_record(
         "phrase_set_id": str(admission.get("phrase_set_id") or "").strip(),
         "selection_policy_version": str(selection_policy_version or "").strip(),
     }
+
+
+def _mapping_sequence(value: object) -> list[Mapping[str, object]]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return []
+    return [item for item in value if isinstance(item, Mapping)]
+
+
+def _prepared_raw_matches(
+    prepared_matches: Sequence[Mapping[str, object]],
+) -> list[Mapping[str, object]]:
+    return [
+        raw_match
+        for item in prepared_matches
+        for raw_match in (item.get("raw_match"),)
+        if isinstance(raw_match, Mapping)
+    ]
+
+
+def _string_sequence(value: object) -> tuple[str, ...]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return ()
+    return tuple(str(item).strip() for item in value if str(item).strip())
 
 
 def _derive_policy_reason_codes(

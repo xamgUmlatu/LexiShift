@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Mapping, Sequence
+from typing import Mapping, MutableMapping, Sequence, cast
 
 from lexishift_core.rulegen.semantic_shadow_evaluation_helpers import (
     _accumulate_policy_row,
@@ -104,7 +104,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
         "gold_trigger_rows_with_mined_overlap": 0,
         "gold_trigger_rows_with_exact_mined_set": 0,
     }
-    policy_reports: dict[str, object] = {}
+    policy_reports: dict[str, dict[str, object]] = {}
     for policy in requested_policies:
         policy_reports[policy] = _empty_policy_report()
 
@@ -128,6 +128,9 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
             trigger_entry = inventory_lookup.get((target, trigger), {})
             active_candidates = _as_sequence(trigger_entry.get("active_candidates"))
             active_profile_fallback = trigger_entry.get("active_profile_fallback")
+            active_profile_fallback_mapping = (
+                active_profile_fallback if isinstance(active_profile_fallback, Mapping) else None
+            )
             shadow_candidates = _as_sequence(trigger_entry.get("shadow_candidates"))
             gold_shadow_targets = set(gold_rows.get((target, trigger), ()))
             mined_shadow_targets = {
@@ -156,7 +159,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
                     gold_shadow_targets=gold_shadow_targets,
                     shadow_candidates=shadow_candidates,
                     active_candidates=active_candidates,
-                    active_profile_fallback=active_profile_fallback,
+                    active_profile_fallback=active_profile_fallback_mapping,
                     support_score_min=support_score_min,
                     support_score_max_promoted=support_score_max_promoted,
                     support_frequency_representative_bonus=support_frequency_representative_bonus,
@@ -180,7 +183,7 @@ def evaluate_shadow_inventory_against_benchmark_overlap_gold(
         if isinstance(policy_report, Mapping):
             _finalize_policy_report(policy_report)
 
-    _finalize_candidate_pool_summary(candidate_pool_summary)
+    _finalize_candidate_pool_summary(cast(MutableMapping[str, object], candidate_pool_summary))
     return {
         "schema_version": 1,
         "status": "ok",
@@ -221,7 +224,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
         "gold_trigger_rows_with_mined_overlap": 0,
         "gold_trigger_rows_with_exact_mined_set": 0,
     }
-    policy_reports: dict[str, object] = {}
+    policy_reports: dict[str, dict[str, object]] = {}
     for policy in requested_policies:
         policy_reports[policy] = _empty_veto_policy_report(include_row_results=include_row_results)
 
@@ -245,6 +248,9 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
             trigger_entry = inventory_lookup.get((target, trigger), {})
             active_candidates = _as_sequence(trigger_entry.get("active_candidates"))
             active_profile_fallback = trigger_entry.get("active_profile_fallback")
+            active_profile_fallback_mapping = (
+                active_profile_fallback if isinstance(active_profile_fallback, Mapping) else None
+            )
             shadow_candidates = _as_sequence(trigger_entry.get("shadow_candidates"))
             gold_shadow_targets = set(gold_rows.get((target, trigger), ()))
             mined_shadow_targets = {
@@ -273,7 +279,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                     gold_shadow_targets=gold_shadow_targets,
                     shadow_candidates=shadow_candidates,
                     active_candidates=active_candidates,
-                    active_profile_fallback=active_profile_fallback,
+                    active_profile_fallback=active_profile_fallback_mapping,
                     support_score_min=support_score_min,
                     support_score_max_promoted=support_score_max_promoted,
                     support_frequency_representative_bonus=support_frequency_representative_bonus,
@@ -289,7 +295,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
                     trigger=trigger,
                     inventory_entry_present=bool(trigger_entry),
                     active_candidates=active_candidates,
-                    active_profile_fallback=active_profile_fallback,
+                    active_profile_fallback=active_profile_fallback_mapping,
                     shadow_candidates=shadow_candidates,
                     active_candidate_count=len(active_candidates),
                     gold_shadow_targets=gold_shadow_targets,
@@ -307,7 +313,7 @@ def evaluate_shadow_inventory_veto_proxy_against_benchmark_overlap_gold(
         if isinstance(policy_report, Mapping):
             _finalize_veto_policy_report(policy_report)
 
-    _finalize_candidate_pool_summary(candidate_pool_summary)
+    _finalize_candidate_pool_summary(cast(MutableMapping[str, object], candidate_pool_summary))
     return {
         "schema_version": 1,
         "status": "ok",

@@ -153,9 +153,8 @@ def _validate_publication_family(
         errors.append("snapshot.generation_id does not match manifest generation")
     snapshot_stats = snapshot_payload.get("stats")
     if isinstance(snapshot_stats, Mapping) and "rule_count" in snapshot_stats:
-        try:
-            snapshot_rule_count = int(snapshot_stats.get("rule_count"))
-        except (TypeError, ValueError):
+        snapshot_rule_count = _parse_int(snapshot_stats.get("rule_count"))
+        if snapshot_rule_count is None:
             errors.append("snapshot.stats.rule_count is not an integer")
         else:
             if snapshot_rule_count != len(rules):
@@ -163,9 +162,9 @@ def _validate_publication_family(
                     f"snapshot.stats.rule_count={snapshot_rule_count} does not match rules={len(rules)}"
                 )
 
-    triggers = {}
-    senses = {}
-    competition_sets = {}
+    triggers: dict[str, object] = {}
+    senses: dict[str, object] = {}
+    competition_sets: dict[str, object] = {}
     if semantic_inventory_payload is not None:
         if str(semantic_inventory_payload.get("pair") or "").strip() != normalized_pair:
             errors.append("semantic_inventory.pair does not match requested pair")
@@ -175,20 +174,13 @@ def _validate_publication_family(
             errors.append("semantic_inventory.generated_at is required")
         if str(semantic_inventory_payload.get("generation_id") or "").strip() != generation_id:
             errors.append("semantic_inventory.generation_id does not match manifest generation")
-        triggers = (
-            dict(semantic_inventory_payload.get("triggers"))
-            if isinstance(semantic_inventory_payload.get("triggers"), Mapping)
-            else {}
-        )
-        senses = (
-            dict(semantic_inventory_payload.get("senses"))
-            if isinstance(semantic_inventory_payload.get("senses"), Mapping)
-            else {}
-        )
+        raw_triggers = semantic_inventory_payload.get("triggers")
+        raw_senses = semantic_inventory_payload.get("senses")
+        raw_competition_sets = semantic_inventory_payload.get("competition_sets")
+        triggers = dict(raw_triggers) if isinstance(raw_triggers, Mapping) else {}
+        senses = dict(raw_senses) if isinstance(raw_senses, Mapping) else {}
         competition_sets = (
-            dict(semantic_inventory_payload.get("competition_sets"))
-            if isinstance(semantic_inventory_payload.get("competition_sets"), Mapping)
-            else {}
+            dict(raw_competition_sets) if isinstance(raw_competition_sets, Mapping) else {}
         )
         for sense_id, raw_sense in senses.items():
             if not isinstance(raw_sense, Mapping):
@@ -218,7 +210,9 @@ def _validate_publication_family(
 
     ready_pointer_count = 0
     for row in _iter_rule_semantic_admissions(rules):
-        pointer = row["semantic_admission"]
+        pointer = row.get("semantic_admission")
+        if not isinstance(pointer, Mapping):
+            continue
         status = str(pointer.get("status") or "").strip()
         if status != "ready":
             continue
@@ -255,6 +249,19 @@ def _validate_publication_family(
         errors.append("ready semantic_admission pointers require semantic inventory publication")
 
     return errors
+
+
+def _parse_int(value: object) -> int | None:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value).strip())
+    except (TypeError, ValueError):
+        return None
 
 
 def _build_artifact_manifest_entry(path: Path) -> dict[str, object]:

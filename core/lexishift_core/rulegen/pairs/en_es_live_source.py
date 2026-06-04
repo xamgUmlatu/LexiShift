@@ -286,9 +286,12 @@ class FreedictCandidateSource:
                     fallback_provider="frequency",
                     package_hint=self._word_packages_by_target.get(target),
                 )
-                target_pos = extract_target_pos_component(
-                    target_word_package=target_word_package,
-                    language_pair=language_pair,
+                target_pos = (
+                    extract_target_pos_component(
+                        target_word_package=target_word_package,
+                        language_pair=language_pair,
+                    )
+                    or {}
                 )
                 entries = tuple(
                     _collect_sanitized_gloss_records(self._records_by_target.get(target, ()))
@@ -301,22 +304,23 @@ class FreedictCandidateSource:
                         source_kind="dictionary",
                         source_profile=self._dictionary_pos_source_profile,
                     )
+                    or {}
                     for entry in entries
                 )
                 canonical_inventory = tuple(
                     _extract_canonical_from_component(component) for component in dictionary_poses
                 )
-                dictionary_record_views_by_index = []
+                live_dictionary_record_views_by_index: list[Mapping[str, object]] = []
                 for entry in entries:
                     if entry.metadata:
                         raw_record = dict(entry.metadata)
                         dictionary_record_views = build_kaikki_record_views(raw_record)
                         if dictionary_record_views:
-                            dictionary_record_views_by_index.append(
+                            live_dictionary_record_views_by_index.append(
                                 {"kaikki": dictionary_record_views}
                             )
                             continue
-                    dictionary_record_views_by_index.append({})
+                    live_dictionary_record_views_by_index.append({})
                 target_provenance_by_index = tuple(
                     _build_target_provenance_by_index(
                         target=target,
@@ -335,14 +339,16 @@ class FreedictCandidateSource:
                     entries=entries,
                     dictionary_poses=dictionary_poses,
                     canonical_inventory=canonical_inventory,
-                    dictionary_record_views_by_index=tuple(dictionary_record_views_by_index),
+                    dictionary_record_views_by_index=tuple(live_dictionary_record_views_by_index),
                     target_provenance_by_index=target_provenance_by_index,
                     reverse_lookup=self._reverse_lookup,
                     generic_gloss_demotions=self._generic_gloss_demotions,
                 )
                 kaikkei_policy_shadow_by_index = (
                     build_kaikki_policy_shadow_by_index(
-                        dictionary_record_views_by_index=dictionary_record_views_by_index,
+                        dictionary_record_views_by_index=tuple(
+                            live_dictionary_record_views_by_index
+                        ),
                         canonical_inventory=canonical_inventory,
                         risk_families=self._kaikki_policy.risk_families,
                     )

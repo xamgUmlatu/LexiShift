@@ -111,7 +111,7 @@ def rank_embedding_bridge_neighbors_with_encoder(
                         "target": candidate_target,
                         "similarity": similarity,
                         "primary_pos": candidate_pos,
-                        "fragments": list(candidate_profile.get("fragments") or ())[:3],
+                        "fragments": _object_sequence(candidate_profile.get("fragments"))[:3],
                     },
                 )
             )
@@ -170,11 +170,13 @@ def augment_inventory_with_embedding_bridge(
                 updated_trigger_entries.append(updated_trigger_entry)
                 continue
             if support_score_min_for_backoff is not None and any(
-                float(
-                    build_shadow_candidate_support_details(
-                        candidate=candidate,
-                        active_candidates=active_candidates,
-                    ).get("support_score")
+                (
+                    _safe_float(
+                        build_shadow_candidate_support_details(
+                            candidate=candidate,
+                            active_candidates=active_candidates,
+                        ).get("support_score")
+                    )
                     or 0.0
                 )
                 >= float(support_score_min_for_backoff)
@@ -207,7 +209,7 @@ def augment_inventory_with_embedding_bridge(
                     {
                         "target": candidate_target,
                         "sense_label": (
-                            f"embedding bridge ({float(neighbor.get('similarity') or 0.0):.3f})"
+                            f"embedding bridge ({(_safe_float(neighbor.get('similarity')) or 0.0):.3f})"
                         ),
                         "canonical_pos": str(neighbor.get("primary_pos") or "").strip().lower(),
                         "provider": "semantic_embedding_bridge",
@@ -216,12 +218,14 @@ def augment_inventory_with_embedding_bridge(
                             "locator_kind": "target_profile",
                             "target_key": candidate_target,
                         },
-                        "glosses": list(neighbor.get("fragments") or ())[:3],
+                        "glosses": _object_sequence(neighbor.get("fragments"))[:3],
                         "qualifiers": None,
                         "candidate_sources": ["semantic_embedding_bridge"],
                         "benchmark_target_present": True,
                         "reviewed_trigger_support": reviewed_trigger_support,
-                        "embedding_bridge_similarity": float(neighbor.get("similarity") or 0.0),
+                        "embedding_bridge_similarity": (
+                            _safe_float(neighbor.get("similarity")) or 0.0
+                        ),
                         "embedding_bridge_text": str(
                             candidate_profile.get("card_text") or ""
                         ).strip(),
@@ -251,6 +255,25 @@ def _append_record_fragments(fragments: list[str], record: TranslationGlossRecor
     if isinstance(topics, Sequence) and not isinstance(topics, (str, bytes)):
         for item in topics[:2]:
             _append_fragment(fragments, item)
+
+
+def _object_sequence(value: object) -> list[object]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return []
+    return list(value)
+
+
+def _safe_float(value: object) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (float, int)):
+        return float(value)
+    try:
+        return float(str(value).strip())
+    except (TypeError, ValueError):
+        return None
 
 
 def _append_fragment(fragments: list[str], value: object) -> None:

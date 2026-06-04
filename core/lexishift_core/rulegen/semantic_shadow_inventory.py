@@ -512,7 +512,7 @@ def promote_shadow_candidates_with_support_score(
     active_profile_forward_neighborhood_terms = normalize_shadow_string_list(
         (active_profile_fallback or {}).get("forward_neighborhood_terms")
     )
-    ranked: list[tuple[tuple[float, int, int, int, str], dict[str, object]]] = []
+    ranked: list[tuple[tuple[float, float, int, int, int, str], dict[str, object]]] = []
     for candidate in shadow_candidates:
         candidate_copy = dict(candidate)
         support_details = build_shadow_candidate_support_details(
@@ -531,14 +531,14 @@ def promote_shadow_candidates_with_support_score(
         )
         candidate_copy.update(support_details)
         candidate_copy["promotion_policy"] = normalized_policy
-        support_score = float(candidate_copy.get("support_score") or 0.0)
+        support_score = _safe_float(candidate_copy.get("support_score"))
         if support_score < float(min_score):
             continue
         ranked.append(
             (
                 (
                     support_score,
-                    float(candidate_copy.get("semantic_bridge_score") or 0.0),
+                    _safe_float(candidate_copy.get("semantic_bridge_score")),
                     1 if candidate_copy.get("reviewed_trigger_support") else 0,
                     1 if candidate_copy.get("same_pos_as_active") else 0,
                     1 if candidate_copy.get("benchmark_target_present") else 0,
@@ -556,6 +556,17 @@ def promote_shadow_candidates_with_support_score(
     )
     ranked.sort(reverse=True)
     return [candidate for _score, candidate in ranked[:normalized_max_promoted]]
+
+
+def _safe_float(value: object) -> float:
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (int, float)):
+        return float(value)
+    try:
+        return float(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def _shadow_candidate_qualifies_for_policy(

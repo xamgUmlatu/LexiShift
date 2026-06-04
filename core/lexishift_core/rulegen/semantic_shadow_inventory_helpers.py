@@ -88,11 +88,24 @@ def _build_forward_index_profile_candidate(
         "qualifiers": {
             "profile_kind": str(profile.get("profile_kind") or "").strip()
             or "forward_target_pos_profile",
-            "profile_record_count": int(profile.get("profile_record_count") or 0),
+            "profile_record_count": _safe_int(profile.get("profile_record_count")),
         },
         "matched_trigger": str(trigger or "").strip(),
         "profile_backed": True,
     }
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0
 
 
 def build_active_profile_fallback(

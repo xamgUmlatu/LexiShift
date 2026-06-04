@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import sqlite3
-from typing import Iterator, Mapping, Optional, Sequence
+from typing import Callable, Iterator, Mapping, Optional, Sequence, TypeVar
+
+
+_RecordT = TypeVar("_RecordT")
 
 
 @dataclass(frozen=True)
@@ -40,10 +43,10 @@ def load_auxiliary_sqlite_gloss_records_ordered(
     conn: sqlite3.Connection,
     *,
     headwords: Optional[Sequence[str]] = None,
-    record_factory,
+    record_factory: Callable[..., _RecordT],
     metadata_builder,
-) -> dict[str, list[object]]:
-    mapping: dict[str, list[object]] = {}
+) -> dict[str, list[_RecordT]]:
+    mapping: dict[str, list[_RecordT]] = {}
     translation_index_by_headword: dict[str, dict[str, int]] = {}
     if headwords is not None:
         if not headwords:
@@ -88,10 +91,10 @@ def load_auxiliary_sqlite_gloss_records_by_translation_ordered(
     conn: sqlite3.Connection,
     *,
     translations: Optional[Sequence[str]] = None,
-    record_factory,
+    record_factory: Callable[..., _RecordT],
     metadata_builder,
-) -> dict[str, list[object]]:
-    mapping: dict[str, list[object]] = {}
+) -> dict[str, list[_RecordT]]:
+    mapping: dict[str, list[_RecordT]] = {}
     headword_index_by_translation: dict[str, dict[str, int]] = {}
     if translations is not None:
         if not translations:

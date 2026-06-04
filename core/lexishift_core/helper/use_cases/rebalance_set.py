@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
-from typing import Callable, Mapping, Optional, Sequence
+from typing import Callable, Mapping, Optional, Sequence, TypedDict
 
+from lexishift_core.helper.frequency_packs import FrequencyPackRef
 from lexishift_core.helper.lp_capabilities import resolve_pair_capability
 from lexishift_core.helper.pair_resources import resolve_pair_frequency_pack
 from lexishift_core.helper.paths import HelperPaths
@@ -25,7 +26,11 @@ from lexishift_core.srs import (
     set_active_item_ids,
 )
 from lexishift_core.srs.pair_policy import pair_policy_to_dict, resolve_srs_pair_policy
-from lexishift_core.srs.rebalance import SOURCE_KIND_NEW_SEED, build_rebalance_plan
+from lexishift_core.srs.rebalance import (
+    SOURCE_KIND_NEW_SEED,
+    SrsRebalancePlan,
+    build_rebalance_plan,
+)
 from lexishift_core.srs.seed import SeedSelectionConfig, SeedWord
 from lexishift_core.srs.signal_queue import summarize_signal_events
 from lexishift_core.srs.source import SOURCE_FREQUENCY_LIST, normalize_source_type
@@ -33,10 +38,32 @@ from lexishift_core.srs.store_ops import upsert_item
 from lexishift_core.srs.time import format_ts, now_utc
 
 
+class _RebalanceContext(TypedDict):
+    pair: str
+    profile_id: str
+    settings: SrsSettings
+    store: SrsStore
+    inventory: SrsInventory
+    inventory_path: Path
+    inventory_source: str
+    active_item_ids_before: tuple[str, ...]
+    existing_items_for_pair: int
+    resolved_set_top_n: int
+    resolved_jmdict_path: Path | None
+    resolved_translation_dict_path: Path | None
+    resolved_set_source_db: Path
+    resolved_frequency_pack: FrequencyPackRef | None
+    stopwords_path: Path | None
+    signal_summary: Mapping[str, object]
+    plan_payload: Mapping[str, object]
+    max_active_items: int
+    profile_context: Mapping[str, object] | None
+
+
 def _build_frequency_resource_payload(
     *,
     resolved_set_source_db: Path,
-    resolved_frequency_pack,
+    resolved_frequency_pack: FrequencyPackRef | None,
 ) -> dict[str, object]:
     frequency_pack_path = (
         resolved_frequency_pack.path if resolved_frequency_pack else resolved_set_source_db
@@ -129,11 +156,14 @@ def apply_srs_rebalance(
         **context,
         build_seed_candidates_fn=build_seed_candidates_fn,
     )
-    plan_payload = deepcopy(preview_payload["plan"])
+    plan_payload = deepcopy(_mapping_payload(preview_payload.get("plan")))
     plan_payload["execution_mode"] = "rebalance_apply"
     preview_payload["plan"] = plan_payload
     rebalance_plan = preview_payload.pop("_rebalance_plan", None)
-    if rebalance_plan is None or preview_payload["plan"].get("can_execute") is not True:
+    if (
+        not isinstance(rebalance_plan, SrsRebalancePlan)
+        or plan_payload.get("can_execute") is not True
+    ):
         preview_payload["applied"] = False
         preview_payload["rulegen"] = None
         preview_payload["inventory"] = {
@@ -276,7 +306,7 @@ def _prepare_rebalance_context(
     build_set_plan_payload_fn: Callable[..., dict[str, object]],
     resolve_stopwords_path_fn: Callable[..., Path | None],
     check_rulegen_resources: bool,
-) -> dict[str, object]:
+) -> _RebalanceContext:
     raw_pair = str(config.pair or "").strip()
     if not raw_pair:
         raise ValueError("Missing pair.")
@@ -386,7 +416,7 @@ def _build_rebalance_preview_payload(
     resolved_jmdict_path: Optional[Path],
     resolved_translation_dict_path: Optional[Path],
     resolved_set_source_db: Path,
-    resolved_frequency_pack,
+    resolved_frequency_pack: FrequencyPackRef | None,
     stopwords_path: Optional[Path],
     signal_summary: Mapping[str, object],
     plan_payload: Mapping[str, object],
@@ -399,7 +429,8 @@ def _build_rebalance_preview_payload(
         resolved_set_source_db=resolved_set_source_db,
         resolved_frequency_pack=resolved_frequency_pack,
     )
-    payload = {
+    plan_payload_dict = dict(plan_payload)
+    payload: dict[str, object] = {
         "pair": pair,
         "profile_id": profile_id,
         "set_top_n": resolved_set_top_n,
@@ -413,7 +444,7 @@ def _build_rebalance_preview_payload(
         ),
         "existing_items_for_pair": existing_items_for_pair,
         "signal_summary": dict(signal_summary),
-        "plan": dict(plan_payload),
+        "plan": plan_payload_dict,
         "summary": {
             "active_count_before": len(tuple(active_item_ids_before)),
             "protected_count": 0,
@@ -435,9 +466,9 @@ def _build_rebalance_preview_payload(
         },
     }
     if not active_item_ids_before:
-        blocked_plan = dict(payload["plan"])
+        blocked_plan = dict(plan_payload_dict)
         blocked_plan["can_execute"] = False
-        notes = list(blocked_plan.get("notes") or [])
+        notes = _list_payload(blocked_plan.get("notes"))
         note = "No active inventory exists for this pair yet. Initialize S before rebalancing."
         if note not in notes:
             notes.append(note)
@@ -445,7 +476,7 @@ def _build_rebalance_preview_payload(
         payload["plan"] = blocked_plan
         return payload
 
-    if payload["plan"].get("can_execute") is not True:
+    if plan_payload_dict.get("can_execute") is not True:
         return payload
 
     selection = build_seed_candidates_fn(
@@ -466,9 +497,9 @@ def _build_rebalance_preview_payload(
         profile_context=profile_context,
         target_active_count=max_active_items,
     )
-    plan_with_notes = dict(payload["plan"])
+    plan_with_notes = dict(plan_payload_dict)
     if inventory_source == "store_fallback":
-        notes = list(plan_with_notes.get("notes") or [])
+        notes = _list_payload(plan_with_notes.get("notes"))
         note = (
             "Active inventory manifest is missing for this pair; using current store membership "
             "as a compatibility fallback."
@@ -491,6 +522,20 @@ def _build_rebalance_preview_payload(
     payload["signal_summary"] = dict(signal_summary)
     payload["_rebalance_plan"] = rebalance_plan
     return payload
+
+
+def _mapping_payload(value: object) -> dict[str, object]:
+    if isinstance(value, Mapping):
+        return dict(value)
+    return {}
+
+
+def _list_payload(value: object) -> list[object]:
+    if isinstance(value, list):
+        return list(value)
+    if isinstance(value, tuple):
+        return list(value)
+    return []
 
 
 def _resolve_max_active_items(config, settings: SrsSettings) -> int:

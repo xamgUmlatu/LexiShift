@@ -510,9 +510,9 @@ def _normalized_evidence_batch() -> dict[str, object]:
     }
 
 
-def _strong_active_phrase_inputs() -> (
-    tuple[dict[str, object], dict[str, object], dict[str, object]]
-):
+def _strong_active_phrase_inputs() -> tuple[
+    dict[str, object], dict[str, object], dict[str, object]
+]:
     family_id = "fam:even"
     active_id = f"{family_id}:active"
     shadow_id = f"{family_id}:shadow"

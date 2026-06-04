@@ -152,10 +152,7 @@ class TestCheckRulegenLpConformance(unittest.TestCase):
             pair_module = root / "core" / "lexishift_core" / "rulegen" / "pairs" / "en_fr.py"
             pair_module.parent.mkdir(parents=True, exist_ok=True)
             pair_module.write_text(
-                "class EnFrRulegenConfig:\n"
-                "    pass\n\n"
-                "def generate_en_fr_rules():\n"
-                "    pass\n",
+                "class EnFrRulegenConfig:\n    pass\n\ndef generate_en_fr_rules():\n    pass\n",
                 encoding="utf-8",
             )
             pairs_init = root / "core" / "lexishift_core" / "rulegen" / "pairs" / "__init__.py"

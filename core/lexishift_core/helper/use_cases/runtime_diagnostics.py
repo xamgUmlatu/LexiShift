@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from hashlib import sha1
 from pathlib import Path
+from typing import Mapping
 
 from lexishift_core.helper.lp_capabilities import pair_requirements, resolve_pair_capability
 from lexishift_core.helper.pair_resources import (
@@ -41,8 +42,8 @@ def _append_family_error(errors: list[str], message: str) -> None:
 def _resolve_semantic_runtime_capability(
     diagnostics: dict[str, object],
 ) -> tuple[str, str]:
-    semantic_pointer_count = int(diagnostics.get("ruleset_rules_with_semantic_admission") or 0)
-    semantic_ready_count = int(diagnostics.get("ruleset_rules_semantic_ready") or 0)
+    semantic_pointer_count = _safe_int(diagnostics.get("ruleset_rules_with_semantic_admission"))
+    semantic_ready_count = _safe_int(diagnostics.get("ruleset_rules_semantic_ready"))
     publication_manifest_family_valid = diagnostics.get("publication_manifest_family_valid")
 
     if semantic_pointer_count <= 0:
@@ -87,10 +88,9 @@ def _recompute_publication_family_validation(
     if not manifest_generation_id:
         _append_family_error(errors, "publication_manifest.generation_id is required")
 
+    raw_validation_payload = manifest_payload.get("validation")
     validation_payload = (
-        dict(manifest_payload.get("validation"))
-        if isinstance(manifest_payload.get("validation"), dict)
-        else {}
+        dict(raw_validation_payload) if isinstance(raw_validation_payload, Mapping) else {}
     )
     raw_validation_errors = validation_payload.get("errors")
     if isinstance(raw_validation_errors, list):
@@ -99,10 +99,9 @@ def _recompute_publication_family_validation(
     if validation_payload.get("family_valid") is False and not errors:
         _append_family_error(errors, "publication_manifest.validation.family_valid is false")
 
+    raw_manifest_artifacts = manifest_payload.get("artifacts")
     manifest_artifacts = (
-        dict(manifest_payload.get("artifacts"))
-        if isinstance(manifest_payload.get("artifacts"), dict)
-        else {}
+        dict(raw_manifest_artifacts) if isinstance(raw_manifest_artifacts, Mapping) else {}
     )
     current_artifacts = {
         "ruleset": _read_artifact_state(ruleset_path),
@@ -266,7 +265,7 @@ def get_srs_runtime_diagnostics(
     reverse_translation_dict_path_text = (
         str(resolved_reverse_translation_pack.path) if resolved_reverse_translation_pack else None
     )
-    diagnostics = {
+    diagnostics: dict[str, object] = {
         "pair": normalized_pair,
         "profile_id": normalized_profile_id,
         "requirements": pair_requirements(normalized_pair),
@@ -487,7 +486,11 @@ def get_srs_runtime_diagnostics(
     if diagnostics["snapshot_exists"]:
         try:
             snapshot_payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+            if not isinstance(snapshot_payload, Mapping):
+                snapshot_payload = {}
             stats = snapshot_payload.get("stats", {})
+            if not isinstance(stats, Mapping):
+                stats = {}
             target_count = stats.get("target_count")
             if target_count is None and isinstance(snapshot_payload.get("targets"), list):
                 target_count = len(snapshot_payload.get("targets", []))
@@ -502,6 +505,8 @@ def get_srs_runtime_diagnostics(
             semantic_inventory_payload = json.loads(
                 semantic_inventory_path.read_text(encoding="utf-8")
             )
+            if not isinstance(semantic_inventory_payload, Mapping):
+                semantic_inventory_payload = {}
             diagnostics["semantic_inventory_schema_version"] = semantic_inventory_payload.get(
                 "schema_version"
             )
@@ -535,6 +540,8 @@ def get_srs_runtime_diagnostics(
     if diagnostics["publication_manifest_exists"]:
         try:
             manifest_payload = json.loads(publication_manifest_path.read_text(encoding="utf-8"))
+            if not isinstance(manifest_payload, Mapping):
+                manifest_payload = {}
             diagnostics["publication_manifest_generation_id"] = (
                 str(manifest_payload.get("generation_id") or "").strip() or None
             )
@@ -559,3 +566,16 @@ def get_srs_runtime_diagnostics(
         diagnostics["semantic_runtime_reason_code"],
     ) = _resolve_semantic_runtime_capability(diagnostics)
     return diagnostics
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0

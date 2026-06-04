@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import math
-from typing import Mapping, Optional, Sequence
+from typing import TYPE_CHECKING, Mapping, Optional, Sequence
 
 from lexishift_core.srs.admission_features import (
     AdmissionCandidateFeatures,
@@ -17,6 +17,10 @@ from lexishift_core.srs.admission_features import (
 )
 from lexishift_core.srs.selector import resolve_selection_mass
 
+if TYPE_CHECKING:
+    from lexishift_core.srs.profile_bootstrap import ProfileBootstrapPolicy
+    from lexishift_core.srs.selector import ScoredCandidate
+
 
 @dataclass(frozen=True)
 class ReadinessGate:
@@ -28,7 +32,7 @@ class ReadinessGate:
     too_hard_gap: float
 
 
-def build_policy_summary(policy: object) -> dict[str, object]:
+def build_policy_summary(policy: ProfileBootstrapPolicy) -> dict[str, object]:
     return {
         "version": policy.version,
         "default_selection_policy": policy.selector_config.selection_policy,
@@ -82,7 +86,7 @@ def compute_topic_affinity(
     traits: AdmissionCandidateFeatures,
     context: AdmissionProfileFeatures,
     *,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> tuple[float, Optional[str], float, int, int]:
     if not context.topic_weights:
         return 0.0, None, 0.0, 0, 0
@@ -124,7 +128,7 @@ def build_active_topic_support_summary(
     seed_traits: Sequence[tuple[int, object, AdmissionCandidateFeatures]],
     context: AdmissionProfileFeatures,
     *,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> dict[str, object]:
     active_topics = [
         (
@@ -213,7 +217,7 @@ def compute_scarcity_bonus(
     context: AdmissionProfileFeatures,
     *,
     active_topic_support: Optional[Mapping[str, Mapping[str, object]]],
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> tuple[float, Optional[str]]:
     if not policy.scarcity_bonus_enabled or not context.topic_weights or not active_topic_support:
         return 0.0, None
@@ -256,7 +260,7 @@ def compute_proficiency_fit(
     difficulty_estimate: float,
     proficiency_estimate: Optional[float],
     *,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> float:
     if proficiency_estimate is None:
         return 0.0
@@ -271,7 +275,7 @@ def compute_challenge_fit(
     challenge_target: Optional[float],
     challenge_spread: Optional[float],
     *,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> float:
     if challenge_target is None:
         return 0.0
@@ -288,7 +292,7 @@ def compute_readiness_gate(
     proficiency_estimate: Optional[float],
     topic_affinity: float,
     *,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> ReadinessGate:
     if proficiency_estimate is None:
         return ReadinessGate(
@@ -333,9 +337,9 @@ def build_preview_entry(
     seed: object,
     traits: AdmissionCandidateFeatures,
     signal_pack: AdmissionUtilitySignals,
-    scored_candidate: object,
+    scored_candidate: ScoredCandidate,
     base_rank: int,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> dict[str, object]:
     seed_metadata = mapping_or_empty(getattr(seed, "metadata", None))
     weighted_profile_components = {
@@ -449,7 +453,7 @@ def _compute_topic_specificity(
     traits: AdmissionCandidateFeatures,
     context: AdmissionProfileFeatures,
     *,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> tuple[float, int, int]:
     active_topics = {
         str(topic or "").strip()
@@ -507,7 +511,7 @@ def _compute_topic_scarcity_multiplier(
     support_mass: float,
     *,
     eligible_for_scarcity_calibration: bool,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> float:
     if not policy.scarcity_bonus_enabled or not eligible_for_scarcity_calibration:
         return 1.0
@@ -528,7 +532,7 @@ def _compute_topic_specificity_for_topic(
     traits: AdmissionCandidateFeatures,
     active_topic: str,
     *,
-    policy: object,
+    policy: ProfileBootstrapPolicy,
 ) -> tuple[float, int, int]:
     normalized_topic = str(active_topic or "").strip()
     if not normalized_topic:

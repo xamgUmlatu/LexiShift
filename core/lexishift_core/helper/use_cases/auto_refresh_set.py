@@ -130,6 +130,10 @@ def _coerce_int_or_default(value: object, fallback: int) -> int:
     if value is None:
         return int(fallback)
     try:
-        return int(value)
+        if isinstance(value, bool):
+            return int(value)
+        if isinstance(value, (int, float)):
+            return int(value)
+        return int(str(value or "").strip())
     except (TypeError, ValueError):
         return int(fallback)

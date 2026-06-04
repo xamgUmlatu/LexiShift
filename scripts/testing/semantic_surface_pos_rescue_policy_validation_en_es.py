@@ -46,8 +46,7 @@ DEFAULT_JSON_OUT = TEST_OUTPUTS_ROOT / (
     "raw_sentence_latest.json"
 )
 DEFAULT_MARKDOWN_OUT = TEST_OUTPUTS_ROOT / (
-    "semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_"
-    "raw_sentence_latest.md"
+    "semantic_surface_pos_rescue_policy_validation_non_v10_wave6_auth_frame_raw_sentence_latest.md"
 )
 DEFAULT_DECISION_SHAPE = "active_shadow_phrase_semantic_surface_pos"
 

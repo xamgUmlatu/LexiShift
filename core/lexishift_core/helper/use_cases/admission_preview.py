@@ -415,7 +415,11 @@ def _normalize_preview_seed(value: object) -> int | None:
     if value is None:
         return None
     try:
-        return int(value)  # type: ignore[arg-type]
+        if isinstance(value, bool):
+            return int(value)
+        if isinstance(value, (int, float)):
+            return int(value)
+        return int(str(value or "").strip())
     except (TypeError, ValueError):
         return None
 

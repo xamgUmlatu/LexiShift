@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Mapping, Sequence
+from typing import Mapping, Sequence, cast
 
 from lexishift_core.resources.dict_loaders import TranslationGlossRecord
 from lexishift_core.rulegen.semantic_shadow_support import (
@@ -48,8 +48,9 @@ def cluster_shadow_records(
             }
             grouped[key] = bucket
         emitted_gloss = sanitize_dictionary_gloss(record.translation)
-        if emitted_gloss and emitted_gloss not in bucket["glosses"]:
-            bucket["glosses"].append(emitted_gloss)
+        glosses = cast(list[str], bucket["glosses"])
+        if emitted_gloss and emitted_gloss not in glosses:
+            glosses.append(emitted_gloss)
     return list(grouped.values())
 
 
@@ -76,7 +77,7 @@ def build_shadow_canonical_pos(record: TranslationGlossRecord) -> str:
     return str(record.pos_raw or "").strip().lower()
 
 
-def build_shadow_qualifiers(metadata: Mapping[str, object]) -> dict[str, object] | None:
+def build_shadow_qualifiers(metadata: Mapping[str, object]) -> dict[str, list[str]] | None:
     qualifiers: dict[str, list[str]] = {}
     tags = normalize_shadow_string_list(
         metadata.get("sense_tags"),

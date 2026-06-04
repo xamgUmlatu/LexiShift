@@ -19,14 +19,22 @@ REVERSE_HYGIENE_EXACT_HIT_MAX_TOTAL = 12
 
 
 class _RuleCandidateLike(Protocol):
-    source_phrase: str
-    replacement: str
-    metadata: Mapping[str, object]
+    @property
+    def source_phrase(self) -> str: ...
+
+    @property
+    def replacement(self) -> str: ...
+
+    @property
+    def metadata(self) -> Mapping[str, object]: ...
 
 
 class RuleGenerationResultLike(Protocol):
-    candidate: _RuleCandidateLike
-    confidence: float
+    @property
+    def candidate(self) -> _RuleCandidateLike: ...
+
+    @property
+    def confidence(self) -> float: ...
 
 
 _ResultT = TypeVar("_ResultT", bound=RuleGenerationResultLike)

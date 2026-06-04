@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Mapping, Optional, Sequence
+from typing import Mapping, MutableMapping, Optional, Sequence
 
 from lexishift_core.srs.admission_features import (
     AdmissionCandidateFeatures,
@@ -315,10 +315,11 @@ def score_seed_words_for_profile(
         normalized_context,
         policy=policy,
     )
+    active_topic_rows = _mapping_sequence(active_topic_support.get("topics"))
     active_topic_support_by_name = {
         str(entry.get("topic", "")).strip(): entry
-        for entry in active_topic_support.get("topics", [])
-        if isinstance(entry, Mapping) and str(entry.get("topic", "")).strip()
+        for entry in active_topic_rows
+        if str(entry.get("topic", "")).strip()
     }
     ranked_entries: list[ProfileBootstrapScoredEntry] = []
     for base_index, seed, traits in seed_traits:
@@ -424,10 +425,10 @@ def _build_topic_depth_by_level(
         if str(topic or "").strip() and float(weight or 0.0) > 0.0
     ]
     active_topics.sort(key=lambda item: (-item[1], item[0]))
-    bands = [
+    bands: list[dict[str, object]] = [
         _new_depth_band(label, lower, upper) for label, lower, upper in PROFILE_TOPIC_DEPTH_BANDS
     ]
-    topic_entries = [
+    topic_entries: list[dict[str, object]] = [
         {
             "topic": topic,
             "requested_weight": round(weight, 6),
@@ -454,39 +455,36 @@ def _build_topic_depth_by_level(
         topic_affinity = _clamped_signal_value(entry.signal_pack.preference_affinity)
         band_index = _topic_depth_band_index(difficulty)
         band = bands[band_index]
-        band["candidate_count"] = int(band["candidate_count"]) + 1
+        _increment_payload_counter(band, "candidate_count")
         if topic_affinity > 0.0:
-            band["preferred_topic_count"] = int(band["preferred_topic_count"]) + 1
+            _increment_payload_counter(band, "preferred_topic_count")
             if readiness >= PROFILE_TOPIC_DEPTH_READY_THRESHOLD:
-                band["ready_preferred_topic_count"] = int(band["ready_preferred_topic_count"]) + 1
+                _increment_payload_counter(band, "ready_preferred_topic_count")
             if readiness >= PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD:
-                band["high_readiness_preferred_topic_count"] = (
-                    int(band["high_readiness_preferred_topic_count"]) + 1
-                )
+                _increment_payload_counter(band, "high_readiness_preferred_topic_count")
             _append_topic_depth_example(band["top_preferred_examples"], entry)
 
         for topic, _weight in active_topics:
             if not _entry_matches_active_topic(entry, topic):
                 continue
             topic_entry = topic_entry_by_name[topic]
-            topic_entry["candidate_count"] = int(topic_entry["candidate_count"]) + 1
+            _increment_payload_counter(topic_entry, "candidate_count")
             if readiness >= PROFILE_TOPIC_DEPTH_READY_THRESHOLD:
-                topic_entry["ready_candidate_count"] = int(topic_entry["ready_candidate_count"]) + 1
+                _increment_payload_counter(topic_entry, "ready_candidate_count")
             if readiness >= PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD:
-                topic_entry["high_readiness_candidate_count"] = (
-                    int(topic_entry["high_readiness_candidate_count"]) + 1
-                )
+                _increment_payload_counter(topic_entry, "high_readiness_candidate_count")
             max_difficulty = topic_entry["max_difficulty"]
-            if max_difficulty is None or difficulty > float(max_difficulty):
+            parsed_max_difficulty = _safe_float(max_difficulty)
+            if parsed_max_difficulty is None or difficulty > parsed_max_difficulty:
                 topic_entry["max_difficulty"] = round(difficulty, 6)
-            topic_band = topic_entry["bands"][band_index]
-            topic_band["candidate_count"] = int(topic_band["candidate_count"]) + 1
+            topic_band = _topic_band_at(topic_entry, band_index)
+            if topic_band is None:
+                continue
+            _increment_payload_counter(topic_band, "candidate_count")
             if readiness >= PROFILE_TOPIC_DEPTH_READY_THRESHOLD:
-                topic_band["ready_candidate_count"] = int(topic_band["ready_candidate_count"]) + 1
+                _increment_payload_counter(topic_band, "ready_candidate_count")
             if readiness >= PROFILE_TOPIC_DEPTH_HIGH_READINESS_THRESHOLD:
-                topic_band["high_readiness_candidate_count"] = (
-                    int(topic_band["high_readiness_candidate_count"]) + 1
-                )
+                _increment_payload_counter(topic_band, "high_readiness_candidate_count")
             _append_topic_depth_example(topic_band["top_examples"], entry)
             hardest_examples_by_topic[topic].append((difficulty, _topic_depth_example(entry)))
 
@@ -535,6 +533,55 @@ def _new_topic_depth_band(label: str, lower: float, upper: float) -> dict[str, o
         "high_readiness_candidate_count": 0,
         "top_examples": [],
     }
+
+
+def _mapping_sequence(value: object) -> list[Mapping[str, object]]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return []
+    return [entry for entry in value if isinstance(entry, Mapping)]
+
+
+def _topic_band_at(
+    topic_entry: Mapping[str, object],
+    band_index: int,
+) -> MutableMapping[str, object] | None:
+    bands = topic_entry.get("bands")
+    if not isinstance(bands, Sequence) or isinstance(bands, (str, bytes)):
+        return None
+    if band_index < 0 or band_index >= len(bands):
+        return None
+    band = bands[band_index]
+    return band if isinstance(band, dict) else None
+
+
+def _increment_payload_counter(payload: MutableMapping[str, object], key: str) -> None:
+    payload[key] = _safe_int(payload.get(key)) + 1
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0
+
+
+def _safe_float(value: object) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (float, int)):
+        return float(value)
+    try:
+        return float(str(value).strip())
+    except (TypeError, ValueError):
+        return None
 
 
 def _topic_depth_band_index(difficulty: float) -> int:

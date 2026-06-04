@@ -378,7 +378,9 @@ def render_prompt_downstream_markdown(report: Mapping[str, object]) -> str:
             sample_value = "n/a"
         prompt_slots = row.get("prompt_slots")
         if isinstance(prompt_slots, Sequence) and not isinstance(prompt_slots, (str, bytes)):
-            prompt_slot_value = ", ".join(f"`{str(item)}`" for item in prompt_slots if str(item).strip())
+            prompt_slot_value = ", ".join(
+                f"`{str(item)}`" for item in prompt_slots if str(item).strip()
+            )
         else:
             prompt_slot_value = "n/a"
         lines.append(

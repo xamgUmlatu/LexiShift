@@ -693,17 +693,11 @@ def _apply_kaikki_policy_overlay(
             shadow_metadata["live_demotion_value"] = demotion
             if reasons:
                 shadow_metadata["live_demotion_reasons"] = reasons
+    target_provenance = metadata.get("target_provenance")
+    gloss_provenance = metadata.get("gloss_provenance")
     provenance_demotion, provenance_reasons = _resolve_kaikki_provenance_competition_demotion(
-        target_provenance=(
-            metadata.get("target_provenance")
-            if isinstance(metadata.get("target_provenance"), Mapping)
-            else None
-        ),
-        gloss_provenance=(
-            metadata.get("gloss_provenance")
-            if isinstance(metadata.get("gloss_provenance"), Mapping)
-            else None
-        ),
+        target_provenance=target_provenance if isinstance(target_provenance, Mapping) else None,
+        gloss_provenance=gloss_provenance if isinstance(gloss_provenance, Mapping) else None,
         shadow=shadow_metadata,
         late_sense_clean_earlier_competition_penalty=(
             kaikki_policy.late_sense_clean_earlier_competition_penalty

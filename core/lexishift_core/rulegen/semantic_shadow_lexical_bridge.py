@@ -71,7 +71,7 @@ def build_target_bridge_profiles(
                     include_example_markers=include_example_markers,
                 )
             )
-        direct_reverse_records = ()
+        direct_reverse_records: Sequence[TranslationGlossRecord] = ()
         if target_reverse_records_by_target is not None:
             direct_reverse_records = collect_sanitized_gloss_records(
                 target_reverse_records_by_target.get(target, ())
@@ -138,11 +138,7 @@ def build_semantic_bridge_candidates(
     if not isinstance(active_profile, Mapping):
         return []
     normalized_trigger = sanitize_dictionary_gloss(trigger).lower()
-    active_markers = {
-        str(marker).strip()
-        for marker in active_profile.get("bridge_markers", ())
-        if str(marker).strip()
-    }
+    active_markers = set(_string_sequence(active_profile.get("bridge_markers")))
     if not active_markers:
         return []
     active_pos_values = {
@@ -164,11 +160,7 @@ def build_semantic_bridge_candidates(
             or normalized_target not in benchmark_target_map
         ):
             continue
-        candidate_markers = {
-            str(marker).strip()
-            for marker in profile.get("bridge_markers", ())
-            if str(marker).strip()
-        }
+        candidate_markers = set(_string_sequence(profile.get("bridge_markers")))
         if not candidate_markers:
             continue
         shared_markers = sorted(
@@ -299,3 +291,9 @@ def _build_canonical_pos(record: TranslationGlossRecord) -> str:
     if candidate:
         return candidate
     return str(record.pos_raw or "").strip().lower()
+
+
+def _string_sequence(value: object) -> tuple[str, ...]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
+        return ()
+    return tuple(str(item).strip() for item in value if str(item).strip())

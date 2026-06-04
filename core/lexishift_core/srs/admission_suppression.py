@@ -251,7 +251,12 @@ def _safe_float(value: object) -> Optional[float]:
     try:
         if value is None:
             return None
-        parsed = float(value)
+        if isinstance(value, bool):
+            parsed = float(value)
+        elif isinstance(value, (int, float)):
+            parsed = float(value)
+        else:
+            parsed = float(str(value).strip())
     except (TypeError, ValueError):
         return None
     return parsed if parsed == parsed else None

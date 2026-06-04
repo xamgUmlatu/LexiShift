@@ -297,16 +297,16 @@ def load_freedict_tei_gloss_records_ordered(
     for _event, elem in context:
         if elem.tag != f"{{{TEI_NS['tei']}}}entry":
             continue
-        headwords: list[str] = []
+        entry_headwords: list[str] = []
         for orth in elem.findall("tei:form/tei:orth", TEI_NS):
             text = (orth.text or "").strip()
-            if text and text not in headwords:
-                headwords.append(text)
-        if not headwords:
+            if text and text not in entry_headwords:
+                entry_headwords.append(text)
+        if not entry_headwords:
             elem.clear()
             continue
         if headword_filter is not None and not any(
-            headword.lower() in headword_filter for headword in headwords
+            headword.lower() in headword_filter for headword in entry_headwords
         ):
             elem.clear()
             continue
@@ -323,7 +323,7 @@ def load_freedict_tei_gloss_records_ordered(
         pos_values = _collect_unique_texts(elem.findall(".//tei:gramGrp/tei:pos", TEI_NS))
         pos_raw = "|".join(pos_values)
         if translations:
-            for headword in headwords:
+            for headword in entry_headwords:
                 bucket = records.setdefault(headword, [])
                 index_by_translation = translation_index_by_headword.setdefault(headword, {})
                 for translation in translations:
@@ -629,9 +629,7 @@ def load_translation_gloss_base_forms(
         serialize=lambda values: sorted(
             {str(value or "").strip().lower() for value in values if str(value or "").strip()}
         ),
-        deserialize=lambda payload: {
-            str(value or "").strip().lower() for value in payload if str(value or "").strip()
-        },
+        deserialize=lambda payload: _deserialize_string_set(payload),
     )
 
 
@@ -679,9 +677,7 @@ def load_translation_headwords(path: Path) -> tuple[str, ...]:
         serialize=lambda values: [
             str(value or "").strip() for value in values if str(value or "").strip()
         ],
-        deserialize=lambda payload: tuple(
-            str(value or "").strip() for value in payload if str(value or "").strip()
-        ),
+        deserialize=lambda payload: _deserialize_string_tuple(payload),
     )
 
 
@@ -693,3 +689,15 @@ def _is_sqlite_file(path: Path) -> bool:
             return handle.read(16).startswith(b"SQLite format 3")
     except OSError:
         return False
+
+
+def _deserialize_string_set(payload: object) -> set[str]:
+    if not isinstance(payload, Iterable) or isinstance(payload, (str, bytes)):
+        return set()
+    return {str(value or "").strip().lower() for value in payload if str(value or "").strip()}
+
+
+def _deserialize_string_tuple(payload: object) -> tuple[str, ...]:
+    if not isinstance(payload, Iterable) or isinstance(payload, (str, bytes)):
+        return ()
+    return tuple(str(value or "").strip() for value in payload if str(value or "").strip())

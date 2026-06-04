@@ -3,14 +3,18 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 from hashlib import sha1
 import re
-from typing import Mapping, Sequence
+from typing import Any, Mapping, Sequence, TypeVar, cast
 
-from lexishift_core.helper.lp_capabilities import resolve_pair_capability
+from lexishift_core.helper.lp_capabilities import (
+    SemanticPublicationCapability,
+    resolve_pair_capability,
+)
 from lexishift_core.replacement.core import RuleMetadata, VocabRule
 
 
 _WORD_RE = re.compile(r"[A-Za-z0-9]+")
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
+_ResultT = TypeVar("_ResultT")
 
 
 @dataclass(frozen=True)
@@ -59,9 +63,9 @@ def normalize_semantic_admission_metadata(value: object) -> dict[str, object] | 
 
 
 def annotate_results_with_semantic_admission(
-    results: Sequence[object],
-) -> list[object]:
-    annotated: list[object] = []
+    results: Sequence[_ResultT],
+) -> list[_ResultT]:
+    annotated: list[_ResultT] = []
     for raw_result in results:
         rule = getattr(raw_result, "rule", None)
         candidate = getattr(raw_result, "candidate", None)
@@ -75,7 +79,7 @@ def annotate_results_with_semantic_admission(
         pointer = _build_semantic_admission_pointer(candidate)
         updated_rule = _replace_rule_semantic_admission(rule, pointer)
         try:
-            annotated.append(replace(raw_result, rule=updated_rule))
+            annotated.append(cast(_ResultT, replace(cast(Any, raw_result), rule=updated_rule)))
         except TypeError:
             setattr(raw_result, "rule", updated_rule)
             annotated.append(raw_result)
@@ -226,7 +230,7 @@ def merge_semantic_publication_with_context_inventory(
         capability_payload = context_inventory.get("capability")
 
     merged_inventory = {
-        "schema_version": int(primary_inventory.get("schema_version") or 1),
+        "schema_version": _as_int(primary_inventory.get("schema_version")) or 1,
         "pair": str(primary_inventory.get("pair") or "").strip(),
         "profile_id": str(primary_inventory.get("profile_id") or "").strip() or "default",
         "generated_at": str(primary_inventory.get("generated_at") or "").strip(),
@@ -551,11 +555,11 @@ def _build_publication_capability_record(pair: str) -> dict[str, object]:
     }
 
 
-def _promote_ready_competition_results(results: Sequence[object]) -> list[object]:
+def _promote_ready_competition_results(results: Sequence[_ResultT]) -> list[_ResultT]:
     contexts = _build_ready_competition_contexts(results)
     if not contexts:
         return list(results)
-    promoted: list[object] = []
+    promoted: list[_ResultT] = []
     for raw_result in results:
         rule = getattr(raw_result, "rule", None)
         candidate = getattr(raw_result, "candidate", None)
@@ -579,7 +583,7 @@ def _promote_ready_competition_results(results: Sequence[object]) -> list[object
         updated_admission.pop("reason_code", None)
         updated_rule = _replace_rule_semantic_admission(rule, updated_admission)
         try:
-            promoted.append(replace(raw_result, rule=updated_rule))
+            promoted.append(cast(_ResultT, replace(cast(Any, raw_result), rule=updated_rule)))
         except TypeError:
             setattr(raw_result, "rule", updated_rule)
             promoted.append(raw_result)
@@ -590,7 +594,7 @@ def _build_ready_competition_contexts(
     results: Sequence[object],
 ) -> dict[tuple[str, str], _CompetitionPublicationContext]:
     grouped_sense_ids: dict[tuple[str, str], list[str]] = {}
-    grouped_capabilities: dict[tuple[str, str], object] = {}
+    grouped_capabilities: dict[tuple[str, str], SemanticPublicationCapability] = {}
     for raw_result in results:
         rule = getattr(raw_result, "rule", None)
         candidate = getattr(raw_result, "candidate", None)
@@ -655,11 +659,11 @@ def _build_qualifiers(metadata: Mapping[str, object]) -> dict[str, object] | Non
     if not isinstance(sense_provenance, Mapping):
         return None
     qualifiers: dict[str, object] = {}
+    tag_values: list[str] = []
     for key in ("entry_tags", "sense_tags", "translation_tags"):
         values = _string_tuple(sense_provenance.get(key))
         if values:
-            qualifiers.setdefault("tags", [])
-            qualifiers["tags"].extend(values)
+            tag_values.extend(values)
     topics = _string_tuple(sense_provenance.get("sense_topics"))
     if topics:
         qualifiers["topics"] = list(dict.fromkeys(topics))
@@ -668,8 +672,8 @@ def _build_qualifiers(metadata: Mapping[str, object]) -> dict[str, object] | Non
     )
     if categories:
         qualifiers["categories"] = list(dict.fromkeys(categories))
-    if "tags" in qualifiers:
-        qualifiers["tags"] = list(dict.fromkeys(qualifiers["tags"]))
+    if tag_values:
+        qualifiers["tags"] = list(dict.fromkeys(tag_values))
     return qualifiers or None
 
 

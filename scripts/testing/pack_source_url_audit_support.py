@@ -401,7 +401,7 @@ def render_markdown(
         f"- Manifest schema version: {report.manifest_schema_version}",
         f"- Manifest overrides: {report.manifest_override_count}",
         f"- Packs checked: {report.pack_count}",
-        ("- Primary URLs: " f"ok={report.primary_ok_count} " f"fail={report.primary_fail_count}"),
+        (f"- Primary URLs: ok={report.primary_ok_count} fail={report.primary_fail_count}"),
         (
             "- Archive URLs: "
             f"ok={report.archive_ok_count} "

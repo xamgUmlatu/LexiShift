@@ -421,6 +421,10 @@ def _build_compiled_candidate_fact(
     family_names = _normalize_family_names(metadata.get("kaikki_family_names"))
     phrase = str(candidate.source_phrase or "").strip()
     semantic_demotion_reason = str(metadata.get("semantic_demotion_reason") or "").strip() or None
+    target_provenance = metadata.get("target_provenance")
+    target_provenance_mapping = (
+        target_provenance if isinstance(target_provenance, Mapping) else None
+    )
     return EnEsCompiledCandidateFact(
         candidate_id=int(candidate_id),
         target_id=int(target_id),
@@ -472,8 +476,8 @@ def _build_compiled_candidate_fact(
         current_sense_position=int(
             _normalize_non_negative_optional_int(
                 (
-                    metadata.get("target_provenance").get("current_sense_position")
-                    if isinstance(metadata.get("target_provenance"), Mapping)
+                    target_provenance_mapping.get("current_sense_position")
+                    if target_provenance_mapping is not None
                     else None
                 )
             )

@@ -1,16 +1,19 @@
 from __future__ import annotations
 
-from typing import Mapping, Sequence
+from typing import Any, Mapping, Sequence, TypeVar
+
+
+_ScoreT = TypeVar("_ScoreT", bound=tuple[Any, ...])
 
 
 def apply_representative_pruning(
-    ranked_candidates: Sequence[tuple[tuple[float, int, int, int, str], dict[str, object]]],
+    ranked_candidates: Sequence[tuple[_ScoreT, dict[str, object]]],
     *,
     mode: str,
     mode_off: str,
     supported_modes: Sequence[str],
     normalize_text,
-) -> list[tuple[tuple[float, int, int, int, str], dict[str, object]]]:
+) -> list[tuple[_ScoreT, dict[str, object]]]:
     normalized_mode = str(mode or "").strip() or str(mode_off or "").strip()
     if normalized_mode == mode_off:
         return list(ranked_candidates)
@@ -23,7 +26,7 @@ def apply_representative_pruning(
     cluster_members: dict[tuple[str, str] | tuple[str, str, str], int] = {}
     selected: dict[
         tuple[str, str] | tuple[str, str, str],
-        tuple[tuple[float, int, int, int, str], dict[str, object]],
+        tuple[_ScoreT, dict[str, object]],
     ] = {}
     for score_vector, candidate in ranked_candidates:
         cluster_key = build_representative_cluster_key(candidate, normalize_text=normalize_text)
@@ -32,7 +35,7 @@ def apply_representative_pruning(
         if current is None or score_vector > current[0]:
             selected[cluster_key] = (score_vector, dict(candidate))
 
-    pruned: list[tuple[tuple[float, int, int, int, str], dict[str, object]]] = []
+    pruned: list[tuple[_ScoreT, dict[str, object]]] = []
     for cluster_key, (score_vector, candidate) in selected.items():
         candidate["representative_pruning_mode"] = normalized_mode
         candidate["representative_cluster_key"] = list(cluster_key)

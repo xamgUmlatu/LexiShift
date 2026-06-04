@@ -176,7 +176,10 @@ def normalize_llm_intake_row(
     source_type = str(batch_context["source_type"])
     source_id = str(batch_context["source_id"])
     source_family = str(batch_context["source_family"])
-    batch_roles = tuple(str(role) for role in batch_context["roles"])
+    raw_batch_roles = batch_context["roles"]
+    if not isinstance(raw_batch_roles, Sequence) or isinstance(raw_batch_roles, (str, bytes)):
+        raise ValueError("roles must be a non-empty array of strings")
+    batch_roles = tuple(str(role) for role in raw_batch_roles)
     batch_review_state = str(batch_context["review_state"])
     model_id = str(batch_context["model_id"])
     prompt_version = str(batch_context["prompt_version"])
@@ -259,7 +262,9 @@ def normalize_llm_intake_row(
         "normalization_version": SEMANTIC_EVIDENCE_NORMALIZATION_VERSION,
     }
     if temperature is not None:
-        provenance["temperature"] = float(temperature)
+        normalized_temperature = _optional_float(temperature, field_name="temperature")
+        if normalized_temperature is not None:
+            provenance["temperature"] = normalized_temperature
     if prompt_slot:
         provenance["prompt_slot"] = prompt_slot
     if input_ref:

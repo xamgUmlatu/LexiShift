@@ -111,43 +111,43 @@ def build_semantic_shadow_feature_dimensions(
             str(feature_vector.get("active_support_mode") or "none").strip() or "none"
         ],
         "feature_active_candidate_count": [
-            _bucket_count(int(feature_vector.get("active_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("active_candidate_count")))
         ],
         "feature_shadow_candidate_count": [
-            _bucket_count(int(feature_vector.get("shadow_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("shadow_candidate_count")))
         ],
         "feature_promoted_target_count": [
-            _bucket_count(int(feature_vector.get("promoted_target_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("promoted_target_count")))
         ],
         "feature_candidate_source_family_count": [
-            _bucket_count(int(feature_vector.get("candidate_source_family_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("candidate_source_family_count")))
         ],
         "feature_candidate_source_family_signature": [
             "+".join(candidate_source_families) if candidate_source_families else "none"
         ],
         "feature_candidate_pos_count": [
-            _bucket_count(int(feature_vector.get("candidate_pos_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("candidate_pos_count")))
         ],
         "feature_reviewed_trigger_support_count": [
-            _bucket_count(int(feature_vector.get("reviewed_trigger_support_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("reviewed_trigger_support_candidate_count")))
         ],
         "feature_benchmark_target_present_count": [
-            _bucket_count(int(feature_vector.get("benchmark_target_present_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("benchmark_target_present_candidate_count")))
         ],
         "feature_same_pos_candidate_count": [
-            _bucket_count(int(feature_vector.get("same_pos_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("same_pos_candidate_count")))
         ],
         "feature_multi_source_candidate_count": [
-            _bucket_count(int(feature_vector.get("multi_source_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("multi_source_candidate_count")))
         ],
         "feature_semantic_bridge_candidate_count": [
-            _bucket_count(int(feature_vector.get("semantic_bridge_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("semantic_bridge_candidate_count")))
         ],
         "feature_trigger_family_candidate_count": [
-            _bucket_count(int(feature_vector.get("trigger_family_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("trigger_family_candidate_count")))
         ],
         "feature_forward_neighborhood_candidate_count": [
-            _bucket_count(int(feature_vector.get("forward_neighborhood_candidate_count") or 0))
+            _bucket_count(_safe_int(feature_vector.get("forward_neighborhood_candidate_count")))
         ],
     }
     return {
@@ -186,8 +186,8 @@ def _collect_candidate_source_families(candidate: Mapping[str, object]) -> list[
 def _candidate_has_semantic_bridge_support(candidate: Mapping[str, object]) -> bool:
     return bool(
         normalize_shadow_string_list(candidate.get("semantic_bridge_markers"))
-        or float(candidate.get("semantic_bridge_score") or 0.0) > 0.0
-        or float(candidate.get("embedding_bridge_similarity") or 0.0) > 0.0
+        or _safe_float(candidate.get("semantic_bridge_score")) > 0.0
+        or _safe_float(candidate.get("embedding_bridge_similarity")) > 0.0
     )
 
 
@@ -200,3 +200,25 @@ def _bucket_count(value: int) -> str:
     if normalized <= 3:
         return "two_to_three"
     return "four_plus"
+
+
+def _safe_int(value: object) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    try:
+        return int(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0
+
+
+def _safe_float(value: object) -> float:
+    if isinstance(value, (float, int)):
+        return float(value)
+    try:
+        return float(str(value or "").strip() or "0")
+    except (TypeError, ValueError):
+        return 0.0
